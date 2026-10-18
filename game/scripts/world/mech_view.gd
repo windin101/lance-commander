@@ -21,6 +21,7 @@ var selected := false: set = set_selected
 var _anim := ""
 var _wrecked := false
 var _next_weapon := 0
+var _paint_name := ""  # paint-mask name: "<model>_hd" for HD models
 
 
 func setup(sim_mech: SimUnit, sim_map: SimMap) -> void:
@@ -28,6 +29,12 @@ func setup(sim_mech: SimUnit, sim_map: SimMap) -> void:
 	map = sim_map
 	name = "Unit%d_%s" % [mech.id, mech.model]
 	var path := _asset_path(".glb")
+	_paint_name = mech.model
+	# HD models (tools/art pipeline) replace the 2001 mesh when present; --no-hd compares.
+	var hd_path := _asset_path("_hd.glb")
+	if mech is SimMech and ResourceLoader.exists(hd_path) and not OS.get_cmdline_user_args().has("--no-hd"):
+		path = hd_path
+		_paint_name = mech.model + "_hd"
 	if not ResourceLoader.exists(path):
 		push_warning("no model for %s" % mech.model)
 		model = Node3D.new()
@@ -69,9 +76,9 @@ func _asset_path(suffix: String) -> String:
 	return "res://assets/%s/%s%s" % [folder, mech.model, suffix]
 
 
-func _paint(root: Node) -> void:
+func _paint(root: Node, paint_name: String = "") -> void:
 	if mech.paint.size() == 3:
-		MechPaint.apply(root, mech.model, MechPaint.argb(mech.paint[0]), MechPaint.argb(mech.paint[1]),
+		MechPaint.apply(root, paint_name if paint_name != "" else _paint_name, MechPaint.argb(mech.paint[0]), MechPaint.argb(mech.paint[1]),
 			MechPaint.argb(mech.paint[2]), "mechs" if mech is SimMech else "vehicles")
 
 
@@ -150,7 +157,7 @@ func _wreck() -> void:
 		model.queue_free()
 		model = load(path).instantiate()
 		add_child(model)
-		_paint(model)
+		_paint(model, mech.model)  # wrecks are still the original models
 		player = null
 
 

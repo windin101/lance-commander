@@ -56,6 +56,14 @@ static func load_mask(model_name: String, folder: String = "mechs") -> Image:
 	return img
 
 
+static func _first_material(root: Node) -> StandardMaterial3D:
+	for mi in root.find_children("*", "MeshInstance3D", true, false):
+		var mesh: Mesh = (mi as MeshInstance3D).mesh
+		if mesh and mesh.get_surface_count() > 0 and mesh.surface_get_material(0) is StandardMaterial3D:
+			return mesh.surface_get_material(0)
+	return null
+
+
 ## Recolour every mesh under root with one material using the painted texture.
 static func apply(root: Node, model_name: String, red: Color, green: Color, blue: Color, folder: String = "mechs") -> void:
 	var key := "%s/%s|%s|%s|%s" % [folder, model_name, red.to_html(), green.to_html(), blue.to_html()]
@@ -71,6 +79,17 @@ static func apply(root: Node, model_name: String, red: Color, green: Color, blue
 		mat.metallic = 0.35
 		mat.roughness = 0.55
 		mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
+		# HD models carry baked normal and AO maps: keep them under the team paint.
+		var src := _first_material(root)
+		if src:
+			if src.normal_enabled and src.normal_texture:
+				mat.normal_enabled = true
+				mat.normal_texture = src.normal_texture
+				mat.normal_scale = 1.0
+			if src.ao_enabled and src.ao_texture:
+				mat.ao_enabled = true
+				mat.ao_texture = src.ao_texture
+				mat.ao_light_affect = 0.6
 		_cache[key] = mat
 	for mi in root.find_children("*", "MeshInstance3D", true, false):
 		(mi as MeshInstance3D).material_override = mat
