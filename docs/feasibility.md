@@ -13,6 +13,11 @@ Phases 0 (scaffold) and 1 (FIT/CSV/strings converters) are done.
   - The terrain uses the original colour map, with depth-faded water.
   - Pathing is AStarGrid2D with the original's move costs.
   - Placed objects (`.pak` packet 1) move to Phase 5.
+- **Phase 4**, mech models, is done:
+  - The four mc2_01 mechs (Bushwacker, Werewolf, Starslayer, UrbanMech) are converted from ASE to .glb, with 20 gesture animations each plus forward and backward wrecks.
+  - A JSON sidecar per model holds the gesture speeds, foot-down frames and weapon nodes.
+  - Team colours use the original paint-mask rule (MechPaint).
+- **Slice scope (found in Phase 4):** mc2_01 also fields ground vehicles: 4 Centipedes, 4 Harassers, 7 LRM carriers and 8 infantry. Their rules (`gvehicl.cpp`) and models are new work, to fold into Phases 5 and 6.
 
 Goal: a free, non-commercial, modernised remake of MechCommander 2 (2001) with new graphics and updated gameplay. It gets its own name, with no Microsoft or BattleTech branding (see "Licence ground rules").
 The first milestone is one playable mission: one map, a 4v4 lance, objectives, basic AI and modern visuals.

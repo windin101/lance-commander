@@ -63,6 +63,33 @@ class ComponentTests(unittest.TestCase):
         self.assertIsNone(components.parse_row("0,undefined,undefined,0".split(",")))
 
 
+class MechModelMathTests(unittest.TestCase):
+    def test_max_angle_axis_matches_node_tm_convention(self):
+        import mech_model
+        # BushwackerWalk.ase joint_root: TM rows show +10 deg about +Z for axis (0,0,-1), 0.1745 rad.
+        q = mech_model.max_angle_axis(0.0, 0.0, -1.0, 0.1745)
+        rows = [[0.9848, 0.1736, 0.0], [-0.1736, 0.9848, 0.0], [0.0, 0.0, 1.0], [0.0, 0.0, 25.0]]
+        q2 = mech_model.mat_to_quat(rows)
+        for a, b in zip(q, q2):
+            self.assertAlmostEqual(a, b, places=3)
+
+    def test_axis_swap_is_a_rotation(self):
+        import mech_model
+        self.assertEqual(mech_model.dir_gl([0, 0, 1]), [0, 1, 0])  # Max up -> glTF up
+        self.assertEqual(mech_model.dir_gl([0, 1, 0]), [0, 0, -1])
+
+    def test_tga_to_png_roundtrip_header(self):
+        import mech_model
+        tga = bytes([0, 0, 2]) + bytes(9) + struct_pack_wh(2, 1) + bytes([24, 0]) + bytes([0, 0, 255, 0, 255, 0])
+        png = mech_model.tga_to_png(tga)
+        self.assertEqual(png[:8], b"\x89PNG\r\n\x1a\n")
+
+
+def struct_pack_wh(w, h):
+    import struct
+    return struct.pack("<HH", w, h)
+
+
 @unittest.skipUnless(HAVE_REF, "reference/ not cloned")
 class ReferenceTests(unittest.TestCase):
     @classmethod
@@ -125,6 +152,38 @@ class ReferenceTests(unittest.TestCase):
         wet = [e for e, w in zip(meta["elevation"], meta["water"]) if w & 1]
         self.assertGreater(len(wet), 1000)
         self.assertTrue(all(e < 350.0 for e in wet))
+
+    def test_bushwacker_model(self):
+        import json as _json
+        import struct
+        import tempfile
+        import mech_model
+        tgl = os.path.join(SRC, "Data", "TGL")
+        with tempfile.TemporaryDirectory() as tmp:
+            out = os.path.join(tmp, "bw.glb")
+            rep = mech_model.build(tgl, "Bushwacker", out, os.path.join(tgl, "128", "BushwackerRGB.tga"))
+            data = open(out, "rb").read()
+        magic, version, length = struct.unpack_from("<III", data, 0)
+        self.assertEqual((magic, version, length), (0x46546C67, 2, len(data)))
+        jlen = struct.unpack_from("<I", data, 12)[0]
+        gltf = _json.loads(data[20:20 + jlen])
+        names = [n["name"] for n in gltf["nodes"]]
+        self.assertIn("joint_root", names)
+        self.assertNotIn("Spotlight_BW", [m["name"] for m in gltf["meshes"]])
+        self.assertEqual(rep["meshes"], 13)
+        self.assertEqual(rep["animations"]["Walk"], 1.0)
+
+    def test_walk_cycle_loops(self):
+        import mech_model
+        tracks, duration = mech_model.read_animation(os.path.join(SRC, "Data", "TGL", "BushwackerWalk.ase"))
+        root = tracks["joint_root"]["t"]
+        for a, b in zip(root[0][1], root[-1][1]):
+            self.assertAlmostEqual(a, b, places=2)
+        for node, tr in tracks.items():
+            if "r" in tr:
+                q0, q1 = tr["r"][0][1], tr["r"][-1][1]
+                dot = abs(sum(x * y for x, y in zip(q0, q1)))
+                self.assertGreater(dot, 0.995, node)
 
     def test_strings(self):
         s = strings_rc.load(os.path.join(SRC, "Script1.rc"), os.path.join(SRC, "resource.h"))

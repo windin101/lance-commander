@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import chassis  # noqa: E402
 import components  # noqa: E402
 import fit  # noqa: E402
+import mech_model  # noqa: E402
 import strings_rc  # noqa: E402
 import terrain  # noqa: E402
 
@@ -27,6 +28,8 @@ SLICE_MISSIONS = ["mc2_01"]
 ASSETS = os.path.join(ROOT, "game", "assets")
 # Per-mission textures (Terrain.cpp:425-433, TerrainColorMap, water and detail maps).
 MISSION_TEXTURES = [".burnin.jpg", ".detail.tga", ".water.tga"]
+# Mech appearances used by the slice missions (object FIT AppearanceName).
+MECH_MODELS = ["bushwacker", "werewolf", "starslayer", "urbanmech"]
 
 
 def write(rel, data):
@@ -100,6 +103,24 @@ def main():
             if os.path.exists(src_tex):
                 shutil.copyfile(src_tex, os.path.join(tex_out, suffix.lstrip(".")))
     report.append(f"missions: {', '.join(SLICE_MISSIONS)}")
+
+    tgl = os.path.join(data, "TGL")
+    os.makedirs(os.path.join(ASSETS, "mechs"), exist_ok=True)
+    for name in MECH_MODELS:
+        tex = mech_model._find(os.path.join(tgl, "128"), name + "RGB.tga", required=False)
+        rep = mech_model.build(tgl, name, os.path.join(ASSETS, "mechs", name + ".glb"), tex)
+        if tex:
+            # Lossless paint mask for team recolouring (raw PNG bytes; .bin so Godot
+            # does not VRAM-compress it the way it does textures inside the .glb).
+            with open(tex, "rb") as fh, open(os.path.join(ASSETS, "mechs", name + "_paint.bin"), "wb") as out:
+                out.write(mech_model.tga_to_png(fh.read()))
+        ini = fit.parse_file(mech_model._find(tgl, name + ".ini"))
+        with open(os.path.join(ASSETS, "mechs", name + ".json"), "w", encoding="utf-8") as fh:
+            json.dump(mech_model.sidecar(ini, rep), fh, indent=1)
+        for suffix, tag in mech_model.WRECKS.items():
+            if mech_model._find(tgl, name + suffix + ".ase", required=False):
+                mech_model.build(tgl, name + suffix, os.path.join(ASSETS, "mechs", f"{name}_{tag}.glb"), tex, gestures=[])
+        report.append(f"model {name}: {rep['meshes']} meshes, {len(rep['animations'])} animations")
 
     warriors = os.path.join(missions, "Warriors")
     pilots = {}
