@@ -128,7 +128,8 @@ func _process(delta: float) -> void:
 	_consume_events(true)
 	if audio:
 		for v in _voice_cfg:
-			if v.has("flag") and world.flags.get(v["flag"], false) and not _voice_flags_done.has(v["flag"]):
+			if v.has("flag") and (world.flags.get(v["flag"], false) or world.flags.get(String(v["flag"]).to_lower(), false)) \
+					and not _voice_flags_done.has(v["flag"]):
 				_voice_flags_done[v["flag"]] = true
 				audio.say_later(v["vo"], float(v.get("delay", 0.0)), world.time)
 		audio.tick(world.time)

@@ -20,6 +20,7 @@ var pending_result: int = Result.PLAYING
 var pending_time := -1.0
 var unsupported: Array[String] = []
 var player_team := 0
+var script_result := 0  # the mission script's return value (scenario result: 1-2 lost, 4-5 won)
 
 
 static func from_fit(fit: Dictionary, sm: SimMission) -> SimObjectives:
@@ -157,7 +158,11 @@ func _check_end(world: SimWorld, events: Array[Dictionary]) -> void:
 			if u.team == player_team and u.is_mover() and not u.is_disabled():
 				player_alive = true
 				break
-		if not player_alive:
+		if script_result in [1, 2, 3]:
+			pending_result = Result.LOST
+		elif script_result in [4, 5]:
+			pending_result = Result.WON
+		elif not player_alive:
 			pending_result = Result.LOST
 		else:
 			var all_primary := true

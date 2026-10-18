@@ -11,17 +11,35 @@ var world: SimWorld
 var objectives: SimObjectives
 var skipped: Array[String] = []
 var player_team := 0
+var fit: Dictionary = {}
+var seed := 1
+var abl: SimAbl = null  # the mission's original ABL (mission script + unit brains)
+var player_invulnerable := false  # ABL setInvulnerable (tutorials)
+var use_abl := true  # false: no AI brains at all (sim tests that need passive enemies)
 
 
-static func load_mission(data: Object, mission: String, seed_value: int = 1) -> SimMission:
+static func load_mission(data: Object, mission: String, seed_value: int = 1, run_abl := true) -> SimMission:
 	var sm := SimMission.new()
+	sm.use_abl = run_abl
 	var fit: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/%s.json" % mission))
 	var map := SimMap.load_mission(mission)
 	map.forest_cost = float(data.gamesys["General"].get("ForestMoveCost", 50))
 	var rules := SimRules.from_data(data)
 	sm.world = SimWorld.new(rules, map, seed_value)
+	sm.fit = fit
+	sm.seed = seed_value
 	sm.player_team = int(fit.get("Player0", {}).get("DefaultTeam", 0))
 	var num_parts := int(fit.get("Parts", {}).get("NumParts", 0))
+	# ABL part IDs come from the commander group slots, not the part number (abl-natives.md 1.3).
+	var slots := {}  # part number -> [commander, group, mate]
+	for key in fit:
+		var km := RegEx.create_from_string("^Commander(\\d+)Group:(\\d+)$").search(key)
+		if km == null:
+			continue
+		var mates: Array = fit[key].get("Mates", [])
+		for slot in mates.size():
+			if int(mates[slot]) > 0:
+				slots[int(mates[slot])] = [int(km.get_string(1)), int(km.get_string(2)), slot]
 	var vehicle_files: Dictionary = {}
 	var vmap_path := "res://data/missions/%s_vehicles.json" % mission
 	if FileAccess.file_exists(vmap_path):
@@ -54,6 +72,15 @@ static func load_mission(data: Object, mission: String, seed_value: int = 1) -> 
 			_apply_model_speeds(m)
 		m.part_index = i
 		m.commander = int(part.get("CommanderID", m.team))
+		m.squad = int(part.get("SquadNum", 0))
+		m.warrior_index = int(part.get("Pilot", i))
+		m.exists = int(part.get("Exists", 1)) != 0
+		m.awake = int(part.get("Active", 1)) != 0
+		if slots.has(i):
+			var s: Array = slots[i]
+			m.group = s[1]
+			m.group_index = s[2]
+			m.part_id = 512 + s[0] * 192 + s[1] * 12 + s[2]
 		sm.world.add_unit(m)
 	sm._add_structures(mission)
 	sm.objectives = SimObjectives.from_fit(fit, sm)
@@ -63,39 +90,32 @@ static func load_mission(data: Object, mission: String, seed_value: int = 1) -> 
 
 
 var script_cfg: Dictionary = {}
-var _damage_watch: Array = []  # [{structure, flag}]
 
 
 func _attach_brains(mission: String) -> void:
+	if use_abl:
+		abl = SimAbl.attach(self, mission)
 	var path := "res://data/brains/%s.json" % mission
 	if not FileAccess.file_exists(path):
 		return
 	var cfg: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
-	var brains: Dictionary = cfg.get("brains", {})
+	script_cfg = cfg.get("script", {})  # presentation cues (voice, comms sequences, flyby)
+	var player: Dictionary = cfg.get("brains", {}).get("PBrain", {})
 	for u in world.units:
-		if u.brain_name != "" and brains.has(u.brain_name):
-			u.brain = SimBrain.create(brains[u.brain_name], u)
-			if brains[u.brain_name].get("player", false):
-				u.engage_m = float(brains[u.brain_name].get("engage_m", 0.0))
-	script_cfg = cfg.get("script", {})
-	for w in script_cfg.get("structure_damage_flags", []):
-		var s := structure_near(Vector2(w["position"][0], w["position"][1]))
-		if s:
-			_damage_watch.append({"structure": s, "flag": String(w["flag"])})
+		if u.brain == null and u.team == player_team and u.brain_name.to_lower() == "pbrain" and not player.is_empty():
+			u.brain = SimBrain.create(player, u)
+			u.engage_m = float(player.get("engage_m", 0.0))
 
 
 ## Advance the world one tick, evaluate objectives and the mission script;
 ## objective events join world.events.
 func step() -> void:
+	var first_new := world.events.size()
 	world.step()
+	if abl:
+		abl.after_step(world.events.slice(first_new))
+		objectives.script_result = abl.script_result
 	var ev := objectives.update(world)
-	for e in ev:
-		if e["type"] == "objective":
-			for f in script_cfg.get("objective_flags", {}).get(str(e["index"]), []):
-				world.flags[f] = true
-	for w in _damage_watch:
-		if w["structure"].damage > 0.0 or w["structure"].is_destroyed():
-			world.flags[w["flag"]] = true
 	world.events.append_array(ev)
 
 
@@ -119,6 +139,8 @@ func _add_structures(mission: String) -> void:
 		s.team = int(t.get("building_team", -1))
 		s.position = Vector2(float(o["x"]), float(o["y"])) * WORLD_UNIT_M
 		s.facing = float(o["rotation"])
+		var cell := world.map.cell_of(s.position)
+		s.part_id = 4096 + cell.y * 720 + cell.x  # abl-natives.md 1.5
 		world.add_unit(s)
 
 

@@ -10,6 +10,10 @@ func _init() -> void:
 	for a in OS.get_cmdline_user_args():
 		var kv := a.trim_prefix("--").split("=", true, 1)
 		args[kv[0]] = kv[1] if kv.size() > 1 else ""
+	if args.has("static"):
+		_static_natives()
+		quit()
+		return
 	var mission: String = args.get("mission", "mc2_01")
 	var updates := int(args.get("updates", "5"))
 	var rt := AblRuntime.new("res://data/abl", 1)
@@ -47,3 +51,66 @@ func _init() -> void:
 			states[i.state] = states.get(i.state, 0) + 1
 	print("fsm states after run: ", states)
 	quit()
+
+
+## Every name the campaign's ABL calls that no script or library declares and that
+## isn't a variable or constant: the natives phase 10 must bind. Prints name(count).
+func _static_natives() -> void:
+	var rt := AblRuntime.new("res://data/abl", 1)
+	var counts := {}
+	var files := []
+	for dir in ["res://data/abl", "res://data/abl/warriors"]:
+		for f in DirAccess.get_files_at(dir):
+			if f.ends_with(".abl") or f.ends_with(".abx"):
+				files.append(dir.path_join(f))
+	for path in files:
+		var u := rt.load_unit(path)
+		if u.has("error"):
+			continue
+		var known := {}
+		for n in u["vars"]:
+			known[n] = true
+		for n in u["consts"]:
+			known[n] = true
+		for n in u["routines"]:
+			known[n] = true
+			for p in u["routines"][n]["params"]:
+				known[p["name"]] = true
+			for v in u["routines"][n]["vars"]:
+				known[v] = true
+		var bodies := [u["code"]]
+		for n in u["routines"]:
+			bodies.append(u["routines"][n]["body"])
+		for b in bodies:
+			_walk(b, known, rt, counts)
+	var names := counts.keys()
+	names.sort_custom(func(a, b): return counts[a] > counts[b])
+	var out := []
+	for n in names:
+		out.append("%s(%d)" % [n, counts[n]])
+	print("natives (%d): %s" % [names.size(), " ".join(out)])
+
+
+func _walk(node: Variant, known: Dictionary, rt: AblRuntime, counts: Dictionary) -> void:
+	if node is Array:
+		for x in node:
+			_walk(x, known, rt, counts)
+		return
+	if not (node is Dictionary):
+		return
+	var k = node.get("k", "")
+	if k in ["call", "fcall", "name"]:
+		var n: String = node["name"]
+		var std := ["return", "print", "mcprint", "concat", "getstatehandle", "getcurrentstatehandle", "setstate", "resetorders",
+			"abs", "sqrt", "round", "trunc", "random", "seedrandom", "setmaxloops", "fileopen", "filewrite", "fileclose",
+			"fatal", "assert", "getmodule", "getfunctionhandle", "callfunction", "setflag", "getflag", "true", "false"]
+		if not (known.has(n) or rt._global_routines.has(n) or rt._global_consts.has(n) or rt._global_eternals.has(n) or n in std):
+			var lib_static := false
+			for li in rt._lib_inst.values():
+				if li.statics.has(n):
+					lib_static = true
+			if not lib_static:
+				counts[n] = counts.get(n, 0) + 1
+	for key in node:
+		if key != "k":
+			_walk(node[key], known, rt, counts)

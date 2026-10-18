@@ -21,7 +21,8 @@ extends RefCounted
 ##   Call sites in library code are never marked.
 ## - Integer / integer is integer division and x / 0 gives 0. and/or don't short-circuit.
 ##
-## Game functions are natives: register_native(name, Callable(instance, args) -> value).
+## Game functions are natives: register_native(name, Callable(instance, args) -> value),
+## optionally order-flagged (the engine's core*/new* natives follow the order rules).
 ## Arrays arrive by reference (natives fill out-parameters in place). Calls to unknown
 ## routines return 0 and are counted in `unknown` (the coverage list for phase 10).
 
@@ -30,6 +31,7 @@ const MAX_TRANSITIONS := 50
 
 var base_dir: String
 var natives: Dictionary = {}  # lowercase name -> Callable(inst: Instance, args: Array) -> Variant
+var order_natives: Dictionary = {}  # natives flagged as orders (core*, new*): statement rules apply
 var unknown: Dictionary = {}  # routine name -> call count
 var log_lines: Array[String] = []
 var rng := RandomNumberGenerator.new()
@@ -107,8 +109,10 @@ func _init(abl_dir: String = "res://data/abl", seed := 0) -> void:
 		_lib_inst[u["name"]] = _new_instance(u)
 
 
-func register_native(name: String, fn: Callable) -> void:
+func register_native(name: String, fn: Callable, is_order := false) -> void:
 	natives[name.to_lower()] = fn
+	if is_order:
+		order_natives[name.to_lower()] = true
 
 
 ## Parse (cached by path) without instancing. Returns the unit or {"error": ...}.
@@ -380,7 +384,8 @@ func _trans(inst: Instance, state: String) -> void:
 func _call_stmt(inst: Instance, f: Frame, s: Dictionary) -> void:
 	var name: String = s["name"]
 	var target := _find_routine(f.unit, name)
-	var is_order: bool = not target.is_empty() and target[1]["kind"] == "order"
+	var is_order: bool = (not target.is_empty() and target[1]["kind"] == "order") \
+		or (target.is_empty() and order_natives.has(name))
 	var own_code: bool = f.unit == inst.unit  # library call sites are never marked
 	var site: int = s["site"]
 	if is_order and own_code and inst.order_flags.has(site):
