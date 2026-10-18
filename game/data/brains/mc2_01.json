@@ -85,6 +85,37 @@
      "video": "v1d"
     }
    ]
+  },
+  "flyby": {
+   "_doc": "mc2_01.abl l.193-207 and stages 1-8 (l.497-540): camera positions in world units; yaw is relative to the mission's StartRotation.",
+   "start": [
+    3648.0,
+    448.0
+   ],
+   "legs": [
+    {
+     "to": [
+      2538.667,
+      -1728.0
+     ],
+     "move_time": 6.0,
+     "yaw_offset": 180.0,
+     "pitch": 18.0,
+     "turn_time": 0.1,
+     "hold": 6.0
+    },
+    {
+     "to": [
+      2453.333,
+      -1984.0
+     ],
+     "move_time": 3.0,
+     "yaw_offset": 0.0,
+     "pitch": 35.0,
+     "turn_time": 8.0,
+     "hold": 8.0
+    }
+   ]
   }
  },
  "brains": {

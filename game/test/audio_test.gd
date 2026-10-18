@@ -28,6 +28,7 @@ func test_music_selection_follows_mission_script() -> void:
 
 func test_shot_plays_weapon_sound_and_vo_schedules() -> void:
 	var view: Node3D = load("res://scenes/mission_view.tscn").instantiate()
+	view.play_intro = false
 	add_child(view)
 	await get_tree().process_frame
 	var w: SimWorld = view.world

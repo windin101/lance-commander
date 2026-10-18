@@ -6,6 +6,7 @@ extends Node3D
 ## (fast-forward before the first frame), --focus=player|battle.
 
 @export var mission := "mc2_01"
+@export var play_intro := true  # opening flyby; tests and dev runs switch it off
 
 var sm: SimMission
 var world: SimWorld
@@ -18,6 +19,7 @@ var views: Dictionary = {}  # mech id -> MechView
 var hud: MissionHud
 var audio: AudioDirector
 var sequencer: MissionSequencer
+var flyby: IntroFlyby
 var _voice_cfg: Array = []
 var _voice_flags_done := {}
 var _acc := 0.0
@@ -83,7 +85,13 @@ func _ready() -> void:
 	sequencer = MissionSequencer.new()
 	sequencer.name = "Sequencer"
 	add_child(sequencer)
-	sequencer.setup(self, script_cfg)
+	var dev_run := not play_intro or ((_args.has("demo") or _args.has("arena") or _args.has("sim-seconds") or _args.has("screenshot")) and not _args.has("flyby"))
+	flyby = IntroFlyby.new()
+	flyby.name = "Flyby"
+	add_child(flyby)
+	# The comms sequence starts when the flyby ends (mc2_01.abl: V1A 3 s after movie mode).
+	flyby.finished.connect(func(): sequencer.setup(self, script_cfg))
+	flyby.setup(self, {} if dev_run else script_cfg.get("flyby", {}), camera.yaw_deg)
 	for v in views.values():
 		v.footstep.connect(func(at: Vector3): audio.sfx("footstep", at, -10.0))
 

@@ -31,6 +31,8 @@ func on_objective(index: int) -> void:
 
 
 func _process(_delta: float) -> void:
+	if view == null:
+		return  # set up when the intro flyby ends
 	var now: float = view.world.time
 	if _busy:
 		if view.hud.comms.is_playing() or view.audio.voice.playing:

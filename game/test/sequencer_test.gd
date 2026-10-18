@@ -6,6 +6,7 @@ var view: Node3D
 
 func before_test() -> void:
 	view = load("res://scenes/mission_view.tscn").instantiate()
+	view.play_intro = false
 	add_child(view)
 	await get_tree().process_frame
 
