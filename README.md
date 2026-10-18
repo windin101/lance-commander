@@ -27,6 +27,8 @@ Shared Source release of MechCommander 2.
 
 ## Commands
 
+    ~/.local/bin/godot --path game                        # play mc2_01 (left-click/drag select, right-click move/attack, H hold, WASD/QE/wheel camera)
+
     python3 -I tools/convert/convert_all.py               # regenerate game/data
     python3 -I -m unittest discover -s tools/convert      # converter tests
     tools/run_tests.sh                                    # Godot tests (gdUnit4)

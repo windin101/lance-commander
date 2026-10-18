@@ -8,6 +8,7 @@ var chassis: Dictionary = {}  # file stem -> chassis
 var gamesys: Dictionary = {}
 var heat_table: Array = []
 var strings: Dictionary = {}  # id (String) -> text
+var pilots: Dictionary = {}  # pilot file stem (lowercase) -> FIT blocks
 
 
 func _ready() -> void:
@@ -25,6 +26,7 @@ func load_all() -> void:
 	gamesys = _read("res://data/gamesys.json")
 	heat_table = _read("res://data/heat.json")
 	strings = _read("res://data/strings.json")
+	pilots = _read("res://data/pilots.json")
 
 
 func string(id: int) -> String:

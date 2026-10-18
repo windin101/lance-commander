@@ -20,8 +20,11 @@ const OTHER_FORMS := ["JumpJet", "Cockpit", "Sensors", "LifeSupport", "Gyroscope
 	"ECM", "Probe", "Jammer", "Case", "Actuator", "Engine", "HeatSink"]
 const WEAPON_FORMS := ["Weapon", "EnergyWeapon", "BallisticWeapon", "MissileWeapon"]
 
+var id := -1
 var name := ""
 var variant_name := ""
+var model := ""  # appearance name, e.g. "bushwacker"
+var paint: Array = []  # mission ARGB ints: highlight1, highlight2, base
 var tonnage := 0.0
 var team := 0
 var is_player := false
@@ -64,6 +67,22 @@ var heat := 0.0
 var heat_capacity := 30.0
 var heat_check_time := 0.0
 
+# Movement and orders (SimWorld).
+var run_speed := 20.0  # m/s, chassis MaxRunSpeed
+var walk_speed := 10.0  # m/s, walk gesture end velocity
+var max_torso_yaw := 120.0
+var speed := 0.0
+var prev_position := Vector2.ZERO
+var prev_facing := 0.0
+var order: int = 0
+var order_target: SimMech = null
+var current_target: SimMech = null
+var path := PackedVector2Array()
+var path_index := 0
+var repath_time := 0.0
+var fall_time := -1.0
+var reported_disabled := false
+
 
 static func from_chassis(chassis: Dictionary, variant_index: int, rules: SimRules, mech_pilot: SimPilot) -> SimMech:
 	var m := SimMech.new()
@@ -73,6 +92,9 @@ static func from_chassis(chassis: Dictionary, variant_index: int, rules: SimRule
 	m.tonnage = chassis["tonnage"]
 	m.pilot = mech_pilot if mech_pilot else SimPilot.new()
 	m.heat_capacity = max(1.0, float(chassis.get("heat_index", 30)))
+	m.run_speed = float(chassis.get("max_run_speed", 20))
+	m.walk_speed = m.run_speed * 0.52
+	m.max_torso_yaw = float(chassis.get("max_torso_yaw", 120))
 	for key in BODY_KEYS:
 		m.max_internal.append(float(chassis["max_internal"][key]))
 		m.internal.append(float(variant["internal"][key]))

@@ -316,14 +316,16 @@ class GltfBuilder:
         self.gltf["accessors"].append(acc)
         return len(self.gltf["accessors"]) - 1
 
-    def image(self, png):
+    def image(self, png, alpha=False):
         view = self._view(png)
         self.gltf.setdefault("images", []).append({"bufferView": view, "mimeType": "image/png"})
         self.gltf.setdefault("samplers", []).append({"magFilter": 9729, "minFilter": 9987})
         self.gltf.setdefault("textures", []).append({"source": 0, "sampler": 0})
-        self.gltf.setdefault("materials", []).append({
-            "name": "mech", "pbrMetallicRoughness": {
-                "baseColorTexture": {"index": 0}, "metallicFactor": 0.3, "roughnessFactor": 0.6}})
+        mat = {"name": "mech", "pbrMetallicRoughness": {
+            "baseColorTexture": {"index": 0}, "metallicFactor": 0.3, "roughnessFactor": 0.6}}
+        if alpha:  # foliage, fences: cut out and draw both sides
+            mat.update({"alphaMode": "MASK", "alphaCutoff": 0.5, "doubleSided": True})
+        self.gltf.setdefault("materials", []).append(mat)
 
     def write(self, path):
         self.gltf["buffers"] = [{"byteLength": len(self.bin)}]
@@ -346,9 +348,12 @@ def build(tgl_dir, mech, out_path, texture_path=None, gestures=GESTURES):
     nodes, order = collect_nodes(tree)
     g = GltfBuilder()
     has_tex = False
+    if not texture_path:
+        texture_path = material_texture(tree, tgl_dir)
     if texture_path and os.path.exists(texture_path):
         with open(texture_path, "rb") as fh:
-            g.image(tga_to_png(fh.read()))
+            tga = fh.read()
+        g.image(tga_to_png(tga), alpha=tga[16] == 32)
         has_tex = True
     index = {}
     for name in order:
@@ -400,6 +405,18 @@ def build(tgl_dir, mech, out_path, texture_path=None, gestures=GESTURES):
             report["animations"][gesture] = round(duration, 3)
     g.write(out_path)
     return report
+
+
+def material_texture(tree, tgl_dir):
+    """First diffuse bitmap of the ASE material list, looked up in TGL/128."""
+    mats = tree.find("MATERIAL_LIST")
+    for mat in (mats.find_all("MATERIAL") if mats else []):
+        diffuse = mat.find("MAP_DIFFUSE")
+        bitmap = diffuse.first("BITMAP") if diffuse else None
+        if bitmap:
+            name = bitmap.replace("\\", "/").split("/")[-1]
+            return _find(os.path.join(tgl_dir, "128"), name, required=False)
+    return None
 
 
 def sidecar(ini, report):

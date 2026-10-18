@@ -6,7 +6,7 @@ config_version=5
 
 config/name="Lance Commander - Battle for the Sphere"
 config/description="Free, non-commercial remake built on the 2006 MechCommander 2 Shared Source release."
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/mission_view.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]

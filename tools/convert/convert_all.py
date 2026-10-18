@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import chassis  # noqa: E402
 import components  # noqa: E402
 import fit  # noqa: E402
+import map_objects  # noqa: E402
 import mech_model  # noqa: E402
 import strings_rc  # noqa: E402
 import terrain  # noqa: E402
@@ -94,6 +95,9 @@ def main():
         write(f"maps/{m}/terrain.json", meta)
         with open(os.path.join(OUT, "maps", m, "cells.bin"), "wb") as fh:
             fh.write(cells)
+        objs, orep = map_objects.convert(os.path.join(missions, m + ".pak"), data, os.path.join(ASSETS, "objects"))
+        write(f"maps/{m}/objects.json", objs)
+        report.append(f"{m} objects: {orep['objects']} placed, {orep['appearances']} models, missing {orep['missing']}")
         tex_out = os.path.join(ASSETS, "maps", m)
         os.makedirs(tex_out, exist_ok=True)
         with open(os.path.join(tex_out, "tacmap.tga"), "wb") as fh:

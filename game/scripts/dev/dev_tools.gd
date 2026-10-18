@@ -2,6 +2,8 @@ extends Node
 ## Developer hooks driven by user command-line arguments (after "--"):
 ##   --screenshot=<path>   render, save a PNG, quit
 ##   --frames=<n>          frames to wait first (default 40)
+##   --wait-effects=<n>    then keep waiting (up to 20 s) until the scene's "Effects"
+##                         node has at least n live children
 ##   --cam=yaw,pitch,distance[,x,y]   camera override for the current scene's "Camera"
 ## Example:
 ##   godot --path game res://scenes/mission_view.tscn -- --screenshot=/tmp/a.png --cam=0,70,1300
@@ -30,6 +32,13 @@ func _take_screenshot() -> void:
 		if v.size() > 4: cam.focus = Vector3(float(v[3]), 0, -float(v[4]))
 	for i in int(_args.get("frames", "40")):
 		await get_tree().process_frame
+	if _args.has("wait-effects") and scene:
+		var fx := scene.get_node_or_null("Effects")
+		var need := int(_args["wait-effects"])
+		var waited := 0.0
+		while fx and fx.get_child_count() < need and waited < 20.0:
+			await get_tree().process_frame
+			waited += get_process_delta_time()
 	await RenderingServer.frame_post_draw
 	var path: String = _args["screenshot"]
 	get_viewport().get_texture().get_image().save_png(path)
