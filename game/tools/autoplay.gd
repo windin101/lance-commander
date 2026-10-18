@@ -2,6 +2,8 @@ extends SceneTree
 ## Headless autoplay of a mission: the player lance pursues the current objective
 ## (move to its area, or attack its nearest remaining target). Reports progress.
 ## godot --headless --path game -s res://tools/autoplay.gd -- [seed] [max_seconds]
+## Enemy AI runs the mission's original ABL; the end report lists ABL errors, missing
+## natives and where each brain finished.
 
 func _init() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -10,9 +12,12 @@ func _init() -> void:
 	var data = load("res://scripts/data/game_data.gd").new()
 	data.load_all()
 	var sm := SimMission.load_mission(data, "mc2_01", seed_value)
+	print("ABL pilots: %d" % (sm.abl.pilots.size() if sm.abl else 0))
 	var w := sm.world
 	var o := sm.objectives
 	var next_order := 0.0
+	for u in w.units:
+		_start[u.id] = u.position
 	while w.time < max_t and o.result == SimObjectives.Result.PLAYING:
 		sm.step()
 		for e in w.events:
@@ -34,8 +39,27 @@ func _init() -> void:
 	var enemies := w.units.filter(func(u): return u.team != 0 and u.is_mover() and not u.is_disabled())
 	print("seed %d end t=%.0f result=%s  player alive %d  enemies alive %d" % [seed_value, w.time,
 		["PLAYING", "WON", "LOST"][o.result], alive.size(), enemies.size()])
+	if sm.abl:
+		var rt := sm.abl.runtime
+		print("abl errors: ", rt.errors.slice(0, 8))
+		var unk := rt.unknown.keys()
+		unk.sort()
+		print("abl natives missing: ", unk)
+		var states := {}
+		for p in sm.abl.pilots:
+			var key := "%s:%s" % [p.unit.brain_name, p.inst.state]
+			states[key] = states.get(key, 0) + 1
+		print("brain end states: ", states)
+		var moved := 0
+		for p in sm.abl.pilots:
+			if p.unit.position.distance_to(_start.get(p.unit.id, p.unit.position)) > 20.0:
+				moved += 1
+		print("enemy pilots that moved >20 m: %d / %d" % [moved, sm.abl.pilots.size()])
 	data.free()
 	quit()
+
+
+var _start := {}
 
 
 func _orders(sm: SimMission) -> void:

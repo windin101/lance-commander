@@ -47,7 +47,7 @@ func add_unit(u: SimUnit) -> SimUnit:
 func enemies_of(m: SimUnit) -> Array[SimUnit]:
 	var out: Array[SimUnit] = []
 	for o in units:
-		if o.team != m.team and o.is_mover() and not o.is_disabled():
+		if o.team != m.team and o.is_mover() and o.exists and not o.is_disabled():
 			out.append(o)
 	return out
 
@@ -90,6 +90,8 @@ func step(dt: float = TICK) -> void:
 	for m in units:
 		m.prev_position = m.position
 		m.prev_facing = m.facing
+		if not m.exists:
+			continue
 		if m.brain and not m.is_disabled():
 			m.brain.think(self, m)
 		if m.is_mover():
@@ -247,7 +249,7 @@ func attack_range(m: SimUnit) -> float:
 # --- combat -----------------------------------------------------------------
 
 func _combat(m: SimUnit) -> void:
-	if m.is_disabled() or m.status != SimUnit.Status.NORMAL or m.num_weapons == 0:
+	if not m.exists or not m.awake or m.ejected or m.is_disabled() or m.status != SimUnit.Status.NORMAL or m.num_weapons == 0:
 		return
 	if m is SimMech and m.fallen:
 		return
@@ -272,7 +274,7 @@ func _combat(m: SimUnit) -> void:
 		var form: String = m.items[w]["form"]
 		var speed: float = projectile_speed.get(form, 0.0)
 		var flight := m.distance_to(target.position) / speed if speed > 0.0 else 0.0
-		projectiles.append({"shot": shot, "target": target.id, "impact_time": time + flight, "form": form})
+		projectiles.append({"shot": shot, "target": target.id, "from": m.id, "impact_time": time + flight, "form": form})
 		target.last_attacker = m
 		target.last_attacked_time = time
 		events.append({"type": "shot", "from": m.id, "to": target.id, "weapon": w, "form": form,
@@ -307,6 +309,6 @@ func _land_projectiles() -> void:
 		var target := units[p["target"]]
 		SimCombat.apply_shot(rules, rng, target, p["shot"], time)
 		if p["shot"]["hit"]:
-			events.append({"type": "impact", "unit": target.id, "location": p["shot"]["location"],
+			events.append({"type": "impact", "unit": target.id, "from": p.get("from", -1), "location": p["shot"]["location"],
 				"damage": p["shot"]["damage"], "form": p.get("form", "")})
 	projectiles = still

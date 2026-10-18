@@ -48,8 +48,12 @@ func test_shot_plays_weapon_sound_and_vo_schedules() -> void:
 
 
 func test_starslayer_attack_sets_bandits_flag() -> void:
+	# mc2_01_starslayer.abl's attack state sets the mission eternal; SimAbl mirrors it.
 	var sm := SimMission.load_mission(GameData, "mc2_01", 3)
 	var ss: SimUnit = sm.world.units.filter(func(u): return u.brain_name == "mc2_01_Starslayer")[0]
-	var player: SimUnit = sm.world.units[0]
-	ss.brain._attack(sm.world, ss, player)
-	assert_bool(sm.world.flags.get("Bandits_Equipped_Trigger", false)).is_true()
+	sm.step()  # the mission script's init clears its flags on its first run
+	ss.brain.inst.state = "attack"
+	ss.brain.next_brain = 0.0
+	for i in 3:
+		sm.step()
+	assert_bool(sm.world.flags.get("bandits_equipped_trigger", false)).is_true()

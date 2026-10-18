@@ -1,6 +1,7 @@
 extends GdUnitTestSuite
-## mc2_01 AI brains: guards intercept, triggers start patrols, Starslayer wakes,
-## infantry ambush on hangar damage, player units return fire.
+## mc2_01 AI on the mission's original ABL (SimAbl): guards intercept, the airfield
+## objective starts patrols, the Starslayer wakes on its trigger, hangar damage
+## springs the infantry ambush. The player lance keeps the player-command brain.
 
 var sm: SimMission
 
@@ -20,21 +21,31 @@ func _run(seconds: float) -> void:
 
 
 func test_brains_attached() -> void:
-	assert_int(_by_brain("PBrain").size()).is_equal(3)
-	assert_int(_by_brain("mc2_01_infantry_ambush").size()).is_equal(5)
-	var ss: SimUnit = _by_brain("mc2_01_Starslayer")[0]
-	assert_str(ss.brain.state).is_equal("powered_down")
-	assert_int(ss.status).is_equal(SimUnit.Status.SHUTDOWN)
+	assert_object(sm.abl).is_not_null()
+	assert_int(sm.abl.pilots.size()).is_equal(26)
+	assert_array(sm.abl.runtime.errors).is_empty()
+	for u in _by_brain("PBrain"):
+		assert_bool(u.brain is SimAbl.Pilot).is_false()
 	assert_float(_by_brain("PBrain")[0].engage_m).is_equal(100.0)
+	# Part IDs from the commander group slots (abl-natives.md 1.3)
+	assert_int(sm.world.units.filter(func(u): return u.part_index == 4)[0].part_id).is_equal(704)
+	# The building the infantry brains watch: getObjectDamage(116641)
+	assert_object(sm.abl.obj(116641)).is_same(sm.structure_near(Vector2(3221.333, -277.333)))
+
+
+func test_starslayer_starts_powered_down() -> void:
+	var ss: SimUnit = _by_brain("mc2_01_Starslayer")[0]
+	_run(3.0)
+	assert_int(ss.status).is_equal(SimUnit.Status.SHUTDOWN)
 
 
 func test_guard_intercepts_intruder() -> void:
 	var guard: SimUnit = _by_brain("mc2_01_Pat1_1")[0]
 	var player: SimUnit = _by_brain("PBrain")[0]
 	player.position = sm.world.map.nearest_walkable(guard.position + Vector2(0, -250))
-	_run(2.0)
-	assert_str(guard.brain.state).is_equal("attack")
-	assert_object(guard.brain.target).is_same(player)
+	_run(5.0)
+	assert_str(guard.brain.inst.state).is_equal("attack")
+	assert_object(guard.current_target).is_same(player)
 
 
 func test_airfield_objective_starts_patrols() -> void:
@@ -43,33 +54,36 @@ func test_airfield_objective_starts_patrols() -> void:
 	var mech: SimUnit = _by_brain("PBrain")[0]
 	mech.position = sm.objectives.objectives[0]["conditions"][0]["center"]
 	_run(1.0)
-	assert_bool(sm.world.flags.get("patrol3", false)).is_true()
-	assert_str(pat.brain.state).is_equal("patrol")
+	assert_bool(sm.world.flags.get("patrol3_triggered", false)).is_true()
 	var furthest := 0.0
-	for i in 200:
+	for i in 300:
 		sm.step()
 		sm.world.events.clear()
 		furthest = maxf(furthest, pat.position.distance_to(start))
-	assert_float(furthest).is_greater(150.0)  # reaches the far waypoint (-422, 627)
+	assert_float(furthest).is_greater(150.0)
 
 
-func test_starslayer_powers_up_after_trigger_delay() -> void:
+func test_starslayer_powers_up_on_trigger() -> void:
 	var ss: SimUnit = _by_brain("mc2_01_Starslayer")[0]
-	sm.world.flags["Starslayer_Trigger"] = true
 	_run(3.0)
-	assert_int(ss.status).is_equal(SimUnit.Status.SHUTDOWN)
-	_run(5.0)
-	assert_int(ss.status).is_equal(SimUnit.Status.NORMAL)
-	assert_bool(ss.brain.state in ["patrol", "attack"]).is_true()
+	sm.abl.mission_inst.unit["_eternals"]["starslayer_trigger"] = true
+	var up_at := -1.0
+	for i in 300:
+		sm.step()
+		sm.world.events.clear()
+		if ss.status == SimUnit.Status.NORMAL:
+			up_at = sm.world.time
+			break
+	assert_float(up_at).is_greater(0.0)
 
 
 func test_hangar_damage_springs_infantry_ambush() -> void:
 	var hangar := sm.structure_near(Vector2(3221.333, -277.333))
 	hangar.take_hit(sm.world.rules, sm.world.rng, 1.0, 0, 143, 0.0)
-	_run(1.0)
-	assert_bool(sm.world.flags.get("HangarAttacked", false)).is_true()
+	_run(5.0)
+	assert_bool(sm.world.flags.get("hangarattacked", false)).is_true()
 	var inf: SimUnit = _by_brain("mc2_01_infantry_ambush")[0]
-	assert_str(inf.brain.state).is_equal("ambush")
+	assert_str(inf.brain.inst.state).is_equal("ambush")
 
 
 func test_player_returns_fire_when_idle() -> void:
