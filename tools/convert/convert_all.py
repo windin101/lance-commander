@@ -10,6 +10,7 @@ import argparse
 import csv
 import json
 import os
+import shutil
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -18,10 +19,14 @@ import chassis  # noqa: E402
 import components  # noqa: E402
 import fit  # noqa: E402
 import strings_rc  # noqa: E402
+import terrain  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT = os.path.join(ROOT, "game", "data")
 SLICE_MISSIONS = ["mc2_01"]
+ASSETS = os.path.join(ROOT, "game", "assets")
+# Per-mission textures (Terrain.cpp:425-433, TerrainColorMap, water and detail maps).
+MISSION_TEXTURES = [".burnin.jpg", ".detail.tga", ".water.tga"]
 
 
 def write(rel, data):
@@ -80,7 +85,20 @@ def main():
     write("campaign.json", fit.parse_file(os.path.join(data, "Campaign", "campaign.fit")))
 
     for m in SLICE_MISSIONS:
-        write(f"missions/{m}.json", fit.parse_file(os.path.join(missions, m + ".fit")))
+        mission_fit = fit.parse_file(os.path.join(missions, m + ".fit"))
+        write(f"missions/{m}.json", mission_fit)
+        meta, cells, tac = terrain.convert(os.path.join(missions, m + ".pak"), mission_fit)
+        write(f"maps/{m}/terrain.json", meta)
+        with open(os.path.join(OUT, "maps", m, "cells.bin"), "wb") as fh:
+            fh.write(cells)
+        tex_out = os.path.join(ASSETS, "maps", m)
+        os.makedirs(tex_out, exist_ok=True)
+        with open(os.path.join(tex_out, "tacmap.tga"), "wb") as fh:
+            fh.write(tac)
+        for suffix in MISSION_TEXTURES:
+            src_tex = os.path.join(data, "Textures", m + suffix)
+            if os.path.exists(src_tex):
+                shutil.copyfile(src_tex, os.path.join(tex_out, suffix.lstrip(".")))
     report.append(f"missions: {', '.join(SLICE_MISSIONS)}")
 
     warriors = os.path.join(missions, "Warriors")

@@ -7,6 +7,12 @@ Date: 2026-10-18. Status: **decided 2026-10-18.**
 - **Heat:** on.
 
 Phases 0 (scaffold) and 1 (FIT/CSV/strings converters) are done.
+- **Phase 2**, the combat and heat sim, is done (docs/specs/combat-rules.md).
+- **Phase 3**, terrain and pathing, is done:
+  - mc2_01's 100×100 heightmap and 300×300 cell map come from the .pak.
+  - The terrain uses the original colour map, with depth-faded water.
+  - Pathing is AStarGrid2D with the original's move costs.
+  - Placed objects (`.pak` packet 1) move to Phase 5.
 
 Goal: a free, non-commercial, modernised remake of MechCommander 2 (2001) with new graphics and updated gameplay. It gets its own name, with no Microsoft or BattleTech branding (see "Licence ground rules").
 The first milestone is one playable mission: one map, a 4v4 lance, objectives, basic AI and modern visuals.

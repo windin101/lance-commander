@@ -12,6 +12,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 [autoload]
 
 GameData="*res://scripts/data/game_data.gd"
+DevTools="*res://scripts/dev/dev_tools.gd"
 
 [display]
 

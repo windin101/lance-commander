@@ -112,6 +112,20 @@ class ReferenceTests(unittest.TestCase):
         padded = convert_all.gamesys(os.path.join(SRC, "Data", "Missions", "gamesys.fit"))
         self.assertEqual(len(padded["Mech:FireWeapon"]["HitLocationTable"]), 132)
 
+    def test_mc2_01_terrain_and_cells(self):
+        import terrain
+        mfit = fit.parse_file(os.path.join(SRC, "Data", "Missions", "mc2_01.fit"))
+        meta, cells, tac = terrain.convert(os.path.join(SRC, "Data", "Missions", "mc2_01.pak"), mfit)
+        self.assertEqual(meta["vertices_per_side"], 100)
+        self.assertEqual(meta["cells_per_side"], 300)
+        self.assertEqual(len(cells), 300 * 300 * 4)
+        self.assertEqual(meta["water_elevation"], 350.0)
+        self.assertEqual(tac[:3], bytes([0, 0, 2]))  # uncompressed true-colour TGA header
+        # Vertices flagged as water (bit 0) lie below the waterline.
+        wet = [e for e, w in zip(meta["elevation"], meta["water"]) if w & 1]
+        self.assertGreater(len(wet), 1000)
+        self.assertTrue(all(e < 350.0 for e in wet))
+
     def test_strings(self):
         s = strings_rc.load(os.path.join(SRC, "Script1.rc"), os.path.join(SRC, "resource.h"))
         self.assertIn("Fusion Engine", s[32001])
