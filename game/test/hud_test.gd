@@ -46,6 +46,7 @@ func test_alpha_strike_bypasses_fire_discipline() -> void:
 
 func test_hud_in_live_view() -> void:
 	var view: Node3D = load("res://scenes/mission_view.tscn").instantiate()
+	view.play_intro = false
 	add_child(view)
 	await get_tree().process_frame
 	await get_tree().process_frame
