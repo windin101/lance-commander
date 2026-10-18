@@ -38,6 +38,29 @@ Shared Source release's mech models and textures, so they carry that release's E
 | Harasser | 7 | 4242 | no | mesh seed 1234 produced a debris ring around the hull (real geometry, not fragments) |
 | LRM carrier | 7 | 1234 | no | |
 
+### Per building (`--kind objects`, `game/assets/objects/<name>_hd.glb`)
+
+Buildings are static, so the pipeline skips skinning. The original colour texture (`<name>_0.png`) is transferred onto the HD mesh and embedded in the .glb.
+
+The building-specific steps are:
+
+- The mesh uses Hunyuan's `basic` voxel mesher. Surface nets break on large flat walls.
+- The fit scales by footprint, then matches the bounds per axis. The bounds are surface percentiles, so thin masts don't count.
+- The transfer samples the original by area and leaves out the lit-window overlay meshes.
+- The result is tone-matched to the original's average colour.
+
+When destroyed, a building swaps to the original `_dam` model.
+
+| Building | Concept seed | Mesh seed | Fit (chamfer) | Note |
+|---|---|---|---|---|
+| Quonset | 7 | 1234 | 0.25 m | |
+| Quonset2 | 7 | 1234 | 1.5 m | keeps the roof dish |
+| Portable | 7 | 1234 | 0.95 m | |
+| GenericMilitary | 9 | 4242 | 2.4 m | seed 7 painted two buildings; seed 8 cropped the tower; seed 9 with mesh seed 1234 meshed a smear |
+| GeodesicDome | 7 | 1234 | 0.40 m | |
+| Hangar | 7 | 1234 | 3.0 m (38 m building) | the concept adds a roof mast; robust bounds absorb it |
+| LookoutTower | 7 | 1234 | 0.36 m | |
+
 Each orientation was checked by eye against the original's front view. Mechs are nearly symmetric front to back, so the 3D fit alone can land backwards; use `--turn` if it does.
 
 ### Environment notes (workstation, 2026-10-19)

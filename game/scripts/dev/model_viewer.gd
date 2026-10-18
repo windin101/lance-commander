@@ -1,7 +1,7 @@
 extends Node3D
 ## Shows a converted mech model in a lit studio, for screenshots.
 ## User args: --model=res://assets/mechs/bushwacker.glb --anim=Walk --t=0.25
-## Concept-render options: --bg=r,g,b (0-1) --no-ground --fov=<deg> --focus-y=<m>
+## Concept-render options: --bg=r,g,b (0-1) --no-ground --fov=<deg> --focus-y=<m> --focus-xz=<x>,<z>
 ## Pass --cam=yaw,pitch,distance to DevTools to frame it.
 
 var camera: RtsCamera
@@ -71,6 +71,9 @@ func _ready() -> void:
 	camera.make_current()
 	_focus_y = float(args.get("focus-y", "4"))
 	camera.focus = Vector3(0, _focus_y, 0)
+	if args.has("focus-xz"):  # off-centre models (buildings)
+		var xz: PackedStringArray = args["focus-xz"].split(",")
+		camera.focus = Vector3(float(xz[0]), _focus_y, float(xz[1]))
 	if args.has("fov"):
 		camera.fov = float(args["fov"])
 

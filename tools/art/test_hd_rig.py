@@ -48,15 +48,40 @@ class HdRigTests(unittest.TestCase):
 class FragmentTests(unittest.TestCase):
     def test_drop_fragments_keeps_main_body(self):
         rng = np.random.default_rng(2)
-        body = rng.normal(size=(100, 3))
-        tris = [[i, i + 1, i + 2] for i in range(0, 98)]
+        body = rng.normal(size=(300, 3))  # the 3-vertex shard is 1% of the mesh, under the 2% cut
+        tris = [[i, i + 1, i + 2] for i in range(0, 298)]
         shard = rng.normal(size=(3, 3)) + 10
         pos = np.vstack([body, shard])
-        tris.append([100, 101, 102])
-        uv = np.zeros((103, 2))
+        tris.append([300, 301, 302])
+        uv = np.zeros((303, 2))
         p, u, t = hd_rig.drop_fragments(pos, uv, np.array(tris))
-        self.assertEqual(len(p), 100)
-        self.assertEqual(t.max(), 99)
+        self.assertEqual(len(p), 300)
+        self.assertEqual(t.max(), 299)
+
+    def test_drop_fragments_welds_uv_seams(self):
+        # A quad split along a UV seam: duplicated corner vertices must still count as one piece.
+        quad = np.array([[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]], dtype=float)
+        pos = np.vstack([quad[[0, 1, 2]], quad[[0, 2, 3]]])
+        tris = np.array([[0, 1, 2], [3, 4, 5]])
+        p, _, t = hd_rig.drop_fragments(pos, np.zeros((6, 2)), tris, min_share=0.6)
+        self.assertEqual(len(t), 2)
+
+
+class StaticTests(unittest.TestCase):
+    def test_match_bounds_scales_each_axis(self):
+        rng = np.random.default_rng(3)
+        p = rng.uniform([-4, 0, -8], [4, 4, 8], size=(400, 3))
+        q = p * [1.0, 0.8, 0.9] + [0.5, 0.2, 0.0]  # right shape, slightly wrong proportions
+        out = hd_rig.match_bounds(q, p)
+        np.testing.assert_allclose(np.ptp(out, 0), np.ptp(p, 0), rtol=0.03)
+
+    def test_match_bounds_ignores_a_thin_mast(self):
+        rng = np.random.default_rng(4)
+        hut = rng.uniform([-4, 0, -8], [4, 4, 8], size=(4000, 3))
+        mast = np.c_[np.zeros(10), np.linspace(4, 12, 10), np.zeros(10)]  # 0.25% of the samples
+        q = np.vstack([hut, mast])
+        out = hd_rig.match_bounds(q, hut)
+        self.assertAlmostEqual(np.percentile(out[:4000, 1], 99.5), np.percentile(hut[:, 1], 99.5), delta=0.1)
 
 
 if __name__ == "__main__":

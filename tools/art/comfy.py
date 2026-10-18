@@ -93,7 +93,7 @@ def edit_graph(image_name, prompt, negative, seed, size=1024):
     }
 
 
-def hunyuan3d_graph(image_name, seed, prefix="lc/mesh", steps=30, cfg=5.0, octree=256, threshold=0.6):
+def hunyuan3d_graph(image_name, seed, prefix="lc/mesh", steps=30, cfg=5.0, octree=256, threshold=0.6, algorithm="surface net"):
     """Image -> mesh with Hunyuan3D 2.1 (ComfyUI's 'Image to Model' blueprint settings)."""
     return {
         "1": {"class_type": "ImageOnlyCheckpointLoader", "inputs": {"ckpt_name": "hunyuan_3d_v2.1.safetensors"}},
@@ -106,22 +106,28 @@ def hunyuan3d_graph(image_name, seed, prefix="lc/mesh", steps=30, cfg=5.0, octre
               "sampler_name": "euler", "scheduler": "normal", "positive": ["4", 0], "negative": ["4", 1],
               "latent_image": ["5", 0], "denoise": 1.0}},
         "8": {"class_type": "VAEDecodeHunyuan3D", "inputs": {"samples": ["7", 0], "vae": ["1", 2], "num_chunks": 8000, "octree_resolution": octree}},
-        "9": {"class_type": "VoxelToMesh", "inputs": {"voxel": ["8", 0], "algorithm": "surface net", "threshold": threshold}},
+        "9": {"class_type": "VoxelToMesh", "inputs": {"voxel": ["8", 0], "algorithm": algorithm, "threshold": threshold}},
         "10": {"class_type": "SaveGLB", "inputs": {"mesh": ["9", 0], "filename_prefix": prefix}},
     }
 
 
-def hd_mesh_graph(image_name, seed, prefix="lc/hd", faces=20000, tex=2048):
-    """Hunyuan3D 2.1 high-poly -> decimated, unwrapped game mesh plus baked normal and AO maps."""
-    g = hunyuan3d_graph(image_name, seed, prefix=prefix + "_high")
+def hd_mesh_graph(image_name, seed, prefix="lc/hd", faces=20000, tex=2048, algorithm="surface net"):
+    """Hunyuan3D 2.1 high-poly -> decimated, unwrapped game mesh plus baked normal and AO maps.
+    Buildings need algorithm="basic": on large flat walls the surface-net mesh is speckled with
+    flipped, doubled triangles, and decimating that leaves a broken shell. (RemeshMesh was
+    tried as a repair: QEF and 512 grids run out of memory on ROCm, and its UDF mode kept only
+    the roof sheet.)"""
+    g = hunyuan3d_graph(image_name, seed, prefix=prefix + "_high", algorithm=algorithm)
     del g["10"]  # don't save the 300k-triangle source
+    high = ["9", 0]
+    decimate = {"mesh": high, "target_face_count": faces, "placement_mode": "midpoint"}
     g.update({
-        "11": {"class_type": "DecimateMesh", "inputs": {"mesh": ["9", 0], "target_face_count": faces, "placement_mode": "midpoint"}},
+        "11": {"class_type": "DecimateMesh", "inputs": decimate},
         "12": {"class_type": "MeshSmoothNormals", "inputs": {"mesh": ["11", 0], "crease_angle": 50.0}},
         "13": {"class_type": "UnwrapMesh", "inputs": {"mesh": ["12", 0], "segmenter": "pec", "resolution": tex, "padding": 4, "weld_distance": 0.001}},
-        "14": {"class_type": "BakeNormalMapFromMesh", "inputs": {"low_poly": ["13", 0], "high_poly": ["9", 0], "resolution": tex,
+        "14": {"class_type": "BakeNormalMapFromMesh", "inputs": {"low_poly": ["13", 0], "high_poly": high, "resolution": tex,
                "cage_distance": 0.02, "ignore_backfaces": True}},
-        "15": {"class_type": "BakeAmbientOcclusion", "inputs": {"low_poly": ["13", 0], "high_poly": ["9", 0], "resolution": tex,
+        "15": {"class_type": "BakeAmbientOcclusion", "inputs": {"low_poly": ["13", 0], "high_poly": high, "resolution": tex,
                "samples": 64, "max_distance": 0.25, "strength": 1.0, "bias": 0.001}},
         "16": {"class_type": "SaveImage", "inputs": {"images": ["14", 0], "filename_prefix": prefix + "_normal"}},
         "17": {"class_type": "SaveImage", "inputs": {"images": ["15", 0], "filename_prefix": prefix + "_ao"}},

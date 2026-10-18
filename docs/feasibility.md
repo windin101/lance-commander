@@ -53,7 +53,7 @@ Phases 0 (scaffold) and 1 (FIT/CSV/strings converters) are done.
   - **8f HD vehicles and wrecks are done.**
     - The Centipede, Harasser and LRM carrier went through the same pipeline (`--kind vehicles`).
     - HD mechs wreck by holding the end of FallForward with a scorched material.
-  - **Still open:** HD buildings.
+  - **8g HD buildings are done**, for the seven mc2_01 buildings (quonsets, portable, generic military, dome, hangar, lookout tower), via `hd_mech.py --kind objects` (static fit, original colour texture). Props, trees and fences keep the original models.
 - **Slice scope (found in Phase 4):** mc2_01 also fields ground vehicles: 4 Centipedes, 4 Harassers, 7 LRM carriers and 8 infantry. Their rules (`gvehicl.cpp`) and models are new work, to fold into Phases 5 and 6.
 
 Goal: a free, non-commercial, modernised remake of MechCommander 2 (2001) with new graphics and updated gameplay. It gets its own name, with no Microsoft or BattleTech branding (see "Licence ground rules").

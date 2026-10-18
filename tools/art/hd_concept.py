@@ -21,6 +21,13 @@ VEHICLE_PROMPT = ("Transform this crude low-polygon video game model into a high
                   "hover skirts). Add intricate mechanical detail: layered armour plates with deep panel seams, vents and "
                   "grilles, hatches, sensor domes, weapon barrels and missile tubes, rivets, warning stencils, scratched "
                   "and weathered gunmetal grey paint. Physically based materials, crisp studio lighting, plain white background.")
+BUILDING_PROMPT = ("Transform this crude low-polygon video game model into a high-end modern 3D render of the same "
+                   "military outpost building, as in a 2025 AAA game. Keep the exact same shape, proportions, silhouette, "
+                   "camera angle and every part in the same place (walls, roof, doors, windows, antennas). Do not add any new "
+                   "structures, masts, antennas, pipes or objects beside or on top of it. Add realistic surface "
+                   "detail: corrugated or riveted metal panels, concrete and weathered paint, door frames, window frames, "
+                   "flush vents, rivets, rust streaks and grime. Keep the original colours. Physically based "
+                   "materials, crisp studio lighting, plain white background.")
 NEGATIVE = ("different pose, different silhouette, extra limbs, extra weapons, humanoid face, human, person, anime, cartoon, "
             "low poly, blurry, text, watermark, logo, background scenery, ground, floor, cropped")
 
