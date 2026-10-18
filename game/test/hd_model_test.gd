@@ -26,3 +26,24 @@ func test_mech_view_prefers_hd_model() -> void:
 	assert_str(v._paint_name).is_equal("bushwacker_hd")
 	assert_int(v.model.find_children("*", "Skeleton3D", true, false).size()).is_greater(0)
 	v.queue_free()
+
+
+func test_destroyed_hd_mech_falls_and_scorches() -> void:
+	if not ResourceLoader.exists("res://assets/mechs/bushwacker_hd.glb"):
+		return
+	var sm := SimMission.load_mission(GameData, "mc2_01")
+	var bw: SimUnit = sm.world.units[1]
+	var v := MechView.new()
+	add_child(v)
+	v.setup(bw, sm.world.map)
+	bw.status = SimUnit.Status.DESTROYED
+	v.sync(1.0)
+	await get_tree().process_frame
+	assert_str(v.player.assigned_animation).override_failure_message("anim %s" % v.player.assigned_animation).is_equal("FallForward")
+	assert_float(v.player.current_animation_position).override_failure_message("pos %f" % v.player.current_animation_position) \
+		.is_equal_approx(v.player.get_animation("FallForward").length, 0.05)
+	var mi: MeshInstance3D = v.model.find_children("*", "MeshInstance3D", true, false)[0]
+	var mat := mi.material_override as StandardMaterial3D
+	assert_object(mat).override_failure_message("no material override").is_not_null()
+	assert_float(mat.albedo_color.r).override_failure_message("albedo %s" % mat.albedo_color).is_less(0.5)
+	v.queue_free()

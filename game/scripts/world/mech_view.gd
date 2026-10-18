@@ -32,7 +32,7 @@ func setup(sim_mech: SimUnit, sim_map: SimMap) -> void:
 	_paint_name = mech.model
 	# HD models (tools/art pipeline) replace the 2001 mesh when present; --no-hd compares.
 	var hd_path := _asset_path("_hd.glb")
-	if mech is SimMech and ResourceLoader.exists(hd_path) and not OS.get_cmdline_user_args().has("--no-hd"):
+	if ResourceLoader.exists(hd_path) and not OS.get_cmdline_user_args().has("--no-hd"):
 		path = hd_path
 		_paint_name = mech.model + "_hd"
 	if not ResourceLoader.exists(path):
@@ -152,6 +152,15 @@ func _wreck() -> void:
 		return
 	_wrecked = true
 	ring.visible = false
+	# HD mechs: fall over with their own animation, freeze on the last frame, scorch.
+	if _paint_name.ends_with("_hd") and player and player.has_animation("FallForward"):
+		var fall := player.get_animation("FallForward")
+		player.speed_scale = 1.0
+		player.play("FallForward")
+		player.seek(fall.length, true)
+		player.pause()
+		_scorch(model)
+		return
 	var path := _asset_path("_wreck_forward.glb" if mech is SimMech else "_wreck.glb")
 	if ResourceLoader.exists(path):
 		model.queue_free()
@@ -159,6 +168,19 @@ func _wreck() -> void:
 		add_child(model)
 		_paint(model, mech.model)  # wrecks are still the original models
 		player = null
+
+
+## Darken a destroyed model: burnt paint, no shine.
+static func _scorch(root: Node) -> void:
+	for mi in root.find_children("*", "MeshInstance3D", true, false):
+		var m := (mi as MeshInstance3D).material_override as StandardMaterial3D
+		if m == null:
+			continue
+		var burnt := m.duplicate() as StandardMaterial3D
+		burnt.albedo_color = Color(0.28, 0.25, 0.23)
+		burnt.metallic = 0.1
+		burnt.roughness = 0.95
+		(mi as MeshInstance3D).material_override = burnt
 
 
 ## World-space muzzle point for the next shot, cycling the model's weapon nodes.
