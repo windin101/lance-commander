@@ -23,7 +23,10 @@ func build(sim_map: SimMap, mission: String) -> int:
 		if app.is_empty():
 			continue
 		if not scenes.has(app):
-			var res := "res://assets/objects/%s.glb" % app
+			# HD models (tools/art, --kind objects) replace the 2001 mesh when present; --no-hd compares.
+			var res := "res://assets/objects/%s_hd.glb" % app
+			if not ResourceLoader.exists(res) or OS.get_cmdline_user_args().has("--no-hd"):
+				res = "res://assets/objects/%s.glb" % app
 			scenes[app] = load(res) if ResourceLoader.exists(res) else null
 		if scenes[app] == null:
 			continue

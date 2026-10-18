@@ -24,6 +24,11 @@ COMP = {5120: np.int8, 5121: np.uint8, 5122: np.int16, 5123: np.uint16, 5125: np
 WIDTH = {"SCALAR": 1, "VEC2": 2, "VEC3": 3, "VEC4": 4, "MAT4": 16}
 
 
+# Overlay meshes on buildings (night-lit window cards, spotlight cones): they float just
+# off the real surface and point at other atlas regions, so they must not be sampled.
+OVERLAY_PREFIXES = ("litwin", "spotlight", "slcircle")
+
+
 # --- glb io -----------------------------------------------------------------
 
 def load_glb(path):
@@ -130,13 +135,15 @@ def world_matrices(gltf):
 
 # --- original surface samples -----------------------------------------------
 
-def original_samples(gltf, binary, per_tri=10, seed=0):
-    """Dense rest-pose surface samples: positions, UVs and the owning node index."""
+def original_samples(gltf, binary, per_tri=10, seed=0, density=None):
+    """Dense rest-pose surface samples: positions, UVs and the owning node index.
+    density (samples per square metre) sizes the count by triangle area instead: building
+    triangles are metres across, and a fixed count leaves the paint lookup patchy."""
     rng = np.random.default_rng(seed)
     worlds = world_matrices(gltf)
     pts, uvs, owners = [], [], []
     for ni, node in enumerate(gltf["nodes"]):
-        if "mesh" not in node:
+        if "mesh" not in node or node.get("name", "").lower().startswith(OVERLAY_PREFIXES):
             continue
         prim = gltf["meshes"][node["mesh"]]["primitives"][0]
         pos = read_accessor(gltf, binary, prim["attributes"]["POSITION"]).astype(float)
@@ -144,13 +151,18 @@ def original_samples(gltf, binary, per_tri=10, seed=0):
         pos_w = (worlds[ni] @ np.c_[pos, np.ones(len(pos))].T).T[:, :3]
         tris = pos_w.reshape(-1, 3, 3)
         tuv = uv.reshape(-1, 3, 2)
-        r = rng.random((len(tris), per_tri, 2))
-        flip = r.sum(axis=2) > 1.0
+        if density:
+            area = 0.5 * np.linalg.norm(np.cross(tris[:, 1] - tris[:, 0], tris[:, 2] - tris[:, 0]), axis=1)
+            which = np.repeat(np.arange(len(tris)), np.maximum(np.ceil(area * density).astype(int), per_tri))
+        else:
+            which = np.repeat(np.arange(len(tris)), per_tri)
+        r = rng.random((len(which), 2))
+        flip = r.sum(axis=1) > 1.0
         r[flip] = 1.0 - r[flip]
-        a, b = r[..., 0:1], r[..., 1:2]
+        a, b = r[:, 0:1], r[:, 1:2]
         c = 1.0 - a - b
-        p = c * tris[:, None, 0] + a * tris[:, None, 1] + b * tris[:, None, 2]
-        u = c * tuv[:, None, 0] + a * tuv[:, None, 1] + b * tuv[:, None, 2]
+        p = c * tris[which, 0] + a * tris[which, 1] + b * tris[which, 2]
+        u = c * tuv[which, 0] + a * tuv[which, 1] + b * tuv[which, 2]
         pts.append(np.concatenate([p.reshape(-1, 3), tris.reshape(-1, 3)]))
         uvs.append(np.concatenate([u.reshape(-1, 2), tuv.reshape(-1, 2)]))
         owners.append(np.full(len(pts[-1]), ni))
@@ -173,17 +185,20 @@ def chamfer(a, tree_b, b, tree_a=None, n=4000, rng=None):
     return d1 + d2
 
 
-def initial_fit(q, p):
-    """Best yaw/mirror with bbox scale + placement; returns 3x4-ish (R, s, t) and score."""
+def initial_fit(q, p, footprint=False):
+    """Best yaw/mirror with bbox scale + placement; returns 3x4-ish (R, s, t) and score.
+    footprint=True scales by the ground plan instead of the height (buildings: an extra
+    mast or a missing roof fixture shouldn't resize the whole thing)."""
     tree_p = cKDTree(p)
     hp = p[:, 1].max() - p[:, 1].min()
+    plan_p = np.hypot(np.ptp(p[:, 0]), np.ptp(p[:, 2]))
     best = None
     for mirror in (False, True):
         qm = q * np.array([-1.0 if mirror else 1.0, 1, 1])
         for deg in range(0, 360, 5):
             r = yaw(deg) @ np.diag([-1.0 if mirror else 1.0, 1, 1])
             qr = q @ r.T
-            s = hp / (qr[:, 1].max() - qr[:, 1].min())
+            s = plan_p / np.hypot(np.ptp(qr[:, 0]), np.ptp(qr[:, 2])) if footprint else hp / (qr[:, 1].max() - qr[:, 1].min())
             qs = qr * s
             t = np.array([(p[:, 0].max() + p[:, 0].min()) / 2 - (qs[:, 0].max() + qs[:, 0].min()) / 2,
                           p[:, 1].min() - qs[:, 1].min(),
@@ -192,6 +207,32 @@ def initial_fit(q, p):
             if best is None or score < best[0]:
                 best = (score, r, s, t, deg, mirror)
     return best
+
+
+def area_samples(pos, tris, n=200000, seed=0):
+    """Uniform surface samples (by triangle area), so thin parts carry little weight."""
+    rng = np.random.default_rng(seed)
+    t = pos[tris]
+    area = 0.5 * np.linalg.norm(np.cross(t[:, 1] - t[:, 0], t[:, 2] - t[:, 0]), axis=1)
+    pick = rng.choice(len(t), n, p=area / area.sum())
+    r = rng.random((n, 2))
+    flip = r.sum(1) > 1
+    r[flip] = 1 - r[flip]
+    return t[pick, 0] + r[:, :1] * (t[pick, 1] - t[pick, 0]) + r[:, 1:] * (t[pick, 2] - t[pick, 0])
+
+
+def match_bounds(q, p, q_surf=None, pct=0.5):
+    """Per-axis scale so q's bounds match p's (buildings: the image-to-3D step gets
+    proportions slightly wrong, and a hut that is 1 m short leaves a visible gap).
+    Bounds are surface percentiles, not min/max: a thin mast or antenna on only one
+    side would otherwise squash or stretch the whole building (q_surf/p: area samples)."""
+    qs = q if q_surf is None else q_surf
+    lo_q, hi_q = np.percentile(qs, pct, axis=0), np.percentile(qs, 100 - pct, axis=0)
+    lo_p, hi_p = np.percentile(p, pct, axis=0), np.percentile(p, 100 - pct, axis=0)
+    lo_q[1], lo_p[1] = qs[:, 1].min(), p[:, 1].min()  # keep the ground contact exact
+    s = (hi_p - lo_p) / np.maximum(hi_q - lo_q, 1e-6)
+    print(f"bounds match: scale x {s[0]:.3f} y {s[1]:.3f} z {s[2]:.3f}")
+    return (q - lo_q) * s + lo_p
 
 
 def umeyama(src, dst):
@@ -228,11 +269,14 @@ def icp(q, p, iters=30, scale=False):
 
 # --- paint mask transfer ------------------------------------------------------
 
-def transfer_paint(hd_pos, hd_uv, tris, samples, sample_uv, mask, res):
-    """Rasterize the HD UV atlas; each texel takes the original mask colour at the nearest original surface point."""
+def transfer_paint(hd_pos, hd_uv, tris, samples, sample_uv, mask, res, pure=True):
+    """Rasterize the HD UV atlas; each texel takes the original mask colour at the nearest original surface point.
+    pure=False keeps a plain colour texture as is (buildings: no team paint channels)."""
     tree = cKDTree(samples)
     mw, mh = mask.size
-    marr = purify(np.asarray(mask.convert("RGB").filter(ImageFilter.GaussianBlur(1.5))))
+    marr = np.asarray(mask.convert("RGB").filter(ImageFilter.GaussianBlur(1.5 if pure else 0.6)))
+    if pure:
+        marr = purify(marr)
     out = np.zeros((res, res, 3), dtype=np.uint8)
     filled = np.zeros((res, res), dtype=bool)
     texel_pos, texel_xy = [], []
@@ -266,6 +310,16 @@ def transfer_paint(hd_pos, hd_uv, tris, samples, sample_uv, mask, res):
     py = np.clip((suv[:, 1] * mh).astype(int), 0, mh - 1)
     out[xy[:, 1], xy[:, 0]] = marr[py, px]
     filled[xy[:, 1], xy[:, 0]] = True
+    if not pure:
+        # Keep the original's overall tone: the HD UV atlas gives creases and dark details
+        # more texels than their surface share, so the raw transfer reads ~20% darker.
+        sx = np.clip((sample_uv[:, 0] * mw).astype(int), 0, mw - 1)
+        sy = np.clip((sample_uv[:, 1] * mh).astype(int), 0, mh - 1)
+        want = marr[sy, sx].reshape(-1, 3).mean(0)
+        have = out[filled].mean(0)
+        gain = np.clip(want / np.maximum(have, 1.0), 0.8, 1.6)
+        print(f"tone match: gain {np.round(gain, 3).tolist()}")
+        out[filled] = np.clip(out[filled] * gain, 0, 255).astype(np.uint8)
     for _ in range(6):  # dilate into chart padding so mipmaps don't bleed black
         grow = ~filled & (np.roll(filled, 1, 0) | np.roll(filled, -1, 0) | np.roll(filled, 1, 1) | np.roll(filled, -1, 1))
         if not grow.any():
@@ -417,6 +471,27 @@ def png_bytes(img):
     return buf.getvalue()
 
 
+def write_static(args, pos, uv, tris, albedo):
+    """One unskinned mesh at the origin, in the original's world frame (it was fitted there)."""
+    gltf = {"asset": {"version": "2.0", "generator": "lance-commander hd_rig"}, "scene": 0,
+            "scenes": [{"nodes": [0]}], "nodes": [], "meshes": [], "accessors": [], "bufferViews": []}
+    w = GlbWriter(gltf, bytearray())
+    attrs = {
+        "POSITION": w.accessor(pos, "VEC3", target=34962, minmax=True),
+        "NORMAL": w.accessor(vertex_normals(pos, tris), "VEC3", target=34962),
+        "TEXCOORD_0": w.accessor(uv, "VEC2", target=34962),
+    }
+    ind = w.accessor(tris.reshape(-1).astype(np.uint32), "SCALAR", comp=5125, target=34963)
+    tex = [w.image(png_bytes(albedo)), w.image(open(args.normal, "rb").read()), w.image(open(args.ao, "rb").read())]
+    gltf["materials"] = [{"name": "hd", "pbrMetallicRoughness": {"baseColorTexture": {"index": tex[0]},
+                          "metallicFactor": 0.1, "roughnessFactor": 0.8},
+                          "normalTexture": {"index": tex[1]}, "occlusionTexture": {"index": tex[2]}}]
+    gltf["meshes"].append({"name": "hd_body", "primitives": [{"attributes": attrs, "indices": ind, "material": 0}]})
+    gltf["nodes"].append({"name": "hd_body", "mesh": 0})
+    w.write(args.out)
+    print(f"wrote {args.out}: {len(pos)} verts, {len(tris)} tris (static)")
+
+
 def main():
     ap = argparse.ArgumentParser()
     for a in ("original", "paint", "hd", "normal", "ao", "out", "out_paint"):
@@ -425,10 +500,11 @@ def main():
     ap.add_argument("--concept", help="concept image: picks front vs back where the 3D fit is ambiguous")
     ap.add_argument("--concept-yaw", type=float, default=35.0)
     ap.add_argument("--turn", action="store_true", help="the fit landed backwards: turn the HD mesh 180 degrees")
+    ap.add_argument("--static", action="store_true", help="building or prop: no skin, plain colour texture")
     args = ap.parse_args()
 
     og, ob = load_glb(args.original)
-    samples, sample_uv, owners = original_samples(og, ob)
+    samples, sample_uv, owners = original_samples(og, ob, density=400.0 if args.static else None)
     hg, hb = load_glb(args.hd)
     prim = hg["meshes"][0]["primitives"][0]
     q = read_accessor(hg, hb, prim["attributes"]["POSITION"]).astype(float)
@@ -436,10 +512,12 @@ def main():
     tris = read_accessor(hg, hb, prim["indices"]).astype(np.int64).reshape(-1, 3)
     q, huv, tris = drop_fragments(q, huv, tris)
 
-    score, r0, s0, t0, deg, mirror = initial_fit(q, samples)
+    score, r0, s0, t0, deg, mirror = initial_fit(q, samples, footprint=args.static)
     print(f"initial fit: yaw {deg} mirror {mirror} scale {s0:.3f} chamfer {score:.3f} m")
     q0 = (s0 * (r0 @ q.T)).T + t0
     fitted, _ = icp(q0, samples)
+    if args.static:
+        fitted = match_bounds(fitted, samples, q_surf=area_samples(fitted, tris))
     final = chamfer(fitted, cKDTree(samples), samples)
     print(f"after ICP: chamfer {final:.3f} m")
     if mirror:
@@ -468,8 +546,11 @@ def main():
     joint_slot = {n: i for i, n in enumerate(joints)}
     worlds = world_matrices(og)
 
-    paint = transfer_paint(fitted, huv, tris, samples, sample_uv, Image.open(args.paint), args.tex)
+    paint = transfer_paint(fitted, huv, tris, samples, sample_uv, Image.open(args.paint), args.tex, pure=not args.static)
     paint.save(args.out_paint)
+    if args.static:
+        write_static(args, fitted, huv, tris, paint)
+        return
 
     w = GlbWriter(og, ob)
     for node in og["nodes"]:
