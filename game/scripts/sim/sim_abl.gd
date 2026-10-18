@@ -29,11 +29,20 @@ const EV_ATTACK_ORDER := 9
 const EV_TARGET_KILLED := 12
 const EV_MATE_FIRED := 13
 const EV_FIRED_WEAPON := 17
+const EV_PLAYER_ORDER := 14
+# Alarm handler functions the engine calls the moment an alarm is raised (2.5).
+const HANDLERS := {0: "handletargetofweaponfire", 1: "handlehitbyweaponfire", 2: "handledamagetakenrate",
+	3: "handledeathofmate", 4: "handlecripplingoffriendlyvehicle", 5: "handledestructionoffriendlyvehicle",
+	6: "handleincapacitationofvehicle", 7: "handledestructionofvehicle", 8: "handlewithdraw",
+	9: "handleattackorder", 10: "handlecollision", 11: "handleguardbreach", 12: "handlekilledtarget",
+	13: "handlematefiredweapon", 14: "handleplayerorder", 15: "handlenomovepath", 16: "handlegateclosing",
+	17: "handlefiredweapon", 18: "handlenewmover"}
 # TACTICAL_ORDER_*
 const TO_NONE := 0
 const TO_WAIT := 1
 const TO_MOVETO_POINT := 2
 const TO_MOVETO_OBJECT := 3
+const TO_STOP := 11
 const TO_POWERUP := 12
 const TO_POWERDOWN := 13
 const TO_EJECT := 15
@@ -63,6 +72,7 @@ var _next_area := 1
 var _by_part: Dictionary = {}  # part ID -> SimUnit
 var _logistics_ms := 0.0
 var current: Pilot = null  # the pilot whose brain is running (2.3)
+var voice_busy: Callable  # the view: is a voice-over or comms clip still playing (isPlayingVoiceOver)
 
 
 class Pilot:
@@ -81,6 +91,8 @@ class Pilot:
 	var move_area := {}  # {"centre": Vector2 m, "radius": m}
 	var order := {"code": TO_NONE}
 	var debug: Array = ["", "", "", "", ""]
+	var pending: Array = []  # alarm codes raised since the handlers last ran
+	var alarm := -1  # the alarm whose handler is running (getAlarmTriggers)
 
 	func think(_world: SimWorld, u: SimUnit) -> void:
 		abl._pilot_tick(self, u)
@@ -90,6 +102,8 @@ class Pilot:
 		if list.size() < MAX_TRIGGERS:
 			list.append(trigger)
 		history[code] = list
+		if not pending.has(code):
+			pending.append(code)
 
 
 static func attach(mission: SimMission, name: String) -> SimAbl:
@@ -109,10 +123,6 @@ static func attach(mission: SimMission, name: String) -> SimAbl:
 	var n := 0
 	for u in a.world.units:
 		if not u.is_mover() or u.brain_name == "":
-			continue
-		# The player's own lance keeps the player-command behaviour: its pbrain would
-		# need player orders routed into the tactical-order state (phase 12).
-		if u.team == mission.player_team and u.commander == 0:
 			continue
 		var inst := a.runtime.instantiate("warriors/%s.abl" % u.brain_name.to_lower().trim_suffix(".abl"))
 		if inst == null:
@@ -134,6 +144,8 @@ static func attach(mission: SimMission, name: String) -> SimAbl:
 		n += 1
 		u.brain = p
 		a.pilots.append(p)
+		if u.brain_name.to_lower() == "pbrain":
+			u.engage_m = 100.0  # pbrain Init: SetEngageRadius(100)
 	return a
 
 
@@ -187,6 +199,7 @@ func after_step(new_events: Array) -> void:
 				if c.y >= a["r1"] and c.y < a["r2"] and c.x >= a["c1"] and c.x < a["c2"]:
 					a["hit"] = true
 					break
+	run_alarm_handlers()
 	_logistics_ms += SimWorld.TICK * 1000.0
 	if mission_inst:
 		script_result = int(AblRuntime._num(mission_inst.execute()))
@@ -196,6 +209,50 @@ func after_step(new_events: Array) -> void:
 		for n in et:
 			if et[n] is bool:
 				world.flags[n] = et[n]
+
+
+## Call each pilot's handler for the alarms raised since the last call (2.5); only
+## pbrain defines handlers in the campaign.
+func run_alarm_handlers() -> void:
+	for p in pilots:
+		if p.pending.is_empty():
+			continue
+		var codes: Array = p.pending.duplicate()
+		p.pending.clear()
+		if p.unit.is_disabled() or p.unit.ejected:
+			continue
+		for code in codes:
+			var h: String = HANDLERS.get(code, "")
+			if h != "" and runtime.has_function(p.inst, h):
+				current = p
+				p.alarm = code
+				runtime.call_function(p.inst, h)
+				p.alarm = -1
+				current = null
+
+
+## A command from the player (CommandInput): becomes the pilot's tactical order with
+## player origin, then raises PLAYER_ORDER so pbrain's handler sees it at once.
+## kind: "move" (arg: goal Vector2 m), "attack" (arg: SimUnit), "stop".
+func player_order(u: SimUnit, kind: String, arg: Variant = null) -> void:
+	if not (u.brain is Pilot):
+		return
+	var p: Pilot = u.brain
+	var o: Dictionary
+	match kind:
+		"move":
+			o = {"code": TO_MOVETO_POINT, "goal": arg, "run": true, "origin": 0}
+		"attack":
+			o = {"code": TO_ATTACK_OBJECT, "target": arg, "pursue": true, "origin": 0}
+		_:
+			o = {"code": TO_STOP, "origin": 0}
+	if int(o["code"]) == TO_STOP:
+		p.order = {"code": TO_NONE}
+		world.order_hold(u)
+	else:
+		_issue(p, o)
+	p.raise(EV_PLAYER_ORDER, int(o["code"]))
+	run_alarm_handlers()
 
 
 func _raise(u: SimUnit, code: int, trigger: int) -> void:
@@ -615,7 +672,14 @@ func _register() -> void:
 						a[0][k] = list[k]
 				return c
 		return -1)
-	r.register_native("getAlarmTriggers", func(_i, _a): return 0)
+	r.register_native("getAlarmTriggers", func(_i, a):
+		if current == null or current.alarm < 0:
+			return 0
+		var list: Array = current.history.get(current.alarm, [])
+		for k in list.size():
+			if k < a[0].size():
+				a[0][k] = list[k]
+		return list.size())
 	r.register_native("getTarget", func(_i, a):
 		var o := obj(int(a[0]))
 		if o == null or not o.is_mover() or o.current_target == null or o.current_target.is_destroyed():
@@ -733,13 +797,25 @@ func _register() -> void:
 		if o == null or not (o.brain is Pilot):
 			return 0
 		var ord: Dictionary = o.brain.order
-		a[2][0] = int(ord["code"])
-		a[2][1] = int(ord.get("origin", 2))
+		var params: Array = a[2]
+		params[0] = int(ord["code"])
+		params[1] = int(ord.get("origin", 2))
 		var t: SimUnit = ord.get("target")
-		a[2][3] = t.part_id if t else 0
-		if a[2].size() > 18:
-			a[2][17] = 0
-			a[2][18] = 0
+		params[3] = t.part_id if t else 0
+		params[4] = class_of(t) if t else 0
+		params[5] = 0
+		if params.size() > 18:
+			match int(ord["code"]):
+				TO_MOVETO_POINT:
+					var g: Vector2 = ord["goal"]
+					params[7] = 1 if ord.get("run", false) else 0
+					params[9] = int(g.x / WU)
+					params[10] = int(g.y / WU)
+				TO_ATTACK_OBJECT:
+					params[13] = 1 if ord.get("pursue", false) else 0
+					params[14] = 1 if ord.get("obliterate", false) else 0
+			params[17] = 0
+			params[18] = 0
 		return int(ord["code"]))
 	r.register_native("clearTacOrder", func(_i, _a):
 		if current:
@@ -860,8 +936,10 @@ func _register() -> void:
 	r.register_native("getFixed", func(_i, _a): return -1)
 	# --- presentation (P): events for the view ---
 	r.register_native("playDigitalMusic", func(_i, a):
-		music_id = int(a[0])
-		world.events.append({"type": "abl_music", "id": music_id})
+		# mc2_01.abl re-requests its sensor tune every frame; the music system ignores repeats.
+		if int(a[0]) != music_id:
+			music_id = int(a[0])
+			world.events.append({"type": "abl_music", "id": music_id})
 		return 0)
 	r.register_native("getCurrentMusicId", func(_i, _a): return music_id)
 	r.register_native("playWave", func(_i, a):
@@ -874,7 +952,7 @@ func _register() -> void:
 	r.register_native("playVideo", func(_i, a):
 		world.events.append({"type": "abl_video", "file": str(a[0])})
 		return 0)
-	r.register_native("isPlayingVoiceOver", func(_i, _a): return false)
+	r.register_native("isPlayingVoiceOver", func(_i, _a): return voice_busy.call() if voice_busy.is_valid() else false)
 	r.register_native("stopVoiceOver", func(_i, _a): return 0)
 	r.register_native("inCallout", func(_i, _a): return false)
 	r.register_native("forceMovieEnd", func(_i, _a): return 0)

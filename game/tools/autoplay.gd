@@ -31,6 +31,9 @@ func _init() -> void:
 						print("t=%6.1f  LOST %s" % [w.time, u.name])
 				"mission_end":
 					print("t=%6.1f  MISSION %s" % [w.time, "WON" if e["won"] else "LOST"])
+				"abl_wave", "abl_video", "abl_music":
+					if "--cues" in args:
+						print("t=%6.1f  %s %s" % [w.time, e["type"], e.get("file", e.get("id", ""))])
 		w.events.clear()
 		if w.time >= next_order:
 			next_order = w.time + 3.0
@@ -80,7 +83,17 @@ func _orders(sm: SimMission) -> void:
 				continue  # keep fighting (incl. return fire)
 			if not targets.is_empty():
 				targets.sort_custom(func(a, b): return m.distance_to(a.position) < m.distance_to(b.position))
-				w.order_attack(m, targets[0])
+				_order(sm, m, "attack", targets[0])
 			elif area != null and m.distance_to(area) > 40.0 and m.order == SimWorld.Order.HOLD:
-				w.order_move(m, area)
+				_order(sm, m, "move", area)
 		return
+
+
+## Orders go through the lance's pbrain, as the player's do (CommandInput).
+func _order(sm: SimMission, m: SimUnit, kind: String, arg: Variant) -> void:
+	if sm.abl and m.brain is SimAbl.Pilot:
+		sm.abl.player_order(m, kind, arg)
+	elif kind == "attack":
+		sm.world.order_attack(m, arg)
+	else:
+		sm.world.order_move(m, arg)

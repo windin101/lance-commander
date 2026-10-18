@@ -19,13 +19,11 @@ var camera: RtsCamera
 var views: Dictionary = {}  # mech id -> MechView
 var hud: MissionHud
 var audio: AudioDirector
-var sequencer: MissionSequencer
 var flyby: IntroFlyby
 var pause_menu: PauseMenu
 var title := ""  # the mission's display name (briefing title)
 var _end_seen_at := -1.0
-var _voice_cfg: Array = []
-var _voice_flags_done := {}
+var _videos: Dictionary = {}  # comms clip name -> res:// path (retail disc, if converted)
 var _acc := 0.0
 var _args := {}
 
@@ -76,6 +74,7 @@ func _ready() -> void:
 	input.views = views
 	input.camera = camera
 	input.player_team = sm.player_team
+	input.abl = sm.abl
 	add_child(input)
 	_build_hud()
 	audio = AudioDirector.new()
@@ -85,16 +84,16 @@ func _ready() -> void:
 	var script_cfg: Dictionary = {}
 	if FileAccess.file_exists(bcfg_path):
 		script_cfg = JSON.parse_string(FileAccess.get_file_as_string(bcfg_path)).get("script", {})
-	_voice_cfg = script_cfg.get("voice", [])
-	sequencer = MissionSequencer.new()
-	sequencer.name = "Sequencer"
-	add_child(sequencer)
+	if FileAccess.file_exists("res://data/videos.json"):
+		_videos = JSON.parse_string(FileAccess.get_file_as_string("res://data/videos.json"))
+	if sm.abl:
+		# The mission script waits on isPlayingVoiceOver between its tutorial stages.
+		sm.abl.voice_busy = func() -> bool:
+			return audio.voice.playing or not audio._voice_queue.is_empty() or hud.comms.is_playing()
 	var dev_run := not play_intro or ((_args.has("demo") or _args.has("arena") or _args.has("sim-seconds") or _args.has("screenshot")) and not _args.has("flyby"))
 	flyby = IntroFlyby.new()
 	flyby.name = "Flyby"
 	add_child(flyby)
-	# The comms sequence starts when the flyby ends (mc2_01.abl: V1A 3 s after movie mode).
-	flyby.finished.connect(func(): sequencer.setup(self, script_cfg))
 	flyby.setup(self, {} if dev_run else script_cfg.get("flyby", {}), camera.yaw_deg)
 	for v in views.values():
 		v.footstep.connect(func(at: Vector3): audio.sfx("footstep", at, -10.0))
@@ -135,13 +134,9 @@ func _process(delta: float) -> void:
 		v.sync(alpha)
 	_consume_events(true)
 	if audio:
-		for v in _voice_cfg:
-			if v.has("flag") and (world.flags.get(v["flag"], false) or world.flags.get(String(v["flag"]).to_lower(), false)) \
-					and not _voice_flags_done.has(v["flag"]):
-				_voice_flags_done[v["flag"]] = true
-				audio.say_later(v["vo"], float(v.get("delay", 0.0)), world.time)
 		audio.tick(world.time)
-		audio.update_music(sm.objectives.result, world.time)
+		if sm.abl == null:  # otherwise the mission script picks the music (playDigitalMusic)
+			audio.update_music(sm.objectives.result, world.time)
 	# Mission over: after the banner has been up a moment, offer the debrief.
 	if sm.objectives.result != SimObjectives.Result.PLAYING and pause_menu and not pause_menu.ended:
 		if _end_seen_at < 0.0:
@@ -206,13 +201,17 @@ func _audio_event(e: Dictionary) -> void:
 		"objective":
 			if not e["hidden"]:
 				audio.announce("objective_done")
-			if sequencer:
-				sequencer.on_objective(int(e["index"]))
-			for v in _voice_cfg:
-				if v.has("objective") and int(v["objective"]) == int(e["index"]):
-					audio.say_later(v["vo"], float(v.get("delay", 0.0)), world.time)
 		"mission_end":
 			audio.announce("win" if e["won"] else "lose")
+		# Presentation from the mission's ABL (SimAbl natives)
+		"abl_wave":
+			audio.say(String(e["file"]).replace("\\", "/").get_file().get_basename().to_lower())
+		"abl_music":
+			audio.play_tune(int(e["id"]))
+		"abl_video":
+			var clip := String(e["file"]).get_basename().to_lower()
+			if hud and _videos.has(clip):
+				hud.comms.play(String(_videos[clip]))
 
 
 func _demo_orders() -> void:

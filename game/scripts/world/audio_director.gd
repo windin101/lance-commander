@@ -145,6 +145,21 @@ static func choose_tune(result: int, in_combat: bool, start_done: bool) -> int:
 	return TUNE_COMBAT if in_combat else TUNE_AMBIENT
 
 
+## Play a tune by its sound ID (the mission script's playDigitalMusic). Win, lose and
+## the start tune play once; the rest loop.
+func play_tune(tune: int) -> void:
+	if tune == current_tune and music.playing:
+		return
+	var s := _stream(String(manifest.get("music", {}).get(str(tune), "")))
+	if s == null:
+		return
+	if s is AudioStreamOggVorbis:
+		(s as AudioStreamOggVorbis).loop = not (tune in [TUNE_START, TUNE_LOST, TUNE_WON])
+	current_tune = tune
+	music.stream = s
+	music.play()
+
+
 func update_music(result: int, now: float) -> void:
 	var tune := choose_tune(result, now - last_combat_time < COMBAT_HOLD, start_tune_done)
 	if tune == current_tune and (music.playing or tune in [TUNE_WON, TUNE_LOST]):

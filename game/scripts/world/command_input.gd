@@ -8,6 +8,7 @@ signal selection_changed(mechs: Array)
 
 const PICK_PX := 40.0
 
+var abl: SimAbl = null  # the mission's ABL bridge: player orders go to the lance's pbrain
 var world: SimWorld
 var views: Dictionary = {}  # mech id -> MechView
 var camera: Camera3D
@@ -41,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		box.visible = r.size.length() > 8.0
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_H:
 		for m in selection:
-			world.order_hold(m)
+			_order(m, "stop")
 	elif event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F:
 		toggle_alpha_strike()
 
@@ -140,7 +141,7 @@ func _command(screen: Vector2) -> void:
 		enemy = structure_at(screen)
 	if enemy and enemy.team != player_team:
 		for m in selection:
-			world.order_attack(m, enemy)
+			_order(m, "attack", enemy)
 		return
 	var g = ground_at(screen)
 	if g == null:
@@ -152,7 +153,22 @@ func _command(screen: Vector2) -> void:
 		if n > 1:
 			var a := TAU * i / n
 			offset = Vector2(cos(a), sin(a)) * 14.0
-		world.order_move(selection[i], g + offset)
+		_order(selection[i], "move", g + offset)
+
+
+## Player orders go through the unit's pbrain (SimAbl) when it has one, as in the
+## original; otherwise straight to the world.
+func _order(m: SimUnit, kind: String, arg: Variant = null) -> void:
+	if abl and m.brain is SimAbl.Pilot:
+		abl.player_order(m, kind, arg)
+		return
+	match kind:
+		"attack":
+			world.order_attack(m, arg)
+		"move":
+			world.order_move(m, arg)
+		_:
+			world.order_hold(m)
 
 
 func _set_selection(s: Array) -> void:

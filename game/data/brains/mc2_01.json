@@ -1,71 +1,7 @@
 {
- "_source": "Player lance brain settings (pbrain.abl return fire) and presentation cues for mc2_01. Enemy AI runs the mission's original ABL (SimAbl); the hand-transcribed brains were retired in phase 10.",
+ "_source": "mc2_01 presentation the ABL doesn't drive yet: the opening camera flyby. Voice, comms videos and music come from the mission script (SimAbl abl_* events); every unit runs its original ABL brain.",
  "script": {
-  "_doc": "mc2_01.abl l.237-254: objective 0 sets the three patrol flags; hidden objective 7 sets Starslayer_Trigger.",
-  "voice": [
-   {
-    "_doc": "l.614 after objective 0",
-    "objective": 0,
-    "delay": 2.0,
-    "vo": "tut_1e"
-   },
-   {
-    "_doc": "l.666 after objective 2",
-    "objective": 2,
-    "delay": 2.0,
-    "vo": "tut_1gi"
-   },
-   {
-    "_doc": "l.678 after objective 3",
-    "objective": 3,
-    "delay": 2.0,
-    "vo": "tut_1h"
-   },
-   {
-    "_doc": "l.695 after objective 4",
-    "objective": 4,
-    "delay": 2.0,
-    "vo": "tut_1hi"
-   },
-   {
-    "_doc": "l.259-269: 4 s after Bandits_Equipped_Trigger (set by the Starslayer's attack state)",
-    "flag": "Bandits_Equipped_Trigger",
-    "delay": 4.0,
-    "vo": "mc2_01"
-   }
-  ],
-  "sequences": {
-   "_doc": "mc2_01.abl tutorial stages: l.552-600 (start) and l.700-712 (objective 8 = Starslayer lance destroyed). Times in seconds.",
-   "start": [
-    {
-     "wait": 3.0
-    },
-    {
-     "video": "v1a"
-    },
-    {
-     "wait": 2.0
-    },
-    {
-     "video": "v1c"
-    },
-    {
-     "wait": 1.5
-    },
-    {
-     "vo": "tut_1cii",
-     "unless_objective": 0
-    }
-   ],
-   "objective:8": [
-    {
-     "wait": 3.0
-    },
-    {
-     "video": "v1d"
-    }
-   ]
-  },
+  "_doc": "Camera flyby for the mission start, transcribed from mc2_01.abl (its movie-mode camera calls are not driven from ABL yet).",
   "flyby": {
    "_doc": "mc2_01.abl l.193-207 and stages 1-8 (l.497-540): camera positions in world units; yaw is relative to the mission's StartRotation.",
    "start": [
@@ -96,14 +32,6 @@
      "hold": 8.0
     }
    ]
-  }
- },
- "brains": {
-  "PBrain": {
-   "player": true,
-   "engage_m": 100,
-   "disengage_m": 275,
-   "help_m": 200
   }
  }
 }

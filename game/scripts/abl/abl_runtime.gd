@@ -274,7 +274,28 @@ func _const_value(u: Dictionary, name: String) -> Variant:
 
 # --- execution ------------------------------------------------------------------------
 
-func _execute(inst: Instance) -> Variant:
+## Call one of the instance's own functions by name (the engine's alarm handlers, e.g.
+## pbrain's handleTargetOfWeaponFire). Returns null when the script doesn't define it.
+func call_function(inst: Instance, name: String) -> Variant:
+	var r = inst.unit["routines"].get(name.to_lower())
+	if r == null or r["kind"] != "function":
+		return null
+	_reset_module_vals(inst)
+	if not inst.init_called:
+		inst.init_called = true
+		if inst.unit["routines"].has("init"):
+			_call_declared(inst, null, inst.unit, inst.unit["routines"]["init"], [], [])
+	inst.new_state_set = false
+	return _call_declared(inst, null, inst.unit, r, [], [])
+
+
+func has_function(inst: Instance, name: String) -> bool:
+	var r = inst.unit["routines"].get(name.to_lower())
+	return r != null and r["kind"] == "function"
+
+
+## Module-level plain vars: fresh for each execution (or handler call).
+func _reset_module_vals(inst: Instance) -> void:
 	var u := inst.unit
 	inst.module_vals = {}
 	inst.module_types = {}
@@ -284,6 +305,11 @@ func _execute(inst: Instance) -> Variant:
 			var rt := resolve_type(u, v["type"])
 			inst.module_vals[n] = default_value(rt)
 			inst.module_types[n] = rt
+
+
+func _execute(inst: Instance) -> Variant:
+	var u := inst.unit
+	_reset_module_vals(inst)
 	inst.new_state_set = false
 	if not inst.init_called:
 		inst.init_called = true
