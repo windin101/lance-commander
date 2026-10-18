@@ -150,7 +150,7 @@ def main():
 
     # Slice audio: mc2_01's tunes (Missions/sndconst.abi) and voice-overs (mc2_01.abl).
     manifest, missing = audio.convert(data, comps, os.path.join(ASSETS, "audio"),
-                                      tunes=[1, 8, 9, 14, 18, 19, 24, 25],
+                                      tunes=[1, 8, 9, 14, 18, 19, 20, 22, 23, 24, 25],  # 20/22/23: campaign briefing tunes
                                       voice=["tut_1cii", "tut_1e", "tut_1gi", "tut_1h", "tut_1hi", "mc2_01"])
     write("audio.json", manifest)
     report.append(f"audio: {len(manifest['weapons'])} weapon sounds, {len(manifest['sfx'])} sfx, "
