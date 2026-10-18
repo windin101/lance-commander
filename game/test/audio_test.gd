@@ -57,3 +57,16 @@ func test_starslayer_attack_sets_bandits_flag() -> void:
 	for i in 3:
 		sm.step()
 	assert_bool(sm.world.flags.get("bandits_equipped_trigger", false)).is_true()
+
+
+func test_mission_script_voice_and_music_events() -> void:
+	var view: Node3D = load("res://scenes/mission_view.tscn").instantiate()
+	view.play_intro = false
+	add_child(view)
+	await get_tree().process_frame
+	view._audio_event({"type": "abl_wave", "file": "data\\sound\\mc2_01.WAV"})
+	assert_bool(view.audio.voice.playing).is_true()
+	assert_bool(view.sm.abl.voice_busy.call()).is_true()  # the script's isPlayingVoiceOver
+	view._audio_event({"type": "abl_music", "id": 25})
+	assert_int(view.audio.current_tune).is_equal(25)
+	view.queue_free()

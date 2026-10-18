@@ -1,7 +1,8 @@
 extends GdUnitTestSuite
 ## mc2_01 AI on the mission's original ABL (SimAbl): guards intercept, the airfield
 ## objective starts patrols, the Starslayer wakes on its trigger, hangar damage
-## springs the infantry ambush. The player lance keeps the player-command brain.
+## springs the infantry ambush. The player lance runs pbrain: its alarm handlers
+## return fire, and player orders reach it as tactical orders with player origin.
 
 var sm: SimMission
 
@@ -22,10 +23,10 @@ func _run(seconds: float) -> void:
 
 func test_brains_attached() -> void:
 	assert_object(sm.abl).is_not_null()
-	assert_int(sm.abl.pilots.size()).is_equal(26)
+	assert_int(sm.abl.pilots.size()).is_equal(29)
 	assert_array(sm.abl.runtime.errors).is_empty()
 	for u in _by_brain("PBrain"):
-		assert_bool(u.brain is SimAbl.Pilot).is_false()
+		assert_bool(u.brain is SimAbl.Pilot).is_true()
 	assert_float(_by_brain("PBrain")[0].engage_m).is_equal(100.0)
 	# Part IDs from the commander group slots (abl-natives.md 1.3)
 	assert_int(sm.world.units.filter(func(u): return u.part_index == 4)[0].part_id).is_equal(704)
@@ -86,11 +87,39 @@ func test_hangar_damage_springs_infantry_ambush() -> void:
 	assert_str(inf.brain.inst.state).is_equal("ambush")
 
 
+func _shot(from: SimUnit, to: SimUnit) -> void:
+	sm.abl.after_step([{"type": "shot", "from": from.id, "to": to.id}])
+
+
 func test_player_returns_fire_when_idle() -> void:
+	# pbrain handleTargetOfWeaponFire: no player order -> orderAttackObject(attacker)
 	var player: SimUnit = _by_brain("PBrain")[0]
 	var enemy: SimUnit = _by_brain("mc2_01_Pat1_1")[0]
-	player.last_attacker = enemy
-	player.last_attacked_time = 0.05
 	_run(0.2)
+	_shot(enemy, player)
 	assert_int(player.order).is_equal(SimWorld.Order.ATTACK)
 	assert_object(player.order_target).is_same(enemy)
+	assert_array(sm.abl.runtime.errors).is_empty()
+
+
+func test_player_move_order_keeps_moving_and_fires_on_the_move() -> void:
+	# A player order wins over the brain: shot at while moving, pbrain only sets the target.
+	var player: SimUnit = _by_brain("PBrain")[0]
+	var enemy: SimUnit = _by_brain("mc2_01_Pat1_1")[0]
+	_run(0.2)
+	var goal := player.position + Vector2(200, 0)
+	sm.abl.player_order(player, "move", goal)
+	assert_int(player.brain.order["code"]).is_equal(SimAbl.TO_MOVETO_POINT)
+	assert_int(player.brain.order["origin"]).is_equal(0)
+	_shot(enemy, player)
+	assert_int(player.order).is_equal(SimWorld.Order.MOVE)
+	assert_object(player.current_target).is_same(enemy)
+
+
+func test_stop_clears_the_order() -> void:
+	var player: SimUnit = _by_brain("PBrain")[0]
+	_run(0.2)
+	sm.abl.player_order(player, "move", player.position + Vector2(200, 0))
+	sm.abl.player_order(player, "stop")
+	assert_int(player.brain.order["code"]).is_equal(SimAbl.TO_NONE)
+	assert_int(player.order).is_equal(SimWorld.Order.HOLD)

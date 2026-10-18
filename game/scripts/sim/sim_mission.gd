@@ -100,11 +100,6 @@ func _attach_brains(mission: String) -> void:
 		return
 	var cfg: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
 	script_cfg = cfg.get("script", {})  # presentation cues (voice, comms sequences, flyby)
-	var player: Dictionary = cfg.get("brains", {}).get("PBrain", {})
-	for u in world.units:
-		if u.brain == null and u.team == player_team and u.brain_name.to_lower() == "pbrain" and not player.is_empty():
-			u.brain = SimBrain.create(player, u)
-			u.engage_m = float(player.get("engage_m", 0.0))
 
 
 ## Advance the world one tick, evaluate objectives and the mission script;
