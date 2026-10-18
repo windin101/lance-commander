@@ -5,462 +5,792 @@
    "class": 1,
    "name": "LookoutTower",
    "appearance": "lookouttower",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 15,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": 0,
+   "impassable": 1
   },
   "112": {
    "file": "Barricade.fit",
    "class": 11,
    "name": "Barricade.fit",
    "appearance": "sawhorsebarricade",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "135": {
    "file": "palmTree1.fit",
    "class": 0,
    "name": "palmTree1.fit",
    "appearance": "palm1",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "136": {
    "file": "palmTree2.fit",
    "class": 0,
    "name": "palm2.fit",
    "appearance": "palms",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "228": {
    "file": "tent.fit",
    "class": 11,
    "name": "tent",
    "appearance": "tent",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "229": {
    "file": "hqtent.fit",
    "class": 11,
    "name": "hqtent",
    "appearance": "hqtent",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "230": {
    "file": "longtent.fit",
    "class": 11,
    "name": "longtent",
    "appearance": "longtent",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "260": {
    "file": "GeodesicDome.fit",
    "class": 1,
    "name": "GeodesicDome",
    "appearance": "geodesicdome",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 3,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "266": {
    "file": "CamoNetting.fit",
    "class": 11,
    "name": "camonetting",
    "appearance": "camonetting",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "267": {
    "file": "MetalBarricade.fit",
    "class": 11,
    "name": "corrigatedmetalbarricade",
    "appearance": "corrigatedmetalbarricade",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "268": {
    "file": "Crates.fit",
    "class": 11,
    "name": "crateswithtarp",
    "appearance": "crateswithtarp",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "270": {
    "file": "Dumpster.fit",
    "class": 11,
    "name": "dumpster",
    "appearance": "dumpster",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "274": {
    "file": "Checkpoint.fit",
    "class": 11,
    "name": "militarycheckpoint",
    "appearance": "milcheckpoint",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "275": {
    "file": "outhouse.fit",
    "class": 11,
    "name": "outhouse",
    "appearance": "lockers",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "277": {
    "file": "RunwayLight.fit",
    "class": 11,
    "name": "runwaylight",
    "appearance": "runwaylight",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "278": {
    "file": "SandBagBunker.fit",
    "class": 11,
    "name": "sandbagbunker",
    "appearance": "sandbagbunker",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "279": {
    "file": "SandBagWall.fit",
    "class": 11,
    "name": "sandbagwall",
    "appearance": "sandbagwall",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "282": {
    "file": "TripodBarricade.fit",
    "class": 11,
    "name": "tripodbarricade",
    "appearance": "tripodbarricade",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "283": {
    "file": "WoodenCrates.fit",
    "class": 11,
    "name": "woodencrates",
    "appearance": "woodencrates",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "289": {
    "file": "extractionMarker.fit",
    "class": 1,
    "name": "ExtractionMarker",
    "appearance": "extractionmarker",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "290": {
    "file": "navmarker1.fit",
    "class": 1,
    "name": "Nav1",
    "appearance": "nav1",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "305": {
    "file": "Oak1_dead.fit",
    "class": 0,
    "name": "Oak1dead",
    "appearance": "oak1dead",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "307": {
    "file": "Oak3_dead.fit",
    "class": 0,
    "name": "Oak3dead",
    "appearance": "oak3dead",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "314": {
    "file": "Maple1Dead.fit",
    "class": 0,
    "name": "maple1dead",
    "appearance": "maple1dead",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "315": {
    "file": "Maple2Dead.fit",
    "class": 0,
    "name": "maple2dead",
    "appearance": "maple2dead",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "316": {
    "file": "Maple3Dead.fit",
    "class": 0,
    "name": "maple3dead",
    "appearance": "maple3dead",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "335": {
    "file": "quonset.fit",
    "class": 1,
    "name": "Quonset",
    "appearance": "quonset",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 2,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "336": {
    "file": "quonset2.fit",
    "class": 1,
    "name": "Quonset2",
    "appearance": "quonset2",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 2,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "377": {
    "file": "JunkPile.fit",
    "class": 11,
    "name": "yieldsign",
    "appearance": "junkpile",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "378": {
    "file": "Junk1.fit",
    "class": 11,
    "name": "yieldsign",
    "appearance": "junk1",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "379": {
    "file": "Junk2.fit",
    "class": 11,
    "name": "yieldsign",
    "appearance": "junk2",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "381": {
    "file": "Junk4.fit",
    "class": 11,
    "name": "yieldsign",
    "appearance": "junk4",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "382": {
    "file": "Junk5.fit",
    "class": 11,
    "name": "yieldsign",
    "appearance": "junk5",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "383": {
    "file": "Junk6.fit",
    "class": 11,
    "name": "yieldsign",
    "appearance": "junk6",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "384": {
    "file": "LifeboatRusted.fit",
    "class": 11,
    "name": "yieldsign",
    "appearance": "lifeboatrusted",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "385": {
    "file": "LifeboatCrashed.fit",
    "class": 11,
    "name": "yieldsign",
    "appearance": "lifeboatcrashed",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "419": {
    "file": "ArmoredCarProp.fit",
    "class": 1,
    "name": "ArmoredCarProp",
    "appearance": "armoredcarprop",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "421": {
    "file": "DuneBuggyProp.fit",
    "class": 11,
    "name": "DuneBuggyProp",
    "appearance": "dunebuggyprop",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "424": {
    "file": "JeepProp.fit",
    "class": 11,
    "name": "JeepProp",
    "appearance": "jeepprop",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "425": {
    "file": "OrdnanceTruckProp.fit",
    "class": 1,
    "name": "OrdnanceTruckProp",
    "appearance": "ordnancetruckprop",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "426": {
    "file": "TroopTransportProp.fit",
    "class": 1,
    "name": "TroopTransportProp",
    "appearance": "trooptransportprop",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "427": {
    "file": "TruckProp.fit",
    "class": 1,
    "name": "TruckProp",
    "appearance": "truckprop",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "440": {
    "file": "WireFence.fit",
    "class": 11,
    "name": "wireFence",
    "appearance": "wirefence",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "441": {
    "file": "WireFenceDiag.fit",
    "class": 11,
    "name": "wirefenceDiag",
    "appearance": "wirefencediag",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "445": {
    "file": "motorcycleProp.fit",
    "class": 11,
    "name": "Motorcycle",
    "appearance": "motorcycle",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "446": {
    "file": "PrivateJetProp.fit",
    "class": 1,
    "name": "PrivateJet",
    "appearance": "privatejet",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "490": {
    "file": "rockgf2.fit",
    "class": 1,
    "name": "rockdf1",
    "appearance": "rock_gfield2",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 36000000,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "491": {
    "file": "rockgf3.fit",
    "class": 1,
    "name": "rockdf1",
    "appearance": "rock_gfield3",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 36000000,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "495": {
    "file": "rockjc1.fit",
    "class": 1,
    "name": "rockdf1",
    "appearance": "rock_jclump1",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 36000000,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "496": {
    "file": "rockjc2.fit",
    "class": 1,
    "name": "rockdf1",
    "appearance": "rock_jclump2",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 36000000,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "497": {
    "file": "rockjc3.fit",
    "class": 1,
    "name": "rockdf1",
    "appearance": "rock_jclump3",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 36000000,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "531": {
    "file": "TC1_1.fit",
    "class": 0,
    "name": "tc1_1",
    "appearance": "tc1_1",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "532": {
    "file": "TC1_2.fit",
    "class": 0,
    "name": "tc1_2",
    "appearance": "tc1_2",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "533": {
    "file": "TC1_3.fit",
    "class": 0,
    "name": "tc1_3",
    "appearance": "tc1_3",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "534": {
    "file": "TC1_4.fit",
    "class": 0,
    "name": "tc1_4",
    "appearance": "tc1_4",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "544": {
    "file": "GenericMilitary.fit",
    "class": 1,
    "name": "GenericMilitary",
    "appearance": "genericmilitary",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 11,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "546": {
    "file": "Portable.fit",
    "class": 1,
    "name": "Portable",
    "appearance": "portable",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 3,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "549": {
    "file": "MechPieceArm1.fit",
    "class": 11,
    "name": "mechdebrisarm1",
    "appearance": "mechpiece_arm1",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "550": {
    "file": "MechPieceArm2.fit",
    "class": 11,
    "name": "mechdebrisarm2",
    "appearance": "mechpiece_arm2",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "551": {
    "file": "MechPieceLeg1.fit",
    "class": 11,
    "name": "mechdebrisleg1",
    "appearance": "mechpiece_leg1",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "552": {
    "file": "MechPieceLeg2.fit",
    "class": 11,
    "name": "mechdebrisleg2",
    "appearance": "mechpiece_leg2",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "553": {
    "file": "MechPieceLegs.fit",
    "class": 11,
    "name": "mechdebrislegs",
    "appearance": "mechpiece_legs",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "555": {
    "file": "MechPieceTorso2.fit",
    "class": 11,
    "name": "mechdebristorso2",
    "appearance": "mechpiece_torso2",
-   "extent_radius": 0.0
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0
   },
   "559": {
    "file": "Hangar.fit",
    "class": 1,
    "name": "Hangar",
    "appearance": "hangar",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 20,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "609": {
    "file": "shilonep.fit",
    "class": 1,
    "name": "shilonep",
    "appearance": "shilonep",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 3,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   },
   "610": {
    "file": "slayerP.fit",
    "class": 1,
    "name": "slayerp",
    "appearance": "slayerp",
-   "extent_radius": 35.0
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1
   }
  },
  "objects": [

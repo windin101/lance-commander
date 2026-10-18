@@ -1,7 +1,8 @@
 class_name CommandInput
 extends Node
-## RTS commands: left-click / drag-box to select player mechs, right-click on an
-## enemy to attack it or on the ground to move there. H = hold.
+## RTS commands: left-click / drag-box to select player units, right-click on an
+## enemy unit or a destructible building to attack it, or on the ground to move
+## there. H = hold.
 
 signal selection_changed(mechs: Array)
 
@@ -10,7 +11,7 @@ const PICK_PX := 40.0
 var world: SimWorld
 var views: Dictionary = {}  # mech id -> MechView
 var camera: Camera3D
-var selection: Array[SimMech] = []
+var selection: Array[SimUnit] = []
 var player_team := 0
 var _drag_start := Vector2.ZERO
 var _dragging := false
@@ -44,11 +45,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 ## The mech nearest a screen point (within PICK_PX), optionally filtered by team.
-func mech_at(screen: Vector2, team: int = -1) -> SimMech:
-	var best: SimMech = null
+func mech_at(screen: Vector2, team: int = -1) -> SimUnit:
+	var best: SimUnit = null
 	var best_d := PICK_PX
-	for m in world.mechs:
-		if m.is_disabled() or (team >= 0 and m.team != team):
+	for m in world.units:
+		if m.is_disabled() or (team >= 0 and m.team != team) or not views.has(m.id):
 			continue
 		var v: MechView = views[m.id]
 		if camera.is_position_behind(v.aim_point()):
@@ -57,6 +58,23 @@ func mech_at(screen: Vector2, team: int = -1) -> SimMech:
 		if d < best_d:
 			best_d = d
 			best = m
+	return best
+
+
+## A destructible building under a screen point (its footprint centre, raised a little).
+func structure_at(screen: Vector2) -> SimUnit:
+	var best: SimUnit = null
+	var best_d := PICK_PX * 1.5
+	for u in world.units:
+		if not (u is SimStructure) or u.is_destroyed() or u.damage_level >= 100000.0:
+			continue
+		var p := TerrainView.to_3d(u.position, world.map.height_at(u.position) + 4.0)
+		if camera.is_position_behind(p):
+			continue
+		var d := camera.unproject_position(p).distance_to(screen)
+		if d < best_d:
+			best_d = d
+			best = u
 	return best
 
 
@@ -94,9 +112,9 @@ func _select_click(screen: Vector2, add: bool) -> void:
 
 
 func _select_box(rect: Rect2, add: bool) -> void:
-	var s: Array[SimMech] = selection.duplicate() if add else []
-	for m in world.mechs:
-		if m.team != player_team or m.is_disabled():
+	var s: Array[SimUnit] = selection.duplicate() if add else []
+	for m in world.units:
+		if m.team != player_team or m.is_disabled() or not views.has(m.id) or not m.is_mover():
 			continue
 		var v: MechView = views[m.id]
 		if not camera.is_position_behind(v.aim_point()) and rect.has_point(camera.unproject_position(v.aim_point())):
@@ -109,6 +127,8 @@ func _command(screen: Vector2) -> void:
 	if selection.is_empty():
 		return
 	var enemy := mech_at(screen)
+	if enemy == null or enemy.team == player_team:
+		enemy = structure_at(screen)
 	if enemy and enemy.team != player_team:
 		for m in selection:
 			world.order_attack(m, enemy)

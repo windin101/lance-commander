@@ -24,6 +24,12 @@ Phases 0 (scaffold) and 1 (FIT/CSV/strings converters) are done.
   - Views: interpolated animated mechs, beams, tracers, missiles and impacts, and wreck swaps.
   - RTS input: click or box select, right-click to move or attack, H to hold.
   - Mechs turn in place to engage targets outside their torso arc.
+- **Phase 6** is done. mc2_01 is completable:
+  - **Units:** a SimUnit base for SimMech, SimVehicle (gvehicl.cpp rules: 5 sections, no transfer or crits, turret arcs, hover pathing, LRM-carrier death splash) and SimStructure (DmgLevel). All 23 vehicles and infantry spawn.
+  - **Objectives:** SimObjectives runs the FIT objective and flag chain, with win/lose after 5 s.
+  - **AI:** SimBrain is a state machine (guard, patrol, idle or powered down, power-up, ambush, attack, return fire, help calls) configured from data/brains/mc2_01.json. That file is transcribed from the mission's ABL brains, with source pointers.
+  - **Heat:** retuned to dissipation 0.3 with fire discipline.
+  - **Check:** tools/autoplay.gd wins in about 4 minutes on three seeds.
 - **Slice scope (found in Phase 4):** mc2_01 also fields ground vehicles: 4 Centipedes, 4 Harassers, 7 LRM carriers and 8 infantry. Their rules (`gvehicl.cpp`) and models are new work, to fold into Phases 5 and 6.
 
 Goal: a free, non-commercial, modernised remake of MechCommander 2 (2001) with new graphics and updated gameplay. It gets its own name, with no Microsoft or BattleTech branding (see "Licence ground rules").

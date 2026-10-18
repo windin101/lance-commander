@@ -35,7 +35,7 @@ var fix_actuator_check := true
 var heat_enabled := true
 var heat_table: Array = []  # 31 rows from heat.csv
 var heat := {
-	"dissipation_rate": 0.12,  # fraction of capacity shed per second
+	"dissipation_rate": 0.3,  # fraction of capacity shed per second (tuned 2026-10-18, combat-rules.md)
 	"check_frequency": 1.0,
 	"shutdown_level": 25,
 	"restart_level": 15,

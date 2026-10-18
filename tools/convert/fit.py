@@ -46,9 +46,9 @@ def _scalar(type_, raw):
         return raw.strip('"')
     if type_ == "b":
         up = raw.upper()
-        if up in ("TRUE", "1"):
+        if up in ("TRUE", "1", "T", "YES", "Y"):
             return True
-        if up in ("FALSE", "0", ""):
+        if up in ("FALSE", "0", "", "F", "NO", "N"):
             return False
         raise ValueError(f"bad boolean {raw!r}")
     if type_ == "f":

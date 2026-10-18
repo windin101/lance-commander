@@ -205,7 +205,7 @@ Lance Commander turns heat on, built from the original's own data:
   - running 0.3
   - jumping 0.75
 - **H5. Dissipation:** `dissipation_rate` × capacity per second.
-  - The rate is a tunable, default 0.12, so a full bar clears in about 8 s.
+  - The rate is a tunable, default 0.3 (tuned in Phase 6), so a full bar clears in about 3.3 s.
   - Each working HeatSink component adds its `dissipation` per second.
   - The total is multiplied by gamesys `HeatSinkEfficiency`.
 - **H6. Heat check** every `HeatCheckFrequency` (gamesys 1.0 s), while the
@@ -238,10 +238,28 @@ gunnery and piloting 60, both mechs stationary, every ready weapon fired each
 | Hunchback v Raven, 50 m | off | 189 / 11 | 27 s | 0 / 0 |
 | Vulture v Cougar, 90 m | on | 69 / 122 (9 draws) | 97 s | 80% / 83% |
 
-`dissipation_rate` (0.12) will be tuned in the AI phase. Mechs will then fire
-with heat discipline, holding weapons that would push them past
-`restart_level`, as MechCommander's tactics layer decides when to fire.
-Rerun the duels after that change.
+### Phase 6 retune, with fire discipline
+
+Units now hold any weapon that would push them past heat level 20
+(`SimWorld.fire_discipline_level`). The duels were rerun with
+`game/tools/heat_tune.gd`, which uses the real SimWorld loop at 40 m: 90 runs
+each (Hunchback v Raven 50), gunnery 60.
+
+| Duel | Heat off | rate 0.12 | rate 0.2 | **rate 0.3** |
+|---|---|---|---|---|
+| Atlas v Mad Cat | 90/0, 35 s | 1/89, 99 s | 90/0, 46 s | **90/0, 43 s** |
+| Bushwacker v Starslayer | 8/82, 38 s | 84/6, 65 s | 2/88, 40 s | **3/87, 39 s** |
+| Vulture v Cougar | 90/0, 27 s | 84/6, 163 s | 90/0, 97 s | **90/0, 30 s** |
+| Hunchback v Raven | 49/1, 26 s | 50/0, 30 s | 50/0, 30 s | **50/0, 28 s** |
+
+**Chosen: 0.3.**
+- Fights are within about 10% of heat-off, and the outcomes follow the same rankings.
+- Hot loadouts still run at levels 16–19 and hold back weapons, so heat shapes the damage output.
+- Disciplined units essentially never shut down (≤ 0.3% of ticks).
+- At 0.12, heat flipped matchups and slowed some fights six-fold.
+
+A player alpha-strike override, which ignores discipline, is the intended way to
+trade overheating risk for burst damage (Phase 7 HUD).
 
 ## Deliberate changes
 

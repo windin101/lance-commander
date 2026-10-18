@@ -7,7 +7,7 @@ func _mission(seed_value: int = 1) -> SimMission:
 
 func _team(w: SimWorld, team: int) -> Array[SimMech]:
 	var out: Array[SimMech] = []
-	for m in w.mechs:
+	for m in w.units:
 		if m.team == team:
 			out.append(m)
 	return out
@@ -15,21 +15,44 @@ func _team(w: SimWorld, team: int) -> Array[SimMech]:
 
 func test_spawns_mechs_and_lists_skipped_parts() -> void:
 	var sm := _mission()
-	assert_int(sm.world.mechs.size()).is_equal(6)
+	assert_int(sm.world.units.filter(func(u): return u is SimMech).size()).is_equal(6)
 	assert_int(_team(sm.world, 0).size()).is_equal(3)
-	assert_int(sm.skipped.size()).is_equal(23)  # 4 Centipede, 4 Harasser, 7 LRMC, 8 infantry
-	var ww := sm.world.mechs[0]
+	assert_int(sm.skipped.size()).is_equal(0)
+	var vehicles := sm.world.units.filter(func(u): return u is SimVehicle)
+	assert_int(vehicles.size()).is_equal(23)  # 4 Centipede, 4 Harasser, 7 LRMC, 8 infantry
+	assert_int(vehicles.filter(func(u): return u.hover).size()).is_equal(8)
+	var ww := sm.world.units[0]
 	assert_str(ww.name).is_equal("Werewolf")
 	assert_bool(ww.is_player).is_true()
 	assert_float(ww.position.x).is_equal_approx(499.2, 0.01)
 	assert_float(ww.walk_speed).is_greater(0.0)
-	for m in sm.world.mechs:
-		assert_bool(sm.world.map.is_walkable(sm.world.map.cell_of(m.position))).is_true()
+	for m in sm.world.units:
+		if m is SimMech:
+			assert_bool(sm.world.map.is_walkable(sm.world.map.cell_of(m.position))).is_true()
+
+
+func test_hangar_is_a_destructible_structure() -> void:
+	var sm := _mission()
+	var hangar := sm.structure_near(Vector2(3221.333, -277.333))
+	assert_object(hangar).is_not_null()
+	assert_str(hangar.name).is_equal("Hangar")
+	assert_float(hangar.damage_level).is_equal(20.0)
+	var w := sm.world
+	var shot := {"hit": true, "damage": 12.0, "location": 0, "master_id": 143}
+	SimCombat.apply_shot(w.rules, w.rng, hangar, shot, 0.0)
+	assert_bool(hangar.is_destroyed()).is_false()
+	SimCombat.apply_shot(w.rules, w.rng, hangar, shot, 0.0)
+	assert_bool(hangar.is_destroyed()).is_true()
+	# non-movers are always hit when in range
+	var bw := w.units[1]
+	hangar.status = SimUnit.Status.NORMAL
+	bw.position = hangar.position + Vector2(0, -60)
+	assert_float(SimCombat.attack_chance(w.rules, bw, bw.weapon_indices()[0], hangar)).is_equal(100.0)
 
 
 func test_move_order_arrives() -> void:
 	var w := _mission().world
-	var m := w.mechs[0]
+	var m := w.units[0]
 	var goal := w.map.nearest_walkable(m.position + Vector2(-150, 120))
 	assert_bool(w.order_move(m, goal)).is_true()
 	var t := 0.0
@@ -42,7 +65,7 @@ func test_move_order_arrives() -> void:
 
 func test_running_speed_and_heat_from_movement() -> void:
 	var w := _mission().world
-	var m := w.mechs[1]  # Bushwacker, run 23 m/s
+	var m := w.units[1]  # Bushwacker, run 23 m/s
 	w.order_move(m, w.map.nearest_walkable(m.position + Vector2(-300, 0)))
 	for i in 30:
 		w.step()
@@ -52,13 +75,17 @@ func test_running_speed_and_heat_from_movement() -> void:
 
 func test_attack_order_closes_and_damages() -> void:
 	var w := _mission(7).world
-	var attacker := w.mechs[1]
+	var attacker := w.units[1]
 	var target: SimMech = null
-	for m in w.mechs:
+	for m in w.units:
 		if m.name == "Urbanmech":
 			target = m
 			break
 	assert_object(target).is_not_null()
+	# Stage the duel nearby: the long route passes the guarded patrol base,
+	# whose AI would (correctly) intercept a lone mech.
+	target.position = w.map.nearest_walkable(attacker.position + Vector2(-60, 140))
+	target.prev_position = target.position
 	var armor_before := 0.0
 	for a in target.armor:
 		armor_before += a
@@ -83,20 +110,20 @@ func test_same_seed_same_battle() -> void:
 	var a := _mission(3).world
 	var b := _mission(3).world
 	for w in [a, b]:
-		w.order_attack(w.mechs[1], w.mechs[5])
-		w.order_attack(w.mechs[2], w.mechs[5])
+		w.order_attack(w.units[1], w.units[5])
+		w.order_attack(w.units[2], w.units[5])
 		for i in 600:
 			w.step()
-	for i in a.mechs.size():
-		assert_object(a.mechs[i].position).is_equal(b.mechs[i].position)
-		assert_object(a.mechs[i].armor).is_equal(b.mechs[i].armor)
+	for i in a.units.size():
+		assert_object(a.units[i].position).is_equal(b.units[i].position)
+		assert_object(a.units[i].armor).is_equal(b.units[i].armor)
 
 
 func test_turns_to_engage_target_behind() -> void:
 	var w := _mission(5).world
-	var a := w.mechs[1]
+	var a := w.units[1]
 	var t: SimMech = null
-	for m in w.mechs:
+	for m in w.units:
 		if m.name == "Starslayer":
 			t = m
 	t.position = w.map.nearest_walkable(a.position + Vector2(0, -90))

@@ -37,12 +37,19 @@ def type_table(objects_dir, types):
         fname = files.get(lines[t].lower()) if 0 < t < len(lines) else None
         f = fit.parse_file(os.path.join(objects_dir, fname)) if fname else {}
         ot = f.get("ObjectType", {})
+        bd = f.get("BuildingData", {})
         table[t] = {
             "file": lines[t] if t < len(lines) else "",
             "class": f.get("ObjectClass", {}).get("ObjectTypeNum", -1),
             "name": ot.get("Name", ""),
             "appearance": str(ot.get("AppearanceName", "")).lower(),
             "extent_radius": ot.get("ExtentRadius", 0.0),
+            # Buildings (class 1): bldng.cpp:189 reads DmgLevel; destroyed when damage reaches it.
+            "damage_level": bd.get("DmgLevel", 0),
+            "explosion_damage": bd.get("ExplosionDamage", 0.0),
+            "explosion_radius": bd.get("ExplosionRadius", 0.0),
+            "building_team": bd.get("TeamID", -1),
+            "impassable": bd.get("SetImpassable", 0),
         }
     return table
 
@@ -62,4 +69,8 @@ def convert(pak_path, data_dir, out_assets):
         if not os.path.exists(out):
             mech_model.build(tgl, app, out, gestures=[])
         built.append(app)
+        dam_out = os.path.join(out_assets, app + "_dam.glb")
+        building = any(v["appearance"] == app and v["class"] == 1 for v in table.values())
+        if building and not os.path.exists(dam_out) and mech_model._find(tgl, app + "Dam.ase", required=False):
+            mech_model.build(tgl, app + "Dam", dam_out, gestures=[])
     return {"types": {str(k): v for k, v in table.items()}, "objects": objs}, {"objects": len(objs), "appearances": len(built), "missing": missing}

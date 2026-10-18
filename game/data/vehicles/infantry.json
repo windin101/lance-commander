@@ -1,0 +1,38 @@
+{
+ "name": "infantry",
+ "appearance": "infantry",
+ "chassis": 0,
+ "hover": false,
+ "path_locks": false,
+ "tonnage": 1.0,
+ "battle_rating": 25,
+ "explosion_damage": 0.0,
+ "explosion_radius": 0.0,
+ "max_velocity": 5.0,
+ "max_turret_yaw": 360.0,
+ "max_turret_yaw_rate": 150.0,
+ "armor": {
+  "front": 1.0,
+  "left": 1.0,
+  "right": 1.0,
+  "rear": 1.0,
+  "turret": 1.0
+ },
+ "internal": {
+  "front": 1.0,
+  "left": 1.0,
+  "right": 1.0,
+  "rear": 1.0,
+  "turret": 1.0
+ },
+ "items": [
+  1,
+  6,
+  35,
+  36,
+  114
+ ],
+ "num_other": 4,
+ "num_weapons": 1,
+ "num_ammo": 0
+}

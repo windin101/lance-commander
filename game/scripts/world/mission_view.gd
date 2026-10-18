@@ -10,11 +10,14 @@ extends Node3D
 var sm: SimMission
 var world: SimWorld
 var terrain: TerrainView
+var objects_view: ObjectsView
 var effects: EffectsView
 var input: CommandInput
 var camera: RtsCamera
 var views: Dictionary = {}  # mech id -> MechView
 var hud: Label
+var objectives_label: Label
+var banner: Label
 var _acc := 0.0
 var _args := {}
 
@@ -32,13 +35,15 @@ func _ready() -> void:
 	terrain.name = "Terrain"
 	add_child(terrain)
 	terrain.build(world.map, "res://assets/maps/%s" % mission)
-	var objects := ObjectsView.new()
-	objects.name = "Objects"
-	add_child(objects)
-	objects.build(world.map, mission)
+	objects_view = ObjectsView.new()
+	objects_view.name = "Objects"
+	add_child(objects_view)
+	objects_view.build(world.map, mission)
 	_lighting(cam_block)
 
-	for m in world.mechs:
+	for m in world.units:
+		if not m.is_mover():
+			continue
 		var v := MechView.new()
 		add_child(v)
 		v.setup(m, world.map)
@@ -72,7 +77,7 @@ func _ready() -> void:
 		_demo_orders()
 	var ff := float(_args.get("sim-seconds", "0"))
 	while ff > 0.0:
-		world.step()
+		sm.step()
 		_consume_events(false)
 		ff -= SimWorld.TICK
 	if _args.get("focus", "") == "battle":
@@ -84,7 +89,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_acc += delta
 	while _acc >= SimWorld.TICK:
-		world.step()
+		sm.step()
 		_acc -= SimWorld.TICK
 	var alpha := _acc / SimWorld.TICK
 	for v in views.values():
@@ -99,19 +104,26 @@ func _consume_events(show: bool) -> void:
 			continue
 		match e["type"]:
 			"shot":
+				if not (views.has(e["from"]) and views.has(e["to"])):
+					continue
 				var from: MechView = views[e["from"]]
 				var to: MechView = views[e["to"]]
 				effects.spawn_shot(from.muzzle(), to.aim_point(), e["form"], e["hit"], e["flight"])
 			"impact":
-				if e.get("damage", 0.0) >= 5.0:
-					effects.spawn_impact(views[e["mech"]].aim_point(), 0.7)
+				if e.get("damage", 0.0) >= 5.0 and views.has(e["unit"]):
+					effects.spawn_impact(views[e["unit"]].aim_point(), 0.7)
 			"disabled":
-				effects.spawn_impact(views[e["mech"]].aim_point(), 3.0)
+				var u: SimUnit = world.units[e["unit"]]
+				if u is SimStructure:
+					objects_view.destroy(u.object_index)
+					effects.spawn_impact(TerrainView.to_3d(u.position, world.map.height_at(u.position) + 6.0), 4.0)
+				elif views.has(e["unit"]):
+					effects.spawn_impact(views[e["unit"]].aim_point(), 3.0)
 	world.events.clear()
 
 
 func _demo_orders() -> void:
-	for m in world.mechs:
+	for m in world.units:
 		if m.team != sm.player_team:
 			continue
 		var best: SimMech = null
@@ -125,12 +137,12 @@ func _demo_orders() -> void:
 func _arena() -> void:
 	var c := Vector2.ZERO
 	var n := 0
-	for m in world.mechs:
+	for m in world.units:
 		if m.team == sm.player_team:
 			c += m.position
 			n += 1
 	c /= maxf(n, 1)
-	for m in world.mechs:
+	for m in world.units:
 		if m.name == "Starslayer":
 			m.position = world.map.nearest_walkable(c + Vector2(0, 110))
 			m.prev_position = m.position
@@ -141,7 +153,7 @@ func _arena() -> void:
 func _focus_player() -> void:
 	var c := Vector2.ZERO
 	var n := 0
-	for m in world.mechs:
+	for m in world.units:
 		if m.team == sm.player_team:
 			c += m.position
 			n += 1
@@ -151,7 +163,7 @@ func _focus_player() -> void:
 
 
 func _focus_battle() -> void:
-	for m in world.mechs:
+	for m in world.units:
 		if m.team == sm.player_team and m.current_target:
 			var mid := (m.position + m.current_target.position) / 2.0
 			camera.focus = Vector3(mid.x, 0, -mid.y)
@@ -197,6 +209,24 @@ func _build_hud() -> void:
 	hud.add_theme_color_override("font_outline_color", Color.BLACK)
 	hud.add_theme_constant_override("outline_size", 4)
 	layer.add_child(hud)
+	objectives_label = Label.new()
+	objectives_label.anchor_left = 1.0
+	objectives_label.anchor_right = 1.0
+	objectives_label.offset_left = -520
+	objectives_label.offset_right = -16
+	objectives_label.offset_top = 12
+	objectives_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	objectives_label.add_theme_font_size_override("font_size", 17)
+	objectives_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	objectives_label.add_theme_constant_override("outline_size", 4)
+	layer.add_child(objectives_label)
+	banner = Label.new()
+	banner.set_anchors_preset(Control.PRESET_CENTER)
+	banner.add_theme_font_size_override("font_size", 64)
+	banner.add_theme_color_override("font_outline_color", Color.BLACK)
+	banner.add_theme_constant_override("outline_size", 10)
+	banner.visible = false
+	layer.add_child(banner)
 	var box := ColorRect.new()
 	box.color = Color(0.3, 1.0, 0.4, 0.15)
 	box.visible = false
@@ -207,7 +237,7 @@ func _build_hud() -> void:
 
 func _update_hud() -> void:
 	var lines: Array[String] = ["%s  —  t %.0f s   (left-click/drag select, right-click move/attack, H hold)" % [mission, world.time]]
-	var shown: Array = input.selection if not input.selection.is_empty() else world.mechs.filter(func(m): return m.team == sm.player_team)
+	var shown: Array = input.selection if not input.selection.is_empty() else world.units.filter(func(m): return m.team == sm.player_team and m.is_mover())
 	for m in shown:
 		var armor := 0.0
 		var max_armor := 0.0
@@ -215,8 +245,21 @@ func _update_hud() -> void:
 			armor += m.armor[i]
 			max_armor += m.max_armor[i]
 		var status: String = ["OK", "SHUTDOWN", "DISABLED", "DESTROYED"][m.status]
-		if m.fallen and not m.is_disabled():
+		if m is SimMech and m.fallen and not m.is_disabled():
 			status = "FALLEN"
 		lines.append("%-10s %-9s armour %3d%%  heat %2d/30  %s" % [m.name, status, int(100.0 * armor / maxf(max_armor, 1.0)),
 			m.heat_level(), ("-> " + m.current_target.name) if m.current_target and not m.current_target.is_disabled() else ""])
 	hud.text = "\n".join(lines)
+	var obj_lines: Array[String] = ["OBJECTIVES"]
+	for obj in sm.objectives.visible_objectives():
+		var title: String = GameData.string(obj["title_string"]) if obj["title_string"] > 0 else obj["title"]
+		if title.is_empty():
+			title = obj["title"]
+		obj_lines.append(("[x] " if obj["complete"] else "[ ] ") + title)
+	objectives_label.text = "\n".join(obj_lines)
+	var res := sm.objectives.result
+	if res != SimObjectives.Result.PLAYING and not banner.visible:
+		banner.visible = true
+		banner.text = "MISSION SUCCESSFUL" if res == SimObjectives.Result.WON else "MISSION FAILED"
+		banner.add_theme_color_override("font_color", Color(0.5, 1.0, 0.5) if res == SimObjectives.Result.WON else Color(1.0, 0.4, 0.3))
+		banner.position = get_viewport().get_visible_rect().size / 2.0 - banner.get_minimum_size() / 2.0

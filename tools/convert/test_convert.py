@@ -31,6 +31,7 @@ class FitTests(unittest.TestCase):
         self.assertEqual(b["Range"], 45.0)
         self.assertEqual(b["Name"], "a // not a comment")
         self.assertIs(b["Ready"], True)
+        self.assertIs(fit.parse_text("[A]\nb HoverCraft = t\n")["A"]["HoverCraft"], True)
         self.assertEqual(b["Neg"], -1358954496)
         self.assertEqual(b["Small"], 7)
 

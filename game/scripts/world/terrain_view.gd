@@ -97,8 +97,8 @@ func _water(texture_dir: String) -> MeshInstance3D:
 	mat.albedo_texture = load(texture_dir.path_join("water.tga"))
 	mat.vertex_color_use_as_albedo = true
 	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.metallic_specular = 0.8
-	mat.roughness = 0.15
+	mat.metallic_specular = 0.35
+	mat.roughness = 0.45
 	water.material_override = mat
 	water.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	return water

@@ -11,7 +11,7 @@ const NO_SHOT := -1.0
 
 
 ## Chance to hit (5-95), 100 for a disabled target, or NO_SHOT when out of range.
-static func attack_chance(rules: SimRules, attacker: SimMech, inv: int, target: SimMech, aim_location: int = -1) -> float:
+static func attack_chance(rules: SimRules, attacker: SimUnit, inv: int, target: SimUnit, aim_location: int = -1) -> float:
 	var weapon := attacker.weapon(inv)
 	var chance := attacker.pilot.gunnery
 	var skills := rules.player_skills if (attacker.is_player or not rules.fix_enemy_difficulty) else rules.enemy_skills
@@ -25,11 +25,13 @@ static func attack_chance(rules: SimRules, attacker: SimMech, inv: int, target: 
 	if distance > float(span[1]) + SimRules.MAP_CELL_DIAGONAL:
 		return NO_SHOT
 
-	if target.is_disabled():
-		return 100.0
+	if target.is_disabled() or not target.is_mover():
+		return 100.0  # mover.cpp:6255: non-movers and disabled targets are always hit
 
-	var tp := target.pilot
-	if target.tonnage < 40 and tp.has("LightMechSpecialist"):
+	var tp: SimPilot = target.pilot if target.pilot else SimPilot.new()
+	if not (target is SimMech):
+		pass  # chassis specialties only matter against mechs
+	elif target.tonnage < 40 and tp.has("LightMechSpecialist"):
 		chance -= 30.0
 	elif target.tonnage >= 40 and target.tonnage < 60 and tp.has("MediumMechSpecialist"):
 		chance -= 20.0
@@ -52,7 +54,7 @@ static func attack_chance(rules: SimRules, attacker: SimMech, inv: int, target: 
 	if distance >= 61.0 * unit and distance <= 180.0 * unit and p.has("LongRangeSpecialist"):
 		chance += 15.0
 
-	if aim_location > -1:
+	if aim_location > -1 and target is SimMech:
 		match aim_location:
 			B.HEAD: chance *= rules.head_shot_modifier
 			B.LARM, B.RARM: chance *= rules.arm_shot_modifier
@@ -60,17 +62,18 @@ static func attack_chance(rules: SimRules, attacker: SimMech, inv: int, target: 
 		if p.has("SharpShooter"):
 			chance += 20.0
 
-	chance -= float(rules.heat_row(attacker.heat_level())["fire_mod"])
+	if attacker.uses_heat:
+		chance -= float(rules.heat_row(attacker.heat_level())["fire_mod"])
 	return clampf(chance, 5.0, 95.0)
 
 
 ## Fire one weapon. Returns a shot: {fired, reason, chance, roll, hit,
 ## location, damage, master_id}. Damage is applied later with apply_shot()
 ## (the original applies it when the projectile lands).
-static func fire_weapon(rules: SimRules, rng: SimRng, attacker: SimMech, inv: int, target: SimMech, now: float, aim_location: int = -1) -> Dictionary:
+static func fire_weapon(rules: SimRules, rng: SimRng, attacker: SimUnit, inv: int, target: SimUnit, now: float, aim_location: int = -1) -> Dictionary:
 	var shot := {"fired": false, "reason": "", "chance": 0.0, "roll": -1, "hit": false,
 		"location": -1, "damage": 0.0, "master_id": int(attacker.items[inv]["master_id"])}
-	if attacker.status != SimMech.Status.NORMAL:
+	if attacker.status != SimUnit.Status.NORMAL:
 		shot["reason"] = "not_operational"
 		return shot
 	if not attacker.is_weapon(inv) or not attacker.is_weapon_ready(inv, now):
@@ -90,7 +93,7 @@ static func fire_weapon(rules: SimRules, rng: SimRng, attacker: SimMech, inv: in
 	var roll := rng.roll(100)
 	shot["roll"] = roll
 	attacker.items[inv]["ready_time"] = now + float(weapon["recycle"])
-	if rules.heat_enabled:
+	if rules.heat_enabled and attacker.uses_heat:
 		attacker.heat += float(weapon["heat"])
 
 	var hit := roll < int(chance)
@@ -99,14 +102,23 @@ static func fire_weapon(rules: SimRules, rng: SimRng, attacker: SimMech, inv: in
 	if hit:
 		shot["hit"] = true
 		shot["damage"] = float(weapon["damage"])
-		shot["location"] = aim_location if aim_location > -1 else hit_location(rules, rng, target, attacker.position)
+		if aim_location > -1:
+			shot["location"] = aim_location
+		elif target is SimMech:
+			shot["location"] = hit_location(rules, rng, target, attacker.position)
+		else:
+			shot["location"] = target.roll_hit_location(rules, rng, attacker.position)
 	return shot
 
 
 ## Apply a shot's damage to its target (no-op for misses).
-static func apply_shot(rules: SimRules, rng: SimRng, target: SimMech, shot: Dictionary, now: float) -> void:
-	if shot.get("hit", false):
+static func apply_shot(rules: SimRules, rng: SimRng, target: SimUnit, shot: Dictionary, now: float) -> void:
+	if not shot.get("hit", false):
+		return
+	if target is SimMech:
 		handle_weapon_hit(rules, rng, target, float(shot["damage"]), int(shot["location"]), int(shot["master_id"]), now)
+	else:
+		target.take_hit(rules, rng, float(shot["damage"]), int(shot["location"]), int(shot["master_id"]), now)
 
 
 ## Armour location hit, from the attacker's bearing (calcHitLocation).

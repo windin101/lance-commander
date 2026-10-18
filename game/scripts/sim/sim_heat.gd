@@ -26,7 +26,7 @@ static func update(rules: SimRules, rng: SimRng, m: SimMech, dt: float, now: flo
 	var level := m.heat_level()
 	var row := rules.heat_row(level)
 	if m.status == SimMech.Status.SHUTDOWN:
-		if level <= int(h["restart_level"]):
+		if level <= int(h["restart_level"]) and not m.powered_down:
 			m.status = SimMech.Status.NORMAL
 		return
 	if level >= int(h["shutdown_level"]) or rng.roll(100) < float(row["shutdown_pct"]):

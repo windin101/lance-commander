@@ -22,6 +22,7 @@ import map_objects  # noqa: E402
 import mech_model  # noqa: E402
 import strings_rc  # noqa: E402
 import terrain  # noqa: E402
+import vehicles  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT = os.path.join(ROOT, "game", "data")
@@ -76,11 +77,13 @@ def main():
     report.append(f"components: {len(comps)}")
 
     n = 0
+    chassis_names = []
     for name in sorted(os.listdir(objects)):
         path = os.path.join(objects, name)
         if name.lower().endswith(".csv") and chassis.is_chassis_csv(path):
             ch = chassis.load(path, by_id)
             write(f"chassis/{os.path.splitext(name)[0].lower()}.json", ch)
+            chassis_names.append(os.path.splitext(name)[0].lower())
             n += 1
     report.append(f"chassis: {n}")
 
@@ -95,6 +98,10 @@ def main():
         write(f"maps/{m}/terrain.json", meta)
         with open(os.path.join(OUT, "maps", m, "cells.bin"), "wb") as fh:
             fh.write(cells)
+        vmap = vehicles.convert_for_mission(mission_fit, data, os.path.join(OUT, "vehicles"),
+                                            os.path.join(ASSETS, "vehicles"), set(chassis_names))
+        write(f"missions/{m}_vehicles.json", vmap)
+        report.append(f"{m} vehicles: {sorted(vmap)}")
         objs, orep = map_objects.convert(os.path.join(missions, m + ".pak"), data, os.path.join(ASSETS, "objects"))
         write(f"maps/{m}/objects.json", objs)
         report.append(f"{m} objects: {orep['objects']} placed, {orep['appearances']} models, missing {orep['missing']}")

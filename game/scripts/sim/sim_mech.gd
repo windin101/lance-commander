@@ -1,14 +1,11 @@
 class_name SimMech
-extends RefCounted
+extends SimUnit
 ## State of one BattleMech in the simulation, built the way BattleMech::init
 ## (mech.cpp:1373) builds it from the chassis CSV variant.
 
 enum Body { HEAD, CTORSO, LTORSO, RTORSO, LARM, RARM, LLEG, RLEG }
 enum Armor { HEAD, CTORSO, LTORSO, RTORSO, LARM, RARM, LLEG, RLEG, RCTORSO, RLTORSO, RRTORSO }
 enum DamageState { NONE, PARTIAL, DESTROYED }
-enum Status { NORMAL, SHUTDOWN, DISABLED, DESTROYED }
-# Body states index gamesys BodyStateHeat (mech.cpp NUM_MECH_STATES order).
-enum BodyState { PARKED, STANDING, WALKING, RUNNING, REVERSE, LIMPING, JUMPING, FALLEN_FORWARD, FALLEN_BACKWARD }
 
 const BODY_KEYS := ["head", "ctorso", "ltorso", "rtorso", "larm", "rarm", "lleg", "rleg"]
 const ARMOR_KEYS := BODY_KEYS + ["rctorso", "rltorso", "rrtorso"]
@@ -16,35 +13,13 @@ const ARMOR_TO_BODY := [0, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3]
 const ARMOR_POINTS_PER_PLATE := 32.0
 # Share of each armour plate per armour location (mech.cpp:285-295).
 const PLATE_SHARE := [0.0, 0.17, 0.125, 0.125, 0.12, 0.12, 0.13, 0.13, 0.03, 0.02, 0.02]
-const OTHER_FORMS := ["JumpJet", "Cockpit", "Sensors", "LifeSupport", "Gyroscope", "PowerAmplifier",
-	"ECM", "Probe", "Jammer", "Case", "Actuator", "Engine", "HeatSink"]
-const WEAPON_FORMS := ["Weapon", "EnergyWeapon", "BallisticWeapon", "MissileWeapon"]
 
-var id := -1
-var name := ""
 var variant_name := ""
-var model := ""  # appearance name, e.g. "bushwacker"
-var paint: Array = []  # mission ARGB ints: highlight1, highlight2, base
-var tonnage := 0.0
-var team := 0
-var is_player := false
-var pilot: SimPilot
 
-var position := Vector2.ZERO  # metres; x east, y north
-var facing := 0.0  # degrees, 0 = north, clockwise positive
-var body_state: int = BodyState.STANDING
-
-var armor: Array[float] = []  # current, per armour location
-var max_armor: Array[float] = []
 var internal: Array[float] = []  # current, per body location
 var max_internal: Array[float] = []
 var damage_state: Array[int] = []
 
-## Inventory items: {component, form, health, disabled, amount, ready_time, body_location}
-var items: Array[Dictionary] = []
-var num_other := 0
-var num_weapons := 0
-var num_ammo := 0
 ## Crit spaces per body location: inventory index, or -1 for a free space.
 var crit_spaces: Array = []
 var crit_hit: Array = []  # parallel to crit_spaces: slot already hit
@@ -56,33 +31,12 @@ var gyro := -1
 var life_support := -1
 var hip_actuators: Array[int] = []
 
-var status: int = Status.NORMAL
 var fallen := false
 var failed_piloting_check := false
 var damage_after_disabled := 0.0
 var ct_first_injured_time := -1.0
 var engine_blow_time := -1.0
-
-var heat := 0.0
-var heat_capacity := 30.0
-var heat_check_time := 0.0
-
-# Movement and orders (SimWorld).
-var run_speed := 20.0  # m/s, chassis MaxRunSpeed
-var walk_speed := 10.0  # m/s, walk gesture end velocity
-var max_torso_yaw := 120.0
-var speed := 0.0
-var prev_position := Vector2.ZERO
-var prev_facing := 0.0
-var order: int = 0
-var order_target: SimMech = null
-var current_target: SimMech = null
-var path := PackedVector2Array()
-var path_index := 0
-var repath_time := 0.0
 var fall_time := -1.0
-var reported_disabled := false
-
 
 static func from_chassis(chassis: Dictionary, variant_index: int, rules: SimRules, mech_pilot: SimPilot) -> SimMech:
 	var m := SimMech.new()
@@ -174,75 +128,5 @@ func _update_damage_state(loc: int) -> void:
 		damage_state[loc] = DamageState.NONE
 
 
-func is_disabled() -> bool:
-	return status == Status.DISABLED or status == Status.DESTROYED
-
-
-func is_destroyed() -> bool:
-	return status == Status.DESTROYED
-
-
-func is_weapon(inv: int) -> bool:
-	return inv >= num_other and inv < num_other + num_weapons
-
-
-func weapon_indices() -> Array[int]:
-	var out: Array[int] = []
-	for i in range(num_other, num_other + num_weapons):
-		out.append(i)
-	return out
-
-
-func weapon(inv: int) -> Dictionary:
-	return items[inv]["component"].get("weapon", {})
-
-
-func uses_ammo(inv: int) -> bool:
-	return weapon(inv).get("ammo_type", "none") != "none"
-
-
-## Rounds left for a weapon's ammo type, or -1 for unlimited (getWeaponShots).
-func weapon_shots(inv: int) -> int:
-	if not uses_ammo(inv):
-		return -1
-	var ammo_id := int(weapon(inv)["ammo_id"])
-	var total := 0
-	for i in range(num_other + num_weapons, items.size()):
-		if items[i]["master_id"] == ammo_id:
-			total += int(items[i]["amount"])
-	return total
-
-
-## Spend rounds from the first bins with ammo (Mover::reduceAmmo).
-func reduce_ammo(ammo_id: int, amount: int) -> void:
-	for i in range(num_other + num_weapons, items.size()):
-		if items[i]["master_id"] != ammo_id:
-			continue
-		if items[i]["amount"] > amount:
-			items[i]["amount"] -= amount
-			return
-		amount -= items[i]["amount"]
-		items[i]["amount"] = 0
-
-
-func is_weapon_ready(inv: int, now: float) -> bool:
-	return not items[inv]["disabled"] and items[inv]["ready_time"] <= now
-
-
-## Signed angle from this mech's facing to a point: negative = counter-clockwise
-## (left), as GameObject::relFacingTo (gameobj.cpp:1605).
-func rel_facing_to(point: Vector2) -> float:
-	var f := Vector2(sin(deg_to_rad(facing)), cos(deg_to_rad(facing)))
-	var g := point - position
-	if g.length_squared() == 0.0:
-		return 0.0
-	var angle := rad_to_deg(f.angle_to(g))  # positive = counter-clockwise in x-east/y-north
-	return -angle
-
-
-func distance_to(other_position: Vector2) -> float:
-	return position.distance_to(other_position)
-
-
-func heat_level() -> int:
-	return clampi(int(floor(30.0 * heat / heat_capacity)), 0, 30)
+func kind() -> String:
+	return "mech"

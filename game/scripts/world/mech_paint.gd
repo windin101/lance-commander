@@ -48,8 +48,8 @@ static func recolor(mask: Image, red: Color, green: Color, blue: Color) -> Image
 	return Image.create_from_data(img.get_width(), img.get_height(), img.has_mipmaps(), Image.FORMAT_RGBA8, data)
 
 
-static func load_mask(model_name: String) -> Image:
-	var bytes := FileAccess.get_file_as_bytes("res://assets/mechs/%s_paint.bin" % model_name)
+static func load_mask(model_name: String, folder: String = "mechs") -> Image:
+	var bytes := FileAccess.get_file_as_bytes("res://assets/%s/%s_paint.bin" % [folder, model_name])
 	var img := Image.new()
 	if bytes.is_empty() or img.load_png_from_buffer(bytes) != OK:
 		return null
@@ -57,11 +57,11 @@ static func load_mask(model_name: String) -> Image:
 
 
 ## Recolour every mesh under root with one material using the painted texture.
-static func apply(root: Node, model_name: String, red: Color, green: Color, blue: Color) -> void:
-	var key := "%s|%s|%s|%s" % [model_name, red.to_html(), green.to_html(), blue.to_html()]
+static func apply(root: Node, model_name: String, red: Color, green: Color, blue: Color, folder: String = "mechs") -> void:
+	var key := "%s/%s|%s|%s|%s" % [folder, model_name, red.to_html(), green.to_html(), blue.to_html()]
 	var mat: StandardMaterial3D = _cache.get(key)
 	if mat == null:
-		var mask := load_mask(model_name)
+		var mask := load_mask(model_name, folder)
 		if mask == null:
 			return
 		var painted := recolor(mask, red, green, blue)

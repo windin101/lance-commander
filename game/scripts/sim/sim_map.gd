@@ -26,6 +26,7 @@ var elevation_m := PackedFloat32Array()  # per vertex, metres
 var cells := PackedInt32Array()  # raw MapCell words
 
 var _astar: AStarGrid2D
+var _astar_hover: AStarGrid2D
 
 
 static func load_mission(mission: String, base_dir: String = "res://data/maps") -> SimMap:
@@ -94,10 +95,12 @@ func cell_flag(cell: Vector2i, field: String) -> int:
 
 ## Ground-mover cost of entering a cell (Move.cpp:4400-4470): clear 100,
 ## roads quarter cost, forest +ForestMoveCost; blocked when off-map, deep
-## water, or not passable.
-func move_cost(cell: Vector2i) -> float:
-	if not in_bounds(cell) or cell_flag(cell, "offmap") == 1 or cell_flag(cell, "deep") == 1:
+## water, or not passable. Hovercraft also cross deep water.
+func move_cost(cell: Vector2i, hover: bool = false) -> float:
+	if not in_bounds(cell) or cell_flag(cell, "offmap") == 1:
 		return COST_BLOCKED
+	if cell_flag(cell, "deep") == 1:
+		return COST_CLEAR if hover else COST_BLOCKED
 	if cell_flag(cell, "passable") == 0:
 		return COST_BLOCKED
 	var cost := COST_CLEAR
@@ -108,41 +111,49 @@ func move_cost(cell: Vector2i) -> float:
 	return cost
 
 
-func is_walkable(cell: Vector2i) -> bool:
-	return move_cost(cell) < COST_BLOCKED
+func is_walkable(cell: Vector2i, hover: bool = false) -> bool:
+	return move_cost(cell, hover) < COST_BLOCKED
 
 
 # --- pathfinding ----------------------------------------------------------
 
 func build_pathing() -> void:
-	_astar = AStarGrid2D.new()
-	_astar.region = Rect2i(0, 0, cells_per_side, cells_per_side)
-	_astar.cell_size = Vector2(1, 1)
-	_astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
-	_astar.default_compute_heuristic = AStarGrid2D.HEURISTIC_OCTILE
-	_astar.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE
-	_astar.update()
+	_astar = _build_grid(false)
+
+
+func _build_grid(hover: bool) -> AStarGrid2D:
+	var g := AStarGrid2D.new()
+	g.region = Rect2i(0, 0, cells_per_side, cells_per_side)
+	g.cell_size = Vector2(1, 1)
+	g.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
+	g.default_compute_heuristic = AStarGrid2D.HEURISTIC_OCTILE
+	g.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE
+	g.update()
 	for row in cells_per_side:
 		for col in cells_per_side:
 			var cell := Vector2i(col, row)
-			var cost := move_cost(cell)
+			var cost := move_cost(cell, hover)
 			if cost >= COST_BLOCKED:
-				_astar.set_point_solid(cell, true)
+				g.set_point_solid(cell, true)
 			else:
-				_astar.set_point_weight_scale(cell, cost / COST_CLEAR)
+				g.set_point_weight_scale(cell, cost / COST_CLEAR)
+	return g
 
 
 ## Path of world positions (cell centres) from start to goal, empty if none.
 ## Ends exactly at the goal when the goal cell is reachable.
-func find_path(start: Vector2, goal: Vector2) -> PackedVector2Array:
+func find_path(start: Vector2, goal: Vector2, hover: bool = false) -> PackedVector2Array:
 	if _astar == null:
 		build_pathing()
+	if hover and _astar_hover == null:
+		_astar_hover = _build_grid(true)
+	var grid := _astar_hover if hover else _astar
 	var a := cell_of(start)
 	var b := cell_of(goal)
 	var out := PackedVector2Array()
-	if not in_bounds(a) or not in_bounds(b) or not is_walkable(b):
+	if not in_bounds(a) or not in_bounds(b) or not is_walkable(b, hover):
 		return out
-	for cell in _astar.get_id_path(a, b):
+	for cell in grid.get_id_path(a, b):
 		out.append(cell_center(cell))
 	if out.size() > 0:
 		out[out.size() - 1] = goal
@@ -150,9 +161,9 @@ func find_path(start: Vector2, goal: Vector2) -> PackedVector2Array:
 
 
 ## Nearest walkable cell centre to a position, searching outward ring by ring.
-func nearest_walkable(pos: Vector2, max_radius: int = 30) -> Vector2:
+func nearest_walkable(pos: Vector2, hover: bool = false, max_radius: int = 30) -> Vector2:
 	var c := cell_of(pos)
-	if in_bounds(c) and is_walkable(c):
+	if in_bounds(c) and is_walkable(c, hover):
 		return pos
 	for radius in range(1, max_radius + 1):
 		for dy in range(-radius, radius + 1):
@@ -160,6 +171,6 @@ func nearest_walkable(pos: Vector2, max_radius: int = 30) -> Vector2:
 				if max(abs(dx), abs(dy)) != radius:
 					continue
 				var n := c + Vector2i(dx, dy)
-				if in_bounds(n) and is_walkable(n):
+				if in_bounds(n) and is_walkable(n, hover):
 					return cell_center(n)
 	return pos

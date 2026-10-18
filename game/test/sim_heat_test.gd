@@ -14,9 +14,9 @@ func _level_heat(m: SimMech, level: int) -> float:
 
 func test_dissipation_is_capacity_fraction_per_second() -> void:
 	var m := SimFixture.mech("atlas", r)  # capacity 43, no heat sinks
-	m.heat = 10.0
+	m.heat = 20.0
 	SimHeat.update(r, SimRng.new(1), m, 1.0, 0.0)
-	assert_float(m.heat).is_equal_approx(10.0 - 0.12 * 43.0, 0.001)
+	assert_float(m.heat).is_equal_approx(20.0 - float(r.heat["dissipation_rate"]) * 43.0, 0.001)
 
 
 func test_heat_never_goes_negative() -> void:

@@ -7,8 +7,8 @@ func _init() -> void:
 	data.load_all()
 	var sm := SimMission.load_mission(data, "mc2_01")
 	var w := sm.world
-	var me := w.mechs[0]
-	for e in w.mechs:
+	var me := w.units[0]
+	for e in w.units:
 		if e.team == me.team:
 			continue
 		var goal := w.map.nearest_walkable(e.position)
@@ -18,7 +18,7 @@ func _init() -> void:
 			length += path[i - 1].distance_to(path[i])
 		print("%-11s at (%5.0f,%5.0f) dist %5.0f  path pts %4d  len %5.0f  goal-walkable %s" % [e.name, e.position.x, e.position.y,
 			me.distance_to(e.position), path.size(), length, w.map.is_walkable(w.map.cell_of(e.position))])
-	for m in w.mechs:
+	for m in w.units:
 		if m.team != me.team:
 			continue
 		var best: SimMech = null
@@ -36,11 +36,11 @@ func _init() -> void:
 			if e["type"] == "shot":
 				shots += 1
 			elif e["type"] == "disabled":
-				print("t=%5.1f  %s disabled%s" % [t, w.mechs[e["mech"]].name, " (destroyed)" if e["destroyed"] else ""])
+				print("t=%5.1f  %s disabled%s" % [t, w.units[e["unit"]].name, " (destroyed)" if e["destroyed"] else ""])
 		w.events.clear()
 		if int(t * 10) % 200 == 0:
 			var line := "t=%5.1f" % t
-			for m in w.mechs:
+			for m in w.units:
 				line += "  %s(%d,%d %s)" % [m.name.left(4), m.position.x, m.position.y, ["ok", "sd", "dis", "dead"][m.status]]
 			print(line)
 	print("shots fired: ", shots)
