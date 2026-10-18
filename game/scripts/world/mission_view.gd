@@ -17,6 +17,7 @@ var camera: RtsCamera
 var views: Dictionary = {}  # mech id -> MechView
 var hud: MissionHud
 var audio: AudioDirector
+var sequencer: MissionSequencer
 var _voice_cfg: Array = []
 var _voice_flags_done := {}
 var _acc := 0.0
@@ -75,11 +76,14 @@ func _ready() -> void:
 	audio.name = "Audio"
 	add_child(audio)
 	var bcfg_path := "res://data/brains/%s.json" % mission
+	var script_cfg: Dictionary = {}
 	if FileAccess.file_exists(bcfg_path):
-		_voice_cfg = JSON.parse_string(FileAccess.get_file_as_string(bcfg_path)).get("script", {}).get("voice", [])
-	for v in _voice_cfg:
-		if v.get("at_start", false):
-			audio.say_later(v["vo"], float(v.get("delay", 0.0)), 0.0)
+		script_cfg = JSON.parse_string(FileAccess.get_file_as_string(bcfg_path)).get("script", {})
+	_voice_cfg = script_cfg.get("voice", [])
+	sequencer = MissionSequencer.new()
+	sequencer.name = "Sequencer"
+	add_child(sequencer)
+	sequencer.setup(self, script_cfg)
 	for v in views.values():
 		v.footstep.connect(func(at: Vector3): audio.sfx("footstep", at, -10.0))
 
@@ -169,6 +173,8 @@ func _audio_event(e: Dictionary) -> void:
 		"objective":
 			if not e["hidden"]:
 				audio.announce("objective_done")
+			if sequencer:
+				sequencer.on_objective(int(e["index"]))
 			for v in _voice_cfg:
 				if v.has("objective") and int(v["objective"]) == int(e["index"]):
 					audio.say_later(v["vo"], float(v.get("delay", 0.0)), world.time)

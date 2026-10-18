@@ -24,6 +24,7 @@ import mech_model  # noqa: E402
 import strings_rc  # noqa: E402
 import terrain  # noqa: E402
 import vehicles  # noqa: E402
+import video  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT = os.path.join(ROOT, "game", "data")
@@ -66,7 +67,10 @@ def gamesys(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", default=os.path.join(ROOT, "reference", "mc2-source", "Source"))
-    src = ap.parse_args().src
+    ap.add_argument("--retail-mdf", default=os.path.expanduser("~/Desktop/MC2.mdf"),
+                    help="the user's own retail disc image (optional; output is gitignored)")
+    args = ap.parse_args()
+    src = args.src
     data = os.path.join(src, "Data")
     objects = os.path.join(data, "Objects")
     missions = os.path.join(data, "Missions")
@@ -149,6 +153,11 @@ def main():
     write("audio.json", manifest)
     report.append(f"audio: {len(manifest['weapons'])} weapon sounds, {len(manifest['sfx'])} sfx, "
                   f"{len(manifest['music'])} tunes, {len(manifest['vo'])} vo, missing {missing}")
+
+    # Retail-disc videos (user's own copy; never committed): mission comms clips + intro.
+    videos = video.convert(ROOT, args.retail_mdf, comms=["V1A", "V1C", "V1D"], cinematics=["CINEMA1"])
+    write("videos.json", videos)
+    report.append(f"retail videos: {sorted(videos) if videos else 'none (no disc image)'}")
 
     strings = strings_rc.load(os.path.join(src, "Script1.rc"), os.path.join(src, "resource.h"))
     write("strings.json", {str(k): v for k, v in sorted(strings.items())})

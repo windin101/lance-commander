@@ -24,12 +24,6 @@
   ],
   "voice": [
    {
-    "_doc": "mc2_01.abl l.590: after the intro, 'go to the airfield'",
-    "at_start": true,
-    "delay": 4.0,
-    "vo": "tut_1cii"
-   },
-   {
     "_doc": "l.614 after objective 0",
     "objective": 0,
     "delay": 2.0,
@@ -59,7 +53,39 @@
     "delay": 4.0,
     "vo": "mc2_01"
    }
-  ]
+  ],
+  "sequences": {
+   "_doc": "mc2_01.abl tutorial stages: l.552-600 (start) and l.700-712 (objective 8 = Starslayer lance destroyed). Times in seconds.",
+   "start": [
+    {
+     "wait": 3.0
+    },
+    {
+     "video": "v1a"
+    },
+    {
+     "wait": 2.0
+    },
+    {
+     "video": "v1c"
+    },
+    {
+     "wait": 1.5
+    },
+    {
+     "vo": "tut_1cii",
+     "unless_objective": 0
+    }
+   ],
+   "objective:8": [
+    {
+     "wait": 3.0
+    },
+    {
+     "video": "v1d"
+    }
+   ]
+  }
  },
  "brains": {
   "PBrain": {

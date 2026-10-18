@@ -17,6 +17,7 @@ var top_label: Label
 var log_label: Label
 var banner: Label
 var box: ColorRect
+var comms: CommsWindow
 var _messages: Array = []  # [text, time]
 
 
@@ -87,6 +88,10 @@ func setup(mission_view: Node) -> void:
 	minimap.setup(view.world, view.sm.objectives, "res://assets/maps/%s/burnin.jpg" % view.mission, view.sm.player_team)
 	minimap.pan_to.connect(func(p: Vector2): view.camera.focus = Vector3(p.x, 0, -p.y))
 	minimap.move_to.connect(_on_minimap_move)
+
+	comms = CommsWindow.new()
+	comms.position = Vector2(14, 40)
+	root.add_child(comms)
 
 	banner = _label(64)
 	banner.set_anchors_preset(Control.PRESET_CENTER)
