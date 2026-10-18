@@ -49,7 +49,11 @@ Phases 0 (scaffold) and 1 (FIT/CSV/strings converters) are done.
     - Retail-disc videos (gitignored) feed the CommsWindow and MissionSequencer, plus the intro cinematic.
   - **8d HD mechs are done**, for all four mc2_01 mechs, via the local AI pipeline (docs/art-provenance.md):
     - Qwen edit concept → Hunyuan3D 2.1 mesh → decimate, unwrap and bake → fit and rig to the original joints with the paint-mask transfer.
-  - **Still open:** the intro camera flyby; HD vehicles and buildings; and the HD wrecks (wrecks still use the original models).
+  - **8e the intro camera flyby is done.**
+  - **8f HD vehicles and wrecks are done.**
+    - The Centipede, Harasser and LRM carrier went through the same pipeline (`--kind vehicles`).
+    - HD mechs wreck by holding the end of FallForward with a scorched material.
+  - **Still open:** HD buildings.
 - **Slice scope (found in Phase 4):** mc2_01 also fields ground vehicles: 4 Centipedes, 4 Harassers, 7 LRM carriers and 8 infantry. Their rules (`gvehicl.cpp`) and models are new work, to fold into Phases 5 and 6.
 
 Goal: a free, non-commercial, modernised remake of MechCommander 2 (2001) with new graphics and updated gameplay. It gets its own name, with no Microsoft or BattleTech branding (see "Licence ground rules").

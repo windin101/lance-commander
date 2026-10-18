@@ -3,7 +3,8 @@ extends Node3D
 ## The SimWorld steps at a fixed 10 Hz; views interpolate between ticks.
 ## Dev args: --demo (player lance attacks the nearest enemy), --arena (moves the
 ## Starslayer onto open ground 110 m north of the lance first), --sim-seconds=N
-## (fast-forward before the first frame), --focus=player|battle.
+## (fast-forward before the first frame), --focus=player|battle, --kill-unit=N
+## (destroy unit N at start and frame its wreck).
 
 @export var mission := "mc2_01"
 @export var play_intro := true  # opening flyby; tests and dev runs switch it off
@@ -106,6 +107,10 @@ func _ready() -> void:
 		ff -= SimWorld.TICK
 	if _args.get("focus", "") == "battle":
 		_focus_battle()
+	if _args.has("kill-unit"):  # dev: destroy a unit at start and frame it (wreck checks)
+		var u: SimUnit = world.units[int(_args["kill-unit"])]
+		u.status = SimUnit.Status.DESTROYED
+		camera.focus = Vector3(u.position.x, 0, -u.position.y)
 	if _args.has("select-all"):
 		input._set_selection(world.units.filter(func(u): return u.team == sm.player_team and u.is_mover() and not u.is_disabled()))
 	for v in views.values():

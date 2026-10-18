@@ -18,6 +18,8 @@ Shared Source release's mech models and textures, so they carry that release's E
    - Fit to the original model: yaw search, then rigid ICP.
    - Rigid skinning to the original joints, with majority smoothing.
    - The original paint mask is transferred by nearest-surface lookup. MechPaint team colours still apply, and the original's 20 animations are kept unchanged.
+   - Small disconnected fragments (generation debris) are dropped. Vertices are welded by position first, so UV seams don't split the mesh into "fragments".
+5. **Wrecks:** an HD mech has no separate wreck model. When destroyed it holds the last frame of FallForward with a scorched material (`MechView._scorch`).
 
 ### Per mech
 
@@ -27,6 +29,14 @@ Shared Source release's mech models and textures, so they carry that release's E
 | Werewolf | 21 (seed 7 drifted to a different design) | 1234 | no | 0.46 m |
 | Starslayer | 7 | 1234 | no | 0.90 m |
 | UrbanMech | 7 | 1234 | no | 0.43 m |
+
+### Per vehicle (`--kind vehicles`, `game/assets/vehicles/<vehicle>_hd.glb`)
+
+| Vehicle | Concept seed | Mesh seed | Turn | Note |
+|---|---|---|---|---|
+| Centipede | 7 | 1234 | no | |
+| Harasser | 7 | 4242 | no | mesh seed 1234 produced a debris ring around the hull (real geometry, not fragments) |
+| LRM carrier | 7 | 1234 | no | |
 
 Each orientation was checked by eye against the original's front view. Mechs are nearly symmetric front to back, so the 3D fit alone can land backwards; use `--turn` if it does.
 

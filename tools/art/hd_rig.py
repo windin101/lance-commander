@@ -279,6 +279,45 @@ def transfer_paint(hd_pos, hd_uv, tris, samples, sample_uv, mask, res):
     return Image.fromarray(out)
 
 
+def drop_fragments(pos, uv, tris, min_share=0.02):
+    """Remove disconnected pieces smaller than min_share of the vertices. Image-to-3D
+    leaves loose shards (e.g. around a hover skirt) that read as floating debris."""
+    n = len(pos)
+    # UV unwrapping splits vertices along chart seams, so connectivity must follow
+    # positions, not indices: weld coincident vertices for the component search.
+    extent = float(np.ptp(pos, axis=0).max()) or 1.0
+    key = np.round(pos / (extent * 1e-5)).astype(np.int64)
+    _, weld = np.unique(key, axis=0, return_inverse=True)
+    weld = weld.reshape(-1)
+    parent = np.arange(n)
+    first = {}
+    for i, w in enumerate(weld):
+        if w in first:
+            parent[i] = first[w]
+        else:
+            first[w] = i
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    for a, b, c in tris:
+        ra, rb, rc = find(a), find(b), find(c)
+        parent[rb] = ra
+        parent[find(rc)] = ra
+    roots = np.array([find(i) for i in range(n)])
+    labels, counts = np.unique(roots, return_counts=True)
+    keep_roots = set(labels[counts >= max(min_share * n, 1)].tolist())
+    keep_v = np.array([r in keep_roots for r in roots])
+    keep_t = keep_v[tris].all(axis=1)
+    remap = -np.ones(n, dtype=np.int64)
+    remap[keep_v] = np.arange(keep_v.sum())
+    dropped = len(labels) - len(keep_roots)
+    print(f"fragments: kept {len(keep_roots)} pieces, dropped {dropped} ({n - keep_v.sum()} verts)")
+    return pos[keep_v], uv[keep_v], remap[tris[keep_t]]
+
+
 def smooth_owners(owner, tris, n, iters=3):
     """Majority filter over each vertex's mesh neighbours. An isolated vertex bound to
     the wrong part (e.g. a foot vertex grabbed by the other leg) stretches its
@@ -395,6 +434,7 @@ def main():
     q = read_accessor(hg, hb, prim["attributes"]["POSITION"]).astype(float)
     huv = read_accessor(hg, hb, prim["attributes"]["TEXCOORD_0"]).astype(float)
     tris = read_accessor(hg, hb, prim["indices"]).astype(np.int64).reshape(-1, 3)
+    q, huv, tris = drop_fragments(q, huv, tris)
 
     score, r0, s0, t0, deg, mirror = initial_fit(q, samples)
     print(f"initial fit: yaw {deg} mirror {mirror} scale {s0:.3f} chamfer {score:.3f} m")

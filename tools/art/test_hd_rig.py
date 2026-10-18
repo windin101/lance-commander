@@ -45,5 +45,19 @@ class HdRigTests(unittest.TestCase):
         self.assertEqual(out[0], 5)
 
 
+class FragmentTests(unittest.TestCase):
+    def test_drop_fragments_keeps_main_body(self):
+        rng = np.random.default_rng(2)
+        body = rng.normal(size=(100, 3))
+        tris = [[i, i + 1, i + 2] for i in range(0, 98)]
+        shard = rng.normal(size=(3, 3)) + 10
+        pos = np.vstack([body, shard])
+        tris.append([100, 101, 102])
+        uv = np.zeros((103, 2))
+        p, u, t = hd_rig.drop_fragments(pos, uv, np.array(tris))
+        self.assertEqual(len(p), 100)
+        self.assertEqual(t.max(), 99)
+
+
 if __name__ == "__main__":
     unittest.main()

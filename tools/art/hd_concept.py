@@ -15,6 +15,12 @@ PROMPT = ("Transform this crude low-polygon video game model into a high-end mod
           "and cables at the knees and hips, articulated toe claws, missile launcher tubes, gun barrels with muzzle brakes, "
           "rivets, warning stencils, scratched and weathered gunmetal grey paint. Physically based materials, crisp studio "
           "lighting, plain white background.")
+VEHICLE_PROMPT = ("Transform this crude low-polygon video game model into a high-end modern 3D render of the same "
+                  "futuristic military combat vehicle, as in a 2025 AAA game. Keep the exact same shape, proportions, "
+                  "silhouette, camera angle and every part in the same place (hull, turret, weapons, wheels, tracks or "
+                  "hover skirts). Add intricate mechanical detail: layered armour plates with deep panel seams, vents and "
+                  "grilles, hatches, sensor domes, weapon barrels and missile tubes, rivets, warning stencils, scratched "
+                  "and weathered gunmetal grey paint. Physically based materials, crisp studio lighting, plain white background.")
 NEGATIVE = ("different pose, different silhouette, extra limbs, extra weapons, humanoid face, human, person, anime, cartoon, "
             "low poly, blurry, text, watermark, logo, background scenery, ground, floor, cropped")
 

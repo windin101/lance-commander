@@ -16,7 +16,8 @@ func _ready() -> void:
 	add_child(model)
 	if args.has("paint"):  # --paint=<model name>,<red argb>,<green argb>,<blue argb>
 		var v: PackedStringArray = args["paint"].split(",")
-		MechPaint.apply(model, v[0], MechPaint.argb(int(v[1])), MechPaint.argb(int(v[2])), MechPaint.argb(int(v[3])))
+		var folder := "vehicles" if String(args.get("model", "")).contains("/vehicles/") else "mechs"
+		MechPaint.apply(model, v[0], MechPaint.argb(int(v[1])), MechPaint.argb(int(v[2])), MechPaint.argb(int(v[3])), folder)
 	var player: AnimationPlayer = model.find_child("AnimationPlayer", true, false)
 	if player and args.has("anim"):
 		player.play(args["anim"])
