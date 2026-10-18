@@ -1,6 +1,7 @@
 extends Node3D
 ## Shows a converted mech model in a lit studio, for screenshots.
 ## User args: --model=res://assets/mechs/bushwacker.glb --anim=Walk --t=0.25
+## Concept-render options: --bg=r,g,b (0-1) --no-ground --fov=<deg> --focus-y=<m>
 ## Pass --cam=yaw,pitch,distance to DevTools to frame it.
 
 var camera: RtsCamera
@@ -22,6 +23,7 @@ func _ready() -> void:
 		player.seek(float(args.get("t", "0")), true)
 		player.pause()
 
+	var no_ground := args.has("no-ground")
 	var ground := MeshInstance3D.new()
 	var plane := PlaneMesh.new()
 	plane.size = Vector2(60, 60)
@@ -29,7 +31,8 @@ func _ready() -> void:
 	var gm := StandardMaterial3D.new()
 	gm.albedo_color = Color(0.45, 0.42, 0.36)
 	ground.material_override = gm
-	add_child(ground)
+	if not no_ground:
+		add_child(ground)
 	var grid := MeshInstance3D.new()  # 1 m ticks along X for scale
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_LINES)
@@ -37,7 +40,8 @@ func _ready() -> void:
 		st.add_vertex(Vector3(i, 0.02, -0.3))
 		st.add_vertex(Vector3(i, 0.02, 0.3))
 	grid.mesh = st.commit()
-	add_child(grid)
+	if not no_ground:
+		add_child(grid)
 
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-50, 30, 0)
@@ -46,6 +50,9 @@ func _ready() -> void:
 	var env := Environment.new()
 	env.background_mode = Environment.BG_COLOR
 	env.background_color = Color(0.2, 0.22, 0.26)
+	if args.has("bg"):
+		var c: PackedStringArray = args["bg"].split(",")
+		env.background_color = Color(float(c[0]), float(c[1]), float(c[2]))
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = Color(0.5, 0.5, 0.55)
 	var we := WorldEnvironment.new()
@@ -61,8 +68,14 @@ func _ready() -> void:
 	camera.yaw_deg = 200.0
 	add_child(camera)
 	camera.make_current()
-	camera.focus = Vector3(0, 4, 0)
+	_focus_y = float(args.get("focus-y", "4"))
+	camera.focus = Vector3(0, _focus_y, 0)
+	if args.has("fov"):
+		camera.fov = float(args["fov"])
+
+
+var _focus_y := 4.0
 
 
 func _process(_delta: float) -> void:
-	camera.focus.y = 4.0
+	camera.focus.y = _focus_y

@@ -45,7 +45,11 @@ Phases 0 (scaffold) and 1 (FIT/CSV/strings converters) are done.
     - The terrain shader blends to triplanar procedural rock on steep facets. It uses derivative facet normals, because the smoothed normals hide one-quad cliffs.
     - The water shader has depth colour and alpha, scrolling normals, Fresnel and a swell from the FIT's Frequency/Ampliture.
     - The sky's ground colour now continues the sea past the map edge.
-  - **Still open:** the intro camera flyby; the cinematics, which need the retail .bik files; and the HD art pipeline.
+  - **8c video is done.**
+    - Retail-disc videos (gitignored) feed the CommsWindow and MissionSequencer, plus the intro cinematic.
+  - **8d HD mechs are done**, for all four mc2_01 mechs, via the local AI pipeline (docs/art-provenance.md):
+    - Qwen edit concept → Hunyuan3D 2.1 mesh → decimate, unwrap and bake → fit and rig to the original joints with the paint-mask transfer.
+  - **Still open:** the intro camera flyby; HD vehicles and buildings; and the HD wrecks (wrecks still use the original models).
 - **Slice scope (found in Phase 4):** mc2_01 also fields ground vehicles: 4 Centipedes, 4 Harassers, 7 LRM carriers and 8 infantry. Their rules (`gvehicl.cpp`) and models are new work, to fold into Phases 5 and 6.
 
 Goal: a free, non-commercial, modernised remake of MechCommander 2 (2001) with new graphics and updated gameplay. It gets its own name, with no Microsoft or BattleTech branding (see "Licence ground rules").
