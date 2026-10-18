@@ -21,6 +21,9 @@ var hud: MissionHud
 var audio: AudioDirector
 var sequencer: MissionSequencer
 var flyby: IntroFlyby
+var pause_menu: PauseMenu
+var title := ""  # the mission's display name (briefing title)
+var _end_seen_at := -1.0
 var _voice_cfg: Array = []
 var _voice_flags_done := {}
 var _acc := 0.0
@@ -95,6 +98,11 @@ func _ready() -> void:
 	flyby.setup(self, {} if dev_run else script_cfg.get("flyby", {}), camera.yaw_deg)
 	for v in views.values():
 		v.footstep.connect(func(at: Vector3): audio.sfx("footstep", at, -10.0))
+	title = MissionBrief.load_mission(GameData, mission).title
+	pause_menu = PauseMenu.new()
+	pause_menu.name = "PauseMenu"
+	pause_menu.view = self
+	add_child(pause_menu)
 
 	if _args.has("arena"):
 		_arena()
@@ -134,6 +142,17 @@ func _process(delta: float) -> void:
 				audio.say_later(v["vo"], float(v.get("delay", 0.0)), world.time)
 		audio.tick(world.time)
 		audio.update_music(sm.objectives.result, world.time)
+	# Mission over: after the banner has been up a moment, offer the debrief.
+	if sm.objectives.result != SimObjectives.Result.PLAYING and pause_menu and not pause_menu.ended:
+		if _end_seen_at < 0.0:
+			_end_seen_at = world.time
+		elif world.time - _end_seen_at >= 3.0:
+			pause_menu.show_end(sm.objectives.result == SimObjectives.Result.WON)
+
+
+## The debrief's facts for this mission so far (MissionReport).
+func report() -> Dictionary:
+	return MissionReport.from_sim(sm, title, GameData)
 
 
 func _consume_events(show: bool) -> void:

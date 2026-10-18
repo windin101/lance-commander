@@ -176,7 +176,9 @@ func _process(_delta: float) -> void:
 		cards[id].selected = view.input.selection.has(w.units[id])
 	minimap.view_polygon = _camera_footprint()
 	var res: int = view.sm.objectives.result
-	if res != SimObjectives.Result.PLAYING and not banner.visible:
+	if view.pause_menu and view.pause_menu.ended:
+		banner.visible = false  # the end panel takes over
+	elif res != SimObjectives.Result.PLAYING and not banner.visible:
 		banner.visible = true
 		banner.text = "MISSION SUCCESSFUL" if res == SimObjectives.Result.WON else "MISSION FAILED"
 		banner.add_theme_color_override("font_color", Color(0.5, 1.0, 0.5) if res == SimObjectives.Result.WON else Color(1.0, 0.4, 0.3))

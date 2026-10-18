@@ -13,6 +13,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 GameData="*res://scripts/data/game_data.gd"
 DevTools="*res://scripts/dev/dev_tools.gd"
+Flow="*res://scripts/flow/flow.gd"
 
 [display]
 
