@@ -1,0 +1,5131 @@
+{
+ "pmp_bubba": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Bubba",
+   "Rank": 3,
+   "Callsign": "BUBBA",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42001,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotA",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 0
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 58,
+   "Sensors": 50,
+   "Gunnery": 51
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 1,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 1,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_chopper": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Chopper",
+   "Rank": 3,
+   "Callsign": "CHOPPER",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42002,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotb",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 1
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 59,
+   "Sensors": 41,
+   "Gunnery": 44
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 1,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "LongJump": 1,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_claymore": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Claymore",
+   "Rank": 3,
+   "Callsign": "CLAYMORE",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42008,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotc",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 2
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 54,
+   "Sensors": 51,
+   "Gunnery": 48
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 1,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 1,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_cobra": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Cobra",
+   "Rank": 3,
+   "Callsign": "Cobra",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42025,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotd",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 3
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 55,
+   "Sensors": 50,
+   "Gunnery": 46
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 1,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 1,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_creep": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Creep",
+   "Rank": 3,
+   "Callsign": "CREEP",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42003,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilote",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 4
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 57,
+   "Sensors": 42,
+   "Gunnery": 45
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 1,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 1,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_dagger": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Dagger",
+   "Rank": 3,
+   "Callsign": "DAGGER",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42023,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotf",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 5
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 58,
+   "Sensors": 41,
+   "Gunnery": 44
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 1,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 1,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_flash": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Flash",
+   "Rank": 3,
+   "Callsign": "FLASH",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42005,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotg",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 6
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 56,
+   "Sensors": 43,
+   "Gunnery": 52
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 1,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 1,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "LongJump": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HevayACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_ghost": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Ghost",
+   "Rank": 3,
+   "Callsign": "GHOST",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42006,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "piloth",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 7
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 54,
+   "Sensors": 71,
+   "Gunnery": 48
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "LongJump": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 1,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 1
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_hacksaw": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Hacksaw",
+   "Rank": 3,
+   "Callsign": "HACKSAW",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42007,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "piloti",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 8
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 55,
+   "Sensors": 44,
+   "Gunnery": 46
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 1,
+   "ShortRangeSpecialist": 1,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_hammer": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Hammer",
+   "Rank": 3,
+   "Callsign": "HAMMER",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42009,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotj",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 9
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 56,
+   "Sensors": 40,
+   "Gunnery": 46
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 1,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 1,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_jinx": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Jinx",
+   "Rank": 3,
+   "Callsign": "JINX",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42010,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotk",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 10
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 59,
+   "Sensors": 47,
+   "Gunnery": 44
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 1,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 1,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_longshot": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Longshot",
+   "Rank": 3,
+   "Callsign": "LONGSHOT",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42011,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotl",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 11
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 58,
+   "Sensors": 56,
+   "Gunnery": 46
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 1,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 1,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_meat": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Meat",
+   "Rank": 3,
+   "Callsign": "MEAT",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42012,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotm",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 12
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 54,
+   "Sensors": 61,
+   "Gunnery": 53
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 1,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 1,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_mother": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Mother",
+   "Rank": 3,
+   "Callsign": "MOTHER",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42013,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotn",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 13
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 59,
+   "Sensors": 80,
+   "Gunnery": 44
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 1,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 1,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_nuke": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Nuke",
+   "Rank": 3,
+   "Callsign": "NUKE",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42024,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "piloto",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 14
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 57,
+   "Sensors": 58,
+   "Gunnery": 52
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 1,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 1,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "LongJump": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_palerider": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Palerider",
+   "Rank": 3,
+   "Callsign": "Palerider",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42019,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotp",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 15
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 59,
+   "Sensors": 37,
+   "Gunnery": 51
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 1,
+   "LongJump": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 1
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_payback": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Payback",
+   "Rank": 3,
+   "Callsign": "PAYBACK",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42014,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotq",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 16
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 58,
+   "Sensors": 48,
+   "Gunnery": 51
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 1,
+   "MediumACSpecialist": 1,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "LongJump": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_psycho": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Psycho",
+   "Rank": 3,
+   "Callsign": "PSYCHO",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42015,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotr",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 17
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 57,
+   "Sensors": 49,
+   "Gunnery": 47
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 1,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "LongJump": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 1,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_rooster": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Rooster",
+   "Rank": 3,
+   "Callsign": "ROOSTER",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42016,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilots",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 18
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 58,
+   "Sensors": 57,
+   "Gunnery": 44
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 1,
+   "PPCSpecialist": 1,
+   "Scout": 0,
+   "LongJump": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_scooter": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Scooter",
+   "Rank": 3,
+   "Callsign": "Scooter",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42017,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilott",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 19
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 57,
+   "Sensors": 75,
+   "Gunnery": 52
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "LongJump": 1,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 1
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_shadow": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Shadow",
+   "Rank": 3,
+   "Callsign": "SHADOW",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42026,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotu",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 20
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 56,
+   "Sensors": 47,
+   "Gunnery": 45
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 1,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 1,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_steel": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Steel",
+   "Rank": 3,
+   "Callsign": "STEEL",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42018,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotv",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 21
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 59,
+   "Sensors": 68,
+   "Gunnery": 51
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 1,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 1,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_twitch": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Twitch",
+   "Rank": 3,
+   "Callsign": "TWITCH",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42020,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotw",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 22
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 56,
+   "Sensors": 54,
+   "Gunnery": 47
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 1,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 1,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 10
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_venom": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Venom",
+   "Rank": 3,
+   "Callsign": "VENOM",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42021,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotx",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 23
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 56,
+   "Sensors": 47,
+   "Gunnery": 45
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 1,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 1,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_wicked": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Wicked",
+   "Rank": 3,
+   "Callsign": "WICKED",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42022,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "piloty",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 24
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 55,
+   "Sensors": 49,
+   "Gunnery": 53
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 1,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 1,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "LongJump": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmp_worm": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Worm",
+   "Rank": 3,
+   "Callsign": "WORM",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42004,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotz",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 25
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 55,
+   "Sensors": 58,
+   "Gunnery": 54
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 1,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 1
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwbubba": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Bubba",
+   "Rank": 2,
+   "Callsign": "BUBBA",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42001,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotA",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 0
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 61,
+   "Sensors": 50,
+   "Gunnery": 61
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 1,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 1,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwchopper": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Chopper",
+   "Rank": 0,
+   "Callsign": "CHOPPER",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42002,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotb",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 1
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 45,
+   "Sensors": 41,
+   "Gunnery": 51
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwclaymore": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Claymore",
+   "Rank": 1,
+   "Callsign": "CLAYMORE",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42008,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotc",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 2
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 51,
+   "Sensors": 51,
+   "Gunnery": 53
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 1,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwcobra": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Cobra",
+   "Rank": 0,
+   "Callsign": "Cobra",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42025,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotd",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 3
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 52,
+   "Sensors": 50,
+   "Gunnery": 46
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwcreep": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Creep",
+   "Rank": 0,
+   "Callsign": "CREEP",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42003,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilote",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 4
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 51,
+   "Sensors": 42,
+   "Gunnery": 47
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwdagger": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Dagger",
+   "Rank": 0,
+   "Callsign": "DAGGER",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42023,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotf",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 5
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 48,
+   "Sensors": 41,
+   "Gunnery": 50
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwelite": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "ELITE",
+   "Rank": 3,
+   "Callsign": "ELITE",
+   "ID": 51,
+   "NameIndex": 0,
+   "DescIndex": 42034,
+   "HeadIcon": 1000,
+   "paintScheme": 31,
+   "pilotAudio": "pilota",
+   "pilotVideo": "PILOT00",
+   "PictureIndex": 26
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 5,
+   "Jumping": 5,
+   "Sensors": 65,
+   "Gunnery": 65
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwflash": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Flash",
+   "Rank": 0,
+   "Callsign": "FLASH",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42005,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotg",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 6
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 54,
+   "Sensors": 43,
+   "Gunnery": 45
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwghost": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Ghost",
+   "Rank": 3,
+   "Callsign": "GHOST",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42006,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "piloth",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 7
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 76,
+   "Sensors": 71,
+   "Gunnery": 65
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "LongJump": 1,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 1,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 1
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwgreen": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "ROOKIE",
+   "Rank": 0,
+   "Callsign": "ROOKIE",
+   "ID": 51,
+   "NameIndex": 0,
+   "DescIndex": 42031,
+   "HeadIcon": 1000,
+   "paintScheme": 31,
+   "pilotAudio": "pilota",
+   "pilotVideo": "PILOT00",
+   "PictureIndex": 26
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 5,
+   "Jumping": 5,
+   "Sensors": 30,
+   "Gunnery": 30
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwguardtower": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "REGULAR",
+   "Rank": 1,
+   "Callsign": "REGULAR",
+   "ID": 51,
+   "NameIndex": 0,
+   "DescIndex": 45028,
+   "HeadIcon": 1000,
+   "paintScheme": 31,
+   "pilotAudio": "pilot1a",
+   "pilotVideo": "PILOT00",
+   "PictureIndex": 26
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 40,
+   "Jumping": 40,
+   "Sensors": 40,
+   "Gunnery": 40
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwhacksaw": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Hacksaw",
+   "Rank": 0,
+   "Callsign": "HACKSAW",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42007,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "piloti",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 8
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 49,
+   "Sensors": 44,
+   "Gunnery": 48
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwhammer": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Hammer",
+   "Rank": 0,
+   "Callsign": "HAMMER",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42009,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotj",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 9
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 41,
+   "Sensors": 40,
+   "Gunnery": 53
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwjinx": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Jinx",
+   "Rank": 0,
+   "Callsign": "JINX",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42010,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotk",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 10
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 55,
+   "Sensors": 47,
+   "Gunnery": 44
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwlongshot": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Longshot",
+   "Rank": 0,
+   "Callsign": "LONGSHOT",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42011,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotl",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 11
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 39,
+   "Sensors": 56,
+   "Gunnery": 55
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwmeat": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Meat",
+   "Rank": 1,
+   "Callsign": "MEAT",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42012,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotm",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 12
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 47,
+   "Sensors": 61,
+   "Gunnery": 56
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 1,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwminelayer": {
+  "General": {
+   "Name": "Clan Green",
+   "Rank": 0,
+   "Callsign": "CLAN GREEN",
+   "ID": 31,
+   "NameIndex": 0,
+   "DescIndex": 45030,
+   "HeadIcon": 0,
+   "paintScheme": 29,
+   "pilotAudio": "pilot1b",
+   "pilotVideo": "plt1n001",
+   "Picture": "pilot00.TGA"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "Gunnery": 35
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwmother": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Mother",
+   "Rank": 3,
+   "Callsign": "MOTHER",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42013,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotn",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 13
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 65,
+   "Sensors": 80,
+   "Gunnery": 76
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 1,
+   "LaserSpecialist": 1,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 1,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwnuke": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Nuke",
+   "Rank": 1,
+   "Callsign": "NUKE",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42024,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "piloto",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 14
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 46,
+   "Sensors": 58,
+   "Gunnery": 55
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 1,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwpalerider": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Palerider",
+   "Rank": 1,
+   "Callsign": "Palerider",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42019,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotp",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 15
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 51,
+   "Sensors": 37,
+   "Gunnery": 51
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 1
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwpayback": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Payback",
+   "Rank": 1,
+   "Callsign": "PAYBACK",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42014,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotq",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 16
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 48,
+   "Sensors": 48,
+   "Gunnery": 53
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 1,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwpsycho": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Psycho",
+   "Rank": 0,
+   "Callsign": "PSYCHO",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42015,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotr",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 17
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 40,
+   "Sensors": 49,
+   "Gunnery": 54
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwrecover": {
+  "General": {
+   "Name": "Clan Green",
+   "Rank": 0,
+   "Callsign": "CLAN GREEN",
+   "ID": 31,
+   "NameIndex": 0,
+   "DescIndex": 45028,
+   "HeadIcon": 0,
+   "paintScheme": 29,
+   "pilotAudio": "pilota",
+   "pilotVideo": "plt1n001",
+   "Picture": "pilot00.TGA"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "Gunnery": 35
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwregular": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "REGULAR",
+   "Rank": 1,
+   "Callsign": "REGULAR",
+   "ID": 51,
+   "NameIndex": 0,
+   "DescIndex": 42032,
+   "HeadIcon": 1000,
+   "paintScheme": 31,
+   "pilotAudio": "pilota",
+   "pilotVideo": "PILOT00",
+   "PictureIndex": 26
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 5,
+   "Jumping": 5,
+   "Sensors": 40,
+   "Gunnery": 40
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwrepair": {
+  "General": {
+   "Name": "Clan Green",
+   "Rank": 0,
+   "Callsign": "CLAN GREEN",
+   "ID": 31,
+   "NameIndex": 0,
+   "DescIndex": 45029,
+   "HeadIcon": 0,
+   "paintScheme": 29,
+   "pilotAudio": "pilot1c",
+   "pilotVideo": "plt1n001",
+   "Picture": "pilot00.TGA"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "Gunnery": 35
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwrooster": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Rooster",
+   "Rank": 3,
+   "Callsign": "ROOSTER",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42016,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilots",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 18
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 71,
+   "Sensors": 57,
+   "Gunnery": 73
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 1,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 1,
+   "PPCSpecialist": 1,
+   "Scout": 0,
+   "LongJump": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwscooter": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Scooter",
+   "Rank": 2,
+   "Callsign": "Scooter",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42017,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilott",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 19
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 66,
+   "Sensors": 75,
+   "Gunnery": 58
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "LongJump": 1,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 1
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwscout": {
+  "General": {
+   "Name": "Clan Green",
+   "Rank": 0,
+   "Callsign": "CLAN GREEN",
+   "ID": 31,
+   "NameIndex": 0,
+   "DescIndex": 45031,
+   "HeadIcon": 0,
+   "paintScheme": 29,
+   "pilotAudio": "pilot1d",
+   "pilotVideo": "plt1n001",
+   "Picture": "pilot00.TGA",
+   "PictureIndex": 26
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "Gunnery": 35
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwshadow": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Shadow",
+   "Rank": 0,
+   "Callsign": "SHADOW",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42026,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotu",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 20
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 48,
+   "Sensors": 47,
+   "Gunnery": 49
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwsparky": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Sparky",
+   "Rank": 3,
+   "Callsign": "SPARKY",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42017,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilott",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 20
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 61,
+   "Sensors": 75,
+   "Gunnery": 45
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwsteel": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Steel",
+   "Rank": 1,
+   "Callsign": "STEEL",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42018,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotv",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 21
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 59,
+   "Sensors": 68,
+   "Gunnery": 58
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 1,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwtool": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Tool",
+   "Rank": 3,
+   "Callsign": "TOOL",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42019,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotAD",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 21
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 40,
+   "Sensors": 58,
+   "Gunnery": 44
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwtwitch": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Twitch",
+   "Rank": 1,
+   "Callsign": "TWITCH",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42020,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotw",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 22
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 47,
+   "Sensors": 54,
+   "Gunnery": 54
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 1,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwvenom": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Venom",
+   "Rank": 2,
+   "Callsign": "VENOM",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42021,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotx",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 23
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 60,
+   "Sensors": 47,
+   "Gunnery": 62
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 1,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 1,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwveteran": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "VETERAN",
+   "Rank": 2,
+   "Callsign": "VETERAN",
+   "ID": 51,
+   "NameIndex": 0,
+   "DescIndex": 42033,
+   "HeadIcon": 1000,
+   "paintScheme": 31,
+   "pilotAudio": "pilota",
+   "pilotVideo": "PILOT00",
+   "PictureIndex": 26
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 5,
+   "Jumping": 5,
+   "Sensors": 55,
+   "Gunnery": 55
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwwicked": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Wicked",
+   "Rank": 2,
+   "Callsign": "WICKED",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42022,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "piloty",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 24
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 57,
+   "Sensors": 49,
+   "Gunnery": 64
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 1,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 1,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "pmwworm": {
+  "General": {
+   "Brain": "pbrain",
+   "Name": "Worm",
+   "Rank": 1,
+   "Callsign": "WORM",
+   "ID": 80,
+   "NameIndex": 29,
+   "DescIndex": 42004,
+   "HeadIcon": 0,
+   "paintScheme": 31,
+   "pilotAudio": "pilotz",
+   "pilotVideo": "PILOT29",
+   "PictureIndex": 25
+  },
+  "PersonalityTraits": {
+   "Professionalism": 50,
+   "Decorum": 50,
+   "Aggressiveness": 50,
+   "Courage": 50
+  },
+  "Skills": {
+   "Piloting": 53,
+   "Sensors": 58,
+   "Gunnery": 50
+  },
+  "SpecialtySkills": {
+   "LightMechSpecialist": 0,
+   "MediumMechSpecialist": 0,
+   "LaserSpecialist": 0,
+   "LightACSpecialist": 0,
+   "MediumACSpecialist": 0,
+   "SRMSpecialist": 0,
+   "SmallArmsSpecialist": 0,
+   "ReconSpecialist": 0,
+   "ToughnessSpecialist": 0,
+   "HevayMechSpecialist": 0,
+   "PulseLaserSpecialist": 0,
+   "ERLaserSpecialist": 0,
+   "LRMSpecialist": 0,
+   "PPCSpecialist": 0,
+   "Scout": 0,
+   "AssaultMechSpecialist": 0,
+   "GaussSpecialist": 0,
+   "HeavyACSpecialist": 0,
+   "ShortRangeSpecialist": 0,
+   "MediumRangeSpecialist": 0,
+   "LongRangeSpecialist": 0,
+   "Deadeye": 0,
+   "SharpShooter": 0,
+   "SensorProfileSpecialist": 1
+  },
+  "Awards": {
+   "CampaignRibbon1": 0,
+   "CampaignRibbon1WithHonors": 0,
+   "CampaignRibbon2": 0,
+   "CampaignRibbon2WithHonors": 0,
+   "CampaignRibbon3": 0,
+   "CampaignRibbon3WithHonors": 0,
+   "PurpleHeart": 0,
+   "Valor": 0,
+   "UncommonValor": 0
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 0,
+   "WeaponClass": 0,
+   "WeaponTypes": [
+    0,
+    0
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war003": {
+  "General": {
+   "Name": "Frank Savage",
+   "Callsign": "BUNG",
+   "ID": 1020,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "paintScheme": 25,
+   "pilotAudio": "pilotb",
+   "pilotVideo": "plt1r001",
+   "Picture": "pilot4.gif"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 50,
+   "TargetingMedium": 50,
+   "TargetingLong": 50
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war003a": {
+  "General": {
+   "Name": "Frank Savage",
+   "Callsign": "COMMANDO",
+   "ID": 1020,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "paintScheme": 26,
+   "pilotAudio": "pilotb",
+   "pilotVideo": "plt1r001",
+   "Picture": "pilot4.gif"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 50,
+   "TargetingMedium": 50,
+   "TargetingLong": 50
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war004": {
+  "General": {
+   "Name": "Jon Marcus",
+   "Callsign": "Lord Bunny",
+   "ID": 1030,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "Picture": "pilot1.gif"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 50,
+   "TargetingMedium": 50,
+   "TargetingLong": 50
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war005": {
+  "General": {
+   "Name": "Scott Janssens",
+   "Callsign": "LUCIFER",
+   "ID": 1040,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "Video": 1500
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 50,
+   "TargetingMedium": 50,
+   "TargetingLong": 50
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war006": {
+  "General": {
+   "Name": "Kermit",
+   "Callsign": "KERMY",
+   "ID": 1050,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "Video": 1500
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 50,
+   "TargetingMedium": 50,
+   "TargetingLong": 50
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war007": {
+  "General": {
+   "Name": "Fozzie",
+   "Callsign": "FOZ",
+   "ID": 1060,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "Video": 1500
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 50,
+   "TargetingMedium": 50,
+   "TargetingLong": 50
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war008": {
+  "General": {
+   "Name": "Piggy",
+   "Callsign": "PIG",
+   "ID": 1070,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "Video": 1500
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 90,
+   "TargetingMedium": 90,
+   "TargetingLong": 90
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war001": {
+  "General": {
+   "Name": "Amy Bios",
+   "Callsign": "SUCKUP",
+   "ID": 1000,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "paintScheme": 18,
+   "pilotAudio": "pilotf",
+   "pilotVideo": "plt1g001",
+   "Picture": "pilot6.gif"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 75,
+   "TargetingMedium": 50,
+   "TargetingLong": 50
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war002": {
+  "General": {
+   "Name": "Glenn Doren",
+   "Callsign": "BITMAN",
+   "ID": 1010,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "paintScheme": 17,
+   "pilotAudio": "pilota",
+   "pilotVideo": "plt1n001",
+   "Picture": "pilot3.gif"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 100,
+   "TargetingMedium": 100,
+   "TargetingLong": 100
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war002a": {
+  "General": {
+   "Name": "Glenn Doren",
+   "Callsign": "CENTURION",
+   "ID": 1010,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "paintScheme": 17,
+   "pilotAudio": "pilota",
+   "pilotVideo": "plt1n001",
+   "Picture": "pilot3.gif"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 50,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 100,
+   "TargetingMedium": 100,
+   "TargetingLong": 100
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war009": {
+  "General": {
+   "Name": "Todd Labonte",
+   "Callsign": "ANIMBOY",
+   "ID": 1000,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "paintScheme": 26,
+   "pilotAudio": "pilotc",
+   "pilotVideo": "plt1g001",
+   "Picture": "pilot7.gif"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 100,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 100,
+   "TargetingMedium": 100,
+   "TargetingLong": 100
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war010": {
+  "General": {
+   "Name": "Jamie Marshall",
+   "Callsign": "BITBOY",
+   "ID": 1000,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "paintScheme": 27,
+   "pilotAudio": "pilotd",
+   "pilotVideo": "plt1g001",
+   "Picture": "pilot8.gif"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 100,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 100,
+   "TargetingMedium": 100,
+   "TargetingLong": 100
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ },
+ "war011": {
+  "General": {
+   "Name": "Charles Oines",
+   "Callsign": "COLORBOY",
+   "ID": 1000,
+   "Profile": 1000,
+   "HeadIcon": 1050,
+   "paintScheme": 28,
+   "pilotAudio": "pilote",
+   "pilotVideo": "plt1g001",
+   "Picture": "pilot1.gif"
+  },
+  "PersonalityTraits": {
+   "Professionalism": 45,
+   "Decorum": 55,
+   "Aggressiveness": 60,
+   "Courage": 80
+  },
+  "Skills": {
+   "Piloting": 100,
+   "Jumping": 50,
+   "Sensors": 50,
+   "TargetingShort": 90,
+   "TargetingMedium": 100,
+   "TargetingLong": 100
+  },
+  "Affinities": {
+   "MechClass": 0,
+   "MechType": 1,
+   "WeaponClass": 2,
+   "WeaponTypes": [
+    10,
+    15
+   ]
+  },
+  "Status": {
+   "Wounds": 0
+  }
+ }
+}

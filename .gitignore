@@ -1,0 +1,10 @@
+# Reference clones and original game files: never commit
+reference/
+original/
+
+# Godot editor cache and gdUnit4 reports
+.godot/
+game/reports/
+
+# Python
+__pycache__/

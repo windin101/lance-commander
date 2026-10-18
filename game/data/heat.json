@@ -1,0 +1,250 @@
+[
+ {
+  "heat": 0,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 0,
+  "fire_mod": 0,
+  "injuries": 0
+ },
+ {
+  "heat": 1,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 0,
+  "fire_mod": 0,
+  "injuries": 0
+ },
+ {
+  "heat": 2,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 0,
+  "fire_mod": 0,
+  "injuries": 0
+ },
+ {
+  "heat": 3,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 3,
+  "fire_mod": 0,
+  "injuries": 0
+ },
+ {
+  "heat": 4,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 9,
+  "fire_mod": 0,
+  "injuries": 0
+ },
+ {
+  "heat": 5,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 30,
+  "fire_mod": 0,
+  "injuries": 0
+ },
+ {
+  "heat": 6,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 36,
+  "fire_mod": 1,
+  "injuries": 0
+ },
+ {
+  "heat": 7,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 42,
+  "fire_mod": 5,
+  "injuries": 0
+ },
+ {
+  "heat": 8,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 48,
+  "fire_mod": 17,
+  "injuries": 0
+ },
+ {
+  "heat": 9,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 54,
+  "fire_mod": 20,
+  "injuries": 0
+ },
+ {
+  "heat": 10,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 60,
+  "fire_mod": 23,
+  "injuries": 0
+ },
+ {
+  "heat": 11,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 66,
+  "fire_mod": 26,
+  "injuries": 0
+ },
+ {
+  "heat": 12,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 72,
+  "fire_mod": 30,
+  "injuries": 0
+ },
+ {
+  "heat": 13,
+  "shutdown_pct": 0,
+  "ammo_explosion_pct": 0,
+  "move_mod": 78,
+  "fire_mod": 33,
+  "injuries": 0
+ },
+ {
+  "heat": 14,
+  "shutdown_pct": 0.8,
+  "ammo_explosion_pct": 0,
+  "move_mod": 84,
+  "fire_mod": 37,
+  "injuries": 0
+ },
+ {
+  "heat": 15,
+  "shutdown_pct": 0.8,
+  "ammo_explosion_pct": 0,
+  "move_mod": 90,
+  "fire_mod": 41,
+  "injuries": 1
+ },
+ {
+  "heat": 16,
+  "shutdown_pct": 0.8,
+  "ammo_explosion_pct": 0,
+  "move_mod": 96,
+  "fire_mod": 45,
+  "injuries": 1
+ },
+ {
+  "heat": 17,
+  "shutdown_pct": 0.8,
+  "ammo_explosion_pct": 0,
+  "move_mod": 102,
+  "fire_mod": 50,
+  "injuries": 1
+ },
+ {
+  "heat": 18,
+  "shutdown_pct": 2.8,
+  "ammo_explosion_pct": 0,
+  "move_mod": 108,
+  "fire_mod": 53,
+  "injuries": 1
+ },
+ {
+  "heat": 19,
+  "shutdown_pct": 2.8,
+  "ammo_explosion_pct": 0.8,
+  "move_mod": 114,
+  "fire_mod": 55,
+  "injuries": 1
+ },
+ {
+  "heat": 20,
+  "shutdown_pct": 2.8,
+  "ammo_explosion_pct": 0.8,
+  "move_mod": 120,
+  "fire_mod": 57,
+  "injuries": 1
+ },
+ {
+  "heat": 21,
+  "shutdown_pct": 2.8,
+  "ammo_explosion_pct": 0.8,
+  "move_mod": 126,
+  "fire_mod": 60,
+  "injuries": 1
+ },
+ {
+  "heat": 22,
+  "shutdown_pct": 5.8,
+  "ammo_explosion_pct": 0.8,
+  "move_mod": 132,
+  "fire_mod": 62,
+  "injuries": 1
+ },
+ {
+  "heat": 23,
+  "shutdown_pct": 5.8,
+  "ammo_explosion_pct": 2.8,
+  "move_mod": 138,
+  "fire_mod": 64,
+  "injuries": 1
+ },
+ {
+  "heat": 24,
+  "shutdown_pct": 5.8,
+  "ammo_explosion_pct": 2.8,
+  "move_mod": 144,
+  "fire_mod": 67,
+  "injuries": 1
+ },
+ {
+  "heat": 25,
+  "shutdown_pct": 5.8,
+  "ammo_explosion_pct": 2.8,
+  "move_mod": 150,
+  "fire_mod": 69,
+  "injuries": 1
+ },
+ {
+  "heat": 26,
+  "shutdown_pct": 8.3,
+  "ammo_explosion_pct": 2.8,
+  "move_mod": 156,
+  "fire_mod": 71,
+  "injuries": 2
+ },
+ {
+  "heat": 27,
+  "shutdown_pct": 8.3,
+  "ammo_explosion_pct": 2.8,
+  "move_mod": 162,
+  "fire_mod": 74,
+  "injuries": 2
+ },
+ {
+  "heat": 28,
+  "shutdown_pct": 9.3,
+  "ammo_explosion_pct": 5.8,
+  "move_mod": 168,
+  "fire_mod": 76,
+  "injuries": 2
+ },
+ {
+  "heat": 29,
+  "shutdown_pct": 9.3,
+  "ammo_explosion_pct": 5.8,
+  "move_mod": 174,
+  "fire_mod": 78,
+  "injuries": 2
+ },
+ {
+  "heat": 30,
+  "shutdown_pct": 100,
+  "ammo_explosion_pct": 5.8,
+  "move_mod": 180,
+  "fire_mod": 81,
+  "injuries": 2
+ }
+]

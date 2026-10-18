@@ -1,0 +1,247 @@
+{
+ "Campaign": {
+  "GroupCount": 13,
+  "CBills": 80000,
+  "FinalVideo": "cinema5.bik",
+  "NameID": 60021
+ },
+ "Group0": {
+  "NumberToComplete": 1,
+  "MissionCount": 1,
+  "OperationFile": "MCL_CM_op1_1",
+  "Video": "STANDIN",
+  "PreVideo": "cinema1.bik",
+  "Tune": 22,
+  "ABLScript": "Tutorial0"
+ },
+ "Group0Mission0": {
+  "FileName": "mc2_01",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase01",
+  "PlayLogistics": false,
+  "PlaySalvage": false,
+  "PlayPilotPromotion": true,
+  "PlayPurchasing": false,
+  "PlaySelection": false
+ },
+ "Group1": {
+  "NumberToComplete": 1,
+  "MissionCount": 1,
+  "OperationFile": "MCL_CM_op1_2",
+  "Video": "NODE_02",
+  "Tune": 22,
+  "ABLScript": "Tutorial1"
+ },
+ "Group1Mission0": {
+  "FileName": "mc2_02",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase02",
+  "PlayLogistics": true,
+  "PlaySalvage": true,
+  "PlayPilotPromotion": true,
+  "PlayPurchasing": true
+ },
+ "Group2": {
+  "NumberToComplete": 1,
+  "MissionCount": 1,
+  "OperationFile": "MCL_CM_op1_3",
+  "Video": "NODE_03",
+  "Tune": 22,
+  "ABLScript": "Tutorial2"
+ },
+ "Group2Mission0": {
+  "FileName": "mc2_03",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase03",
+  "PlayLogistics": true,
+  "PlaySalvage": true,
+  "PlayPilotPromotion": true,
+  "PlayPurchasing": true
+ },
+ "Group3": {
+  "NumberToComplete": 1,
+  "MissionCount": 1,
+  "OperationFile": "MCL_CM_op1_4",
+  "Video": "NODE_04",
+  "Tune": 22
+ },
+ "Group3Mission0": {
+  "FileName": "mc2_04",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase04"
+ },
+ "Group4": {
+  "NumberToComplete": 1,
+  "MissionCount": 1,
+  "OperationFile": "MCL_CM_op1_5",
+  "Video": "NODE_05",
+  "Tune": 22
+ },
+ "Group4Mission0": {
+  "FileName": "mc2_05",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase05"
+ },
+ "Group5": {
+  "NumberToComplete": 2,
+  "MissionCount": 4,
+  "OperationFile": "MCL_CM_op1_6",
+  "Video": "CHOICE_1",
+  "Tune": 22
+ },
+ "Group5Mission0": {
+  "FileName": "mc2_06",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase06"
+ },
+ "Group5Mission1": {
+  "FileName": "mc2_07",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase07"
+ },
+ "Group5Mission2": {
+  "FileName": "mc2_08",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase08"
+ },
+ "Group5Mission3": {
+  "FileName": "mc2_09",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase09",
+  "Hidden": true,
+  "VideoOverride": "NODE_09.bik"
+ },
+ "Group6": {
+  "NumberToComplete": 1,
+  "MissionCount": 1,
+  "OperationFile": "MCL_CM_op2_1",
+  "Video": "NODE_10",
+  "Tune": 20,
+  "PreVideo": "cinema2.bik"
+ },
+ "Group6Mission0": {
+  "FileName": "mc2_10",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase10"
+ },
+ "Group7": {
+  "NumberToComplete": 2,
+  "MissionCount": 3,
+  "OperationFile": "MCL_CM_op2_2",
+  "Video": "CHOICE_2",
+  "Tune": 20
+ },
+ "Group7Mission0": {
+  "FileName": "mc2_11",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase11"
+ },
+ "Group7Mission1": {
+  "FileName": "mc2_12",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase12"
+ },
+ "Group7Mission2": {
+  "FileName": "mc2_13",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase13",
+  "Hidden": true,
+  "VideoOverride": "NODE_13.bik"
+ },
+ "Group8": {
+  "NumberToComplete": 3,
+  "MissionCount": 4,
+  "OperationFile": "MCL_CM_op2_3",
+  "Video": "CHOICE_3",
+  "Tune": 20,
+  "PreVideo": "cinema3.bik"
+ },
+ "Group8Mission0": {
+  "FileName": "mc2_14",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase14"
+ },
+ "Group8Mission1": {
+  "FileName": "mc2_15",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase15"
+ },
+ "Group8Mission2": {
+  "FileName": "mc2_16",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase16"
+ },
+ "Group8Mission3": {
+  "FileName": "mc2_17",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase17",
+  "Hidden": true,
+  "VideoOverride": "NODE_17.bik"
+ },
+ "Group9": {
+  "NumberToComplete": 1,
+  "MissionCount": 1,
+  "OperationFile": "MCL_CM_op3_1",
+  "Video": "NODE_18",
+  "Tune": 23,
+  "PreVideo": "cinema4.bik"
+ },
+ "Group9Mission0": {
+  "FileName": "mc2_18",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase18"
+ },
+ "Group10": {
+  "NumberToComplete": 2,
+  "MissionCount": 4,
+  "OperationFile": "MCL_CM_op3_2",
+  "Video": "CHOICE_4",
+  "Tune": 23
+ },
+ "Group10Mission0": {
+  "FileName": "mc2_19",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase19"
+ },
+ "Group10Mission1": {
+  "FileName": "mc2_20",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase20"
+ },
+ "Group10Mission2": {
+  "FileName": "mc2_21",
+  "Mandatory": false,
+  "PurchaseFile": "Purchase21"
+ },
+ "Group10Mission3": {
+  "FileName": "mc2_22",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase22",
+  "Hidden": true,
+  "VideoOverride": "NODE_22.bik"
+ },
+ "Group11": {
+  "NumberToComplete": 1,
+  "MissionCount": 1,
+  "OperationFile": "MCL_CM_op3_3",
+  "Video": "NODE_23",
+  "Tune": 23
+ },
+ "Group11Mission0": {
+  "FileName": "mc2_23",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase23"
+ },
+ "Group12": {
+  "NumberToComplete": 1,
+  "MissionCount": 1,
+  "OperationFile": "MCL_CM_op3_4",
+  "Video": "NODE_27",
+  "Tune": 23
+ },
+ "Group12Mission0": {
+  "FileName": "mc2_24",
+  "Mandatory": true,
+  "PurchaseFile": "Purchase24"
+ }
+}

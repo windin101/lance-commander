@@ -1,0 +1,1928 @@
+[
+ {
+  "id": 1,
+  "form": "Engine",
+  "name": "Fusion Engine",
+  "crits": 6,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": -1,
+   "ctorso": 6,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  }
+ },
+ {
+  "id": 4,
+  "form": "Actuator",
+  "name": "Arm Actuator",
+  "crits": 3,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": -1,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  }
+ },
+ {
+  "id": 5,
+  "form": "Actuator",
+  "name": "Leg Actuator",
+  "crits": 3,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": -1,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": 0,
+   "rleg": 0
+  }
+ },
+ {
+  "id": 6,
+  "form": "Cockpit",
+  "name": "Cockpit",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 1,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  }
+ },
+ {
+  "id": 7,
+  "form": "HeatSink",
+  "name": "Heat Sink",
+  "crits": 1,
+  "tons": 1.0,
+  "br": 0.0,
+  "rp": 2000,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "heatsink": {
+   "dissipation": 4.0
+  }
+ },
+ {
+  "id": 10,
+  "form": "JumpJet",
+  "name": "Jump Jets",
+  "crits": 2,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 6000,
+  "locations": {
+   "head": -1,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "jumpjet": {
+   "range_mod": 0.0
+  }
+ },
+ {
+  "id": 13,
+  "form": "Sensors",
+  "name": "Standard Sensors",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 500,
+  "locations": {
+   "head": 0,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "sensor": {
+   "range_factor": 1.0
+  }
+ },
+ {
+  "id": 14,
+  "form": "Sensors",
+  "name": "Extended Sensors",
+  "crits": 2,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 500,
+  "locations": {
+   "head": 0,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "sensor": {
+   "range_factor": 400.0
+  }
+ },
+ {
+  "id": 15,
+  "form": "Sensors",
+  "name": "Advanced Sensors",
+  "crits": 2,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 500,
+  "locations": {
+   "head": 0,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "sensor": {
+   "range_factor": 550.0
+  }
+ },
+ {
+  "id": 17,
+  "form": "Sensors",
+  "name": "Cyclops Sensors",
+  "crits": 3,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 500,
+  "locations": {
+   "head": 0,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "sensor": {
+   "range_factor": 800.0
+  }
+ },
+ {
+  "id": 22,
+  "form": "Gyroscope",
+  "name": "Gyroscope II",
+  "crits": 4,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": -1,
+   "ctorso": 4,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  }
+ },
+ {
+  "id": 25,
+  "form": "Bulk",
+  "name": "Armor Plating",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 0.0,
+  "rp": 3000,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  }
+ },
+ {
+  "id": 33,
+  "form": "Actuator",
+  "name": "Shoulder",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": -1,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  }
+ },
+ {
+  "id": 34,
+  "form": "Actuator",
+  "name": "Hip",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": -1,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": 0,
+   "rleg": 0
+  }
+ },
+ {
+  "id": 35,
+  "form": "LifeSupport",
+  "name": "LifeSupport",
+  "crits": 2,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 2,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  }
+ },
+ {
+  "id": 36,
+  "form": "Sensors",
+  "name": "Vehicle Sensors",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 1000,
+  "locations": {
+   "head": 0,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "sensor": {
+   "range_factor": 0.0
+  }
+ },
+ {
+  "id": 38,
+  "form": "ECM",
+  "name": "Mk. I ECM Suite",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 500,
+  "locations": {
+   "head": 0,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "ecm": {
+   "effect": 0.5,
+   "range": 350.0
+  }
+ },
+ {
+  "id": 43,
+  "form": "Probe",
+  "name": "Active Probe",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 500,
+  "locations": {
+   "head": 0,
+   "ctorso": -1,
+   "ltorso": -1,
+   "rtorso": -1,
+   "larm": -1,
+   "rarm": -1,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "probe": {
+   "effect": 0.0
+  }
+ },
+ {
+  "id": 99,
+  "form": "BallisticWeapon",
+  "name": "Light Gauss Rifle",
+  "crits": 4,
+  "tons": 12.0,
+  "br": 527.84,
+  "rp": 7200,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 6.0,
+   "recycle": 6.67,
+   "heat": 1,
+   "range": "long",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 28,
+   "ammo_id": 199
+  }
+ },
+ {
+  "id": 100,
+  "form": "BallisticWeapon",
+  "name": "Light Autocannon (AC5)",
+  "crits": 4,
+  "tons": 8.0,
+  "br": 266.32,
+  "rp": 3500,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.0,
+   "recycle": 3.0,
+   "heat": 1,
+   "range": "long",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 7,
+   "ammo_id": 200
+  }
+ },
+ {
+  "id": 101,
+  "form": "BallisticWeapon",
+  "name": "Autocannon (AC10)",
+  "crits": 8,
+  "tons": 12.0,
+  "br": 419.13,
+  "rp": 5300,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 6.0,
+   "recycle": 5.7,
+   "heat": 2,
+   "range": "medium",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 18,
+   "ammo_id": 201
+  }
+ },
+ {
+  "id": 102,
+  "form": "BallisticWeapon",
+  "name": "Heavy Autocannon (AC20)",
+  "crits": 12,
+  "tons": 16.0,
+  "br": 545.11,
+  "rp": 7100,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 12.0,
+   "recycle": 5.88,
+   "heat": 7,
+   "range": "short",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 19,
+   "ammo_id": 202
+  }
+ },
+ {
+  "id": 103,
+  "form": "BallisticWeapon",
+  "name": "Light Ultra Autocannon (AC5)",
+  "crits": 6,
+  "tons": 8.0,
+  "br": 363.16,
+  "rp": 5500,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.0,
+   "recycle": 2.2,
+   "heat": 1,
+   "range": "long",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 7,
+   "ammo_id": 203
+  }
+ },
+ {
+  "id": 104,
+  "form": "BallisticWeapon",
+  "name": "Gauss Rifle",
+  "crits": 7,
+  "tons": 16.0,
+  "br": 982.72,
+  "rp": 15300,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 10.0,
+   "recycle": 7.14,
+   "heat": 1,
+   "range": "long",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 10,
+   "ammo_id": 204
+  }
+ },
+ {
+  "id": 108,
+  "form": "BallisticWeapon",
+  "name": "Ultra Autocannon (AC10)",
+  "crits": 8,
+  "tons": 12.0,
+  "br": 597.27,
+  "rp": 8000,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 6.0,
+   "recycle": 4.0,
+   "heat": 4,
+   "range": "medium",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 18,
+   "ammo_id": 208
+  }
+ },
+ {
+  "id": 109,
+  "form": "BallisticWeapon",
+  "name": "Clan Heavy Ultra Autocannon (AC20)",
+  "crits": 12,
+  "tons": 16.0,
+  "br": 866.29,
+  "rp": 14200,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 12.0,
+   "recycle": 3.7,
+   "heat": 8,
+   "range": "short",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 19,
+   "ammo_id": 212
+  }
+ },
+ {
+  "id": 110,
+  "form": "BallisticWeapon",
+  "name": "Clan Light Ultra Autocannon (AC5)",
+  "crits": 4,
+  "tons": 8.0,
+  "br": 443.86,
+  "rp": 7500,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.0,
+   "recycle": 1.8,
+   "heat": 1,
+   "range": "long",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 7,
+   "ammo_id": 210
+  }
+ },
+ {
+  "id": 111,
+  "form": "BallisticWeapon",
+  "name": "Clan Ultra Autocannon (AC10)",
+  "crits": 6,
+  "tons": 12.0,
+  "br": 678.71,
+  "rp": 10200,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 6.0,
+   "recycle": 3.52,
+   "heat": 3,
+   "range": "medium",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 18,
+   "ammo_id": 211
+  }
+ },
+ {
+  "id": 112,
+  "form": "BallisticWeapon",
+  "name": "Heavy Ultra Autocannon (AC20)",
+  "crits": 12,
+  "tons": 16.0,
+  "br": 768.65,
+  "rp": 11800,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 12.0,
+   "recycle": 4.17,
+   "heat": 8,
+   "range": "short",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 19,
+   "ammo_id": 209
+  }
+ },
+ {
+  "id": 113,
+  "form": "BallisticWeapon",
+  "name": "Clan Gauss Rifle",
+  "crits": 6,
+  "tons": 16.0,
+  "br": 1122.66,
+  "rp": 18500,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 10.0,
+   "recycle": 6.25,
+   "heat": 1,
+   "range": "long",
+   "ammo_type": "limited",
+   "streak": false,
+   "special_fx": 10,
+   "ammo_id": 213
+  }
+ },
+ {
+  "id": 114,
+  "form": "BallisticWeapon",
+  "name": "MG Array",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 44.77,
+  "rp": 900,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 1.0,
+   "recycle": 2.5,
+   "heat": 0,
+   "range": "short",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 11,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 120,
+  "form": "MissileWeapon",
+  "name": "LRM5 Rack",
+  "crits": 2,
+  "tons": 4.0,
+  "br": 174.46,
+  "rp": 1700,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 3.0,
+   "recycle": 9.5,
+   "heat": 2,
+   "range": "long",
+   "ammo_type": "lrm",
+   "streak": false,
+   "special_fx": 9,
+   "ammo_id": 220
+  }
+ },
+ {
+  "id": 123,
+  "form": "MissileWeapon",
+  "name": "Swarm LRM5 Rack",
+  "crits": 2,
+  "tons": 4.0,
+  "br": 261.69,
+  "rp": 2600,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 3.0,
+   "recycle": 9.5,
+   "heat": 2,
+   "range": "long",
+   "ammo_type": "lrm",
+   "streak": false,
+   "special_fx": 74,
+   "ammo_id": 231
+  }
+ },
+ {
+  "id": 124,
+  "form": "MissileWeapon",
+  "name": "SRM2 Pack",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 37.63,
+  "rp": 500,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 1.0,
+   "recycle": 3.57,
+   "heat": 2,
+   "range": "short",
+   "ammo_type": "srm",
+   "streak": false,
+   "special_fx": 8,
+   "ammo_id": 223
+  }
+ },
+ {
+  "id": 125,
+  "form": "MissileWeapon",
+  "name": "Streak SRM2 Pack",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 103.76,
+  "rp": 2000,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.0,
+   "recycle": 3.3,
+   "heat": 2,
+   "range": "short",
+   "ammo_type": "streak",
+   "streak": true,
+   "special_fx": 8,
+   "ammo_id": 225
+  }
+ },
+ {
+  "id": 130,
+  "form": "MissileWeapon",
+  "name": "Clan LRM5 Rack",
+  "crits": 2,
+  "tons": 4.0,
+  "br": 348.92,
+  "rp": 4500,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 3.0,
+   "recycle": 4.75,
+   "heat": 4,
+   "range": "long",
+   "ammo_type": "lrm",
+   "streak": false,
+   "special_fx": 9,
+   "ammo_id": 230
+  }
+ },
+ {
+  "id": 135,
+  "form": "MissileWeapon",
+  "name": "Clan Streak SRM2 Pack",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 110.45,
+  "rp": 2200,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.0,
+   "recycle": 3.1,
+   "heat": 2,
+   "range": "short",
+   "ammo_type": "streak",
+   "streak": true,
+   "special_fx": 8,
+   "ammo_id": 235
+  }
+ },
+ {
+  "id": 139,
+  "form": "EnergyWeapon",
+  "name": "Clan Heavy Laser",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 196.61,
+  "rp": 4700,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 5.0,
+   "recycle": 5.0,
+   "heat": 7,
+   "range": "short",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 29,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 140,
+  "form": "EnergyWeapon",
+  "name": "Large Laser",
+  "crits": 2,
+  "tons": 4.0,
+  "br": 276.4,
+  "rp": 3800,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 4.0,
+   "recycle": 5.0,
+   "heat": 8,
+   "range": "medium",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 15,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 141,
+  "form": "EnergyWeapon",
+  "name": "ER Large Laser",
+  "crits": 2,
+  "tons": 4.0,
+  "br": 407.32,
+  "rp": 5300,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 4.0,
+   "recycle": 5.0,
+   "heat": 12,
+   "range": "long",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 17,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 142,
+  "form": "EnergyWeapon",
+  "name": "Large Pulse Laser",
+  "crits": 2,
+  "tons": 4.0,
+  "br": 301.19,
+  "rp": 5000,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.0,
+   "recycle": 1.8,
+   "heat": 10,
+   "range": "medium",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 16,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 143,
+  "form": "EnergyWeapon",
+  "name": "ER Laser",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 174.46,
+  "rp": 3000,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.5,
+   "recycle": 4.2,
+   "heat": 5,
+   "range": "medium",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 14,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 144,
+  "form": "EnergyWeapon",
+  "name": "Pulse Laser",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 100.12,
+  "rp": 2000,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.0,
+   "recycle": 2.85,
+   "heat": 4,
+   "range": "short",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 13,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 145,
+  "form": "EnergyWeapon",
+  "name": "PPC",
+  "crits": 3,
+  "tons": 6.0,
+  "br": 441.04,
+  "rp": 5700,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 7.0,
+   "recycle": 6.67,
+   "heat": 10,
+   "range": "medium",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 4,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 146,
+  "form": "EnergyWeapon",
+  "name": "ER PPC",
+  "crits": 3,
+  "tons": 6.0,
+  "br": 649.96,
+  "rp": 8000,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 7.0,
+   "recycle": 6.67,
+   "heat": 15,
+   "range": "long",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 5,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 147,
+  "form": "EnergyWeapon",
+  "name": "Clan Heavy Large Laser",
+  "crits": 2,
+  "tons": 4.0,
+  "br": 742.81,
+  "rp": 15000,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 9.0,
+   "recycle": 5.56,
+   "heat": 18,
+   "range": "medium",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 30,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 150,
+  "form": "EnergyWeapon",
+  "name": "Clan ER Large Laser",
+  "crits": 2,
+  "tons": 4.0,
+  "br": 509.15,
+  "rp": 7700,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 4.0,
+   "recycle": 4.0,
+   "heat": 12,
+   "range": "long",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 2,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 151,
+  "form": "EnergyWeapon",
+  "name": "Clan Large Pulse Laser",
+  "crits": 2,
+  "tons": 4.0,
+  "br": 338.84,
+  "rp": 6000,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.0,
+   "recycle": 1.6,
+   "heat": 10,
+   "range": "medium",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 16,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 152,
+  "form": "EnergyWeapon",
+  "name": "Clan ER Laser",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 222.04,
+  "rp": 4500,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.5,
+   "recycle": 3.3,
+   "heat": 5,
+   "range": "medium",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 1,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 153,
+  "form": "EnergyWeapon",
+  "name": "Clan Pulse Laser",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 114.14,
+  "rp": 2400,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.0,
+   "recycle": 2.5,
+   "heat": 4,
+   "range": "short",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 13,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 154,
+  "form": "EnergyWeapon",
+  "name": "Clan ER PPC",
+  "crits": 3,
+  "tons": 6.0,
+  "br": 952.79,
+  "rp": 14900,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 7.0,
+   "recycle": 4.55,
+   "heat": 15,
+   "range": "long",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 5,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 155,
+  "form": "EnergyWeapon",
+  "name": "Flamer Array",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 104.72,
+  "rp": 1800,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 3.5,
+   "recycle": 5.8,
+   "heat": 7,
+   "range": "short",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 3,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 156,
+  "form": "EnergyWeapon",
+  "name": "Laser",
+  "crits": 1,
+  "tons": 2.0,
+  "br": 91.82,
+  "rp": 1700,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 2.5,
+   "recycle": 4.2,
+   "heat": 3,
+   "range": "short",
+   "ammo_type": "none",
+   "streak": false,
+   "special_fx": 12,
+   "ammo_id": 0
+  }
+ },
+ {
+  "id": 160,
+  "form": "BallisticWeapon",
+  "name": "Long Tom Cannon",
+  "crits": 12,
+  "tons": 24.0,
+  "br": 3057.92,
+  "rp": 29300,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 15.0,
+   "recycle": 7.14,
+   "heat": 20,
+   "range": "long",
+   "ammo_type": "lrm",
+   "streak": false,
+   "special_fx": 31,
+   "ammo_id": 227
+  }
+ },
+ {
+  "id": 161,
+  "form": "MissileWeapon",
+  "name": "Thunderbolt Missile",
+  "crits": 10,
+  "tons": 20.0,
+  "br": 1356.99,
+  "rp": 16400,
+  "locations": {
+   "head": -1,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": -1,
+   "rleg": -1
+  },
+  "weapon": {
+   "damage": 13.0,
+   "recycle": 6.0,
+   "heat": 8,
+   "range": "medium",
+   "ammo_type": "lrm",
+   "streak": false,
+   "special_fx": 27,
+   "ammo_id": 228
+  }
+ },
+ {
+  "id": 199,
+  "form": "Ammo",
+  "name": "Light Gauss Rifle Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 34,
+   "explosive_damage": 1.0
+  }
+ },
+ {
+  "id": 200,
+  "form": "Ammo",
+  "name": "Light Autocannon (AC5) Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 75,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 201,
+  "form": "Ammo",
+  "name": "Autocannon (AC10) Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 39,
+   "explosive_damage": 1.0
+  }
+ },
+ {
+  "id": 202,
+  "form": "Ammo",
+  "name": "Heavy Autocannon (AC20) Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 38,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 203,
+  "form": "Ammo",
+  "name": "Light Ultra Autocannon (AC5) Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 102,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 204,
+  "form": "Ammo",
+  "name": "Gauss Rifle Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 32,
+   "explosive_damage": 1.0
+  }
+ },
+ {
+  "id": 205,
+  "form": "Ammo",
+  "name": "MG Array Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 72,
+   "explosive_damage": 1.0
+  }
+ },
+ {
+  "id": 208,
+  "form": "Ammo",
+  "name": "Ultra Autocannon (AC10) Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 56,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 209,
+  "form": "Ammo",
+  "name": "Heavy Ultra Autocannon (AC20) Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 54,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 210,
+  "form": "Ammo",
+  "name": "Clan Light Ultra Autocannon (AC5) Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 125,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 211,
+  "form": "Ammo",
+  "name": "Clan Ultra Autocannon (AC10) Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 64,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 212,
+  "form": "Ammo",
+  "name": "Clan Heavy Ultra Autocannon (AC20) Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 61,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 213,
+  "form": "Ammo",
+  "name": "Clan Gauss Rifle Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 36,
+   "explosive_damage": 1.0
+  }
+ },
+ {
+  "id": 220,
+  "form": "Ammo",
+  "name": "LRM5 Rack Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 24,
+   "explosive_damage": 1.0
+  }
+ },
+ {
+  "id": 223,
+  "form": "Ammo",
+  "name": "SRM2 Pack Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 63,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 225,
+  "form": "Ammo",
+  "name": "Streak SRM2 Pack Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 68,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 227,
+  "form": "Ammo",
+  "name": "Long Tom Cannon Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 50,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 228,
+  "form": "Ammo",
+  "name": "Thunderbolt Missile Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 30,
+   "explosive_damage": 1.0
+  }
+ },
+ {
+  "id": 230,
+  "form": "Ammo",
+  "name": "Clan LRM5 Rack Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 47,
+   "explosive_damage": 0.5
+  }
+ },
+ {
+  "id": 231,
+  "form": "Ammo",
+  "name": "Swarm LRM5 Rack Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 24,
+   "explosive_damage": 1.0
+  }
+ },
+ {
+  "id": 235,
+  "form": "Ammo",
+  "name": "Clan Streak SRM2 Pack Ammo",
+  "crits": 1,
+  "tons": 0.0,
+  "br": 0.0,
+  "rp": 0,
+  "locations": {
+   "head": 0,
+   "ctorso": 0,
+   "ltorso": 0,
+   "rtorso": 0,
+   "larm": 0,
+   "rarm": 0,
+   "lleg": 0,
+   "rleg": 0
+  },
+  "ammo": {
+   "per_ton": 73,
+   "explosive_damage": 0.5
+  }
+ }
+]
