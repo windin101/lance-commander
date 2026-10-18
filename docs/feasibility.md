@@ -216,6 +216,27 @@ Suggested mission: **mc2_01**, the first campaign mission. Its script is the sma
 
 Out of scope for milestone 1: the campaign and logistics layer (mech lab, salvage, purchasing; extra-large for full parity), multiplayer, the editor and the videos.
 
+## 5b. Milestone 2 plan: the campaign missions (decided 2026-10-19)
+
+Milestone 1 (phases 0–8, mc2_01 playable in HD) is complete. Milestone 2 brings up mc2_02 onwards in campaign order.
+
+**Survey (2026-10-19)** of the 24 campaign missions:
+- **Brains:** 614 distinct per-unit ABL brains, nearly all unique (570 distinct after stripping numbers and IDs). Together with the 24 mission scripts that is 637 files and 169k lines.
+- **Brain vocabulary:** small. About 60 native functions are called, and the heavy lifting goes through `core*` routines written in ABL itself (`corebrain.abx`, `orders.abx`, `miscfunc.abx`, 5.8k lines).
+- **Units:** 57 enemy chassis (mechs and vehicles); mc2_01 converts 4 mechs and 3 vehicles.
+- **Objectives:** 12 condition species. DestroySpecificEnemyUnit dominates; others include Capture*, MoveAllSurvivingMechsToArea, BooleanFlagIsSet and ElapsedMissionTime.
+- **Campaign:** mc2_02 already switches on logistics, salvage and purchasing. Milestone 2 defers those and plays each mission with the lance from its FIT.
+
+**Decision:** hand-transcribed brains (as done for mc2_01) don't scale to 614 scripts. Run the original ABL instead, through a clean GDScript interpreter of the language. This is our own implementation written from the language as the scripts use it; it is not a port of the C++ `Abl*.cpp`.
+
+| Phase | Deliverable | Size |
+|---|---|---|
+| 9 ✔ | ABL interpreter (`game/scripts/abl/`, done 2026-10-19): scanner, parser, tree-walking executor for fsm/module/library, states, `trans`/`transBack`, static/eternal vars, arrays, `switch`. Every campaign script and `.abx` library parses. Runtime semantics are in the `abl_runtime.gd` header; the surprise was that a mission script's eternal variables are global (brains read its flags undeclared). `scripts/dev/abl_probe.gd` runs a mission's real ABL with natives stubbed and lists the natives reached | L |
+| 10 | ABL natives bound to the sim (the ~60 functions: orders, target priorities, pilot events, objectives, flags, trigger areas, sound/video/camera hooks). mc2_01 runs on its real ABL; autoplay still wins; the hand brains are retired | L |
+| 11 | Converters for every mission: terrain, objects, units, all chassis and models, per-mission audio and video manifests, all 12 objective species | M |
+| 12 | Mission flow: campaign order, briefing → mission → debrief → next mission, lance from the FIT | M |
+| 13+ | Bring up mc2_02 onwards, one per step, each checked by an autoplay run. New units get HD art from the game-art agent in parallel | S–M each |
+
 ## 6. Licence ground rules (unchanged by this research)
 
 - **Never commercial.** No sales, no paid access, nothing behind a payment.

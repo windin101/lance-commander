@@ -15,6 +15,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import abl_scripts  # noqa: E402
 import audio  # noqa: E402
 import chassis  # noqa: E402
 import components  # noqa: E402
@@ -29,6 +30,7 @@ import video  # noqa: E402
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT = os.path.join(ROOT, "game", "data")
 SLICE_MISSIONS = ["mc2_01"]
+CAMPAIGN_MISSIONS = [f"mc2_{i:02d}" for i in range(1, 25)]  # Data/Campaign/campaign.fit order
 ASSETS = os.path.join(ROOT, "game", "assets")
 # Per-mission textures (Terrain.cpp:425-433, TerrainColorMap, water and detail maps).
 MISSION_TEXTURES = [".burnin.jpg", ".detail.tga", ".water.tga"]
@@ -158,6 +160,9 @@ def main():
     videos = video.convert(ROOT, args.retail_mdf, comms=["V1A", "V1C", "V1D"], cinematics=["CINEMA1"])
     write("videos.json", videos)
     report.append(f"retail videos: {sorted(videos) if videos else 'none (no disc image)'}")
+
+    abl = abl_scripts.convert(missions, os.path.join(OUT, "abl"), CAMPAIGN_MISSIONS)
+    report.append(f"abl: {abl['missions']} mission scripts, {abl['brains']} brains, missing {abl['missing']}")
 
     strings = strings_rc.load(os.path.join(src, "Script1.rc"), os.path.join(src, "resource.h"))
     write("strings.json", {str(k): v for k, v in sorted(strings.items())})
