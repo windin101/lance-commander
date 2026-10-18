@@ -7,7 +7,10 @@ extends Node3D
 
 const LOOPED := ["Idle", "Walk", "Run", "LimpLeft", "LimpRight"]
 
+signal footstep(at: Vector3)
+
 var mech: SimUnit
+var _step_clock := 0.0
 var map: SimMap
 var model: Node3D
 var player: AnimationPlayer
@@ -128,6 +131,13 @@ func _animate() -> void:
 		player.play(want, 0.2)
 		_anim = want
 	player.speed_scale = scale
+	# Two footfalls per walk/run cycle (the sidecar's foot-down frames are per cycle).
+	if mech is SimMech and want in ["Walk", "Run", "LimpLeft", "LimpRight"]:
+		var cycle := player.get_animation(want).length / maxf(scale, 0.1)
+		_step_clock += get_process_delta_time()
+		if _step_clock >= cycle / 2.0:
+			_step_clock = 0.0
+			footstep.emit(global_position)
 
 
 func _wreck() -> void:

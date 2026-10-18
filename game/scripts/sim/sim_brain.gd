@@ -114,6 +114,8 @@ func _attack(world: SimWorld, u: SimUnit, t: SimUnit) -> void:
 		prev_state = state if state != "player" else "player"
 	target = t
 	state = "attack" if not cfg.get("player", false) else "player"
+	if cfg.has("attack_flag"):
+		world.flags[String(cfg["attack_flag"])] = true  # e.g. Starslayer attack sets Bandits_Equipped_Trigger
 	_flanked = false
 	world.order_attack(u, t)
 

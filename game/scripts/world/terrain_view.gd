@@ -19,20 +19,34 @@ func build(sim_map: SimMap, texture_dir: String) -> void:
 	var ground := MeshInstance3D.new()
 	ground.name = "Ground"
 	ground.mesh = _ground_mesh()
-	var mat := StandardMaterial3D.new()
-	mat.albedo_texture = load(texture_dir.path_join("burnin.jpg"))
-	mat.roughness = 0.95
+	var mat := ShaderMaterial.new()
+	mat.shader = load("res://shaders/terrain.gdshader")
+	mat.set_shader_parameter("colour_map", load(texture_dir.path_join("burnin.jpg")))
 	var detail_path := texture_dir.path_join("detail.tga")
 	if ResourceLoader.exists(detail_path):
-		mat.detail_enabled = true
-		mat.detail_albedo = load(detail_path)
-		mat.detail_blend_mode = BaseMaterial3D.BLEND_MODE_MUL
-		mat.detail_uv_layer = BaseMaterial3D.DETAIL_UV_2
-	mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
+		mat.set_shader_parameter("detail_map", load(detail_path))
+	mat.set_shader_parameter("rock_noise", _noise_texture(false, 256, 0.02))
 	ground.material_override = mat
 	add_child(ground)
 	if map.water_level_m > -100.0:
 		add_child(_water(texture_dir))
+
+
+static func _noise_texture(as_normal_map: bool, px: int, frequency: float) -> NoiseTexture2D:
+	var t := NoiseTexture2D.new()
+	var noise := FastNoiseLite.new()
+	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	noise.fractal_type = FastNoiseLite.FRACTAL_FBM
+	noise.fractal_octaves = 5
+	noise.frequency = frequency
+	t.noise = noise
+	t.width = px
+	t.height = px
+	t.seamless = true
+	t.as_normal_map = as_normal_map
+	t.bump_strength = 6.0
+	t.generate_mipmaps = true
+	return t
 
 
 func _ground_mesh() -> ArrayMesh:
@@ -78,7 +92,7 @@ func _water(texture_dir: String) -> MeshInstance3D:
 				if depth > shallow_m:
 					alpha = lerpf(175.0, 255.0, clampf((depth - shallow_m) / (shallow_m * 2.0), 0.0, 1.0)) / 255.0
 			st.set_color(Color(1, 1, 1, alpha))
-			st.set_uv(Vector2(float(col) / n, float(row) / n) * tiling)
+			st.set_uv(Vector2(float(col) / n, float(row) / n) * tiling * 0.25)
 			st.add_vertex(to_3d(pos, map.water_level_m))
 	for row in n - 1:
 		for col in n - 1:
@@ -93,12 +107,14 @@ func _water(texture_dir: String) -> MeshInstance3D:
 	var water := MeshInstance3D.new()
 	water.name = "Water"
 	water.mesh = st.commit()
-	var mat := StandardMaterial3D.new()
-	mat.albedo_texture = load(texture_dir.path_join("water.tga"))
-	mat.vertex_color_use_as_albedo = true
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.metallic_specular = 0.35
-	mat.roughness = 0.45
+	var mat := ShaderMaterial.new()
+	mat.shader = load("res://shaders/water.gdshader")
+	mat.set_shader_parameter("water_tex", load(texture_dir.path_join("water.tga")))
+	mat.set_shader_parameter("wave_noise", _noise_texture(true, 256, 0.04))
+	mat.set_shader_parameter("tiling", tiling)
+	# Mission [Water] Frequency / Ampliture (world units) -> a gentle swell in metres.
+	var amp := float(map.meta.get("water_amplitude", 3.0)) * map.meters_per_wu
+	mat.set_shader_parameter("swell_height", clampf(amp, 0.1, 1.5))
 	water.material_override = mat
 	water.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	return water

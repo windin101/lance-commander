@@ -15,6 +15,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import audio  # noqa: E402
 import chassis  # noqa: E402
 import components  # noqa: E402
 import fit  # noqa: E402
@@ -140,6 +141,14 @@ def main():
             pilots[os.path.splitext(name)[0].lower()] = fit.parse_file(os.path.join(warriors, name))
     write("pilots.json", pilots)
     report.append(f"pilot files: {len(pilots)}")
+
+    # Slice audio: mc2_01's tunes (Missions/sndconst.abi) and voice-overs (mc2_01.abl).
+    manifest, missing = audio.convert(data, comps, os.path.join(ASSETS, "audio"),
+                                      tunes=[1, 8, 9, 14, 18, 19, 24, 25],
+                                      voice=["tut_1cii", "tut_1e", "tut_1gi", "tut_1h", "tut_1hi", "mc2_01"])
+    write("audio.json", manifest)
+    report.append(f"audio: {len(manifest['weapons'])} weapon sounds, {len(manifest['sfx'])} sfx, "
+                  f"{len(manifest['music'])} tunes, {len(manifest['vo'])} vo, missing {missing}")
 
     strings = strings_rc.load(os.path.join(src, "Script1.rc"), os.path.join(src, "resource.h"))
     write("strings.json", {str(k): v for k, v in sorted(strings.items())})

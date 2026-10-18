@@ -85,6 +85,8 @@ def convert(pak_path, mission_fit):
         "water_elevation": water.get("Elevation", -1000.0),
         "water_shallow_depth": water.get("ShallowDepth", 0.0),
         "water_alpha_depth": water.get("AlphaDepth", 0.0),
+        "water_frequency": water.get("Frequency", 8.0),
+        "water_amplitude": water.get("Ampliture", 3.0),  # sic: the FIT key is misspelled
         "detail_tiling": terrain.get("DetailTextureTilingFactor", 30.0),
         "water_tiling": terrain.get("WaterTextureTilingFactor", 48.0),
         "cell_bits": {k: list(v) for k, v in CELL_BITS.items()},

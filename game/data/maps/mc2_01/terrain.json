@@ -7,6 +7,8 @@
  "water_elevation": 350.0,
  "water_shallow_depth": 20.0,
  "water_alpha_depth": 15.0,
+ "water_frequency": 8.0,
+ "water_amplitude": 3.0,
  "detail_tiling": 30.0,
  "water_tiling": 48.0,
  "cell_bits": {

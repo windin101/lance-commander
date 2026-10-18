@@ -272,7 +272,7 @@ func _combat(m: SimUnit) -> void:
 		var form: String = m.items[w]["form"]
 		var speed: float = projectile_speed.get(form, 0.0)
 		var flight := m.distance_to(target.position) / speed if speed > 0.0 else 0.0
-		projectiles.append({"shot": shot, "target": target.id, "impact_time": time + flight})
+		projectiles.append({"shot": shot, "target": target.id, "impact_time": time + flight, "form": form})
 		target.last_attacker = m
 		target.last_attacked_time = time
 		events.append({"type": "shot", "from": m.id, "to": target.id, "weapon": w, "form": form,
@@ -308,5 +308,5 @@ func _land_projectiles() -> void:
 		SimCombat.apply_shot(rules, rng, target, p["shot"], time)
 		if p["shot"]["hit"]:
 			events.append({"type": "impact", "unit": target.id, "location": p["shot"]["location"],
-				"damage": p["shot"]["damage"]})
+				"damage": p["shot"]["damage"], "form": p.get("form", "")})
 	projectiles = still

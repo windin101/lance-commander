@@ -105,7 +105,7 @@ func _draw() -> void:
 	if view_polygon.size() == 4:
 		var pts := PackedVector2Array()
 		for wp in view_polygon:
-			pts.append(world_to_map(wp))
+			pts.append(world_to_map(wp).clamp(Vector2.ZERO, size))
 		pts.append(pts[0])
 		draw_polyline(pts, Color(1, 1, 1, 0.8), 1.5)
 	draw_rect(Rect2(Vector2.ZERO, size), Color(0.35, 0.4, 0.42), false, 2.0)

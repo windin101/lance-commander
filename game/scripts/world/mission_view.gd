@@ -16,6 +16,9 @@ var input: CommandInput
 var camera: RtsCamera
 var views: Dictionary = {}  # mech id -> MechView
 var hud: MissionHud
+var audio: AudioDirector
+var _voice_cfg: Array = []
+var _voice_flags_done := {}
 var _acc := 0.0
 var _args := {}
 
@@ -68,6 +71,17 @@ func _ready() -> void:
 	input.player_team = sm.player_team
 	add_child(input)
 	_build_hud()
+	audio = AudioDirector.new()
+	audio.name = "Audio"
+	add_child(audio)
+	var bcfg_path := "res://data/brains/%s.json" % mission
+	if FileAccess.file_exists(bcfg_path):
+		_voice_cfg = JSON.parse_string(FileAccess.get_file_as_string(bcfg_path)).get("script", {}).get("voice", [])
+	for v in _voice_cfg:
+		if v.get("at_start", false):
+			audio.say_later(v["vo"], float(v.get("delay", 0.0)), 0.0)
+	for v in views.values():
+		v.footstep.connect(func(at: Vector3): audio.sfx("footstep", at, -10.0))
 
 	if _args.has("arena"):
 		_arena()
@@ -95,6 +109,13 @@ func _process(delta: float) -> void:
 	for v in views.values():
 		v.sync(alpha)
 	_consume_events(true)
+	if audio:
+		for v in _voice_cfg:
+			if v.has("flag") and world.flags.get(v["flag"], false) and not _voice_flags_done.has(v["flag"]):
+				_voice_flags_done[v["flag"]] = true
+				audio.say_later(v["vo"], float(v.get("delay", 0.0)), world.time)
+		audio.tick(world.time)
+		audio.update_music(sm.objectives.result, world.time)
 
 
 func _consume_events(show: bool) -> void:
@@ -103,6 +124,8 @@ func _consume_events(show: bool) -> void:
 			continue
 		if hud:
 			hud.on_event(e)
+		if audio:
+			_audio_event(e)
 		match e["type"]:
 			"shot":
 				if not (views.has(e["from"]) and views.has(e["to"])):
@@ -121,6 +144,36 @@ func _consume_events(show: bool) -> void:
 				elif views.has(e["unit"]):
 					effects.spawn_impact(views[e["unit"]].aim_point(), 3.0)
 	world.events.clear()
+
+
+func _audio_event(e: Dictionary) -> void:
+	match e["type"]:
+		"shot":
+			if views.has(e["from"]):
+				var shooter: SimUnit = world.units[e["from"]]
+				audio.weapon_fire(int(shooter.items[e["weapon"]]["master_id"]), views[e["from"]].global_position)
+				if shooter.team == sm.player_team or world.units[e["to"]].team == sm.player_team:
+					audio.last_combat_time = world.time
+		"impact":
+			var u: SimUnit = world.units[e["unit"]]
+			var at := TerrainView.to_3d(u.position, world.map.height_at(u.position) + 4.0)
+			audio.hit(String(e.get("form", "")), float(e.get("damage", 0.0)), at)
+		"disabled":
+			var u: SimUnit = world.units[e["unit"]]
+			var at := TerrainView.to_3d(u.position, world.map.height_at(u.position) + 4.0)
+			var key := "mech_explode" if u is SimMech else ("building_explode" if u is SimStructure else "vehicle_explode")
+			audio.sfx(key, at, 2.0)
+		"fell":
+			var u: SimUnit = world.units[e["unit"]]
+			audio.sfx("fall", TerrainView.to_3d(u.position, world.map.height_at(u.position)), 0.0)
+		"objective":
+			if not e["hidden"]:
+				audio.announce("objective_done")
+			for v in _voice_cfg:
+				if v.has("objective") and int(v["objective"]) == int(e["index"]):
+					audio.say_later(v["vo"], float(v.get("delay", 0.0)), world.time)
+		"mission_end":
+			audio.announce("win" if e["won"] else "lose")
 
 
 func _demo_orders() -> void:
@@ -183,7 +236,12 @@ func _lighting(cam_block: Dictionary) -> void:
 	var env := Environment.new()
 	env.background_mode = Environment.BG_SKY
 	env.sky = Sky.new()
-	env.sky.sky_material = ProceduralSkyMaterial.new()
+	var sky := ProceduralSkyMaterial.new()
+	# Below the horizon, continue the sea past the map edge instead of the default brown ground.
+	sky.ground_bottom_color = Color(0.05, 0.14, 0.2)
+	sky.ground_horizon_color = Color(0.32, 0.42, 0.48)
+	sky.sky_horizon_color = Color(0.66, 0.72, 0.78)
+	env.sky.sky_material = sky
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = _rgb(cam_block, "Ambient", Color(0.28, 0.28, 0.31))
 	env.ambient_light_energy = 1.6
