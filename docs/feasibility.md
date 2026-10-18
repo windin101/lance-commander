@@ -30,6 +30,12 @@ Phases 0 (scaffold) and 1 (FIT/CSV/strings converters) are done.
   - **AI:** SimBrain is a state machine (guard, patrol, idle or powered down, power-up, ambush, attack, return fire, help calls) configured from data/brains/mc2_01.json. That file is transcribed from the mission's ABL brains, with source pointers.
   - **Heat:** retuned to dissipation 0.3 with fire discipline.
   - **Check:** tools/autoplay.gd wins in about 4 minutes on three seeds.
+- **Phase 7**, the HUD, is done:
+  - MissionHud has a force bar of UnitCards with damage diagrams (PaperDoll: 8 mech locations, 5 vehicle sections), armour and heat bars, and status.
+  - A weapons panel shows recycle and ammo.
+  - The Minimap is built from the colour map with depth-tinted water, plus units, objective markers and the camera footprint. Click pans, right-click moves.
+  - Objectives (original strings), a message log, 3D objective beacons and an end banner.
+  - F toggles alpha strike (ignore heat discipline).
 - **Slice scope (found in Phase 4):** mc2_01 also fields ground vehicles: 4 Centipedes, 4 Harassers, 7 LRM carriers and 8 infantry. Their rules (`gvehicl.cpp`) and models are new work, to fold into Phases 5 and 6.
 
 Goal: a free, non-commercial, modernised remake of MechCommander 2 (2001) with new graphics and updated gameplay. It gets its own name, with no Microsoft or BattleTech branding (see "Licence ground rules").

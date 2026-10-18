@@ -42,6 +42,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_H:
 		for m in selection:
 			world.order_hold(m)
+	elif event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F:
+		toggle_alpha_strike()
+
+
+## Toggle "alpha strike" (ignore heat discipline) for the selection; all on unless all already on.
+func toggle_alpha_strike() -> void:
+	var all_on := not selection.is_empty() and selection.all(func(m): return m.ignore_heat_discipline)
+	for m in selection:
+		m.ignore_heat_discipline = not all_on
 
 
 ## The mech nearest a screen point (within PICK_PX), optionally filtered by team.

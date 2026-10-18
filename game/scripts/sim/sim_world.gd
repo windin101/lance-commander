@@ -260,7 +260,7 @@ func _combat(m: SimUnit) -> void:
 	for w in m.weapon_indices():
 		if not m.is_weapon_ready(w, time) or m.weapon_shots(w) == 0:
 			continue
-		if rules.heat_enabled and m.uses_heat:
+		if rules.heat_enabled and m.uses_heat and not m.ignore_heat_discipline:
 			var after := 30.0 * (m.heat + float(m.weapon(w)["heat"])) / m.heat_capacity
 			if after > fire_discipline_level:
 				continue

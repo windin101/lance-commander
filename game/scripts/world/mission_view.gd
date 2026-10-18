@@ -15,9 +15,7 @@ var effects: EffectsView
 var input: CommandInput
 var camera: RtsCamera
 var views: Dictionary = {}  # mech id -> MechView
-var hud: Label
-var objectives_label: Label
-var banner: Label
+var hud: MissionHud
 var _acc := 0.0
 var _args := {}
 
@@ -82,6 +80,8 @@ func _ready() -> void:
 		ff -= SimWorld.TICK
 	if _args.get("focus", "") == "battle":
 		_focus_battle()
+	if _args.has("select-all"):
+		input._set_selection(world.units.filter(func(u): return u.team == sm.player_team and u.is_mover() and not u.is_disabled()))
 	for v in views.values():
 		v.sync(1.0)
 
@@ -95,13 +95,14 @@ func _process(delta: float) -> void:
 	for v in views.values():
 		v.sync(alpha)
 	_consume_events(true)
-	_update_hud()
 
 
 func _consume_events(show: bool) -> void:
 	for e in world.events:
 		if not show:
 			continue
+		if hud:
+			hud.on_event(e)
 		match e["type"]:
 			"shot":
 				if not (views.has(e["from"]) and views.has(e["to"])):
@@ -126,7 +127,7 @@ func _demo_orders() -> void:
 	for m in world.units:
 		if m.team != sm.player_team:
 			continue
-		var best: SimMech = null
+		var best: SimUnit = null
 		for e in world.enemies_of(m):
 			if best == null or m.distance_to(e.position) < m.distance_to(best.position):
 				best = e
@@ -201,65 +202,11 @@ func _rgb(block: Dictionary, prefix: String, fallback: Color) -> Color:
 
 
 func _build_hud() -> void:
-	var layer := CanvasLayer.new()
-	add_child(layer)
-	hud = Label.new()
-	hud.position = Vector2(16, 12)
-	hud.add_theme_font_size_override("font_size", 16)
-	hud.add_theme_color_override("font_outline_color", Color.BLACK)
-	hud.add_theme_constant_override("outline_size", 4)
-	layer.add_child(hud)
-	objectives_label = Label.new()
-	objectives_label.anchor_left = 1.0
-	objectives_label.anchor_right = 1.0
-	objectives_label.offset_left = -520
-	objectives_label.offset_right = -16
-	objectives_label.offset_top = 12
-	objectives_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	objectives_label.add_theme_font_size_override("font_size", 17)
-	objectives_label.add_theme_color_override("font_outline_color", Color.BLACK)
-	objectives_label.add_theme_constant_override("outline_size", 4)
-	layer.add_child(objectives_label)
-	banner = Label.new()
-	banner.set_anchors_preset(Control.PRESET_CENTER)
-	banner.add_theme_font_size_override("font_size", 64)
-	banner.add_theme_color_override("font_outline_color", Color.BLACK)
-	banner.add_theme_constant_override("outline_size", 10)
-	banner.visible = false
-	layer.add_child(banner)
-	var box := ColorRect.new()
-	box.color = Color(0.3, 1.0, 0.4, 0.15)
-	box.visible = false
-	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	layer.add_child(box)
-	input.box = box
-
-
-func _update_hud() -> void:
-	var lines: Array[String] = ["%s  —  t %.0f s   (left-click/drag select, right-click move/attack, H hold)" % [mission, world.time]]
-	var shown: Array = input.selection if not input.selection.is_empty() else world.units.filter(func(m): return m.team == sm.player_team and m.is_mover())
-	for m in shown:
-		var armor := 0.0
-		var max_armor := 0.0
-		for i in m.armor.size():
-			armor += m.armor[i]
-			max_armor += m.max_armor[i]
-		var status: String = ["OK", "SHUTDOWN", "DISABLED", "DESTROYED"][m.status]
-		if m is SimMech and m.fallen and not m.is_disabled():
-			status = "FALLEN"
-		lines.append("%-10s %-9s armour %3d%%  heat %2d/30  %s" % [m.name, status, int(100.0 * armor / maxf(max_armor, 1.0)),
-			m.heat_level(), ("-> " + m.current_target.name) if m.current_target and not m.current_target.is_disabled() else ""])
-	hud.text = "\n".join(lines)
-	var obj_lines: Array[String] = ["OBJECTIVES"]
-	for obj in sm.objectives.visible_objectives():
-		var title: String = GameData.string(obj["title_string"]) if obj["title_string"] > 0 else obj["title"]
-		if title.is_empty():
-			title = obj["title"]
-		obj_lines.append(("[x] " if obj["complete"] else "[ ] ") + title)
-	objectives_label.text = "\n".join(obj_lines)
-	var res := sm.objectives.result
-	if res != SimObjectives.Result.PLAYING and not banner.visible:
-		banner.visible = true
-		banner.text = "MISSION SUCCESSFUL" if res == SimObjectives.Result.WON else "MISSION FAILED"
-		banner.add_theme_color_override("font_color", Color(0.5, 1.0, 0.5) if res == SimObjectives.Result.WON else Color(1.0, 0.4, 0.3))
-		banner.position = get_viewport().get_visible_rect().size / 2.0 - banner.get_minimum_size() / 2.0
+	hud = MissionHud.new()
+	add_child(hud)
+	hud.setup(self)
+	input.box = hud.box
+	var markers := ObjectiveMarkers.new()
+	markers.name = "ObjectiveMarkers"
+	add_child(markers)
+	markers.setup(sm.objectives, world.map)

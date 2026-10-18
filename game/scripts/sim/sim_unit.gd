@@ -39,6 +39,7 @@ var num_weapons := 0
 var num_ammo := 0
 
 var status: int = Status.NORMAL
+var ignore_heat_discipline := false  # player "alpha strike": fire even past the heat limit
 var powered_down := false  # ordered shutdown (corePower false): heat never restarts it
 var heat := 0.0
 var heat_capacity := 30.0
