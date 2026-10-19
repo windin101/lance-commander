@@ -1,13 +1,13 @@
 #!/bin/bash
-# veh_compare.sh <asset> <out.png> [distance m, default 26] [folder: vehicles|mechs] [anim]
+# veh_compare.sh <asset> <out.png> [distance m, default 26] [folder: vehicles|mechs] [anim or ""] [focus height m; copters fly at 23.6]
 # Godot renders of the original and the HD model side by side: front three-quarter (yaw 35) and rear
 # three-quarter (yaw 200), team paint on. Every Godot run takes the swarm godot lock and the repo flock.
-V=$1; OUT=$2; D=${3:-26}; F=${4:-vehicles}; AN=${5:-}
+V=$1; OUT=$2; D=${3:-26}; F=${4:-vehicles}; AN=${5:-}; FOC=${6:-}
 cd "$(dirname "$0")/../.."
 TMP=$(mktemp -d)
 L="$HOME/Code/remake-kit/bin/swarm lock godot -- flock .godot.lock $HOME/.local/bin/godot"
 $L --headless --import --path game >/dev/null 2>&1
-FY=$(python3 -c "print(max(1.5, $D/17))")
+FY=${FOC:-$(python3 -c "print(max(1.5, $D/17))")}
 for n in a:35 b:200; do IFS=: read k y <<< "$n"
   for m in $V ${V}_hd; do
     $L --path game res://scenes/model_viewer.tscn -- --screenshot=$TMP/${m}_$k.png --frames=12 --cam=$y,20,$D --fov=18 --focus-y=$FY --bg=1,1,1 \
