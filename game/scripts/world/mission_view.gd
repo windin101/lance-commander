@@ -43,12 +43,14 @@ func _ready() -> void:
 	terrain = TerrainView.new()
 	terrain.name = "Terrain"
 	add_child(terrain)
+	terrain.water_fit = mission_fit.get("Water", {})
+	terrain.water_detail_tiling = float(mission_fit.get("Terrain", {}).get("WaterDetailTilingFactor", 45.0))
 	terrain.build(world.map, "res://assets/maps/%s" % mission)
 	objects_view = ObjectsView.new()
 	objects_view.name = "Objects"
 	add_child(objects_view)
 	objects_view.build(world.map, mission)
-	_lighting(cam_block)
+	_lighting(cam_block, mission_fit)
 
 	for m in world.units:
 		if m.is_mover():
@@ -123,6 +125,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	_update_haze()
 	_acc += delta
 	while _acc >= SimWorld.TICK:
 		sm.step()
@@ -286,32 +289,78 @@ func _focus_battle() -> void:
 	_focus_player()
 
 
-func _lighting(cam_block: Dictionary) -> void:
+func _lighting(cam_block: Dictionary, fit_data: Dictionary = {}) -> void:
+	# The sun, from the mission's [Cameras] LightDirYaw/Pitch the way the original computed it
+	# (Camera.cpp:1505-1509): toward the light = (cos(yaw+45), sin(yaw+45), sin(pitch)) in MC2's x east,
+	# y north, z up. That is the direction the burnt-in colour map was shaded from, so dynamic shadows of
+	# mechs and objects fall the same way as the painted ones. Night missions (pitch 270) light from below
+	# in the original; objects here take the mirrored, low sun instead.
+	var yaw := deg_to_rad(float(cam_block.get("LightDirYaw", 11.0)) + 45.0)
+	var pitch := deg_to_rad(float(cam_block.get("LightDirPitch", 50.0)))
+	var to_light := Vector3(cos(yaw), maxf(absf(sin(pitch)), 0.2), -sin(yaw)).normalized()  # Godot: -Z is north
 	var sun := DirectionalLight3D.new()
 	sun.name = "Sun"
 	sun.light_color = _rgb(cam_block, "Light", Color(1, 1, 0.88))
 	sun.shadow_enabled = true
 	sun.directional_shadow_max_distance = 800.0
-	sun.rotation_degrees = Vector3(-float(cam_block.get("LightDirPitch", 50.0)), -float(cam_block.get("LightDirYaw", 11.0)), 0)
 	add_child(sun)
+	sun.look_at_from_position(Vector3.ZERO, -to_light, Vector3.UP if absf(to_light.y) < 0.99 else Vector3.FORWARD)
 	var env := Environment.new()
 	env.background_mode = Environment.BG_SKY
 	env.sky = Sky.new()
-	var sky := ProceduralSkyMaterial.new()
-	# Below the horizon, continue the sea past the map edge instead of the default brown ground.
-	sky.ground_bottom_color = Color(0.05, 0.14, 0.2)
-	sky.ground_horizon_color = Color(0.32, 0.42, 0.48)
-	sky.sky_horizon_color = Color(0.66, 0.72, 0.78)
-	env.sky.sky_material = sky
+	# The original's skybox for [TheSky] SkyNumber, as a panorama (tools/art/env_textures.py)
+	var sky_n := int(fit_data.get("TheSky", {}).get("SkyNumber", 1))
+	var pano_path := "res://assets/sky/sky%02d.png" % sky_n
+	if ResourceLoader.exists(pano_path):
+		var pano := PanoramaSkyMaterial.new()
+		pano.panorama = load(pano_path)
+		env.sky.sky_material = pano
+	else:
+		var sky := ProceduralSkyMaterial.new()
+		sky.ground_bottom_color = Color(0.05, 0.14, 0.2)
+		sky.ground_horizon_color = Color(0.32, 0.42, 0.48)
+		sky.sky_horizon_color = Color(0.66, 0.72, 0.78)
+		env.sky.sky_material = sky
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = _rgb(cam_block, "Ambient", Color(0.28, 0.28, 0.31))
-	env.ambient_light_energy = 1.6
-	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	env.ambient_light_energy = 1.75  # 1.6 under the old filmic curve; the linear curve shows it as is
+	# Linear: the terrain shows its colour map as painted (the original had no tone curve); filmic dimmed
+	# and desaturated it.
+	env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
 	env.ssao_enabled = true
 	env.glow_enabled = true
+	# Fog: the original's distance haze (MinHazeDistance 600 m to MaxClipDistance 800 m from its camera) in
+	# the mission's FogColor, kept relative to the zoom (see _process), plus its height fog where the mission
+	# sets FogStart/FogFull (elevations, world units; -1/-2 = off). quad.cpp:880-929.
+	var fog_c := int(cam_block.get("FogColor", 0xd0d4dc))
+	env.fog_enabled = true
+	env.fog_mode = Environment.FOG_MODE_DEPTH
+	env.fog_light_color = Color8((fog_c >> 16) & 255, (fog_c >> 8) & 255, fog_c & 255)
+	env.fog_light_energy = 1.0
+	env.fog_density = 0.6
+	env.fog_sky_affect = 0.25
+	env.fog_depth_curve = 1.6
+	var fog_start := float(cam_block.get("FogStart", -1.0))
+	var fog_full := float(cam_block.get("FogFull", -2.0))
+	if fog_start > fog_full and not (is_equal_approx(fog_start, -1.0) and is_equal_approx(fog_full, -2.0)):
+		env.fog_height = fog_start * world.map.meters_per_wu
+		env.fog_height_density = 1.0 / maxf(1.0, (fog_start - fog_full) * world.map.meters_per_wu)
+	_env = env
+	_update_haze()
 	var we := WorldEnvironment.new()
 	we.environment = env
 	add_child(we)
+
+
+var _env: Environment
+
+
+func _update_haze() -> void:
+	if _env == null:
+		return
+	var d := camera.distance if camera else 220.0
+	_env.fog_depth_begin = d + 600.0
+	_env.fog_depth_end = d + 2600.0
 
 
 func _rgb(block: Dictionary, prefix: String, fallback: Color) -> Color:
