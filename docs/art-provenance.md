@@ -101,7 +101,7 @@ Adapted from licensed 3D-print sculpts by `tools/art/stl_hd.py` (these replace a
 | minelayer | "Minelayer" by RGriffin65, https://www.thingiverse.com/thing:6916656 | CC BY-SA 4.0 | 0.551 m | approved; Minelayer.stl, 39518 tris |
 | mobilehq | "Praetorian Mobile HQ" by RGriffin65, https://www.thingiverse.com/thing:6599003 | CC BY-SA 4.0 | 0.711 m | approved; Praetorian.stl, 39837 tris |
 | mog | "Mobile Orbital Gun" by RGriffin65, https://www.thingiverse.com/thing:7180780 | CC BY-SA 4.0 | 1.741 m | approved; Mobile_Orbital_Gun_.stl, Mobile_Orbital_Gun_turret__stowed.stl, 38984 tris |
-| monsoon | "Saracen, Scimitar, and Saladin Hovertanks" by UnrestedGuy (Saracen hull, Scimitar standard turret without its main gun), https://www.thingiverse.com/thing:7255716 | CC BY-NC-SA 4.0 | 0.461 m | approved; B-Saracen.stl, Scimitar_Standard_Turret.stl, 19234 tris |
+| monsoon | "Saracen, Scimitar, and Saladin Hovertanks" by UnrestedGuy, https://www.thingiverse.com/thing:7255716 | CC BY-NC-SA 4.0 | 0.461 m | approved; B-Saracen.stl, Scimitar_Standard_Turret.stl, 19234 tris |
 | ordnancetruck | "Utility Truck" by RGriffin65, https://www.thingiverse.com/thing:6831725 | CC BY-SA 4.0 | 0.799 m | approved; utility_truck.stl, 38858 tris |
 | partisan | "Partisan Heavy Tank" by RGriffin65, https://www.thingiverse.com/thing:6943425 | CC BY-SA 4.0 | 0.660 m | approved; Partisan.stl, 39060 tris |
 | poweredarmor | "Irontold Hawkish Battle Armor (American Mecha)" by maggiweber, https://www.thingiverse.com/thing:5215239 | CC BY 4.0 | 0.000 m | approved; , 46474 tris |
