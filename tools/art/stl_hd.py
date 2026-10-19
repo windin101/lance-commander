@@ -18,8 +18,10 @@ overlapping, non-manifold shells, so the Hunyuan path's decimate/unwrap/bake (Co
      "scale" multiplies the plan scale.
   4. skin: each triangle follows the original part nearest to it (a turret goes with its turret joint).
      J.json "parts_box": [{"node", "min", "max"} in fitted metres, glTF frame] overrides that.
-  5. paint: each triangle takes the team-paint class (base/hl1/hl2) or fixed colour of the original's paint
-     mask at its nearest original surface point, on stl_rig's palette.
+  5. paint: each triangle votes over its 8 nearest original surface points for the team-paint class (base/hl1/hl2)
+     or one of the original mask's own colours (clustered: white liveries, hazard stripes), then a neighbour majority
+     pass removes speckle; stl_rig's palette carries the colours. "bounds": true (after the fit) matches the original's
+     length, width and height separately; "stretch": [x, y, z] multiplies them.
   6. write <asset>_hd.glb + _hd_paint.bin to original/hd/<asset>/stl/, or with --install to game/assets/<kind>/
      plus original/hd/<asset>/provenance.json (kind "adapted", source, licence) for tools/art/credits.py.
 --views draws the raw components (numbered), the fitted result's paint and parts, and the original's surface.
@@ -229,6 +231,14 @@ def main():
     Gf = Gf.reshape(-1, 3, 3)
     if mirror:
         Gf = Gf[:, [0, 2, 1]]
+    if over.get("bounds") or over.get("stretch"):  # J.json "bounds": true matches length, width and height separately
+        V_ = Gf.reshape(-1, 3)                        # (a sculpt stockier than the original); "stretch": [x, y, z] multiplies
+        if over.get("bounds"):
+            V_ = R.match_bounds(V_, samples, q_surf=R.area_samples(V_, flat, n=30000))
+        if over.get("stretch"):
+            c_ = np.array([(V_[:, 0].max() + V_[:, 0].min()) / 2, V_[:, 1].min(), (V_[:, 2].max() + V_[:, 2].min()) / 2])
+            V_ = (V_ - c_) * np.asarray(over["stretch"], float) + c_
+        Gf = V_.reshape(-1, 3, 3)
     fit = R.chamfer(R.area_samples(Gf.reshape(-1, 3), flat, n=30000), tree_p, samples)
     Wn = R.world_matrices(og)
     forced = np.full(len(Gf), -1)
@@ -270,17 +280,46 @@ def main():
         m = (Cn >= box["min"]).all(1) & (Cn <= box["max"]).all(1)
         owner[m] = names[box["node"]]
 
-    # 5. paint
+    # 5. paint (since 2026-10-20): every triangle votes over its 8 nearest original surface points, then a majority pass
+    # over its 12 nearest triangles cleans speckle. Team paint is the pure channels (MechPaint); every other colour of
+    # the original's mask is kept as itself (up to 8 colour clusters: white liveries, hazard stripes, glass), not snapped
+    # to the mechs' metal/dark/glass greys.
     marr = np.asarray(Image.open(hd_mech.paint_source(a.asset, a.kind)).convert("RGB")).astype(float)
-    uv = sample_uv[near]
-    px = marr[np.clip((uv[:, 1] % 1) * marr.shape[0], 0, marr.shape[0] - 1).astype(int),
-              np.clip((uv[:, 0] % 1) * marr.shape[1], 0, marr.shape[1] - 1).astype(int)]
-    fixed = [k for k in C.PAINT if k not in ("base", "hl1", "hl2")]
+    def colour_at(uv_):
+        return marr[np.clip((uv_[..., 1] % 1) * marr.shape[0], 0, marr.shape[0] - 1).astype(int),
+                    np.clip((uv_[..., 0] % 1) * marr.shape[1], 0, marr.shape[1] - 1).astype(int)]
+    def classes(px):
+        mx = px.max(-1)
+        pure = (mx > 40) & ((px < 0.35 * mx[..., None]).sum(-1) == 2)
+        return pure, px.argmax(-1)
+    allpx = colour_at(sample_uv)
+    pure_s, _ = classes(allpx)
+    other = allpx[~pure_s]
+    fixed_cols = []
+    if len(other):  # k-means on the original's non-team colours
+        rng = np.random.default_rng(0)
+        pts_ = other[rng.choice(len(other), min(len(other), 20000), replace=False)]
+        cent = pts_[rng.choice(len(pts_), min(8, len(pts_)), replace=False)]
+        for _ in range(20):
+            lab_ = ((pts_[:, None] - cent[None]) ** 2).sum(2).argmin(1)
+            cent = np.array([pts_[lab_ == k].mean(0) if (lab_ == k).any() else cent[k] for k in range(len(cent))])
+        share_ = np.bincount(lab_, minlength=len(cent)) / len(lab_)
+        fixed_cols = [tuple(int(v) for v in c_) for c_, sh in zip(cent, share_) if sh >= 0.02]
+    for k, c_ in enumerate(fixed_cols):
+        C.PAINT[f"orig{k}"] = c_  # extra palette cells (the palette has 16; base/hl1/hl2/metal/dark/glass use 6)
+    fixed = [f"orig{k}" for k in range(len(fixed_cols))] or ["metal"]
     fr = np.array([C.PAINT[k] for k in fixed], float)
-    mx = px.max(1)
-    pure = (mx > 40) & ((px < 0.35 * mx[:, None]).sum(1) == 2)  # MechPaint: one pure channel = team paint
-    team = np.array(["hl1", "hl2", "base"], dtype=object)[px.argmax(1)]
-    paint = np.where(pure, team, np.array(fixed, dtype=object)[((px[:, None, :] - fr[None]) ** 2).sum(2).argmin(1)])
+    kn = tree_p.query(Cn, k=8)[1]
+    px = colour_at(sample_uv[kn])                         # (n, 8, 3)
+    pure, ch = classes(px)
+    lab = np.where(pure, ch, 3 + ((px[..., None, :] - fr[None, None]) ** 2).sum(-1).argmin(-1))  # 0..2 team, 3.. fixed
+    vote = np.apply_along_axis(lambda r_: np.bincount(r_, minlength=3 + len(fixed)).argmax(), 1, lab)
+    tri_tree = cKDTree(Cn)
+    nb = tri_tree.query(Cn, k=min(12, len(Cn)))[1]
+    for _ in range(2):
+        vote = np.apply_along_axis(lambda r_: np.bincount(r_, minlength=3 + len(fixed)).argmax(), 1, vote[nb])
+    names_ = np.array(["hl1", "hl2", "base"] + fixed, dtype=object)  # argmax channel 0 = R = hl1, 1 = G = hl2, 2 = B = base
+    paint = names_[vote]
     print("  parts:", {og["nodes"][o]["name"]: int((owner == o).sum()) for o in sorted(set(owner.tolist()))},
           "paint:", {k: int((paint == k).sum()) for k in C.PAINT if (paint == k).any()})
 
