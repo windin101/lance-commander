@@ -790,6 +790,8 @@ def write(og, ob, pos, normals, uv, owner, tris, slots, dest, mech):
     og["nodes"].append({"name": "hd_body", "mesh": len(og["meshes"]) - 1, "skin": len(og["skins"]) - 1})
     og["scenes"][0]["nodes"].append(len(og["nodes"]) - 1)
     w.write(str(dest / f"{mech}_hd.glb"))
+    import glb_compact  # weld + byte joints/weights: about half the size, identical render (since 2026-10-20)
+    glb_compact.compact(dest / f"{mech}_hd.glb")
     (dest / f"{mech}_hd_paint.bin").write_bytes(R.png_bytes(palette))
 
 

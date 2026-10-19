@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-19T19:52:34+13:00",
+  "updated": "2026-10-20T06:32:22+13:00",
   "phase": {
     "current": 7,
     "status": "gated"
@@ -166,35 +166,35 @@
       "ended": null,
       "gate": {
         "passed": true,
-        "at": "2026-10-19T19:51:13+13:00",
+        "at": "2026-10-20T06:32:22+13:00",
         "checks": [
           {
             "name": "tests_green",
             "pass": true,
             "detail": "tests pass (125 cases): ALL TESTS PASSED",
-            "seconds": 38.5,
-            "at": "2026-10-19T19:51:13+13:00"
+            "seconds": 49.4,
+            "at": "2026-10-20T06:32:22+13:00"
           },
           {
             "name": "hd_provenance",
             "pass": true,
-            "detail": "40 HD meshes, all with provenance rows and fit data",
+            "detail": "62 HD meshes, all with provenance rows and fit data",
             "seconds": 0.0,
-            "at": "2026-10-19T19:51:13+13:00"
+            "at": "2026-10-20T06:32:22+13:00"
           },
           {
             "name": "import_size",
             "pass": true,
-            "detail": "imported total 0.43 GB, no file over 64 MB; top: burnin=59MB, hangar_high=20MB, bw_hd_mesh=11MB, bw_mesh=8MB, geodesicdome_hd_1=6MB",
+            "detail": "imported total 0.53 GB, no file over 64 MB; top: burnin=59MB, hangar_high=20MB, bw_hd_mesh=11MB, zz_atlas_before=9MB, bw_mesh=8MB",
             "seconds": 0.0,
-            "at": "2026-10-19T19:51:13+13:00"
+            "at": "2026-10-20T06:32:22+13:00"
           },
           {
             "name": "provenance_table_current",
             "pass": true,
             "detail": "up to date",
             "seconds": 0.0,
-            "at": "2026-10-19T19:51:13+13:00"
+            "at": "2026-10-20T06:32:22+13:00"
           }
         ]
       },
@@ -203,7 +203,8 @@
         "wf_2391523b-26b",
         "wf_184c9edf-383",
         "wf_5f12b3e2-5f9",
-        "wf_a1860977-9d9"
+        "wf_a1860977-9d9",
+        "wf_773e1eaa-b57"
       ],
       "done_gate": {
         "passed": false,
@@ -305,6 +306,20 @@
       "asked": "2026-10-19T18:55:32+13:00",
       "answered": "2026-10-19T19:50:34+13:00",
       "answer": "add the adapted Syllogy model with the attribution CC BY-NC-SA 4.0 requires (credit, link, licence link, changes listed, adaptation under the same licence, no endorsement)"
+    },
+    {
+      "id": "D5",
+      "phase": 7,
+      "question": "13 Syllogy adaptations are installed locally (3 approved, 10 for your look call). How to proceed?",
+      "options": [
+        "fix the tool (clean hip cuts + arm joints) and re-run all 14 non-approved before deciding",
+        "accept all 13 as they are now",
+        "keep only the 3 approved; restore the other 10"
+      ],
+      "context": "sheets swarm/gallery/stl_<mech>.png; at game distance they are a clear step up, close up seams and arm tears show",
+      "asked": "2026-10-19T20:35:42+13:00",
+      "answered": "2026-10-19T21:02:02+13:00",
+      "answer": "fix the tool and re-run"
     }
   ],
   "issues": [
@@ -1018,10 +1033,10 @@
       "repro": "python3 -I tools/art/hd_mech.py atlas --from-step 1 --subject-px 560 --seed 14",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T18:06:08+13:00",
-      "updated": "2026-10-19T18:10:43+13:00",
-      "note": "repro planned by hd_redo.py: concept seeds tried [7, 8, 9, 10, 13] -> 14; cropped, re-render with more margin"
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": "superseded: atlas is now an adapted licensed sculpt (stl_rig.py), approved in review 2026-10-20"
     },
     {
       "id": "I56",
@@ -1031,10 +1046,10 @@
       "repro": "python3 -I tools/art/hd_mech.py madcat --from-step 3 --mesh-seed 4242",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T18:06:08+13:00",
-      "updated": "2026-10-19T18:10:43+13:00",
-      "note": "repro planned by hd_redo.py: mesh seeds tried [1234] -> 4242"
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": "superseded: madcat is now an adapted licensed sculpt (stl_rig.py), approved in review 2026-10-20"
     },
     {
       "id": "I57",
@@ -1044,10 +1059,10 @@
       "repro": "python3 -I tools/art/hd_mech.py laohu --from-step 1 --subject-px 560 --seed 10",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T18:06:09+13:00",
-      "updated": "2026-10-19T18:10:43+13:00",
-      "note": "repro planned by hd_redo.py: concept seeds tried [7, 9] -> 10; cropped, re-render with more margin"
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": "superseded: laohu is now an adapted licensed sculpt (stl_rig.py), approved in review 2026-10-20"
     },
     {
       "id": "I58",
@@ -1125,6 +1140,136 @@
       "status": "open",
       "created": "2026-10-19T19:52:34+13:00",
       "updated": "2026-10-19T19:52:34+13:00",
+      "note": null
+    },
+    {
+      "id": "I64",
+      "sev": "P2",
+      "title": "stl_rig: hip cuts leave sliver shards; posed arms tear at shoulder/elbow",
+      "detail": "seen on most of the 13 installed adaptations. Fix in the tool, not joints: plane cuts at the hip (split triangles on the cut plane, cap), and arm joints (shoulder/elbow points) like the legs instead of the bbox nearest-part map. Then re-run the 10 needs_lee + Cyclops (merge_mleg now exists), Raven, Thor, Uller.",
+      "repro": "python3 -I tools/art/stl_rig.py atlas ~/craft/solid/mc2/stl/atlas/as7-d4.stl --joints ~/craft/solid/mc2/stl/atlas/joints.json",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T20:35:42+13:00",
+      "updated": "2026-10-19T20:35:42+13:00",
+      "note": null
+    },
+    {
+      "id": "I65",
+      "sev": "P3",
+      "title": "HD catapult: look call",
+      "detail": "Adapted sculpt built and installed (stl_rig.py); the review agent wants Lee's look call. Sheet swarm/gallery/stl_catapult.png, owner maps own_catapult.png / ownw_catapult.png.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T06:15:30+13:00",
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": null
+    },
+    {
+      "id": "I66",
+      "sev": "P3",
+      "title": "HD cyclops: look call",
+      "detail": "Adapted sculpt built and installed (stl_rig.py); the review agent wants Lee's look call. Sheet swarm/gallery/stl_cyclops.png, owner maps own_cyclops.png / ownw_cyclops.png.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T06:15:30+13:00",
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": null
+    },
+    {
+      "id": "I67",
+      "sev": "P3",
+      "title": "HD highlander: look call",
+      "detail": "Adapted sculpt built and installed (stl_rig.py); the review agent wants Lee's look call. Sheet swarm/gallery/stl_highlander.png, owner maps own_highlander.png / ownw_highlander.png.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T06:15:30+13:00",
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": null
+    },
+    {
+      "id": "I68",
+      "sev": "P3",
+      "title": "HD shadowcat: look call",
+      "detail": "Adapted sculpt built and installed (stl_rig.py); the review agent wants Lee's look call. Sheet swarm/gallery/stl_shadowcat.png, owner maps own_shadowcat.png / ownw_shadowcat.png.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T06:15:30+13:00",
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": null
+    },
+    {
+      "id": "I69",
+      "sev": "P3",
+      "title": "HD thor: look call",
+      "detail": "Adapted sculpt built and installed (stl_rig.py); the review agent wants Lee's look call. Sheet swarm/gallery/stl_thor.png, owner maps own_thor.png / ownw_thor.png.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T06:15:30+13:00",
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": null
+    },
+    {
+      "id": "I70",
+      "sev": "P3",
+      "title": "HD uller: look call",
+      "detail": "Adapted sculpt built and installed (stl_rig.py); the review agent wants Lee's look call. Sheet swarm/gallery/stl_uller.png, owner maps own_uller.png / ownw_uller.png.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T06:15:30+13:00",
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": null
+    },
+    {
+      "id": "I71",
+      "sev": "P3",
+      "title": "HD urbanmech: look call",
+      "detail": "Adapted sculpt built and installed (stl_rig.py); the review agent wants Lee's look call. Sheet swarm/gallery/stl_urbanmech.png, owner maps own_urbanmech.png / ownw_urbanmech.png.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T06:15:30+13:00",
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": null
+    },
+    {
+      "id": "I72",
+      "sev": "P3",
+      "title": "HD zeus: look call",
+      "detail": "Adapted sculpt built and installed (stl_rig.py); the review agent wants Lee's look call. Sheet swarm/gallery/stl_zeus.png, owner maps own_zeus.png / ownw_zeus.png.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T06:15:30+13:00",
+      "updated": "2026-10-20T06:15:30+13:00",
+      "note": null
+    },
+    {
+      "id": "I73",
+      "sev": "P3",
+      "title": "HD werewolf: look call",
+      "detail": "Adapted sculpt built and installed (stl_rig.py); the review agent wants Lee's look call. Sheet swarm/gallery/stl_werewolf.png, owner maps own_werewolf.png / ownw_werewolf.png.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T06:15:30+13:00",
+      "updated": "2026-10-20T06:15:30+13:00",
       "note": null
     }
   ],
@@ -1218,64 +1363,20 @@
       "tokens": 262320,
       "status": "ok",
       "note": "batch 4, 8 mechs: 1 approved (ryoken), 7 redo"
+    },
+    {
+      "id": "wf_773e1eaa-b57",
+      "phase": 7,
+      "workflow": "phase-7-stl-adapt",
+      "started": "2026-10-19T20:35:42+13:00",
+      "ended": "2026-10-19T20:35:42+13:00",
+      "agents": 18,
+      "tokens": 2345145,
+      "status": "ok",
+      "note": "17 Syllogy sculpts: 3 approve (jaegermech, madcat, ryoken), 10 needs_lee, 4 reject+restored (cyclops, raven, thor, uller)"
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T15:02:19+13:00",
-      "who": "swarm",
-      "msg": "initialised for mc2"
-    },
-    {
-      "at": "2026-10-19T15:02:19+13:00",
-      "who": "conductor",
-      "msg": "retro: phases 0-6 marked done from docs/feasibility.md (milestone 1 + phases 9-12 of milestone 2)"
-    },
-    {
-      "at": "2026-10-19T15:02:19+13:00",
-      "who": "conductor",
-      "msg": "phase 7 (HD art (dry run)) started"
-    },
-    {
-      "at": "2026-10-19T15:02:19+13:00",
-      "who": "conductor",
-      "msg": "decision D1 queued for Lee: Dry-run scope for the HD-art phase: which batch first?"
-    },
-    {
-      "at": "2026-10-19T15:06:53+13:00",
-      "who": "conductor",
-      "msg": "coverage: needed counts derived from the 24 mission files (28 vehicle chassis, 34 building types used)"
-    },
-    {
-      "at": "2026-10-19T15:07:39+13:00",
-      "who": "gate",
-      "msg": "phase 7 gate FAILED: tests_green=ok, hd_provenance=FAIL, import_size=ok"
-    },
-    {
-      "at": "2026-10-19T15:07:55+13:00",
-      "who": "game-art",
-      "msg": "issue I1 P2: Provenance backfill: 21 HD assets lack fit/turn data or a row"
-    },
-    {
-      "at": "2026-10-19T15:09:48+13:00",
-      "who": "conductor",
-      "msg": "another session's hd_batch.py chain is generating the remaining mech concepts/meshes on GPU0 right now (VRAM full, ComfyUI queue busy); the swarm must not start GPU0 work until its logs say ALLDONE. hd_mech.py was edited under it (provenance.json emission; compatible) \u2014 flagged to Lee"
-    },
-    {
-      "at": "2026-10-19T15:09:48+13:00",
-      "who": "lee",
-      "msg": "decision D1 answered: superseded by D2: the mech batch is already running in another session"
-    },
-    {
-      "at": "2026-10-19T15:09:48+13:00",
-      "who": "conductor",
-      "msg": "decision D2 queued for Lee: The remaining mechs are being generated by another session's hd_batch chain on GPU0. What should the swarm's first batch be?"
-    },
-    {
-      "at": "2026-10-19T15:16:05+13:00",
-      "who": "conductor",
-      "msg": "Grafana trends live: uid remakes; swarm_tokens cumulative gauge"
-    },
     {
       "at": "2026-10-19T15:26:09+13:00",
       "who": "lee",
@@ -2175,6 +2276,106 @@
       "at": "2026-10-19T19:52:34+13:00",
       "who": "release-engineer",
       "msg": "issue I63 P2: Release builds must carry the CC BY-NC-SA credit for the Vulture"
+    },
+    {
+      "at": "2026-10-19T20:06:20+13:00",
+      "who": "conductor",
+      "msg": "decided C33: Adapt all 17 matching Syllogy CC BY-NC-SA models (one variant each, MC2-closest) with the general stl_rig.py; one game-art agent per mech reads and corrects joints from shaded diagnostics, renders, judges; up to 3 rounds \u2014 Lee: pull all of them and run them through the process; auto knee detection is off by 400-600 mm on armoured legs, so a human-style read per mech is required"
+    },
+    {
+      "at": "2026-10-19T20:35:42+13:00",
+      "who": "conductor",
+      "msg": "run wf_773e1eaa-b57 (phase-7-stl-adapt) ok: 18 agents, 2345145 tokens"
+    },
+    {
+      "at": "2026-10-19T20:35:42+13:00",
+      "who": "game-art",
+      "msg": "issue I64 P2: stl_rig: hip cuts leave sliver shards; posed arms tear at shoulder/elbow"
+    },
+    {
+      "at": "2026-10-19T20:35:42+13:00",
+      "who": "conductor",
+      "msg": "decision D5 queued for Lee: 13 Syllogy adaptations are installed locally (3 approved, 10 for your look call). How to proceed?"
+    },
+    {
+      "at": "2026-10-19T21:02:02+13:00",
+      "who": "lee",
+      "msg": "decision D5 answered: fix the tool and re-run"
+    },
+    {
+      "at": "2026-10-19T21:02:05+13:00",
+      "who": "conductor",
+      "msg": "decided C34: Re-run all 17 Syllogy adaptations on the fixed stl_rig (4769137) \u2014 The seam defaults changed for every mech, so the 3 earlier approvals are rebuilt too; agents may not edit shared tools this time"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "conductor",
+      "msg": "issue I55 fixed: superseded: atlas is now an adapted licensed sculpt (stl_rig.py), approved in review 2026-10-20"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "conductor",
+      "msg": "issue I56 fixed: superseded: madcat is now an adapted licensed sculpt (stl_rig.py), approved in review 2026-10-20"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "conductor",
+      "msg": "issue I57 fixed: superseded: laohu is now an adapted licensed sculpt (stl_rig.py), approved in review 2026-10-20"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "game-art",
+      "msg": "issue I65 P3: HD catapult: look call"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "game-art",
+      "msg": "issue I66 P3: HD cyclops: look call"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "game-art",
+      "msg": "issue I67 P3: HD highlander: look call"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "game-art",
+      "msg": "issue I68 P3: HD shadowcat: look call"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "game-art",
+      "msg": "issue I69 P3: HD thor: look call"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "game-art",
+      "msg": "issue I70 P3: HD uller: look call"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "game-art",
+      "msg": "issue I71 P3: HD urbanmech: look call"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "game-art",
+      "msg": "issue I72 P3: HD zeus: look call"
+    },
+    {
+      "at": "2026-10-20T06:15:30+13:00",
+      "who": "game-art",
+      "msg": "issue I73 P3: HD werewolf: look call"
+    },
+    {
+      "at": "2026-10-20T06:29:56+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
+    },
+    {
+      "at": "2026-10-20T06:32:22+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
     }
   ],
   "choices": [
@@ -2582,6 +2783,29 @@
       ],
       "who": "conductor",
       "at": "2026-10-19T19:47:35+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C33",
+      "phase": 7,
+      "what": "Adapt all 17 matching Syllogy CC BY-NC-SA models (one variant each, MC2-closest) with the general stl_rig.py; one game-art agent per mech reads and corrects joints from shaded diagnostics, renders, judges; up to 3 rounds",
+      "why": "Lee: pull all of them and run them through the process; auto knee detection is off by 400-600 mm on armoured legs, so a human-style read per mech is required",
+      "alternatives": [
+        "auto joints only",
+        "one mech at a time by hand"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T20:06:20+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C34",
+      "phase": 7,
+      "what": "Re-run all 17 Syllogy adaptations on the fixed stl_rig (4769137)",
+      "why": "The seam defaults changed for every mech, so the 3 earlier approvals are rebuilt too; agents may not edit shared tools this time",
+      "alternatives": [],
+      "who": "conductor",
+      "at": "2026-10-19T21:02:05+13:00",
       "reversible": true
     }
   ]
