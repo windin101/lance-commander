@@ -6,10 +6,10 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T08:27:41+13:00",
+  "updated": "2026-10-20T09:34:43+13:00",
   "phase": {
     "current": 7,
-    "status": "running"
+    "status": "gated"
   },
   "phases": {
     "0": {
@@ -166,35 +166,35 @@
       "ended": null,
       "gate": {
         "passed": true,
-        "at": "2026-10-20T07:14:57+13:00",
+        "at": "2026-10-20T09:34:43+13:00",
         "checks": [
           {
             "name": "tests_green",
             "pass": true,
             "detail": "tests pass (125 cases): ALL TESTS PASSED",
-            "seconds": 35.2,
-            "at": "2026-10-20T07:14:57+13:00"
+            "seconds": 36.9,
+            "at": "2026-10-20T09:34:43+13:00"
           },
           {
             "name": "hd_provenance",
             "pass": true,
-            "detail": "62 HD meshes, all with provenance rows and fit data",
+            "detail": "65 HD meshes, all with provenance rows and fit data",
             "seconds": 0.0,
-            "at": "2026-10-20T07:14:57+13:00"
+            "at": "2026-10-20T09:34:43+13:00"
           },
           {
             "name": "import_size",
             "pass": true,
-            "detail": "imported total 0.52 GB, no file over 64 MB; top: burnin=59MB, hangar_high=20MB, bw_hd_mesh=11MB, bw_mesh=8MB, uller_hd=6MB",
-            "seconds": 0.0,
-            "at": "2026-10-20T07:14:57+13:00"
+            "detail": "imported total 1.02 GB, no file over 64 MB; top: burnin=80MB, overlays_hd=48MB, hangar_high=20MB, bw_hd_mesh=11MB, bw_mesh=8MB",
+            "seconds": 0.1,
+            "at": "2026-10-20T09:34:43+13:00"
           },
           {
             "name": "provenance_table_current",
             "pass": true,
             "detail": "up to date",
             "seconds": 0.0,
-            "at": "2026-10-20T07:14:57+13:00"
+            "at": "2026-10-20T09:34:43+13:00"
           }
         ]
       },
@@ -1345,7 +1345,7 @@
       },
       "hd_vehicles": {
         "needed": 28,
-        "done": 25,
+        "done": 28,
         "approved": 25
       },
       "hd_objects": {
@@ -1440,16 +1440,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:09:03+13:00",
-      "who": "conductor",
-      "msg": "decided C19: bushwacker reruns as a follow-up job with steps 1-5 (render + seed 8) after batch 2 frees gpu0 \u2014 its work dir predates the pipeline and has no front34_pad.png, so step 2 cannot start; editing the running batch script is unsafe because bash reads it incrementally"
-    },
-    {
-      "at": "2026-10-19T16:26:33+13:00",
-      "who": "conductor",
-      "msg": "decided C20: Phase 8 playtest sweep started as a read-only probe while phase 7 batch 2 runs (phase 7 stays current) \u2014 Lee asked for parallel work; the sweep is CPU-only headless Godot (no import, no GPU), 72 runs x ~17 s, 4 at a time"
-    },
     {
       "at": "2026-10-19T16:26:34+13:00",
       "who": "conductor",
@@ -2439,6 +2429,16 @@
       "at": "2026-10-20T08:27:41+13:00",
       "who": "conductor",
       "msg": "issue I62 fixed: converter multi/sub-object materials; 140 models now textured"
+    },
+    {
+      "at": "2026-10-20T09:32:59+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate FAILED: tests_green=ok, hd_provenance=FAIL, import_size=ok, provenance_table_current=ok"
+    },
+    {
+      "at": "2026-10-20T09:34:43+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
     }
   ],
   "choices": [

@@ -33,14 +33,14 @@ Shared Source release's mech models and textures, so they carry that release's E
 | Cyclops (`cyclops`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "CP-10-Z Cyclops for Battletech" by Syllogy, https://www.printables.com/model/1863895, CC BY-NC-SA 4.0; notice in `cyclops_hd.LICENSE.md`, 114240 tris |
 | Enfield (`enfield`) | 8 | 4242 | no | 0.458 m | approved |
 | Flea (`flea`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "FLE-4 Flea for Battletech" by Syllogy, https://www.printables.com/model/1863913, CC BY-NC-SA 4.0; notice in `flea_hd.LICENSE.md`, 119176 tris |
-| Heavy copter (`heavycopter`) | adapted | adapted | n/a | 0.696 m (fitted) | **redo, I61**: reseed_concept; "Balac VTOL" by RGriffin65, https://www.thingiverse.com/thing:6758723, CC BY-SA 4.0; notice in `heavycopter_hd.LICENSE.md`, 39675 tris |
+| Heavy copter (`heavycopter`) | adapted | adapted | n/a | 0.696 m (fitted) | approved; "Balac VTOL" by RGriffin65, https://www.thingiverse.com/thing:6758723, CC BY-SA 4.0; notice in `heavycopter_hd.LICENSE.md`, 39675 tris |
 | Highlander (`highlander`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "HGN-732 Highlander for Battletech" by Syllogy, https://www.printables.com/model/1863932, CC BY-NC-SA 4.0; notice in `highlander_hd.LICENSE.md`, 115710 tris |
 | Hollander (`hollander`) | 7 | 1234 (default, inferred) | no | 0.409 m | approved |
 | Hunchback (`hunchback`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "HBK-4G Hunchback for Battletech" by Syllogy, https://www.printables.com/model/1863925, CC BY-NC-SA 4.0; notice in `hunchback_hd.LICENSE.md`, 115502 tris |
 | JaegerMech (`jaegermech`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "JM6-S4 Jagermech for Battletech" by Syllogy, https://www.printables.com/model/1863950, CC BY-NC-SA 4.0; notice in `jaegermech_hd.LICENSE.md`, 131402 tris |
 | LaoHu (`laohu`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Lao Hu Battlemech" by UnrestedGuy, https://www.thingiverse.com/thing:6505435, CC BY-NC-SA 4.0; notice in `laohu_hd.LICENSE.md`, 183846 tris |
 | MadCat (`madcat`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Timberwolf Prime, aka Madcat for Battletech" by Syllogy, https://www.printables.com/model/1864016, CC BY-NC-SA 4.0; notice in `madcat_hd.LICENSE.md`, 139446 tris |
-| Medium copter (`mediumcopter`) | adapted | adapted | n/a | 0.846 m (fitted) | **redo, I60**: reseed_mesh; "Hawk Moth" by RGriffin65, https://www.thingiverse.com/thing:6599138, CC BY-SA 4.0; notice in `mediumcopter_hd.LICENSE.md`, 39740 tris |
+| Medium copter (`mediumcopter`) | adapted | adapted | n/a | 0.846 m (fitted) | approved; "Hawk Moth" by RGriffin65, https://www.thingiverse.com/thing:6599138, CC BY-SA 4.0; notice in `mediumcopter_hd.LICENSE.md`, 39740 tris |
 | Menshen (`menshen`) | 7 | 1234 (default, inferred) | no | 0.411 m | approved; automatic orientation check misleading (the concept faces left); front checked by eye |
 | Raven (`raven`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "RVN-1X Raven for Battletech" by Syllogy, https://www.printables.com/model/1863995, CC BY-NC-SA 4.0; notice in `raven_hd.LICENSE.md`, 103582 tris |
 | Ryoken (`ryoken`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Stormcrow Prime, AKA Ryoken for Battletech" by Syllogy, https://www.printables.com/model/1863997, CC BY-NC-SA 4.0; notice in `ryoken_hd.LICENSE.md`, 70736 tris |
@@ -48,7 +48,7 @@ Shared Source release's mech models and textures, so they carry that release's E
 | ShaYu (`shayu`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Sha Yu Battlemech" by UnrestedGuy, https://www.thingiverse.com/thing:6498513, CC BY-NC-SA 4.0; notice in `shayu_hd.LICENSE.md`, 158624 tris |
 | Shootist (`shootist`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Shootist Battlemech" by UnrestedGuy, https://www.thingiverse.com/thing:7263860, CC BY-NC-SA 4.0; notice in `shootist_hd.LICENSE.md`, 136513 tris |
 | Starslayer (`starslayer`) | 8 | 1234 | no | 0.518 m | approved |
-| Thor (`thor`) | adapted | adapted | n/a | exact (rigged on the skeleton) | **redo, I58**: reseed_mesh; "Summoner Prime, AKA Thor for Battletech" by Syllogy, https://www.printables.com/model/1864004, CC BY-NC-SA 4.0; notice in `thor_hd.LICENSE.md`, 129304 tris |
+| Thor (`thor`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Summoner Prime, AKA Thor for Battletech" by Syllogy, https://www.printables.com/model/1864004, CC BY-NC-SA 4.0; notice in `thor_hd.LICENSE.md`, 129304 tris |
 | Uller (`uller`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "BattleTech Kit Fox (Uller) Alt Config V" by MiniHulkMechs, https://www.thingiverse.com/thing:6431420, CC BY-NC-SA 4.0; notice in `uller_hd.LICENSE.md`, 205852 tris |
 | UrbanMech (`urbanmech`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "UM-R60 Urbanmech for Battletech" by Syllogy, https://www.printables.com/model/1864017, CC BY-NC-SA 4.0; notice in `urbanmech_hd.LICENSE.md`, 139270 tris |
 | Vulture (`vulture`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; Syllogy, 'Mad Dog Prime, aka Vulture for Battletech' (printables.com/model/1863972), CC BY-NC-SA 4.0; notice in `vulture_hd.LICENSE.md`, 48694 tris |
@@ -77,6 +77,7 @@ The source STL is not in the repository (kept locally with its SOURCE.txt).
 | Centipede | 7 | 1234 | no | |
 | Harasser | 7 | 4242 | no | mesh seed 1234 produced a debris ring around the hull (real geometry, not fragments) |
 | LRM carrier (`lrmc`) | 7 | 1234 | no | |
+| Monsoon (`monsoon`) | 7 | 1234 | no | fit 0.304 m; no licensed sculpt exists (2026-10-20) |
 
 <!-- adapted-vehicles:begin (generated by tools/art/provenance_table.py) -->
 Adapted from licensed 3D-print sculpts by `tools/art/stl_hd.py` (these replace any Hunyuan row above):
@@ -94,6 +95,7 @@ Adapted from licensed 3D-print sculpts by `tools/art/stl_hd.py` (these replace a
 | harasser | "Harasser Hovercraft" by RGriffin65, https://www.thingiverse.com/thing:6734633 | CC BY-SA 4.0 | 0.438 m | approved; Harasser_hovercraft.stl, 48823 tris |
 | hetzer | "Hetzer (LRM) for battletech" by PrysmaTheMagical, https://www.thingiverse.com/thing:6459522 | CC BY-SA 4.0 | 0.615 m | approved; LRM_Hetzer.stl, 28683 tris |
 | hunter | "Hunter Light Tank" by RGriffin65, https://www.thingiverse.com/thing:6935510 | CC BY-SA 4.0 | 0.503 m | approved; Hunter_Light_Tank.stl, 49521 tris |
+| infantry | "6mm generic Sci Fi infantry" by smight, https://www.thingiverse.com/thing:4485404 | CC BY-NC-SA 4.0 | 0.297 m | approved; mep2.stl, 2012 tris |
 | jeep | "SciFi Vehicle Set 1 - Cars - 6mm" by Shiaic3D, https://www.printables.com/model/108620 | CC BY 4.0 | 0.425 m | approved; BT-v_ORV-6mm_1.04.stl, 8310 tris |
 | legion | "Legion MBT" by RGriffin65, https://www.thingiverse.com/thing:6617086 | CC BY-SA 4.0 | 0.909 m | approved; Legion_battle_Tank.stl, 39642 tris |
 | lrmc | "Heavy LRM Carrier" by RGriffin65, https://www.thingiverse.com/thing:7132255 | CC BY-SA 4.0 | 0.968 m | approved; Heavy_LRM_Carrier_.stl, 39513 tris |
@@ -102,6 +104,7 @@ Adapted from licensed 3D-print sculpts by `tools/art/stl_hd.py` (these replace a
 | mog | "Mobile Orbital Gun" by RGriffin65, https://www.thingiverse.com/thing:7180780 | CC BY-SA 4.0 | 1.741 m | approved; Mobile_Orbital_Gun_.stl, Mobile_Orbital_Gun_turret__stowed.stl, 38984 tris |
 | ordnancetruck | "Utility Truck" by RGriffin65, https://www.thingiverse.com/thing:6831725 | CC BY-SA 4.0 | 0.799 m | approved; utility_truck.stl, 38858 tris |
 | partisan | "Partisan Heavy Tank" by RGriffin65, https://www.thingiverse.com/thing:6943425 | CC BY-SA 4.0 | 0.660 m | approved; Partisan.stl, 39060 tris |
+| poweredarmor | "Irontold Hawkish Battle Armor (American Mecha)" by maggiweber, https://www.thingiverse.com/thing:5215239 | CC BY 4.0 | 0.000 m | approved; , 46474 tris |
 | repairtruck | "Savior Recovery/Repair vehicle" by RGriffin65, https://www.thingiverse.com/thing:6786889 | CC BY-SA 4.0 | 0.941 m | approved; Savior_repair_vehicle_stowed.stl, 39700 tris |
 | storm | "Storm heavy tank" by RGriffin65, https://www.thingiverse.com/thing:6914336 | CC BY-SA 4.0 | 0.539 m | approved; Storm.stl, 38938 tris |
 | swarmlrmc | "Semi-Modular Weapons Carrier" by RGriffin65, https://www.thingiverse.com/thing:7123873 | CC BY-SA 4.0 | 0.625 m | approved; hull.stl, launcher.stl, 38437 tris |
