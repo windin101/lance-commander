@@ -51,12 +51,24 @@ Shared Source release's mech models and textures, so they carry that release's E
 | Thor (`thor`) | 8 | 4242 | no | 1.985 m | **redo, I58**: reseed_mesh; render zoom 1.25 |
 | Uller (`uller`) | 7 | 1234 | no | 0.352 m | approved |
 | UrbanMech (`urbanmech`) | 7 | 4242 | yes | 0.425 m | approved |
-| Vulture (`vulture`) | 7 | 777 | no | 0.561 m | **redo, I59**: reseed_mesh |
+| Vulture (`vulture`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; Syllogy, 'Mad Dog Prime, aka Vulture for Battletech' (printables.com/model/1863972), CC BY-NC-SA 4.0 — see the section above, 48694 tris |
 | Werewolf (`werewolf`) | 21 | 1234 (default, inferred) | yes | 0.456 m | approved; re-fitted with --turn; P3 I9: yellow band on the shins |
 | Wolfhound (`wolfhound`) | 8 | 1234 | no | 0.282 m | approved |
 | Zeus (`zeus`) | 7 | 1234 (default, inferred) | no | 0.432 m | approved; render zoom 1.25 |
 
 Fit, turn and concept seed come from `original/hd/<mech>/provenance.json` (written by `hd_mech.py` since 2026-10-19; the 13 rows above were backfilled with a step-4-only re-fit, nothing reinstalled). Mesh seed 1234 is the tool default and is inferred, not logged, for every mech whose step 3 ran before the change. "redo" rows are installed and in the game until their issue is fixed.
+
+### Adapted third-party model: Vulture (`vulture_hd.glb`)
+
+The HD Vulture is not generated. It is an adaptation of **"Mad Dog Prime, aka Vulture for Battletech"** by
+**Syllogy** (https://www.printables.com/model/1863972-mad-dog-prime-aka-vulture-for-battletech-syllogy),
+licensed **CC BY-NC-SA 4.0** (https://creativecommons.org/licenses/by-nc-sa/4.0/). Changes: scaled ×193 to
+9.17 m; cut into 12 parts; legs re-posed from the sculpted stride to the MC2 rest pose (MC2 bone directions,
+the STL's bone lengths: thigh 1.79 m, shin 2.78 m, so the hip and `joint_root` sit 0.62 m lower and every
+animation's root height keys were lowered to match); seam smoothing; dark joint caps at each cut; region
+paint. Made by `tools/art/stl_rig.py`. The adapted mesh is CC BY-NC-SA 4.0; the skeleton and animations in the
+same file stay under the Shared Source licence. Full notice: `game/assets/mechs/vulture_hd.LICENSE.md`.
+The source STL is not in the repository (kept locally with its SOURCE.txt).
 
 ### Per vehicle (`--kind vehicles`, `game/assets/vehicles/<vehicle>_hd.glb`)
 

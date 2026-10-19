@@ -492,6 +492,55 @@ def write_static(args, pos, uv, tris, albedo):
     print(f"wrote {args.out}: {len(pos)} verts, {len(tris)} tris (static)")
 
 
+def load_cad_obj(path):
+    """A SolidCraft OBJ export (mm, Z up, unshared vertices) -> (pos m Y-up, tris)."""
+    v, f = [], []
+    for line in open(path):
+        if line.startswith("v "):
+            v.append([float(x) for x in line.split()[1:4]])
+        elif line.startswith("f "):
+            idx = [int(t.split("/")[0]) - 1 for t in line.split()[1:]]
+            f.extend([idx[0], idx[k], idx[k + 1]] for k in range(1, len(idx) - 1))
+    v = np.array(v, dtype=float) / 1000.0
+    return np.c_[v[:, 0], v[:, 2], -v[:, 1]], np.array(f, dtype=np.int64)  # inverse of (x,y,z) -> (x,-z,y)
+
+
+def free_block(uv, tris, res, cell=16):
+    """Top-left pixel of a cell x cell block no HD triangle's UV box touches."""
+    from PIL import ImageDraw
+    cov = Image.new("L", (res, res), 0)
+    d = ImageDraw.Draw(cov)
+    for t in tris:  # the triangles' real coverage, not their bounding boxes
+        d.polygon([tuple(p) for p in uv[t] * res], fill=255)
+    cov = np.asarray(cov.filter(ImageFilter.MaxFilter(5))) > 0  # 2 px guard band against mip bleed
+    n = res // cell
+    blocks = cov[: n * cell, : n * cell].reshape(n, cell, n, cell).any(axis=(1, 3))
+    free = np.argwhere(~blocks)
+    if not len(free):
+        raise RuntimeError("no free block in the HD atlas for a CAD part")
+    cy, cx = free[-1]  # the last free cell: atlases pack from the top left
+    return int(cx * cell), int(cy * cell)
+
+
+def part_colour(node, owners, sample_uv, mask):
+    """The original part's mask colour: the most common purified pixel under its samples."""
+    m = np.asarray(mask.convert("RGB"))
+    uv = sample_uv[owners == node]
+    if not len(uv):
+        return (128, 128, 128)
+    px = np.clip((uv[:, 0] * m.shape[1]).astype(int), 0, m.shape[1] - 1)
+    py = np.clip((uv[:, 1] * m.shape[0]).astype(int), 0, m.shape[0] - 1)
+    cols = purify(m[py, px][None, :, :])[0]
+    vals, counts = np.unique(cols.reshape(-1, 3), axis=0, return_counts=True)
+    return tuple(int(c) for c in vals[counts.argmax()])
+
+
+def patch_png(data, xy, cell, colour):
+    im = Image.open(io.BytesIO(data)).convert("RGB")
+    im.paste(Image.new("RGB", (cell, cell), colour), xy)
+    return png_bytes(im)
+
+
 def main():
     ap = argparse.ArgumentParser()
     for a in ("original", "paint", "hd", "normal", "ao", "out", "out_paint"):
@@ -501,6 +550,10 @@ def main():
     ap.add_argument("--concept-yaw", type=float, default=35.0)
     ap.add_argument("--turn", action="store_true", help="the fit landed backwards: turn the HD mesh 180 degrees")
     ap.add_argument("--static", action="store_true", help="building or prop: no skin, plain colour texture")
+    ap.add_argument("--part", action="append", default=[], metavar="NODE=OBJ",
+                    help="replace the HD geometry owned by original part NODE with a CAD mesh (SolidCraft OBJ, mm, "
+                         "NODE=OBJ@R drops only the owned HD verts within R m of the CAD mesh; "
+                         "Z up, model rest pose); it is skinned 100%% to NODE and painted with that part's mask colour")
     args = ap.parse_args()
 
     og, ob = load_glb(args.original)
@@ -542,11 +595,48 @@ def main():
 
     _, idx = cKDTree(samples).query(fitted)
     owner = smooth_owners(owners[idx], tris, len(fitted))
+
+    # CAD parts (--part NODE=OBJ): drop the HD geometry the original part owns, so its debris or
+    # broken thin pieces go, and splice the CAD mesh in below once the HD paint is transferred.
+    names = {n.get("name"): i for i, n in enumerate(og["nodes"])}
+    cad = []
+    for spec in args.part:
+        nname, path = spec.split("=", 1)
+        radius = None
+        if "@" in path:  # NODE=OBJ@R: drop only owned HD verts within R metres of the CAD mesh
+            path, radius = path.rsplit("@", 1)
+            radius = float(radius)
+        node = names[nname]
+        cpos_, ctris_ = load_cad_obj(path)
+        drop = owner == node
+        if radius is not None:
+            drop &= cKDTree(cpos_).query(fitted)[0] < radius
+        keep = ~drop
+        remap = np.cumsum(keep) - 1
+        tkeep = keep[tris].all(1)
+        print(f"part {nname}: dropped {int((~keep).sum())} HD verts, {int((~tkeep).sum())} tris"
+              f" ({'all it owns' if radius is None else f'owned, within {radius} m of the CAD mesh'}); CAD mesh from {path}")
+        fitted, huv, owner, tris = fitted[keep], huv[keep], owner[keep], remap[tris[tkeep]]
+        cad.append((nname, node, cpos_, ctris_))
+
+    worlds = world_matrices(og)
+    paint = transfer_paint(fitted, huv, tris, samples, sample_uv, Image.open(args.paint), args.tex, pure=not args.static)
+    normal_png, ao_png = open(args.normal, "rb").read(), open(args.ao, "rb").read()
+    for nname, node, cpos, ctris in cad:
+        cell = 16
+        bx, by = free_block(huv, tris, args.tex, cell)
+        colour = part_colour(node, owners, sample_uv, Image.open(args.paint))
+        paint.paste(Image.new("RGB", (cell, cell), colour), (bx, by))
+        normal_png = patch_png(normal_png, (bx, by), cell, (128, 128, 255))  # flat: no baked detail
+        ao_png = patch_png(ao_png, (bx, by), cell, (255, 255, 255))         # no occlusion
+        c_uv = np.tile([(bx + cell / 2) / args.tex, (by + cell / 2) / args.tex], (len(cpos), 1))
+        tris = np.concatenate([tris, ctris + len(fitted)])
+        fitted = np.concatenate([fitted, cpos])
+        huv = np.concatenate([huv, c_uv])
+        owner = np.concatenate([owner, np.full(len(cpos), node)])
+        print(f"part {nname}: {len(cpos)} CAD verts, {len(ctris)} tris, colour {colour} at texel block ({bx},{by})")
     joints = sorted(set(owner.tolist()))
     joint_slot = {n: i for i, n in enumerate(joints)}
-    worlds = world_matrices(og)
-
-    paint = transfer_paint(fitted, huv, tris, samples, sample_uv, Image.open(args.paint), args.tex, pure=not args.static)
     paint.save(args.out_paint)
     if args.static:
         write_static(args, fitted, huv, tris, paint)
@@ -565,8 +655,8 @@ def main():
     }
     ind = w.accessor(tris.reshape(-1).astype(np.uint32), "SCALAR", comp=5125, target=34963)
     tex_paint = w.image(png_bytes(paint))
-    tex_normal = w.image(open(args.normal, "rb").read())
-    tex_ao = w.image(open(args.ao, "rb").read())
+    tex_normal = w.image(normal_png)
+    tex_ao = w.image(ao_png)
     og.setdefault("materials", []).append({
         "name": "hd", "pbrMetallicRoughness": {"baseColorTexture": {"index": tex_paint}, "metallicFactor": 0.35, "roughnessFactor": 0.55},
         "normalTexture": {"index": tex_normal}, "occlusionTexture": {"index": tex_ao}})
