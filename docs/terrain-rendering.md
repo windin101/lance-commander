@@ -60,6 +60,20 @@ All of it is in the Shared Source release; nothing larger exists there (checked 
   smoother or displaced visual surface would float or bury units. Worth doing only with the sim sharing the
   same surface.
 
+## Step 3: trees
+
+- `tools/art/trees.py` builds an HD tree for each of the 36 original tree types: a tapered bark trunk, branches
+  and a crown of leaf-cluster cards (conifer tiers with an inner fill layer, broadleaf ellipsoid crowns, willow
+  curtains, palm fronds, bare dead trees, and the tc1 clumps as stands of 5-7 trees). Each keeps its original's
+  height, width and leaf colour (tinted from the original texture), so maps keep their palettes. 90-900 tris.
+- Foliage comes from CC0 Poly Haven textures (fir sprigs, jacaranda fronds, pine bark) composited into a 2 x 2
+  atlas of 512 px cells. `leaves.gdshader`: alpha cut-out (raised with distance so mips do not thin crowns),
+  crown normals (volume lighting, no back-face flip), height-scaled wind phased by position.
+- `objects_view.gd` draws every tree of a type as one MultiMesh for bark and one for leaves (about 24,000 trees
+  across the maps, tens of draw calls per map instead of thousands of scenes). Destroying a tree drops its
+  leaves and breaks the trunk to a stump. `--no-hd` shows the original cards.
+- Not done: mesh LODs (the cards are cheap and auto-decimation mangles them).
+
 ## Not yet
 
 Footprints, craters, scorch and mine decals, water wakes. Then step 2 (more
