@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T11:26:54+13:00",
+  "updated": "2026-10-20T11:46:21+13:00",
   "phase": {
     "current": 7,
     "status": "gated"
@@ -166,35 +166,35 @@
       "ended": null,
       "gate": {
         "passed": true,
-        "at": "2026-10-20T11:26:54+13:00",
+        "at": "2026-10-20T11:46:21+13:00",
         "checks": [
           {
             "name": "tests_green",
             "pass": true,
             "detail": "tests pass (125 cases): ALL TESTS PASSED",
-            "seconds": 37.9,
-            "at": "2026-10-20T11:26:54+13:00"
+            "seconds": 37.7,
+            "at": "2026-10-20T11:46:21+13:00"
           },
           {
             "name": "hd_provenance",
             "pass": true,
             "detail": "65 HD meshes, all with provenance rows and fit data",
             "seconds": 0.0,
-            "at": "2026-10-20T11:26:54+13:00"
+            "at": "2026-10-20T11:46:21+13:00"
           },
           {
             "name": "import_size",
             "pass": true,
-            "detail": "imported total 1.08 GB, no file over 64 MB; top: burnin=80MB, overlays_hd=48MB, hangar_high=20MB, bw_hd_mesh=11MB, bw_mesh=8MB",
+            "detail": "imported total 1.11 GB, no file over 64 MB; top: burnin=80MB, overlays_hd=48MB, hangar_high=20MB, bw_hd_mesh=11MB, bw_mesh=8MB",
             "seconds": 0.1,
-            "at": "2026-10-20T11:26:54+13:00"
+            "at": "2026-10-20T11:46:21+13:00"
           },
           {
             "name": "provenance_table_current",
             "pass": true,
             "detail": "up to date",
             "seconds": 0.0,
-            "at": "2026-10-20T11:26:54+13:00"
+            "at": "2026-10-20T11:46:21+13:00"
           }
         ]
       },
@@ -1441,11 +1441,6 @@
   ],
   "log": [
     {
-      "at": "2026-10-19T16:36:13+13:00",
-      "who": "conductor",
-      "msg": "phase 8 sweep: 21/72 runs won, 9/24 missions won at least once, 5 every seed; 0 ABL errors. Diagnosing 19."
-    },
-    {
       "at": "2026-10-19T16:45:21+13:00",
       "who": "sim",
       "msg": "issue I10 P1: mc2_06, mc2_12: units spawned on off-map cells never move (find_path from solid start cell)"
@@ -2437,6 +2432,11 @@
     },
     {
       "at": "2026-10-20T11:26:54+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
+    },
+    {
+      "at": "2026-10-20T11:46:21+13:00",
       "who": "gate",
       "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
     }
