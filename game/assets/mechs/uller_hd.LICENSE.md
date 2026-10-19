@@ -2,7 +2,7 @@
 
 The 3D mesh of the HD Uller in `uller_hd.glb` (and its paint mask `uller_hd_paint.bin`) is an adaptation of:
 
-> **"Kit Fox Prime, aka Uller for Battletech"** by **Syllogy**, https://www.printables.com/model/1863957
+> **"BattleTech Kit Fox (Uller) Alt Config V"** by **MiniHulkMechs**, https://www.thingiverse.com/thing:6431420
 > licensed under **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**, https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ## Changes made
@@ -16,5 +16,5 @@ This adaptation of the mesh is licensed under **CC BY-NC-SA 4.0** (https://creat
 project restricts what that licence permits for this mesh. The skeleton, joint names and animations in the same `.glb` are converted from Microsoft's 2006 MechCommander 2 Shared Source release and remain under that release's licence
 (`docs/MC2-SOURCE-EULA.md`); they are not covered by the Creative Commons licence.
 
-This is an unofficial fan project. Syllogy has not endorsed it or this use of their model. The model is provided
+This is an unofficial fan project. MiniHulkMechs has not endorsed it or this use of their model. The model is provided
 as is, without warranties of any kind.

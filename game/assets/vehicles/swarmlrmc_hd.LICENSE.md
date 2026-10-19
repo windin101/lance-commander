@@ -2,12 +2,12 @@
 
 The 3D mesh of the HD Swarm LRM carrier in `swarmlrmc_hd.glb` (and its paint mask `swarmlrmc_hd_paint.bin`) is an adaptation of:
 
-> **"Light SRM Carrier (Half-Track)"** by **RGriffin65**, https://www.thingiverse.com/thing:7215350
+> **"Semi-Modular Weapons Carrier"** by **RGriffin65**, https://www.thingiverse.com/thing:7123873
 > licensed under **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**, https://creativecommons.org/licenses/by-sa/4.0/
 
 ## Changes made
 
-The original STL was modified for use as a game model: loose kit pieces (turret, guns, launchers, rotor) put in place on the hull and display bases, sprues and spare pieces removed; the mesh simplified (vertex clustering); scaled, turned and fitted to the MechCommander 2 model it replaces; each part bound to the game model's moving parts (turret, launcher, rotor); painted by region from the original model's team-colour mask. The changes are made by `tools/art/stl_hd.py`
+The original STL was modified for use as a game model: loose kit pieces (turret, guns, launchers, rotor) put in place on the hull and display bases, sprues and spare pieces removed; the mesh simplified (vertex clustering); scaled, turned and fitted to the MechCommander 2 model it replaces; each part bound to the game model's moving parts (turret, launcher, rotor); painted by region from the original model's team-colour mask; the launcher rack was cut out of the hull, enlarged (1.4 long, 1.05 wide, 1.35 tall), raised by about 0.34 m and set on a plain hexagonal turntable added for this project (by tools/art/veh_prep/swarmlrmc_split_launcher.py), so it reads like the original's large launcher on its turntable. The changes are made by `tools/art/stl_hd.py`
 in this repository (the settings it used: see `original/hd/swarmlrmc/provenance.json` in the build tree).
 
 ## Licence of this adaptation

@@ -2,8 +2,10 @@
 
 The 3D mesh of the HD Zeus in `zeus_hd.glb` (and its paint mask `zeus_hd_paint.bin`) is an adaptation of:
 
-> **"ZEU-5T Zeus for Battletech"** by **Syllogy**, https://www.printables.com/model/1864062
-> licensed under **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**, https://creativecommons.org/licenses/by-nc-sa/4.0/
+> **"Zeus ZEU-6A"** by **ChewiewookTheVindicator**, https://www.thingiverse.com/thing:7089967
+> licensed under **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**, https://creativecommons.org/licenses/by-sa/4.0/
+
+**Rights note.** The uploader says this is a kitbash based on a ZEU-5T by Matt Mason, with a left arm from OSWALDODDITIES' American Mecha model on Cults3D; the licences of those parts are not stated. Lee Osborne approved its use on 2026-10-19 on the strength of the licence shown on the page. If you hold rights in the original material and want it removed, please open an issue.
 
 ## Changes made
 
@@ -12,9 +14,9 @@ in this repository (the settings it used: see `original/hd/zeus/provenance.json`
 
 ## Licence of this adaptation
 
-This adaptation of the mesh is licensed under **CC BY-NC-SA 4.0** (https://creativecommons.org/licenses/by-nc-sa/4.0/), the licence of the original. Nothing in this
+This adaptation of the mesh is licensed under **CC BY-SA 4.0** (https://creativecommons.org/licenses/by-sa/4.0/), the licence of the original. Nothing in this
 project restricts what that licence permits for this mesh. The skeleton, joint names and animations in the same `.glb` are converted from Microsoft's 2006 MechCommander 2 Shared Source release and remain under that release's licence
 (`docs/MC2-SOURCE-EULA.md`); they are not covered by the Creative Commons licence.
 
-This is an unofficial fan project. Syllogy has not endorsed it or this use of their model. The model is provided
+This is an unofficial fan project. ChewiewookTheVindicator has not endorsed it or this use of their model. The model is provided
 as is, without warranties of any kind.

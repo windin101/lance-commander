@@ -2,8 +2,8 @@
 
 The 3D mesh of the HD Repair truck in `repairtruck_hd.glb` (and its paint mask `repairtruck_hd_paint.bin`) is an adaptation of:
 
-> **"FightTech - Vedariant - 6mm"** by **Shiaic3D**, https://www.printables.com/model/359188
-> licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**, https://creativecommons.org/licenses/by/4.0/
+> **"Savior Recovery/Repair vehicle"** by **RGriffin65**, https://www.thingiverse.com/thing:6786889
+> licensed under **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**, https://creativecommons.org/licenses/by-sa/4.0/
 
 ## Changes made
 
@@ -12,9 +12,9 @@ in this repository (the settings it used: see `original/hd/repairtruck/provenanc
 
 ## Licence of this adaptation
 
-This adaptation of the mesh is licensed under **CC BY 4.0** (https://creativecommons.org/licenses/by/4.0/), the licence of the original. Nothing in this
+This adaptation of the mesh is licensed under **CC BY-SA 4.0** (https://creativecommons.org/licenses/by-sa/4.0/), the licence of the original. Nothing in this
 project restricts what that licence permits for this mesh. The part hierarchy, pivots and animations in the same `.glb` are converted from Microsoft's 2006 MechCommander 2 Shared Source release and remain under that release's licence
 (`docs/MC2-SOURCE-EULA.md`); they are not covered by the Creative Commons licence.
 
-This is an unofficial fan project. Shiaic3D has not endorsed it or this use of their model. The model is provided
+This is an unofficial fan project. RGriffin65 has not endorsed it or this use of their model. The model is provided
 as is, without warranties of any kind.
