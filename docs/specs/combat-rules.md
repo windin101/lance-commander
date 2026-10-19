@@ -142,10 +142,13 @@ Ignored if the damage is ≤ 0, the location is −1, or the mech is destroyed.
 Every component has 1 health, so one hit disables and destroys it. Effects:
 
 - **Engine:** shutdown death; the mech is disabled.
-- **Cockpit:** the pilot takes 6 wounds and is killed; the mech is disabled.
-- **Ammo bin:** explodes. The pilot takes 2 wounds. Damage = remaining rounds ×
-  explosive damage, capped at 255, delivered to the bin's location as an ammo
-  explosion (skips armour). The bin and the pool lose those rounds.
+- **Cockpit:** nothing but a damage effect (`damageHotSpot`). The pilot is not
+  hurt. *(Corrected 2026-10-19: this spec first said the pilot dies.)*
+- **Ammo bin:** nothing. Both `COMPONENT_FORM_AMMO` cases just `break`, and
+  `Mover::ammoExplosion` (pilot +2 wounds, rounds × explosive damage up to 255)
+  is never called anywhere in the shipped source. *(Corrected 2026-10-19: this
+  spec first said the bin explodes; that made the campaign far deadlier, with
+  heavy mechs lost at 20-90 % armour.)* Only our heat model (H*) can blow ammo.
 - **Gyro:** piloting check.
 - **Leg actuator:** piloting check when hit; when destroyed, a forced check at
   +100. See change C3.

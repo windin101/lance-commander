@@ -142,18 +142,17 @@ func test_destroyed_arm_transfers_to_side_torso_front_armor() -> void:
 	assert_bool(m.items[SimFixture.item(m, ER_LASER)]["disabled"]).is_true()
 
 
-func test_side_torso_ammo_cookoff_kills_pilot() -> void:
-	# An LRM bin in the Atlas's left torso: 24 rounds x 1.0 skips armour, wipes the
-	# torso; destroying it hits every slot, so the other three bins chain-explode.
+func test_ammo_crit_does_not_explode() -> void:
+	# Shipped MC2: a destroyed ammo bin does nothing (mech.cpp hitInventoryItem;
+	# Mover::ammoExplosion is never called). The bin is just disabled.
 	var m := SimFixture.mech("atlas", r)
 	var rng := SimRng.new()
-	SimCombat.hit_inventory_item(r, rng, m, SimFixture.item(m, LRM_AMMO), 0.0)
-	assert_int(m.damage_state[B.LTORSO]).is_equal(SimMech.DamageState.DESTROYED)
-	assert_int(m.damage_state[B.LARM]).is_equal(SimMech.DamageState.DESTROYED)
-	assert_float(m.armor[A.LTORSO]).is_equal(0.0)  # destroyed location loses front armour
-	assert_float(m.armor[A.RLTORSO]).is_equal(0.0)  # overflow vented to the rear
-	assert_bool(m.pilot.dead).is_true()  # 4 explosions x 2 wounds
-	assert_bool(m.is_disabled()).is_true()
+	var bin := SimFixture.item(m, LRM_AMMO)
+	SimCombat.hit_inventory_item(r, rng, m, bin, 0.0)
+	assert_bool(m.items[bin]["disabled"]).is_true()
+	assert_int(m.damage_state[B.LTORSO]).is_equal(SimMech.DamageState.NONE)
+	assert_float(m.pilot.wounds).is_equal(0.0)
+	assert_bool(m.is_disabled()).is_false()
 
 
 func test_engine_crit_disables() -> void:
@@ -166,14 +165,18 @@ func test_engine_crit_disables() -> void:
 	assert_int(m.status).is_equal(SimMech.Status.DISABLED)
 
 
-func test_cockpit_crit_kills_pilot() -> void:
+func test_cockpit_crit_only_wounds_from_the_head_hit() -> void:
+	# A destroyed cockpit is only a damage effect in the shipped game; the pilot takes
+	# just the head-hit wound (damage >= 2 to the head).
 	var m := SimFixture.mech("atlas", r)
 	var rng := SimRng.new()
 	rng.force([60, 0])  # one crit, first head slot = Cockpit
 	SimCombat.handle_weapon_hit(r, rng, m, 10.0, A.HEAD, ER_LASER, 0.0)  # 9 armour, 1 internal
 	assert_float(m.internal[B.HEAD]).is_equal(2.0)
-	assert_bool(m.pilot.dead).is_true()
-	assert_int(m.status).is_equal(SimMech.Status.DISABLED)
+	assert_bool(m.items[m.cockpit]["disabled"]).is_true()
+	assert_float(m.pilot.wounds).is_equal(1.0)
+	assert_bool(m.pilot.dead).is_false()
+	assert_int(m.status).is_equal(SimMech.Status.NORMAL)
 
 
 func test_top_crit_roll_blows_off_limb_but_triple_crits_torso() -> void:

@@ -272,14 +272,13 @@ static func hit_inventory_item(rules: SimRules, rng: SimRng, m: SimMech, inv: in
 			m.engine_blow_time = now + 5.0
 			_disable(m)
 	if item["health"] == 0:
+		# The shipped game's destroyed-cockpit and destroyed-ammo cases do nothing but set
+		# a damage effect (mech.cpp hitInventoryItem: COMPONENT_FORM_COCKPIT / _AMMO);
+		# Mover::ammoExplosion exists but is never called. Only heat can blow ammo (H*).
 		match item["form"]:
-			"Cockpit":
-				_injure_pilot(m, SimPilot.DEATH_WOUNDS)
 			"Actuator":
 				if leg:
 					piloting_check(rng, m, 100.0)
-			"Ammo":
-				ammo_explosion(rules, rng, m, inv, now)
 
 
 ## Mover::ammoExplosion: remaining rounds x explosive damage (max 255) into the bin's location.
