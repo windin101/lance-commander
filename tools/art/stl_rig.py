@@ -351,6 +351,23 @@ def main():
 
     glb = ROOT / f"game/assets/mechs/{a.mech}.glb"
     og, ob = R.load_glb(str(glb))
+    # skeleton name variants (since 2026-10-20, Anubis): a four-joint leg named uleg -> lleg -> lleg2 -> ankle is read as
+    # uleg -> mleg -> lleg -> ankle, and the misspelt joint_lanke as joint_lankle; the original names are put back before writing
+    renamed = {}
+    nm0 = {n.get("name") for n in og["nodes"]}
+    for i, n in enumerate(og["nodes"]):
+        nm = n.get("name", "")
+        for s_ in "lr":
+            if f"joint_{s_}lleg2" in nm0 and nm == f"joint_{s_}lleg":
+                renamed[i] = (nm, f"joint_{s_}mleg")
+            elif nm == f"joint_{s_}lleg2":
+                renamed[i] = (nm, f"joint_{s_}lleg")
+        if nm == "joint_lanke" and "joint_lankle" not in nm0:
+            renamed[i] = (nm, "joint_lankle")
+    for i, (old, new) in renamed.items():
+        og["nodes"][i]["name"] = new
+    if renamed:
+        print("  skeleton names read as:", {o: n for o, n in renamed.values()})
     names = {n.get("name"): i for i, n in enumerate(og["nodes"])}
     W0 = R.world_matrices(og)
     parts0 = mesh_parts(og, ob, W0)
@@ -737,6 +754,8 @@ def main():
     tris = np.arange(len(pos)).reshape(-1, 3)
     dest = ROOT / "game/assets/mechs" if a.install else ROOT / f"original/hd/{a.mech}/stl"
     dest.mkdir(parents=True, exist_ok=True)
+    for i, (old, new) in renamed.items():  # the game's skeleton keeps its own names
+        og["nodes"][i]["name"] = old
     write(og, ob, pos, R.vertex_normals(pos, tris), uv, np.repeat(owner, 3), tris, slots, dest, a.mech)
     if a.install:
         work = ROOT / f"original/hd/{a.mech}"; work.mkdir(parents=True, exist_ok=True)
