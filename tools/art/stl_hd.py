@@ -21,7 +21,7 @@ overlapping, non-manifold shells, so the Hunyuan path's decimate/unwrap/bake (Co
   5. paint: each triangle votes over its 8 nearest original surface points for the team-paint class (base/hl1/hl2)
      or one of the original mask's own colours (clustered: white liveries, hazard stripes), then a neighbour majority
      pass removes speckle; stl_rig's palette carries the colours. "bounds": true (after the fit) matches the original's
-     length, width and height separately; "stretch": [x, y, z] multiplies them.
+     length, width and height separately; "stretch": [x, y, z] multiplies them; "nudge": [x, y, z] m moves the fit.
   6. write <asset>_hd.glb + _hd_paint.bin to original/hd/<asset>/stl/, or with --install to game/assets/<kind>/
      plus original/hd/<asset>/provenance.json (kind "adapted", source, licence) for tools/art/credits.py.
 --views draws the raw components (numbered), the fitted result's paint and parts, and the original's surface.
@@ -239,6 +239,8 @@ def main():
             c_ = np.array([(V_[:, 0].max() + V_[:, 0].min()) / 2, V_[:, 1].min(), (V_[:, 2].max() + V_[:, 2].min()) / 2])
             V_ = (V_ - c_) * np.asarray(over["stretch"], float) + c_
         Gf = V_.reshape(-1, 3, 3)
+    if over.get("nudge"):  # J.json "nudge": [x, y, z] m after the fit: the bounds centring is off when a gun sticks out
+        Gf = Gf + np.asarray(over["nudge"], float)
     fit = R.chamfer(R.area_samples(Gf.reshape(-1, 3), flat, n=30000), tree_p, samples)
     Wn = R.world_matrices(og)
     forced = np.full(len(Gf), -1)

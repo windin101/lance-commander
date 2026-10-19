@@ -757,6 +757,9 @@ def main():
     for s in "lr":
         for kk in KEYS:
             paint[np.linalg.norm(Cn - J[s][kk], axis=1) < 0.04 * H] = "metal"
+    for b in over.get("paint_boxes", []):  # J.json: [{"paint": "hl1", "min": [x, y, z], "max": [...]}] game mm in the
+        # --diag/views frame: the original's own colour panels (Powered Armor's orange chest, grey launcher)
+        paint[(Cn >= np.array(b["min"], float)).all(1) & (Cn <= np.array(b["max"], float)).all(1)] = b["paint"]
     caps, cap_owner = [], []
     for s in "lr":
         nodes_ = [part_under(og, names, jn) for jn in legs[s][:-1]] + [part_under(og, names, legs[s][-1], f"joint_{s}foot")]

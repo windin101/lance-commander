@@ -94,7 +94,7 @@ Adapted from licensed 3D-print sculpts by `tools/art/stl_hd.py` (these replace a
 | harasser | "Harasser Hovercraft" by RGriffin65, https://www.thingiverse.com/thing:6734633 | CC BY-SA 4.0 | 0.438 m | approved; Harasser_hovercraft.stl, 48823 tris |
 | hetzer | "Hetzer (LRM) for battletech" by PrysmaTheMagical, https://www.thingiverse.com/thing:6459522 | CC BY-SA 4.0 | 0.615 m | approved; LRM_Hetzer.stl, 28683 tris |
 | hunter | "Hunter Light Tank" by RGriffin65, https://www.thingiverse.com/thing:6935510 | CC BY-SA 4.0 | 0.503 m | approved; Hunter_Light_Tank.stl, 49521 tris |
-| infantry | "6mm generic Sci Fi infantry" by smight, https://www.thingiverse.com/thing:4485404 | CC BY-NC-SA 4.0 | 0.297 m | approved; mep2.stl, 2012 tris |
+| infantry | "Future - Generic Space Infantry Troops" by Guy_montag, https://www.printables.com/model/114328 | CC BY-NC-SA 4.0 | 0.183 m | approved; plasma_A.stl, 13002 tris |
 | jeep | "SciFi Vehicle Set 1 - Cars - 6mm" by Shiaic3D, https://www.printables.com/model/108620 | CC BY 4.0 | 0.425 m | approved; BT-v_ORV-6mm_1.04.stl, 8310 tris |
 | legion | "Legion MBT" by RGriffin65, https://www.thingiverse.com/thing:6617086 | CC BY-SA 4.0 | 0.909 m | approved; Legion_battle_Tank.stl, 39642 tris |
 | lrmc | "Heavy LRM Carrier" by RGriffin65, https://www.thingiverse.com/thing:7132255 | CC BY-SA 4.0 | 0.968 m | approved; Heavy_LRM_Carrier_.stl, 39513 tris |
@@ -104,7 +104,7 @@ Adapted from licensed 3D-print sculpts by `tools/art/stl_hd.py` (these replace a
 | monsoon | "Saracen, Scimitar, and Saladin Hovertanks" by UnrestedGuy, https://www.thingiverse.com/thing:7255716 | CC BY-NC-SA 4.0 | 0.461 m | approved; B-Saracen.stl, Scimitar_Standard_Turret.stl, 19234 tris |
 | ordnancetruck | "Utility Truck" by RGriffin65, https://www.thingiverse.com/thing:6831725 | CC BY-SA 4.0 | 0.799 m | approved; utility_truck.stl, 38858 tris |
 | partisan | "Partisan Heavy Tank" by RGriffin65, https://www.thingiverse.com/thing:6943425 | CC BY-SA 4.0 | 0.660 m | approved; Partisan.stl, 39060 tris |
-| poweredarmor | "Irontold Hawkish Battle Armor (American Mecha)" by maggiweber, https://www.thingiverse.com/thing:5215239 | CC BY 4.0 | 0.000 m | approved; , 46474 tris |
+| poweredarmor | "Irontold Hawkish Battle Armor (American Mecha)" by maggiweber, https://www.thingiverse.com/thing:5215239 | CC BY 4.0 | 0.000 m | approved; , 104712 tris |
 | repairtruck | "Savior Recovery/Repair vehicle" by RGriffin65, https://www.thingiverse.com/thing:6786889 | CC BY-SA 4.0 | 0.941 m | approved; Savior_repair_vehicle_stowed.stl, 39700 tris |
 | storm | "Storm heavy tank" by RGriffin65, https://www.thingiverse.com/thing:6914336 | CC BY-SA 4.0 | 0.539 m | approved; Storm.stl, 38938 tris |
 | swarmlrmc | "Semi-Modular Weapons Carrier" by RGriffin65, https://www.thingiverse.com/thing:7123873 | CC BY-SA 4.0 | 0.625 m | approved; hull.stl, launcher.stl, 38437 tris |

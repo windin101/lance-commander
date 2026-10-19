@@ -2,7 +2,7 @@
 
 The 3D mesh of the HD Infantry in `infantry_hd.glb` (and its paint mask `infantry_hd_paint.bin`) is an adaptation of:
 
-> **"6mm generic Sci Fi infantry"** by **smight**, https://www.thingiverse.com/thing:4485404
+> **"Future - Generic Space Infantry Troops"** by **Guy_montag**, https://www.printables.com/model/114328
 > licensed under **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**, https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ## Changes made
@@ -16,5 +16,5 @@ This adaptation of the mesh is licensed under **CC BY-NC-SA 4.0** (https://creat
 project restricts what that licence permits for this mesh. The part hierarchy, pivots and animations in the same `.glb` are converted from Microsoft's 2006 MechCommander 2 Shared Source release and remain under that release's licence
 (`docs/MC2-SOURCE-EULA.md`); they are not covered by the Creative Commons licence.
 
-This is an unofficial fan project. smight has not endorsed it or this use of their model. The model is provided
+This is an unofficial fan project. Guy_montag has not endorsed it or this use of their model. The model is provided
 as is, without warranties of any kind.
