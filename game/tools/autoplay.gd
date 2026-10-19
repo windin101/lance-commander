@@ -11,6 +11,11 @@ func _init() -> void:
 	var max_t := float(args[1]) if args.size() > 1 else 1800.0
 	var data = load("res://scripts/data/game_data.gd").new()
 	data.load_all()
+	if "--campaign" in args:
+		_campaign(data, max_t)
+		data.free()
+		quit()
+		return
 	var mission := "mc2_01"
 	for a in args:
 		if a.begins_with("--mission="):
@@ -20,48 +25,9 @@ func _init() -> void:
 	print("ABL pilots: %d" % (sm.abl.pilots.size() if sm.abl else 0))
 	var w := sm.world
 	var o := sm.objectives
-	var next_order := 0.0
 	for u in w.units:
 		_start[u.id] = u.position
-	while w.time < max_t and o.result == SimObjectives.Result.PLAYING:
-		sm.step()
-		for e in w.events:
-			match e["type"]:
-				"objective":
-					if not e["hidden"]:
-						print("t=%6.1f  objective done: %s" % [w.time, e["title"]])
-				"disabled":
-					var u: SimUnit = w.units[e["unit"]]
-					if u.capturable and u.team != 0:
-						print("t=%6.1f  capture target %s destroyed by %s" % [w.time, u.name, u.last_attacker.name if u.last_attacker else "?"])
-					if u.team == 0:
-						var arm := 0.0
-						var top := 0.0
-						for i in u.armor.size():
-							arm += u.armor[i]
-							top += u.max_armor[i]
-						print("t=%6.1f  LOST %s (%s, armour %.0f%%, heat %.0f, ejected %s, pilot %s, last hit by %s)" % [w.time, u.name,
-							["normal", "shutdown", "disabled", "destroyed"][u.status], 100.0 * arm / maxf(top, 1.0), u.heat, u.ejected,
-							u.pilot.status_text() if u.pilot and u.pilot.has_method("status_text") else (str(u.pilot.wounds) + " wounds" if u.pilot else "-"),
-							u.last_attacker.name if u.last_attacker else "-"])
-				"mission_end":
-					print("t=%6.1f  MISSION %s" % [w.time, "WON" if e["won"] else "LOST"])
-				"impact":
-					var victim: SimUnit = w.units[e["unit"]]
-					if victim.team == 0 and victim.commander == 0 and int(e.get("from", -1)) >= 0:
-						var src: SimUnit = w.units[e["from"]]
-						var key := "%s (%s)" % [src.name, "mech" if src is SimMech else "vehicle"]
-						_damage[key] = _damage.get(key, 0.0) + float(e.get("damage", 0.0))
-						_attackers[src.id] = true
-						var loc := int(e.get("location", -1))
-						_locs[loc] = _locs.get(loc, 0) + 1
-				"abl_wave", "abl_video", "abl_music":
-					if "--cues" in args:
-						print("t=%6.1f  %s %s" % [w.time, e["type"], e.get("file", e.get("id", ""))])
-		w.events.clear()
-		if w.time >= next_order:
-			next_order = w.time + 3.0
-			_orders(sm)
+	_play(sm, max_t, args, true)
 	var alive := w.units.filter(func(u): return u.team == 0 and u.is_mover() and not u.is_disabled())
 	var enemies := w.units.filter(func(u): return u.team != 0 and u.is_mover() and not u.is_disabled())
 	print("seed %d end t=%.0f result=%s  player alive %d  enemies alive %d" % [seed_value, w.time,
@@ -291,3 +257,127 @@ func _armour_frac(m: SimUnit) -> float:
 		a += m.armor[i]
 		b += m.max_armor[i]
 	return a / maxf(b, 1.0)
+
+
+func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool) -> void:
+	var w := sm.world
+	var o := sm.objectives
+	var next_order := 0.0
+	while w.time < max_t and o.result == SimObjectives.Result.PLAYING:
+		sm.step()
+		for e in w.events:
+			match e["type"]:
+				"objective":
+					if verbose and not e["hidden"]:
+						print("t=%6.1f  objective done: %s" % [w.time, e["title"]])
+				"disabled":
+					var u: SimUnit = w.units[e["unit"]]
+					if not verbose:
+						continue
+					if u.capturable and u.team != 0:
+						print("t=%6.1f  capture target %s destroyed by %s" % [w.time, u.name, u.last_attacker.name if u.last_attacker else "?"])
+					if u.team == 0:
+						var arm := 0.0
+						var top := 0.0
+						for i in u.armor.size():
+							arm += u.armor[i]
+							top += u.max_armor[i]
+						print("t=%6.1f  LOST %s (%s, armour %.0f%%, heat %.0f, ejected %s, pilot %s, last hit by %s)" % [w.time, u.name,
+							["normal", "shutdown", "disabled", "destroyed"][u.status], 100.0 * arm / maxf(top, 1.0), u.heat, u.ejected,
+							u.pilot.status_text() if u.pilot and u.pilot.has_method("status_text") else (str(u.pilot.wounds) + " wounds" if u.pilot else "-"),
+							u.last_attacker.name if u.last_attacker else "-"])
+				"mission_end":
+					if verbose: print("t=%6.1f  MISSION %s" % [w.time, "WON" if e["won"] else "LOST"])
+				"impact":
+					var victim: SimUnit = w.units[e["unit"]]
+					if victim.team == 0 and victim.commander == 0 and int(e.get("from", -1)) >= 0:
+						var src: SimUnit = w.units[e["from"]]
+						var key := "%s (%s)" % [src.name, "mech" if src is SimMech else "vehicle"]
+						_damage[key] = _damage.get(key, 0.0) + float(e.get("damage", 0.0))
+						_attackers[src.id] = true
+						var loc := int(e.get("location", -1))
+						_locs[loc] = _locs.get(loc, 0) + 1
+				"abl_wave", "abl_video", "abl_music":
+					if "--cues" in args:
+						print("t=%6.1f  %s %s" % [w.time, e["type"], e.get("file", e.get("id", ""))])
+		w.events.clear()
+		if w.time >= next_order:
+			next_order = w.time + 3.0
+			_orders(sm)
+
+
+# --- campaign mode ----------------------------------------------------------------------
+
+## --campaign: play the campaign in order with persistent state (campaign-layer.md): equip
+## each logistics mission from the inventory and the purchase list, apply wins, salvage,
+## and retry a lost mission up to three times with new seeds.
+func _campaign(data: Object, max_t: float) -> void:
+	var camp := Campaign.create(data)
+	var c: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/campaign.json"))
+	var order: Array[String] = []
+	for g in int(c["Campaign"]["GroupCount"]):
+		for mi in int(c.get("Group%d" % g, {}).get("MissionCount", 0)):
+			var mis: Dictionary = c.get("Group%dMission%d" % [g, mi], {})
+			if mis.has("FileName"):
+				order.append(String(mis["FileName"]).to_lower())
+	for m in order:
+		var won := false
+		for attempt in 3:
+			var force: Array = []
+			if camp.plays_logistics(m) and not camp.mechs.is_empty():
+				_equip(camp, m)
+				force = camp.force()
+			var sm := SimMission.load_mission(data, m, attempt + 1, true, force)
+			_play(sm, max_t, PackedStringArray(), false)
+			var r := MissionReport.from_sim(sm, m, data)
+			won = r["won"]
+			var names := []
+			for f in force:
+				names.append(String(f["chassis"]))
+			print("%s try %d: %s at %.0f s | force %s (%d t of %d) | survivors %d | C-Bills %d" % [m, attempt + 1,
+				"WON" if won else "lost", float(r["time"]), names if not names.is_empty() else "mission's own",
+				int(camp.deployed_tonnage()), int(camp.drop_limit(m)), r["survivors"].size(), camp.c_bills])
+			if won:
+				camp.apply_win(r)
+				_salvage(camp, r)
+				break
+		if not won:
+			print("campaign stopped at %s; inventory %d 'Mechs, C-Bills %d" % [m, camp.mechs.size(), camp.c_bills])
+			return
+	print("CAMPAIGN COMPLETE; inventory %d 'Mechs" % camp.mechs.size())
+
+
+## Fill the drop weight: owned 'Mechs heaviest first, then buy the heaviest affordable
+## 'Mech that fits until nothing more fits; best pilots on the deployed 'Mechs.
+func _equip(camp: Campaign, m: String) -> void:
+	for mech in camp.mechs:
+		camp.withdraw(mech)
+	var owned := camp.mechs.duplicate()
+	owned.sort_custom(func(a, b): return camp.tonnage(a["chassis"]) > camp.tonnage(b["chassis"]))
+	for mech in owned:
+		camp.deploy(mech, m)
+	while camp.deployed().size() < Campaign.MAX_DEPLOY:
+		var room := camp.drop_limit(m) - camp.deployed_tonnage()
+		var best: Dictionary = {}
+		for o in camp.purchasable(m):
+			if o["tonnage"] <= room + 0.01 and o["price"] <= camp.c_bills and (best.is_empty() or o["tonnage"] > best["tonnage"]):
+				best = o
+		if best.is_empty():
+			break
+		camp.buy(String(best["chassis"]), int(best["variant"]))
+		camp.deploy(camp.mechs[camp.mechs.size() - 1], m)
+	var free := camp.available_pilots(m)
+	free.sort_custom(func(a, b): return float(camp.pilots[a]["gunnery"]) + float(camp.pilots[a]["piloting"]) > float(camp.pilots[b]["gunnery"]) + float(camp.pilots[b]["piloting"]))
+	for mech in camp.deployed():
+		mech["pilot"] = free.pop_front() if not free.is_empty() else ""
+	for mech in camp.deployed():
+		if String(mech["pilot"]) == "":
+			camp.withdraw(mech)
+
+
+## Salvage the heaviest disabled 'Mechs the C-Bills allow.
+func _salvage(camp: Campaign, r: Dictionary) -> void:
+	var cands: Array = r.get("salvage", []).duplicate()
+	cands.sort_custom(func(a, b): return camp.tonnage(a["chassis"]) > camp.tonnage(b["chassis"]))
+	for s in cands:
+		camp.buy_salvage(String(s["chassis"]), int(s["variant"]))

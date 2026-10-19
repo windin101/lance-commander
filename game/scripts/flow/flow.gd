@@ -10,15 +10,19 @@ const BRIEFING := "res://scenes/briefing.tscn"
 const MISSION := "res://scenes/mission_view.tscn"
 const DEBRIEF := "res://scenes/debrief.tscn"
 const INTRO := "res://scenes/intro.tscn"
+const MECH_BAY := "res://scenes/mech_bay.tscn"
+const SALVAGE := "res://scenes/salvage.tscn"
 
 var save_path := "user://campaign.json"
 var missions: Array[Dictionary] = []  # {name, group, tune, pre_video}
 var current := ""  # mission being briefed / played
 var completed: Dictionary = {}  # mission -> last report (won)
 var last_report: Dictionary = {}
+var campaign: Campaign  # C-Bills, mechs, pilots (campaign-layer.md)
 
 
 func _ready() -> void:
+	campaign = Campaign.create(GameData)
 	load_campaign()
 	load_progress()
 
@@ -67,6 +71,8 @@ func info(mission: String) -> Dictionary:
 func new_campaign() -> void:
 	completed.clear()
 	last_report = {}
+	if campaign:
+		campaign.reset()
 	current = missions[0]["name"] if not missions.is_empty() else ""
 	save_progress()
 
@@ -74,6 +80,8 @@ func new_campaign() -> void:
 func record(report: Dictionary) -> void:
 	last_report = report
 	if report.get("won", false):
+		if campaign:
+			campaign.apply_win(report)  # survivors, pay, pilots (7, 8.3, 9)
 		completed[current] = report
 		var nxt := next_after(current)
 		if nxt != "":
@@ -84,7 +92,8 @@ func record(report: Dictionary) -> void:
 func save_progress() -> void:
 	var f := FileAccess.open(save_path, FileAccess.WRITE)
 	if f:
-		f.store_string(JSON.stringify({"current": current, "completed": completed}, " "))
+		f.store_string(JSON.stringify({"current": current, "completed": completed,
+			"campaign": campaign.to_dict() if campaign else {}}, " "))
 
 
 func load_progress() -> void:
@@ -93,6 +102,8 @@ func load_progress() -> void:
 	var d = JSON.parse_string(FileAccess.get_file_as_string(save_path))
 	if d is Dictionary:
 		completed = d.get("completed", {})
+		if campaign and d.has("campaign"):
+			campaign.from_dict(d["campaign"])
 		var c := String(d.get("current", ""))
 		if index_of(c) >= 0:
 			current = c
@@ -106,10 +117,36 @@ func goto_briefing(mission := "") -> void:
 	get_tree().change_scene_to_file(BRIEFING)
 
 
+## Briefing -> Mech Bay when the mission uses logistics and there's a force to pick from,
+## otherwise straight into the mission with its own units.
+func proceed_from_briefing() -> void:
+	if uses_logistics(current):
+		campaign.fit_force(current)
+		get_tree().change_scene_to_file(MECH_BAY)
+	else:
+		launch()
+
+
+func uses_logistics(mission: String) -> bool:
+	return campaign != null and campaign.plays_logistics(mission) and not campaign.mechs.is_empty()
+
+
 func launch() -> void:
 	var view: Node = load(MISSION).instantiate()
 	view.mission = current
+	if uses_logistics(current):
+		view.force = campaign.force()
 	get_tree().change_scene_to_node(view)
+
+
+## Debrief -> Continue: the salvage screen when there's salvage, then the next briefing.
+func after_debrief(next_mission: String) -> void:
+	var r := last_report
+	if r.get("won", false) and not r.get("salvage", []).is_empty() and campaign \
+			and bool(campaign.mission_info(String(r.get("mission", ""))).get("PlaySalvage", true)):
+		get_tree().change_scene_to_file(SALVAGE)
+	else:
+		goto_briefing(next_mission)
 
 
 ## Called by the mission view when the player leaves a finished mission.

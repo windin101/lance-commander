@@ -28,6 +28,8 @@ var group := -1  # M of its CommanderNGroup:M block
 var part_id := 0  # ABL object ID: 512 + commander*192 + group*12 + mate; buildings 4096 + row*720 + col
 var squad := 0  # FIT SquadNum: ABL unit IDs 1-511 match it
 var warrior_index := 0  # FIT Pilot = [Warrior<n>]
+var variant := 0  # chassis CSV variant index (mechs)
+var pilot_profile := ""  # warrior profile (e.g. pmwflash): the campaign pilot
 var exists := true  # FIT Exists: a non-existent object is invisible to the sim and to ABL
 var awake := true  # FIT Active
 var ejected := false  # the pilot left (coreEject): the unit is inert

@@ -7,7 +7,8 @@ extends Node3D
 ## (destroy unit N at start and frame its wreck).
 
 @export var mission := "mc2_01"
-@export var play_intro := true  # opening flyby; tests and dev runs switch it off
+@export var play_intro := true
+var force: Array = []  # the campaign's chosen mechs (Flow); empty: the mission's own units  # opening flyby; tests and dev runs switch it off
 
 var sm: SimMission
 var world: SimWorld
@@ -34,7 +35,7 @@ func _ready() -> void:
 		_args[kv[0]] = kv[1] if kv.size() > 1 else ""
 	if _args.has("mission"):  # dev: open any converted mission directly
 		mission = String(_args["mission"])
-	sm = SimMission.load_mission(GameData, mission)
+	sm = SimMission.load_mission(GameData, mission, 1, true, force)
 	world = sm.world
 	var mission_fit: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/%s.json" % mission))
 	var cam_block: Dictionary = mission_fit.get("Cameras", {})

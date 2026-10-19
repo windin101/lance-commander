@@ -172,14 +172,15 @@ func _footer() -> Control:
 	launch_button.text = "Launch mission"
 	launch_button.add_theme_font_size_override("font_size", 20)
 	launch_button.disabled = not brief.available
-	launch_button.pressed.connect(func(): Flow.launch())
+	launch_button.text = "To the Mech Bay" if Flow.uses_logistics(brief.mission) else "Launch mission"
+	launch_button.pressed.connect(func(): Flow.proceed_from_briefing())
 	h.add_child(launch_button)
 	return h
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode in [KEY_ENTER, KEY_KP_ENTER] and not launch_button.disabled:
-		Flow.launch()
+		Flow.proceed_from_briefing()
 
 
 func _play_tune(tune: int) -> void:
