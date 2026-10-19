@@ -310,6 +310,9 @@ func _lighting(cam_block: Dictionary, fit_data: Dictionary = {}) -> void:
 	add_child(sun)
 	_sun = sun
 	sun.look_at_from_position(Vector3.ZERO, -to_light, Vector3.UP if absf(to_light.y) < 0.99 else Vector3.FORWARD)
+	var ground := terrain.get_node_or_null("Ground") as MeshInstance3D
+	if ground and ground.material_override is ShaderMaterial:
+		(ground.material_override as ShaderMaterial).set_shader_parameter("sun_dir", to_light)
 	var env := Environment.new()
 	env.background_mode = Environment.BG_SKY
 	env.sky = Sky.new()

@@ -67,6 +67,11 @@ below. None of the creators has endorsed this project. The full notice for each,
 - **Vedette** (`game/assets/vehicles/vedette_hd.glb`): adapted from "FightTech - Vedariant - 6mm" and "SciFi Vehicle - Aurochs-class Land Crawler - 6mm" (its Tank-Schrek turret) by Shiaic3D (https://www.printables.com/model/359188 and https://www.printables.com/model/108536), CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); changes in `game/assets/vehicles/vedette_hd.LICENSE.md`; the adapted mesh is CC BY 4.0; not endorsed by Shiaic3D.
 <!-- adapted-models:end -->
 
+### Ground detail materials
+
+`game/assets/terrain/detail/` is derived from CC0 1.0 materials by ambientCG (https://ambientcg.com): Grass004,
+Ground037, Rock058, Ground054 and Snow006. CC0 needs no credit; it is given anyway.
+
 ### MechCommander 2 Shared Source release
 
 Game data, original models, textures, audio and animations converted from Microsoft's 2006

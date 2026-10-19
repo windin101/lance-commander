@@ -29,6 +29,18 @@ uniform float atlas_cols = 22.0;
 uniform float atlas_tile = 64.0;
 uniform float atlas_pad = 2.0;
 uniform float vertices_per_side = 0.0;  // 0 = no overlay layer
+// Ground detail (step 2, tools/art/ground_detail.py): CC0 grain and normals per ground class, classified from
+// the colour map's own colour (the map data has no usable terrain types: almost every vertex is "undefined").
+// Layers: 0 grass, 1 dirt, 2 rock, 3 sand, 4 snow. The colour stays the colour map's; only grain and relief add.
+uniform sampler2DArray detail_l : filter_linear_mipmap_anisotropic, repeat_enable;
+uniform sampler2DArray detail_n : filter_linear_mipmap_anisotropic, repeat_enable;
+uniform float ground_detail = 0.0;      // grain strength (0 = off)
+uniform float ground_relief = 0.0;      // relief shading strength from the detail normals
+uniform float detail_fade_near = 150.0;  // metres: full detail inside, fading out to detail_fade_far
+uniform float detail_fade_far = 700.0;
+uniform int debug_view = 0;  // 1 = grain only, 2 = fade, 3 = class weights
+uniform vec3 sun_dir = vec3(0.4, 0.6, -0.5);  // toward the light, world space (mission_view sets it)
+const float CLASS_SCALE[5] = {16.0, 20.0, 34.0, 24.0, 28.0};  // metres per tile: grass, dirt, rock, sand, snow
 
 varying vec3 world_pos;
 
@@ -56,6 +68,7 @@ void fragment() {
 	float n = triplanar(world_pos, facet);
 	float n2 = triplanar(world_pos * 3.1, facet);
 	float grain = (0.55 + 0.9 * n) * (0.8 + 0.4 * n2);
+	float paved = 0.0;  // cement / overlay cover: no ground grain there
 	if (vertices_per_side > 0.0) {
 		vec2 qf = UV * vertices_per_side;
 		ivec2 q = clamp(ivec2(floor(qf)), ivec2(0), ivec2(int(vertices_per_side) - 1));
@@ -71,15 +84,64 @@ void fragment() {
 			vec3 cem = textureGrad(overlay_atlas, (org + local * atlas_tile) / atlas_px, dl_dx, dl_dy).rgb;
 			float w = smoothstep(0.3, 0.9, texture(cement_weight, (qf + 0.5) / vertices_per_side).r);
 			ground = mix(ground, cem, w);
+			paved = max(paved, w);
 		}
 		if (cells.r > 0.5) {  // overlay tile (alpha), drawn over everything as the original did
 			float c = cells.r - 1.0;
 			vec2 org = vec2(mod(c, atlas_cols), floor(c / atlas_cols)) * cell_px + atlas_pad;
 			vec4 ov = textureGrad(overlay_atlas, (org + local * atlas_tile) / atlas_px, dl_dx, dl_dy);
 			ground = mix(ground, ov.rgb, ov.a);
+			paved = max(paved, ov.a);
+		}
+	}
+	vec3 dbg = vec3(-1.0);
+	if (ground_detail > 0.0) {
+		float dist = length(world_pos - CAMERA_POSITION_WORLD);
+		float fade = (1.0 - smoothstep(detail_fade_near, detail_fade_far, dist)) * (1.0 - paved);
+		if (fade > 0.001) {
+			vec3 lp = textureLod(colour_map, UV, 3.0).rgb;  // about 16 m around: what the ground is, not its speckle
+			float mx = max(lp.r, max(lp.g, lp.b));
+			float mn = min(lp.r, min(lp.g, lp.b));
+			float sat = (mx - mn) / (mx + 1e-4);
+			float h = 0.0;
+			float dl = mx - mn + 1e-4;
+			if (mx == lp.r) h = mod((lp.g - lp.b) / dl, 6.0);
+			else if (mx == lp.g) h = (lp.b - lp.r) / dl + 2.0;
+			else h = (lp.r - lp.g) / dl + 4.0;
+			h *= 60.0;
+			float w_snow = smoothstep(0.58, 0.74, mx) * (1.0 - smoothstep(0.10, 0.22, sat));
+			float w_grass = smoothstep(0.10, 0.22, sat) * smoothstep(36.0, 50.0, h) * (1.0 - smoothstep(150.0, 175.0, h)) * (1.0 - w_snow);
+			float w_sand = smoothstep(0.42, 0.56, mx) * smoothstep(0.14, 0.28, sat) * smoothstep(24.0, 34.0, h) * (1.0 - smoothstep(50.0, 60.0, h));
+			float w_rock = max(rock_mask, (1.0 - smoothstep(0.06, 0.14, sat)) * (1.0 - w_snow)) * 0.9;
+			float w_dirt = 0.3;
+			float ws[5] = {w_grass, w_dirt, w_rock, w_sand, w_snow};
+			float tot = w_grass + w_dirt + w_rock + w_sand + w_snow;
+			float d = 0.0;
+			vec3 nt = vec3(0.0);
+			vec2 xz = world_pos.xz;
+			vec2 xz2 = mat2(vec2(0.8, 0.6), vec2(-0.6, 0.8)) * xz;  // a rotated second octave hides the tiling
+			for (int i = 0; i < 5; i++) {
+				float w = ws[i] / tot;
+				if (w < 0.02) continue;
+				float sc = CLASS_SCALE[i];
+				float la = texture(detail_l, vec3(xz / sc, float(i))).r;
+				float lb = texture(detail_l, vec3(xz2 / (sc * 3.7), float(i))).r;
+				d += w * ((mix(la, lb, 0.35) - 0.5) * 2.0);
+				vec3 na = texture(detail_n, vec3(xz / sc, float(i))).rgb * 2.0 - 1.0;
+				nt += w * na;
+			}
+			vec3 nw = normalize(vec3(nt.x, max(nt.z, 0.2), -nt.y));
+			float relief = (dot(nw, sun_dir) - sun_dir.y) / max(sun_dir.y, 0.3);
+			if (debug_view == 1) dbg = vec3(0.5 + d * 0.5);
+			if (debug_view == 2) dbg = vec3(fade);
+			if (debug_view == 4) dbg = textureLod(detail_l, vec3(world_pos.xz / 3.0, 0.0), 0.0).rgb;
+			if (debug_view == 5) dbg = vec3(fract(world_pos.xz / 3.0), 0.0);
+			if (debug_view == 3) dbg = vec3(w_grass, w_rock, w_snow + w_sand * 0.5) / tot;
+			ground *= (1.0 + fade * ground_detail * d) * (1.0 + fade * ground_relief * clamp(relief, -0.6, 0.6));
 		}
 	}
 	ALBEDO = ground * mix(1.0, grain, rock_mask * rock_grain);
+	if (dbg.x >= 0.0) ALBEDO = dbg;
 	ROUGHNESS = 0.95;
 }
 
