@@ -197,6 +197,8 @@ func _current_goal(m: SimUnit) -> Variant:
 			return null
 		if m.path.is_empty() or time >= m.repath_time:
 			m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.hover), m.hover)
+			if m.path.is_empty():
+				m.path = _firing_position_path(m, t)
 			m.path_index = 0
 			m.repath_time = time + 2.0
 	if m.path.is_empty():
@@ -211,6 +213,24 @@ func _current_goal(m: SimUnit) -> Variant:
 			order_hold(m)
 		return null
 	return m.path[m.path_index]
+
+
+## A target with no path to its cell (an island past deep water, a walled pocket): walk
+## to a reachable cell within weapon range of it instead, nearest the attacker first.
+func _firing_position_path(m: SimUnit, t: SimUnit) -> PackedVector2Array:
+	var reach := attack_range(m) * 0.85
+	for frac in [0.5, 0.75, 1.0]:
+		var ring := []
+		for k in 16:
+			var p: Vector2 = t.position + Vector2.from_angle(TAU * k / 16.0) * reach * frac
+			if map.in_bounds(map.cell_of(p)) and map.is_walkable(map.cell_of(p), m.hover):
+				ring.append(p)
+		ring.sort_custom(func(a, b): return a.distance_to(m.position) < b.distance_to(m.position))
+		for p in ring:
+			var path := map.find_path(m.position, p, m.hover)
+			if not path.is_empty():
+				return path
+	return PackedVector2Array()
 
 
 func max_speed(m: SimUnit) -> float:

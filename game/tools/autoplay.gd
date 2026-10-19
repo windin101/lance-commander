@@ -47,6 +47,28 @@ func _init() -> void:
 	var enemies := w.units.filter(func(u): return u.team != 0 and u.is_mover() and not u.is_disabled())
 	print("seed %d end t=%.0f result=%s  player alive %d  enemies alive %d" % [seed_value, w.time,
 		["PLAYING", "WON", "LOST"][o.result], alive.size(), enemies.size()])
+	for obj in o.objectives:
+		var state: String = ["open", "done", "FAILED"][int(obj["status"])]
+		if not obj["active"]:
+			state = "inactive (flag %s)" % obj["activate_flag"]
+		elif obj["status"] == 0 and not o.is_active(obj):
+			state = "gated"
+		print("  obj %d %s%s: %s  %s" % [obj["index"], "P" if obj["primary"] else "s", " hidden" if obj["hidden"] else "", state,
+			String(obj["title"]).strip_edges().left(48)])
+		if "--targets" in args and obj["status"] == 0 and obj["active"]:
+			var lead: SimUnit = null
+			for u in w.units:
+				if u.team == 0 and u.commander == 0 and u.is_mover() and not u.is_disabled():
+					lead = u
+					break
+			for c in obj["conditions"]:
+				var t: SimUnit = c.get("unit")
+				if t == null or t.is_disabled():
+					continue
+				var path_n := w.map.find_path(lead.position, w.map.nearest_walkable(t.position, lead.hover), lead.hover).size() if lead else -1
+				print("      %s exists=%s awake=%s team=%d dist=%.0f path=%d brain=%s" % [t.name, t.exists, t.awake, t.team,
+					lead.position.distance_to(t.position) if lead else -1.0, path_n,
+					(t.brain.inst.state if t.brain is SimAbl.Pilot and t.brain.inst.unit["kind"] == "fsm" else "-")])
 	if sm.abl:
 		var rt := sm.abl.runtime
 		print("abl errors: ", rt.errors.slice(0, 8))
