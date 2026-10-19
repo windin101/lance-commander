@@ -35,9 +35,26 @@ func _init() -> void:
 					if u.capturable and u.team != 0:
 						print("t=%6.1f  capture target %s destroyed by %s" % [w.time, u.name, u.last_attacker.name if u.last_attacker else "?"])
 					if u.team == 0:
-						print("t=%6.1f  LOST %s" % [w.time, u.name])
+						var arm := 0.0
+						var top := 0.0
+						for i in u.armor.size():
+							arm += u.armor[i]
+							top += u.max_armor[i]
+						print("t=%6.1f  LOST %s (%s, armour %.0f%%, heat %.0f, ejected %s, pilot %s, last hit by %s)" % [w.time, u.name,
+							["normal", "shutdown", "disabled", "destroyed"][u.status], 100.0 * arm / maxf(top, 1.0), u.heat, u.ejected,
+							u.pilot.status_text() if u.pilot and u.pilot.has_method("status_text") else (str(u.pilot.wounds) + " wounds" if u.pilot else "-"),
+							u.last_attacker.name if u.last_attacker else "-"])
 				"mission_end":
 					print("t=%6.1f  MISSION %s" % [w.time, "WON" if e["won"] else "LOST"])
+				"impact":
+					var victim: SimUnit = w.units[e["unit"]]
+					if victim.team == 0 and victim.commander == 0 and int(e.get("from", -1)) >= 0:
+						var src: SimUnit = w.units[e["from"]]
+						var key := "%s (%s)" % [src.name, "mech" if src is SimMech else "vehicle"]
+						_damage[key] = _damage.get(key, 0.0) + float(e.get("damage", 0.0))
+						_attackers[src.id] = true
+						var loc := int(e.get("location", -1))
+						_locs[loc] = _locs.get(loc, 0) + 1
 				"abl_wave", "abl_video", "abl_music":
 					if "--cues" in args:
 						print("t=%6.1f  %s %s" % [w.time, e["type"], e.get("file", e.get("id", ""))])
@@ -49,6 +66,15 @@ func _init() -> void:
 	var enemies := w.units.filter(func(u): return u.team != 0 and u.is_mover() and not u.is_disabled())
 	print("seed %d end t=%.0f result=%s  player alive %d  enemies alive %d" % [seed_value, w.time,
 		["PLAYING", "WON", "LOST"][o.result], alive.size(), enemies.size()])
+	if "--damage" in args:
+		var keys := _damage.keys()
+		keys.sort_custom(func(a, b): return _damage[a] > _damage[b])
+		var total := 0.0
+		for k in keys:
+			total += _damage[k]
+		print("damage to lance: %.0f from %d attackers; hits by location (0 head .. 10 rear RT): %s" % [total, _attackers.size(), _locs])
+		for k in keys.slice(0, 10):
+			print("    %6.0f  %s" % [_damage[k], k])
 	for obj in o.objectives:
 		var state: String = ["open", "done", "FAILED"][int(obj["status"])]
 		if not obj["active"]:
@@ -58,6 +84,23 @@ func _init() -> void:
 		print("  obj %d %s%s: %s  %s" % [obj["index"], "P" if obj["primary"] else "s", " hidden" if obj["hidden"] else "", state,
 			String(obj["title"]).strip_edges().left(48)])
 		if "--targets" in args and obj["status"] == 0 and obj["active"]:
+			for c in obj["conditions"]:
+				if c["kind"] == "MoveAllSurvivingMechsToArea":
+					for u in w.units:
+						if u.is_mover() and u.exists and u.commander != 0 and not SimObjectives.dead(u) and not u.hulk \
+								and u.position.distance_to(c["center"]) <= SimObjectives.EXTRACT_CLEAR_M:
+							print("      extraction blocked by %s (team %d, commander %d, brain %s, %.0f m)" % [u.name, u.team, u.commander,
+								u.brain_name, u.position.distance_to(c["center"])])
+					for u in w.units:
+						if u.is_mover() and u.team == 0 and u.commander == 0 and u is SimMech and not SimObjectives.dead(u) and not u.hulk:
+							print("      lance %s %.0f m from the point (radius %.0f), path %d, order %d" % [u.name,
+								u.position.distance_to(c["center"]), c["radius"],
+								w.map.find_path(u.position, w.map.nearest_walkable(c["center"], u.hover), u.hover).size(), u.order])
+							if u.order_target:
+								var t: SimUnit = u.order_target
+								print("        target %s team %d at %.0f m, awake %s, exists %s, hover %s, path from it %d" % [t.name, t.team,
+									u.position.distance_to(t.position), t.awake, t.exists, t.hover,
+									w.map.find_path(u.position, w.map.nearest_walkable(t.position, u.hover), u.hover).size()])
 			var lead: SimUnit = null
 			for u in w.units:
 				if u.team == 0 and u.commander == 0 and u.is_mover() and not u.is_disabled():
@@ -68,9 +111,14 @@ func _init() -> void:
 				if t == null or t.is_disabled():
 					continue
 				var path_n := w.map.find_path(lead.position, w.map.nearest_walkable(t.position, lead.hover), lead.hover).size() if lead else -1
-				print("      %s exists=%s awake=%s team=%d dist=%.0f path=%d brain=%s" % [t.name, t.exists, t.awake, t.team,
+				var cap := ""
+				if t.capturable and sm.abl and lead:
+					var b := sm.abl.capture_blocker(t, lead, true)
+					cap = " capturable can=%s blocker=%s goal_path=%d" % [sm.abl.can_capture(t, 0), (b.name + "@%.0f" % b.position.distance_to(t.position)) if b else "-",
+						w.map.find_path(lead.position, sm.abl._capture_goal(lead, t), lead.hover).size()]
+				print("      %s exists=%s awake=%s team=%d dist=%.0f path=%d brain=%s%s" % [t.name, t.exists, t.awake, t.team,
 					lead.position.distance_to(t.position) if lead else -1.0, path_n,
-					(t.brain.inst.state if t.brain is SimAbl.Pilot and t.brain.inst.unit["kind"] == "fsm" else "-")])
+					(t.brain.inst.state if t.brain is SimAbl.Pilot and t.brain.inst.unit["kind"] == "fsm" else "-"), cap])
 	if sm.abl:
 		var rt := sm.abl.runtime
 		print("abl errors: ", rt.errors.slice(0, 8))
@@ -92,6 +140,9 @@ func _init() -> void:
 
 
 var _start := {}
+var _damage := {}  # attacker "name (kind)" -> damage dealt to the player's lance
+var _attackers := {}
+var _locs := {}  # armour location -> hits on the lance
 
 
 const ENGAGE_M := 320.0  # armed enemies this close to the lance are fought before anything else
@@ -109,6 +160,9 @@ func _orders(sm: SimMission) -> void:
 	for m in lance:
 		centre += m.position
 	centre /= lance.size()
+	for m in lance:  # don't chase a runner (e.g. a hovercraft over water) across the map
+		if m.order == SimWorld.Order.ATTACK and m.order_target and m.distance_to(m.order_target.position) > ENGAGE_M * 1.5:
+			_order(sm, m, "stop", null)
 	var threats := w.units.filter(func(u): return u.team != 0 and u.is_mover() and u.exists and u.awake \
 		and not u.is_disabled() and not u.hulk and u.num_weapons > 0 \
 		and lance.any(func(m): return m.distance_to(u.position) <= ENGAGE_M))
@@ -117,7 +171,8 @@ func _orders(sm: SimMission) -> void:
 		var focus: SimUnit = threats[0]
 		for m in lance:
 			var busy: bool = m.order == SimWorld.Order.ATTACK and m.order_target != null \
-				and not m.order_target.is_disabled() and threats.has(m.order_target)
+				and not m.order_target.is_disabled() and threats.has(m.order_target) \
+				and m.distance_to(m.order_target.position) <= ENGAGE_M * 1.5
 			if not busy:
 				_order(sm, m, "attack", focus)
 		return
@@ -140,6 +195,17 @@ func _orders(sm: SimMission) -> void:
 			targets.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
 			var t: SimUnit = targets[0]
 			var capture: bool = sm.abl != null and sm.abl.can_capture(t, 0)
+			if capture:
+				# Clear the guards first: an armed enemy within 75 m of the target refuses capture.
+				var guards := w.units.filter(func(u): return u.team != 0 and u.is_mover() and u.exists and u.awake \
+					and not u.is_disabled() and not u.hulk and u.num_weapons > 0 and u != t \
+					and u.position.distance_to(t.position) <= SimAbl.BLOCK_CAPTURE_M + 10.0)
+				if not guards.is_empty():
+					guards.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
+					for m in lance:
+						if not (m.order == SimWorld.Order.ATTACK and guards.has(m.order_target)):
+							_order(sm, m, "attack", guards[0])
+					return
 			for m in lance:
 				if capture and m is SimMech:
 					if not (m.brain is SimAbl.Pilot and int(m.brain.order["code"]) == SimAbl.TO_CAPTURE):
@@ -169,6 +235,8 @@ func _order(sm: SimMission, m: SimUnit, kind: String, arg: Variant) -> void:
 		sm.abl.player_order(m, kind, arg)
 	elif kind == "attack":
 		sm.world.order_attack(m, arg)
+	elif kind == "stop":
+		sm.world.order_hold(m)
 	else:
 		sm.world.order_move(m, arg)
 
