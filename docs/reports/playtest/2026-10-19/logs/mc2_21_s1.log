@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_21
+ABL pilots: 39
+t= 176.9  LOST Anubis (disabled, armour 55%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 186.4  LOST Anubis (disabled, armour 43%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 439.4  objective done: 1 - Move all units to Extraction Point
+t= 444.4  MISSION WON
+seed 1 end t=444 result=WON  player alive 2  enemies alive 17
+damage to lance: 196 from 12 attackers; hits by location (0 head .. 10 rear RT): { 1: 13, 3: 11, 6: 9, 2: 13, 5: 6, 4: 14, 7: 6, 9: 2, 0: 1 }
+        56  Partisan (vehicle)
+        51  Atlas (mech)
+        41  Werewolf (mech)
+        24  Bushwacker (mech)
+        14  Shootist (mech)
+         6  Vedette (vehicle)
+         4  Monsoon (vehicle)
+  obj 0 P: done  1 - Move all units to Extraction Point
+  obj 1 s: open  a - Destroy Ammo Dump ALPHA
+  obj 2 s: open  b - Destroy Ammo Dump BETA
+  obj 3 s: open  c - Destroy Power Generator ALPHA
+  obj 4 s: open  d - Destroy Power Generator BETA
+  obj 5 s: open  a. Capture the Weapons Facility
+  obj 6 s: open  f. Destroy Industrial Complex
+  obj 7 s hidden: open  hidden trigger area 4 PG ALPHA
+  obj 8 s hidden: done  hidden trigger area 4 PG BETA
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 4, "mc2_21_BETA_PG01:attack": 6, "mc2_21_BETA_PG01:start": 1, "mc2_21_BETA_PG01:start1": 2, "mc2_21_ALPHA_AD01:start": 2, "mc2_21_ALPHA_AD02:start": 2, "mc2_21_dred:attack": 4, "mc2_21_dred_p:attack": 1, "mc2_21_dred_p:start": 3, "mc2_21_dred:start": 1, "mc2_21_Patrol_EVill:start": 2, "mc2_21_Patrol_SDumpB:start": 2, "mc2_21_Patrol_BwtDumps:attack": 2, "mc2_21_Patrol_NVil:attack": 3, "mc2_21_Patrol_BhBase:start": 3, "mc2_21_Patrol_Extrat:attack": 1 }
+enemy pilots that moved >20 m: 29 / 39
+
+--- stderr ---
+WARNING: 594 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

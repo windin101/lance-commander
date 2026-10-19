@@ -1,0 +1,42 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_09
+ABL pilots: 63
+t=  72.5  LOST Werewolf (disabled, armour 26%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 433.8  objective done: 1 - Capture Weapons Facility
+t= 702.5  objective done: 2 - Destroy Fuel Tanks at Refinery
+t= 764.6  LOST Hunchback (disabled, armour 9%, heat 0, ejected false, pilot 2.0 wounds, last hit by Swarmlrmc)
+t= 865.3  objective done: 3 - Destroy Bandit HQ in Downed Spacecraft Nosecone
+t= 982.8  LOST Bushwacker (disabled, armour 22%, heat 0, ejected false, pilot 1.0 wounds, last hit by Starslayer)
+t=1023.5  LOST Zeus (disabled, armour 12%, heat 0, ejected false, pilot 0.0 wounds, last hit by Starslayer)
+t=1028.6  MISSION LOST
+seed 1 end t=1029 result=LOST  player alive 0  enemies alive 10
+damage to lance: 708 from 42 attackers; hits by location (0 head .. 10 rear RT): { 3: 36, 4: 29, 2: 38, 6: 34, 1: 31, 7: 24, 5: 41, 0: 3, 10: 2 }
+       145  LaoHu (mech)
+       119  Urbanmech (mech)
+       118  Partisan (vehicle)
+        92  Flea (mech)
+        90  Starslayer (mech)
+        48  Swarmlrmc (vehicle)
+        42  Hunter (vehicle)
+        12  Vedette (vehicle)
+        12  Lrmcarrier (vehicle)
+        12  Centipede (vehicle)
+  obj 0 P: done  1 - Capture Weapons Facility
+  obj 1 P: done  2 - Destroy Fuel Tanks at Refinery
+  obj 2 P: done  3 - Destroy Bandit HQ in Downed Spacecraft Nosec
+  obj 3 P: open  Eliminate Bandit Leader at Bandit HQ
+  obj 4 P: inactive (flag 15)  Move all Surviving Mechs to Extraction Point
+  obj 5 s hidden: done  Destroy 12 Enemy Units
+  obj 6 s hidden: done  Trigger to signal ambush at Nosecone
+  obj 7 s hidden: open  Hidden Trigger for Extraction
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 4, "mc2_09_EC1_Grp1_Cent1:attack": 1, "mc2_09_EC1_Grp1_Ved:attack": 2, "mc2_09_EC1_Grp2_Urb:attack": 2, "mc2_09_EC1_Grp2_LRM:start": 2, "mc2_09_EC1_Grp3_Fire1:attack": 1, "mc2_09_EC1_Grp3_Fire2:attack": 2, "mc2_09_EC2_Grp2_Ved1:attack": 1, "mc2_09_EC2_Grp2_Ved2:attack": 1, "mc2_09_EC3_Grp4_Heli:attack": 2, "mc2_09_EC3_Grp1_Hetz:attack": 1, "mc2_09_EC3_Grp1_Cent:attack": 1, "mc2_09_EC4_Grp1_Hetz:attack": 3, "mc2_09_EC4_Grp2_Urb:attack": 2, "mc2_09_EC5_Grp1_Cat:hqrun": 1, "mc2_09_EC5_Grp2_Star1:hqrun": 1, "mc2_09_EC5_Grp2_Star2:hqrun": 1, "mc2_09_EC3_Grp3_Fire:attack": 2, "mc2_09_EC3_Grp3_Urb:attack": 1, "mc2_09_EC3_Grp2_Fire:attack": 2, "mc2_09_EC3_Grp5_LRM:attack": 2, "mc2_09_EC1_Grp1_Urb1:attack": 1, "mc2_09_EC4_Grp3_Urb1:attack": 1, "mc2_09_EC4_Grp3_Urb2:attack": 1, "mc2_09_EC6_Grp2_NWPat_lrm:start": 2, "mc2_09_EC6_Grp2_NWPat:start": 2, "mc2_09_EC6_Grp1_NEPat:attack": 2, "mc2_09_EC4_Grp3_Fire:attack": 1, "mc2_09_EC6_Grp4_Vehs:attack": 5, "mc2_09_EC6_Grp5_DeadVehs:noweapons": 1, "mc2_09_EC6_Grp5_DeadVehs:start": 2, "mc2_09_EC3_Grp4_Mechs:attack": 4, "mc2_09_EC2_Grp1_Fire:attack": 2, "mc2_09_EC2_Grp2_Fire:attack": 3, "mc2_09_EC6_Grp1_NEPat_lrm:attack": 1 }
+enemy pilots that moved >20 m: 57 / 63
+
+--- stderr ---
+WARNING: 847 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

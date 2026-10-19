@@ -6,10 +6,10 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-19T15:52:13+13:00",
+  "updated": "2026-10-19T16:49:22+13:00",
   "phase": {
     "current": 7,
-    "status": "gated"
+    "status": "running"
   },
   "phases": {
     "0": {
@@ -161,8 +161,8 @@
     },
     "7": {
       "name": "HD art (dry run)",
-      "status": "gated",
-      "started": "2026-10-19T15:02:19+13:00",
+      "status": "running",
+      "started": "2026-10-19T16:08:13+13:00",
       "ended": null,
       "gate": {
         "passed": true,
@@ -220,7 +220,9 @@
         "checks": []
       },
       "report": null,
-      "runs": []
+      "runs": [
+        "wf_0330e31a-d44"
+      ]
     },
     "9": {
       "name": "Release",
@@ -383,6 +385,318 @@
       "created": "2026-10-19T15:35:01+13:00",
       "updated": "2026-10-19T15:35:01+13:00",
       "note": null
+    },
+    {
+      "id": "I10",
+      "sev": "P1",
+      "title": "mc2_06, mc2_12: units spawned on off-map cells never move (find_path from solid start cell)",
+      "detail": "game: wave/convoy units start on offmap cells (COST_BLOCKED). sim_world.gd:65 order_move snaps only the goal via nearest_walkable; AStarGrid2D returns empty path from solid start, unit stays HOLD. mc2_06: 8/49 pilots moved, waves never attack HQ. mc2_12: 7/85 moved, convoys parked at x=7445. Original Move.cpp:4379 sets travelOffMap when start is off-map. Fix: allow off-map start, no re-entry.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 300 --mission=mc2_06 --damage --targets ; and -- 1 150 --mission=mc2_12 --damage --targets",
+      "owner": "sim",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I11",
+      "sev": "P2",
+      "title": "mc2_08, mc2_11 (also mc2_09): parts with Damage >= 1.0 spawn live instead of shutdown/disabled",
+      "detail": "game: sim_mission.gd:59 reads Damage only for campaign replacement. Original mission.cpp:1106-1124: home part -> SHUTDOWN, off GUI, invisible; enemy part -> DISABLED, sensors off. mc2_08: Atlas counts for Link up at t=0.1, dies alone. mc2_11: 5 salvage-yard mechs fight the lance, secondary b fails. mc2_09: 3 pre-disabled enemies skew DestroyNumber 12.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_11 --damage --targets ; same with --mission=mc2_08",
+      "owner": "sim",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I12",
+      "sev": "P1",
+      "title": "mc2_17: AI units auto-fire at nearest enemy regardless of brain; inert cam dummies start battle before betrayal",
+      "detail": "game: sim_world.gd _combat/_pick_target fires for every armed unit. Original warrior.cpp fires only at brain/order target; fire-at-will is pbrain only. CamDum_Stien Werewolves shoot Steiner at t=5-14, waking them ~75 s before liaoBetrays (~t=79). Fix: auto-fire only for player-brain units. Also autoplay counts commander-2 dummies as lance LOST.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_17 --damage --targets --cues",
+      "owner": "sim",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I13",
+      "sev": "P3",
+      "title": "autoplay: lance with only support vehicles left never counts as lost: mc2_10, mc2_15, mc2_22",
+      "detail": "bot: after all mechs die a live repair truck (commander 0) keeps the mission open per spec B6, but autoplay runs to 1800 s and records PLAYING. mc2_10 s3, mc2_15 s2 (Repairtruck refit=500 unused), mc2_22 s2. Fix in harness: treat no mechs left as loss, or stop calling trucks no mech can use.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_15 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "duplicate",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:49:02+13:00",
+      "note": "reclassified by the critic: mc2_15 s1/s3 end LOST with support units alive, s2 does not -> loss condition inconsistent, see I32"
+    },
+    {
+      "id": "I14",
+      "sev": "P3",
+      "title": "mc2_01: lance loses the Starslayer extraction fight on seed 2",
+      "detail": "bot: focuses nearest threat not Starslayer, repairs only when threats empty so enters final fight damaged, ignores powered-down window. Seed 2 lost all 3 to Starslayer after objectives done t=167.8; seeds 1,3,4 won narrowly. Game to spec (extraction needs 1280 wu clear).",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_01 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I15",
+      "sev": "P3",
+      "title": "mc2_06: lance hunts all 44 Liao units, never captures Turret Control, own air strike destroys Sensor Control",
+      "detail": "bot: _use_support air-strikes Part47/49 cluster 19 m from S_SensorControl (strikes hit friendly, support-powers.md:280), destroyed t=64.6 all seeds. Turret Control capturable at 350 m but _orders stops on obj 1 DestroyAll. Lance worn down at staging points; 1-11 enemies left.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_06 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I16",
+      "sev": "P2",
+      "title": "mc2_07: 3-mech 145 t FIT lance outmatched by MenShen pair, loses 2 mechs before HQ capture",
+      "detail": "balance: drop limit 200 t, 6000 RP (one repair truck). MenShen top attacker every seed, Werewolf lost t=108-135, Bushwacker t=278-329, HQ captured t=380-413. Game to spec. Needs replay with 200 t lance to tell encounter tuning from placeholder lance.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_07 --damage --targets",
+      "owner": "ai",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I17",
+      "sev": "P3",
+      "title": "mc2_07: lone damaged Bushwacker sent 5.4 km to Processing Plant into 2 Catapults",
+      "detail": "bot: _orders moves to next objective once no threat in 320 m; no retreat, regroup or wait-for-repair. Last mech at 11-18% armour dies to Catapult t=662-808 all seeds.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_07 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I18",
+      "sev": "P3",
+      "title": "mc2_09: no formation, fast Werewolf arrives alone and dies at 72 s every seed",
+      "detail": "bot: per-mech orders with no speed matching (Werewolf 27 vs Zeus 19). Werewolf lost t=72.3-72.6 to Partisan all seeds; rest worn down over 4 stages, seeds 1,3 reach the leader. Game to spec, triggers fire.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_09 --damage --targets --cues",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I19",
+      "sev": "P3",
+      "title": "mc2_10: seed 3 lance fed piecemeal into airfield defenders without repairing",
+      "detail": "bot: goes O1 straight to O2 (Atlas + 6 Centipedes) at ~30% armour, repairs only when threats empty. Seed 3 lost all 5 mechs, 720 damage vs 358-445 in wins; seeds 1,2,4 won. Not balance.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 3 1800 --mission=mc2_10 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I20",
+      "sev": "P2",
+      "title": "mc2_13: FIT lance with no support cannot outlast 44 enemies incl 21 Powered Armor",
+      "detail": "balance: 260 t lance (over 230 t limit), no support on airless moon. Obj 0,1 done then lance dies with obj 2-4 open every seed; PA top attacker 338-500 dmg. Lance kills 24-35. Bot factors: ShaYu lost first, no regroup. Needs 230 t grouped replay.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 3 1800 --mission=mc2_13 --damage --targets",
+      "owner": "ai",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I21",
+      "sev": "P3",
+      "title": "mc2_14: solo Thor fights every patrol head-on, no avoidance or retreat",
+      "detail": "bot: engages anything in 320 m, never breaks contact. Thor dies t=335/1213/447 after Gun Alpha, heading 10 km to Gun Beta. Solo 75 t drop, 0 RP, to spec. Seed 2 lasted to 1213 s, so winnable.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_14 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I22",
+      "sev": "P3",
+      "title": "mc2_15: lance marches straight at nearest Legion through 58-unit base after partisans are spent",
+      "detail": "bot: ignores secondaries a, c (operative route); partisans die by t=68 before lance arrives; repair truck unused (threats never empty). No objective done, all mechs lost t=415-481, Legion top attacker. Game to spec.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_15 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I23",
+      "sev": "P3",
+      "title": "mc2_16: bot chases 25 reinforcements nearest-first instead of capturing turrets and HQ and holding",
+      "detail": "bot: after obj 2 leaves base for obj 3 targets; never tries HQ or turret/gate secondaries. 3 mechs lost in 70 s at ~600-735 s to Madcat/Vulture/ShadowCat. Seed 2 won, so winnable.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_16 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I24",
+      "sev": "P2",
+      "title": "mc2_17: default 335 t lance with 0 RP destroyed 70-110 s after the betrayal",
+      "detail": "balance: ~9 Steiner attackers, guard Highlanders, three Liao waves; lost t=145-187, Highlanders ~half the damage. Bot also moves during cinematic (setMovieMode stubbed). Re-check after the auto-fire fix.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_17 --damage --targets",
+      "owner": "ai",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I25",
+      "sev": "P3",
+      "title": "mc2_18: bot walks into city guard posts nearest-first, loses Anubis alone, skips capture secondaries",
+      "detail": "bot: DestroyAll read as nearest awake enemy; Anubis lost t=68-136 alone; never captures HQ/Power Gen/Sensor; max 22 kills so 25-kill waves never start. Game to spec. Support use not logged.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_18 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I26",
+      "sev": "P3",
+      "title": "mc2_19: lance fights 82 enemies nearest-first, no pullback, worn down before 25 kills and extract",
+      "detail": "bot: no retreat/regroup, repair only with no threats. Kills 28/14/24; s1 completes obj 1, s3 one short. Strike damage (from -1) missing from autoplay damage table; spotter has no LOS check (sim gap).",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_19 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I27",
+      "sev": "P2",
+      "title": "mc2_20: FIT lance ground down by two converging patrols, then dies at dropship",
+      "detail": "balance: s1Sth/s1Wst patrols cross lance start and pursue; Madcats lost t=83-152; survivors reach dropship t=359-710 and die to Dship groups. 1 of 6 primaries, enemies alive 49 every seed (check). Bot never repairs. Needs 320 t campaign replay.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_20 --damage --targets",
+      "owner": "ai",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I28",
+      "sev": "P3",
+      "title": "mc2_22: bot marches across map at nearest Elite Guard, fights every patrol and wakes shut-down base",
+      "detail": "bot: route through EC1 front, Partisan patrols and EC2 shutdown base; Partisans 630-778 dmg, LaoHu woken. Kills only 20-31 of 64, objectives 0,1 untouched. Game to spec.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_22 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:21+13:00",
+      "updated": "2026-10-19T16:45:21+13:00",
+      "note": null
+    },
+    {
+      "id": "I29",
+      "sev": "P2",
+      "title": "mc2_23: 3-mech 175 t FIT lance with no support worn down after town objective",
+      "detail": "balance: 76 Steiner units; limit 300 t and 36000 RP unused by autoplay. Obj b done t=212-241, Werewolf lost first, rest by t=449-635, 52-59 enemies left. Game to spec.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_23 --damage --targets",
+      "owner": "ai",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:22+13:00",
+      "updated": "2026-10-19T16:45:22+13:00",
+      "note": null
+    },
+    {
+      "id": "I30",
+      "sev": "P3",
+      "title": "mc2_24: lance assaults front gate as one group, never triggers fuel-truck rebel attack",
+      "detail": "bot: hidden obj 4 (4 fuel trucks) open every seed so Rebel_Mech_Attack never fires; worn down by gate group then Legions (260-590 dmg). Kills 28-36 of 64. Game to spec.",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 3 1800 --mission=mc2_24 --damage --targets --cues",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:45:22+13:00",
+      "updated": "2026-10-19T16:45:22+13:00",
+      "note": null
+    },
+    {
+      "id": "I31",
+      "sev": "P2",
+      "title": "Loss check inconsistent when only support units survive: mc2_15 s1/s3 LOST, s2 PLAYING to 1800 s; mc2_10 s3, mc2_11 s2, mc2_22 s2 stall",
+      "detail": "unclear game vs bot: same situation (lance dead, support vehicles alive) ends LOST on some seeds and runs forever on others. Probe: print the units SimObjectives counts as player survivors at each LOST check on mc2_15 s1 vs s2",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_15 --damage",
+      "owner": "sim",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:49:02+13:00",
+      "updated": "2026-10-19T16:49:02+13:00",
+      "note": null
+    },
+    {
+      "id": "I32",
+      "sev": "P3",
+      "title": "Capture targets destroyed by an unknown attacker early: mc2_06 S_SensorControl t=64.6 (all seeds), mc2_22 LiaoHeavyGateControl t=34.6 (s1)",
+      "detail": "unclear: diagnosis inferred the bot's own air strike (strikes hit friendly buildings, support-powers.md:280) but autoplay does not log support calls. Probe: log every _use_support call with target and time",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 300 --mission=mc2_06 --damage --targets",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:49:02+13:00",
+      "updated": "2026-10-19T16:49:02+13:00",
+      "note": null
+    },
+    {
+      "id": "I33",
+      "sev": "P3",
+      "title": "End-of-run ABL pilot count differs by seed (mc2_11 41/42/42, mc2_22 72/73/73); start counts identical",
+      "detail": "unclear: likely scripted reinforcements gated on events that depend on the fight, not nondeterminism. Probe: log each pilot spawn with the time and the script line/flag that spawned it on mc2_11 s1 vs s2",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_11 --damage",
+      "owner": "playtester",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T16:49:02+13:00",
+      "updated": "2026-10-19T16:49:02+13:00",
+      "note": null
     }
   ],
   "coverage": {
@@ -405,11 +719,19 @@
     },
     "missions": {
       "converted": 24,
-      "winnable": 7
+      "winnable": 9,
+      "won_every_seed": 5
     },
     "tests": {
       "pass": true,
       "at": "2026-10-19"
+    },
+    "playtest": {
+      "runs": 72,
+      "won": 21,
+      "abl_errors": 0,
+      "sweep": "docs/reports/playtest/2026-10-19",
+      "open_game_bugs": 5
     }
   },
   "runs": [
@@ -423,6 +745,17 @@
       "tokens": 534438,
       "status": "ok",
       "note": "13 mechs: 6 approved, 7 redo; critic caught bushwacker approved blind and werewolf's seed"
+    },
+    {
+      "id": "wf_0330e31a-d44",
+      "phase": 8,
+      "workflow": "phase-8-playtest",
+      "started": "2026-10-19T16:49:02+13:00",
+      "ended": "2026-10-19T16:49:02+13:00",
+      "agents": 26,
+      "tokens": 1697667,
+      "status": "ok",
+      "note": "19 missions: 5 game (all survived refutation), 5 balance, 13 bot; 21 issues filed, critic added 3"
     }
   ],
   "log": [
@@ -655,6 +988,191 @@
       "at": "2026-10-19T15:52:13+13:00",
       "who": "conductor",
       "msg": "decided C17: Batch 2 plan: the 6 redos (I2-I4, I6-I8) plus meshing the chain's 15 concept-only mechs, once concept5 is ALLDONE \u2014 same GPU, same tool; meshing what the chain concepted finishes the mech set in one pass"
+    },
+    {
+      "at": "2026-10-19T16:08:13+13:00",
+      "who": "conductor",
+      "msg": "decided C18: Batch 2 generation runs as one background hd_batch.py job under the gpu0 lock; agents do review/record only \u2014 subagent shell commands time out at 10 min and one mech's mesh+rig can exceed that; 23 agents idling on one GPU lock would also hit the lock timeout. hd_batch.py already sequences, restarts ComfyUI and logs"
+    },
+    {
+      "at": "2026-10-19T16:08:13+13:00",
+      "who": "conductor",
+      "msg": "phase 7 (HD art (dry run)) started"
+    },
+    {
+      "at": "2026-10-19T16:08:13+13:00",
+      "who": "conductor",
+      "msg": "batch 2 started: 4 concept redos (seed 8), 2 mesh redos (mesh seed 4242), 17 mesh-only (chain's concepts)"
+    },
+    {
+      "at": "2026-10-19T16:09:03+13:00",
+      "who": "conductor",
+      "msg": "decided C19: bushwacker reruns as a follow-up job with steps 1-5 (render + seed 8) after batch 2 frees gpu0 \u2014 its work dir predates the pipeline and has no front34_pad.png, so step 2 cannot start; editing the running batch script is unsafe because bash reads it incrementally"
+    },
+    {
+      "at": "2026-10-19T16:26:33+13:00",
+      "who": "conductor",
+      "msg": "decided C20: Phase 8 playtest sweep started as a read-only probe while phase 7 batch 2 runs (phase 7 stays current) \u2014 Lee asked for parallel work; the sweep is CPU-only headless Godot (no import, no GPU), 72 runs x ~17 s, 4 at a time"
+    },
+    {
+      "at": "2026-10-19T16:26:34+13:00",
+      "who": "conductor",
+      "msg": "decided C21: Playtest results come from parsing autoplay's structured report, not a local-LLM log screen \u2014 autoplay already prints result, losses with killer, objective states and damage by attacker; a regex parser is exact, an LLM pass would only add error. The LLM is kept for the end-screen screenshots if we add them"
+    },
+    {
+      "at": "2026-10-19T16:36:13+13:00",
+      "who": "conductor",
+      "msg": "decided C22: Diagnose the 19 missions not won on every seed (not just the 15 never won) \u2014 mc2_01 and mc2_06 were recorded as winnable and now lose some or all seeds \u2014 regressions matter more than known bot gaps"
+    },
+    {
+      "at": "2026-10-19T16:36:13+13:00",
+      "who": "conductor",
+      "msg": "phase 8 sweep: 21/72 runs won, 9/24 missions won at least once, 5 every seed; 0 ABL errors. Diagnosing 19."
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "sim",
+      "msg": "issue I10 P1: mc2_06, mc2_12: units spawned on off-map cells never move (find_path from solid start cell)"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "sim",
+      "msg": "issue I11 P2: mc2_08, mc2_11 (also mc2_09): parts with Damage >= 1.0 spawn live instead of shutdown/disabled"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "sim",
+      "msg": "issue I12 P1: mc2_17: AI units auto-fire at nearest enemy regardless of brain; inert cam dummies start battle before betrayal"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I13 P3: autoplay: lance with only support vehicles left never counts as lost: mc2_10, mc2_15, mc2_22"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I14 P3: mc2_01: lance loses the Starslayer extraction fight on seed 2"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I15 P3: mc2_06: lance hunts all 44 Liao units, never captures Turret Control, own air strike destroys Sensor Control"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "ai",
+      "msg": "issue I16 P2: mc2_07: 3-mech 145 t FIT lance outmatched by MenShen pair, loses 2 mechs before HQ capture"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I17 P3: mc2_07: lone damaged Bushwacker sent 5.4 km to Processing Plant into 2 Catapults"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I18 P3: mc2_09: no formation, fast Werewolf arrives alone and dies at 72 s every seed"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I19 P3: mc2_10: seed 3 lance fed piecemeal into airfield defenders without repairing"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "ai",
+      "msg": "issue I20 P2: mc2_13: FIT lance with no support cannot outlast 44 enemies incl 21 Powered Armor"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I21 P3: mc2_14: solo Thor fights every patrol head-on, no avoidance or retreat"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I22 P3: mc2_15: lance marches straight at nearest Legion through 58-unit base after partisans are spent"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I23 P3: mc2_16: bot chases 25 reinforcements nearest-first instead of capturing turrets and HQ and holding"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "ai",
+      "msg": "issue I24 P2: mc2_17: default 335 t lance with 0 RP destroyed 70-110 s after the betrayal"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I25 P3: mc2_18: bot walks into city guard posts nearest-first, loses Anubis alone, skips capture secondaries"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I26 P3: mc2_19: lance fights 82 enemies nearest-first, no pullback, worn down before 25 kills and extract"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "ai",
+      "msg": "issue I27 P2: mc2_20: FIT lance ground down by two converging patrols, then dies at dropship"
+    },
+    {
+      "at": "2026-10-19T16:45:21+13:00",
+      "who": "playtester",
+      "msg": "issue I28 P3: mc2_22: bot marches across map at nearest Elite Guard, fights every patrol and wakes shut-down base"
+    },
+    {
+      "at": "2026-10-19T16:45:22+13:00",
+      "who": "ai",
+      "msg": "issue I29 P2: mc2_23: 3-mech 175 t FIT lance with no support worn down after town objective"
+    },
+    {
+      "at": "2026-10-19T16:45:22+13:00",
+      "who": "playtester",
+      "msg": "issue I30 P3: mc2_24: lance assaults front gate as one group, never triggers fuel-truck rebel attack"
+    },
+    {
+      "at": "2026-10-19T16:49:02+13:00",
+      "who": "conductor",
+      "msg": "issue I13 duplicate: reclassified by the critic: mc2_15 s1/s3 end LOST with support units alive, s2 does not -> loss condition inconsistent, see I32"
+    },
+    {
+      "at": "2026-10-19T16:49:02+13:00",
+      "who": "sim",
+      "msg": "issue I31 P2: Loss check inconsistent when only support units survive: mc2_15 s1/s3 LOST, s2 PLAYING to 1800 s; mc2_10 s3, mc2_11 s2, mc2_22 s2 stall"
+    },
+    {
+      "at": "2026-10-19T16:49:02+13:00",
+      "who": "playtester",
+      "msg": "issue I32 P3: Capture targets destroyed by an unknown attacker early: mc2_06 S_SensorControl t=64.6 (all seeds), mc2_22 LiaoHeavyGateControl t=34.6 (s1)"
+    },
+    {
+      "at": "2026-10-19T16:49:02+13:00",
+      "who": "playtester",
+      "msg": "issue I33 P3: End-of-run ABL pilot count differs by seed (mc2_11 41/42/42, mc2_22 72/73/73); start counts identical"
+    },
+    {
+      "at": "2026-10-19T16:49:02+13:00",
+      "who": "conductor",
+      "msg": "decided C23: Critic's nondeterminism claim filed as P3 unclear, not a bug \u2014 start-of-mission ABL pilot counts are identical per seed (39/39/39, 72/72/72); the differing number is the end-of-run count, which includes scripted mid-mission spawns"
+    },
+    {
+      "at": "2026-10-19T16:49:02+13:00",
+      "who": "conductor",
+      "msg": "decided C24: I13 reclassified from bot (P3) to unclear game/bot (P2, owner sim) as I32 \u2014 the critic showed the same end state produces LOST on two seeds and an endless PLAYING on the third; that is the loss check, not the bot"
+    },
+    {
+      "at": "2026-10-19T16:49:02+13:00",
+      "who": "conductor",
+      "msg": "run wf_0330e31a-d44 (phase-8-playtest) ok: 26 agents, 1697667 tokens"
+    },
+    {
+      "at": "2026-10-19T16:49:22+13:00",
+      "who": "conductor",
+      "msg": "correction: the loss-check issue that replaces I13 is I31 (not I32 as C24 and I13's close note say); I32 = unknown-attacker capture targets, I33 = pilot-count variance"
     }
   ],
   "choices": [
@@ -873,6 +1391,94 @@
       ],
       "who": "conductor",
       "at": "2026-10-19T15:52:13+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C18",
+      "phase": 7,
+      "what": "Batch 2 generation runs as one background hd_batch.py job under the gpu0 lock; agents do review/record only",
+      "why": "subagent shell commands time out at 10 min and one mech's mesh+rig can exceed that; 23 agents idling on one GPU lock would also hit the lock timeout. hd_batch.py already sequences, restarts ComfyUI and logs",
+      "alternatives": [
+        "one agent per mech polling a background job",
+        "raise timeouts and keep agents in the loop"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T16:08:13+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C19",
+      "phase": 7,
+      "what": "bushwacker reruns as a follow-up job with steps 1-5 (render + seed 8) after batch 2 frees gpu0",
+      "why": "its work dir predates the pipeline and has no front34_pad.png, so step 2 cannot start; editing the running batch script is unsafe because bash reads it incrementally",
+      "alternatives": [
+        "kill and relaunch batch 2",
+        "render now on the godot lock and slot it in"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T16:09:03+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C20",
+      "phase": 8,
+      "what": "Phase 8 playtest sweep started as a read-only probe while phase 7 batch 2 runs (phase 7 stays current)",
+      "why": "Lee asked for parallel work; the sweep is CPU-only headless Godot (no import, no GPU), 72 runs x ~17 s, 4 at a time",
+      "alternatives": [
+        "wait for phase 7 to finish",
+        "sweep only the 17 losing missions"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T16:26:33+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C21",
+      "phase": 8,
+      "what": "Playtest results come from parsing autoplay's structured report, not a local-LLM log screen",
+      "why": "autoplay already prints result, losses with killer, objective states and damage by attacker; a regex parser is exact, an LLM pass would only add error. The LLM is kept for the end-screen screenshots if we add them",
+      "alternatives": [
+        "local-llm summarise each log",
+        "both"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T16:26:34+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C22",
+      "phase": 8,
+      "what": "Diagnose the 19 missions not won on every seed (not just the 15 never won)",
+      "why": "mc2_01 and mc2_06 were recorded as winnable and now lose some or all seeds \u2014 regressions matter more than known bot gaps",
+      "alternatives": [
+        "only the 15 never won",
+        "only the 2 regressions"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T16:36:13+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C23",
+      "phase": 8,
+      "what": "Critic's nondeterminism claim filed as P3 unclear, not a bug",
+      "why": "start-of-mission ABL pilot counts are identical per seed (39/39/39, 72/72/72); the differing number is the end-of-run count, which includes scripted mid-mission spawns",
+      "alternatives": [
+        "file as P2 nondeterminism",
+        "drop it"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T16:49:02+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C24",
+      "phase": 8,
+      "what": "I13 reclassified from bot (P3) to unclear game/bot (P2, owner sim) as I32",
+      "why": "the critic showed the same end state produces LOST on two seeds and an endless PLAYING on the third; that is the loss check, not the bot",
+      "alternatives": [],
+      "who": "conductor",
+      "at": "2026-10-19T16:49:02+13:00",
       "reversible": true
     }
   ]

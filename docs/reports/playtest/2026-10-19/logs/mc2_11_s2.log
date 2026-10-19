@@ -1,0 +1,56 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_11
+ABL pilots: 39
+t= 502.8  capture target Jagermech destroyed by Enfield
+t= 539.5  capture target Enfield destroyed by Raven
+t= 581.4  LOST ShaYu (disabled, armour 18%, heat 3, ejected false, pilot 0.0 wounds, last hit by Jagermech)
+t= 586.3  capture target Enfield destroyed by Raven
+t= 613.6  capture target Jagermech destroyed by Enfield
+t= 656.3  capture target ShadowCat destroyed by Enfield
+t= 672.5  objective done: a - Capture RP Buildings at Davion Installation
+t= 687.1  objective done: 1 - Capture Davion Weapons Facility
+t= 855.5  LOST Raven (disabled, armour 23%, heat 3, ejected false, pilot 1.0 wounds, last hit by Shootist)
+t= 871.2  objective done: 2 - Capture Steiner Weapons Facility
+t= 907.7  LOST Enfield (disabled, armour 35%, heat 0, ejected false, pilot 0.0 wounds, last hit by Zeus)
+t= 982.8  LOST Catapult (destroyed, armour 20%, heat 5, ejected false, pilot 1.0 wounds, last hit by Zeus)
+t=1284.5  LOST Enfield (disabled, armour 39%, heat 5, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=1495.0  LOST Jagermech (disabled, armour 12%, heat 0, ejected false, pilot 2.0 wounds, last hit by Werewolf)
+seed 2 end t=1800 result=PLAYING  player alive 2  enemies alive 10
+damage to lance: 710 from 24 attackers; hits by location (0 head .. 10 rear RT): { 10: 2, 9: 1, 5: 34, 7: 44, 4: 36, 0: 7, 1: 53, 2: 39, 3: 42, 6: 33 }
+       224  Werewolf (mech)
+       199  Zeus (mech)
+        86  Jagermech (mech)
+        66  Enfield (mech)
+        44  Shootist (mech)
+        35  ShadowCat (mech)
+        24  Drillson (vehicle)
+        18  Wolfhound (mech)
+        12  Centipede (vehicle)
+         3  Lrmcarrier (vehicle)
+  obj 0 s: done  a - Capture RP Buildings at Davion Installation
+  obj 1 s: open  b - Salvage Davion 'Mechs at salvage yard
+  obj 2 P: done  1 - Capture Davion Weapons Facility
+  obj 3 P: done  2 - Capture Steiner Weapons Facility
+  obj 4 P: open  3 - Capture Steiner HQ Building
+  obj 5 P: gated  4 - Extract at Steiner Drop Ship Pad
+  obj 6 s hidden: open  hidden objective for sensor towers
+  obj 7 s hidden: open  hidden objective for sensor control
+  obj 8 s hidden: open  bool 01
+  obj 9 s hidden: open  bool 02
+  obj 10 s hidden: open  bool 03
+  obj 11 s hidden: done  bool 04
+  obj 12 s hidden: open  bool 05
+  obj 13 s hidden: done  bool 06
+  obj 14 s hidden: done  Hidden Trigger for Salvage VO
+  obj 15 s hidden: done  Start of mission wav file
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 4, "mc2_11_EC1_grp4:start": 2, "mc2_11_EC1_Grp2:attack": 2, "pbrain:attack": 3, "mc2_11_dred:attack": 6, "mc2_11_EC2_grp1:start": 1, "mc2_11_EC2_grp2:attack": 1, "mc2_11_EC3_grp2:attack": 1, "mc2_11_EC2_grp4:amok": 1, "mc2_11_EC2_grp3:attack": 1, "mc2_11_dred:start": 7, "mc2_11_ec4_grp4:amok": 1, "mc2_11_ec1_grp1:attack": 2, "mc2_11_EC3_grp1:attack": 2, "mc2_11_EC1_Grp3:attack": 2, "mc2_11_EC1_grpwav:attack": 1, "mc2_11_dred_lrm:attack": 1, "DredAttack01:attack": 1, "pbrain:": 3 }
+enemy pilots that moved >20 m: 27 / 42
+
+--- stderr ---
+WARNING: 724 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

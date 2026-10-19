@@ -1,0 +1,30 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_07
+ABL pilots: 55
+t= 134.7  LOST Werewolf (disabled, armour 22%, heat 0, ejected false, pilot 0.0 wounds, last hit by MenShen)
+t= 278.6  LOST Bushwacker (disabled, armour 23%, heat 0, ejected false, pilot 0.0 wounds, last hit by MenShen)
+t= 413.4  objective done: 1. Capture Liao Headquarters
+t= 662.0  LOST Bushwacker (disabled, armour 18%, heat 0, ejected false, pilot 2.0 wounds, last hit by Catapult)
+t= 667.0  MISSION LOST
+seed 1 end t=667 result=LOST  player alive 0  enemies alive 31
+damage to lance: 360 from 12 attackers; hits by location (0 head .. 10 rear RT): { 2: 19, 6: 11, 1: 23, 3: 14, 7: 15, 5: 10, 4: 11, 0: 2 }
+       147  MenShen (mech)
+        84  Vedette (vehicle)
+        78  Catapult (mech)
+        30  Lrmcarrier (vehicle)
+        21  Storm (vehicle)
+  obj 0 P: done  1. Capture Liao Headquarters
+  obj 1 P: open  2. Destroy Processing Plant
+  obj 2 P: gated  3. Extract All Surviving 'Mechs
+  obj 3 s: open  Destroy All Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 3, "mc2_07_E3_LRMs:attack": 2, "mc2_07_E3_Mix_Pat:attack": 2, "mc2_07_E2_NCV1_FTs:start": 2, "mc2_07_E2_NCV1_TT1:start": 2, "mc2_07_E2_NCV1_TT2:start": 1, "mc2_07_E2_NCV1_TT3:start": 1, "mc2_07_E2_LRM:start": 1, "mc2_07_E2_NCV1_CT1:start": 2, "mc2_07_E2_NCV1_CT2:start": 1, "mc2_07_E2_NCV1_ET1:start": 1, "mc2_07_E2_Storm:attack": 1, "mc2_07_E3_Cent1:attack": 1, "mc2_07_E1_Ved1:start": 1, "mc2_07_E1_Ved2:start": 1, "mc2_07_E3_Mix_Guards:attack": 7, "mc2_07_E2_Cata:start": 1, "mc2_07_E3_Menshen1:attack": 1, "mc2_07_E3_Ved1:attack": 1, "mc2_07_E2_Lao:start": 1, "mc2_07_E2_infantry1:attack": 4, "mc2_07_E2_infantry1:start": 4, "mc2_07_E2_infantry2:building_retreat": 7, "mc2_07_E2_infantry:start": 1, "mc2_07_E1_Fire:start": 1, "mc2_07_E1_infantry3:start": 2, "mc2_07_E3_Menshen2:attack": 1, "mc2_07_E1_NCV1_Minelayer1:start": 1, "mc2_07_E1_NCV1_Minelayer2:start": 1 }
+enemy pilots that moved >20 m: 39 / 55
+
+--- stderr ---
+WARNING: 442 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

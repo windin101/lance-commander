@@ -1,0 +1,39 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_21
+ABL pilots: 39
+t= 395.9  LOST Anubis (destroyed, armour 22%, heat 0, ejected false, pilot 1.0 wounds, last hit by Bushwacker)
+t= 402.1  LOST Anubis (destroyed, armour 32%, heat 0, ejected false, pilot 0.0 wounds, last hit by Bushwacker)
+t= 598.5  objective done: 1 - Move all units to Extraction Point
+t= 603.5  MISSION WON
+seed 2 end t=604 result=WON  player alive 2  enemies alive 13
+damage to lance: 353 from 17 attackers; hits by location (0 head .. 10 rear RT): { 7: 14, 2: 16, 1: 17, 6: 8, 3: 21, 4: 17, 5: 13, 0: 1 }
+        88  Hunchback (mech)
+        74  Partisan (vehicle)
+        71  Bushwacker (mech)
+        48  Atlas (mech)
+        25  Werewolf (mech)
+        18  Shootist (mech)
+        10  Monsoon (vehicle)
+         7  Storm (vehicle)
+         6  Vedette (vehicle)
+         6  Harasser (vehicle)
+  obj 0 P: done  1 - Move all units to Extraction Point
+  obj 1 s: open  a - Destroy Ammo Dump ALPHA
+  obj 2 s: open  b - Destroy Ammo Dump BETA
+  obj 3 s: open  c - Destroy Power Generator ALPHA
+  obj 4 s: open  d - Destroy Power Generator BETA
+  obj 5 s: open  a. Capture the Weapons Facility
+  obj 6 s: open  f. Destroy Industrial Complex
+  obj 7 s hidden: open  hidden trigger area 4 PG ALPHA
+  obj 8 s hidden: open  hidden trigger area 4 PG BETA
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 4, "mc2_21_BETA_PG01:attack": 5, "mc2_21_BETA_PG01:start": 2, "mc2_21_BETA_PG01:start1": 2, "mc2_21_ALPHA_AD01:attack": 2, "mc2_21_ALPHA_AD02:attack": 2, "mc2_21_dred:attack": 4, "mc2_21_dred_p:attack": 1, "mc2_21_dred_p:start": 3, "mc2_21_dred:start": 1, "mc2_21_Patrol_EVill:start": 2, "mc2_21_Patrol_SDumpB:start": 2, "mc2_21_Patrol_BwtDumps:attack": 2, "mc2_21_Patrol_NVil:attack": 3, "mc2_21_Patrol_BhBase:start": 3, "mc2_21_Patrol_Extrat:attack": 1 }
+enemy pilots that moved >20 m: 30 / 39
+
+--- stderr ---
+WARNING: 594 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
