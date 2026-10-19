@@ -269,3 +269,5 @@ trade overheating risk for burst damage (Phase 7 HUD).
 | C2 | Range-specialist bands are multiplied by `worldUnitsPerMeter` (5.01), so short always applies and long never does | Bands in metres | `fix_range_specialists` |
 | C3 | `(loc == LLEG) \|\| (RLEG)` is always true, so any actuator hit forces a piloting check | Leg actuators only | `fix_actuator_check` |
 | H* | Heat compiled out | Heat on (above) | `heat_enabled` |
+| C4 | The player brain's fire-at-will picks targets by action rating; our auto-fire takes the nearest enemy in reach, which kills capture objectives (mc2_03's mobile HQ) | Auto-fire skips unarmed capturable units; an explicit attack order still engages them | none (SimWorld._pick_target) |
+| C5 | An attack order on a target with no path to its cell stands still | The attacker walks to a reachable cell within weapon range (e.g. across deep water) | none (SimWorld._firing_position_path) |

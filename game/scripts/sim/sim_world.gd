@@ -313,6 +313,8 @@ func _pick_target(m: SimUnit) -> SimUnit:
 	var best: SimUnit = null
 	var best_d := INF
 	for e in enemies_of(m):
+		if e.capturable and e.num_weapons == 0:
+			continue  # unarmed capture targets (trucks, mobile HQs): only on an explicit order
 		var d := m.distance_to(e.position)
 		if d < best_d and d <= reach:
 			best = e
