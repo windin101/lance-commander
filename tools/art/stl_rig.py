@@ -351,6 +351,7 @@ def main():
     ap.add_argument("--joints"); ap.add_argument("--diag"); ap.add_argument("--views"); ap.add_argument("--install", action="store_true")
     ap.add_argument("--dump", help="write the sculpt-frame triangles, owners and arm chains to this .npz (debugging seams)")
     ap.add_argument("--source", default=""); ap.add_argument("--licence", default="CC BY-NC-SA 4.0")
+    ap.add_argument("--folder", default="mechs", help="game/assets/<folder>: mechs, or vehicles for walking infantry units (powered armour)")
     a = ap.parse_args()
     over = json.loads(Path(a.joints).read_text()) if a.joints and Path(a.joints).exists() else {}
     # J.json "scale" (since 2026-10-20): multiplies the fit-to-height scale, for a sculpt whose highest point is not
@@ -371,7 +372,7 @@ def main():
             return o
         over = scl(over)
 
-    glb = ROOT / f"game/assets/mechs/{a.mech}.glb"
+    glb = ROOT / f"game/assets/{a.folder}/{a.mech}.glb"
     og, ob = R.load_glb(str(glb))
     # skeleton name variants (since 2026-10-20, Anubis): a four-joint leg named uleg -> lleg -> lleg2 -> ankle is read as
     # uleg -> mleg -> lleg -> ankle, and the misspelt joint_lanke as joint_lankle; the original names are put back before writing
@@ -774,14 +775,14 @@ def main():
     slots = {kk: i for i, kk in enumerate(C.PAINT)}
     uv = np.repeat(np.array([(((slots[p] % C.GRID) + 0.5) / C.GRID, ((slots[p] // C.GRID) + 0.5) / C.GRID) for p in paint]), 3, axis=0)
     tris = np.arange(len(pos)).reshape(-1, 3)
-    dest = ROOT / "game/assets/mechs" if a.install else ROOT / f"original/hd/{a.mech}/stl"
+    dest = ROOT / f"game/assets/{a.folder}" if a.install else ROOT / f"original/hd/{a.mech}/stl"
     dest.mkdir(parents=True, exist_ok=True)
     for i, (old, new) in renamed.items():  # the game's skeleton keeps its own names
         og["nodes"][i]["name"] = old
     write(og, ob, pos, R.vertex_normals(pos, tris), uv, np.repeat(owner, 3), tris, slots, dest, a.mech)
     if a.install:
         work = ROOT / f"original/hd/{a.mech}"; work.mkdir(parents=True, exist_ok=True)
-        (work / "provenance.json").write_text(json.dumps({"asset": a.mech, "kind": "adapted", "source": a.source, "licence": a.licence,
+        (work / "provenance.json").write_text(json.dumps({"asset": a.mech, "kind": "adapted", "class": a.folder, "source": a.source, "licence": a.licence,
             "tool": "tools/art/stl_rig.py", "joints": a.joints, "tris": int(len(tris)), "built_at": time.strftime("%Y-%m-%dT%H:%M:%S%z")}, indent=2) + "\n")
     print(f"  thigh {thigh:.0f} shin {shin:.0f} mm" + (f" (knee-heel {seg[1]:.0f}, heel-ankle {seg[2]:.0f})" if mid else "") + f", root -{drop:.0f} mm; {moved} island tris rejoined; {len(tris)} tris -> {dest}")
 
