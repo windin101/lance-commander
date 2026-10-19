@@ -341,7 +341,10 @@ func _same_order(p: Pilot, o: Dictionary) -> bool:
 
 ## isCaptureable: flagged, not already the team's, not destroyed, still in play.
 func can_capture(t: SimUnit, team: int) -> bool:
-	return t != null and t.capturable and t.exists and t.team != team and not t.is_destroyed() and not t.hulk
+	# Mechs can't be taken by a capture order (only salvaged), so "capture or destroy"
+	# a mech means disable it (A1).
+	return t != null and not (t is SimMech) and t.capturable and t.exists and t.team != team \
+		and not t.is_destroyed() and not t.hulk
 
 
 ## An armed, awake, enemy mover within 75 m of the target, or null. Before arrival
@@ -402,6 +405,9 @@ func _capture_step(p: Pilot, u: SimUnit, o: Dictionary) -> bool:
 		capture(u, t)
 		world.order_hold(u)
 		return true
+	if t.is_mover() and (t.position.distance_to(o["goal"]) > 15.0 or u.order == SimWorld.Order.HOLD):
+		o["goal"] = t.position  # follow a moving target (a convoy vehicle)
+		world.order_move(u, o["goal"])
 	return false
 
 
