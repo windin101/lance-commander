@@ -181,6 +181,10 @@ def mesh_primitive(obj, world):
         for fn in nblock.find_all("MESH_FACENORMAL"):
             normals.append([ase.floats(vn.values[1:4]) for vn in fn.children or []])
     pos, nrm, uv = [], [], []
+    mtl = []  # per-triangle submaterial id (*MESH_MTLID), for multi/sub-object materials
+    for f in mesh.find("MESH_FACE_LIST").find_all("MESH_FACE"):
+        vals = list(f.values)
+        mtl.append(int(vals[vals.index("*MESH_MTLID") + 1]) if "*MESH_MTLID" in vals else 0)
     for fi, face in enumerate(faces):
         corners = [0, 1, 2]  # (x,y,z)->(x,z,-y) is a proper rotation, so winding is kept
         for ci in corners:
@@ -197,7 +201,7 @@ def mesh_primitive(obj, world):
                 uv.append([u, 1.0 - v])
             else:
                 uv.append([0.0, 0.0])
-    return {"position": pos, "normal": nrm, "uv": uv}
+    return {"position": pos, "normal": nrm, "uv": uv, "mtl": mtl}
 
 
 # --- animation ----------------------------------------------------------------
@@ -317,15 +321,19 @@ class GltfBuilder:
         return len(self.gltf["accessors"]) - 1
 
     def image(self, png, alpha=False):
+        """Adds an image, texture and material; returns the material index."""
         view = self._view(png)
         self.gltf.setdefault("images", []).append({"bufferView": view, "mimeType": "image/png"})
-        self.gltf.setdefault("samplers", []).append({"magFilter": 9729, "minFilter": 9987})
-        self.gltf.setdefault("textures", []).append({"source": 0, "sampler": 0})
+        if not self.gltf.get("samplers"):
+            self.gltf["samplers"] = [{"magFilter": 9729, "minFilter": 9987}]
+        self.gltf.setdefault("textures", []).append({"source": len(self.gltf["images"]) - 1, "sampler": 0})
+        tex = len(self.gltf["textures"]) - 1
         mat = {"name": "mech", "pbrMetallicRoughness": {
-            "baseColorTexture": {"index": 0}, "metallicFactor": 0.3, "roughnessFactor": 0.6}}
+            "baseColorTexture": {"index": tex}, "metallicFactor": 0.3, "roughnessFactor": 0.6}}
         if alpha:  # foliage, fences: cut out and draw both sides
             mat.update({"alphaMode": "MASK", "alphaCutoff": 0.5, "doubleSided": True})
         self.gltf.setdefault("materials", []).append(mat)
+        return len(self.gltf["materials"]) - 1
 
     def write(self, path):
         self.gltf["buffers"] = [{"byteLength": len(self.bin)}]
@@ -348,9 +356,16 @@ def build(tgl_dir, mech, out_path, texture_path=None, gestures=GESTURES):
     nodes, order = collect_nodes(tree)
     g = GltfBuilder()
     has_tex = False
-    if not texture_path:
+    multi = None if texture_path else material_table(tree, tgl_dir)
+    if multi is not None:  # some material is multi/sub-object (buildings): one glTF material per texture
+        mat_of = {}
+        for path in sorted({p for subs in multi for p in subs if p}):
+            with open(path, "rb") as fh:
+                tga = fh.read()
+            mat_of[path] = g.image(tga_to_png(tga), alpha=tga[16] == 32)
+    if multi is None and not texture_path:
         texture_path = material_texture(tree, tgl_dir)
-    if texture_path and os.path.exists(texture_path):
+    if multi is None and texture_path and os.path.exists(texture_path):
         with open(texture_path, "rb") as fh:
             tga = fh.read()
         g.image(tga_to_png(tga), alpha=tga[16] == 32)
@@ -364,7 +379,26 @@ def build(tgl_dir, mech, out_path, texture_path=None, gestures=GESTURES):
             gn["scale"] = [s[0], s[2], s[1]]
         if n["obj"].key == "GEOMOBJECT" and not name.lower().startswith(HIDDEN_MESH_PREFIXES):
             prim = mesh_primitive(n["obj"], n["world"])
-            if prim and prim["position"]:
+            if prim and prim["position"] and multi is not None:
+                ref = int(n["obj"].first("MATERIAL_REF", 0) or 0)
+                subs = multi[ref] if ref < len(multi) else [None]
+                groups = {}
+                for t, m in enumerate(prim["mtl"]):
+                    path = subs[m % len(subs)] if subs else None
+                    groups.setdefault(mat_of.get(path), []).append(t)
+                prims = []
+                for mi, tris in sorted(groups.items(), key=lambda kv: (kv[0] is None, kv[0] or 0)):
+                    sel = [3 * t + c for t in tris for c in range(3)]
+                    p = {"attributes": {
+                        "POSITION": g.accessor([prim["position"][k] for k in sel], "VEC3", 34962, minmax=True),
+                        "NORMAL": g.accessor([prim["normal"][k] for k in sel], "VEC3", 34962),
+                        "TEXCOORD_0": g.accessor([prim["uv"][k] for k in sel], "VEC2", 34962)}}
+                    if mi is not None:
+                        p["material"] = mi
+                    prims.append(p)
+                g.gltf["meshes"].append({"name": name, "primitives": prims})
+                gn["mesh"] = len(g.gltf["meshes"]) - 1
+            elif prim and prim["position"]:
                 p = {"attributes": {
                     "POSITION": g.accessor(prim["position"], "VEC3", 34962, minmax=True),
                     "NORMAL": g.accessor(prim["normal"], "VEC3", 34962),
@@ -405,6 +439,28 @@ def build(tgl_dir, mech, out_path, texture_path=None, gestures=GESTURES):
             report["animations"][gesture] = round(duration, 3)
     g.write(out_path)
     return report
+
+
+def material_table(tree, tgl_dir):
+    """Per top-level ASE material, the TGL/128 texture of each submaterial ([own texture] for a plain one).
+    None when no material is multi/sub-object, so single-material models (mechs) build exactly as before.
+    Buildings use multi/sub-object materials (e.g. D_HQ: A_D_HQ + A_D_HQ2), picked per face by *MESH_MTLID;
+    reading only the first diffuse left them untextured (I62)."""
+    mats = tree.find("MATERIAL_LIST")
+    out, any_multi = [], False
+
+    def tex(m):
+        d = m.find("MAP_DIFFUSE")
+        b = d.first("BITMAP") if d else None
+        return _find(os.path.join(tgl_dir, "128"), b.replace("\\", "/").split("/")[-1], required=False) if b else None
+    for mat in (mats.find_all("MATERIAL") if mats else []):
+        subs = mat.find_all("SUBMATERIAL")
+        if subs:
+            any_multi = True
+            out.append([tex(sm) for sm in subs])
+        else:
+            out.append([tex(mat)])
+    return out if any_multi else None
 
 
 def material_texture(tree, tgl_dir):
