@@ -51,7 +51,9 @@ func test_destroyed_hd_mech_falls_and_scorches() -> void:
 
 func test_objects_view_prefers_hd_buildings() -> void:
 	# order (2026-10-20): <app>_hdtex.glb (original geometry, 4x upscaled textures), then <app>_hd.glb, then the original
-	var want := "res://assets/objects/quonset_hdtex.glb"
+	var want := "res://assets/objects/quonset_cad.glb"
+	if not ResourceLoader.exists(want):
+		want = "res://assets/objects/quonset_hdtex.glb"
 	if not ResourceLoader.exists(want):
 		want = "res://assets/objects/quonset_hd.glb"
 		if not ResourceLoader.exists(want):

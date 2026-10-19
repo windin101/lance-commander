@@ -35,9 +35,11 @@ func build(sim_map: SimMap, mission: String) -> int:
 			continue
 		if not scenes.has(app):
 			# HD models (tools/art, --kind objects) replace the 2001 mesh when present; --no-hd compares.
-			# order: the original model with 4x upscaled textures (tools/art/upscale_textures.py), then a
+			# order: the SolidCraft rebuild, then the original model with 4x upscaled textures (tools/art/upscale_textures.py), then a
 			# Hunyuan HD model, then the original
-			var res := "res://assets/objects/%s_hdtex.glb" % app
+			var res := "res://assets/objects/%s_cad.glb" % app  # SolidCraft rebuild (tools/cad, tools/art/cad_building.py)
+			if not ResourceLoader.exists(res):
+				res = "res://assets/objects/%s_hdtex.glb" % app
 			if not ResourceLoader.exists(res):
 				res = "res://assets/objects/%s_hd.glb" % app
 			if not ResourceLoader.exists(res) or OS.get_cmdline_user_args().has("--no-hd"):
