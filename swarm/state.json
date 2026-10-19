@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T08:19:43+13:00",
+  "updated": "2026-10-20T08:27:41+13:00",
   "phase": {
     "current": 7,
     "status": "running"
@@ -1148,10 +1148,10 @@
       "repro": "godot --path game res://scenes/mission_view.tscn -- --mission=mc2_16 --screenshot=out.png --cam=35,22,38,-593,977",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T19:13:03+13:00",
-      "updated": "2026-10-19T19:13:03+13:00",
-      "note": null
+      "updated": "2026-10-20T08:27:41+13:00",
+      "note": "converter multi/sub-object materials; 140 models now textured"
     },
     {
       "id": "I63",
@@ -1440,11 +1440,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:08:13+13:00",
-      "who": "conductor",
-      "msg": "batch 2 started: 4 concept redos (seed 8), 2 mesh redos (mesh seed 4242), 17 mesh-only (chain's concepts)"
-    },
     {
       "at": "2026-10-19T16:09:03+13:00",
       "who": "conductor",
@@ -2439,6 +2434,11 @@
       "at": "2026-10-20T08:19:28+13:00",
       "who": "conductor",
       "msg": "issue I64 fixed: seam fixes 4769137 + arm chains; remaining sliver fringe is a known limit"
+    },
+    {
+      "at": "2026-10-20T08:27:41+13:00",
+      "who": "conductor",
+      "msg": "issue I62 fixed: converter multi/sub-object materials; 140 models now textured"
     }
   ],
   "choices": [
