@@ -45,6 +45,9 @@ def parse_vehicle(f):
         "battle_rating": int(general.get("BattleRating", -1)),
         "explosion_damage": float(general.get("ExplosionDamage", 0.0)),
         "explosion_radius": float(general.get("ExplosionRadius", 0.0)),
+        # gvehicl.cpp:1241: RefitPoints become the repair pool; ResourcePoints pay out on capture
+        "refit_points": float(general.get("RefitPoints", 0)),
+        "resource_points": int(general.get("ResourcePoints", 0)),
         "max_velocity": float(dyn.get("MaxVelocity", 10.0)),
         "max_turret_yaw": float(dyn.get("MaxTurretYaw", 0)),
         "max_turret_yaw_rate": float(dyn.get("MaxTurretYawRate", 0)),

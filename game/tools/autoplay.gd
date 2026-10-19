@@ -153,7 +153,7 @@ const ENGAGE_M := 320.0  # armed enemies this close to the lance are fought befo
 func _orders(sm: SimMission) -> void:
 	var w := sm.world
 	var lance := w.units.filter(func(u): return u.team == 0 and u.commander == 0 and u.is_mover() \
-		and u.exists and not u.is_disabled() and not u.hulk)
+		and u.exists and not u.is_disabled() and not u.hulk and u.refit_pool <= 0.0)
 	if lance.is_empty():
 		return
 	var centre := Vector2.ZERO
@@ -166,6 +166,7 @@ func _orders(sm: SimMission) -> void:
 	var threats := w.units.filter(func(u): return u.team != 0 and u.is_mover() and u.exists and u.awake \
 		and not u.is_disabled() and not u.hulk and u.num_weapons > 0 \
 		and lance.any(func(m): return m.distance_to(u.position) <= ENGAGE_M))
+	_use_support(sm, lance, centre, threats)
 	if not threats.is_empty():
 		threats.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
 		var focus: SimUnit = threats[0]
@@ -244,3 +245,49 @@ func _order(sm: SimMission, m: SimUnit, kind: String, arg: Variant) -> void:
 func _near_enemies(w: SimWorld, area: Vector2) -> Array:
 	return w.units.filter(func(u): return u.team != 0 and u.is_mover() and u.exists and not u.is_disabled() \
 		and not u.hulk and u.position.distance_to(area) <= 300.0)
+
+
+## Support powers the way a player would use them: salvage disabled enemy mechs near
+## the lance, strike bunched enemies away from our own units, call a repair truck in a
+## lull when the lance is badly damaged and set it to work.
+func _use_support(sm: SimMission, lance: Array, centre: Vector2, threats: Array) -> void:
+	var s: SimSupport = sm.support
+	var w := sm.world
+	if s == null:
+		return
+	for t in w.units.filter(func(u): return u.refit_pool > 0.0 and u.team == 0 and not u.is_disabled()):
+		if not s.repairs.any(func(r): return r["truck"] == t):
+			var worst: SimUnit = null
+			for m in lance:
+				if m is SimMech and SimSupport.needs_refit(m) and (worst == null or _armour_frac(m) < _armour_frac(worst)):
+					worst = m
+			if worst and threats.is_empty():
+				s.order_repair(t, worst)
+	if s.can_call("salvage_craft"):
+		for u in w.units:
+			if u is SimMech and u.team != 0 and u.is_disabled() and not u.is_destroyed() and u.exists \
+					and u.position.distance_to(centre) <= 400.0:
+				if s.call_power("salvage_craft", u):
+					return
+	if s.can_call("air_strike") and threats.size() >= 2:
+		for t in threats:
+			var bunch := threats.filter(func(o): return o.position.distance_to(t.position) <= 30.0).size()
+			var ours := w.units.filter(func(o): return o.team == 0 and o.is_mover() and not o.is_disabled() \
+				and o.position.distance_to(t.position) <= 60.0).size()
+			if bunch >= 2 and ours == 0:
+				s.call_power("air_strike", t.position)
+				return
+	if s.can_call("repair_truck") and threats.is_empty():
+		var hurt := lance.filter(func(m): return m is SimMech and _armour_frac(m) < 0.5)
+		var have_truck := w.units.any(func(u): return u.refit_pool > 0.0 and u.team == 0 and not u.is_disabled())
+		if not hurt.is_empty() and not have_truck:
+			s.call_power("repair_truck", w.map.nearest_walkable(centre + Vector2(25, 0)))
+
+
+func _armour_frac(m: SimUnit) -> float:
+	var a := 0.0
+	var b := 0.0
+	for i in m.armor.size():
+		a += m.armor[i]
+		b += m.max_armor[i]
+	return a / maxf(b, 1.0)

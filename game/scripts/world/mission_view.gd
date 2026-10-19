@@ -50,12 +50,8 @@ func _ready() -> void:
 	_lighting(cam_block)
 
 	for m in world.units:
-		if not m.is_mover():
-			continue
-		var v := MechView.new()
-		add_child(v)
-		v.setup(m, world.map)
-		views[m.id] = v
+		if m.is_mover():
+			_add_view(m)
 	effects = EffectsView.new()
 	effects.name = "Effects"
 	add_child(effects)
@@ -77,6 +73,7 @@ func _ready() -> void:
 	input.camera = camera
 	input.player_team = sm.player_team
 	input.abl = sm.abl
+	input.support = sm.support
 	add_child(input)
 	_build_hud()
 	audio = AudioDirector.new()
@@ -97,8 +94,6 @@ func _ready() -> void:
 	flyby.name = "Flyby"
 	add_child(flyby)
 	flyby.setup(self, {} if dev_run else script_cfg.get("flyby", {}), camera.yaw_deg)
-	for v in views.values():
-		v.footstep.connect(func(at: Vector3): audio.sfx("footstep", at, -10.0))
 	title = MissionBrief.load_mission(GameData, mission).title
 	pause_menu = PauseMenu.new()
 	pause_menu.name = "PauseMenu"
@@ -152,8 +147,26 @@ func report() -> Dictionary:
 	return MissionReport.from_sim(sm, title, GameData)
 
 
+func _add_view(m: SimUnit) -> void:
+	var v := MechView.new()
+	add_child(v)
+	v.setup(m, world.map)
+	views[m.id] = v
+	v.footstep.connect(func(at: Vector3) -> void:
+		if audio:
+			audio.sfx("footstep", at, -10.0))
+
+
 func _consume_events(show: bool) -> void:
 	for e in world.events:
+		# Units that join mid-mission need views even while fast-forwarding.
+		match e["type"]:
+			"unit_added":
+				_add_view(world.units[e["unit"]])
+			"salvaged":
+				if views.has(e["unit"]):
+					views[e["unit"]].queue_free()
+				_add_view(world.units[e["unit"]])
 		if not show:
 			continue
 		if hud:
@@ -170,6 +183,13 @@ func _consume_events(show: bool) -> void:
 			"impact":
 				if e.get("damage", 0.0) >= 5.0 and views.has(e["unit"]):
 					effects.spawn_impact(views[e["unit"]].aim_point(), 0.7)
+			"strike_impact":
+				var p: Vector2 = e["at"]
+				effects.spawn_impact(TerrainView.to_3d(p, world.map.height_at(p) + 3.0), 6.0)
+			"support":
+				if e["kind"] == "air_strike":
+					var p: Vector2 = e["at"]
+					effects.spawn_impact(TerrainView.to_3d(p, world.map.height_at(p) + 1.0), 0.6)  # marker flash
 			"disabled":
 				var u: SimUnit = world.units[e["unit"]]
 				if u is SimStructure:

@@ -33,6 +33,8 @@ var awake := true  # FIT Active
 var ejected := false  # the pilot left (coreEject): the unit is inert
 var capturable := false  # CAPTURABLE: by type, or named by a capture objective (capture-and-objectives.md A1)
 var captured_flag := false  # ABL setCaptured only (isCaptured reads it, A6)
+var refit_pool := 0.0  # repair truck: points left to repair with (support-powers.md 3.4)
+var resource_points := 0  # paid to the player when captured (RP buildings, ordnance trucks)
 var hulk := false  # a captured vehicle: on the capturer's team but inert and outside its force (A4)
 
 var position := Vector2.ZERO  # metres; x east, y north

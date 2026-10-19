@@ -93,6 +93,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.keycode == KEY_ESCAPE:
 		if view.flyby and not view.flyby._done:
 			return  # the flyby takes Esc as "skip"
+		if view.input and view.input.support_kind != "":
+			return  # Esc cancels support targeting first
 		if ended:
 			return
 		if panel.visible:

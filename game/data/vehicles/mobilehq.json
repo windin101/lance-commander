@@ -8,6 +8,8 @@
  "battle_rating": 25,
  "explosion_damage": 0.0,
  "explosion_radius": 0.0,
+ "refit_points": -1000.0,
+ "resource_points": 0,
  "max_velocity": 15.0,
  "max_turret_yaw": 360.0,
  "max_turret_yaw_rate": 150.0,
