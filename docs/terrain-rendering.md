@@ -74,8 +74,19 @@ All of it is in the Shared Source release; nothing larger exists there (checked 
   leaves and breaks the trunk to a stump. `--no-hd` shows the original cards.
 - Not done: mesh LODs (the cards are cheap and auto-decimation mangles them).
 
+## Step 4: ground marks, and HD object textures
+
+- `decals_view.gd` + `tools/art/decals.py`: each mech's own footprint shape (from the original's 16 px cells,
+  redrawn at 128 px as a pressed print) at every footfall, fading after 90 s (360 max); craters where shots miss
+  and air strikes land, scorch under every wreck (160 max); a ring on the water where a mech wades. Decals
+  project onto render layer 2, which only the terrain and skirt are on.
+- Buildings, props and walls: the converter now reads multi/sub-object materials (I62: 140 models were white).
+  `tools/art/upscale_textures.py` 4x upscales every object's texture and the road/runway atlas with
+  RealESRGAN x4plus (BSD-3) into `<app>_hdtex.glb` / `overlays_hd.webp`; `tools/art/glb_webp.py` stores them as
+  JPEG (opaque) or WebP with alpha (cut-outs), 43 MB for 457 models. `--no-hd` shows the originals.
+
 ## Not yet
 
-Footprints, craters, scorch and mine decals, water wakes. Then step 2 (more
+Mine decals (the remake does not draw mines). Then step 2 (more
 ground resolution: terrain-type materials blended under the colour map, tessellation, an edge skirt) and
 step 3 (new vegetation with LODs, shadows, wind and instancing).

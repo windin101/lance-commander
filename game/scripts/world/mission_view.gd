@@ -14,6 +14,7 @@ var sm: SimMission
 var world: SimWorld
 var terrain: TerrainView
 var objects_view: ObjectsView
+var decals: DecalsView
 var effects: EffectsView
 var input: CommandInput
 var camera: RtsCamera
@@ -50,6 +51,10 @@ func _ready() -> void:
 	objects_view.name = "Objects"
 	add_child(objects_view)
 	objects_view.build(world.map, mission)
+	decals = DecalsView.new()
+	decals.name = "Decals"
+	add_child(decals)
+	decals.setup(world.map)
 	_lighting(cam_block, mission_fit)
 
 	for m in world.units:
@@ -160,9 +165,12 @@ func _add_view(m: SimUnit) -> void:
 	add_child(v)
 	v.setup(m, world.map)
 	views[m.id] = v
+	var foot_m := 1.25 * (1.6 + 0.024 * float(m.get("tonnage") if m.get("tonnage") != null else 50.0))  # 3.5 m at 50 t, 5 m at 100 t
 	v.footstep.connect(func(at: Vector3) -> void:
 		if audio:
-			audio.sfx("footstep", at, -10.0))
+			audio.sfx("footstep", at, -10.0)
+		if decals and m is SimMech:
+			decals.footstep(m.id, m.model, v.global_transform, foot_m))
 
 
 func _consume_events(show: bool) -> void:
@@ -188,18 +196,26 @@ func _consume_events(show: bool) -> void:
 				var from: MechView = views[e["from"]]
 				var to: MechView = views[e["to"]]
 				effects.spawn_shot(from.muzzle(), to.aim_point(), e["form"], e["hit"], e["flight"])
+				if not e["hit"] and decals and e["form"] != "laser":  # a miss gouges the ground near the target
+					var tu: SimUnit = world.units[e["to"]]
+					decals.crater(tu.position + Vector2(randf_range(-6.0, 6.0), randf_range(-6.0, 6.0)), randf_range(2.5, 4.0))
 			"impact":
 				if e.get("damage", 0.0) >= 5.0 and views.has(e["unit"]):
 					effects.spawn_impact(views[e["unit"]].aim_point(), 0.7)
 			"strike_impact":
 				var p: Vector2 = e["at"]
 				effects.spawn_impact(TerrainView.to_3d(p, world.map.height_at(p) + 3.0), 6.0)
+				if decals:
+					decals.crater(p, 16.0)
+					decals.crater(p, 24.0, true)
 			"support":
 				if e["kind"] == "air_strike":
 					var p: Vector2 = e["at"]
 					effects.spawn_impact(TerrainView.to_3d(p, world.map.height_at(p) + 1.0), 0.6)  # marker flash
 			"disabled":
 				var u: SimUnit = world.units[e["unit"]]
+				if decals:
+					decals.crater(u.position, 18.0 if u is SimStructure else 10.0, true)
 				if u is SimStructure:
 					objects_view.destroy(u.object_index)
 					effects.spawn_impact(TerrainView.to_3d(u.position, world.map.height_at(u.position) + 6.0), 4.0)
