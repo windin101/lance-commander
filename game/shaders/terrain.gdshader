@@ -1,24 +1,31 @@
 shader_type spatial;
-// Terrain: the mission colour map on flat ground (with the detail texture),
-// blending to a triplanar procedural rock on steep slopes so cliff faces are not
-// a smear of the top-down colour map. Rock is tinted by the colour map's local
-// average, so it follows each map's palette.
+render_mode ambient_light_disabled, specular_disabled;
+// Terrain, drawn the way MechCommander 2 drew it (2026-10-20, docs/terrain-rendering.md):
+// the mission colour map ("burn-in") already carries the sun's shading and cast shadows, painted by the
+// editor (terrtxm2.cpp burnInShadows), and the original drew it UNLIT (quad.cpp:1439-1441). So the ground
+// shows the colour map as painted: no ambient, no N.L. The sun only adds the dynamic shadows of mechs,
+// vehicles, buildings and trees (the ground itself casts none: its hills are already shaded in the map),
+// darkened to `shadow_floor`. Other lights (explosions, flashes) add on top, lit by N.L as the original's
+// point lights were.
+// Detail: the original alpha-blends the detail texture over the colour map with the texture's own alpha
+// (gos_Alpha_AlphaInvAlpha, a dark grey at about 10-20 %), tiled DetailTextureTilingFactor times.
+// Steep slopes keep the painted colour map and gain a light triplanar rock grain, so cliffs read as rock
+// up close without overwriting the artists' painted rock bands.
 
 uniform sampler2D colour_map : source_color, filter_linear_mipmap_anisotropic;
-uniform sampler2D detail_map : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D detail_map : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
 uniform sampler2D rock_noise : filter_linear_mipmap, repeat_enable;
-uniform float detail_tiling = 30.0;
-uniform float detail_strength = 0.6;
+uniform float detail_strength = 1.0;   // 1 = the original blend
 uniform float rock_scale = 0.14;
+uniform float rock_grain = 0.35;       // how much the rock grain modulates steep slopes (0 = none)
 uniform float slope_start = 0.32;
 uniform float slope_end = 0.62;
+uniform vec3 shadow_floor = vec3(0.62, 0.63, 0.68);  // lit fraction inside a dynamic shadow (per mission)
 
 varying vec3 world_pos;
-varying vec3 world_normal;
 
 void vertex() {
 	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	world_normal = normalize((MODEL_MATRIX * vec4(NORMAL, 0.0)).xyz);
 }
 
 float triplanar(vec3 p, vec3 n) {
@@ -32,19 +39,24 @@ float triplanar(vec3 p, vec3 n) {
 
 void fragment() {
 	vec3 base = texture(colour_map, UV).rgb;
-	vec3 detail = texture(detail_map, UV2).rgb;
-	vec3 ground = base * mix(vec3(1.0), detail * 1.6, detail_strength);
-	// Facet normal from screen-space derivatives: the smoothed vertex normals average
-	// a one-quad cliff with the flat ground around it and never look steep.
+	vec4 detail = texture(detail_map, UV2);
+	vec3 ground = mix(base, detail.rgb, detail.a * detail_strength);
 	vec3 facet = normalize(cross(dFdy(world_pos), dFdx(world_pos)));
 	if (facet.y < 0.0) facet = -facet;
 	float slope = 1.0 - clamp(facet.y, 0.0, 1.0);
 	float rock_mask = smoothstep(slope_start, slope_end, slope);
-	vec3 tint = textureLod(colour_map, UV, 5.0).rgb;
 	float n = triplanar(world_pos, facet);
 	float n2 = triplanar(world_pos * 3.1, facet);
-	float strata = 0.5 + 0.5 * sin(world_pos.y * 0.75 + n * 7.0 + n2 * 3.0);  // irregular rock bands
-	vec3 rock = tint * (0.4 + 0.85 * n) * (0.82 + 0.28 * strata) * (0.75 + 0.45 * n2);
-	ALBEDO = mix(ground, rock, rock_mask);
-	ROUGHNESS = mix(0.95, 0.8, rock_mask);
+	float grain = (0.55 + 0.9 * n) * (0.8 + 0.4 * n2);
+	ALBEDO = ground * mix(1.0, grain, rock_mask * rock_grain);
+	ROUGHNESS = 0.95;
+}
+
+void light() {
+	if (LIGHT_IS_DIRECTIONAL) {
+		// the sun: the colour map as painted, darkened only where something casts a shadow on it
+		DIFFUSE_LIGHT += mix(shadow_floor, vec3(1.0), ATTENUATION);
+	} else {
+		DIFFUSE_LIGHT += LIGHT_COLOR * ATTENUATION * max(dot(NORMAL, LIGHT), 0.0) / PI;
+	}
 }

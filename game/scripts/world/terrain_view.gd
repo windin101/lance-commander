@@ -6,6 +6,10 @@ extends Node3D
 ## the original's TerrainColorMap does.
 
 var map: SimMap
+## The mission FIT's [Water] block (AlphaShallow/Middle/Deep as packed ARGB, AlphaDepth), set before build().
+var water_fit: Dictionary = {}
+## [Terrain] WaterDetailTilingFactor.
+var water_detail_tiling := 45.0
 
 
 static func to_3d(pos: Vector2, height: float) -> Vector3:
@@ -27,6 +31,9 @@ func build(sim_map: SimMap, texture_dir: String) -> void:
 		mat.set_shader_parameter("detail_map", load(detail_path))
 	mat.set_shader_parameter("rock_noise", _noise_texture(false, 256, 0.02))
 	ground.material_override = mat
+	# The colour map already carries the hills' own shading and cast shadows (burn-in): the ground must
+	# not shadow itself again. It still receives the shadows of everything standing on it.
+	ground.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(ground)
 	if map.water_level_m > -100.0:
 		add_child(_water(texture_dir))
@@ -74,12 +81,17 @@ func _ground_mesh() -> ArrayMesh:
 	return st.commit()
 
 
-## Water plane at the mission's water level; opacity follows depth, from the
-## mission FIT's AlphaShallow / AlphaMiddle / AlphaDeep (125 / 175 / 255).
+## Water plane at the mission's water level. Opacity per vertex as the original set it (quad.cpp:2069-2105):
+## AlphaShallow where the ground is within AlphaDepth of the surface, AlphaDeep below 3 x AlphaDepth, and
+## AlphaMiddle between, from the mission FIT (packed ARGB: the top byte is the alpha). Dry vertices are
+## clear, so the shoreline fades out.
 func _water(texture_dir: String) -> MeshInstance3D:
 	var n := map.vertices_per_side
-	var shallow_m := float(map.meta.get("water_shallow_depth", 20.0)) * map.meters_per_wu
 	var tiling := float(map.meta.get("water_tiling", 48.0))
+	var a_depth := float(water_fit.get("AlphaDepth", map.meta.get("water_alpha_depth", 15.0))) * map.meters_per_wu
+	var a_sh := _alpha_byte(water_fit.get("AlphaShallow", 2097152000)) / 255.0
+	var a_mid := _alpha_byte(water_fit.get("AlphaMiddle", -1358954496)) / 255.0
+	var a_deep := _alpha_byte(water_fit.get("AlphaDeep", -16777216)) / 255.0
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	for row in n:
@@ -88,11 +100,9 @@ func _water(texture_dir: String) -> MeshInstance3D:
 			var depth := map.water_level_m - map.vertex_height(row, col)
 			var alpha := 0.0
 			if depth > 0.0:
-				alpha = lerpf(125.0, 175.0, clampf(depth / shallow_m, 0.0, 1.0)) / 255.0
-				if depth > shallow_m:
-					alpha = lerpf(175.0, 255.0, clampf((depth - shallow_m) / (shallow_m * 2.0), 0.0, 1.0)) / 255.0
+				alpha = a_sh if depth <= a_depth else (a_deep if depth >= 3.0 * a_depth else a_mid)
 			st.set_color(Color(1, 1, 1, alpha))
-			st.set_uv(Vector2(float(col) / n, float(row) / n) * tiling * 0.25)
+			st.set_uv(Vector2(float(col) / n, float(row) / n))
 			st.add_vertex(to_3d(pos, map.water_level_m))
 	for row in n - 1:
 		for col in n - 1:
@@ -112,9 +122,19 @@ func _water(texture_dir: String) -> MeshInstance3D:
 	mat.set_shader_parameter("water_tex", load(texture_dir.path_join("water.tga")))
 	mat.set_shader_parameter("wave_noise", _noise_texture(true, 256, 0.04))
 	mat.set_shader_parameter("tiling", tiling)
+	mat.set_shader_parameter("detail_tiling", water_detail_tiling)
+	var sparkle := texture_dir.path_join("water_detail.png")
+	if ResourceLoader.exists(sparkle):
+		mat.set_shader_parameter("detail_atlas", load(sparkle))
+		mat.set_shader_parameter("detail_strength", 1.0)
 	# Mission [Water] Frequency / Ampliture (world units) -> a gentle swell in metres.
 	var amp := float(map.meta.get("water_amplitude", 3.0)) * map.meters_per_wu
 	mat.set_shader_parameter("swell_height", clampf(amp, 0.1, 1.5))
 	water.material_override = mat
 	water.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	return water
+
+
+## Alpha of a packed ARGB value from the FIT (stored as a signed 32-bit integer).
+static func _alpha_byte(v) -> float:
+	return float((int(v) >> 24) & 255)

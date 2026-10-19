@@ -28,6 +28,10 @@ func build(sim_map: SimMap, mission: String) -> int:
 			if not ResourceLoader.exists(res) or OS.get_cmdline_user_args().has("--no-hd"):
 				res = "res://assets/objects/%s.glb" % app
 			scenes[app] = load(res) if ResourceLoader.exists(res) else null
+			if scenes[app] != null:
+				var probe: Node3D = scenes[app].instantiate()
+				_matte(probe)  # materials are shared by every instance of this model
+				probe.free()
 		if scenes[app] == null:
 			continue
 		var node: Node3D = scenes[app].instantiate()
@@ -54,3 +58,18 @@ func destroy(index: int) -> void:
 		nodes[index] = wreck
 	else:
 		node.scale = Vector3(1.0, 0.25, 1.0)  # no damaged model: flatten the ruin
+
+
+## The original lit map objects with the sun and ambient only (no specular, bdactor.cpp:4046-4120). Under the
+## linear tone curve a glTF material's default specular blows sunlit tree tops out to white, so map objects
+## are made matte.
+static func _matte(n: Node) -> void:
+	if n is MeshInstance3D and n.mesh:
+		for i in n.mesh.get_surface_count():
+			var m: Material = n.mesh.surface_get_material(i)
+			if m is BaseMaterial3D:
+				m.metallic_specular = 0.0
+				m.metallic = 0.0
+				m.roughness = 1.0
+	for c in n.get_children():
+		_matte(c)
