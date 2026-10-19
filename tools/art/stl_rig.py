@@ -54,9 +54,14 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def load_stl(path):
     data = Path(path).read_bytes()
-    n = struct.unpack_from("<I", data, 80)[0]
+    n = struct.unpack_from("<I", data, 80)[0] if len(data) >= 84 else -1
     if 84 + 50 * n != len(data):
-        raise SystemExit(f"{path}: not a plain binary STL")
+        if data.lstrip()[:5].lower() == b"solid":  # ASCII STL (some uploads): the "vertex x y z" lines, three per facet
+            import re
+            v = np.array(re.findall(rb"vertex\s+(\S+)\s+(\S+)\s+(\S+)", data), dtype=float)
+            if len(v) and len(v) % 3 == 0:
+                return v.reshape(-1, 3, 3)
+        raise SystemExit(f"{path}: not a plain binary or ASCII STL")
     rec = np.frombuffer(data, dtype=np.dtype([("n", "<f4", 3), ("v", "<f4", (3, 3)), ("a", "<u2")]), count=n, offset=84)
     return rec["v"].astype(float)
 
