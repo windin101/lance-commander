@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-19T17:01:33+13:00",
+  "updated": "2026-10-19T17:46:46+13:00",
   "phase": {
     "current": 7,
     "status": "gated"
@@ -201,7 +201,8 @@
       "report": null,
       "runs": [
         "wf_2391523b-26b",
-        "wf_184c9edf-383"
+        "wf_184c9edf-383",
+        "wf_5f12b3e2-5f9"
       ],
       "done_gate": {
         "passed": false,
@@ -714,10 +715,10 @@
       "repro": "python3 -I tools/art/hd_mech.py wolfhound --from-step 2 --seed 8",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:55:10+13:00",
-      "updated": "2026-10-19T16:55:10+13:00",
-      "note": null
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "wolfhound approved in review"
     },
     {
       "id": "I35",
@@ -727,10 +728,10 @@
       "repro": "python3 -I tools/art/hd_mech.py mediumcopter --from-step 2 --seed 11 --prompt vehicles",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "duplicate",
       "created": "2026-10-19T16:55:10+13:00",
-      "updated": "2026-10-19T16:59:41+13:00",
-      "note": "copters need the vehicle prompt; seeds 7-10 tried"
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "superseded by I47"
     },
     {
       "id": "I36",
@@ -740,10 +741,10 @@
       "repro": "python3 -I tools/art/hd_mech.py heavycopter --from-step 3 --mesh-seed 4242",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "duplicate",
       "created": "2026-10-19T16:55:10+13:00",
-      "updated": "2026-10-19T16:55:10+13:00",
-      "note": null
+      "updated": "2026-10-19T17:46:45+13:00",
+      "note": "superseded by I48"
     },
     {
       "id": "I37",
@@ -753,10 +754,10 @@
       "repro": "python3 -I tools/art/hd_mech.py hunchback --from-step 2 --seed 12",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:55:33+13:00",
-      "updated": "2026-10-19T16:59:41+13:00",
-      "note": "seed 8 (tries 8-11) drifted again; next untried block is 12"
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "hunchback approved in review"
     },
     {
       "id": "I38",
@@ -766,10 +767,10 @@
       "repro": "python3 -I tools/art/hd_mech.py urbanmech --from-step 4 --turn",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:55:37+13:00",
-      "updated": "2026-10-19T16:55:37+13:00",
-      "note": null
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "urbanmech approved in review"
     },
     {
       "id": "I39",
@@ -779,10 +780,10 @@
       "repro": "python3 -I tools/art/hd_mech.py atlas --from-step 1 --seed 12",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "duplicate",
       "created": "2026-10-19T16:55:37+13:00",
-      "updated": "2026-10-19T16:59:41+13:00",
-      "note": "seeds 7-11 tried; the fault is the crop (head cut off at render zoom 1.25), so re-render from step 1; if it still crops, widen the pad margin in hd_mech.render"
+      "updated": "2026-10-19T17:46:45+13:00",
+      "note": "superseded by I49"
     },
     {
       "id": "I40",
@@ -792,10 +793,10 @@
       "repro": "python3 -I tools/art/hd_mech.py cyclops --from-step 2 --seed 8",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:55:49+13:00",
-      "updated": "2026-10-19T16:55:49+13:00",
-      "note": null
+      "updated": "2026-10-19T17:46:45+13:00",
+      "note": "cyclops approved in review"
     },
     {
       "id": "I41",
@@ -805,10 +806,10 @@
       "repro": "python3 -I tools/art/hd_mech.py enfield --from-step 3 --mesh-seed 4242",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:55:49+13:00",
-      "updated": "2026-10-19T16:55:49+13:00",
-      "note": null
+      "updated": "2026-10-19T17:46:45+13:00",
+      "note": "enfield approved in review"
     },
     {
       "id": "I42",
@@ -818,10 +819,10 @@
       "repro": "python3 -I tools/art/hd_mech.py laohu --from-step 2 --seed 9",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "duplicate",
       "created": "2026-10-19T16:55:50+13:00",
-      "updated": "2026-10-19T16:55:50+13:00",
-      "note": null
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "superseded by I50"
     },
     {
       "id": "I43",
@@ -831,10 +832,10 @@
       "repro": "python3 -I tools/art/hd_mech.py madcat --from-step 2 --seed 8",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "duplicate",
       "created": "2026-10-19T16:55:50+13:00",
-      "updated": "2026-10-19T16:55:50+13:00",
-      "note": null
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "superseded by I51"
     },
     {
       "id": "I44",
@@ -844,10 +845,10 @@
       "repro": "python3 -I tools/art/hd_mech.py ryoken --from-step 2 --seed 8",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "duplicate",
       "created": "2026-10-19T16:55:50+13:00",
-      "updated": "2026-10-19T16:55:50+13:00",
-      "note": null
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "superseded by I52"
     },
     {
       "id": "I45",
@@ -857,10 +858,10 @@
       "repro": "python3 -I tools/art/hd_mech.py thor --from-step 2 --seed 8",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "duplicate",
       "created": "2026-10-19T16:56:26+13:00",
-      "updated": "2026-10-19T16:56:26+13:00",
-      "note": null
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "superseded by I53"
     },
     {
       "id": "I46",
@@ -870,10 +871,114 @@
       "repro": "python3 -I tools/art/hd_mech.py vulture --from-step 3 --mesh-seed 4242",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "duplicate",
       "created": "2026-10-19T16:56:26+13:00",
-      "updated": "2026-10-19T16:56:26+13:00",
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "superseded by I54"
+    },
+    {
+      "id": "I47",
+      "sev": "P2",
+      "title": "HD mediumcopter: reseed_mesh",
+      "detail": "Orientation correct at yaw 35 (no turn); prescreen disagreement is spurious (both renders show the same view). Concept seed 11 is faithful: silhouette, dorsal mast/sensor ball, chin gun, red tail stripes, nothing added. Fit 0.691 m (mesh seed 1234, turn false) is in range. Mesh is a leaky shell: white shows through the open tail-boom end and side grille, and torn white speckles run along the belly and lower hull edge (yaw 215). Patchy purple paint-mask blotches likely come from the torn surface. Rerun with a different --mesh-seed, keep concept seed 11; 1234 also gave the Harasser its debris ring.",
+      "repro": "python3 -I tools/art/hd_mech.py mediumcopter --from-step 3 --mesh-seed 4242 --prompt vehicles",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T17:43:20+13:00",
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "repro planned by hd_redo.py: mesh seeds tried [1234] -> 4242"
+    },
+    {
+      "id": "I48",
+      "sev": "P2",
+      "title": "HD heavycopter: reseed_mesh",
+      "detail": "Concept seed 7 (zoom 1.25) is good: same pose, rotor, tail fin, red missile pods, twin chin guns, nothing added. Mesh seed 4242 is junk: large debris ring (rotor blades fragmented into loose triangles), shredded hull with holes, rotor and pods lost, body sits low and cropped. Fit 1.83 m near the 2 m failure line, driven by debris. Orientation matches original (no turn); prescreen 'rear' verdict is debris clutter. Change --mesh-seed (4242 is the failing seed, so the repro must use a different one, e.g. 1234 or 7777), keep concept seed 7. If the rotor keeps fragmenting, a concept/framing that keeps thin rotor blades out of the mesh may be needed.",
+      "repro": "python3 -I tools/art/hd_mech.py heavycopter --from-step 3 --mesh-seed 777 --prompt vehicles",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T17:43:20+13:00",
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "repro planned by hd_redo.py: mesh seeds tried [1234, 4242] -> 777"
+    },
+    {
+      "id": "I49",
+      "sev": "P2",
+      "title": "HD atlas: reseed_concept",
+      "detail": "The HD faces the right way (skull face visible at yaw 35) and the mesh is whole, but the concept changed the pose and silhouette. The original holds both forearms forward with block fists under big rounded shoulder pods; the concept (seed 12, render_zoom 1.25) crops the head off at the top and redraws the arms hanging straight down with hands, and the HD followed it. The shoulder pods are smaller and the forearms point down instead of forward. Fit 0.83 m is higher than the others. Seeds 7-10 were already rejected, so consider a lower render_zoom so the head isn't cropped, as well as a new seed.",
+      "repro": "python3 -I tools/art/hd_mech.py atlas --from-step 1 --subject-px 560 --seed 13",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T17:43:36+13:00",
+      "updated": "2026-10-19T17:46:45+13:00",
+      "note": "repro planned by hd_redo.py: concept seeds tried [7, 8, 9, 10, 12] -> 13; cropped, re-render with more margin"
+    },
+    {
+      "id": "I50",
+      "sev": "P2",
+      "title": "HD laohu: reseed_mesh",
+      "detail": "A flat ring of debris floats above the torso in both HD views: the debris fault Harasser had on mesh seed 1234, the same seed used here. The torso is also a flat wing-like slab with only one barrel, where the original has missile/gun pods on both arms. Fit 0.92 m, and the orientation check was barely decisive (0.590 fitted vs 0.622 turned). Looking at it, the yaw-35 gun points the same way as the original's, so it isn't backwards; the local LLM called hd_front34 a back view, but that view is unreadable because of the slab. The concept (seed 9) also swapped the original's box launchers for twin rotary barrels on a raised deck. Try a new mesh seed first (4242 has worked twice); if the slab and debris persist, reseed the concept too.",
+      "repro": "python3 -I tools/art/hd_mech.py laohu --from-step 3 --mesh-seed 4242",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T17:43:36+13:00",
+      "updated": "2026-10-19T17:43:36+13:00",
       "note": null
+    },
+    {
+      "id": "I51",
+      "sev": "P2",
+      "title": "HD madcat: reseed_concept",
+      "detail": "The concept (seed 8) drifted. It is drawn straight from the front, not at 3/4. The cockpit canopy is gone, leaving a plain armoured box. The two box-shaped arm gun pods became rounded fist or pod shapes. The HD mesh follows that concept: at yaw 35 it is a bulbous blob, the missile racks have melted into rounded 'ears', the arm guns are lost and there is no readable cockpit, so the silhouette and weapon placement don't match the original. The fit is 0.884 m (provenance.json), poor for a mech. Facing can't be judged on this mesh, and local-llm called the original front-facing but the HD one a back view. Reseed the concept, then check the facing again on the new mesh.",
+      "repro": "python3 -I tools/art/hd_mech.py madcat --from-step 2 --seed 9",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T17:43:38+13:00",
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "repro planned by hd_redo.py: concept seeds tried [8] -> 9"
+    },
+    {
+      "id": "I52",
+      "sev": "P2",
+      "title": "HD ryoken: reseed_mesh",
+      "detail": "The concept is faithful: 3/4 view, the missile box above the canopy, twin guns on each arm, the same legs. The HD yaw-35 render faces the same way as the original, and the arm guns sit in the right places. The fit is good at 0.471 m. However, there are loose debris fragments scattered under both feet in both the yaw-35 and yaw-215 renders. That is a mesh-seed artefact (seed 1234, the same seed that made the Harasser debris ring), so change the mesh seed rather than try to filter it. Separately, the canopy and missile-box detail is smoothed out in the mesh.",
+      "repro": "python3 -I tools/art/hd_mech.py ryoken --from-step 3 --mesh-seed 4242",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T17:43:38+13:00",
+      "updated": "2026-10-19T17:43:38+13:00",
+      "note": null
+    },
+    {
+      "id": "I53",
+      "sev": "P2",
+      "title": "HD thor: reseed_mesh",
+      "detail": "The concept matches the original: the shoulder missile pod, the two forward arm barrels, the same legs. The HD yaw-35 render faces the same way as the original, with the missile-pod tubes and arm-gun muzzles toward the camera, and the fit is 0.637 m, acceptable. However, the HD mesh has a vertical fin or mast sticking up from the top of the missile pod. It is in neither the original nor the concept, so the mesher added it, and added masts break the rules. Change the mesh seed (4242 has worked before). Apart from the fin, the silhouette is right.",
+      "repro": "python3 -I tools/art/hd_mech.py thor --from-step 3 --mesh-seed 4242",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T17:43:38+13:00",
+      "updated": "2026-10-19T17:43:38+13:00",
+      "note": null
+    },
+    {
+      "id": "I54",
+      "sev": "P2",
+      "title": "HD vulture: reseed_mesh",
+      "detail": "fit_m 0.475 (concept seed 7, mesh seed 4242, no turn). Orientation right. Concept clean with thin shin struts; HD mesh lost both lower-leg struts (ragged splinters), foot pods float detached under the thighs at yaw 35 and 215. Missing-limb mesh fault (Hunyuan draw or debris-fragment drop removing thin struts). Change --mesh-seed (4242 failed), keep concept seed 7. Local-LLM prescreen answered back for both original and HD: unreliable.",
+      "repro": "python3 -I tools/art/hd_mech.py vulture --from-step 3 --mesh-seed 777",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T17:43:46+13:00",
+      "updated": "2026-10-19T17:46:46+13:00",
+      "note": "repro planned by hd_redo.py: mesh seeds tried [1234, 4242] -> 777"
     }
   ],
   "coverage": {
@@ -881,7 +986,7 @@
       "hd_mechs": {
         "needed": 30,
         "done": 30,
-        "approved": 17
+        "approved": 22
       },
       "hd_vehicles": {
         "needed": 28,
@@ -944,6 +1049,17 @@
       "tokens": 695610,
       "status": "ok",
       "note": "batch 2, 23 mechs: 10 approved, 13 redo (9 concept, 3 mesh, 1 turn); critic fixed 3 repros and 4 missing seeds"
+    },
+    {
+      "id": "wf_5f12b3e2-5f9",
+      "phase": 7,
+      "workflow": "phase-7-hd-review",
+      "started": "2026-10-19T17:46:46+13:00",
+      "ended": "2026-10-19T17:46:46+13:00",
+      "agents": 9,
+      "tokens": 480660,
+      "status": "ok",
+      "note": "batch 3, 13 mechs: 5 approved, 8 redo (6 mesh, 2 concept); critic: every new repro reused a failed seed"
     }
   ],
   "log": [
@@ -1536,6 +1652,176 @@
       "at": "2026-10-19T17:01:33+13:00",
       "who": "conductor",
       "msg": "decided C27: Batch 3: run the 13 open HD redos on GPU0 straight away, each from its issue's repro (script generated from state.json, one redo per mech asserted) \u2014 GPU0 is idle and the repros are corrected; this is the conductor's own rerun list, not a new look"
+    },
+    {
+      "at": "2026-10-19T17:40:59+13:00",
+      "who": "conductor",
+      "msg": "batch 3 done 17:40: 13/13 redos ran OK (40 min); review launched in 4 groups"
+    },
+    {
+      "at": "2026-10-19T17:43:20+13:00",
+      "who": "game-art",
+      "msg": "issue I47 P2: HD mediumcopter: reseed_mesh"
+    },
+    {
+      "at": "2026-10-19T17:43:20+13:00",
+      "who": "game-art",
+      "msg": "issue I48 P2: HD heavycopter: reseed_mesh"
+    },
+    {
+      "at": "2026-10-19T17:43:20+13:00",
+      "who": "game-art",
+      "msg": "phase 7 review group 4: 0 approved, 2 issues"
+    },
+    {
+      "at": "2026-10-19T17:43:36+13:00",
+      "who": "game-art",
+      "msg": "issue I49 P2: HD atlas: reseed_concept"
+    },
+    {
+      "at": "2026-10-19T17:43:36+13:00",
+      "who": "game-art",
+      "msg": "issue I50 P2: HD laohu: reseed_mesh"
+    },
+    {
+      "at": "2026-10-19T17:43:38+13:00",
+      "who": "game-art",
+      "msg": "issue I51 P2: HD madcat: reseed_concept"
+    },
+    {
+      "at": "2026-10-19T17:43:38+13:00",
+      "who": "game-art",
+      "msg": "issue I52 P2: HD ryoken: reseed_mesh"
+    },
+    {
+      "at": "2026-10-19T17:43:38+13:00",
+      "who": "game-art",
+      "msg": "issue I53 P2: HD thor: reseed_mesh"
+    },
+    {
+      "at": "2026-10-19T17:43:38+13:00",
+      "who": "game-art",
+      "msg": "phase 7 review group 2: 1 approved, 3 issues"
+    },
+    {
+      "at": "2026-10-19T17:43:42+13:00",
+      "who": "game-art",
+      "msg": "phase 7 review group 1: 2 approved, 2 issues"
+    },
+    {
+      "at": "2026-10-19T17:43:46+13:00",
+      "who": "game-art",
+      "msg": "issue I54 P2: HD vulture: reseed_mesh"
+    },
+    {
+      "at": "2026-10-19T17:43:46+13:00",
+      "who": "game-art",
+      "msg": "phase 7 review group 3: 2 approved, 1 issues"
+    },
+    {
+      "at": "2026-10-19T17:46:45+13:00",
+      "who": "conductor",
+      "msg": "issue I39 duplicate: superseded by I49"
+    },
+    {
+      "at": "2026-10-19T17:46:45+13:00",
+      "who": "conductor",
+      "msg": "issue I49 updated: repro, note \u2014 repro planned by hd_redo.py: concept seeds tried [7, 8, 9, 10, 12] -> 13; cropped, re-render with more margin"
+    },
+    {
+      "at": "2026-10-19T17:46:45+13:00",
+      "who": "conductor",
+      "msg": "issue I40 fixed: cyclops approved in review"
+    },
+    {
+      "at": "2026-10-19T17:46:45+13:00",
+      "who": "conductor",
+      "msg": "issue I41 fixed: enfield approved in review"
+    },
+    {
+      "at": "2026-10-19T17:46:45+13:00",
+      "who": "conductor",
+      "msg": "issue I36 duplicate: superseded by I48"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I48 updated: repro, note \u2014 repro planned by hd_redo.py: mesh seeds tried [1234, 4242] -> 777"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I37 fixed: hunchback approved in review"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I42 duplicate: superseded by I50"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I43 duplicate: superseded by I51"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I51 updated: repro, note \u2014 repro planned by hd_redo.py: concept seeds tried [8] -> 9"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I35 duplicate: superseded by I47"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I47 updated: repro, note \u2014 repro planned by hd_redo.py: mesh seeds tried [1234] -> 4242"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I44 duplicate: superseded by I52"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I45 duplicate: superseded by I53"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I38 fixed: urbanmech approved in review"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I46 duplicate: superseded by I54"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I54 updated: repro, note \u2014 repro planned by hd_redo.py: mesh seeds tried [1234, 4242] -> 777"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "issue I34 fixed: wolfhound approved in review"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "run wf_5f12b3e2-5f9 (phase-7-hd-review) ok: 9 agents, 480660 tokens"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "decided C28: Redo repros are computed by tools/art/hd_redo.py from the seed history, not written by review agents; it also keeps one open redo issue per mech and closes approved ones \u2014 three reviews in a row the critic found repros that would rerun a failed seed, plus duplicate and unclosed issues; it is a calculation from history, so it belongs in code"
+    },
+    {
+      "at": "2026-10-19T17:46:46+13:00",
+      "who": "conductor",
+      "msg": "decided C29: Batch 4: the 8 redos from hd_redo.py on GPU0 now (atlas re-rendered with --subject-px 560 for the head crop) \u2014 GPU0 idle; repros now come from the seed history"
     }
   ],
   "choices": [
@@ -1879,6 +2165,31 @@
       ],
       "who": "conductor",
       "at": "2026-10-19T17:01:33+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C28",
+      "phase": 7,
+      "what": "Redo repros are computed by tools/art/hd_redo.py from the seed history, not written by review agents; it also keeps one open redo issue per mech and closes approved ones",
+      "why": "three reviews in a row the critic found repros that would rerun a failed seed, plus duplicate and unclosed issues; it is a calculation from history, so it belongs in code",
+      "alternatives": [
+        "tell the record agents to read the history",
+        "have the conductor fix repros by hand each time"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T17:46:46+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C29",
+      "phase": 7,
+      "what": "Batch 4: the 8 redos from hd_redo.py on GPU0 now (atlas re-rendered with --subject-px 560 for the head crop)",
+      "why": "GPU0 idle; repros now come from the seed history",
+      "alternatives": [
+        "wait for Lee"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T17:46:46+13:00",
       "reversible": true
     }
   ]
