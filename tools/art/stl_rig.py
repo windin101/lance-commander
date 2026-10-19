@@ -353,6 +353,23 @@ def main():
     ap.add_argument("--source", default=""); ap.add_argument("--licence", default="CC BY-NC-SA 4.0")
     a = ap.parse_args()
     over = json.loads(Path(a.joints).read_text()) if a.joints and Path(a.joints).exists() else {}
+    # J.json "scale" (since 2026-10-20): multiplies the fit-to-height scale, for a sculpt whose highest point is not
+    # the mech's top (an open launcher lid). Every game-mm value in J.json is read as measured at scale 1 and scaled
+    # with it, so joints read off an earlier build's diag sheets stay valid. Angles, raw-unit and boolean keys are kept.
+    SC = float(over.get("scale", 1.0))
+    if SC != 1.0:
+        KEEP = {"turn", "base_cut", "yaw", "deg", "scale", "arms", "upper_skip_legs", "merge_mleg", "faces", "x_sign"}
+        def scl(o, key=None):
+            if key in KEEP:
+                return o
+            if isinstance(o, dict):
+                return {k_: scl(v_, k_) for k_, v_ in o.items()}
+            if isinstance(o, list):
+                return [scl(v_, key) for v_ in o]
+            if isinstance(o, (int, float)) and not isinstance(o, bool):
+                return o * SC
+            return o
+        over = scl(over)
 
     glb = ROOT / f"game/assets/mechs/{a.mech}.glb"
     og, ob = R.load_glb(str(glb))
@@ -393,7 +410,7 @@ def main():
             cut = float(np.sort(Cn0[low, 2])[int(0.98 * low.sum())]) + 0.002 * H0
     if cut:
         T = T[T.mean(1)[:, 2] > cut]; T[..., 2] -= T[..., 2].min()
-    k = H_o / T[..., 2].max()
+    k = H_o / T[..., 2].max() * SC
     T = T * k
     flat = T.reshape(-1, 3)
     T[..., :2] -= (flat[:, :2].min(0) + flat[:, :2].max(0)) / 2

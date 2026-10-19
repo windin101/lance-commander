@@ -98,7 +98,7 @@ The 3D mesh of the HD {name(a)} in `{a}_hd.glb` (and its paint mask `{a}_hd_pain
 {chr(10) + "**Rights note.** " + " ".join(unv) + " Lee Osborne approved its use on 2026-10-19 on the strength of the licence shown on the page. If you hold rights in the original material and want it removed, please open an issue." + chr(10) if unv else ""}
 ## Changes made
 
-The original STL was modified for use as a game model: {CHANGES['rigid' if rigid else 'mech']}. The changes are made by `{tool}`
+The original STL was modified for use as a game model: {CHANGES['rigid' if rigid else 'mech']}{('; ' + d['extra_changes']) if d.get('extra_changes') else ''}. The changes are made by `{tool}`
 in this repository (the settings it used: see `original/hd/{a}/provenance.json` in the build tree).
 
 ## Licence of this adaptation
