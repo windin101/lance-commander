@@ -1,0 +1,221 @@
+{
+ "types": {
+  "pine1": {
+   "kind": "conifer",
+   "height_m": 11.1,
+   "width_m": 6.4,
+   "tris": 318
+  },
+  "pine2": {
+   "kind": "conifer",
+   "height_m": 17.8,
+   "width_m": 7.6,
+   "tris": 378
+  },
+  "pine3": {
+   "kind": "conifer",
+   "height_m": 22.3,
+   "width_m": 9.5,
+   "tris": 438
+  },
+  "pine1dead": {
+   "kind": "conifer_dead",
+   "height_m": 7.5,
+   "width_m": 4.6,
+   "tris": 94
+  },
+  "pine2dead": {
+   "kind": "conifer_dead",
+   "height_m": 11.8,
+   "width_m": 4.6,
+   "tris": 94
+  },
+  "pine3dead": {
+   "kind": "conifer_dead",
+   "height_m": 14.4,
+   "width_m": 4.6,
+   "tris": 94
+  },
+  "oak1": {
+   "kind": "broadleaf",
+   "height_m": 19.4,
+   "width_m": 20.6,
+   "tris": 204
+  },
+  "oak2": {
+   "kind": "broadleaf",
+   "height_m": 11.5,
+   "width_m": 12.9,
+   "tris": 164
+  },
+  "oak3": {
+   "kind": "broadleaf",
+   "height_m": 13.0,
+   "width_m": 15.2,
+   "tris": 174
+  },
+  "maple1": {
+   "kind": "broadleaf",
+   "height_m": 10.0,
+   "width_m": 11.4,
+   "tris": 154
+  },
+  "maple2": {
+   "kind": "broadleaf",
+   "height_m": 10.0,
+   "width_m": 11.4,
+   "tris": 154
+  },
+  "maple3": {
+   "kind": "broadleaf",
+   "height_m": 10.0,
+   "width_m": 11.4,
+   "tris": 154
+  },
+  "birch1": {
+   "kind": "broadleaf",
+   "height_m": 10.0,
+   "width_m": 4.1,
+   "tris": 124
+  },
+  "birch2": {
+   "kind": "broadleaf",
+   "height_m": 11.5,
+   "width_m": 4.9,
+   "tris": 124
+  },
+  "birch3": {
+   "kind": "broadleaf",
+   "height_m": 13.0,
+   "width_m": 5.4,
+   "tris": 132
+  },
+  "jungletree1": {
+   "kind": "broadleaf",
+   "height_m": 9.3,
+   "width_m": 10.0,
+   "tris": 154
+  },
+  "jungletree2": {
+   "kind": "broadleaf",
+   "height_m": 15.1,
+   "width_m": 15.1,
+   "tris": 184
+  },
+  "willow1": {
+   "kind": "willow",
+   "height_m": 10.0,
+   "width_m": 13.1,
+   "tris": 160
+  },
+  "willow2": {
+   "kind": "willow",
+   "height_m": 11.6,
+   "width_m": 15.2,
+   "tris": 160
+  },
+  "willow3": {
+   "kind": "willow",
+   "height_m": 13.0,
+   "width_m": 17.1,
+   "tris": 160
+  },
+  "oak1dead": {
+   "kind": "broadleaf_dead",
+   "height_m": 19.4,
+   "width_m": 20.0,
+   "tris": 196
+  },
+  "oak2dead": {
+   "kind": "broadleaf_dead",
+   "height_m": 11.5,
+   "width_m": 11.9,
+   "tris": 196
+  },
+  "oak3dead": {
+   "kind": "broadleaf_dead",
+   "height_m": 12.9,
+   "width_m": 13.3,
+   "tris": 196
+  },
+  "maple1dead": {
+   "kind": "broadleaf_dead",
+   "height_m": 10.0,
+   "width_m": 10.3,
+   "tris": 196
+  },
+  "maple2dead": {
+   "kind": "broadleaf_dead",
+   "height_m": 10.0,
+   "width_m": 10.3,
+   "tris": 196
+  },
+  "maple3dead": {
+   "kind": "broadleaf_dead",
+   "height_m": 10.0,
+   "width_m": 10.3,
+   "tris": 196
+  },
+  "willow1dead": {
+   "kind": "broadleaf_dead",
+   "height_m": 10.0,
+   "width_m": 10.3,
+   "tris": 196
+  },
+  "willow2dead": {
+   "kind": "broadleaf_dead",
+   "height_m": 11.6,
+   "width_m": 12.0,
+   "tris": 196
+  },
+  "willow3dead": {
+   "kind": "broadleaf_dead",
+   "height_m": 13.0,
+   "width_m": 13.4,
+   "tris": 196
+  },
+  "birch3dead": {
+   "kind": "broadleaf_dead",
+   "height_m": 13.0,
+   "width_m": 5.4,
+   "tris": 196
+  },
+  "palm1": {
+   "kind": "palm",
+   "height_m": 13.9,
+   "width_m": 4.9,
+   "tris": 90
+  },
+  "palms": {
+   "kind": "palm_group",
+   "height_m": 12.8,
+   "width_m": 13.4,
+   "tris": 270
+  },
+  "tc1_1": {
+   "kind": "clump",
+   "height_m": 23.9,
+   "width_m": 26.0,
+   "tris": 1082
+  },
+  "tc1_2": {
+   "kind": "clump",
+   "height_m": 23.9,
+   "width_m": 26.0,
+   "tris": 660
+  },
+  "tc1_3": {
+   "kind": "clump",
+   "height_m": 23.9,
+   "width_m": 25.9,
+   "tris": 792
+  },
+  "tc1_4": {
+   "kind": "clump",
+   "height_m": 23.9,
+   "width_m": 26.4,
+   "tris": 1266
+  }
+ },
+ "sources": "Poly Haven fir_tree_01, pine_tree_01, jacaranda_tree textures (CC0 1.0)"
+}

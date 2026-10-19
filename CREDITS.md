@@ -72,6 +72,12 @@ below. None of the creators has endorsed this project. The full notice for each,
 `game/assets/terrain/detail/` is derived from CC0 1.0 materials by ambientCG (https://ambientcg.com): Grass004,
 Ground037, Rock058, Ground054 and Snow006. CC0 needs no credit; it is given anyway.
 
+### Tree foliage and bark
+
+`game/assets/trees/` (leaf atlas, bark, and the procedural trees built on them by `tools/art/trees.py`) is derived
+from CC0 1.0 textures by Poly Haven (https://polyhaven.com): fir_tree_01 twig, pine_tree_01 bark and
+jacaranda_tree leaves. CC0 needs no credit; it is given anyway.
+
 ### MechCommander 2 Shared Source release
 
 Game data, original models, textures, audio and animations converted from Microsoft's 2006
