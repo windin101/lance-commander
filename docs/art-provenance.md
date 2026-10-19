@@ -34,7 +34,7 @@ Shared Source release's mech models and textures, so they carry that release's E
 | Enfield (`enfield`) | 8 | 4242 | no | 0.458 m | approved |
 | Flea (`flea`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "FLE-4 Flea for Battletech" by Syllogy, https://www.printables.com/model/1863913, CC BY-NC-SA 4.0; notice in `flea_hd.LICENSE.md`, 119176 tris |
 | Heavy copter (`heavycopter`) | adapted | adapted | n/a | 0.696 m (fitted) | **redo, I61**: reseed_concept; "Balac VTOL" by RGriffin65, https://www.thingiverse.com/thing:6758723, CC BY-SA 4.0; notice in `heavycopter_hd.LICENSE.md`, 39675 tris |
-| Highlander (`highlander`) | adapted | adapted | n/a | exact (rigged on the skeleton) | **look call, I67**; "HGN-732 Highlander for Battletech" by Syllogy, https://www.printables.com/model/1863932, CC BY-NC-SA 4.0; notice in `highlander_hd.LICENSE.md`, 115710 tris |
+| Highlander (`highlander`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "HGN-732 Highlander for Battletech" by Syllogy, https://www.printables.com/model/1863932, CC BY-NC-SA 4.0; notice in `highlander_hd.LICENSE.md`, 115710 tris |
 | Hollander (`hollander`) | 7 | 1234 (default, inferred) | no | 0.409 m | approved |
 | Hunchback (`hunchback`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "HBK-4G Hunchback for Battletech" by Syllogy, https://www.printables.com/model/1863925, CC BY-NC-SA 4.0; notice in `hunchback_hd.LICENSE.md`, 115502 tris |
 | JaegerMech (`jaegermech`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "JM6-S4 Jagermech for Battletech" by Syllogy, https://www.printables.com/model/1863950, CC BY-NC-SA 4.0; notice in `jaegermech_hd.LICENSE.md`, 131402 tris |
@@ -49,12 +49,12 @@ Shared Source release's mech models and textures, so they carry that release's E
 | Shootist (`shootist`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Shootist Battlemech" by UnrestedGuy, https://www.thingiverse.com/thing:7263860, CC BY-NC-SA 4.0; notice in `shootist_hd.LICENSE.md`, 136513 tris |
 | Starslayer (`starslayer`) | 8 | 1234 | no | 0.518 m | approved |
 | Thor (`thor`) | adapted | adapted | n/a | exact (rigged on the skeleton) | **redo, I58**: reseed_mesh; "Summoner Prime, AKA Thor for Battletech" by Syllogy, https://www.printables.com/model/1864004, CC BY-NC-SA 4.0; notice in `thor_hd.LICENSE.md`, 129304 tris |
-| Uller (`uller`) | adapted | adapted | n/a | exact (rigged on the skeleton) | **look call, I70**; "BattleTech Kit Fox (Uller) Alt Config V" by MiniHulkMechs, https://www.thingiverse.com/thing:6431420, CC BY-NC-SA 4.0; notice in `uller_hd.LICENSE.md`, 205852 tris |
-| UrbanMech (`urbanmech`) | adapted | adapted | n/a | exact (rigged on the skeleton) | **look call, I71**; "UM-R60 Urbanmech for Battletech" by Syllogy, https://www.printables.com/model/1864017, CC BY-NC-SA 4.0; notice in `urbanmech_hd.LICENSE.md`, 139270 tris |
+| Uller (`uller`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "BattleTech Kit Fox (Uller) Alt Config V" by MiniHulkMechs, https://www.thingiverse.com/thing:6431420, CC BY-NC-SA 4.0; notice in `uller_hd.LICENSE.md`, 205852 tris |
+| UrbanMech (`urbanmech`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "UM-R60 Urbanmech for Battletech" by Syllogy, https://www.printables.com/model/1864017, CC BY-NC-SA 4.0; notice in `urbanmech_hd.LICENSE.md`, 139270 tris |
 | Vulture (`vulture`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; Syllogy, 'Mad Dog Prime, aka Vulture for Battletech' (printables.com/model/1863972), CC BY-NC-SA 4.0; notice in `vulture_hd.LICENSE.md`, 48694 tris |
 | Werewolf (`werewolf`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Werewolf Battlemech" by UnrestedGuy, https://www.thingiverse.com/thing:6992277, CC BY-NC-SA 4.0; notice in `werewolf_hd.LICENSE.md`, 165021 tris |
 | Wolfhound (`wolfhound`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "WFL-1-P Wolfhound for Battletech" by Syllogy, https://www.printables.com/model/1864059, CC BY-NC-SA 4.0; notice in `wolfhound_hd.LICENSE.md`, 109232 tris |
-| Zeus (`zeus`) | adapted | adapted | n/a | exact (rigged on the skeleton) | **look call, I72**; "Zeus ZEU-6A" by ChewiewookTheVindicator, https://www.thingiverse.com/thing:7089967, CC BY-SA 4.0; notice in `zeus_hd.LICENSE.md`, 126781 tris |
+| Zeus (`zeus`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Zeus ZEU-6A" by ChewiewookTheVindicator, https://www.thingiverse.com/thing:7089967, CC BY-SA 4.0; notice in `zeus_hd.LICENSE.md`, 126781 tris |
 
 Fit, turn and concept seed come from `original/hd/<mech>/provenance.json` (written by `hd_mech.py` since 2026-10-19; the 13 rows above were backfilled with a step-4-only re-fit, nothing reinstalled). Mesh seed 1234 is the tool default and is inferred, not logged, for every mech whose step 3 ran before the change. "redo" rows are installed and in the game until their issue is fixed.
 
@@ -99,12 +99,12 @@ Adapted from licensed 3D-print sculpts by `tools/art/stl_hd.py` (these replace a
 | lrmc | "Heavy LRM Carrier" by RGriffin65, https://www.thingiverse.com/thing:7132255 | CC BY-SA 4.0 | 0.968 m | approved; Heavy_LRM_Carrier_.stl, 39513 tris |
 | minelayer | "Minelayer" by RGriffin65, https://www.thingiverse.com/thing:6916656 | CC BY-SA 4.0 | 0.551 m | approved; Minelayer.stl, 39518 tris |
 | mobilehq | "Praetorian Mobile HQ" by RGriffin65, https://www.thingiverse.com/thing:6599003 | CC BY-SA 4.0 | 0.711 m | approved; Praetorian.stl, 39837 tris |
-| mog | "Mobile Orbital Gun" by RGriffin65, https://www.thingiverse.com/thing:7180780 | CC BY-SA 4.0 | 1.741 m | **look call, I74**; Mobile_Orbital_Gun_.stl, Mobile_Orbital_Gun_turret__stowed.stl, 38984 tris |
+| mog | "Mobile Orbital Gun" by RGriffin65, https://www.thingiverse.com/thing:7180780 | CC BY-SA 4.0 | 1.741 m | approved; Mobile_Orbital_Gun_.stl, Mobile_Orbital_Gun_turret__stowed.stl, 38984 tris |
 | ordnancetruck | "Utility Truck" by RGriffin65, https://www.thingiverse.com/thing:6831725 | CC BY-SA 4.0 | 0.799 m | approved; utility_truck.stl, 38858 tris |
 | partisan | "Partisan Heavy Tank" by RGriffin65, https://www.thingiverse.com/thing:6943425 | CC BY-SA 4.0 | 0.660 m | approved; Partisan.stl, 39060 tris |
-| repairtruck | "Savior Recovery/Repair vehicle" by RGriffin65, https://www.thingiverse.com/thing:6786889 | CC BY-SA 4.0 | 0.941 m | **look call, I75**; Savior_repair_vehicle_stowed.stl, 39700 tris |
+| repairtruck | "Savior Recovery/Repair vehicle" by RGriffin65, https://www.thingiverse.com/thing:6786889 | CC BY-SA 4.0 | 0.941 m | approved; Savior_repair_vehicle_stowed.stl, 39700 tris |
 | storm | "Storm heavy tank" by RGriffin65, https://www.thingiverse.com/thing:6914336 | CC BY-SA 4.0 | 0.539 m | approved; Storm.stl, 38938 tris |
-| swarmlrmc | "Semi-Modular Weapons Carrier" by RGriffin65, https://www.thingiverse.com/thing:7123873 | CC BY-SA 4.0 | 0.625 m | **look call, I76**; hull.stl, launcher.stl, 38437 tris |
+| swarmlrmc | "Semi-Modular Weapons Carrier" by RGriffin65, https://www.thingiverse.com/thing:7123873 | CC BY-SA 4.0 | 0.625 m | approved; hull.stl, launcher.stl, 38437 tris |
 | trooptransport | "Packrat, APCs and Heavy APCs for use with Battletech" by Pfelpensson, https://www.thingiverse.com/thing:4592096 | CC BY 4.0 | 0.437 m | approved; Heavy_Track_APC_repaired.stl, 11918 tris |
 | truck | "Flatbed Truck" by RGriffin65, https://www.thingiverse.com/thing:7279963 | CC BY-SA 4.0 | 0.874 m | approved; Flat_Bed_.stl, 38740 tris |
 | vedette | "FightTech - Vedariant - 6mm" and "SciFi Vehicle - Aurochs-class Land Crawler - 6mm" (its Tank-Schrek turret) by Shiaic3D, https://www.printables.com/model/359188 and https://www.printables.com/model/108536 | CC BY 4.0 | 0.474 m | approved; BT-v_Vedette-Flatback-1.01.stl, BT-v_Tank-Schrek-Turret-1.40.stl, 10496 tris |
