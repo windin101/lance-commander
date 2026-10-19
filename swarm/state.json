@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T12:24:12+13:00",
+  "updated": "2026-10-20T12:32:29+13:00",
   "phase": {
     "current": 7,
     "status": "gated"
@@ -1347,6 +1347,19 @@
       "created": "2026-10-20T11:48:38+13:00",
       "updated": "2026-10-20T11:48:38+13:00",
       "note": null
+    },
+    {
+      "id": "I78",
+      "sev": "P3",
+      "title": "After feature complete: real textures for the adapted HD models (flat palette paint today)",
+      "detail": "Lee 2026-10-20: revisit once the game is feature complete. The 3D-print adaptations (30 mechs, 28 vehicles incl. infantry and powered armour) carry no texture, only per-triangle team-paint classes from a 64 px palette (base/hl1/hl2/metal/dark/glass): flat colour, saw-toothed edges where classes meet, no panel lines, decals, weathering or markings. Options to weigh then: bake AO + curvature-based edge wear into a real UV texture; project the original's texture art (like the CAD building bake, tools/art/cad_building.py); per-material procedural detail in a shader keyed on the paint class; hand or AI-painted textures for the hero units. Keep MechPaint's team-colour channels whatever the method.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T12:32:29+13:00",
+      "updated": "2026-10-20T12:32:29+13:00",
+      "note": null
     }
   ],
   "coverage": {
@@ -1359,7 +1372,7 @@
       "hd_vehicles": {
         "needed": 28,
         "done": 28,
-        "approved": 26
+        "approved": 28
       },
       "hd_objects": {
         "needed": 34,
@@ -1453,16 +1466,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:45:21+13:00",
-      "who": "playtester",
-      "msg": "issue I13 P3: autoplay: lance with only support vehicles left never counts as lost: mc2_10, mc2_15, mc2_22"
-    },
-    {
-      "at": "2026-10-19T16:45:21+13:00",
-      "who": "playtester",
-      "msg": "issue I14 P3: mc2_01: lance loses the Starslayer extraction fight on seed 2"
-    },
     {
       "at": "2026-10-19T16:45:21+13:00",
       "who": "playtester",
@@ -2452,6 +2455,16 @@
       "at": "2026-10-20T12:24:12+13:00",
       "who": "gate",
       "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
+    },
+    {
+      "at": "2026-10-20T12:32:29+13:00",
+      "who": "agent",
+      "msg": "lee: powered armour and new infantry (Guy_montag plasma_A) approved; all 28 HD vehicles approved"
+    },
+    {
+      "at": "2026-10-20T12:32:29+13:00",
+      "who": "game-art",
+      "msg": "issue I78 P3: After feature complete: real textures for the adapted HD models (flat palette paint today)"
     }
   ],
   "choices": [
