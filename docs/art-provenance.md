@@ -23,21 +23,23 @@ Shared Source release's mech models and textures, so they carry that release's E
 
 ### Per mech
 
-| Mech | Concept seed | Mesh seed | Turn | Fit (mean surface distance) |
-|---|---|---|---|---|
-| Bushwacker | 7 | 1234 | no | 0.56 m |
-| Werewolf | 21 (seed 7 drifted to a different design) | 1234 | no | 0.46 m |
-| Starslayer | 7 | 1234 | no | 0.90 m |
-| UrbanMech | 7 | 1234 | no | 0.43 m |
-| Catapult | 8 (seed 7 rejected by the plausibility check) | 1234 | not recorded | not recorded |
-| Highlander | 7 (default) | 1234 | not recorded | not recorded; render zoom 1.25 (tall mech) |
-| Hollander | 7 (default) | 1234 | not recorded | not recorded |
-| Hunchback | 7 (default) | 1234 | not recorded | not recorded |
-| Menshen | 7 (default) | 1234 | not recorded | not recorded |
-| Raven | 7 (default) | 1234 | not recorded | not recorded |
-| Zeus | 7 (default) | 1234 (explicit `m1234_*` work files) | not recorded | not recorded; render zoom 1.25 (tall mech) |
+| Mech | Concept seed | Mesh seed | Turn | Fit (mean surface distance) | Phase 7 review (2026-10-19) |
+|---|---|---|---|---|---|
+| Bushwacker | 7 | 1234 (default) | no | 0.964 m | **redo, I8**: concept centred the launcher rack on a wide symmetric body (original: offset right-shoulder launcher); first approval revoked, it was judged without the original tile |
+| Werewolf | 21 (seed 7 drifted to a different design) | 1234 (default) | yes (re-fit 2026-10-19) | 0.456 m | approved after `--turn`; P3 I9: yellow band on the shins (paint-mask mistransfer) |
+| Starslayer | 7 | 1234 (default) | no | 0.953 m | **redo, I3**: concept drifted (wide box torso, twin pods) |
+| UrbanMech | 7 | 1234 (default) | no | 0.542 m | **redo, I4**: mesh debris at the feet, weapons melted |
+| Catapult | 8 (seed 7 rejected by the plausibility check) | 1234 (default) | no | 0.476 m | approved; concept lost the cockpit glass |
+| Highlander | 7 (default) | 1234 (default) | no | 0.852 m | **redo, I6**: concept stretched the right-arm gun into a long barrel; render zoom 1.25 |
+| Hollander | 7 | 1234 (default) | no | 0.409 m | approved |
+| Hunchback | 7 (default) | 1234 (default) | no | 0.53 m | **redo, I7**: concept replaced the shoulder gun with twin missile racks |
+| Menshen | 7 | 1234 (default) | no | 0.411 m | approved (automatic orientation check misleading because the concept faces left; front checked by eye) |
+| Raven | 7 | 1234 (default) | no | 0.459 m | approved; front checked by eye (automatic check favoured the turned pose) |
+| Zeus | 7 | 1234 (explicit `m1234_*` work files) | no | 0.432 m | approved; render zoom 1.25 |
+| Flea | 7 | 1234 (default) | no | 0.616 m | approved; front checked by eye (automatic check favoured the turned pose) |
+| JaegerMech | 7 | 1234 (default) | no | 0.519 m | **redo, I2**: mesh debris on the torso, chest partly hollow, barrels merged |
 
-The seven rows above were generated in a batch on 2026-10-19 whose session ended before the table was updated; seeds are inferred from the work files under `original/hd/<mech>/` (defaults unless a `_sN`/`mN_` file says otherwise) and the fit distance and `--turn` flag were not logged. Lesson for the pipeline: `hd_mech.py` should write a `provenance.json` per mech so this table is generated, not remembered.
+Fit, turn and concept seed come from `original/hd/<mech>/provenance.json` (written by `hd_mech.py` since 2026-10-19; the 13 rows above were backfilled with a step-4-only re-fit, nothing reinstalled). Mesh seed 1234 is the tool default and is inferred, not logged, for every mech whose step 3 ran before the change. "redo" rows are installed and in the game until their issue is fixed.
 
 ### Per vehicle (`--kind vehicles`, `game/assets/vehicles/<vehicle>_hd.glb`)
 
@@ -45,7 +47,7 @@ The seven rows above were generated in a batch on 2026-10-19 whose session ended
 |---|---|---|---|---|
 | Centipede | 7 | 1234 | no | |
 | Harasser | 7 | 4242 | no | mesh seed 1234 produced a debris ring around the hull (real geometry, not fragments) |
-| LRM carrier | 7 | 1234 | no | |
+| LRM carrier (`lrmc`) | 7 | 1234 | no | |
 
 ### Per building (`--kind objects`, `game/assets/objects/<name>_hd.glb`)
 

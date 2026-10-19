@@ -12,3 +12,12 @@ __pycache__/
 # Content from the user's retail disc: personal use only, never commit
 game/assets/retail/
 .godot.lock
+
+# swarm runtime
+swarm/locks/
+swarm/.state.lock
+swarm/.state.*.json
+
+# swarm: generated and review evidence (regenerate with `swarm dashboard`; sheets live in swarm/gallery)
+swarm/dashboard.html
+swarm/gallery/

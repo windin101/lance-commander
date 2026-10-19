@@ -1,0 +1,31 @@
+{
+  "_about": "per-phase gate checks, run from the repo root by `swarm phase gate N`; exit 0 = pass, last stdout line = detail",
+  "7": [
+    {
+      "name": "tests_green",
+      "cmd": "/home/leeo/Code/remake-kit/gates/tests_green.sh",
+      "timeout": 1200
+    },
+    {
+      "name": "hd_provenance",
+      "cmd": "python3 -I /home/leeo/Code/remake-kit/gates/hd_provenance.py --repo . --require-fit"
+    },
+    {
+      "name": "import_size",
+      "cmd": "python3 -I /home/leeo/Code/remake-kit/gates/import_size.py --repo . --max-file-mb 64 --max-total-gb 8"
+    }
+  ],
+  "8": [
+    {
+      "name": "tests_green",
+      "cmd": "/home/leeo/Code/remake-kit/gates/tests_green.sh",
+      "timeout": 1200
+    }
+  ],
+  "7.done": [
+    {
+      "name": "coverage_complete",
+      "cmd": "python3 -I /home/leeo/Code/remake-kit/gates/coverage_complete.py --repo . --keys assets.hd_mechs,assets.hd_vehicles,assets.hd_objects --owner game-art --max-sev P2"
+    }
+  ]
+}
