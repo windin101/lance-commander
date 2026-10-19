@@ -11,3 +11,4 @@ __pycache__/
 
 # Content from the user's retail disc: personal use only, never commit
 game/assets/retail/
+.godot.lock
