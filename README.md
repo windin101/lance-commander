@@ -15,6 +15,19 @@ Shared Source release of MechCommander 2.
 - **New art of BattleTech designs** depends on fan-project tolerance from the IP
   holders.
 
+## Disclaimer
+
+This is an unofficial, non-commercial fan project. It is not affiliated with,
+endorsed by, or sponsored by Microsoft, Topps, Catalyst Game Labs, or any holder
+of the MechCommander or BattleTech rights. MechCommander is a trademark of
+Microsoft Corporation; BattleTech and the 'Mech designs are trademarks of their
+respective owners. Data and assets derived from the 2006 Shared Source release
+are used under, and remain subject to, the licence in
+[docs/MC2-SOURCE-EULA.md](docs/MC2-SOURCE-EULA.md), including its
+non-commercial terms and notices. No content from the retail game disc is
+included in this repository. If you hold rights in this material and want
+something removed, open an issue.
+
 ## Layout
 
 - `game/`: the Godot project. `scripts/sim/` holds the headless rules and
