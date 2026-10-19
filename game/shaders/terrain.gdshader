@@ -21,6 +21,14 @@ uniform float rock_grain = 0.35;       // how much the rock grain modulates stee
 uniform float slope_start = 0.32;
 uniform float slope_end = 0.62;
 uniform vec3 shadow_floor = vec3(0.62, 0.63, 0.68);  // lit fraction inside a dynamic shadow (per mission)
+// Road/runway/bridge overlay tiles and cement pads (terrain_view.gd _overlay_layer)
+uniform sampler2D overlay_atlas : source_color, filter_linear_mipmap_anisotropic;
+uniform sampler2D overlay_index : filter_nearest;
+uniform sampler2D cement_weight : filter_linear;
+uniform float atlas_cols = 22.0;
+uniform float atlas_tile = 64.0;
+uniform float atlas_pad = 2.0;
+uniform float vertices_per_side = 0.0;  // 0 = no overlay layer
 
 varying vec3 world_pos;
 
@@ -48,6 +56,29 @@ void fragment() {
 	float n = triplanar(world_pos, facet);
 	float n2 = triplanar(world_pos * 3.1, facet);
 	float grain = (0.55 + 0.9 * n) * (0.8 + 0.4 * n2);
+	if (vertices_per_side > 0.0) {
+		vec2 qf = UV * vertices_per_side;
+		ivec2 q = clamp(ivec2(floor(qf)), ivec2(0), ivec2(int(vertices_per_side) - 1));
+		vec2 local = fract(qf);
+		vec2 cells = texelFetch(overlay_index, q, 0).rg;
+		float cell_px = atlas_tile + 2.0 * atlas_pad;
+		vec2 atlas_px = vec2(atlas_cols * cell_px);
+		vec2 dl_dx = dFdx(qf) * atlas_tile / atlas_px;
+		vec2 dl_dy = dFdy(qf) * atlas_tile / atlas_px;
+		if (cells.g > 0.5) {  // cement: the tile across the quad, faded in from the cement vertices
+			float c = cells.g - 1.0;
+			vec2 org = vec2(mod(c, atlas_cols), floor(c / atlas_cols)) * cell_px + atlas_pad;
+			vec3 cem = textureGrad(overlay_atlas, (org + local * atlas_tile) / atlas_px, dl_dx, dl_dy).rgb;
+			float w = smoothstep(0.3, 0.9, texture(cement_weight, (qf + 0.5) / vertices_per_side).r);
+			ground = mix(ground, cem, w);
+		}
+		if (cells.r > 0.5) {  // overlay tile (alpha), drawn over everything as the original did
+			float c = cells.r - 1.0;
+			vec2 org = vec2(mod(c, atlas_cols), floor(c / atlas_cols)) * cell_px + atlas_pad;
+			vec4 ov = textureGrad(overlay_atlas, (org + local * atlas_tile) / atlas_px, dl_dx, dl_dy);
+			ground = mix(ground, ov.rgb, ov.a);
+		}
+	}
 	ALBEDO = ground * mix(1.0, grain, rock_mask * rock_grain);
 	ROUGHNESS = 0.95;
 }

@@ -10,6 +10,11 @@
     towards the zenith, and the texture's flat haze colour fills below the horizon.
   - game/assets/maps/<mission>/water_detail.png: the 16 frames of <mission>.water0000..0015.tga (64 px, white
     with alpha: the sparkle layer, terrtxm2.cpp:1605-1628) as a 4 x 4 atlas.
+  - game/assets/terrain/overlays.png + overlays.json: every road, runway, bridge and junction overlay tile
+    (Textures/64Overlays, 64 px RGBA, one per terrain quad) and the cement tiles (Textures/64) in one padded
+    atlas. The map stores an overlay as a runtime slot: slots run from OVERLAY_BASE in textures.fit's
+    [OverlayTypeN] order, NumOverlays each (TerrTxm.cpp:273-322, 786-815; the rough set 285-292 is not drawn,
+    TerrTxm.cpp:1299). overlays.json maps slot -> atlas cell and cement type -> atlas cell.
   - game/assets/maps/<mission>/detail.tga where a mission has none: Defaults/default_detail.tga
     (the original's fallback, terrtxm2.cpp:1564-1583).
 The outputs derive from the Shared Source art and stay under its non-commercial terms.
@@ -83,6 +88,59 @@ def panorama(n, src, w=2048, h=1024):
     return Image.fromarray(np.clip(pano, 0, 255).astype(np.uint8))
 
 
+OVERLAY_BASE = 255
+OVERLAY_TYPES = [("dirtroad", 15), ("pavedRoad", 15), ("rough", 8), ("droad2proad", 4), ("droad2proadcross", 2),
+                 ("2lanedirt", 15), ("Damagedroad", 15), ("runway", 15), ("X_DIRT_PAVED", 50), ("X_DIRT_2LANEDIRT", 50),
+                 ("X_DIRT_DAMAGED", 50), ("X_2LANEDIRT_PAVED", 50), ("X_DAMAGED_PAVED", 50), ("X_2LANEDIRT_DAMAGED", 50),
+                 ("Bridge", 15), ("X_PavedRoad_Bridge", 50), ("BridgeDAM", 15)]
+CEMENT = {10: "Cement_1", 13: "Cement_1", 18: "Cement_1", 14: "Cement_2", 15: "Cement_2", 19: "Cement_2",
+          16: "Cement_3", 17: "Cement_3", 20: "Cement_3"}  # textures.fit [TerrainTypeN] TerrainName
+TILE, PAD = 64, 2
+
+
+def find_ci(folder, name):
+    """Case-insensitive file lookup (the release mixes .tga/.TGA and name case)."""
+    want = name.lower()
+    for f in os.listdir(folder):
+        if f.lower() == want:
+            return os.path.join(folder, f)
+    return None
+
+
+def overlay_atlas(src, out_dir):
+    tex = f"{src}/Textures"
+    tiles, slot_cell, cement_cell = [], {}, {}
+    slot = OVERLAY_BASE
+    for name, n in OVERLAY_TYPES:
+        for i in range(n):
+            if name != "rough":
+                f = find_ci(f"{tex}/64Overlays", f"{name}{i:04d}.tga")
+                if f:
+                    slot_cell[slot] = len(tiles)
+                    tiles.append(Image.open(f).convert("RGBA"))
+            slot += 1
+    for t, name in CEMENT.items():
+        if name not in cement_cell:
+            cement_cell[name] = len(tiles)
+            tiles.append(Image.open(find_ci(f"{tex}/64", f"{name}.tga")).convert("RGBA"))
+    cell = TILE + 2 * PAD
+    cols = int(np.ceil(np.sqrt(len(tiles))))
+    rows = int(np.ceil(len(tiles) / cols))
+    atlas = Image.new("RGBA", (cols * cell, rows * cell), (0, 0, 0, 0))
+    for k, im in enumerate(tiles):
+        im = im.resize((TILE, TILE))
+        padded = Image.fromarray(np.pad(np.asarray(im), ((PAD, PAD), (PAD, PAD), (0, 0)), mode="edge"))
+        atlas.paste(padded, ((k % cols) * cell, (k // cols) * cell))
+    out_dir.mkdir(parents=True, exist_ok=True)
+    atlas.save(out_dir / "overlays.png")
+    import json
+    (out_dir / "overlays.json").write_text(json.dumps({
+        "tile": TILE, "pad": PAD, "cols": cols, "rows": rows, "base": OVERLAY_BASE,
+        "slots": {str(k): v for k, v in slot_cell.items()},
+        "cement_types": {str(t): cement_cell[nm] for t, nm in CEMENT.items()}}, indent=0))
+    print(f"overlay atlas: {len(tiles)} tiles ({len(slot_cell)} overlay, {len(cement_cell)} cement), {cols}x{rows}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", default=str(ROOT / "reference/mc2-source/Source/Data"))
@@ -93,6 +151,7 @@ def main():
         if os.path.exists(f"{a.src}/TGL/128/Sky{n:02d}_Back_Left.tga"):
             panorama(n, a.src).save(sky_dir / f"sky{n:02d}.png")
     print("skies:", len(list(sky_dir.glob("sky*.png"))))
+    overlay_atlas(a.src, ROOT / "game/assets/terrain")
     tex = f"{a.src}/Textures"
     for mdir in sorted((ROOT / "game/assets/maps").glob("mc2_*")):
         m = mdir.name
