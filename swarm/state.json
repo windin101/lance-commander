@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T11:46:21+13:00",
+  "updated": "2026-10-20T11:48:38+13:00",
   "phase": {
     "current": 7,
     "status": "gated"
@@ -1334,6 +1334,19 @@
       "created": "2026-10-20T06:34:18+13:00",
       "updated": "2026-10-20T07:16:55+13:00",
       "note": "Lee approved the redo (2026-10-20)"
+    },
+    {
+      "id": "I77",
+      "sev": "P3",
+      "title": "CAD buildings: round parts still faceted (hex/octagon) from the low-poly originals",
+      "detail": "Lee 2026-10-20: fine for now, revisit later. The SolidCraft rebuilds copied the originals' faceted volumes, so parts that are meant to be round stay 6- or 8-sided: towers, tanks, stacks and silos, e.g. largefueltank, smallfueltank, liquidstorage, pipetank, wasteprocessor tanks, processingplant stacks, watertower, geodesicdome base, s_turretcontrol/d_turretcontrol towers. Pipes were already made round in cornerpipe/endpipe/threewaypipe/pipetank. Fix: in tools/cad/<app>_cad.py, model those parts as true cylinders or cones (20-32 sides) and re-bake. The bake's projection will need checking where the painted art was laid out per facet (bands, hazard stripes, signs); keep facets where they are clearly intended, e.g. riveted hex panels.",
+      "repro": "swarm/gallery/cad_<app>.png",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T11:48:38+13:00",
+      "updated": "2026-10-20T11:48:38+13:00",
+      "note": null
     }
   ],
   "coverage": {
@@ -1440,11 +1453,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:45:21+13:00",
-      "who": "sim",
-      "msg": "issue I10 P1: mc2_06, mc2_12: units spawned on off-map cells never move (find_path from solid start cell)"
-    },
     {
       "at": "2026-10-19T16:45:21+13:00",
       "who": "sim",
@@ -2439,6 +2447,11 @@
       "at": "2026-10-20T11:46:21+13:00",
       "who": "gate",
       "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
+    },
+    {
+      "at": "2026-10-20T11:48:38+13:00",
+      "who": "game-art",
+      "msg": "issue I77 P3: CAD buildings: round parts still faceted (hex/octagon) from the low-poly originals"
     }
   ],
   "choices": [
