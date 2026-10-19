@@ -131,7 +131,7 @@ func _add_structures(mission: String) -> void:
 		s.model = String(t.get("appearance", ""))
 		s.damage_level = float(t["damage_level"]) if float(t["damage_level"]) > 0.0 else INF  # no DmgLevel: can't be destroyed
 		s.extent_m = float(t.get("extent_radius", 0.0)) * WORLD_UNIT_M
-		s.team = int(t.get("building_team", -1))
+		s.team = int(o.get("team", t.get("building_team", -1)))  # the placement's team (mc2_06's own HQ is team 0)
 		s.capturable = bool(t.get("capturable", false))
 		s.position = Vector2(float(o["x"]), float(o["y"])) * WORLD_UNIT_M
 		s.facing = float(o["rotation"])

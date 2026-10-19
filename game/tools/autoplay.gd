@@ -32,6 +32,8 @@ func _init() -> void:
 						print("t=%6.1f  objective done: %s" % [w.time, e["title"]])
 				"disabled":
 					var u: SimUnit = w.units[e["unit"]]
+					if u.capturable and u.team != 0:
+						print("t=%6.1f  capture target %s destroyed by %s" % [w.time, u.name, u.last_attacker.name if u.last_attacker else "?"])
 					if u.team == 0:
 						print("t=%6.1f  LOST %s" % [w.time, u.name])
 				"mission_end":
@@ -92,41 +94,72 @@ func _init() -> void:
 var _start := {}
 
 
+const ENGAGE_M := 320.0  # armed enemies this close to the lance are fought before anything else
+
+
+## A methodical player: fight whatever armed enemy is near the lance first, all on the
+## same target; otherwise work the first active objective as a group.
 func _orders(sm: SimMission) -> void:
 	var w := sm.world
-	var lance := w.units.filter(func(u): return u.team == 0 and u.is_mover() and not u.is_disabled())
+	var lance := w.units.filter(func(u): return u.team == 0 and u.commander == 0 and u.is_mover() \
+		and u.exists and not u.is_disabled() and not u.hulk)
+	if lance.is_empty():
+		return
+	var centre := Vector2.ZERO
+	for m in lance:
+		centre += m.position
+	centre /= lance.size()
+	var threats := w.units.filter(func(u): return u.team != 0 and u.is_mover() and u.exists and u.awake \
+		and not u.is_disabled() and not u.hulk and u.num_weapons > 0 \
+		and lance.any(func(m): return m.distance_to(u.position) <= ENGAGE_M))
+	if not threats.is_empty():
+		threats.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
+		var focus: SimUnit = threats[0]
+		for m in lance:
+			var busy: bool = m.order == SimWorld.Order.ATTACK and m.order_target != null \
+				and not m.order_target.is_disabled() and threats.has(m.order_target)
+			if not busy:
+				_order(sm, m, "attack", focus)
+		return
 	for obj in sm.objectives.objectives:
 		if obj["hidden"] or not sm.objectives.is_active(obj):
 			continue
 		var targets := []
 		var area = null
 		for c in obj["conditions"]:
-			if c.has("unit") and c["unit"] and not c["unit"].is_disabled():
-				targets.append(c["unit"])
+			if c["kind"] in ["DestroyAllEnemyUnits", "DestroyNumberOfEnemyUnits"]:
+				targets.append_array(w.units.filter(func(u): return u.team != 0 and u.is_mover() and u.exists and u.awake \
+					and not u.is_disabled() and not u.hulk))
+			elif c.has("unit") and c["unit"] and not c["unit"].is_disabled() and c["unit"].team != 0:
+				targets.append(c["unit"])  # already ours (e.g. mc2_06 "protect" = capture own HQ): leave it
 			elif c.has("center"):
 				area = c["center"]
-		for m in lance:
-			if m.order == SimWorld.Order.ATTACK and m.order_target and not m.order_target.is_disabled():
-				continue  # keep fighting (incl. return fire)
-			if not targets.is_empty():
-				targets.sort_custom(func(a, b): return m.distance_to(a.position) < m.distance_to(b.position))
-				var t: SimUnit = targets[0]
-				if sm.abl and sm.abl.can_capture(t, 0) and m is SimMech:
-					var near := _near_enemies(w, t.position)
-					if near.is_empty():
-						if not (m.brain is SimAbl.Pilot and int(m.brain.order["code"]) == SimAbl.TO_CAPTURE):
-							_order(sm, m, "capture", t)
-					else:
-						_order(sm, m, "attack", near[0])  # clear the defenders first
-				else:
+		if targets.is_empty() and area == null:
+			continue  # nothing to do for this one: next objective
+		if not targets.is_empty():
+			targets.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
+			var t: SimUnit = targets[0]
+			var capture: bool = sm.abl != null and sm.abl.can_capture(t, 0)
+			for m in lance:
+				if capture and m is SimMech:
+					if not (m.brain is SimAbl.Pilot and int(m.brain.order["code"]) == SimAbl.TO_CAPTURE):
+						_order(sm, m, "capture", t)
+				elif not capture and not (m.order == SimWorld.Order.ATTACK and m.order_target == t):
 					_order(sm, m, "attack", t)
-			elif area != null and not _near_enemies(w, area).is_empty():
-				# Extraction needs the area clear of other commanders' units (256 m): clear it.
-				var near := _near_enemies(w, area)
-				near.sort_custom(func(a, b): return m.distance_to(a.position) < m.distance_to(b.position))
+				elif capture and m.distance_to(t.position) > 60.0 and m.order == SimWorld.Order.HOLD:
+					_order(sm, m, "move", t.position)  # vehicles escort the capture
+		elif not _near_enemies(w, area).is_empty():
+			# Extraction needs the area clear of other commanders' units (256 m): clear it.
+			var near := _near_enemies(w, area)
+			near.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
+			for m in lance:
 				_order(sm, m, "attack", near[0])
-			elif area != null and m.distance_to(area) > 40.0 and m.order == SimWorld.Order.HOLD:
-				_order(sm, m, "move", area)
+		else:
+			for i in lance.size():
+				var m: SimUnit = lance[i]
+				var spot: Vector2 = area + Vector2.from_angle(TAU * i / lance.size()) * 18.0
+				if m.distance_to(spot) > 40.0 and m.order == SimWorld.Order.HOLD:
+					_order(sm, m, "move", spot)
 		return
 
 
