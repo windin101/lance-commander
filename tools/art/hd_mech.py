@@ -155,7 +155,7 @@ def mesh(work, seed, kind):
                 (work / tag).write_bytes(comfy.fetch(f))
 
 
-def rig(mech, work, kind, turn=False):
+def rig(mech, work, kind, turn=False, parts=()):
     folder = KINDS[kind][0]
     paint_src = work / "orig_paint.png"
     paint_src.write_bytes(paint_source(mech, kind).read_bytes())
@@ -163,7 +163,7 @@ def rig(mech, work, kind, turn=False):
                         str(GAME / "assets" / folder / f"{mech}.glb"), str(paint_src), str(work / "low.glb"),
                         str(work / "normal.png"), str(work / "ao.png"), str(work / f"{mech}_hd.glb"),
                         str(work / "hd_paint.png"), "--tex", "1024", "--concept", str(work / "concept.png")] + (["--turn"] if turn else [])
-                       + (["--static"] if kind == "objects" else []), check=True, capture_output=True, text=True)
+                       + (["--static"] if kind == "objects" else []) + [x for p in parts for x in ("--part", p)], check=True, capture_output=True, text=True)
     sys.stdout.write(r.stdout)  # captured so the fit numbers can go into provenance.json
     return r.stdout
 
@@ -188,12 +188,13 @@ def main():
     ap.add_argument("--cam", help="render camera yaw,pitch,distance (default: the kind's)")
     ap.add_argument("--focus-y", help="render focus height in m (default: the kind's)")
     ap.add_argument("--turn", action="store_true", help="the fit landed backwards (check the front view by eye)")
+    ap.add_argument("--part", action="append", default=[], metavar="NODE=OBJ", help="CAD replacement for an original part (hd_rig.py --part)")
     ap.add_argument("--subject-px", type=int, default=680, help="size of the render inside the 1024 edit input (smaller = more margin; atlas crops at 680)")
     a = ap.parse_args()
     work = ROOT / "original" / "hd" / a.mech
     work.mkdir(parents=True, exist_ok=True)
     steps = [(1, "render", lambda: render(a.mech, work, a.kind, a.cam, a.focus_y, a.subject_px)), (2, "concept", lambda: concept(work, a.seed, a.kind, prompt_kind=a.prompt)),
-             (3, "mesh", lambda: mesh(work, a.mesh_seed, a.kind)), (4, "rig", lambda: rig(a.mech, work, a.kind, a.turn)),
+             (3, "mesh", lambda: mesh(work, a.mesh_seed, a.kind)), (4, "rig", lambda: rig(a.mech, work, a.kind, a.turn, a.part)),
              (5, "install", lambda: install(a.mech, work, a.kind))]
     # provenance.json: what docs/art-provenance.md is generated from. Merged across partial reruns
     # (--from-step 4 keeps the concept seed recorded by the earlier run).
@@ -220,6 +221,7 @@ def main():
             elif n == 4:
                 m = (re.findall(r"chamfer ([0-9.]+) m", out or "") or [None])[-1]  # last = after ICP
                 o = re.search(r"orientation check[^\n]*", out or "")
+                prov["cad_parts"] = a.part
                 prov.update({"turn": a.turn, "fit_m": float(m) if m else None,
                              "orientation_check": o.group(0) if o else None})
             prov[f"step{n}_at"] = time.strftime("%Y-%m-%dT%H:%M:%S%z")

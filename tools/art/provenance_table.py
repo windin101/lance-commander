@@ -46,6 +46,15 @@ def main() -> int:
         m = glb.name[: -len("_hd.glb")]
         pj = ROOT / "original" / "hd" / m / "provenance.json"
         p = json.loads(pj.read_text()) if pj.exists() else {}
+        if p.get("kind") == "adapted":  # a licensed third-party model, rigged by tools/art/stl_rig.py
+            rows.append(f"| {NAMES.get(m, m.capitalize())} (`{m}`) | adapted | adapted | n/a | exact (rigged on the skeleton) | "
+                        f"approved; {p['source']}, {p['licence']} — see the section above, {p.get('tris', '?')} tris |")
+            continue
+        if p.get("kind") == "cad":  # built in SolidCraft (tools/art/cad_mech.py): no seeds, no fit
+            src = f"tools/cad/{m}_hd.py"
+            rows.append(f"| {NAMES.get(m, m.capitalize())} (`{m}`) | CAD | CAD | n/a | exact (built on the original pivots) | "
+                        f"{redo.get(m, 'approved')}; SolidCraft build from `{src}`, {p.get('tris', '?')} tris |")
+            continue
         cs = p.get("concept_seed", "not recorded")
         ms = p.get("mesh_seed", "1234 (default, inferred)")
         turn = "yes" if p.get("turn") else ("no" if "turn" in p else "not recorded")

@@ -28,6 +28,14 @@ non-commercial terms and notices. No content from the retail game disc is
 included in this repository. If you hold rights in this material and want
 something removed, open an issue.
 
+## Third-party assets
+
+The HD Vulture model is adapted from "Mad Dog Prime, aka Vulture for Battletech" by Syllogy
+(https://www.printables.com/model/1863972-mad-dog-prime-aka-vulture-for-battletech-syllogy), under
+CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/); the adapted mesh is shared under the
+same licence. Changes and the full notice: `game/assets/mechs/vulture_hd.LICENSE.md`. All credits:
+[CREDITS.md](CREDITS.md).
+
 ## Layout
 
 - `game/`: the Godot project. `scripts/sim/` holds the headless rules and
