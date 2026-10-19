@@ -34,8 +34,16 @@ All of it is in the Shared Source release; nothing larger exists there (checked 
 - **Water**: the mission's own AlphaShallow/Middle/Deep at 1 and 3 x AlphaDepth, the water texture's colour,
   and the 16-frame sparkle at 8 fps. Shallows are lifted a little so the bed reads.
 
+- **Roads, runways, bridges, cement** (`terrain_view.gd` `_overlay_layer`): the original's overlay layer. The
+  map stores one overlay per terrain quad as a runtime slot (from 255, in textures.fit's [OverlayTypeN] order;
+  the rough set 285-292 is skipped as the original did); `tools/art/env_textures.py` packs the 461 overlay
+  tiles and the three cement tiles into `assets/terrain/overlays.png` with `overlays.json` mapping slots to
+  cells. Cement types 10/13/18, 14/15/19 and 16/17/20 use cement 1, 2 and 3, faded in from the cement vertices.
+- **Weather** (`weather_view.gd`): rain streaks around the camera, a dimmer sun and ambient while it rains, and
+  double lightning flashes at the mission's `BaseLighteningChance` (mc2_10 rains; mc2_19 has lightning only).
+
 ## Not yet
 
-Road/runway/cement tile layer, rain and lightning (mission 10), footprints, craters, wakes. Then step 2 (more
+Footprints, craters, scorch and mine decals, water wakes. Then step 2 (more
 ground resolution: terrain-type materials blended under the colour map, tessellation, an edge skirt) and
 step 3 (new vegetation with LODs, shadows, wind and instancing).

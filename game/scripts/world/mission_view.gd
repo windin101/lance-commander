@@ -69,6 +69,10 @@ func _ready() -> void:
 	add_child(camera)
 	camera.make_current()
 	_focus_player()
+	var weather := WeatherView.new()
+	weather.name = "Weather"
+	add_child(weather)
+	weather.setup(mission_fit.get("Weather", {}), camera, _sun, _env)
 
 	input = CommandInput.new()
 	input.world = world
@@ -304,6 +308,7 @@ func _lighting(cam_block: Dictionary, fit_data: Dictionary = {}) -> void:
 	sun.shadow_enabled = true
 	sun.directional_shadow_max_distance = 800.0
 	add_child(sun)
+	_sun = sun
 	sun.look_at_from_position(Vector3.ZERO, -to_light, Vector3.UP if absf(to_light.y) < 0.99 else Vector3.FORWARD)
 	var env := Environment.new()
 	env.background_mode = Environment.BG_SKY
@@ -353,6 +358,7 @@ func _lighting(cam_block: Dictionary, fit_data: Dictionary = {}) -> void:
 
 
 var _env: Environment
+var _sun: DirectionalLight3D
 
 
 func _update_haze() -> void:

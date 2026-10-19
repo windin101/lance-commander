@@ -30,6 +30,7 @@ func build(sim_map: SimMap, texture_dir: String) -> void:
 	if ResourceLoader.exists(detail_path):
 		mat.set_shader_parameter("detail_map", load(detail_path))
 	mat.set_shader_parameter("rock_noise", _noise_texture(false, 256, 0.02))
+	_overlay_layer(mat)
 	ground.material_override = mat
 	# The colour map already carries the hills' own shading and cast shadows (burn-in): the ground must
 	# not shadow itself again. It still receives the shadows of everything standing on it.
@@ -138,3 +139,43 @@ func _water(texture_dir: String) -> MeshInstance3D:
 ## Alpha of a packed ARGB value from the FIT (stored as a signed 32-bit integer).
 static func _alpha_byte(v) -> float:
 	return float((int(v) >> 24) & 255)
+
+
+
+## The road / runway / bridge overlay tiles and the cement pads the original drew over the colour map
+## (quad.cpp:248-301): one 64 px overlay tile per terrain quad from terrain.json "overlay_texture" (runtime
+## slots, decoded by tools/art/env_textures.py into assets/terrain/overlays.json), and cement where the vertex
+## terrain type is a cement type. Both go to the shader as small per-map index textures.
+func _overlay_layer(mat: ShaderMaterial) -> void:
+	var info_path := "res://assets/terrain/overlays.json"
+	if not FileAccess.file_exists(info_path) or not ResourceLoader.exists("res://assets/terrain/overlays.png"):
+		return
+	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(info_path))
+	var slots: Dictionary = info["slots"]
+	var cement: Dictionary = info["cement_types"]
+	var n := map.vertices_per_side
+	var ov: Array = map.meta.get("overlay_texture", [])
+	var tt: Array = map.meta.get("terrain_type", [])
+	var idx := Image.create(n, n, false, Image.FORMAT_RGF)  # R: overlay atlas cell + 1, G: cement atlas cell + 1
+	var weight := Image.create(n, n, false, Image.FORMAT_RF)  # 1 at cement vertices (filtered for soft edges)
+	var used := 0
+	for i in mini(n * n, ov.size()):
+		var col := i % n
+		var row := i / n
+		var cell := float(slots.get(str(int(ov[i])), -1)) + 1.0
+		var c_cell := 0.0
+		var w := 0.0
+		if i < tt.size() and cement.has(str(int(tt[i]))):
+			c_cell = float(cement[str(int(tt[i]))]) + 1.0
+			w = 1.0
+		if cell > 0.0:
+			used += 1
+		idx.set_pixel(col, row, Color(cell, c_cell, 0.0))
+		weight.set_pixel(col, row, Color(w, 0.0, 0.0))
+	mat.set_shader_parameter("overlay_atlas", load("res://assets/terrain/overlays.png"))
+	mat.set_shader_parameter("overlay_index", ImageTexture.create_from_image(idx))
+	mat.set_shader_parameter("cement_weight", ImageTexture.create_from_image(weight))
+	mat.set_shader_parameter("atlas_cols", float(info["cols"]))
+	mat.set_shader_parameter("atlas_tile", float(info["tile"]))
+	mat.set_shader_parameter("atlas_pad", float(info["pad"]))
+	mat.set_shader_parameter("vertices_per_side", float(n))
