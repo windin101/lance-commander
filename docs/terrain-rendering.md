@@ -42,6 +42,24 @@ All of it is in the Shared Source release; nothing larger exists there (checked 
 - **Weather** (`weather_view.gd`): rain streaks around the camera, a dimmer sun and ambient while it rains, and
   double lightning flashes at the mission's `BaseLighteningChance` (mc2_10 rains; mc2_19 has lightning only).
 
+## Step 2: ground detail and the world edge
+
+- **Ground detail** (`tools/art/ground_detail.py`, `terrain.gdshader`): five CC0 materials from ambientCG
+  (grass Grass004, dirt Ground037, rock Rock058, sand Ground054, snow Snow006) reduced to grain (luminance
+  high-passed, 128 = no change) and normal maps, in two texture arrays. The map data has no usable ground
+  types (almost every vertex is "undefined"), so the shader picks the class from the colour map's own colour
+  (hue, saturation, brightness about 16 m around) plus slope for rock. Only grain and sun-side relief are added;
+  the colour stays the colour map's, so every map keeps its look. Off on cement and road tiles.
+  Tile sizes are 16-34 m: at the RTS camera (90-450 m away) grain of real-world grass scale is smaller than a
+  pixel and mips it away to grey, so the detail is metre-scale structure, not blades. It fades out from 150 m
+  to 700 m from the camera.
+- **Edge skirt**: a ring of ground runs 3 km out from the map border, sharing the terrain material (the colour
+  map's edge pixels stretch outward) and sinking below the water line, and the sea runs out with it where the
+  border is under water. Scenery only: the sim and camera stay inside the map.
+- **Not done: tessellation.** The sim's height lookup is bilinear on the 25.6 m grid and mechs stand on it; a
+  smoother or displaced visual surface would float or bury units. Worth doing only with the sim sharing the
+  same surface.
+
 ## Not yet
 
 Footprints, craters, scorch and mine decals, water wakes. Then step 2 (more

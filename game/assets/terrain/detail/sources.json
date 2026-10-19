@@ -1,0 +1,17 @@
+{
+ "grass": {
+  "source": "Grass004 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Grass004"
+ },
+ "dirt": {
+  "source": "Ground037 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground037"
+ },
+ "rock": {
+  "source": "Rock058 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock058"
+ },
+ "sand": {
+  "source": "Ground054 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground054"
+ },
+ "snow": {
+  "source": "Snow006 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Snow006"
+ }
+}
