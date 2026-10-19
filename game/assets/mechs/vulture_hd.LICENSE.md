@@ -20,7 +20,7 @@ The original file `mdd-prime5.stl` was modified for use as a game model:
 - painted by region (team-colour mask) and bound to the MechCommander 2 Vulture skeleton so the game's
   animations move it.
 
-The tool that makes these changes is `tools/art/stl_rig.py` in this repository.
+The tool that makes these changes is `tools/art/stl_rig_vulture.py` in this repository.
 
 ## Licence of this adaptation
 
