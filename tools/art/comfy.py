@@ -26,7 +26,8 @@ def api(path, data=None, timeout=60):
             return json.loads(r.read())
     req = urllib.request.Request(url, data=json.dumps(data).encode(), headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read())
+        body = r.read()
+        return json.loads(body) if body else None  # /free answers with an empty body
 
 
 def upload(path):

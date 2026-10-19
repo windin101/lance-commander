@@ -29,6 +29,15 @@ Shared Source release's mech models and textures, so they carry that release's E
 | Werewolf | 21 (seed 7 drifted to a different design) | 1234 | no | 0.46 m |
 | Starslayer | 7 | 1234 | no | 0.90 m |
 | UrbanMech | 7 | 1234 | no | 0.43 m |
+| Catapult | 8 (seed 7 rejected by the plausibility check) | 1234 | not recorded | not recorded |
+| Highlander | 7 (default) | 1234 | not recorded | not recorded; render zoom 1.25 (tall mech) |
+| Hollander | 7 (default) | 1234 | not recorded | not recorded |
+| Hunchback | 7 (default) | 1234 | not recorded | not recorded |
+| Menshen | 7 (default) | 1234 | not recorded | not recorded |
+| Raven | 7 (default) | 1234 | not recorded | not recorded |
+| Zeus | 7 (default) | 1234 (explicit `m1234_*` work files) | not recorded | not recorded; render zoom 1.25 (tall mech) |
+
+The seven rows above were generated in a batch on 2026-10-19 whose session ended before the table was updated; seeds are inferred from the work files under `original/hd/<mech>/` (defaults unless a `_sN`/`mN_` file says otherwise) and the fit distance and `--turn` flag were not logged. Lesson for the pipeline: `hd_mech.py` should write a `provenance.json` per mech so this table is generated, not remembered.
 
 ### Per vehicle (`--kind vehicles`, `game/assets/vehicles/<vehicle>_hd.glb`)
 

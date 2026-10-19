@@ -31,6 +31,9 @@ import hd_concept  # noqa: E402
 ROOT = Path(__file__).resolve().parents[2]
 GAME = ROOT / "game"
 GODOT = shutil.which("godot") or str(Path.home() / ".local/bin/godot")
+# Another session may run Godot in this repo at the same time: every Godot run here takes this
+# lock (flock(1)) so the two never overlap. Keep each run short.
+GODOT_LOCK = ROOT / ".godot.lock"
 NEUTRAL_PAINT = "-7829368,-12566464,-5592406"  # mid / dark / light grey
 
 
@@ -69,18 +72,41 @@ def paint_source(mech, kind):
     folder = KINDS[kind][0]
     if kind == "objects":
         return GAME / "assets" / folder / f"{mech}_0.png"  # the colour texture itself
-    return GAME / "assets" / folder / f"{mech}_paint.bin"
+    mask = GAME / "assets" / folder / f"{mech}_paint.bin"
+    # A few converted mechs (flea, laohu, jaegermech, vulture, the copters) have no _paint.bin;
+    # the mask is the same image as the model's own texture, so use that.
+    return mask if mask.exists() else GAME / "assets" / folder / f"{mech}_0.png"
 
 
-def render(mech, work, kind):
+def touches_edge(im, margin=6):
+    """True if the subject reaches the border of the crop (a tall mech cut off at the top)."""
+    import numpy as np
+    a = np.asarray(im.convert("L"))
+    edge = np.concatenate([a[:margin].ravel(), a[:, :margin].ravel(), a[:, -margin:].ravel()])
+    return (edge < 235).mean() > 0.002
+
+
+def render(mech, work, kind, cam_override=None, focus_override=None):
     folder = KINDS[kind][0]
     cam, focus, xz = framing(mech, kind)
+    cam, focus = cam_override or cam, focus_override or focus  # e.g. the copters fly at 23.5 m
     shot = work / "front34.png"
-    subprocess.run([GODOT, "--path", str(GAME), "res://scenes/model_viewer.tscn", "--",
-                    f"--screenshot={shot}", "--frames=12", f"--cam={cam}", "--fov=18", f"--focus-y={focus}",
-                    "--no-ground", "--bg=1,1,1", f"--model=res://assets/{folder}/{mech}.glb",
-                    ] + ([f"--focus-xz={xz}"] if xz else []) + ([] if kind == "objects" else [f"--paint={mech},{NEUTRAL_PAINT}"]), check=True, capture_output=True, timeout=300)
-    im = Image.open(shot).convert("RGB").crop((350, 0, 1250, 900)).resize((1024, 1024))
+    yaw, pitch, dist = (float(v) for v in cam.split(","))
+    for zoom in (1.0, 1.25, 1.5, 1.8):  # tall mechs (Atlas, Highlander) overflow the standard mech framing
+        paint = [] if kind == "objects" else [f"--paint={mech},{NEUTRAL_PAINT}"]
+        subprocess.run(["flock", str(GODOT_LOCK), GODOT, "--path", str(GAME), "res://scenes/model_viewer.tscn", "--",
+                        f"--screenshot={shot}", "--frames=12", f"--cam={yaw:g},{pitch:g},{dist * zoom:.1f}", "--fov=18",
+                        f"--focus-y={float(focus) * (1 if focus_override else zoom):.2f}", "--no-ground", "--bg=1,1,1", f"--model=res://assets/{folder}/{mech}.glb",
+                        ] + ([f"--focus-xz={xz}"] if xz else []) + paint, check=True, capture_output=True, timeout=1800)
+        crop = Image.open(shot).convert("RGB").crop((350, 0, 1250, 900))
+        if kind == "objects" or not touches_edge(crop):
+            break
+        print(f"  subject touches the frame at zoom {zoom}: backing off")
+    (work / "render_zoom.txt").write_text(f"{zoom}\n")
+    # the exact camera used, so review renders of the HD model frame it the same way
+    fy = float(focus) * (1 if focus_override else zoom)
+    (work / "render_cam.txt").write_text(f"{yaw:g},{pitch:g},{dist * zoom:.1f} {fy:.2f}\n")
+    im = crop.resize((1024, 1024))
     pad = Image.new("RGB", (1024, 1024), (255, 255, 255))
     pad.paste(im.resize((680, 680)), (172, 172))  # margin: the edit tends to zoom in
     pad.save(work / "front34_pad.png")
@@ -95,15 +121,23 @@ def plausible(img):
     return a.std() > 30 and 0.05 < subject.mean() < 0.7 and a[subject].std() > 15
 
 
-def concept(work, seed, kind, tries=4):
-    prompt = KINDS[kind][3]
+def concept(work, seed, kind, tries=4, prompt_kind=None):
+    prompt = KINDS[prompt_kind or kind][3]  # the copters are mech models with the vehicle prompt
     name = comfy.upload(work / "front34_pad.png")
     for k in range(tries):
+        # Unload first: on this ROCm build the third edit in a row on a warm server came back all
+        # black (NaN) every time; a cold model load each edit avoided it.
+        comfy.api("/free", {"unload_models": True, "free_memory": True})
         img = comfy.images(comfy.run(comfy.edit_graph(name, prompt, hd_concept.NEGATIVE, seed + k, size=512)))[0]
         if plausible(img):
             img.convert("RGB").save(work / "concept.png")
             print(f"  concept ok with seed {seed + k}")
             return
+        img.convert("RGB").save(work / f"concept_rejected_s{seed + k}.png")  # look before blaming the prompt
+        if max(img.convert("L").getextrema()) == 0:
+            # All black is NaN in the server (seen after two good edits, on split attention), not a bad seed:
+            # every later seed comes back black too until ComfyUI is restarted.
+            raise RuntimeError("ComfyUI returned an all-black image: restart the server, then rerun")
         print(f"  seed {seed + k}: degenerate output, retrying")
     raise RuntimeError("no plausible concept image")
 
@@ -145,16 +179,20 @@ def main():
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--mesh-seed", type=int, default=1234)
     ap.add_argument("--from-step", type=int, default=1)
+    ap.add_argument("--to-step", type=int, default=5)
     ap.add_argument("--kind", choices=sorted(KINDS), default="mechs")
+    ap.add_argument("--prompt", choices=sorted(KINDS), help="concept prompt of another kind (copters: vehicles)")
+    ap.add_argument("--cam", help="render camera yaw,pitch,distance (default: the kind's)")
+    ap.add_argument("--focus-y", help="render focus height in m (default: the kind's)")
     ap.add_argument("--turn", action="store_true", help="the fit landed backwards (check the front view by eye)")
     a = ap.parse_args()
     work = ROOT / "original" / "hd" / a.mech
     work.mkdir(parents=True, exist_ok=True)
-    steps = [(1, "render", lambda: render(a.mech, work, a.kind)), (2, "concept", lambda: concept(work, a.seed, a.kind)),
+    steps = [(1, "render", lambda: render(a.mech, work, a.kind, a.cam, a.focus_y)), (2, "concept", lambda: concept(work, a.seed, a.kind, prompt_kind=a.prompt)),
              (3, "mesh", lambda: mesh(work, a.mesh_seed, a.kind)), (4, "rig", lambda: rig(a.mech, work, a.kind, a.turn)),
              (5, "install", lambda: install(a.mech, work, a.kind))]
     for n, label, fn in steps:
-        if n >= a.from_step:
+        if a.from_step <= n <= a.to_step:
             print(f"[{a.mech}] step {n}: {label}", flush=True)
             fn()
     print(f"[{a.mech}] done")
