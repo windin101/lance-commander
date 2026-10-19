@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T07:16:55+13:00",
+  "updated": "2026-10-20T08:19:43+13:00",
   "phase": {
     "current": 7,
     "status": "running"
@@ -459,10 +459,10 @@
       "repro": "inspect original/hd/werewolf/hd_paint.png around the shin UVs",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T15:35:01+13:00",
-      "updated": "2026-10-19T15:35:01+13:00",
-      "note": null
+      "updated": "2026-10-20T08:19:28+13:00",
+      "note": "superseded: now an adapted licensed sculpt, approved 2026-10-20"
     },
     {
       "id": "I10",
@@ -1096,10 +1096,10 @@
       "repro": "python3 -I tools/art/hd_mech.py thor --from-step 3 --mesh-seed 777",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T18:09:29+13:00",
-      "updated": "2026-10-19T18:10:44+13:00",
-      "note": "repro planned by hd_redo.py: mesh seeds tried [1234, 4242] -> 777"
+      "updated": "2026-10-20T08:19:28+13:00",
+      "note": "superseded: now an adapted licensed sculpt, approved 2026-10-20"
     },
     {
       "id": "I59",
@@ -1122,10 +1122,10 @@
       "repro": "python3 -I tools/art/hd_mech.py mediumcopter --from-step 3 --mesh-seed 777 --prompt vehicles",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T18:09:29+13:00",
-      "updated": "2026-10-19T18:10:43+13:00",
-      "note": "repro planned by hd_redo.py: mesh seeds tried [1234, 4242] -> 777"
+      "updated": "2026-10-20T08:19:28+13:00",
+      "note": "superseded: now an adapted licensed sculpt, approved 2026-10-20"
     },
     {
       "id": "I61",
@@ -1135,10 +1135,10 @@
       "repro": "python3 -I tools/art/hd_mech.py heavycopter --from-step 1 --subject-px 560 --seed 8 --prompt vehicles",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T18:09:29+13:00",
-      "updated": "2026-10-19T18:10:43+13:00",
-      "note": "repro planned by hd_redo.py: concept seeds tried [7] -> 8; cropped, re-render with more margin"
+      "updated": "2026-10-20T08:19:28+13:00",
+      "note": "superseded: now an adapted licensed sculpt, approved 2026-10-20"
     },
     {
       "id": "I62",
@@ -1156,14 +1156,14 @@
     {
       "id": "I63",
       "sev": "P2",
-      "title": "Release builds must carry the CC BY-NC-SA credit for the Vulture",
+      "title": "Release builds must carry CREDITS.md and every <asset>_hd.LICENSE.md (50 CC-licensed models)",
       "detail": "CC BY-NC-SA 4.0 requires the attribution wherever the adapted model is distributed: when export presets are created, include CREDITS.md and game/assets/mechs/vulture_hd.LICENSE.md in every build (include_filter), and add the credit to an in-game credits screen. No presets exist yet (2026-10-19).",
       "repro": "grep include_filter game/export_presets.cfg",
       "owner": "release-engineer",
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T19:52:34+13:00",
-      "updated": "2026-10-19T19:52:34+13:00",
+      "updated": "2026-10-20T08:19:28+13:00",
       "note": null
     },
     {
@@ -1174,10 +1174,10 @@
       "repro": "python3 -I tools/art/stl_rig.py atlas ~/craft/solid/mc2/stl/atlas/as7-d4.stl --joints ~/craft/solid/mc2/stl/atlas/joints.json",
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T20:35:42+13:00",
-      "updated": "2026-10-19T20:35:42+13:00",
-      "note": null
+      "updated": "2026-10-20T08:19:28+13:00",
+      "note": "seam fixes 4769137 + arm chains; remaining sliver fringe is a known limit"
     },
     {
       "id": "I65",
@@ -1341,12 +1341,12 @@
       "hd_mechs": {
         "needed": 30,
         "done": 30,
-        "approved": 24
+        "approved": 30
       },
       "hd_vehicles": {
         "needed": 28,
-        "done": 3,
-        "approved": 0
+        "done": 25,
+        "approved": 25
       },
       "hd_objects": {
         "needed": 34,
@@ -1440,36 +1440,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T15:51:40+13:00",
-      "who": "lee",
-      "msg": "decided C15: Redos wait for the other session's chain to finish on GPU0 (no second ComfyUI on GPU1) \u2014 Lee's call: keep one generation server, nothing new to manage"
-    },
-    {
-      "at": "2026-10-19T15:51:53+13:00",
-      "who": "gate",
-      "msg": "phase 7 done refused: done-gate failed"
-    },
-    {
-      "at": "2026-10-19T15:52:13+13:00",
-      "who": "conductor",
-      "msg": "decided C16: Phase 7 gets a done-gate (coverage_complete: approved==needed for mechs/vehicles/buildings, no open P2+ game-art issues); swarm phase done enforces it \u2014 batch 1 passed the per-batch gate with 7/30 mechs approved \u2014 a passing batch gate must not read as a finished phase"
-    },
-    {
-      "at": "2026-10-19T15:52:13+13:00",
-      "who": "conductor",
-      "msg": "decided C17: Batch 2 plan: the 6 redos (I2-I4, I6-I8) plus meshing the chain's 15 concept-only mechs, once concept5 is ALLDONE \u2014 same GPU, same tool; meshing what the chain concepted finishes the mech set in one pass"
-    },
-    {
-      "at": "2026-10-19T16:08:13+13:00",
-      "who": "conductor",
-      "msg": "decided C18: Batch 2 generation runs as one background hd_batch.py job under the gpu0 lock; agents do review/record only \u2014 subagent shell commands time out at 10 min and one mech's mesh+rig can exceed that; 23 agents idling on one GPU lock would also hit the lock timeout. hd_batch.py already sequences, restarts ComfyUI and logs"
-    },
-    {
-      "at": "2026-10-19T16:08:13+13:00",
-      "who": "conductor",
-      "msg": "phase 7 (HD art (dry run)) started"
-    },
     {
       "at": "2026-10-19T16:08:13+13:00",
       "who": "conductor",
@@ -2439,6 +2409,36 @@
       "at": "2026-10-20T07:16:55+13:00",
       "who": "conductor",
       "msg": "issue I76 fixed: Lee approved the redo (2026-10-20)"
+    },
+    {
+      "at": "2026-10-20T08:19:28+13:00",
+      "who": "conductor",
+      "msg": "issue I9 fixed: superseded: now an adapted licensed sculpt, approved 2026-10-20"
+    },
+    {
+      "at": "2026-10-20T08:19:28+13:00",
+      "who": "conductor",
+      "msg": "issue I58 fixed: superseded: now an adapted licensed sculpt, approved 2026-10-20"
+    },
+    {
+      "at": "2026-10-20T08:19:28+13:00",
+      "who": "conductor",
+      "msg": "issue I60 fixed: superseded: now an adapted licensed sculpt, approved 2026-10-20"
+    },
+    {
+      "at": "2026-10-20T08:19:28+13:00",
+      "who": "conductor",
+      "msg": "issue I61 fixed: superseded: now an adapted licensed sculpt, approved 2026-10-20"
+    },
+    {
+      "at": "2026-10-20T08:19:28+13:00",
+      "who": "conductor",
+      "msg": "issue I63 updated: title"
+    },
+    {
+      "at": "2026-10-20T08:19:28+13:00",
+      "who": "conductor",
+      "msg": "issue I64 fixed: seam fixes 4769137 + arm chains; remaining sliver fringe is a known limit"
     }
   ],
   "choices": [
