@@ -144,7 +144,7 @@ func _footer(won: bool) -> Control:
 		var nxt := Flow.current if Flow.current != mission else ""
 		continue_button.text = "Next mission briefing" if nxt != "" else "Campaign complete"
 		continue_button.disabled = nxt == ""
-		continue_button.pressed.connect(func(): Flow.goto_briefing(nxt))
+		continue_button.pressed.connect(func(): Flow.after_debrief(nxt))
 	else:
 		continue_button.text = "Back to briefing"
 		continue_button.pressed.connect(func(): Flow.goto_briefing(mission))

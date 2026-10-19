@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import abl_scripts  # noqa: E402
 import audio  # noqa: E402
+import campaign  # noqa: E402
 import chassis  # noqa: E402
 import components  # noqa: E402
 import fit  # noqa: E402
@@ -158,6 +159,9 @@ def main():
     write("heat.json", heat_table(os.path.join(objects, "heat.csv")))
     write("gamesys.json", gamesys(os.path.join(missions, "gamesys.fit")))
     write("campaign.json", fit.parse_file(os.path.join(data, "Campaign", "campaign.fit")))
+    purchase = campaign.convert_purchase_files(missions, os.path.join(OUT, "purchase"))
+    write("roster.json", campaign.roster(objects))
+    report.append(f"purchase files: {len(purchase)}")
 
     failed = {}
     for m in CAMPAIGN_MISSIONS:

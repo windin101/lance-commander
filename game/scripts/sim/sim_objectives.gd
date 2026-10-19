@@ -29,7 +29,8 @@ var result: int = Result.PLAYING
 var pending_result: int = Result.PLAYING
 var pending_time := -1.0
 var unsupported: Array[String] = []
-var dropped := 0  # conditions whose target could not be found (silently dropped, B1)
+var dropped := 0
+var bonus_files: Array[String] = []  # conditions whose target could not be found (silently dropped, B1)
 var player_team := 0
 var time_limit := -1.0  # MissionSettings TimeLimit, seconds
 var script_result := 0  # the mission script's return value (scenario result: 1-2 lost, 4-5 won)
@@ -83,7 +84,8 @@ static func from_fit(fit: Dictionary, sm: SimMission) -> SimObjectives:
 
 static func _action(ab: Dictionary, key: String) -> Dictionary:
 	return {"kind": String(ab.get(key, ab.get("ActionSpeciesString", ""))), "flag": String(ab.get("FlagID", "")),
-		"value": bool(ab.get("Value", true)), "wav": String(ab.get("WAVFileName", ""))}
+		"value": bool(ab.get("Value", true)), "wav": String(ab.get("WAVFileName", "")),
+		"file": String(ab.get("PurchaseFileName", "")).replace("\\", "/").get_file().get_basename().to_lower()}
 
 
 ## A parsed condition, or null when its target can't be resolved (dropped, B1/B2).
@@ -270,7 +272,8 @@ func _resolve(obj: Dictionary, status: int, world: SimWorld, events: Array[Dicti
 				flags[a["flag"]] = a["value"]
 			"PlayWAV":
 				events.append({"type": "abl_wave", "file": a["wav"]})
-			# MakeNewTechnologyAvailable: logistics (purchase lists), not modelled yet
+			"MakeNewTechnologyAvailable":
+				bonus_files.append(a["file"])  # the campaign picks it up (campaign-layer.md 5.3)
 	events.append({"type": "objective" if status == Status.SUCCESS else "objective_failed",
 		"index": obj["index"], "title": obj["title"], "hidden": obj["hidden"]})
 

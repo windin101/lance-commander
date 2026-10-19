@@ -16,10 +16,14 @@ var seed := 1
 var abl: SimAbl = null  # the mission's original ABL (mission script + unit brains)
 var support: SimSupport = null  # Resource Points and the player's support powers
 var player_invulnerable := false  # ABL setInvulnerable (tutorials)
+var force_paint: Array = []  # the replaced lance's paint, for the campaign force
+var kills: Dictionary = {}  # killer unit id -> [weight class of each kill] (pilot experience, campaign-layer.md 8.2)
 var use_abl := true  # false: no AI brains at all (sim tests that need passive enemies)
 
 
-static func load_mission(data: Object, mission: String, seed_value: int = 1, run_abl := true) -> SimMission:
+## force: the campaign's chosen mechs ([{chassis, variant, pilot, gunnery, piloting}]); when
+## given they replace the mission's own player units (campaign-layer.md 3.4).
+static func load_mission(data: Object, mission: String, seed_value: int = 1, run_abl := true, force: Array = []) -> SimMission:
 	var sm := SimMission.new()
 	sm.use_abl = run_abl
 	var fit: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/%s.json" % mission))
@@ -45,10 +49,17 @@ static func load_mission(data: Object, mission: String, seed_value: int = 1, run
 	var vmap_path := "res://data/missions/%s_vehicles.json" % mission
 	if FileAccess.file_exists(vmap_path):
 		vehicle_files = JSON.parse_string(FileAccess.get_file_as_string(vmap_path))
+	var drop_point = null  # the first team-0 part's position (3.4)
 	for i in range(1, num_parts + 1):
 		var part: Dictionary = fit.get("Part%d" % i, {})
 		if part.is_empty():
 			continue
+		if int(part.get("TeamID", 0)) == sm.player_team and drop_point == null:
+			drop_point = Vector2(float(part["PositionX"]), float(part["PositionY"]))
+		if not force.is_empty() and int(part.get("CommanderID", -1)) == 0 and float(part.get("Damage", 0.0)) < 1.0:
+			if sm.force_paint.is_empty():
+				sm.force_paint = [int(part.get("HighlightColor1", -1)), int(part.get("HighlightColor2", -1)), int(part.get("BaseColor", -1))]
+			continue  # replaced by the campaign force
 		var chassis_key := String(part.get("CSVFile", "")).to_lower()
 		var warrior: Dictionary = fit.get("Warrior%d" % int(part.get("Pilot", i)), {})
 		var pilot_fit: Dictionary = data.pilots.get(String(warrior.get("Profile", "")).to_lower(), {})
@@ -74,6 +85,8 @@ static func load_mission(data: Object, mission: String, seed_value: int = 1, run
 		m.part_index = i
 		m.commander = int(part.get("CommanderID", m.team))
 		m.squad = int(part.get("SquadNum", 0))
+		m.variant = int(part.get("VariantNumber", 0))
+		m.pilot_profile = String(warrior.get("Profile", "")).to_lower()
 		m.warrior_index = int(part.get("Pilot", i))
 		m.exists = int(part.get("Exists", 1)) != 0
 		m.awake = int(part.get("Active", 1)) != 0
@@ -83,6 +96,8 @@ static func load_mission(data: Object, mission: String, seed_value: int = 1, run
 			m.group_index = s[2]
 			m.part_id = 512 + s[0] * 192 + s[1] * 12 + s[2]
 		sm.world.add_unit(m)
+	if not force.is_empty():
+		sm._spawn_force(data, rules, force, drop_point if drop_point != null else Vector2.ZERO)
 	sm._add_structures(mission)
 	sm.objectives = SimObjectives.from_fit(fit, sm)
 	sm.world.flags = sm.objectives.flags
@@ -113,8 +128,59 @@ func step() -> void:
 	if abl:
 		abl.after_step(world.events.slice(first_new))
 		objectives.script_result = abl.script_result
+	for e in world.events.slice(first_new):
+		if e["type"] == "disabled":
+			var victim := world.units[e["unit"]]
+			var killer := victim.last_attacker
+			if killer and victim.is_mover() and killer.team != victim.team:
+				var list: Array = kills.get(killer.id, [])
+				list.append(weight_class(victim))
+				kills[killer.id] = list
 	var ev := objectives.update(world)
 	world.events.append_array(ev)
+
+
+## The campaign force on a ring of 128 world units around the drop point, the first at
+## +Y, facing 0 (3.4). Part IDs are the player's first group slots.
+func _spawn_force(data: Object, rules: SimRules, force: Array, drop_wu: Vector2) -> void:
+	var n := force.size()
+	for i in n:
+		var f: Dictionary = force[i]
+		var chassis := String(f["chassis"])
+		if not data.chassis.has(chassis):
+			continue
+		var pilot := SimPilot.from_fit(data.pilots.get(String(f["pilot"]), {}))
+		pilot.gunnery = float(f.get("gunnery", pilot.gunnery))
+		pilot.piloting = float(f.get("piloting", pilot.piloting))
+		var m := SimMech.from_chassis(data.chassis[chassis], int(f.get("variant", 0)), world.rules, pilot)
+		m.model = chassis
+		m.variant = int(f.get("variant", 0))
+		m.pilot_profile = String(f["pilot"])
+		m.brain_name = "PBrain"
+		m.team = player_team
+		m.is_player = true
+		m.commander = 0
+		m.group = i / 12
+		m.group_index = i % 12
+		m.part_id = 512 + i
+		var at := (drop_wu + Vector2(0, 128).rotated(-TAU * i / n)) * WORLD_UNIT_M
+		m.position = world.map.nearest_walkable(at)
+		m.facing = 0.0
+		m.paint = force_paint
+		_apply_model_speeds(m)
+		world.add_unit(m)
+
+
+static func weight_class(u: SimUnit) -> String:
+	if not (u is SimMech):
+		return "vehicle"
+	if u.tonnage < 40.0:
+		return "light"
+	if u.tonnage < 60.0:
+		return "medium"
+	if u.tonnage < 80.0:
+		return "heavy"
+	return "assault"
 
 
 func _add_structures(mission: String) -> void:
