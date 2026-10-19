@@ -1,0 +1,30 @@
+72 runs (24 missions x 3 seeds), 4 at a time
+done in 560 s -> /home/leeo/Code/mc2-remake/docs/reports/playtest/2026-10-19/results.json
+
+mission  s1      s2      s3      won
+mc2_01   W  353s L  303s W  392s  2/3
+mc2_02   W  389s W  346s W  412s  3/3
+mc2_03   W  626s W  679s W  619s  3/3
+mc2_04   W  774s W  443s W  820s  3/3
+mc2_05   W  635s W  600s W  662s  3/3
+mc2_06   L  888s L 1135s L  786s  0/3
+mc2_07   L  667s L  791s L  813s  0/3
+mc2_08   L  581s L  786s L  700s  0/3
+mc2_09   L 1029s L  798s L  981s  0/3
+mc2_10   W  645s W  635s P 1800s  2/3
+mc2_11   L  983s P 1800s W 1279s  1/3
+mc2_12   L  384s L  383s L  403s  0/3
+mc2_13   L  591s L  800s L  495s  0/3
+mc2_14   L  341s L 1219s L  452s  0/3
+mc2_15   L  481s P 1800s L  462s  0/3
+mc2_16   L 1600s W 1370s L 1079s  1/3
+mc2_17   L  187s L  145s L  168s  0/3
+mc2_18   L  319s L  473s L  463s  0/3
+mc2_19   L  654s L  298s L  474s  0/3
+mc2_20   L  761s L  441s L  801s  0/3
+mc2_21   W  444s W  604s W  485s  3/3
+mc2_22   L  481s P 1800s L  584s  0/3
+mc2_23   L  640s L  454s L  472s  0/3
+mc2_24   L  486s L  475s L  472s  0/3
+
+won 21/72 runs; 9/24 missions won at least once; 0 runs errored
