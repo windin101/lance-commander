@@ -23,21 +23,38 @@ Shared Source release's mech models and textures, so they carry that release's E
 
 ### Per mech
 
-| Mech | Concept seed | Mesh seed | Turn | Fit (mean surface distance) | Phase 7 review (2026-10-19) |
+| Mech | Concept seed | Mesh seed | Turn | Fit (mean surface distance) | Phase 7 review |
 |---|---|---|---|---|---|
-| Bushwacker | 7 | 1234 (default) | no | 0.964 m | **redo, I8**: concept centred the launcher rack on a wide symmetric body (original: offset right-shoulder launcher); first approval revoked, it was judged without the original tile |
-| Werewolf | 21 (seed 7 drifted to a different design) | 1234 (default) | yes (re-fit 2026-10-19) | 0.456 m | approved after `--turn`; P3 I9: yellow band on the shins (paint-mask mistransfer) |
-| Starslayer | 7 | 1234 (default) | no | 0.953 m | **redo, I3**: concept drifted (wide box torso, twin pods) |
-| UrbanMech | 7 | 1234 (default) | no | 0.542 m | **redo, I4**: mesh debris at the feet, weapons melted |
-| Catapult | 8 (seed 7 rejected by the plausibility check) | 1234 (default) | no | 0.476 m | approved; concept lost the cockpit glass |
-| Highlander | 7 (default) | 1234 (default) | no | 0.852 m | **redo, I6**: concept stretched the right-arm gun into a long barrel; render zoom 1.25 |
-| Hollander | 7 | 1234 (default) | no | 0.409 m | approved |
-| Hunchback | 7 (default) | 1234 (default) | no | 0.53 m | **redo, I7**: concept replaced the shoulder gun with twin missile racks |
-| Menshen | 7 | 1234 (default) | no | 0.411 m | approved (automatic orientation check misleading because the concept faces left; front checked by eye) |
-| Raven | 7 | 1234 (default) | no | 0.459 m | approved; front checked by eye (automatic check favoured the turned pose) |
-| Zeus | 7 | 1234 (explicit `m1234_*` work files) | no | 0.432 m | approved; render zoom 1.25 |
-| Flea | 7 | 1234 (default) | no | 0.616 m | approved; front checked by eye (automatic check favoured the turned pose) |
-| JaegerMech | 7 | 1234 (default) | no | 0.519 m | **redo, I2**: mesh debris on the torso, chest partly hollow, barrels merged |
+| Anubis (`anubis`) | 8 | 1234 | no | 0.275 m | approved |
+| Atlas (`atlas`) | 8 | 1234 | no | 0.710 m | **redo, I39**: reseed_concept; render zoom 1.25 |
+| BloodAsp (`bloodasp`) | 7 | 1234 | no | 0.431 m | approved; render zoom 1.25 |
+| Bushwacker (`bushwacker`) | 8 | 1234 | no | 0.436 m | approved; batch 2 concept (seed 8) replaced the centred-rack drift; fit 0.964 -> 0.436 m |
+| Catapult (`catapult`) | 8 | 1234 (default, inferred) | no | 0.476 m | approved; concept lost the cockpit glass |
+| Cyclops (`cyclops`) | 7 | 1234 | no | 0.952 m | **redo, I40**: reseed_concept; render zoom 1.25 |
+| Enfield (`enfield`) | 8 | 1234 | no | 0.571 m | **redo, I41**: reseed_mesh |
+| Flea (`flea`) | 7 | 1234 (default, inferred) | no | 0.616 m | approved; front checked by eye (automatic check favoured the turned pose) |
+| Heavy copter (`heavycopter`) | 7 | 1234 | no | 2.111 m | **redo, I36**: reseed_mesh; render zoom 1.25; uses the vehicle prompt (--prompt vehicles) |
+| Highlander (`highlander`) | 8 | 1234 | no | 0.722 m | approved; render zoom 1.25 |
+| Hollander (`hollander`) | 7 | 1234 (default, inferred) | no | 0.409 m | approved |
+| Hunchback (`hunchback`) | 8 | 1234 | no | 0.762 m | **redo, I37**: reseed_concept |
+| JaegerMech (`jaegermech`) | 7 | 4242 | no | 0.409 m | approved |
+| LaoHu (`laohu`) | 8 | 1234 | no | 0.595 m | **redo, I42**: reseed_concept |
+| MadCat (`madcat`) | 7 | 1234 | no | 0.485 m | **redo, I43**: reseed_concept |
+| Medium copter (`mediumcopter`) | 7 | 1234 | no | 0.710 m | **redo, I35**: reseed_concept; uses the vehicle prompt (--prompt vehicles) |
+| Menshen (`menshen`) | 7 | 1234 (default, inferred) | no | 0.411 m | approved; automatic orientation check misleading (the concept faces left); front checked by eye |
+| Raven (`raven`) | 7 | 1234 (default, inferred) | no | 0.459 m | approved; front checked by eye (automatic check favoured the turned pose) |
+| Ryoken (`ryoken`) | 7 | 1234 | no | 0.392 m | **redo, I44**: reseed_concept |
+| Shadowcat (`shadowcat`) | 8 | 1234 | no | 0.571 m | approved |
+| ShaYu (`shayu`) | 8 | 1234 | no | 0.419 m | approved |
+| Shootist (`shootist`) | 8 | 1234 | no | 0.502 m | approved |
+| Starslayer (`starslayer`) | 8 | 1234 | no | 0.518 m | approved |
+| Thor (`thor`) | 7 | 1234 | no | 0.513 m | **redo, I45**: reseed_concept; render zoom 1.25 |
+| Uller (`uller`) | 7 | 1234 | no | 0.352 m | approved |
+| UrbanMech (`urbanmech`) | 7 | 4242 | no | 0.425 m | **redo, I38**: turn |
+| Vulture (`vulture`) | 7 | 1234 | no | 0.462 m | **redo, I46**: reseed_mesh |
+| Werewolf (`werewolf`) | 21 | 1234 (default, inferred) | yes | 0.456 m | approved; re-fitted with --turn; P3 I9: yellow band on the shins |
+| Wolfhound (`wolfhound`) | 7 | 1234 | no | 0.755 m | **redo, I34**: reseed_concept |
+| Zeus (`zeus`) | 7 | 1234 (default, inferred) | no | 0.432 m | approved; render zoom 1.25 |
 
 Fit, turn and concept seed come from `original/hd/<mech>/provenance.json` (written by `hd_mech.py` since 2026-10-19; the 13 rows above were backfilled with a step-4-only re-fit, nothing reinstalled). Mesh seed 1234 is the tool default and is inferred, not logged, for every mech whose step 3 ran before the change. "redo" rows are installed and in the game until their issue is fixed.
 

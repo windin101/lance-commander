@@ -13,6 +13,10 @@
     {
       "name": "import_size",
       "cmd": "python3 -I /home/leeo/Code/remake-kit/gates/import_size.py --repo . --max-file-mb 64 --max-total-gb 8"
+    },
+    {
+      "name": "provenance_table_current",
+      "cmd": "python3 -I tools/art/provenance_table.py --check"
     }
   ],
   "8": [
