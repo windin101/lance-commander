@@ -132,7 +132,7 @@ def concept(work, seed, kind, tries=4, prompt_kind=None):
         if plausible(img):
             img.convert("RGB").save(work / "concept.png")
             print(f"  concept ok with seed {seed + k}")
-            return
+            return seed + k
         img.convert("RGB").save(work / f"concept_rejected_s{seed + k}.png")  # look before blaming the prompt
         if max(img.convert("L").getextrema()) == 0:
             # All black is NaN in the server (seen after two good edits, on split attention), not a bad seed:
@@ -158,11 +158,13 @@ def rig(mech, work, kind, turn=False):
     folder = KINDS[kind][0]
     paint_src = work / "orig_paint.png"
     paint_src.write_bytes(paint_source(mech, kind).read_bytes())
-    subprocess.run([sys.executable, "-I", str(Path(__file__).with_name("hd_rig.py")),
-                    str(GAME / "assets" / folder / f"{mech}.glb"), str(paint_src), str(work / "low.glb"),
-                    str(work / "normal.png"), str(work / "ao.png"), str(work / f"{mech}_hd.glb"),
-                    str(work / "hd_paint.png"), "--tex", "1024", "--concept", str(work / "concept.png")] + (["--turn"] if turn else [])
-                   + (["--static"] if kind == "objects" else []), check=True)
+    r = subprocess.run([sys.executable, "-I", str(Path(__file__).with_name("hd_rig.py")),
+                        str(GAME / "assets" / folder / f"{mech}.glb"), str(paint_src), str(work / "low.glb"),
+                        str(work / "normal.png"), str(work / "ao.png"), str(work / f"{mech}_hd.glb"),
+                        str(work / "hd_paint.png"), "--tex", "1024", "--concept", str(work / "concept.png")] + (["--turn"] if turn else [])
+                       + (["--static"] if kind == "objects" else []), check=True, capture_output=True, text=True)
+    sys.stdout.write(r.stdout)  # captured so the fit numbers can go into provenance.json
+    return r.stdout
 
 
 def install(mech, work, kind):
@@ -191,11 +193,33 @@ def main():
     steps = [(1, "render", lambda: render(a.mech, work, a.kind, a.cam, a.focus_y)), (2, "concept", lambda: concept(work, a.seed, a.kind, prompt_kind=a.prompt)),
              (3, "mesh", lambda: mesh(work, a.mesh_seed, a.kind)), (4, "rig", lambda: rig(a.mech, work, a.kind, a.turn)),
              (5, "install", lambda: install(a.mech, work, a.kind))]
+    # provenance.json: what docs/art-provenance.md is generated from. Merged across partial reruns
+    # (--from-step 4 keeps the concept seed recorded by the earlier run).
+    import json
+    import re
+    import time
+    prov_path = work / "provenance.json"
+    prov = json.loads(prov_path.read_text()) if prov_path.exists() else {}
+    prov.update({"asset": a.mech, "kind": a.kind})
     for n, label, fn in steps:
         if a.from_step <= n <= a.to_step:
             print(f"[{a.mech}] step {n}: {label}", flush=True)
-            fn()
-    print(f"[{a.mech}] done")
+            out = fn()
+            if n == 2:
+                prov["concept_seed"] = out
+            elif n == 3:
+                prov["mesh_seed"] = a.mesh_seed
+            elif n == 4:
+                m = (re.findall(r"chamfer ([0-9.]+) m", out or "") or [None])[-1]  # last = after ICP
+                o = re.search(r"orientation check[^\n]*", out or "")
+                prov.update({"turn": a.turn, "fit_m": float(m) if m else None,
+                             "orientation_check": o.group(0) if o else None})
+            prov[f"step{n}_at"] = time.strftime("%Y-%m-%dT%H:%M:%S%z")
+    zoom = work / "render_zoom.txt"
+    if zoom.exists():
+        prov["render_zoom"] = float(zoom.read_text())
+    prov_path.write_text(json.dumps(prov, indent=2) + "\n")
+    print(f"[{a.mech}] done; provenance in {prov_path.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

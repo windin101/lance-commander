@@ -1,0 +1,879 @@
+{
+  "game": {
+    "name": "mc2",
+    "title": "Lance Commander \u2013 Battle for the Sphere",
+    "repo": "/home/leeo/Code/mc2-remake",
+    "engine": "godot4"
+  },
+  "created": "2026-10-19T15:02:19+13:00",
+  "updated": "2026-10-19T15:52:13+13:00",
+  "phase": {
+    "current": 7,
+    "status": "gated"
+  },
+  "phases": {
+    "0": {
+      "name": "Intake",
+      "status": "done",
+      "started": null,
+      "ended": "2026-10-19T00:00:00+13:00",
+      "gate": {
+        "passed": true,
+        "at": "2026-10-19T00:00:00+13:00",
+        "checks": [
+          {
+            "name": "retro: completed by hand before the swarm",
+            "pass": true,
+            "detail": "see docs/feasibility.md",
+            "seconds": 0,
+            "at": "2026-10-19T00:00:00+13:00"
+          }
+        ]
+      },
+      "report": null,
+      "runs": []
+    },
+    "1": {
+      "name": "Archaeology",
+      "status": "done",
+      "started": null,
+      "ended": "2026-10-19T00:00:00+13:00",
+      "gate": {
+        "passed": true,
+        "at": "2026-10-19T00:00:00+13:00",
+        "checks": [
+          {
+            "name": "retro: completed by hand before the swarm",
+            "pass": true,
+            "detail": "see docs/feasibility.md",
+            "seconds": 0,
+            "at": "2026-10-19T00:00:00+13:00"
+          }
+        ]
+      },
+      "report": null,
+      "runs": []
+    },
+    "2": {
+      "name": "Architecture",
+      "status": "done",
+      "started": null,
+      "ended": "2026-10-19T00:00:00+13:00",
+      "gate": {
+        "passed": true,
+        "at": "2026-10-19T00:00:00+13:00",
+        "checks": [
+          {
+            "name": "retro: completed by hand before the swarm",
+            "pass": true,
+            "detail": "see docs/feasibility.md",
+            "seconds": 0,
+            "at": "2026-10-19T00:00:00+13:00"
+          }
+        ]
+      },
+      "report": null,
+      "runs": []
+    },
+    "3": {
+      "name": "Data",
+      "status": "done",
+      "started": null,
+      "ended": "2026-10-19T00:00:00+13:00",
+      "gate": {
+        "passed": true,
+        "at": "2026-10-19T00:00:00+13:00",
+        "checks": [
+          {
+            "name": "retro: completed by hand before the swarm",
+            "pass": true,
+            "detail": "see docs/feasibility.md",
+            "seconds": 0,
+            "at": "2026-10-19T00:00:00+13:00"
+          }
+        ]
+      },
+      "report": null,
+      "runs": []
+    },
+    "4": {
+      "name": "Simulation",
+      "status": "done",
+      "started": null,
+      "ended": "2026-10-19T00:00:00+13:00",
+      "gate": {
+        "passed": true,
+        "at": "2026-10-19T00:00:00+13:00",
+        "checks": [
+          {
+            "name": "retro: completed by hand before the swarm",
+            "pass": true,
+            "detail": "see docs/feasibility.md",
+            "seconds": 0,
+            "at": "2026-10-19T00:00:00+13:00"
+          }
+        ]
+      },
+      "report": null,
+      "runs": []
+    },
+    "5": {
+      "name": "UI & screens",
+      "status": "done",
+      "started": null,
+      "ended": "2026-10-19T00:00:00+13:00",
+      "gate": {
+        "passed": true,
+        "at": "2026-10-19T00:00:00+13:00",
+        "checks": [
+          {
+            "name": "retro: completed by hand before the swarm",
+            "pass": true,
+            "detail": "see docs/feasibility.md",
+            "seconds": 0,
+            "at": "2026-10-19T00:00:00+13:00"
+          }
+        ]
+      },
+      "report": null,
+      "runs": []
+    },
+    "6": {
+      "name": "AI",
+      "status": "done",
+      "started": null,
+      "ended": "2026-10-19T00:00:00+13:00",
+      "gate": {
+        "passed": true,
+        "at": "2026-10-19T00:00:00+13:00",
+        "checks": [
+          {
+            "name": "retro: completed by hand before the swarm",
+            "pass": true,
+            "detail": "see docs/feasibility.md",
+            "seconds": 0,
+            "at": "2026-10-19T00:00:00+13:00"
+          }
+        ]
+      },
+      "report": null,
+      "runs": []
+    },
+    "7": {
+      "name": "HD art (dry run)",
+      "status": "gated",
+      "started": "2026-10-19T15:02:19+13:00",
+      "ended": null,
+      "gate": {
+        "passed": true,
+        "at": "2026-10-19T15:35:42+13:00",
+        "checks": [
+          {
+            "name": "tests_green",
+            "pass": true,
+            "detail": "tests pass (125 cases): ALL TESTS PASSED",
+            "seconds": 41.6,
+            "at": "2026-10-19T15:35:42+13:00"
+          },
+          {
+            "name": "hd_provenance",
+            "pass": true,
+            "detail": "23 HD meshes, all with provenance rows and fit data",
+            "seconds": 0.0,
+            "at": "2026-10-19T15:35:42+13:00"
+          },
+          {
+            "name": "import_size",
+            "pass": true,
+            "detail": "imported total 0.33 GB, no file over 64 MB; top: burnin=59MB, hangar_high=20MB, bw_hd_mesh=11MB, bw_mesh=8MB, geodesicdome_hd_1=6MB",
+            "seconds": 0.0,
+            "at": "2026-10-19T15:35:42+13:00"
+          }
+        ]
+      },
+      "report": null,
+      "runs": [
+        "wf_2391523b-26b"
+      ],
+      "done_gate": {
+        "passed": false,
+        "at": "2026-10-19T15:51:53+13:00",
+        "checks": [
+          {
+            "name": "coverage_complete",
+            "pass": false,
+            "detail": "FAIL: not approved: assets.hd_mechs 7/30; assets.hd_vehicles 0/28; assets.hd_objects 0/34; 6 open issue(s) at P2 or worse",
+            "seconds": 0.0,
+            "at": "2026-10-19T15:51:53+13:00"
+          }
+        ]
+      }
+    },
+    "8": {
+      "name": "Playtest & polish",
+      "status": "pending",
+      "started": null,
+      "ended": null,
+      "gate": {
+        "passed": null,
+        "at": null,
+        "checks": []
+      },
+      "report": null,
+      "runs": []
+    },
+    "9": {
+      "name": "Release",
+      "status": "pending",
+      "started": null,
+      "ended": null,
+      "gate": {
+        "passed": null,
+        "at": null,
+        "checks": []
+      },
+      "report": null,
+      "runs": []
+    }
+  },
+  "decisions": [
+    {
+      "id": "D1",
+      "phase": 7,
+      "question": "Dry-run scope for the HD-art phase: which batch first?",
+      "options": [
+        "remaining 19 mech chassis",
+        "vehicles and buildings",
+        "one of each to prove the loop"
+      ],
+      "context": "11/30 mechs, 3/12 vehicles, 7/20 buildings have HD meshes",
+      "asked": "2026-10-19T15:02:19+13:00",
+      "answered": "2026-10-19T15:09:48+13:00",
+      "answer": "superseded by D2: the mech batch is already running in another session"
+    },
+    {
+      "id": "D2",
+      "phase": 7,
+      "question": "The remaining mechs are being generated by another session's hd_batch chain on GPU0. What should the swarm's first batch be?",
+      "options": [
+        "review+record the chain's mech outputs as they land (CPU/Godot only: sheets, orientation pre-screen, provenance rows, gate) \u2014 no GPU0 use",
+        "wait for the chain to finish, then vehicles+buildings on GPU0",
+        "pause the other chain and let the swarm own the whole HD batch"
+      ],
+      "context": "13+ mechs installed, 21 lack provenance/fit; the review+record half exercises every swarm stage except generation",
+      "asked": "2026-10-19T15:09:48+13:00",
+      "answered": "2026-10-19T15:26:09+13:00",
+      "answer": "review+record the chain's mech outputs as they land; no GPU0 use"
+    }
+  ],
+  "issues": [
+    {
+      "id": "I1",
+      "sev": "P2",
+      "title": "Provenance backfill: 21 HD assets lack fit/turn data or a row",
+      "detail": "hd_provenance --require-fit fails: rows for the 2026-10-19 batch say 'not recorded'; vehicles/objects rows missing or named differently (lrmc vs 'LRM carrier'). Fix: hd_mech.py now writes original/hd/<asset>/provenance.json; rerun --from-step 4 --to-step 5 per asset under the godot lock (CPU only, ~1 min each) and regenerate the rows from the JSON.",
+      "repro": "python3 -I tools/art/hd_mech.py <asset> --from-step 4 --to-step 5 [--kind vehicles|objects]",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "fixed",
+      "created": "2026-10-19T15:07:55+13:00",
+      "updated": "2026-10-19T15:35:01+13:00",
+      "note": "13 mech rows backfilled from provenance.json (step-4 re-fit); hd_mech.py writes it from now on; lrmc row id fixed; gate re-run"
+    },
+    {
+      "id": "I2",
+      "sev": "P2",
+      "title": "HD jaegermech: reseed_mesh",
+      "detail": "Orientation right (front at yaw 35, pre-screen agrees); concept seed 7 clean. HD mesh broken: loose debris fragments on the right of the torso at both yaws, chest around the cockpit partly hollow, twin barrels merged into flat slabs. Fit 0.519 m looks fine only because bounds match. Change --mesh-seed (4242), keep concept seed 7.",
+      "repro": "python3 -I tools/art/hd_mech.py jaegermech --from-step 3 --mesh-seed 4242",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T15:29:53+13:00",
+      "updated": "2026-10-19T15:29:53+13:00",
+      "note": null
+    },
+    {
+      "id": "I3",
+      "sev": "P2",
+      "title": "HD starslayer: reseed_concept",
+      "detail": "The concept drifted. The original has a narrow torso with a humped head, a cockpit, shoulder barrels and one arm sticking out to the right. The concept turned it into a wide square box with two launcher pods. The HD mesh followed the concept, so the HD yaw-35 silhouette has a much larger, blockier upper body than the original, and the legs became rounded, deep-bent knees. Orientation looks right and the mesh is intact. The fault is the concept, not the mesh. Fit 0.953 m. Prescreen disagreed (original yes, HD no); by eye the HD view is the front.",
+      "repro": "python3 -I tools/art/hd_mech.py starslayer --from-step 2 --seed 8",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T15:30:37+13:00",
+      "updated": "2026-10-19T15:30:37+13:00",
+      "note": null
+    },
+    {
+      "id": "I4",
+      "sev": "P2",
+      "title": "HD urbanmech: reseed_mesh",
+      "detail": "The mesh has a debris field: loose triangles scattered around both feet in both the yaw-35 and yaw-215 renders. The weapons melted into rounded lumps on the sides of the dome, where the original has a distinct autocannon barrel on the left and a gun on the right. The concept is clean and faithful (dropped the two antennas, acceptable). New mesh seed, not a new concept. Fit 0.542 m. Prescreen disagreed (original yes, HD no); recheck orientation after the remesh.",
+      "repro": "python3 -I tools/art/hd_mech.py urbanmech --from-step 3 --mesh-seed 4242",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T15:30:37+13:00",
+      "updated": "2026-10-19T15:30:37+13:00",
+      "note": null
+    },
+    {
+      "id": "I5",
+      "sev": "P2",
+      "title": "HD werewolf: turn",
+      "detail": "The HD model looks backwards. In the original yaw-35 view the dorsal fin is left of centre and the long launcher block runs out to the left; in the HD yaw-35 view the fin is right of centre, and the HD yaw-215 view matches the original layout. Provenance orientation check was ambiguous (0.675 as fitted vs 0.603 turned, turn=false); prescreen also disagreed. Concept is faithful. After the turn, recheck the knees: gap between thigh and shin, and a yellow band on the shins that looks like a paint-mask mistransfer. Fit 0.52 m.",
+      "repro": "python3 -I tools/art/hd_mech.py werewolf --from-step 4 --turn",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "fixed",
+      "created": "2026-10-19T15:30:37+13:00",
+      "updated": "2026-10-19T15:35:00+13:00",
+      "note": "re-fit with --turn, fit 0.456 m, front checked by eye; review_werewolf_turn.png"
+    },
+    {
+      "id": "I6",
+      "sev": "P2",
+      "title": "HD highlander: reseed_concept",
+      "detail": "Front is right: canopy and chest face the camera at yaw 35. But the concept (seed 7) changed a weapon. The original's arm on the viewer's right ends in a short boxy gun. The concept stretched it into a long gun barrel that reaches well past the body, and the HD mesh copied it. The big box gun on the other arm also gained a hexagonal muzzle opening. That breaks the rule that weapon placement must match the original. The fit of 0.852 m is the worst in the batch, which fits a drifted shape. Legs and torso are intact, with no debris.",
+      "repro": "python3 -I tools/art/hd_mech.py highlander --from-step 2 --seed 8",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T15:31:18+13:00",
+      "updated": "2026-10-19T15:31:18+13:00",
+      "note": null
+    },
+    {
+      "id": "I7",
+      "sev": "P2",
+      "title": "HD hunchback: reseed_concept",
+      "detail": "Front is right: chest panel and arms face the camera. But the concept (seed 7) swapped the defining weapon. The original has one gun housing on top of the shoulders with a single round muzzle. The concept replaced it with two missile racks, one on each shoulder, and the HD mesh copied them. That is an added weapon and a different silhouette, so the HD no longer reads as this mech. The legs also came out as bent, organic shapes instead of the original's straight piston shins. The mesh itself is sound (fit 0.53 m, no debris), so the fault is in the concept.",
+      "repro": "python3 -I tools/art/hd_mech.py hunchback --from-step 2 --seed 8",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T15:31:18+13:00",
+      "updated": "2026-10-19T15:31:18+13:00",
+      "note": null
+    },
+    {
+      "id": "I8",
+      "sev": "P2",
+      "title": "HD bushwacker: reseed_concept",
+      "detail": "concept centred a 4-tube rack on a wide symmetric body; the original has an offset right-shoulder launcher. Fit 0.964 m (worst). Milestone-1 mech in mc2_01.",
+      "repro": "python3 -I tools/art/hd_mech.py bushwacker --from-step 2 --seed 8",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T15:35:01+13:00",
+      "updated": "2026-10-19T15:35:01+13:00",
+      "note": null
+    },
+    {
+      "id": "I9",
+      "sev": "P3",
+      "title": "HD werewolf: yellow band on the shins",
+      "detail": "paint-mask mistransfer at the knee gap, visible at yaw 35 and 215 after the turn",
+      "repro": "inspect original/hd/werewolf/hd_paint.png around the shin UVs",
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-19T15:35:01+13:00",
+      "updated": "2026-10-19T15:35:01+13:00",
+      "note": null
+    }
+  ],
+  "coverage": {
+    "assets": {
+      "hd_mechs": {
+        "needed": 30,
+        "done": 13,
+        "approved": 7
+      },
+      "hd_vehicles": {
+        "needed": 28,
+        "done": 3,
+        "approved": 0
+      },
+      "hd_objects": {
+        "needed": 34,
+        "done": 7,
+        "approved": 0
+      }
+    },
+    "missions": {
+      "converted": 24,
+      "winnable": 7
+    },
+    "tests": {
+      "pass": true,
+      "at": "2026-10-19"
+    }
+  },
+  "runs": [
+    {
+      "id": "wf_2391523b-26b",
+      "phase": 7,
+      "workflow": "phase-7-hd-review",
+      "started": "2026-10-19T15:35:01+13:00",
+      "ended": "2026-10-19T15:35:01+13:00",
+      "agents": 10,
+      "tokens": 534438,
+      "status": "ok",
+      "note": "13 mechs: 6 approved, 7 redo; critic caught bushwacker approved blind and werewolf's seed"
+    }
+  ],
+  "log": [
+    {
+      "at": "2026-10-19T15:02:19+13:00",
+      "who": "swarm",
+      "msg": "initialised for mc2"
+    },
+    {
+      "at": "2026-10-19T15:02:19+13:00",
+      "who": "conductor",
+      "msg": "retro: phases 0-6 marked done from docs/feasibility.md (milestone 1 + phases 9-12 of milestone 2)"
+    },
+    {
+      "at": "2026-10-19T15:02:19+13:00",
+      "who": "conductor",
+      "msg": "phase 7 (HD art (dry run)) started"
+    },
+    {
+      "at": "2026-10-19T15:02:19+13:00",
+      "who": "conductor",
+      "msg": "decision D1 queued for Lee: Dry-run scope for the HD-art phase: which batch first?"
+    },
+    {
+      "at": "2026-10-19T15:06:53+13:00",
+      "who": "conductor",
+      "msg": "coverage: needed counts derived from the 24 mission files (28 vehicle chassis, 34 building types used)"
+    },
+    {
+      "at": "2026-10-19T15:07:39+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate FAILED: tests_green=ok, hd_provenance=FAIL, import_size=ok"
+    },
+    {
+      "at": "2026-10-19T15:07:55+13:00",
+      "who": "game-art",
+      "msg": "issue I1 P2: Provenance backfill: 21 HD assets lack fit/turn data or a row"
+    },
+    {
+      "at": "2026-10-19T15:09:48+13:00",
+      "who": "conductor",
+      "msg": "another session's hd_batch.py chain is generating the remaining mech concepts/meshes on GPU0 right now (VRAM full, ComfyUI queue busy); the swarm must not start GPU0 work until its logs say ALLDONE. hd_mech.py was edited under it (provenance.json emission; compatible) \u2014 flagged to Lee"
+    },
+    {
+      "at": "2026-10-19T15:09:48+13:00",
+      "who": "lee",
+      "msg": "decision D1 answered: superseded by D2: the mech batch is already running in another session"
+    },
+    {
+      "at": "2026-10-19T15:09:48+13:00",
+      "who": "conductor",
+      "msg": "decision D2 queued for Lee: The remaining mechs are being generated by another session's hd_batch chain on GPU0. What should the swarm's first batch be?"
+    },
+    {
+      "at": "2026-10-19T15:16:05+13:00",
+      "who": "conductor",
+      "msg": "Grafana trends live: uid remakes; swarm_tokens cumulative gauge"
+    },
+    {
+      "at": "2026-10-19T15:26:09+13:00",
+      "who": "lee",
+      "msg": "decision D2 answered: review+record the chain's mech outputs as they land; no GPU0 use"
+    },
+    {
+      "at": "2026-10-19T15:26:49+13:00",
+      "who": "conductor",
+      "msg": "launched phase-7-hd-review wf_2391523b-26b: 13 mechs in 3 groups (backfill \u2192 review \u2192 record \u2192 critic), no GPU0 use"
+    },
+    {
+      "at": "2026-10-19T15:29:53+13:00",
+      "who": "game-art",
+      "msg": "issue I2 P2: HD jaegermech: reseed_mesh"
+    },
+    {
+      "at": "2026-10-19T15:29:53+13:00",
+      "who": "game-art",
+      "msg": "phase 7 review group 3: 3 approved, 1 issues"
+    },
+    {
+      "at": "2026-10-19T15:30:37+13:00",
+      "who": "game-art",
+      "msg": "issue I3 P2: HD starslayer: reseed_concept"
+    },
+    {
+      "at": "2026-10-19T15:30:37+13:00",
+      "who": "game-art",
+      "msg": "issue I4 P2: HD urbanmech: reseed_mesh"
+    },
+    {
+      "at": "2026-10-19T15:30:37+13:00",
+      "who": "game-art",
+      "msg": "issue I5 P2: HD werewolf: turn"
+    },
+    {
+      "at": "2026-10-19T15:30:40+13:00",
+      "who": "game-art",
+      "msg": "phase 7 review group 1: 1 approved, 3 issues"
+    },
+    {
+      "at": "2026-10-19T15:31:18+13:00",
+      "who": "game-art",
+      "msg": "issue I6 P2: HD highlander: reseed_concept"
+    },
+    {
+      "at": "2026-10-19T15:31:18+13:00",
+      "who": "game-art",
+      "msg": "issue I7 P2: HD hunchback: reseed_concept"
+    },
+    {
+      "at": "2026-10-19T15:31:18+13:00",
+      "who": "game-art",
+      "msg": "phase 7 review group 2: 3 approved, 2 issues"
+    },
+    {
+      "at": "2026-10-19T15:31:46+13:00",
+      "who": "conductor",
+      "msg": "decided C1: Phases 0-6 marked done retroactively from docs/feasibility.md instead of re-running their gates \u2014 milestone 1 and phases 9-12 were finished and tested by hand before the swarm existed; the critic can audit them later (plan \u00a79.5)"
+    },
+    {
+      "at": "2026-10-19T15:31:46+13:00",
+      "who": "conductor",
+      "msg": "decided C2: Needed counts for coverage derived from the 24 mission files (28 vehicle chassis, 34 building types), not from the asset folders (56 and 493) \u2014 the game only needs what the missions reference; folder totals would make the bars meaningless"
+    },
+    {
+      "at": "2026-10-19T15:31:46+13:00",
+      "who": "conductor",
+      "msg": "decided C3: D1 superseded by D2 once another session's hd_batch chain was found running the mech batch on GPU0 \u2014 D1's options assumed the swarm would generate the mechs; the facts changed"
+    },
+    {
+      "at": "2026-10-19T15:31:46+13:00",
+      "who": "conductor",
+      "msg": "decided C4: No swarm job touches GPU0 until the other chain's logs say ALLDONE \u2014 GPU0 is at 34 GB with ComfyUI's queue busy; a second generation job would OOM or stall both"
+    },
+    {
+      "at": "2026-10-19T15:31:46+13:00",
+      "who": "conductor",
+      "msg": "decided C5: hd_mech.py edited (provenance.json emission) while the other chain was running \u2014 the gate needs fit/turn data the tool did not record; the change is additive and each hd_mech.py call is a fresh process. Flagged to Lee; revert is git diff tools/art/hd_mech.py"
+    },
+    {
+      "at": "2026-10-19T15:31:46+13:00",
+      "who": "conductor",
+      "msg": "decided C6: Provenance backfill re-runs step 4 only (re-fit), never step 5 (reinstall) \u2014 hd_rig is seeded and deterministic, but approved meshes must not change under review; the installed glb stays"
+    },
+    {
+      "at": "2026-10-19T15:31:46+13:00",
+      "who": "conductor",
+      "msg": "decided C7: Review run split into 3 groups of 4-5 mechs, one agent chain per group (10 agents total) \u2014 hd_review.py makes multi-row sheets; one agent per mech would be 40 agents for no better judgement"
+    },
+    {
+      "at": "2026-10-19T15:31:46+13:00",
+      "who": "conductor",
+      "msg": "decided C8: bushwacker included although its work dir predates the pipeline (backfill will fail for it) \u2014 the dry run should exercise the failure path once; its existing row already has a fit"
+    },
+    {
+      "at": "2026-10-19T15:33:14+13:00",
+      "who": "conductor",
+      "msg": "decided C9: werewolf --turn re-fit (I5) runs now; the concept/mesh reseeds (I2,I3,I4,I6,I7) wait until the other chain's logs say ALLDONE \u2014 the turn is a CPU-only step 4-5 and reinstalls a deterministic fit; reseeds need ComfyUI on GPU0, which the chain owns"
+    },
+    {
+      "at": "2026-10-19T15:33:14+13:00",
+      "who": "conductor",
+      "msg": "decided C10: Review verdicts accepted as filed, including the three milestone-1 mechs they fail (starslayer, urbanmech, werewolf); highlander's reseed_concept flagged to Lee as the one strict call \u2014 checked both sheets by eye: drift, debris and the backwards fit are all visible; the earlier by-hand approvals were lax"
+    },
+    {
+      "at": "2026-10-19T15:35:00+13:00",
+      "who": "conductor",
+      "msg": "decided C11: bushwacker approval revoked: reseed_concept (I8) \u2014 the critic showed it was approved without the original tile; the rebuilt sheet shows the launcher rack centred on a symmetric body, fit 0.964 m"
+    },
+    {
+      "at": "2026-10-19T15:35:00+13:00",
+      "who": "conductor",
+      "msg": "decided C12: raven and flea approvals kept despite the critic's orientation flag \u2014 checked by eye: front faces the camera at yaw 35 on both; the automatic chamfer/IoU check is already known to be unreliable"
+    },
+    {
+      "at": "2026-10-19T15:35:00+13:00",
+      "who": "conductor",
+      "msg": "decided C13: werewolf provenance.json corrected to concept seed 21 \u2014 installed concept.png is byte-identical to concept_s21.png; the step-4 rerun had carried the wrong default 7 forward"
+    },
+    {
+      "at": "2026-10-19T15:35:00+13:00",
+      "who": "conductor",
+      "msg": "decided C14: Redo assets get honest rows (real fit, issue id) instead of no row \u2014 they are installed and in the game until fixed; the gate is about provenance, not quality \u2014 approval is tracked in coverage"
+    },
+    {
+      "at": "2026-10-19T15:35:00+13:00",
+      "who": "conductor",
+      "msg": "issue I5 fixed: re-fit with --turn, fit 0.456 m, front checked by eye; review_werewolf_turn.png"
+    },
+    {
+      "at": "2026-10-19T15:35:01+13:00",
+      "who": "game-art",
+      "msg": "issue I8 P2: HD bushwacker: reseed_concept"
+    },
+    {
+      "at": "2026-10-19T15:35:01+13:00",
+      "who": "game-art",
+      "msg": "issue I9 P3: HD werewolf: yellow band on the shins"
+    },
+    {
+      "at": "2026-10-19T15:35:01+13:00",
+      "who": "conductor",
+      "msg": "issue I1 fixed: 13 mech rows backfilled from provenance.json (step-4 re-fit); hd_mech.py writes it from now on; lrmc row id fixed; gate re-run"
+    },
+    {
+      "at": "2026-10-19T15:35:01+13:00",
+      "who": "conductor",
+      "msg": "run wf_2391523b-26b (phase-7-hd-review) ok: 10 agents, 534438 tokens"
+    },
+    {
+      "at": "2026-10-19T15:35:42+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok"
+    },
+    {
+      "at": "2026-10-19T15:51:40+13:00",
+      "who": "lee",
+      "msg": "decided C15: Redos wait for the other session's chain to finish on GPU0 (no second ComfyUI on GPU1) \u2014 Lee's call: keep one generation server, nothing new to manage"
+    },
+    {
+      "at": "2026-10-19T15:51:53+13:00",
+      "who": "gate",
+      "msg": "phase 7 done refused: done-gate failed"
+    },
+    {
+      "at": "2026-10-19T15:52:13+13:00",
+      "who": "conductor",
+      "msg": "decided C16: Phase 7 gets a done-gate (coverage_complete: approved==needed for mechs/vehicles/buildings, no open P2+ game-art issues); swarm phase done enforces it \u2014 batch 1 passed the per-batch gate with 7/30 mechs approved \u2014 a passing batch gate must not read as a finished phase"
+    },
+    {
+      "at": "2026-10-19T15:52:13+13:00",
+      "who": "conductor",
+      "msg": "decided C17: Batch 2 plan: the 6 redos (I2-I4, I6-I8) plus meshing the chain's 15 concept-only mechs, once concept5 is ALLDONE \u2014 same GPU, same tool; meshing what the chain concepted finishes the mech set in one pass"
+    }
+  ],
+  "choices": [
+    {
+      "id": "C1",
+      "phase": 7,
+      "what": "Phases 0-6 marked done retroactively from docs/feasibility.md instead of re-running their gates",
+      "why": "milestone 1 and phases 9-12 were finished and tested by hand before the swarm existed; the critic can audit them later (plan \u00a79.5)",
+      "alternatives": [
+        "re-run archaeology/architecture gates now",
+        "leave phases pending"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:31:46+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C2",
+      "phase": 7,
+      "what": "Needed counts for coverage derived from the 24 mission files (28 vehicle chassis, 34 building types), not from the asset folders (56 and 493)",
+      "why": "the game only needs what the missions reference; folder totals would make the bars meaningless",
+      "alternatives": [
+        "count every converted model",
+        "ask Lee for the list"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:31:46+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C3",
+      "phase": 7,
+      "what": "D1 superseded by D2 once another session's hd_batch chain was found running the mech batch on GPU0",
+      "why": "D1's options assumed the swarm would generate the mechs; the facts changed",
+      "alternatives": [
+        "leave D1 open",
+        "answer D1 on Lee's behalf"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:31:46+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C4",
+      "phase": 7,
+      "what": "No swarm job touches GPU0 until the other chain's logs say ALLDONE",
+      "why": "GPU0 is at 34 GB with ComfyUI's queue busy; a second generation job would OOM or stall both",
+      "alternatives": [
+        "pause the chain",
+        "share GPU0 and hope"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:31:46+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C5",
+      "phase": 7,
+      "what": "hd_mech.py edited (provenance.json emission) while the other chain was running",
+      "why": "the gate needs fit/turn data the tool did not record; the change is additive and each hd_mech.py call is a fresh process. Flagged to Lee; revert is git diff tools/art/hd_mech.py",
+      "alternatives": [
+        "wait for the chain to finish",
+        "backfill rows by hand"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:31:46+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C6",
+      "phase": 7,
+      "what": "Provenance backfill re-runs step 4 only (re-fit), never step 5 (reinstall)",
+      "why": "hd_rig is seeded and deterministic, but approved meshes must not change under review; the installed glb stays",
+      "alternatives": [
+        "re-run steps 4-5 and reinstall",
+        "parse fit from old logs (none kept)"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:31:46+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C7",
+      "phase": 7,
+      "what": "Review run split into 3 groups of 4-5 mechs, one agent chain per group (10 agents total)",
+      "why": "hd_review.py makes multi-row sheets; one agent per mech would be 40 agents for no better judgement",
+      "alternatives": [
+        "one agent per mech",
+        "one agent for all 13"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:31:46+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C8",
+      "phase": 7,
+      "what": "bushwacker included although its work dir predates the pipeline (backfill will fail for it)",
+      "why": "the dry run should exercise the failure path once; its existing row already has a fit",
+      "alternatives": [
+        "skip it",
+        "regenerate it"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:31:46+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C9",
+      "phase": 7,
+      "what": "werewolf --turn re-fit (I5) runs now; the concept/mesh reseeds (I2,I3,I4,I6,I7) wait until the other chain's logs say ALLDONE",
+      "why": "the turn is a CPU-only step 4-5 and reinstalls a deterministic fit; reseeds need ComfyUI on GPU0, which the chain owns",
+      "alternatives": [
+        "queue everything until ALLDONE",
+        "run reseeds on GPU1 after evicting the LLM"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:33:14+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C10",
+      "phase": 7,
+      "what": "Review verdicts accepted as filed, including the three milestone-1 mechs they fail (starslayer, urbanmech, werewolf); highlander's reseed_concept flagged to Lee as the one strict call",
+      "why": "checked both sheets by eye: drift, debris and the backwards fit are all visible; the earlier by-hand approvals were lax",
+      "alternatives": [
+        "overrule the agents and keep the milestone-1 approvals",
+        "re-review with a second agent"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:33:14+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C11",
+      "phase": 7,
+      "what": "bushwacker approval revoked: reseed_concept (I8)",
+      "why": "the critic showed it was approved without the original tile; the rebuilt sheet shows the launcher rack centred on a symmetric body, fit 0.964 m",
+      "alternatives": [
+        "keep the approval",
+        "re-review with a second agent"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:35:00+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C12",
+      "phase": 7,
+      "what": "raven and flea approvals kept despite the critic's orientation flag",
+      "why": "checked by eye: front faces the camera at yaw 35 on both; the automatic chamfer/IoU check is already known to be unreliable",
+      "alternatives": [
+        "re-fit both with --turn and compare"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:35:00+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C13",
+      "phase": 7,
+      "what": "werewolf provenance.json corrected to concept seed 21",
+      "why": "installed concept.png is byte-identical to concept_s21.png; the step-4 rerun had carried the wrong default 7 forward",
+      "alternatives": [],
+      "who": "conductor",
+      "at": "2026-10-19T15:35:00+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C14",
+      "phase": 7,
+      "what": "Redo assets get honest rows (real fit, issue id) instead of no row",
+      "why": "they are installed and in the game until fixed; the gate is about provenance, not quality \u2014 approval is tracked in coverage",
+      "alternatives": [
+        "remove redo meshes from the game",
+        "leave them without rows"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:35:00+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C15",
+      "phase": 7,
+      "what": "Redos wait for the other session's chain to finish on GPU0 (no second ComfyUI on GPU1)",
+      "why": "Lee's call: keep one generation server, nothing new to manage",
+      "alternatives": [
+        "second ComfyUI on GPU1 now",
+        "stop the chain"
+      ],
+      "who": "lee",
+      "at": "2026-10-19T15:51:40+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C16",
+      "phase": 7,
+      "what": "Phase 7 gets a done-gate (coverage_complete: approved==needed for mechs/vehicles/buildings, no open P2+ game-art issues); swarm phase done enforces it",
+      "why": "batch 1 passed the per-batch gate with 7/30 mechs approved \u2014 a passing batch gate must not read as a finished phase",
+      "alternatives": [
+        "close phases by judgement",
+        "one combined gate"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:52:13+13:00",
+      "reversible": true
+    },
+    {
+      "id": "C17",
+      "phase": 7,
+      "what": "Batch 2 plan: the 6 redos (I2-I4, I6-I8) plus meshing the chain's 15 concept-only mechs, once concept5 is ALLDONE",
+      "why": "same GPU, same tool; meshing what the chain concepted finishes the mech set in one pass",
+      "alternatives": [
+        "redos only",
+        "wait for Lee to pick"
+      ],
+      "who": "conductor",
+      "at": "2026-10-19T15:52:13+13:00",
+      "reversible": true
+    }
+  ]
+}
