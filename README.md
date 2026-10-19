@@ -79,6 +79,7 @@ creator, source, licence and changes for each are in `game/assets/<mechs|vehicle
 - Minelayer: "Minelayer" by RGriffin65, https://www.thingiverse.com/thing:6916656 (CC BY-SA 4.0)
 - Mobile HQ: "Praetorian Mobile HQ" by RGriffin65, https://www.thingiverse.com/thing:6599003 (CC BY-SA 4.0)
 - MOG: "Mobile Orbital Gun" by RGriffin65, https://www.thingiverse.com/thing:7180780 (CC BY-SA 4.0)
+- Monsoon: "Saracen, Scimitar, and Saladin Hovertanks" by UnrestedGuy (Saracen hull, https://www.thingiverse.com/thing:7255716 (CC BY-NC-SA 4.0)
 - Ordnance truck: "Utility Truck" by RGriffin65, https://www.thingiverse.com/thing:6831725 (CC BY-SA 4.0)
 - Partisan: "Partisan Heavy Tank" by RGriffin65, https://www.thingiverse.com/thing:6943425 (CC BY-SA 4.0)
 - Poweredarmor: "Irontold Hawkish Battle Armor (American Mecha)" by maggiweber, https://www.thingiverse.com/thing:5215239 (CC BY 4.0)
