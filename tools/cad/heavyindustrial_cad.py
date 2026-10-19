@@ -43,8 +43,10 @@ INSET = 1.44
 WIN_DEPTH, DOOR_DEPTH = 0.15, 0.25
 
 
-def rects(name):
-    return json.load(open(D / f"decal_{name}.json"))["rects"]
+def rects(name, roof=False):
+    rs = json.load(open(D / f"decal_{name}.json"))["rects"]
+    # roof decals: only the copy on the flat roof (the atlas region is also mapped under the bay ceiling)
+    return [r for r in rs if r["normal"][1] > 0.9 and abs(r["center"][1] - YT) < 0.1] if roof else rs
 
 
 def ccw(poly):
@@ -135,11 +137,12 @@ def inside_door(o):
     return None
 
 
+# ---- lean-to porch on the back wall (built before the windows: its door glazing is cut in the window loop)
+B.prism_x("leanto", [(-9.72, 0.0), (-9.0, 0.0), (-9.0, 5.22), (-9.72, 4.86)], -2.73, 2.81)
+
 for nm, rs in doors.items():
     for o in rs:
-        tgt = "leanto" if nm == "door_back" else low
-        if nm == "door_front":
-            B.recess(low, o, DOOR_DEPTH)
+        B.recess(low if nm == "door_front" else "leanto", o, DOOR_DEPTH if nm == "door_front" else 0.15)
 for k, run in enumerate(windows):
     o = merged(run)
     d = inside_door(o)
@@ -149,11 +152,6 @@ for k, run in enumerate(windows):
     B.recess(low if o["center"][1] < YB else up, o, WIN_DEPTH)
     B.sill(f"sill{k}@b8b2a6", o, proud=0.12, thick=0.10, overhang=0.08)
 
-# ---- lean-to porch on the back wall, its door a 15 cm recess
-B.prism_x("leanto", [(-9.72, 0.0), (-9.0, 0.0), (-9.0, 5.22), (-9.72, 4.86)], -2.73, 2.81)
-for o in doors["door_back"]:
-    B.recess("leanto", o, 0.15)
-# move the lean-to door glazing (cut before the porch existed in the list above) is handled in the window loop
 
 # ---- plinth, cornice, coping
 band("plinth", lower, 0.0, 1.5, 0.06, extend=0.06)
@@ -182,7 +180,7 @@ for k, (za, zb) in enumerate(((-6.12, -2.16), (-1.08, 2.88))):
             B.recess(s, o, 0.25)
 
 # ---- roof plant
-for o in rects("plant"):
+for o in rects("plant", roof=True):
     c, w, h = o["center"], o["w"], o["h"]
     # roof rects: t along x, b along -z (cad_building regions_3d), w along x, h along z
     B.box("plant", (c[0] - w / 2, YT - 0.02, c[2] - h / 2), (c[0] + w / 2, YT + 0.6, c[2] + h / 2), chamfer=0.04)
@@ -190,7 +188,7 @@ for k, z in enumerate((-4.44, -1.86)):
     B.c("solid.cylinder", radius=1050.0, height=200.0, base=[1560.0, round(-z * 1000, 1), round((YT + 0.58) * 1000, 1)],
         axis=[0, 0, 1], body_name=f"fan{k}", operation="new")
 for nm, hgt in (("roof_louvre", 0.35), ("cabinet", 0.45)):
-    for k, o in enumerate(rects(nm)):
+    for k, o in enumerate(rects(nm, roof=True)):
         c, w, h = o["center"], o["w"], o["h"]
         B.box(f"{nm}{k}", (c[0] - w / 2, YT - 0.02, c[2] - h / 2), (c[0] + w / 2, YT + hgt, c[2] + h / 2), chamfer=0.03)
 
