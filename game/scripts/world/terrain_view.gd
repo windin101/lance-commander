@@ -36,12 +36,14 @@ func build(sim_map: SimMap, texture_dir: String) -> void:
 	# The colour map already carries the hills' own shading and cast shadows (burn-in): the ground must
 	# not shadow itself again. It still receives the shadows of everything standing on it.
 	ground.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	ground.layers = 1 | 2  # layer 2: ground marks (DecalsView) project only onto the terrain
 	add_child(ground)
 	var skirt := MeshInstance3D.new()
 	skirt.name = "Skirt"
 	skirt.mesh = _skirt_mesh()
 	skirt.material_override = mat
 	skirt.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	skirt.layers = 1 | 2
 	add_child(skirt)
 	if map.water_level_m > -100.0:
 		var w := _water(texture_dir)
@@ -161,8 +163,13 @@ static func _alpha_byte(v) -> float:
 ## slots, decoded by tools/art/env_textures.py into assets/terrain/overlays.json), and cement where the vertex
 ## terrain type is a cement type. Both go to the shader as small per-map index textures.
 func _overlay_layer(mat: ShaderMaterial) -> void:
-	var info_path := "res://assets/terrain/overlays.json"
-	if not FileAccess.file_exists(info_path) or not ResourceLoader.exists("res://assets/terrain/overlays.png"):
+	var stem := "res://assets/terrain/overlays_hd"  # 4x upscaled tiles (tools/art/upscale_textures.py --tiles)
+	var ext := ".webp" if ResourceLoader.exists(stem + ".webp") else ".png"
+	if not ResourceLoader.exists(stem + ext) or OS.get_cmdline_user_args().has("--no-hd"):
+		ext = ".png"
+		stem = "res://assets/terrain/overlays"
+	var info_path := stem + ".json"
+	if not FileAccess.file_exists(info_path) or not ResourceLoader.exists(stem + ext):
 		return
 	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(info_path))
 	var slots: Dictionary = info["slots"]
@@ -186,7 +193,7 @@ func _overlay_layer(mat: ShaderMaterial) -> void:
 			used += 1
 		idx.set_pixel(col, row, Color(cell, c_cell, 0.0))
 		weight.set_pixel(col, row, Color(w, 0.0, 0.0))
-	mat.set_shader_parameter("overlay_atlas", load("res://assets/terrain/overlays.png"))
+	mat.set_shader_parameter("overlay_atlas", load(stem + ext))
 	mat.set_shader_parameter("overlay_index", ImageTexture.create_from_image(idx))
 	mat.set_shader_parameter("cement_weight", ImageTexture.create_from_image(weight))
 	mat.set_shader_parameter("atlas_cols", float(info["cols"]))

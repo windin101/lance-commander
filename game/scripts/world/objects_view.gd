@@ -35,7 +35,11 @@ func build(sim_map: SimMap, mission: String) -> int:
 			continue
 		if not scenes.has(app):
 			# HD models (tools/art, --kind objects) replace the 2001 mesh when present; --no-hd compares.
-			var res := "res://assets/objects/%s_hd.glb" % app
+			# order: the original model with 4x upscaled textures (tools/art/upscale_textures.py), then a
+			# Hunyuan HD model, then the original
+			var res := "res://assets/objects/%s_hdtex.glb" % app
+			if not ResourceLoader.exists(res):
+				res = "res://assets/objects/%s_hd.glb" % app
 			if not ResourceLoader.exists(res) or OS.get_cmdline_user_args().has("--no-hd"):
 				res = "res://assets/objects/%s.glb" % app
 			scenes[app] = load(res) if ResourceLoader.exists(res) else null
@@ -70,7 +74,9 @@ func destroy(index: int) -> void:
 	var node: Node3D = nodes.get(index)
 	if node == null:
 		return
-	var dam := "res://assets/objects/%s_dam.glb" % _appearance[index]
+	var dam := "res://assets/objects/%s_dam_hdtex.glb" % _appearance[index]
+	if not ResourceLoader.exists(dam) or OS.get_cmdline_user_args().has("--no-hd"):
+		dam = "res://assets/objects/%s_dam.glb" % _appearance[index]
 	if ResourceLoader.exists(dam):
 		var wreck: Node3D = load(dam).instantiate()
 		wreck.transform = node.transform
