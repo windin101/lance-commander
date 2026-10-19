@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T12:32:29+13:00",
+  "updated": "2026-10-20T12:55:22+13:00",
   "phase": {
     "current": 7,
     "status": "gated"
@@ -166,35 +166,35 @@
       "ended": null,
       "gate": {
         "passed": true,
-        "at": "2026-10-20T12:24:12+13:00",
+        "at": "2026-10-20T12:55:13+13:00",
         "checks": [
           {
             "name": "tests_green",
             "pass": true,
             "detail": "tests pass (125 cases): ALL TESTS PASSED",
-            "seconds": 37.9,
-            "at": "2026-10-20T12:24:12+13:00"
+            "seconds": 38.7,
+            "at": "2026-10-20T12:55:13+13:00"
           },
           {
             "name": "hd_provenance",
             "pass": true,
             "detail": "65 HD meshes, all with provenance rows and fit data",
             "seconds": 0.0,
-            "at": "2026-10-20T12:24:12+13:00"
+            "at": "2026-10-20T12:55:13+13:00"
           },
           {
             "name": "import_size",
             "pass": true,
-            "detail": "imported total 1.11 GB, no file over 64 MB; top: burnin=80MB, overlays_hd=48MB, hangar_high=20MB, bw_hd_mesh=11MB, bw_mesh=8MB",
+            "detail": "imported total 1.16 GB, no file over 64 MB; top: burnin=80MB, overlays_hd=48MB, hangar_high=20MB, bw_hd_mesh=11MB, bw_mesh=8MB",
             "seconds": 0.1,
-            "at": "2026-10-20T12:24:12+13:00"
+            "at": "2026-10-20T12:55:13+13:00"
           },
           {
             "name": "provenance_table_current",
             "pass": true,
             "detail": "up to date",
             "seconds": 0.0,
-            "at": "2026-10-20T12:24:12+13:00"
+            "at": "2026-10-20T12:55:13+13:00"
           }
         ]
       },
@@ -1375,9 +1375,9 @@
         "approved": 28
       },
       "hd_objects": {
-        "needed": 34,
-        "done": 7,
-        "approved": 0
+        "needed": 145,
+        "done": 65,
+        "approved": 65
       }
     },
     "missions": {
@@ -1466,16 +1466,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:45:21+13:00",
-      "who": "playtester",
-      "msg": "issue I15 P3: mc2_06: lance hunts all 44 Liao units, never captures Turret Control, own air strike destroys Sensor Control"
-    },
-    {
-      "at": "2026-10-19T16:45:21+13:00",
-      "who": "ai",
-      "msg": "issue I16 P2: mc2_07: 3-mech 145 t FIT lance outmatched by MenShen pair, loses 2 mechs before HQ capture"
-    },
     {
       "at": "2026-10-19T16:45:21+13:00",
       "who": "playtester",
@@ -2465,6 +2455,16 @@
       "at": "2026-10-20T12:32:29+13:00",
       "who": "game-art",
       "msg": "issue I78 P3: After feature complete: real textures for the adapted HD models (flat palette paint today)"
+    },
+    {
+      "at": "2026-10-20T12:38:21+13:00",
+      "who": "agent",
+      "msg": "lee: phase 7 needs all 102 remaining map buildings rebuilt in SolidCraft (145 building types in total, walls/posts/rocks/props excluded); run in waves of ~24"
+    },
+    {
+      "at": "2026-10-20T12:55:13+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
     }
   ],
   "choices": [
