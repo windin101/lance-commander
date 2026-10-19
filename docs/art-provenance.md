@@ -26,34 +26,34 @@ Shared Source release's mech models and textures, so they carry that release's E
 | Mech | Concept seed | Mesh seed | Turn | Fit (mean surface distance) | Phase 7 review |
 |---|---|---|---|---|---|
 | Anubis (`anubis`) | 8 | 1234 | no | 0.275 m | approved |
-| Atlas (`atlas`) | 8 | 1234 | no | 0.710 m | **redo, I39**: reseed_concept; render zoom 1.25 |
+| Atlas (`atlas`) | 12 | 1234 | no | 0.833 m | **redo, I49**: reseed_concept; render zoom 1.25 |
 | BloodAsp (`bloodasp`) | 7 | 1234 | no | 0.431 m | approved; render zoom 1.25 |
 | Bushwacker (`bushwacker`) | 8 | 1234 | no | 0.436 m | approved; batch 2 concept (seed 8) replaced the centred-rack drift; fit 0.964 -> 0.436 m |
 | Catapult (`catapult`) | 8 | 1234 (default, inferred) | no | 0.476 m | approved; concept lost the cockpit glass |
-| Cyclops (`cyclops`) | 7 | 1234 | no | 0.952 m | **redo, I40**: reseed_concept; render zoom 1.25 |
-| Enfield (`enfield`) | 8 | 1234 | no | 0.571 m | **redo, I41**: reseed_mesh |
+| Cyclops (`cyclops`) | 8 | 1234 | no | 0.399 m | approved; render zoom 1.25 |
+| Enfield (`enfield`) | 8 | 4242 | no | 0.458 m | approved |
 | Flea (`flea`) | 7 | 1234 (default, inferred) | no | 0.616 m | approved; front checked by eye (automatic check favoured the turned pose) |
-| Heavy copter (`heavycopter`) | 7 | 1234 | no | 2.111 m | **redo, I36**: reseed_mesh; render zoom 1.25; uses the vehicle prompt (--prompt vehicles) |
+| Heavy copter (`heavycopter`) | 7 | 4242 | no | 1.830 m | **redo, I48**: reseed_mesh; render zoom 1.25; uses the vehicle prompt (--prompt vehicles) |
 | Highlander (`highlander`) | 8 | 1234 | no | 0.722 m | approved; render zoom 1.25 |
 | Hollander (`hollander`) | 7 | 1234 (default, inferred) | no | 0.409 m | approved |
-| Hunchback (`hunchback`) | 8 | 1234 | no | 0.762 m | **redo, I37**: reseed_concept |
+| Hunchback (`hunchback`) | 12 | 1234 | no | 0.300 m | approved |
 | JaegerMech (`jaegermech`) | 7 | 4242 | no | 0.409 m | approved |
-| LaoHu (`laohu`) | 8 | 1234 | no | 0.595 m | **redo, I42**: reseed_concept |
-| MadCat (`madcat`) | 7 | 1234 | no | 0.485 m | **redo, I43**: reseed_concept |
-| Medium copter (`mediumcopter`) | 7 | 1234 | no | 0.710 m | **redo, I35**: reseed_concept; uses the vehicle prompt (--prompt vehicles) |
+| LaoHu (`laohu`) | 9 | 1234 | no | 0.922 m | **redo, I50**: reseed_mesh |
+| MadCat (`madcat`) | 8 | 1234 | no | 0.884 m | **redo, I51**: reseed_concept |
+| Medium copter (`mediumcopter`) | 11 | 1234 | no | 0.691 m | **redo, I47**: reseed_mesh; uses the vehicle prompt (--prompt vehicles) |
 | Menshen (`menshen`) | 7 | 1234 (default, inferred) | no | 0.411 m | approved; automatic orientation check misleading (the concept faces left); front checked by eye |
 | Raven (`raven`) | 7 | 1234 (default, inferred) | no | 0.459 m | approved; front checked by eye (automatic check favoured the turned pose) |
-| Ryoken (`ryoken`) | 7 | 1234 | no | 0.392 m | **redo, I44**: reseed_concept |
+| Ryoken (`ryoken`) | 8 | 1234 | no | 0.471 m | **redo, I52**: reseed_mesh |
 | Shadowcat (`shadowcat`) | 8 | 1234 | no | 0.571 m | approved |
 | ShaYu (`shayu`) | 8 | 1234 | no | 0.419 m | approved |
 | Shootist (`shootist`) | 8 | 1234 | no | 0.502 m | approved |
 | Starslayer (`starslayer`) | 8 | 1234 | no | 0.518 m | approved |
-| Thor (`thor`) | 7 | 1234 | no | 0.513 m | **redo, I45**: reseed_concept; render zoom 1.25 |
+| Thor (`thor`) | 8 | 1234 | no | 0.637 m | **redo, I53**: reseed_mesh; render zoom 1.25 |
 | Uller (`uller`) | 7 | 1234 | no | 0.352 m | approved |
-| UrbanMech (`urbanmech`) | 7 | 4242 | no | 0.425 m | **redo, I38**: turn |
-| Vulture (`vulture`) | 7 | 1234 | no | 0.462 m | **redo, I46**: reseed_mesh |
+| UrbanMech (`urbanmech`) | 7 | 4242 | yes | 0.425 m | approved |
+| Vulture (`vulture`) | 7 | 4242 | no | 0.475 m | **redo, I54**: reseed_mesh |
 | Werewolf (`werewolf`) | 21 | 1234 (default, inferred) | yes | 0.456 m | approved; re-fitted with --turn; P3 I9: yellow band on the shins |
-| Wolfhound (`wolfhound`) | 7 | 1234 | no | 0.755 m | **redo, I34**: reseed_concept |
+| Wolfhound (`wolfhound`) | 8 | 1234 | no | 0.282 m | approved |
 | Zeus (`zeus`) | 7 | 1234 (default, inferred) | no | 0.432 m | approved; render zoom 1.25 |
 
 Fit, turn and concept seed come from `original/hd/<mech>/provenance.json` (written by `hd_mech.py` since 2026-10-19; the 13 rows above were backfilled with a step-4-only re-fit, nothing reinstalled). Mesh seed 1234 is the tool default and is inferred, not logged, for every mech whose step 3 ran before the change. "redo" rows are installed and in the game until their issue is fixed.

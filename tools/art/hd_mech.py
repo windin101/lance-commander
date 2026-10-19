@@ -86,7 +86,7 @@ def touches_edge(im, margin=6):
     return (edge < 235).mean() > 0.002
 
 
-def render(mech, work, kind, cam_override=None, focus_override=None):
+def render(mech, work, kind, cam_override=None, focus_override=None, subject_px=680):
     folder = KINDS[kind][0]
     cam, focus, xz = framing(mech, kind)
     cam, focus = cam_override or cam, focus_override or focus  # e.g. the copters fly at 23.5 m
@@ -108,7 +108,8 @@ def render(mech, work, kind, cam_override=None, focus_override=None):
     (work / "render_cam.txt").write_text(f"{yaw:g},{pitch:g},{dist * zoom:.1f} {fy:.2f}\n")
     im = crop.resize((1024, 1024))
     pad = Image.new("RGB", (1024, 1024), (255, 255, 255))
-    pad.paste(im.resize((680, 680)), (172, 172))  # margin: the edit tends to zoom in
+    off = (1024 - subject_px) // 2  # margin: the edit tends to zoom in; a smaller subject leaves it more room
+    pad.paste(im.resize((subject_px, subject_px)), (off, off))
     pad.save(work / "front34_pad.png")
 
 
@@ -187,10 +188,11 @@ def main():
     ap.add_argument("--cam", help="render camera yaw,pitch,distance (default: the kind's)")
     ap.add_argument("--focus-y", help="render focus height in m (default: the kind's)")
     ap.add_argument("--turn", action="store_true", help="the fit landed backwards (check the front view by eye)")
+    ap.add_argument("--subject-px", type=int, default=680, help="size of the render inside the 1024 edit input (smaller = more margin; atlas crops at 680)")
     a = ap.parse_args()
     work = ROOT / "original" / "hd" / a.mech
     work.mkdir(parents=True, exist_ok=True)
-    steps = [(1, "render", lambda: render(a.mech, work, a.kind, a.cam, a.focus_y)), (2, "concept", lambda: concept(work, a.seed, a.kind, prompt_kind=a.prompt)),
+    steps = [(1, "render", lambda: render(a.mech, work, a.kind, a.cam, a.focus_y, a.subject_px)), (2, "concept", lambda: concept(work, a.seed, a.kind, prompt_kind=a.prompt)),
              (3, "mesh", lambda: mesh(work, a.mesh_seed, a.kind)), (4, "rig", lambda: rig(a.mech, work, a.kind, a.turn)),
              (5, "install", lambda: install(a.mech, work, a.kind))]
     # provenance.json: what docs/art-provenance.md is generated from. Merged across partial reruns
@@ -205,10 +207,16 @@ def main():
         if a.from_step <= n <= a.to_step:
             print(f"[{a.mech}] step {n}: {label}", flush=True)
             out = fn()
+            if n == 1:
+                prov["subject_px"] = a.subject_px
             if n == 2:
                 prov["concept_seed"] = out
+                prov.setdefault("concept_seeds_tried", [])
+                prov["concept_seeds_tried"] = sorted(set(prov["concept_seeds_tried"]) | set(range(a.seed, (out or a.seed) + 1)))
+                prov.pop("concept_seed_source", None)  # superseded by this run
             elif n == 3:
                 prov["mesh_seed"] = a.mesh_seed
+                prov["mesh_seeds_tried"] = sorted(set(prov.get("mesh_seeds_tried", [])) | {a.mesh_seed})
             elif n == 4:
                 m = (re.findall(r"chamfer ([0-9.]+) m", out or "") or [None])[-1]  # last = after ICP
                 o = re.search(r"orientation check[^\n]*", out or "")
