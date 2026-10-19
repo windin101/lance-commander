@@ -66,7 +66,7 @@ licensed **CC BY-NC-SA 4.0** (https://creativecommons.org/licenses/by-nc-sa/4.0/
 9.17 m; cut into 12 parts; legs re-posed from the sculpted stride to the MC2 rest pose (MC2 bone directions,
 the STL's bone lengths: thigh 1.79 m, shin 2.78 m, so the hip and `joint_root` sit 0.62 m lower and every
 animation's root height keys were lowered to match); seam smoothing; dark joint caps at each cut; region
-paint. Made by `tools/art/stl_rig.py`. The adapted mesh is CC BY-NC-SA 4.0; the skeleton and animations in the
+paint. Made by `tools/art/stl_rig_vulture.py`. The adapted mesh is CC BY-NC-SA 4.0; the skeleton and animations in the
 same file stay under the Shared Source licence. Full notice: `game/assets/mechs/vulture_hd.LICENSE.md`.
 The source STL is not in the repository (kept locally with its SOURCE.txt).
 
