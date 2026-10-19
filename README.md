@@ -217,7 +217,7 @@ creator, source, licence and changes for each are in `game/assets/<mechs|vehicle
 - Harasser: "Harasser Hovercraft" by RGriffin65, https://www.thingiverse.com/thing:6734633 (CC BY-SA 4.0)
 - Hetzer: "Hetzer (LRM) for battletech" by PrysmaTheMagical, https://www.thingiverse.com/thing:6459522 (CC BY-SA 4.0)
 - Hunter: "Hunter Light Tank" by RGriffin65, https://www.thingiverse.com/thing:6935510 (CC BY-SA 4.0)
-- Infantry: "6mm generic Sci Fi infantry" by smight, https://www.thingiverse.com/thing:4485404 (CC BY-NC-SA 4.0)
+- Infantry: "Future - Generic Space Infantry Troops" by Guy_montag, https://www.printables.com/model/114328 (CC BY-NC-SA 4.0)
 - Jeep: "SciFi Vehicle Set 1 - Cars - 6mm" by Shiaic3D, https://www.printables.com/model/108620 (CC BY 4.0)
 - Legion: "Legion MBT" by RGriffin65, https://www.thingiverse.com/thing:6617086 (CC BY-SA 4.0)
 - LRM carrier: "Heavy LRM Carrier" by RGriffin65, https://www.thingiverse.com/thing:7132255 (CC BY-SA 4.0)
