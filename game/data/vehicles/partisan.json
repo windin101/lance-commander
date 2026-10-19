@@ -1,0 +1,45 @@
+{
+ "name": "partisan",
+ "appearance": "partisan",
+ "chassis": 0,
+ "hover": false,
+ "path_locks": true,
+ "tonnage": 80.0,
+ "battle_rating": 25,
+ "explosion_damage": 0.0,
+ "explosion_radius": 0.0,
+ "max_velocity": 15.0,
+ "max_turret_yaw": 360.0,
+ "max_turret_yaw_rate": 120.0,
+ "armor": {
+  "front": 28.0,
+  "left": 28.0,
+  "right": 28.0,
+  "rear": 28.0,
+  "turret": 20.0
+ },
+ "internal": {
+  "front": 1.0,
+  "left": 1.0,
+  "right": 1.0,
+  "rear": 1.0,
+  "turret": 1.0
+ },
+ "items": [
+  1,
+  6,
+  35,
+  36,
+  100,
+  100,
+  100,
+  100,
+  200,
+  200,
+  200,
+  200
+ ],
+ "num_other": 4,
+ "num_weapons": 4,
+ "num_ammo": 4
+}

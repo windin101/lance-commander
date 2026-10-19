@@ -1,7 +1,7 @@
 extends Node3D
 ## A playable mission: terrain, map objects, mechs, effects, RTS commands.
 ## The SimWorld steps at a fixed 10 Hz; views interpolate between ticks.
-## Dev args: --demo (player lance attacks the nearest enemy), --arena (moves the
+## Dev args: --mission=mc2_NN, --demo (player lance attacks the nearest enemy), --arena (moves the
 ## Starslayer onto open ground 110 m north of the lance first), --sim-seconds=N
 ## (fast-forward before the first frame), --focus=player|battle, --kill-unit=N
 ## (destroy unit N at start and frame its wreck).
@@ -32,6 +32,8 @@ func _ready() -> void:
 	for a in OS.get_cmdline_user_args():
 		var kv := a.trim_prefix("--").split("=", true, 1)
 		_args[kv[0]] = kv[1] if kv.size() > 1 else ""
+	if _args.has("mission"):  # dev: open any converted mission directly
+		mission = String(_args["mission"])
 	sm = SimMission.load_mission(GameData, mission)
 	world = sm.world
 	var mission_fit: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/%s.json" % mission))

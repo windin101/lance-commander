@@ -47,6 +47,9 @@ const TO_POWERUP := 12
 const TO_POWERDOWN := 13
 const TO_EJECT := 15
 const TO_ATTACK_OBJECT := 16
+const TO_CAPTURE := 21
+const CAPTURE_M := 30.0  # capture happens on arrival this close (capture-and-objectives.md A2)
+const BLOCK_CAPTURE_M := 75.0  # gamesys BlockCaptureRange: an armed enemy this close to the target blocks it
 # TACORDER_PARAM_*
 const P_RUN := 1
 const P_PURSUE := 16
@@ -233,13 +236,19 @@ func run_alarm_handlers() -> void:
 
 ## A command from the player (CommandInput): becomes the pilot's tactical order with
 ## player origin, then raises PLAYER_ORDER so pbrain's handler sees it at once.
-## kind: "move" (arg: goal Vector2 m), "attack" (arg: SimUnit), "stop".
+## kind: "move" (arg: goal Vector2 m), "attack" (arg: SimUnit), "capture" (arg: SimUnit), "stop".
 func player_order(u: SimUnit, kind: String, arg: Variant = null) -> void:
 	if not (u.brain is Pilot):
 		return
 	var p: Pilot = u.brain
 	var o: Dictionary
 	match kind:
+		"capture":
+			var t: SimUnit = arg
+			if not can_capture(t, u.team) or capture_blocker(t, u, false) != null:
+				world.events.append({"type": "capture_refused", "unit": u.id, "target": t.id})
+				return
+			o = {"code": TO_CAPTURE, "target": t, "goal": _capture_goal(u, t), "origin": 0}
 		"move":
 			o = {"code": TO_MOVETO_POINT, "goal": arg, "run": true, "origin": 0}
 		"attack":
@@ -292,6 +301,8 @@ func _order_done(p: Pilot, u: SimUnit, o: Dictionary) -> bool:
 			return t == null or not t.exists or t.is_destroyed() or (t.is_disabled() and not o.get("obliterate", false))
 		TO_POWERUP:
 			return u.status == SimUnit.Status.NORMAL
+		TO_CAPTURE:
+			return _capture_step(p, u, o)
 		TO_EJECT:
 			return true
 	return false
@@ -301,7 +312,7 @@ func _issue(p: Pilot, o: Dictionary) -> void:
 	var u := p.unit
 	p.order = o
 	match int(o["code"]):
-		TO_MOVETO_POINT, TO_MOVETO_OBJECT:
+		TO_MOVETO_POINT, TO_MOVETO_OBJECT, TO_CAPTURE:
 			world.order_move(u, o["goal"])
 		TO_ATTACK_OBJECT:
 			var t: SimUnit = o["target"]
@@ -324,6 +335,89 @@ func _same_order(p: Pilot, o: Dictionary) -> bool:
 		TO_ATTACK_OBJECT:
 			return c.get("target") == o.get("target") and c.get("pursue") == o.get("pursue")
 	return true
+
+
+# --- capture (capture-and-objectives.md A2-A4) ------------------------------------------
+
+## isCaptureable: flagged, not already the team's, not destroyed, still in play.
+func can_capture(t: SimUnit, team: int) -> bool:
+	return t != null and t.capturable and t.exists and t.team != team and not t.is_destroyed() and not t.hulk
+
+
+## An armed, awake, enemy mover within 75 m of the target, or null. Before arrival
+## (near = false) the capturer's team must also see it; on arrival it needn't.
+func capture_blocker(t: SimUnit, capturer: SimUnit, near: bool) -> SimUnit:
+	for m in world.units:
+		if not m.is_mover() or not m.exists or m.hulk or m.team == capturer.team or m.is_disabled() or not m.awake:
+			continue
+		if m.num_weapons == 0 or m.position.distance_to(t.position) > BLOCK_CAPTURE_M:
+			continue
+		if not near and not is_contact(capturer.team, m):
+			continue
+		return m
+	return null
+
+
+## Where to walk to capture: a mover's position, or for a building a reachable cell
+## within capture reach of it (its own cell can be an island inside its footprint).
+func _capture_goal(u: SimUnit, t: SimUnit) -> Vector2:
+	if t.is_mover():
+		return t.position
+	var extent: float = (t as SimStructure).extent_m
+	var tried := {}
+	for r in [extent + 6.0, extent + 14.0, CAPTURE_M + extent - 2.0]:
+		var ring := []
+		for k in 16:
+			var dir := Vector2.from_angle(TAU * k / 16.0)
+			var p := world.map.nearest_walkable(t.position + dir * r, u.hover, 3)
+			var c := world.map.cell_of(p)
+			if tried.has(c) or p.distance_to(t.position) > CAPTURE_M + extent:
+				continue
+			tried[c] = true
+			ring.append(p)
+		ring.sort_custom(func(a, b): return a.distance_to(u.position) < b.distance_to(u.position))
+		for p in ring:
+			if world.map.cell_of(p) == world.map.cell_of(u.position) or world.map.find_path(u.position, p, u.hover).size() > 0:
+				return p
+	return t.position
+
+
+## Each tick of a capture order; true when it's over (captured, already ours, or blocked).
+func _capture_step(p: Pilot, u: SimUnit, o: Dictionary) -> bool:
+	var t: SimUnit = o["target"]
+	if t == null or t.team == u.team:
+		return true
+	if not can_capture(t, u.team):
+		return true
+	# The source measures to the target's centre; for big buildings (extent > 30 m) the
+	# reachable cells lie further out, so allow the extent too (spec A2 ambiguity).
+	var reach := CAPTURE_M + ((t as SimStructure).extent_m if t is SimStructure else 0.0)
+	var arrived := u.position.distance_to(t.position) <= reach
+	var blocker := capture_blocker(t, u, arrived)
+	if blocker:
+		world.order_hold(u)
+		world.events.append({"type": "capture_blocked", "unit": u.id, "target": t.id, "by": blocker.id})
+		return true
+	if arrived:
+		capture(u, t)
+		world.order_hold(u)
+		return true
+	return false
+
+
+## The capture itself: a building changes hands; a vehicle becomes an inert hulk.
+func capture(by: SimUnit, t: SimUnit) -> void:
+	t.team = by.team
+	if t is SimStructure:
+		t.commander = by.commander
+	else:
+		t.hulk = true
+		t.awake = false
+		t.current_target = null
+		world.order_hold(t)
+		if t.brain is Pilot:
+			t.brain.order = {"code": TO_NONE}
+	world.events.append({"type": "captured", "unit": by.id, "target": t.id})
 
 
 # --- objects and IDs (1) -----------------------------------------------------------------
@@ -779,6 +873,8 @@ func _register() -> void:
 			return 0.0
 		if o is SimStructure:
 			var s := o as SimStructure
+			if is_inf(s.damage_level):
+				return 100.0
 			return 100.0 * maxf(s.damage_level - s.damage, 0.0) / maxf(s.damage_level, 1.0)
 		var tot := 0.0
 		var cur := 0.0
@@ -923,13 +1019,48 @@ func _register() -> void:
 	r.register_native("setInvulnerable", func(_i, a):
 		sm.player_invulnerable = AblRuntime._truthy(a[0])
 		return 0)
-	r.register_native("objectChangeSides", func(_i, a):
+	r.register_native("objectChangeSides", func(_i, _a): return 0)  # a no-op in the original (spec A6)
+	r.register_native("isCaptured", func(_i, a):
+		var n := 0
+		for m in members(int(a[0])):
+			if m.captured_flag:
+				n += 1
+		return n)
+	r.register_native("setCaptured", func(_i, a):
 		var o := obj(int(a[0]))
 		if o:
-			o.team = int(a[1])
+			o.captured_flag = true
 		return 0)
-	for name in ["isCaptured", "isTeamCapturing", "isTeamTargeting", "isCapturable", "wasEverCapturable"]:
-		r.register_native(name, func(_i, _a): return 0)
+	r.register_native("setCapturable", func(_i, a):
+		var o := obj(int(a[0]))
+		if o:
+			o.capturable = true  # the bool argument is ignored in the original
+		return 0)
+	r.register_native("wasEverCapturable", func(_i, a):
+		var o := obj(int(a[0]))
+		return o != null and o.capturable)
+	r.register_native("isCapturable", func(_i, a):
+		var o := obj(int(a[0]))
+		var team := int(a[1])
+		if o == null:
+			return false
+		if team == -2:
+			return o.capturable and not o.is_destroyed()
+		return can_capture(o, team - 500 if team >= 500 else team))
+	r.register_native("isTeamCapturing", func(_i, a):
+		var team := int(a[0])
+		var t := obj(int(a[1]))
+		for p in pilots:
+			if int(p.order["code"]) == TO_CAPTURE and p.order.get("target") == t and (team == 0 or 500 + p.unit.team == team):
+				return true
+		return false)
+	r.register_native("isTeamTargeting", func(_i, a):
+		var team := int(a[0])
+		var t := obj(int(a[1]))
+		for m in world.units:
+			if m.is_mover() and m.current_target == t and t != null and (team == 0 or 500 + m.team == team) and m.part_id != int(a[2]):
+				return true
+		return false)
 	r.register_native("setRevealed", func(_i, _a): return 0)
 	r.register_native("callStrikeEx", func(_i, _a): return 0)
 	r.register_native("orderDeployElementals", func(_i, _a): return 0)

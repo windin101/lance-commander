@@ -1,0 +1,37 @@
+{
+ "name": "MOG",
+ "appearance": "mog",
+ "chassis": 0,
+ "hover": false,
+ "path_locks": true,
+ "tonnage": 75.0,
+ "battle_rating": 25,
+ "explosion_damage": 5.0,
+ "explosion_radius": 50.0,
+ "max_velocity": 12.0,
+ "max_turret_yaw": 0.0,
+ "max_turret_yaw_rate": 0.0,
+ "armor": {
+  "front": 50.0,
+  "left": 50.0,
+  "right": 50.0,
+  "rear": 50.0,
+  "turret": 50.0
+ },
+ "internal": {
+  "front": 1.0,
+  "left": 1.0,
+  "right": 1.0,
+  "rear": 1.0,
+  "turret": 1.0
+ },
+ "items": [
+  1,
+  6,
+  35,
+  36
+ ],
+ "num_other": 4,
+ "num_weapons": 0,
+ "num_ammo": 0
+}

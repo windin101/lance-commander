@@ -1,0 +1,305 @@
+{
+ "lods": [
+  "Wolfhound",
+  "WolfhoundL1"
+ ],
+ "shadow": "WolfhoundX",
+ "weapon_nodes": [
+  {
+   "node": "weapon_rightarm",
+   "type": 5
+  },
+  {
+   "node": "weapon_leftarm",
+   "type": 5
+  },
+  {
+   "node": "weapon_righttorso",
+   "type": 0
+  },
+  {
+   "node": "weapon_centertorso",
+   "type": 2
+  },
+  {
+   "node": "weapon_lefttorso",
+   "type": 0
+  }
+ ],
+ "smoke_nodes": [
+  "smoke_torso"
+ ],
+ "jumpjet_nodes": [
+  "jumpjet_torso"
+ ],
+ "foot_nodes": [
+  "dust_rfoot",
+  "dust_lfoot"
+ ],
+ "gestures": [
+  {
+   "id": "park",
+   "animation": "StandToPark",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": -1,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "park_to_stand",
+   "animation": "ParkToStand",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "stand",
+   "animation": "",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "stand_to_walk",
+   "animation": "STtoWK",
+   "start_velocity": 0.0,
+   "end_velocity": 12.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "walk",
+   "animation": "Walk",
+   "start_velocity": 12.0,
+   "end_velocity": 12.0,
+   "start_frame": 1,
+   "reverse": false,
+   "foot_down": {
+    "RightFootDown0": 15,
+    "LeftFootDown0": 30
+   }
+  },
+  {
+   "id": "stand_to_park",
+   "animation": "StandToPark",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "walk_to_run",
+   "animation": "WKtoRN",
+   "start_velocity": 12.0,
+   "end_velocity": 27.0,
+   "start_frame": 1,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "run",
+   "animation": "Run",
+   "start_velocity": 27.0,
+   "end_velocity": 27.0,
+   "start_frame": 1,
+   "reverse": false,
+   "foot_down": {
+    "RightFootDown0": 13,
+    "LeftFootDown0": 2
+   }
+  },
+  {
+   "id": "run_to_walk",
+   "animation": "RNtoWK",
+   "start_velocity": 27.0,
+   "end_velocity": 12.0,
+   "start_frame": 1,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "reverse",
+   "animation": "Walk",
+   "start_velocity": -12.0,
+   "end_velocity": -12.0,
+   "start_frame": 1,
+   "reverse": true,
+   "foot_down": {
+    "RightFootDown0": 15,
+    "LeftFootDown0": 30
+   }
+  },
+  {
+   "id": "stand_to_reverse",
+   "animation": "WKtoST",
+   "start_velocity": 0.0,
+   "end_velocity": -12.0,
+   "start_frame": 1,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "limp_left",
+   "animation": "LimpLeft",
+   "start_velocity": 6.0,
+   "end_velocity": 6.0,
+   "start_frame": 1,
+   "reverse": false,
+   "foot_down": {
+    "RightFootDown0": 30,
+    "LeftFootDown0": 23
+   }
+  },
+  {
+   "id": "limp_right",
+   "animation": "LimpRight",
+   "start_velocity": 6.0,
+   "end_velocity": 6.0,
+   "start_frame": 1,
+   "reverse": false,
+   "foot_down": {
+    "RightFootDown0": 23,
+    "LeftFootDown0": 30
+   }
+  },
+  {
+   "id": "idle",
+   "animation": "Idle",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "fall_backward",
+   "animation": "FallBackward",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "fall_forward",
+   "animation": "FallForward",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "hit_front",
+   "animation": "HitFront",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "hit_back",
+   "animation": "HitBack",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "hit_left",
+   "animation": "HitLeft",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "hit_right",
+   "animation": "HitRight",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "jump",
+   "animation": "Jump",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "getup_back",
+   "animation": "GetUpBack",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "getup_front",
+   "animation": "GetUpFront",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": 0,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "fallen_forward",
+   "animation": "FallForward",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": -1,
+   "reverse": false,
+   "foot_down": {}
+  },
+  {
+   "id": "fallen_backward",
+   "animation": "FallBackward",
+   "start_velocity": 0.0,
+   "end_velocity": 0.0,
+   "start_frame": -1,
+   "reverse": false,
+   "foot_down": {}
+  }
+ ],
+ "animations": {
+  "Idle": 4.0,
+  "Walk": 1.0,
+  "Run": 0.733,
+  "STtoWK": 0.733,
+  "WKtoST": 1.0,
+  "WKtoRN": 1.0,
+  "RNtoWK": 1.0,
+  "LimpLeft": 1.0,
+  "LimpRight": 1.0,
+  "ParkToStand": 3.3,
+  "StandToPark": 3.333,
+  "Jump": 6.0,
+  "FallForward": 1.667,
+  "FallBackward": 1.667,
+  "GetUpFront": 4.633,
+  "GetUpBack": 3.3,
+  "HitFront": 1.667,
+  "HitBack": 1.667,
+  "HitLeft": 2.0,
+  "HitRight": 2.0
+ },
+ "meters_per_unit": 0.2,
+ "forward": "+Z"
+}

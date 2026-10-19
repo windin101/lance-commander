@@ -57,7 +57,8 @@ func test_briefing_data() -> void:
 	assert_int(vis.size()).is_greater_equal(6)
 	assert_object(vis[0]["marker"]).is_not_null()
 	assert_float(b.map_half_m).is_equal_approx(1280.0, 0.01)
-	assert_bool(MissionBrief.load_mission(GameData, "mc2_24").available).is_false()
+	assert_bool(MissionBrief.load_mission(GameData, "mc2_24").available).is_true()
+	assert_bool(MissionBrief.load_mission(GameData, "mc2_99").available).is_false()
 
 
 func test_report_counts_kills_and_lance_state() -> void:

@@ -1,0 +1,39 @@
+{
+ "name": "vedette",
+ "appearance": "vedette",
+ "chassis": 0,
+ "hover": false,
+ "path_locks": true,
+ "tonnage": 50.0,
+ "battle_rating": 25,
+ "explosion_damage": 0.0,
+ "explosion_radius": 0.0,
+ "max_velocity": 19.0,
+ "max_turret_yaw": 180.0,
+ "max_turret_yaw_rate": 180.0,
+ "armor": {
+  "front": 11.0,
+  "left": 11.0,
+  "right": 11.0,
+  "rear": 11.0,
+  "turret": 5.0
+ },
+ "internal": {
+  "front": 1.0,
+  "left": 1.0,
+  "right": 1.0,
+  "rear": 1.0,
+  "turret": 1.0
+ },
+ "items": [
+  1,
+  6,
+  35,
+  36,
+  101,
+  201
+ ],
+ "num_other": 4,
+ "num_weapons": 1,
+ "num_ammo": 1
+}

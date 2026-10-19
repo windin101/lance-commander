@@ -151,6 +151,14 @@ func on_event(e: Dictionary) -> void:
 			var u: SimUnit = w.units[e["unit"]]
 			if u.team == view.sm.player_team:
 				message("%s has fallen" % u.name)
+		"objective_failed":
+			if not e["hidden"]:
+				message("Objective failed: " + _objective_title(view.sm.objectives.objectives[e["index"]]))
+		"captured":
+			message("%s captured %s" % [w.units[e["unit"]].name, w.units[e["target"]].name])
+		"capture_refused", "capture_blocked":
+			message("%s cannot capture %s%s" % [w.units[e["unit"]].name, w.units[e["target"]].name,
+				" — enemy nearby" if e["type"] == "capture_blocked" else ""])
 
 
 func _objective_title(obj: Dictionary) -> String:
@@ -160,7 +168,7 @@ func _objective_title(obj: Dictionary) -> String:
 
 func _process(_delta: float) -> void:
 	var w: SimWorld = view.world
-	top_label.text = "%s   %02d:%02d      LMB select · RMB move/attack · H hold · F alpha strike · WASD/QE/wheel camera" % [
+	top_label.text = "%s   %02d:%02d      LMB select · RMB move/attack/capture · H hold · F alpha strike · WASD/QE/wheel camera" % [
 		view.mission, int(w.time) / 60, int(w.time) % 60]
 	var lines: Array[String] = ["OBJECTIVES"]
 	for obj in view.sm.objectives.visible_objectives():

@@ -1,0 +1,8348 @@
+{
+ "types": {
+  "23": {
+   "file": "LiaoHeavyGateControl.fit",
+   "class": 1,
+   "name": "LiaoHeavyGateControl.fit",
+   "appearance": "l_gatecontrol",
+   "extent_radius": 35.0,
+   "damage_level": 35,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": true,
+   "resource_points": 0
+  },
+  "32": {
+   "file": "LiaoPowerGenerator.fit",
+   "class": 1,
+   "name": "LiaoPowerGenerator.fit",
+   "appearance": "powergenerator",
+   "extent_radius": 35.0,
+   "damage_level": 30,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "33": {
+   "file": "LiaoRepairBay.fit",
+   "class": 1,
+   "name": "RepairBay",
+   "appearance": "repairbay",
+   "extent_radius": 35.0,
+   "damage_level": 360,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": true,
+   "resource_points": 0
+  },
+  "68": {
+   "file": "LiaoSpotlight.fit",
+   "class": 21,
+   "name": "LiaoSpotlight.fit",
+   "appearance": "spotlight",
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "70": {
+   "file": "LiaoSpotlightControl.fit",
+   "class": 1,
+   "name": "LiaoSpotlightControl.fit",
+   "appearance": "l_spotlightcontrol",
+   "extent_radius": 35.0,
+   "damage_level": 40,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": true,
+   "resource_points": 0
+  },
+  "71": {
+   "file": "LiaoTurretControl.fit",
+   "class": 1,
+   "name": "LiaoTurretControl.fit",
+   "appearance": "l_turretcontrol",
+   "extent_radius": 35.0,
+   "damage_level": 55,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "72": {
+   "file": "LiaoTurretGenerator.fit",
+   "class": 1,
+   "name": "LiaoTurretGenerator.fit",
+   "appearance": "l_turretgenerator",
+   "extent_radius": 35.0,
+   "damage_level": 30,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "112": {
+   "file": "Barricade.fit",
+   "class": 11,
+   "name": "Barricade.fit",
+   "appearance": "sawhorsebarricade",
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "114": {
+   "file": "Streetlight.fit",
+   "class": 11,
+   "name": "streetlight3",
+   "appearance": "streetlight",
+   "extent_radius": 5.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "135": {
+   "file": "palmTree1.fit",
+   "class": 0,
+   "name": "palmTree1.fit",
+   "appearance": "palm1",
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "152": {
+   "file": "LiaoLightWall.fit",
+   "class": 1,
+   "name": "LiaoLightWall.fit",
+   "appearance": "l_lightwall",
+   "extent_radius": 35.0,
+   "damage_level": 30,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "154": {
+   "file": "LiaoMediumWall.fit",
+   "class": 1,
+   "name": "LiaoMediumWall.fit",
+   "appearance": "l_mediumwall",
+   "extent_radius": 35.0,
+   "damage_level": 45,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "155": {
+   "file": "LiaoMediumGate.fit",
+   "class": 22,
+   "name": "LiaoMediumGate.fit",
+   "appearance": "l_mediumgate",
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "170": {
+   "file": "LRMTurret.fit",
+   "class": 21,
+   "name": "LRMTurret",
+   "appearance": "lrmturret",
+   "extent_radius": 1500.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "173": {
+   "file": "MediumAutoCannonTurret.fit",
+   "class": 21,
+   "name": "MediumAutoCannonTurret",
+   "appearance": "mediumautocannonturret",
+   "extent_radius": 500.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "175": {
+   "file": "SRMTurret.fit",
+   "class": 21,
+   "name": "SRMTurret",
+   "appearance": "srmturret",
+   "extent_radius": 500.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "185": {
+   "file": "LargeFuelTank.fit",
+   "class": 1,
+   "name": "LargeFuelTank",
+   "appearance": "largefueltank",
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 30.0,
+   "explosion_radius": 300.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "228": {
+   "file": "tent.fit",
+   "class": 11,
+   "name": "tent",
+   "appearance": "tent",
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "229": {
+   "file": "hqtent.fit",
+   "class": 11,
+   "name": "hqtent",
+   "appearance": "hqtent",
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "230": {
+   "file": "longtent.fit",
+   "class": 11,
+   "name": "longtent",
+   "appearance": "longtent",
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "244": {
+   "file": "HeavyIndustrial.fit",
+   "class": 1,
+   "name": "HeavyIndustrial",
+   "appearance": "heavyindustrial",
+   "extent_radius": 35.0,
+   "damage_level": 15,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "245": {
+   "file": "PurificationPlant.fit",
+   "class": 1,
+   "name": "PurificationPlant",
+   "appearance": "purificationplant",
+   "extent_radius": 35.0,
+   "damage_level": 3,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "260": {
+   "file": "GeodesicDome.fit",
+   "class": 1,
+   "name": "GeodesicDome",
+   "appearance": "geodesicdome",
+   "extent_radius": 35.0,
+   "damage_level": 3,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "268": {
+   "file": "Crates.fit",
+   "class": 11,
+   "name": "crateswithtarp",
+   "appearance": "crateswithtarp",
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "276": {
+   "file": "RedBeaconLight.fit",
+   "class": 11,
+   "name": "redbeaconlight",
+   "appearance": "redbeaconlight",
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "277": {
+   "file": "RunwayLight.fit",
+   "class": 11,
+   "name": "runwaylight",
+   "appearance": "runwaylight",
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "283": {
+   "file": "WoodenCrates.fit",
+   "class": 11,
+   "name": "woodencrates",
+   "appearance": "woodencrates",
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "289": {
+   "file": "extractionMarker.fit",
+   "class": 1,
+   "name": "ExtractionMarker",
+   "appearance": "extractionmarker",
+   "extent_radius": 35.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "299": {
+   "file": "IndustrialPlant.fit",
+   "class": 1,
+   "name": "IndustrialPlant",
+   "appearance": "industrialplant",
+   "extent_radius": 35.0,
+   "damage_level": 20,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "301": {
+   "file": "ChemicalPlant.fit",
+   "class": 1,
+   "name": "ChemicalPlant",
+   "appearance": "chemicalplant",
+   "extent_radius": 35.0,
+   "damage_level": 18,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "323": {
+   "file": "ProcessingPlant.fit",
+   "class": 1,
+   "name": "ProcessingPlant",
+   "appearance": "processingplant",
+   "extent_radius": 35.0,
+   "damage_level": 11,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "324": {
+   "file": "FactoryLg.fit",
+   "class": 1,
+   "name": "FactoryLg",
+   "appearance": "factorylg",
+   "extent_radius": 35.0,
+   "damage_level": 30,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "325": {
+   "file": "FactoryMd.fit",
+   "class": 1,
+   "name": "FactoryMd",
+   "appearance": "factorymd",
+   "extent_radius": 35.0,
+   "damage_level": 20,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "326": {
+   "file": "FactorySm.fit",
+   "class": 1,
+   "name": "FactorySm",
+   "appearance": "factorysm",
+   "extent_radius": 35.0,
+   "damage_level": 10,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "329": {
+   "file": "cornerpipe.fit",
+   "class": 1,
+   "name": "FuelPipe",
+   "appearance": "cornerpipe",
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 20.0,
+   "explosion_radius": 225.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "331": {
+   "file": "endpipe.fit",
+   "class": 1,
+   "name": "FuelPipe",
+   "appearance": "endpipe",
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 20.0,
+   "explosion_radius": 225.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "332": {
+   "file": "fourwaypipe.fit",
+   "class": 1,
+   "name": "FuelPipe",
+   "appearance": "fourwaypipe",
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 20.0,
+   "explosion_radius": 225.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "333": {
+   "file": "liquidstorage.fit",
+   "class": 1,
+   "name": "LiquidStorage",
+   "appearance": "liquidstorage",
+   "extent_radius": 35.0,
+   "damage_level": 3,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "334": {
+   "file": "pipetank.fit",
+   "class": 1,
+   "name": "PipeTank",
+   "appearance": "pipetank",
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 30.0,
+   "explosion_radius": 225.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "335": {
+   "file": "quonset.fit",
+   "class": 1,
+   "name": "Quonset",
+   "appearance": "quonset",
+   "extent_radius": 35.0,
+   "damage_level": 2,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "336": {
+   "file": "quonset2.fit",
+   "class": 1,
+   "name": "Quonset2",
+   "appearance": "quonset2",
+   "extent_radius": 35.0,
+   "damage_level": 2,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "337": {
+   "file": "Quonsetclean.fit",
+   "class": 1,
+   "name": "QuonsetClean",
+   "appearance": "quonsetclean",
+   "extent_radius": 35.0,
+   "damage_level": 2,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "343": {
+   "file": "StraightPipe2.fit",
+   "class": 1,
+   "name": "StraightPipe2",
+   "appearance": "straightpipe2",
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 20.0,
+   "explosion_radius": 225.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "345": {
+   "file": "ThreeWayPipe.fit",
+   "class": 1,
+   "name": "ThreeWayPipe",
+   "appearance": "threewaypipe",
+   "extent_radius": 35.0,
+   "damage_level": 1,
+   "explosion_damage": 20.0,
+   "explosion_radius": 225.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "363": {
+   "file": "LiaoLightPost.fit",
+   "class": 1,
+   "name": "LiaoLightWall.fit",
+   "appearance": "l_lightpost",
+   "extent_radius": 35.0,
+   "damage_level": 30,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "371": {
+   "file": "Cactus3.fit",
+   "class": 0,
+   "name": "maple",
+   "appearance": "cactus3",
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "408": {
+   "file": "WoodenFence.fit",
+   "class": 11,
+   "name": "woodenfence",
+   "appearance": "woodenfence",
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "417": {
+   "file": "WeaponsFacility.fit",
+   "class": 1,
+   "name": "WeaponsFacility",
+   "appearance": "weaponsfacility",
+   "extent_radius": 35.0,
+   "damage_level": 100,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "440": {
+   "file": "WireFence.fit",
+   "class": 11,
+   "name": "wireFence",
+   "appearance": "wirefence",
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "441": {
+   "file": "WireFenceDiag.fit",
+   "class": 11,
+   "name": "wirefenceDiag",
+   "appearance": "wirefencediag",
+   "extent_radius": 0.0,
+   "damage_level": 0,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 0,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "522": {
+   "file": "Prison.fit",
+   "class": 1,
+   "name": "Prison",
+   "appearance": "prison",
+   "extent_radius": 35.0,
+   "damage_level": 100,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  },
+  "546": {
+   "file": "Portable.fit",
+   "class": 1,
+   "name": "Portable",
+   "appearance": "portable",
+   "extent_radius": 35.0,
+   "damage_level": 3,
+   "explosion_damage": 0.0,
+   "explosion_radius": 0.0,
+   "building_team": -1,
+   "impassable": 1,
+   "capturable": false,
+   "resource_points": 0
+  }
+ },
+ "objects": [
+  {
+   "type": 68,
+   "x": -4800.0,
+   "y": -2112.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 68,
+   "x": -4544.0,
+   "y": -1856.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 68,
+   "x": -3520.0,
+   "y": -1856.0,
+   "z": 427.647,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 334,
+   "x": 3648.0,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 3648.0,
+   "y": -3946.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 3904.0,
+   "y": -3946.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 3904.0,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 3648.0,
+   "y": -3818.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 3904.0,
+   "y": -3818.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 331,
+   "x": 3776.0,
+   "y": -3946.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 3776.0,
+   "y": -3818.667,
+   "z": 233.529,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 2496.0,
+   "y": -3818.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 2624.0,
+   "y": -3818.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 2368.0,
+   "y": -3818.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 331,
+   "x": 2496.0,
+   "y": -3946.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 2624.0,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 2368.0,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 2368.0,
+   "y": -3946.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 2624.0,
+   "y": -3946.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 5098.667,
+   "y": -2496.0,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 5098.667,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 5098.667,
+   "y": -2624.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 5098.667,
+   "y": -1216.0,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 5098.667,
+   "y": -1088.0,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": 5098.667,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 331,
+   "x": 5226.667,
+   "y": -2496.0,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 331,
+   "x": 5226.667,
+   "y": -1216.0,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 4970.667,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 4970.667,
+   "y": -2624.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 4970.667,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 4970.667,
+   "y": -1088.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 5226.667,
+   "y": -1088.0,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 5226.667,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 5226.667,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": 5226.667,
+   "y": -2624.0,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 152,
+   "x": 2666.667,
+   "y": -2581.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2794.667,
+   "y": -2581.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2922.667,
+   "y": -2581.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3050.667,
+   "y": -2581.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3178.667,
+   "y": -2581.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3306.667,
+   "y": -2581.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3434.667,
+   "y": -2581.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3562.667,
+   "y": -2581.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 363,
+   "x": 3648.0,
+   "y": -2624.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2410.667,
+   "y": -2325.333,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2410.667,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2410.667,
+   "y": -2069.333,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2410.667,
+   "y": -1941.333,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2410.667,
+   "y": -1813.333,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2410.667,
+   "y": -1685.333,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2410.667,
+   "y": -1557.333,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2410.667,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2666.667,
+   "y": -1130.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2794.667,
+   "y": -1130.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 2922.667,
+   "y": -1130.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3050.667,
+   "y": -1130.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3178.667,
+   "y": -1130.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3306.667,
+   "y": -1130.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3434.667,
+   "y": -1130.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3562.667,
+   "y": -1130.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3861.333,
+   "y": -1386.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3861.333,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3861.333,
+   "y": -1642.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3861.333,
+   "y": -1770.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3861.333,
+   "y": -1898.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3861.333,
+   "y": -2026.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3861.333,
+   "y": -2154.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 152,
+   "x": 3861.333,
+   "y": -2282.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 363,
+   "x": 3861.333,
+   "y": -2410.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 363,
+   "x": 3648.0,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 363,
+   "x": 2410.667,
+   "y": -1386.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 155,
+   "x": 2880.0,
+   "y": -1728.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 2666.667,
+   "y": -1728.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 3093.333,
+   "y": -1728.0,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 3136.0,
+   "y": -1642.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 3136.0,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 3136.0,
+   "y": -1386.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 3050.667,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 2922.667,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 2794.667,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 2624.0,
+   "y": -1642.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 2624.0,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 2624.0,
+   "y": -1386.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 2666.667,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 23,
+   "x": 3050.667,
+   "y": -1600.0,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 337,
+   "x": 2965.333,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": 3050.667,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 68,
+   "x": 4074.667,
+   "y": -2794.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 68,
+   "x": 2325.333,
+   "y": -2794.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 68,
+   "x": 2325.333,
+   "y": -1045.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 68,
+   "x": 3946.667,
+   "y": -1045.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 112,
+   "x": 2752.0,
+   "y": -1600.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3818.667,
+   "y": -3562.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3648.0,
+   "y": -3605.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3733.333,
+   "y": -3562.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3904.0,
+   "y": -3605.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3989.333,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3562.667,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3989.333,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3562.667,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3989.333,
+   "y": -3904.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3989.333,
+   "y": -3776.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3562.667,
+   "y": -3776.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3562.667,
+   "y": -3904.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3648.0,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3776.0,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 3904.0,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2709.333,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2709.333,
+   "y": -3776.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2709.333,
+   "y": -3904.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2709.333,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2282.667,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2282.667,
+   "y": -3904.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2282.667,
+   "y": -3776.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2282.667,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2538.667,
+   "y": -3562.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2453.333,
+   "y": -3562.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2368.0,
+   "y": -3605.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 2624.0,
+   "y": -3605.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4842.667,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4842.667,
+   "y": -2453.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4885.333,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4885.333,
+   "y": -2624.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5056.0,
+   "y": -2709.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5184.0,
+   "y": -2709.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5056.0,
+   "y": -2282.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5184.0,
+   "y": -2282.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4970.667,
+   "y": -2282.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4970.667,
+   "y": -2709.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5269.333,
+   "y": -2496.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5269.333,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5269.333,
+   "y": -2624.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5269.333,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5269.333,
+   "y": -1216.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5269.333,
+   "y": -1088.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5184.0,
+   "y": -1002.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5056.0,
+   "y": -1002.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5056.0,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 5184.0,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4885.333,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4885.333,
+   "y": -1088.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4842.667,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4842.667,
+   "y": -1258.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4970.667,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 276,
+   "x": 4970.667,
+   "y": -1002.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 71,
+   "x": -4032.0,
+   "y": 192.0,
+   "z": 360.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 170,
+   "x": -2240.0,
+   "y": 64.0,
+   "z": 290.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 170,
+   "x": -3904.0,
+   "y": -576.0,
+   "z": 290.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 170,
+   "x": -3904.0,
+   "y": -960.0,
+   "z": 290.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 170,
+   "x": -3392.0,
+   "y": 64.0,
+   "z": 290.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 170,
+   "x": -2837.333,
+   "y": 64.0,
+   "z": 288.931,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 244,
+   "x": 3434.667,
+   "y": -1301.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 244,
+   "x": 3520.0,
+   "y": -1557.333,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 299,
+   "x": 3434.667,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 299,
+   "x": 3690.667,
+   "y": -1770.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 301,
+   "x": 3392.0,
+   "y": -1557.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 323,
+   "x": 3605.333,
+   "y": -1301.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 323,
+   "x": 3349.333,
+   "y": -1770.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 326,
+   "x": 3605.333,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 260,
+   "x": 3605.333,
+   "y": -1557.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 260,
+   "x": 3690.667,
+   "y": -1685.333,
+   "z": 233.529,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 324,
+   "x": 3520.0,
+   "y": -1770.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": 2624.0,
+   "y": -1941.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": 2624.0,
+   "y": -2026.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": 2624.0,
+   "y": -2112.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": 2794.667,
+   "y": -1941.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": 2752.0,
+   "y": -2026.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": 2752.0,
+   "y": -2112.0,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": 2752.0,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": 2581.333,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -2410.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -2282.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -2154.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -2026.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -1898.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -1770.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -1642.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -1386.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -1258.667,
+   "z": 233.529,
+   "rotation": 135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3605.333,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3477.333,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3349.333,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3221.333,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3093.333,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2965.333,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2837.333,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2709.333,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2581.333,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -1301.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -1557.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -1685.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -1813.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -1941.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -2069.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -2325.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": -2453.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2581.333,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2709.333,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2837.333,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2965.333,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3093.333,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3221.333,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3349.333,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3477.333,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3605.333,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3733.333,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3306.667,
+   "y": -1301.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3306.667,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3306.667,
+   "y": -1557.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3306.667,
+   "y": -1685.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3306.667,
+   "y": -1813.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3306.667,
+   "y": -1941.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3306.667,
+   "y": -2069.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3306.667,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3306.667,
+   "y": -2325.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2837.333,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2837.333,
+   "y": -2240.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2837.333,
+   "y": -2112.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2837.333,
+   "y": -1984.0,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2624.0,
+   "y": -1813.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2752.0,
+   "y": -1813.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3008.0,
+   "y": -1813.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3136.0,
+   "y": -1813.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3392.0,
+   "y": -1898.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3520.0,
+   "y": -1898.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 3648.0,
+   "y": -1898.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 33,
+   "x": -2368.0,
+   "y": 2026.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 114,
+   "x": -3050.667,
+   "y": 1429.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3050.667,
+   "y": 1557.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3050.667,
+   "y": 1685.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3050.667,
+   "y": 1813.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2922.667,
+   "y": 1898.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2794.667,
+   "y": 1898.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2666.667,
+   "y": 1898.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2538.667,
+   "y": 1898.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2410.667,
+   "y": 1898.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2282.667,
+   "y": 1898.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2154.667,
+   "y": 1898.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 1770.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 1642.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 1514.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2197.333,
+   "y": 1429.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2325.333,
+   "y": 1429.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2453.333,
+   "y": 1429.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2581.333,
+   "y": 1429.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2709.333,
+   "y": 1429.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2837.333,
+   "y": 1429.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3050.667,
+   "y": 1173.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3050.667,
+   "y": 917.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3050.667,
+   "y": 661.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2922.667,
+   "y": 490.667,
+   "z": 200.98,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2666.667,
+   "y": 490.667,
+   "z": 202.941,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2410.667,
+   "y": 490.667,
+   "z": 202.941,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2154.667,
+   "y": 490.667,
+   "z": 202.941,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1898.667,
+   "y": 490.667,
+   "z": 202.941,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1642.667,
+   "y": 490.667,
+   "z": 202.941,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1386.667,
+   "y": 490.667,
+   "z": 202.941,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1130.667,
+   "y": 490.667,
+   "z": 202.549,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -874.667,
+   "y": 490.667,
+   "z": 179.41,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -618.667,
+   "y": 490.667,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -362.667,
+   "y": 490.667,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -106.667,
+   "y": 490.667,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 149.333,
+   "y": 490.667,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 405.333,
+   "y": 490.667,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 661.333,
+   "y": 490.667,
+   "z": 176.667,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 917.333,
+   "y": 490.667,
+   "z": 181.765,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 1173.333,
+   "y": 490.667,
+   "z": 181.765,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 1429.333,
+   "y": 490.667,
+   "z": 181.765,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 1685.333,
+   "y": 490.667,
+   "z": 181.765,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 1941.333,
+   "y": 490.667,
+   "z": 181.765,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2197.333,
+   "y": 490.667,
+   "z": 181.765,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2453.333,
+   "y": 490.667,
+   "z": 181.373,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2538.667,
+   "y": 234.667,
+   "z": 184.118,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2538.667,
+   "y": -21.333,
+   "z": 193.922,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2538.667,
+   "y": -277.333,
+   "z": 200.98,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2538.667,
+   "y": -533.333,
+   "z": 204.902,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": 2538.667,
+   "y": -789.333,
+   "z": 223.725,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3178.667,
+   "y": 490.667,
+   "z": 200.98,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3434.667,
+   "y": 490.667,
+   "z": 202.941,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3690.667,
+   "y": 490.667,
+   "z": 202.941,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3946.667,
+   "y": 490.667,
+   "z": 202.941,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4202.667,
+   "y": 490.667,
+   "z": 202.941,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4330.667,
+   "y": 405.333,
+   "z": 202.941,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4330.667,
+   "y": 149.333,
+   "z": 202.941,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4330.667,
+   "y": -106.667,
+   "z": 202.941,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4330.667,
+   "y": -362.667,
+   "z": 202.941,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4330.667,
+   "y": -618.667,
+   "z": 202.941,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4330.667,
+   "y": -874.667,
+   "z": 202.941,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4373.333,
+   "y": -1045.333,
+   "z": 205.294,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4629.333,
+   "y": -1045.333,
+   "z": 208.824,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4885.333,
+   "y": -1045.333,
+   "z": 212.353,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -5141.333,
+   "y": -1045.333,
+   "z": 212.745,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -5354.667,
+   "y": -1130.667,
+   "z": 206.471,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -5354.667,
+   "y": -1386.667,
+   "z": 227.255,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -5354.667,
+   "y": -1642.667,
+   "z": 235.098,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -5354.667,
+   "y": -1898.667,
+   "z": 235.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -5354.667,
+   "y": -2154.667,
+   "z": 235.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -5354.667,
+   "y": -2410.667,
+   "z": 235.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -5354.667,
+   "y": -2666.667,
+   "z": 286.471,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -5184.0,
+   "y": -2794.667,
+   "z": 307.647,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4928.0,
+   "y": -2794.667,
+   "z": 361.765,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 244,
+   "x": -2922.667,
+   "y": 1600.0,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 301,
+   "x": -2922.667,
+   "y": 1770.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 299,
+   "x": -2752.0,
+   "y": 1728.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 260,
+   "x": -2752.0,
+   "y": 1600.0,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -2624.0,
+   "y": 1770.667,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 323,
+   "x": -2496.0,
+   "y": 1770.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 325,
+   "x": -2624.0,
+   "y": 1600.0,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 326,
+   "x": -2368.0,
+   "y": 1557.333,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 245,
+   "x": -2325.333,
+   "y": 1770.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 32,
+   "x": -2240.0,
+   "y": 1685.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -2026.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -2154.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4586.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4458.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4330.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4202.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4074.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3946.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3818.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3690.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3562.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3434.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3306.667,
+   "y": -1984.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 155,
+   "x": -4672.0,
+   "y": -2752.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -2538.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -2410.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -2282.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -2965.333,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -3093.333,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -3221.333,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -3349.333,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -3477.333,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -3605.333,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4672.0,
+   "y": -3733.333,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4586.667,
+   "y": -3776.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4458.667,
+   "y": -3776.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4330.667,
+   "y": -3776.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4160.0,
+   "y": -3690.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4160.0,
+   "y": -3562.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4160.0,
+   "y": -3434.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4202.667,
+   "y": -3776.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -4074.667,
+   "y": -3392.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3946.667,
+   "y": -3392.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3818.667,
+   "y": -3392.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3690.667,
+   "y": -3392.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3562.667,
+   "y": -3392.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3434.667,
+   "y": -3392.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3306.667,
+   "y": -3392.0,
+   "z": 434.706,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 155,
+   "x": -3264.0,
+   "y": -3264.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3264.0,
+   "y": -3050.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3264.0,
+   "y": -2922.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3264.0,
+   "y": -2794.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3264.0,
+   "y": -2666.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3264.0,
+   "y": -2538.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3264.0,
+   "y": -2410.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3264.0,
+   "y": -2282.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3264.0,
+   "y": -2154.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -3264.0,
+   "y": -2026.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 23,
+   "x": -4416.0,
+   "y": -2965.333,
+   "z": 435.882,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 337,
+   "x": -4032.0,
+   "y": -2197.333,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -4032.0,
+   "y": -2282.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -4032.0,
+   "y": -2368.0,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -4032.0,
+   "y": -2453.333,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -3477.333,
+   "y": -3178.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -3562.667,
+   "y": -3178.667,
+   "z": 435.882,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -3690.667,
+   "y": -3178.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 2325.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 2240.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 2325.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 2240.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 2112.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 2112.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 1984.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 1984.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 1856.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 1856.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 1728.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 1728.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 1600.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 1600.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 1472.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 1472.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 1344.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 1344.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 1216.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 1216.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4586.667,
+   "y": 1130.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 277,
+   "x": 4501.333,
+   "y": 1130.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 268,
+   "x": 3392.0,
+   "y": -1642.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 268,
+   "x": 3605.333,
+   "y": -1642.667,
+   "z": 233.529,
+   "rotation": 135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 268,
+   "x": 3690.667,
+   "y": -1301.333,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 283,
+   "x": 3477.333,
+   "y": -1642.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 283,
+   "x": 3520.0,
+   "y": -1642.667,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 283,
+   "x": 3520.0,
+   "y": -1685.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": 3648.0,
+   "y": -1984.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 301,
+   "x": -3520.0,
+   "y": -2240.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 32,
+   "x": -2496.0,
+   "y": -3776.0,
+   "z": 221.765,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 245,
+   "x": -3648.0,
+   "y": -2709.333,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 245,
+   "x": -3477.333,
+   "y": -2709.333,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 299,
+   "x": -3648.0,
+   "y": -2240.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 244,
+   "x": -3520.0,
+   "y": -2496.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 323,
+   "x": -3648.0,
+   "y": -2496.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -3904.0,
+   "y": -2240.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -3904.0,
+   "y": -2496.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -3904.0,
+   "y": -2325.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -3904.0,
+   "y": -2410.667,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 229,
+   "x": -4032.0,
+   "y": -2624.0,
+   "z": 435.882,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 229,
+   "x": -3904.0,
+   "y": -2624.0,
+   "z": 435.882,
+   "rotation": 135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 229,
+   "x": -3904.0,
+   "y": -2752.0,
+   "z": 435.882,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 229,
+   "x": -4032.0,
+   "y": -2752.0,
+   "z": 435.882,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 260,
+   "x": -4458.667,
+   "y": -2624.0,
+   "z": 435.882,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 260,
+   "x": -4245.333,
+   "y": -3136.0,
+   "z": 435.882,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": -4288.0,
+   "y": -2624.0,
+   "z": 435.882,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": -4416.0,
+   "y": -3136.0,
+   "z": 435.882,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": -3690.667,
+   "y": -3008.0,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": -3605.333,
+   "y": -2922.667,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -4288.0,
+   "y": -3008.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -4245.333,
+   "y": -2752.0,
+   "z": 435.882,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -3520.0,
+   "y": -3008.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 244,
+   "x": -4032.0,
+   "y": -3008.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 326,
+   "x": -3904.0,
+   "y": -3093.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": -4032.0,
+   "y": -3136.0,
+   "z": 435.882,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 72,
+   "x": -2496.0,
+   "y": -3648.0,
+   "z": 217.059,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 230,
+   "x": 3136.0,
+   "y": -1941.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": 3136.0,
+   "y": -2069.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": 3136.0,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": 3136.0,
+   "y": -2325.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": 3008.0,
+   "y": -2282.667,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": 3008.0,
+   "y": -2154.667,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": 3008.0,
+   "y": -2026.667,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 229,
+   "x": 3520.0,
+   "y": -2112.0,
+   "z": 233.529,
+   "rotation": 135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 229,
+   "x": 3392.0,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4586.667,
+   "y": -2666.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4586.667,
+   "y": -2410.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4586.667,
+   "y": -2154.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4501.333,
+   "y": -2069.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4330.667,
+   "y": -2069.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4074.667,
+   "y": -2069.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3818.667,
+   "y": -2069.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3562.667,
+   "y": -2069.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3349.333,
+   "y": -2154.667,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3349.333,
+   "y": -2325.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3349.333,
+   "y": -2581.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3349.333,
+   "y": -2837.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3349.333,
+   "y": -3093.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3434.667,
+   "y": -3306.667,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3690.667,
+   "y": -3306.667,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3946.667,
+   "y": -3306.667,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4202.667,
+   "y": -3306.667,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4458.667,
+   "y": -3306.667,
+   "z": 435.882,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4586.667,
+   "y": -3178.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4586.667,
+   "y": -2922.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4373.333,
+   "y": -2453.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4330.667,
+   "y": -2837.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4202.667,
+   "y": -3050.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3946.667,
+   "y": -2837.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -4202.667,
+   "y": -2282.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3818.667,
+   "y": -2368.0,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3818.667,
+   "y": -2624.0,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3733.333,
+   "y": -2837.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -3861.333,
+   "y": -2965.333,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -3520.0,
+   "y": -2837.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -4245.333,
+   "y": -2410.667,
+   "z": 435.882,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -4458.667,
+   "y": -2410.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -4245.333,
+   "y": -2197.333,
+   "z": 435.882,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 335,
+   "x": 4373.333,
+   "y": 1898.667,
+   "z": 233.529,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 335,
+   "x": 4373.333,
+   "y": 1770.667,
+   "z": 233.529,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 335,
+   "x": 4373.333,
+   "y": 1642.667,
+   "z": 233.529,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 336,
+   "x": 4373.333,
+   "y": 1514.667,
+   "z": 233.529,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": 4373.333,
+   "y": 1301.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": 4373.333,
+   "y": 1386.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": 4288.0,
+   "y": 1856.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 173,
+   "x": 490.667,
+   "y": 320.0,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 173,
+   "x": 490.667,
+   "y": 576.0,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 71,
+   "x": -576.0,
+   "y": 576.0,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 72,
+   "x": -576.0,
+   "y": 320.0,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -234.667,
+   "y": 704.0,
+   "z": 175.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -362.667,
+   "y": 704.0,
+   "z": 171.961,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -490.667,
+   "y": 704.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -618.667,
+   "y": 704.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -362.667,
+   "y": 192.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -490.667,
+   "y": 192.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -618.667,
+   "y": 192.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -704.0,
+   "y": 234.667,
+   "z": 170.0,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -704.0,
+   "y": 661.333,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 155,
+   "x": -704.0,
+   "y": 448.0,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 155,
+   "x": 320.0,
+   "y": 448.0,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 234.667,
+   "y": 576.0,
+   "z": 170.0,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -234.667,
+   "y": 192.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 21.333,
+   "y": 320.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 149.333,
+   "y": 320.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 277.333,
+   "y": 320.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 21.333,
+   "y": 576.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": 149.333,
+   "y": 576.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 185,
+   "x": -3178.667,
+   "y": -2965.333,
+   "z": 435.098,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": -3178.667,
+   "y": -3093.333,
+   "z": 435.098,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 175,
+   "x": -5312.0,
+   "y": -2880.0,
+   "z": 292.353,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 175,
+   "x": -5056.0,
+   "y": -2624.0,
+   "z": 337.059,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 71,
+   "x": -4416.0,
+   "y": -2752.0,
+   "z": 435.882,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 32,
+   "x": 3392.0,
+   "y": -1984.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 268,
+   "x": -2197.333,
+   "y": 2112.0,
+   "z": 200.588,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 268,
+   "x": -2282.667,
+   "y": 2197.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 283,
+   "x": -2197.333,
+   "y": 1941.333,
+   "z": 200.588,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 268,
+   "x": -2197.333,
+   "y": 2026.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 268,
+   "x": -2282.667,
+   "y": 2026.667,
+   "z": 200.588,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 283,
+   "x": -2282.667,
+   "y": 2112.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": -2112.0,
+   "y": -1813.333,
+   "z": 261.765,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -2154.667,
+   "y": -1642.667,
+   "z": 247.255,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 244,
+   "x": -1045.333,
+   "y": 4629.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 244,
+   "x": -704.0,
+   "y": 5056.0,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 185,
+   "x": -1258.667,
+   "y": 5098.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 185,
+   "x": -1045.333,
+   "y": 5098.667,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 185,
+   "x": -1258.667,
+   "y": 4757.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 185,
+   "x": -1045.333,
+   "y": 4757.333,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": -1130.667,
+   "y": 5098.667,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 345,
+   "x": -1130.667,
+   "y": 4757.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 332,
+   "x": -1130.667,
+   "y": 4970.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 343,
+   "x": -1130.667,
+   "y": 4842.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": -1258.667,
+   "y": 4970.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 334,
+   "x": -1045.333,
+   "y": 4842.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 329,
+   "x": -1045.333,
+   "y": 4970.667,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": -1088.0,
+   "y": 4416.0,
+   "z": 200.588,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": -1216.0,
+   "y": 4416.0,
+   "z": 200.588,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": -1216.0,
+   "y": 4032.0,
+   "z": 200.588,
+   "rotation": 135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": -1088.0,
+   "y": 4032.0,
+   "z": 200.588,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": -1088.0,
+   "y": 4288.0,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": -1088.0,
+   "y": 4160.0,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": -1216.0,
+   "y": 4288.0,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": -1216.0,
+   "y": 4160.0,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 323,
+   "x": -1258.667,
+   "y": 4629.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 299,
+   "x": -832.0,
+   "y": 5056.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 325,
+   "x": -874.667,
+   "y": 4416.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 325,
+   "x": -704.0,
+   "y": 4928.0,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 326,
+   "x": -704.0,
+   "y": 4714.667,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 324,
+   "x": -874.667,
+   "y": 4672.0,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 301,
+   "x": -832.0,
+   "y": 4288.0,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 301,
+   "x": -832.0,
+   "y": 4160.0,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 32,
+   "x": -832.0,
+   "y": 4928.0,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 325,
+   "x": -704.0,
+   "y": 4288.0,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 173,
+   "x": -746.667,
+   "y": 832.0,
+   "z": 176.667,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 173,
+   "x": -746.667,
+   "y": 64.0,
+   "z": 167.647,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 23,
+   "x": -320.0,
+   "y": 576.0,
+   "z": 170.0,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 2026.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 2282.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 2538.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 2794.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 3050.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 3306.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 3562.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -2069.333,
+   "y": 3818.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1813.333,
+   "y": 3861.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1557.333,
+   "y": 3861.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1301.333,
+   "y": 3861.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1045.333,
+   "y": 3861.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -789.333,
+   "y": 3861.333,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 3946.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 4202.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 4458.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 4714.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 4970.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 5226.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -746.667,
+   "y": 5226.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1002.667,
+   "y": 5226.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1258.667,
+   "y": 5226.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1386.667,
+   "y": 5098.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1386.667,
+   "y": 4842.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1386.667,
+   "y": 4586.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1386.667,
+   "y": 4330.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -1386.667,
+   "y": 4074.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 5482.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 5738.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 5994.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 6250.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 6506.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 6762.667,
+   "z": 204.118,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 7018.667,
+   "z": 206.471,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 7274.667,
+   "z": 205.294,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 114,
+   "x": -533.333,
+   "y": 7530.667,
+   "z": 207.647,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5013.333,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -1301.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -1258.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -1216.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -1173.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5056.0,
+   "y": -917.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -1088.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -1130.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3477.333,
+   "y": -3946.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3477.333,
+   "y": -3904.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3477.333,
+   "y": -3861.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3477.333,
+   "y": -3818.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3477.333,
+   "y": -3776.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3477.333,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3477.333,
+   "y": -3733.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4074.667,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4074.667,
+   "y": -3733.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4074.667,
+   "y": -3776.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4074.667,
+   "y": -3818.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4074.667,
+   "y": -3861.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4074.667,
+   "y": -3904.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4074.667,
+   "y": -3946.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4074.667,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3477.333,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3904.0,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3861.333,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3818.667,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3776.0,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3733.333,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3690.667,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3648.0,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2794.667,
+   "y": -3733.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2794.667,
+   "y": -3776.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2794.667,
+   "y": -3818.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2794.667,
+   "y": -3861.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2794.667,
+   "y": -3904.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2794.667,
+   "y": -3946.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2197.333,
+   "y": -3733.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2197.333,
+   "y": -3776.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2197.333,
+   "y": -3818.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2197.333,
+   "y": -3861.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2197.333,
+   "y": -3904.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2197.333,
+   "y": -3946.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2197.333,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2368.0,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2410.667,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2453.333,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2496.0,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2538.667,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2581.333,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2624.0,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5013.333,
+   "y": -917.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5056.0,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1216.0,
+   "y": 4501.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1258.667,
+   "y": 4501.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1045.333,
+   "y": 4501.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4074.667,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4032.0,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 3989.333,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4160.0,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4202.667,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4245.333,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4117.333,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4288.0,
+   "z": 200.588,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4458.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4330.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4373.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4416.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1045.333,
+   "y": 3946.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1258.667,
+   "y": 3946.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4330.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1088.0,
+   "y": 4501.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4373.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4458.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4288.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4245.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1216.0,
+   "y": 3946.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1173.333,
+   "y": 3946.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1130.667,
+   "y": 3946.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1088.0,
+   "y": 3946.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 3989.333,
+   "z": 200.588,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4202.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4160.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4074.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4117.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4032.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 4416.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2837.333,
+   "y": 1642.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2837.333,
+   "y": 1600.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2837.333,
+   "y": 1557.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2880.0,
+   "y": 1514.667,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2922.667,
+   "y": 1514.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2880.0,
+   "y": 1813.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2922.667,
+   "y": 1813.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2965.333,
+   "y": 1728.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2965.333,
+   "y": 1770.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 135,
+   "x": -3861.333,
+   "y": -7018.667,
+   "z": 351.961,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 371,
+   "x": 7658.667,
+   "y": 5482.667,
+   "z": 0.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2154.667,
+   "y": 1685.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2154.667,
+   "y": 1728.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2154.667,
+   "y": 1770.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2197.333,
+   "y": 1813.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2282.667,
+   "y": 1600.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2282.667,
+   "y": 1642.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2282.667,
+   "y": 1685.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2282.667,
+   "y": 1728.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2282.667,
+   "y": 1770.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2240.0,
+   "y": 1813.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2837.333,
+   "y": 1685.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2837.333,
+   "y": 1728.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2837.333,
+   "y": 1770.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2965.333,
+   "y": 1685.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2965.333,
+   "y": 1642.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4117.333,
+   "y": -2965.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4117.333,
+   "y": -3008.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4117.333,
+   "y": -3093.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4117.333,
+   "y": -3050.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4117.333,
+   "y": -3136.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4117.333,
+   "y": -3178.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3818.667,
+   "y": -2965.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3818.667,
+   "y": -3008.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3818.667,
+   "y": -3050.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3818.667,
+   "y": -3178.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3861.333,
+   "y": -2922.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3904.0,
+   "y": -2922.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3946.667,
+   "y": -2922.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3989.333,
+   "y": -2922.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3861.333,
+   "y": -3221.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3904.0,
+   "y": -3221.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3946.667,
+   "y": -3221.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3989.333,
+   "y": -3221.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4032.0,
+   "y": -3221.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4074.667,
+   "y": -3221.333,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3946.667,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3989.333,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 3605.333,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2666.667,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": 2197.333,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2709.333,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2794.667,
+   "y": -3989.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 2325.333,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -1386.667,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5269.333,
+   "y": -917.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -1045.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5226.667,
+   "y": -917.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5184.0,
+   "y": -917.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5141.333,
+   "y": -917.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5098.667,
+   "y": -917.333,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5226.667,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5269.333,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5184.0,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5141.333,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5098.667,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 135,
+   "x": 2581.333,
+   "y": 7616.0,
+   "z": 381.373,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 337,
+   "x": -4330.667,
+   "y": -3392.0,
+   "z": 435.882,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 4032.0,
+   "y": -4032.0,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 3989.333,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 3562.667,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 3520.0,
+   "y": -4032.0,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 3477.333,
+   "y": -3648.0,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 3520.0,
+   "y": -3605.333,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 4074.667,
+   "y": -3648.0,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 4032.0,
+   "y": -3605.333,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5226.667,
+   "y": -2794.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5184.0,
+   "y": -2794.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5141.333,
+   "y": -2794.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5098.667,
+   "y": -2794.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5056.0,
+   "y": -2794.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5013.333,
+   "y": -2794.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4970.667,
+   "y": -2794.667,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5013.333,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5056.0,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5098.667,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5141.333,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5184.0,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5226.667,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4970.667,
+   "y": -2197.333,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 5269.333,
+   "y": -2794.667,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 5312.0,
+   "y": -2240.0,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 5354.667,
+   "y": -2282.667,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 5312.0,
+   "y": -2752.0,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -2325.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -2410.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -2453.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -2496.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -2538.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -2581.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -2624.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -2666.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -2709.333,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 4928.0,
+   "y": -2240.0,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 4885.333,
+   "y": -2282.667,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 4928.0,
+   "y": -2752.0,
+   "z": 233.529,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 4885.333,
+   "y": -2709.333,
+   "z": 233.529,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 5312.0,
+   "y": -1472.0,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 5269.333,
+   "y": -1514.667,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 5354.667,
+   "y": -1002.667,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 5312.0,
+   "y": -960.0,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 4928.0,
+   "y": -1472.0,
+   "z": 233.529,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 4885.333,
+   "y": -1429.333,
+   "z": 233.529,
+   "rotation": -135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 4970.667,
+   "y": -917.333,
+   "z": 233.529,
+   "rotation": 135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 4928.0,
+   "y": -960.0,
+   "z": 233.529,
+   "rotation": 135.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 440,
+   "x": 5354.667,
+   "y": -1344.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2154.667,
+   "y": 1813.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2154.667,
+   "y": 1642.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2154.667,
+   "y": 1600.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2197.333,
+   "y": 1600.0,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2282.667,
+   "y": 1600.0,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2965.333,
+   "y": 1514.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2837.333,
+   "y": 1514.667,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -2837.333,
+   "y": 1813.333,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -2410.667,
+   "y": -3605.333,
+   "z": 213.922,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -2410.667,
+   "y": -3477.333,
+   "z": 213.922,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 228,
+   "x": -2410.667,
+   "y": -3349.333,
+   "z": 218.627,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 112,
+   "x": -2496.0,
+   "y": -3520.0,
+   "z": 217.059,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 154,
+   "x": -106.667,
+   "y": 320.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -106.667,
+   "y": 576.0,
+   "z": 170.0,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -192.0,
+   "y": 618.667,
+   "z": 170.0,
+   "rotation": -180.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 154,
+   "x": -192.0,
+   "y": 277.333,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 3989.333,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1002.667,
+   "y": 3946.667,
+   "z": 200.588,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1301.333,
+   "y": 4288.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1216.0,
+   "y": 4501.333,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1173.333,
+   "y": 4501.333,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -1045.333,
+   "y": 4501.333,
+   "z": 200.588,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 2752.0,
+   "y": -4032.0,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 2709.333,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 2282.667,
+   "y": -4074.667,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 2240.0,
+   "y": -4032.0,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 2197.333,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 2240.0,
+   "y": -3648.0,
+   "z": 233.529,
+   "rotation": -45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 2794.667,
+   "y": -3690.667,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 441,
+   "x": 2752.0,
+   "y": -3648.0,
+   "z": 233.529,
+   "rotation": 45.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 546,
+   "x": 3008.0,
+   "y": -2410.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 546,
+   "x": 3178.667,
+   "y": -2410.667,
+   "z": 233.529,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3818.667,
+   "y": -3221.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3818.667,
+   "y": -3093.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3818.667,
+   "y": -3136.0,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -3818.667,
+   "y": -2922.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4117.333,
+   "y": -3221.333,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4074.667,
+   "y": -3221.333,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4074.667,
+   "y": -2922.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 408,
+   "x": -4032.0,
+   "y": -2922.667,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 333,
+   "x": 3648.0,
+   "y": -2154.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 546,
+   "x": 3520.0,
+   "y": -2240.0,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 546,
+   "x": 3520.0,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": 180.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": 3392.0,
+   "y": -2154.667,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 230,
+   "x": 3392.0,
+   "y": -2240.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 289,
+   "x": -5397.333,
+   "y": 874.667,
+   "z": 255.49,
+   "rotation": 156.15,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 522,
+   "x": -4288.0,
+   "y": -3562.667,
+   "z": 435.882,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 417,
+   "x": 2752.0,
+   "y": -1472.0,
+   "z": 233.529,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 323,
+   "x": -832.0,
+   "y": 4032.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 546,
+   "x": -746.667,
+   "y": 4160.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 546,
+   "x": -746.667,
+   "y": 4032.0,
+   "z": 200.588,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": -1
+  },
+  {
+   "type": 70,
+   "x": 3648.0,
+   "y": -2368.0,
+   "z": 233.529,
+   "rotation": -90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 70,
+   "x": -4416.0,
+   "y": -2240.0,
+   "z": 435.882,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 70,
+   "x": -320.0,
+   "y": 320.0,
+   "z": 170.0,
+   "rotation": 90.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 68,
+   "x": 362.667,
+   "y": 576.0,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 68,
+   "x": 362.667,
+   "y": 320.0,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 68,
+   "x": -746.667,
+   "y": 576.0,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  },
+  {
+   "type": 68,
+   "x": -746.667,
+   "y": 320.0,
+   "z": 170.0,
+   "rotation": 0.0,
+   "damage": 0,
+   "team": 1
+  }
+ ]
+}

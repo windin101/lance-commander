@@ -76,7 +76,7 @@ func structure_at(screen: Vector2) -> SimUnit:
 	var best: SimUnit = null
 	var best_d := PICK_PX * 1.5
 	for u in world.units:
-		if not (u is SimStructure) or u.is_destroyed() or u.damage_level >= 100000.0:
+		if not (u is SimStructure) or u.is_destroyed() or (u.damage_level >= 100000.0 and not u.capturable):
 			continue
 		var p := TerrainView.to_3d(u.position, world.map.height_at(u.position) + 4.0)
 		if camera.is_position_behind(p):
@@ -139,6 +139,15 @@ func _command(screen: Vector2) -> void:
 	var enemy := mech_at(screen)
 	if enemy == null or enemy.team == player_team:
 		enemy = structure_at(screen)
+	# A capturable target always means capture (capture-and-objectives.md A2); only an
+	# all-mech selection may capture, otherwise the click is refused.
+	if enemy and abl and abl.can_capture(enemy, player_team):
+		if selection.all(func(m): return m is SimMech):
+			for m in selection:
+				_order(m, "capture", enemy)
+		else:
+			world.events.append({"type": "capture_refused", "unit": selection[0].id, "target": enemy.id})
+		return
 	if enemy and enemy.team != player_team:
 		for m in selection:
 			_order(m, "attack", enemy)

@@ -122,16 +122,17 @@ func _add_structures(mission: String) -> void:
 	for index in data["objects"].size():
 		var o: Dictionary = data["objects"][index]
 		var t: Dictionary = data["types"].get(str(int(o["type"])), {})
-		if int(t.get("class", -1)) != 1 or float(t.get("damage_level", 0)) <= 0.0:
+		if int(t.get("class", -1)) != 1 or (float(t.get("damage_level", 0)) <= 0.0 and not t.get("capturable", false)):
 			continue
 		var s := SimStructure.new()
 		s.object_type = int(o["type"])
 		s.object_index = index
 		s.name = String(t.get("name", "building"))
 		s.model = String(t.get("appearance", ""))
-		s.damage_level = float(t["damage_level"])
+		s.damage_level = float(t["damage_level"]) if float(t["damage_level"]) > 0.0 else INF  # no DmgLevel: can't be destroyed
 		s.extent_m = float(t.get("extent_radius", 0.0)) * WORLD_UNIT_M
 		s.team = int(t.get("building_team", -1))
+		s.capturable = bool(t.get("capturable", false))
 		s.position = Vector2(float(o["x"]), float(o["y"])) * WORLD_UNIT_M
 		s.facing = float(o["rotation"])
 		var cell := world.map.cell_of(s.position)

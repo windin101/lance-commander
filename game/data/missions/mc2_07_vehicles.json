@@ -1,0 +1,12 @@
+{
+ "lrmc": "lrmcarrier",
+ "fueltruck": "fueltruck",
+ "trooptransport": "heavyapc",
+ "cargotruck": "cargotruck",
+ "truck": "truck",
+ "storm": "tankg",
+ "centipede": "centipede",
+ "vedette": "vedette",
+ "infantry": "infantry",
+ "minelayer": "minelayer"
+}

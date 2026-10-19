@@ -1,0 +1,39 @@
+{
+ "name": "hetzer",
+ "appearance": "hetzer",
+ "chassis": 0,
+ "hover": false,
+ "path_locks": true,
+ "tonnage": 40.0,
+ "battle_rating": 25,
+ "explosion_damage": 0.0,
+ "explosion_radius": 0.0,
+ "max_velocity": 15.0,
+ "max_turret_yaw": 0.0,
+ "max_turret_yaw_rate": 0.0,
+ "armor": {
+  "front": 9.0,
+  "left": 9.0,
+  "right": 9.0,
+  "rear": 9.0,
+  "turret": 9.0
+ },
+ "internal": {
+  "front": 1.0,
+  "left": 1.0,
+  "right": 1.0,
+  "rear": 1.0,
+  "turret": 1.0
+ },
+ "items": [
+  1,
+  6,
+  35,
+  36,
+  102,
+  202
+ ],
+ "num_other": 4,
+ "num_weapons": 1,
+ "num_ammo": 1
+}
