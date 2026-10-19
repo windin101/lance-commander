@@ -10,6 +10,7 @@ import argparse
 import csv
 import json
 import os
+import re
 import shutil
 import sys
 
@@ -29,13 +30,49 @@ import video  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT = os.path.join(ROOT, "game", "data")
-SLICE_MISSIONS = ["mc2_01"]
 CAMPAIGN_MISSIONS = [f"mc2_{i:02d}" for i in range(1, 25)]  # Data/Campaign/campaign.fit order
 ASSETS = os.path.join(ROOT, "game", "assets")
 # Per-mission textures (Terrain.cpp:425-433, TerrainColorMap, water and detail maps).
 MISSION_TEXTURES = [".burnin.jpg", ".detail.tga", ".water.tga"]
-# Mech appearances used by the slice missions (object FIT AppearanceName).
-MECH_MODELS = ["bushwacker", "werewolf", "starslayer", "urbanmech"]
+CINEMATICS = ["CINEMA1", "CINEMA2", "CINEMA3", "CINEMA4", "CINEMA5"]
+
+
+def mech_appearances(missions_dir, objects_dir, missions, chassis_names):
+    """Model names of every mech the missions place: Part CSVFile is a mech chassis; the
+    model is the object FIT's AppearanceName."""
+    out = set()
+    for m in missions:
+        mf = fit.parse_file(os.path.join(missions_dir, m + ".fit"))
+        for i in range(1, int(mf.get("Parts", {}).get("NumParts", 0)) + 1):
+            part = mf.get(f"Part{i}", {})
+            if str(part.get("CSVFile", "")).lower() not in chassis_names:
+                continue
+            _, f = vehicles.object_fit_for(objects_dir, int(part.get("ObjectNumber", 0)))
+            app = str(f.get("ObjectType", {}).get("AppearanceName", "")).lower()
+            if app:
+                out.add(app)
+    return sorted(out)
+
+
+def script_media(abl_dir, missions):
+    """Voice-over and comms video names the mission scripts play (playWave / playVideo)."""
+    waves, videos = set(), set()
+    for m in missions:
+        path = os.path.join(abl_dir, m + ".abl")
+        if not os.path.exists(path):
+            continue
+        text = re.sub(r"//.*", "", open(path, encoding="cp1252", errors="replace").read())
+        for w in re.findall(r'playwave\s*\(\s*"([^"]+)"', text, re.I):
+            waves.add(os.path.splitext(w.replace("\\", "/").split("/")[-1])[0].lower())
+        for v in re.findall(r'playvideo\s*\(\s*"([^"]+)"', text, re.I):
+            videos.add(os.path.splitext(v)[0].upper())
+        # Objectives play voice-overs too (PlayWAV actions in the mission FIT).
+        mf = fit.parse_file(os.path.join(abl_dir, m + ".fit"))
+        for block in mf.values():
+            if isinstance(block, dict) and block.get("ActionSpeciesString") == "PlayWAV":
+                waves.add(os.path.splitext(str(block.get("WAVFileName", "")).replace("\\", "/").split("/")[-1])[0].lower())
+    waves.discard("")
+    return sorted(waves), sorted(videos)
 
 
 def write(rel, data):
@@ -64,6 +101,30 @@ def gamesys(path):
     table = g["Mech:FireWeapon"]["HitLocationTable"]
     g["Mech:FireWeapon"]["HitLocationTable"] = table + [0] * (HIT_TABLE_SIZE - len(table))
     return g
+
+
+def _convert_mission(m, data, missions, chassis_names, report):
+    mission_fit = fit.parse_file(os.path.join(missions, m + ".fit"))
+    write(f"missions/{m}.json", mission_fit)
+    meta, cells, tac = terrain.convert(os.path.join(missions, m + ".pak"), mission_fit)
+    write(f"maps/{m}/terrain.json", meta)
+    with open(os.path.join(OUT, "maps", m, "cells.bin"), "wb") as fh:
+        fh.write(cells)
+    vmap = vehicles.convert_for_mission(mission_fit, data, os.path.join(OUT, "vehicles"),
+                                        os.path.join(ASSETS, "vehicles"), set(chassis_names))
+    write(f"missions/{m}_vehicles.json", vmap)
+    report.append(f"{m} vehicles: {sorted(vmap)}")
+    objs, orep = map_objects.convert(os.path.join(missions, m + ".pak"), data, os.path.join(ASSETS, "objects"))
+    write(f"maps/{m}/objects.json", objs)
+    report.append(f"{m} objects: {orep['objects']} placed, {orep['appearances']} models, missing {orep['missing']}")
+    tex_out = os.path.join(ASSETS, "maps", m)
+    os.makedirs(tex_out, exist_ok=True)
+    with open(os.path.join(tex_out, "tacmap.tga"), "wb") as fh:
+        fh.write(tac)
+    for suffix in MISSION_TEXTURES:
+        src_tex = os.path.join(data, "Textures", m + suffix)
+        if os.path.exists(src_tex):
+            shutil.copyfile(src_tex, os.path.join(tex_out, suffix.lstrip(".")))
 
 
 def main():
@@ -98,47 +159,38 @@ def main():
     write("gamesys.json", gamesys(os.path.join(missions, "gamesys.fit")))
     write("campaign.json", fit.parse_file(os.path.join(data, "Campaign", "campaign.fit")))
 
-    for m in SLICE_MISSIONS:
-        mission_fit = fit.parse_file(os.path.join(missions, m + ".fit"))
-        write(f"missions/{m}.json", mission_fit)
-        meta, cells, tac = terrain.convert(os.path.join(missions, m + ".pak"), mission_fit)
-        write(f"maps/{m}/terrain.json", meta)
-        with open(os.path.join(OUT, "maps", m, "cells.bin"), "wb") as fh:
-            fh.write(cells)
-        vmap = vehicles.convert_for_mission(mission_fit, data, os.path.join(OUT, "vehicles"),
-                                            os.path.join(ASSETS, "vehicles"), set(chassis_names))
-        write(f"missions/{m}_vehicles.json", vmap)
-        report.append(f"{m} vehicles: {sorted(vmap)}")
-        objs, orep = map_objects.convert(os.path.join(missions, m + ".pak"), data, os.path.join(ASSETS, "objects"))
-        write(f"maps/{m}/objects.json", objs)
-        report.append(f"{m} objects: {orep['objects']} placed, {orep['appearances']} models, missing {orep['missing']}")
-        tex_out = os.path.join(ASSETS, "maps", m)
-        os.makedirs(tex_out, exist_ok=True)
-        with open(os.path.join(tex_out, "tacmap.tga"), "wb") as fh:
-            fh.write(tac)
-        for suffix in MISSION_TEXTURES:
-            src_tex = os.path.join(data, "Textures", m + suffix)
-            if os.path.exists(src_tex):
-                shutil.copyfile(src_tex, os.path.join(tex_out, suffix.lstrip(".")))
-    report.append(f"missions: {', '.join(SLICE_MISSIONS)}")
+    failed = {}
+    for m in CAMPAIGN_MISSIONS:
+        try:
+            _convert_mission(m, data, missions, chassis_names, report)
+        except Exception as e:  # keep going: one broken mission must not stop the rest
+            failed[m] = f"{type(e).__name__}: {e}"
+    report.append(f"missions converted: {len(CAMPAIGN_MISSIONS) - len(failed)} of {len(CAMPAIGN_MISSIONS)}; failed: {failed}")
 
     tgl = os.path.join(data, "TGL")
     os.makedirs(os.path.join(ASSETS, "mechs"), exist_ok=True)
-    for name in MECH_MODELS:
-        tex = mech_model._find(os.path.join(tgl, "128"), name + "RGB.tga", required=False)
-        rep = mech_model.build(tgl, name, os.path.join(ASSETS, "mechs", name + ".glb"), tex)
-        if tex:
-            # Lossless paint mask for team recolouring (raw PNG bytes; .bin so Godot
-            # does not VRAM-compress it the way it does textures inside the .glb).
-            with open(tex, "rb") as fh, open(os.path.join(ASSETS, "mechs", name + "_paint.bin"), "wb") as out:
-                out.write(mech_model.tga_to_png(fh.read()))
-        ini = fit.parse_file(mech_model._find(tgl, name + ".ini"))
-        with open(os.path.join(ASSETS, "mechs", name + ".json"), "w", encoding="utf-8") as fh:
-            json.dump(mech_model.sidecar(ini, rep), fh, indent=1)
-        for suffix, tag in mech_model.WRECKS.items():
-            if mech_model._find(tgl, name + suffix + ".ase", required=False):
-                mech_model.build(tgl, name + suffix, os.path.join(ASSETS, "mechs", f"{name}_{tag}.glb"), tex, gestures=[])
-        report.append(f"model {name}: {rep['meshes']} meshes, {len(rep['animations'])} animations")
+    mech_models = mech_appearances(missions, objects, CAMPAIGN_MISSIONS, set(chassis_names))
+    report.append(f"mech models: {len(mech_models)}")
+    model_failed = {}
+    for name in mech_models:
+        try:
+            tex = mech_model._find(os.path.join(tgl, "128"), name + "RGB.tga", required=False)
+            rep = mech_model.build(tgl, name, os.path.join(ASSETS, "mechs", name + ".glb"), tex)
+            if tex:
+                # Lossless paint mask for team recolouring (raw PNG bytes; .bin so Godot
+                # does not VRAM-compress it the way it does textures inside the .glb).
+                with open(tex, "rb") as fh, open(os.path.join(ASSETS, "mechs", name + "_paint.bin"), "wb") as out:
+                    out.write(mech_model.tga_to_png(fh.read()))
+            ini = fit.parse_file(mech_model._find(tgl, name + ".ini"))
+            with open(os.path.join(ASSETS, "mechs", name + ".json"), "w", encoding="utf-8") as fh:
+                json.dump(mech_model.sidecar(ini, rep), fh, indent=1)
+            for suffix, tag in mech_model.WRECKS.items():
+                if mech_model._find(tgl, name + suffix + ".ase", required=False):
+                    mech_model.build(tgl, name + suffix, os.path.join(ASSETS, "mechs", f"{name}_{tag}.glb"), tex, gestures=[])
+            report.append(f"model {name}: {rep['meshes']} meshes, {len(rep['animations'])} animations")
+        except Exception as e:
+            model_failed[name] = f"{type(e).__name__}: {e}"
+    report.append(f"mech model failures: {model_failed}")
 
     warriors = os.path.join(missions, "Warriors")
     pilots = {}
@@ -148,16 +200,16 @@ def main():
     write("pilots.json", pilots)
     report.append(f"pilot files: {len(pilots)}")
 
-    # Slice audio: mc2_01's tunes (Missions/sndconst.abi) and voice-overs (mc2_01.abl).
-    manifest, missing = audio.convert(data, comps, os.path.join(ASSETS, "audio"),
-                                      tunes=[1, 8, 9, 14, 18, 19, 20, 22, 23, 24, 25],  # 20/22/23: campaign briefing tunes
-                                      voice=["tut_1cii", "tut_1e", "tut_1gi", "tut_1h", "tut_1hi", "mc2_01"])
+    # Audio: every music track (the scripts pick tunes by id), and the voice-overs the
+    # mission scripts play.
+    waves, comms_videos = script_media(missions, CAMPAIGN_MISSIONS)
+    manifest, missing = audio.convert(data, comps, os.path.join(ASSETS, "audio"), tunes=list(range(0, 34)), voice=waves)
     write("audio.json", manifest)
     report.append(f"audio: {len(manifest['weapons'])} weapon sounds, {len(manifest['sfx'])} sfx, "
                   f"{len(manifest['music'])} tunes, {len(manifest['vo'])} vo, missing {missing}")
 
     # Retail-disc videos (user's own copy; never committed): mission comms clips + intro.
-    videos = video.convert(ROOT, args.retail_mdf, comms=["V1A", "V1C", "V1D"], cinematics=["CINEMA1"])
+    videos = video.convert(ROOT, args.retail_mdf, comms=comms_videos, cinematics=CINEMATICS)
     write("videos.json", videos)
     report.append(f"retail videos: {sorted(videos) if videos else 'none (no disc image)'}")
 

@@ -1,7 +1,7 @@
 extends SceneTree
 ## Headless autoplay of a mission: the player lance pursues the current objective
 ## (move to its area, or attack its nearest remaining target). Reports progress.
-## godot --headless --path game -s res://tools/autoplay.gd -- [seed] [max_seconds]
+## godot --headless --path game -s res://tools/autoplay.gd -- [seed] [max_seconds] [--mission=mc2_NN] [--cues]
 ## Enemy AI runs the mission's original ABL; the end report lists ABL errors, missing
 ## natives and where each brain finished.
 
@@ -11,7 +11,12 @@ func _init() -> void:
 	var max_t := float(args[1]) if args.size() > 1 else 1800.0
 	var data = load("res://scripts/data/game_data.gd").new()
 	data.load_all()
-	var sm := SimMission.load_mission(data, "mc2_01", seed_value)
+	var mission := "mc2_01"
+	for a in args:
+		if a.begins_with("--mission="):
+			mission = a.split("=")[1]
+	var sm := SimMission.load_mission(data, mission, seed_value)
+	print("mission %s" % mission)
 	print("ABL pilots: %d" % (sm.abl.pilots.size() if sm.abl else 0))
 	var w := sm.world
 	var o := sm.objectives
@@ -83,7 +88,21 @@ func _orders(sm: SimMission) -> void:
 				continue  # keep fighting (incl. return fire)
 			if not targets.is_empty():
 				targets.sort_custom(func(a, b): return m.distance_to(a.position) < m.distance_to(b.position))
-				_order(sm, m, "attack", targets[0])
+				var t: SimUnit = targets[0]
+				if sm.abl and sm.abl.can_capture(t, 0) and m is SimMech:
+					var near := _near_enemies(w, t.position)
+					if near.is_empty():
+						if not (m.brain is SimAbl.Pilot and int(m.brain.order["code"]) == SimAbl.TO_CAPTURE):
+							_order(sm, m, "capture", t)
+					else:
+						_order(sm, m, "attack", near[0])  # clear the defenders first
+				else:
+					_order(sm, m, "attack", t)
+			elif area != null and not _near_enemies(w, area).is_empty():
+				# Extraction needs the area clear of other commanders' units (256 m): clear it.
+				var near := _near_enemies(w, area)
+				near.sort_custom(func(a, b): return m.distance_to(a.position) < m.distance_to(b.position))
+				_order(sm, m, "attack", near[0])
 			elif area != null and m.distance_to(area) > 40.0 and m.order == SimWorld.Order.HOLD:
 				_order(sm, m, "move", area)
 		return
@@ -97,3 +116,8 @@ func _order(sm: SimMission, m: SimUnit, kind: String, arg: Variant) -> void:
 		sm.world.order_attack(m, arg)
 	else:
 		sm.world.order_move(m, arg)
+
+
+func _near_enemies(w: SimWorld, area: Vector2) -> Array:
+	return w.units.filter(func(u): return u.team != 0 and u.is_mover() and u.exists and not u.is_disabled() \
+		and not u.hulk and u.position.distance_to(area) <= 300.0)

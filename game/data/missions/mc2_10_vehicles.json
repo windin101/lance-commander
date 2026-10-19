@@ -1,0 +1,10 @@
+{
+ "lrmc": "lrmcarrier",
+ "centipede": "centipede",
+ "hunter": "hunter",
+ "ambulance": "ambulance",
+ "apc": "apc1",
+ "trooptransport": "heavyapc",
+ "cargotruck": "cargotruck",
+ "jeep": "jeep"
+}

@@ -31,6 +31,9 @@ var warrior_index := 0  # FIT Pilot = [Warrior<n>]
 var exists := true  # FIT Exists: a non-existent object is invisible to the sim and to ABL
 var awake := true  # FIT Active
 var ejected := false  # the pilot left (coreEject): the unit is inert
+var capturable := false  # CAPTURABLE: by type, or named by a capture objective (capture-and-objectives.md A1)
+var captured_flag := false  # ABL setCaptured only (isCaptured reads it, A6)
+var hulk := false  # a captured vehicle: on the capturer's team but inert and outside its force (A4)
 
 var position := Vector2.ZERO  # metres; x east, y north
 var facing := 0.0  # degrees, 0 = north, clockwise positive

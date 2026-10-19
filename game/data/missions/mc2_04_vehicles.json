@@ -1,0 +1,11 @@
+{
+ "harasser": "harasser",
+ "lrmc": "lrmcarrier",
+ "centipede": "centipede",
+ "jeep": "jeep",
+ "fueltruck": "fueltruck",
+ "cargotruck": "cargotruck",
+ "poweredarmor": "poweredarmor",
+ "infantry": "infantry",
+ "truck": "truck"
+}

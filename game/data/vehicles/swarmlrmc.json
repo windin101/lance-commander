@@ -1,0 +1,47 @@
+{
+ "name": "swarmlrmc",
+ "appearance": "swarmlrmc",
+ "chassis": 0,
+ "hover": false,
+ "path_locks": true,
+ "tonnage": 50.0,
+ "battle_rating": 25,
+ "explosion_damage": 3.0,
+ "explosion_radius": 50.0,
+ "max_velocity": 15.0,
+ "max_turret_yaw": 180.0,
+ "max_turret_yaw_rate": 90.0,
+ "armor": {
+  "front": 6.0,
+  "left": 6.0,
+  "right": 6.0,
+  "rear": 6.0,
+  "turret": 3.0
+ },
+ "internal": {
+  "front": 1.0,
+  "left": 1.0,
+  "right": 1.0,
+  "rear": 1.0,
+  "turret": 1.0
+ },
+ "items": [
+  1,
+  6,
+  35,
+  36,
+  123,
+  123,
+  123,
+  123,
+  123,
+  231,
+  231,
+  231,
+  231,
+  231
+ ],
+ "num_other": 4,
+ "num_weapons": 5,
+ "num_ammo": 5
+}

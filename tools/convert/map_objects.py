@@ -50,6 +50,9 @@ def type_table(objects_dir, types):
             "explosion_radius": bd.get("ExplosionRadius", 0.0),
             "building_team": bd.get("TeamID", -1),
             "impassable": bd.get("SetImpassable", 0),
+            # bldng.cpp:265: capturable by type (objectives can also make a target capturable)
+            "capturable": bool(bd.get("Capturable", False)),
+            "resource_points": bd.get("ResourcePoints", 0),
         }
     return table
 

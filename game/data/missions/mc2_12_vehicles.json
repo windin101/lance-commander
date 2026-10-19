@@ -1,0 +1,15 @@
+{
+ "hunter": "hunter",
+ "harasser": "harasser",
+ "hetzer": "hetzer",
+ "trooptransport": "heavyapc",
+ "armoredcar": "armoredcar",
+ "vedette": "vedette",
+ "partisan": "partisan",
+ "fueltruck": "fueltruck",
+ "cargotruck": "cargotruck",
+ "jeep": "jeep",
+ "centipede": "centipede",
+ "monsoon": "tankh",
+ "poweredarmor": "poweredarmor"
+}
