@@ -6,10 +6,10 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T07:14:57+13:00",
+  "updated": "2026-10-20T07:16:55+13:00",
   "phase": {
     "current": 7,
-    "status": "gated"
+    "status": "running"
   },
   "phases": {
     "0": {
@@ -332,6 +332,18 @@
       "asked": "2026-10-20T06:34:08+13:00",
       "answered": "2026-10-20T06:34:17+13:00",
       "answer": "approve 23 (catapult cyclops shadowcat thor werewolf aerospotter ambulance cargotruck centipede drillson fueltruck harasser hetzer hunter legion lrmc mobilehq ordnancetruck storm trooptransport truck vedette heavycopter); redo 7 (highlander uller urbanmech zeus mog repairtruck swarmlrmc)"
+    },
+    {
+      "id": "D7",
+      "phase": 7,
+      "question": "Round 2 look calls: 7 redos (Highlander, Uller, UrbanMech, Zeus, MOG, repair truck, swarm LRM carrier)",
+      "options": [
+        "approve / keep old / redo"
+      ],
+      "context": "review page round 2",
+      "asked": "2026-10-20T07:16:55+13:00",
+      "answered": "2026-10-20T07:16:55+13:00",
+      "answer": "approve all 7 (Lee, 2026-10-20)"
     }
   ],
   "issues": [
@@ -1201,10 +1213,10 @@
       "repro": null,
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-20T06:15:30+13:00",
-      "updated": "2026-10-20T07:13:42+13:00",
-      "note": "redo built 2026-10-20; waiting on Lee's look call (round 2 of the review page)"
+      "updated": "2026-10-20T07:16:55+13:00",
+      "note": "Lee approved the redo (2026-10-20)"
     },
     {
       "id": "I68",
@@ -1240,10 +1252,10 @@
       "repro": null,
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-20T06:15:30+13:00",
-      "updated": "2026-10-20T07:13:42+13:00",
-      "note": "redo built 2026-10-20; waiting on Lee's look call (round 2 of the review page)"
+      "updated": "2026-10-20T07:16:55+13:00",
+      "note": "Lee approved the redo (2026-10-20)"
     },
     {
       "id": "I71",
@@ -1253,10 +1265,10 @@
       "repro": null,
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-20T06:15:30+13:00",
-      "updated": "2026-10-20T07:13:42+13:00",
-      "note": "redo built 2026-10-20; waiting on Lee's look call (round 2 of the review page)"
+      "updated": "2026-10-20T07:16:55+13:00",
+      "note": "Lee approved the redo (2026-10-20)"
     },
     {
       "id": "I72",
@@ -1266,10 +1278,10 @@
       "repro": null,
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-20T06:15:30+13:00",
-      "updated": "2026-10-20T07:13:42+13:00",
-      "note": "redo built 2026-10-20; waiting on Lee's look call (round 2 of the review page)"
+      "updated": "2026-10-20T07:16:55+13:00",
+      "note": "Lee approved the redo (2026-10-20)"
     },
     {
       "id": "I73",
@@ -1292,10 +1304,10 @@
       "repro": null,
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-20T06:34:18+13:00",
-      "updated": "2026-10-20T07:13:42+13:00",
-      "note": "redo built 2026-10-20; waiting on Lee's look call (round 2 of the review page)"
+      "updated": "2026-10-20T07:16:55+13:00",
+      "note": "Lee approved the redo (2026-10-20)"
     },
     {
       "id": "I75",
@@ -1305,10 +1317,10 @@
       "repro": null,
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-20T06:34:18+13:00",
-      "updated": "2026-10-20T07:13:42+13:00",
-      "note": "redo built 2026-10-20; waiting on Lee's look call (round 2 of the review page)"
+      "updated": "2026-10-20T07:16:55+13:00",
+      "note": "Lee approved the redo (2026-10-20)"
     },
     {
       "id": "I76",
@@ -1318,10 +1330,10 @@
       "repro": null,
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-20T06:34:18+13:00",
-      "updated": "2026-10-20T07:13:42+13:00",
-      "note": "redo built 2026-10-20; waiting on Lee's look call (round 2 of the review page)"
+      "updated": "2026-10-20T07:16:55+13:00",
+      "note": "Lee approved the redo (2026-10-20)"
     }
   ],
   "coverage": {
@@ -1428,51 +1440,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T15:35:00+13:00",
-      "who": "conductor",
-      "msg": "decided C12: raven and flea approvals kept despite the critic's orientation flag \u2014 checked by eye: front faces the camera at yaw 35 on both; the automatic chamfer/IoU check is already known to be unreliable"
-    },
-    {
-      "at": "2026-10-19T15:35:00+13:00",
-      "who": "conductor",
-      "msg": "decided C13: werewolf provenance.json corrected to concept seed 21 \u2014 installed concept.png is byte-identical to concept_s21.png; the step-4 rerun had carried the wrong default 7 forward"
-    },
-    {
-      "at": "2026-10-19T15:35:00+13:00",
-      "who": "conductor",
-      "msg": "decided C14: Redo assets get honest rows (real fit, issue id) instead of no row \u2014 they are installed and in the game until fixed; the gate is about provenance, not quality \u2014 approval is tracked in coverage"
-    },
-    {
-      "at": "2026-10-19T15:35:00+13:00",
-      "who": "conductor",
-      "msg": "issue I5 fixed: re-fit with --turn, fit 0.456 m, front checked by eye; review_werewolf_turn.png"
-    },
-    {
-      "at": "2026-10-19T15:35:01+13:00",
-      "who": "game-art",
-      "msg": "issue I8 P2: HD bushwacker: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T15:35:01+13:00",
-      "who": "game-art",
-      "msg": "issue I9 P3: HD werewolf: yellow band on the shins"
-    },
-    {
-      "at": "2026-10-19T15:35:01+13:00",
-      "who": "conductor",
-      "msg": "issue I1 fixed: 13 mech rows backfilled from provenance.json (step-4 re-fit); hd_mech.py writes it from now on; lrmc row id fixed; gate re-run"
-    },
-    {
-      "at": "2026-10-19T15:35:01+13:00",
-      "who": "conductor",
-      "msg": "run wf_2391523b-26b (phase-7-hd-review) ok: 10 agents, 534438 tokens"
-    },
-    {
-      "at": "2026-10-19T15:35:42+13:00",
-      "who": "gate",
-      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok"
-    },
     {
       "at": "2026-10-19T15:51:40+13:00",
       "who": "lee",
@@ -2427,6 +2394,51 @@
       "at": "2026-10-20T07:14:57+13:00",
       "who": "gate",
       "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
+    },
+    {
+      "at": "2026-10-20T07:16:55+13:00",
+      "who": "conductor",
+      "msg": "decision D7 queued for Lee: Round 2 look calls: 7 redos (Highlander, Uller, UrbanMech, Zeus, MOG, repair truck, swarm LRM carrier)"
+    },
+    {
+      "at": "2026-10-20T07:16:55+13:00",
+      "who": "lee",
+      "msg": "decision D7 answered: approve all 7 (Lee, 2026-10-20)"
+    },
+    {
+      "at": "2026-10-20T07:16:55+13:00",
+      "who": "conductor",
+      "msg": "issue I67 fixed: Lee approved the redo (2026-10-20)"
+    },
+    {
+      "at": "2026-10-20T07:16:55+13:00",
+      "who": "conductor",
+      "msg": "issue I70 fixed: Lee approved the redo (2026-10-20)"
+    },
+    {
+      "at": "2026-10-20T07:16:55+13:00",
+      "who": "conductor",
+      "msg": "issue I71 fixed: Lee approved the redo (2026-10-20)"
+    },
+    {
+      "at": "2026-10-20T07:16:55+13:00",
+      "who": "conductor",
+      "msg": "issue I72 fixed: Lee approved the redo (2026-10-20)"
+    },
+    {
+      "at": "2026-10-20T07:16:55+13:00",
+      "who": "conductor",
+      "msg": "issue I74 fixed: Lee approved the redo (2026-10-20)"
+    },
+    {
+      "at": "2026-10-20T07:16:55+13:00",
+      "who": "conductor",
+      "msg": "issue I75 fixed: Lee approved the redo (2026-10-20)"
+    },
+    {
+      "at": "2026-10-20T07:16:55+13:00",
+      "who": "conductor",
+      "msg": "issue I76 fixed: Lee approved the redo (2026-10-20)"
     }
   ],
   "choices": [
