@@ -123,33 +123,42 @@ static func attach(mission: SimMission, name: String) -> SimAbl:
 			a._by_part[u.part_id] = u
 	a.mission_inst = a.runtime.instantiate(name + ".abl")
 	var fit: Dictionary = mission.fit
-	var n := 0
 	for u in a.world.units:
 		if not u.is_mover() or u.brain_name == "":
 			continue
-		var inst := a.runtime.instantiate("warriors/%s.abl" % u.brain_name.to_lower().trim_suffix(".abl"))
-		if inst == null:
+		var p := a.add_pilot(u, u.brain_name)
+		if p == null:
 			continue
-		var p := Pilot.new()
-		p.abl = a
-		p.unit = u
-		p.inst = inst
-		inst.host = p
-		p.cells.resize(60)
-		p.cells.fill(0)
 		var w: Dictionary = fit.get("Warrior%d" % u.warrior_index, {})
 		for j in int(w.get("NumCells", 0)):
 			var c: Dictionary = fit.get("Warrior%dCell%d" % [u.warrior_index, j], {})
 			var idx := int(c.get("Cell", -1))
 			if idx >= 0 and idx < 60:
 				p.cells[idx] = float(c.get("Value", 0)) if int(c.get("MemType", 0)) == 1 else int(c.get("Value", 0))
-		p.next_brain = (n % 30) * BRAIN_STAGGER
-		n += 1
-		u.brain = p
-		a.pilots.append(p)
-		if u.brain_name.to_lower() == "pbrain":
-			u.engage_m = 100.0  # pbrain Init: SetEngageRadius(100)
 	return a
+
+
+## Give a unit its ABL brain (at load, or later: a salvaged mech gets pbrain).
+func add_pilot(u: SimUnit, brain: String) -> Pilot:
+	var inst := runtime.instantiate("warriors/%s.abl" % brain.to_lower().trim_suffix(".abl"))
+	if inst == null:
+		return null
+	var p := Pilot.new()
+	p.abl = self
+	p.unit = u
+	p.inst = inst
+	inst.host = p
+	p.cells.resize(60)
+	p.cells.fill(0)
+	p.next_brain = world.time + (pilots.size() % 30) * BRAIN_STAGGER
+	u.brain = p
+	u.brain_name = brain
+	pilots.append(p)
+	if u.part_id > 0:
+		_by_part[u.part_id] = u
+	if brain.to_lower() == "pbrain":
+		u.engage_m = 100.0  # pbrain Init: SetEngageRadius(100)
+	return p
 
 
 # --- per tick ---------------------------------------------------------------------------
@@ -412,7 +421,11 @@ func _capture_step(p: Pilot, u: SimUnit, o: Dictionary) -> bool:
 
 
 ## The capture itself: a building changes hands; a vehicle becomes an inert hulk.
+## A type with Resource Points pays them to the player (support-powers.md 1).
 func capture(by: SimUnit, t: SimUnit) -> void:
+	if by.team == sm.player_team and t.resource_points > 0 and sm.support:
+		sm.support.rp += t.resource_points
+		world.events.append({"type": "resource_points", "amount": t.resource_points, "unit": t.id})
 	t.team = by.team
 	if t is SimStructure:
 		t.commander = by.commander
@@ -494,6 +507,8 @@ func _armed(u: SimUnit) -> bool:
 func is_contact(team: int, m: SimUnit) -> bool:
 	if not m.is_mover() or not m.exists or m.team == team:
 		return false
+	if sm.support and sm.support.probe_covers(team, m.position):
+		return true  # sensor probe (support-powers.md 3.2)
 	for f in world.units:
 		if f.team == team and f.is_mover() and f.exists and f.awake and not f.is_disabled() \
 				and f.position.distance_to(m.position) <= SENSOR_M:

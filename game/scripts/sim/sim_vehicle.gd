@@ -50,6 +50,8 @@ static func from_data(v: Dictionary, rules: SimRules, vehicle_pilot: SimPilot) -
 	u.turn_rate = turn_rate_for(u.tonnage)
 	u.explosion_damage = float(v.get("explosion_damage", 0))
 	u.explosion_radius_m = float(v.get("explosion_radius", 0)) * 0.2
+	u.refit_pool = float(v.get("refit_points", 0.0))
+	u.resource_points = int(v.get("resource_points", 0))
 	for key in SECTION_KEYS:
 		u.max_armor.append(float(v["armor"][key]))
 		u.armor.append(float(v["armor"][key]))

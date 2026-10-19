@@ -14,6 +14,7 @@ var player_team := 0
 var fit: Dictionary = {}
 var seed := 1
 var abl: SimAbl = null  # the mission's original ABL (mission script + unit brains)
+var support: SimSupport = null  # Resource Points and the player's support powers
 var player_invulnerable := false  # ABL setInvulnerable (tutorials)
 var use_abl := true  # false: no AI brains at all (sim tests that need passive enemies)
 
@@ -85,6 +86,7 @@ static func load_mission(data: Object, mission: String, seed_value: int = 1, run
 	sm._add_structures(mission)
 	sm.objectives = SimObjectives.from_fit(fit, sm)
 	sm.world.flags = sm.objectives.flags
+	sm.support = SimSupport.create(sm)
 	sm._attach_brains(mission)
 	return sm
 
@@ -107,6 +109,7 @@ func _attach_brains(mission: String) -> void:
 func step() -> void:
 	var first_new := world.events.size()
 	world.step()
+	support.step()
 	if abl:
 		abl.after_step(world.events.slice(first_new))
 		objectives.script_result = abl.script_result
@@ -133,6 +136,7 @@ func _add_structures(mission: String) -> void:
 		s.extent_m = float(t.get("extent_radius", 0.0)) * WORLD_UNIT_M
 		s.team = int(o.get("team", t.get("building_team", -1)))  # the placement's team (mc2_06's own HQ is team 0)
 		s.capturable = bool(t.get("capturable", false))
+		s.resource_points = int(t.get("resource_points", 0))
 		s.position = Vector2(float(o["x"]), float(o["y"])) * WORLD_UNIT_M
 		s.facing = float(o["rotation"])
 		var cell := world.map.cell_of(s.position)

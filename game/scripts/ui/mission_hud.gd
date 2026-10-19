@@ -16,6 +16,8 @@ var objectives_label: Label
 var top_label: Label
 var log_label: Label
 var banner: Label
+var support_buttons: Dictionary = {}  # power -> Button
+var rp_label: Label
 var box: ColorRect
 var comms: CommsWindow
 var _messages: Array = []  # [text, time]
@@ -86,6 +88,7 @@ func setup(mission_view: Node) -> void:
 	minimap.offset_bottom = -12
 	root.add_child(minimap)
 	minimap.setup(view.world, view.sm.objectives, "res://assets/maps/%s/burnin.jpg" % view.mission, view.sm.player_team)
+	_build_support(root)
 	minimap.pan_to.connect(func(p: Vector2): view.camera.focus = Vector3(p.x, 0, -p.y))
 	minimap.move_to.connect(_on_minimap_move)
 
@@ -113,6 +116,50 @@ func _label(px: int) -> Label:
 	l.add_theme_color_override("font_outline_color", Color.BLACK)
 	l.add_theme_constant_override("outline_size", 4)
 	return l
+
+
+## Support powers (support-powers.md): Resource Points and one button per power,
+## above the minimap. A pressed button arms CommandInput's targeting.
+func _build_support(root: Control) -> void:
+	if view.sm.support == null:
+		return
+	var panel := VBoxContainer.new()
+	panel.theme = UiStyle.theme()
+	panel.anchor_left = 1.0
+	panel.anchor_right = 1.0
+	panel.anchor_top = 1.0
+	panel.anchor_bottom = 1.0
+	panel.offset_left = -272
+	panel.offset_right = -12
+	panel.offset_top = -272 - 8 - 4 * 30 - 26
+	panel.offset_bottom = -280
+	panel.add_theme_constant_override("separation", 3)
+	root.add_child(panel)
+	rp_label = _label(15)
+	rp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	panel.add_child(rp_label)
+	for kind in SimSupport.ORDER:
+		var b := Button.new()
+		b.text = "%s  %d" % [SimSupport.LABELS[kind], SimSupport.COSTS[kind]]
+		b.toggle_mode = true
+		b.focus_mode = Control.FOCUS_NONE
+		b.add_theme_font_size_override("font_size", 13)
+		b.custom_minimum_size = Vector2(0, 27)
+		b.pressed.connect(func():
+			view.input.support_kind = kind if view.input.support_kind != kind else "")
+		panel.add_child(b)
+		support_buttons[kind] = b
+
+
+func _update_support() -> void:
+	var s: SimSupport = view.sm.support
+	if s == null or rp_label == null:
+		return
+	rp_label.text = "RESOURCE POINTS  %d" % s.rp
+	for kind in support_buttons:
+		var b: Button = support_buttons[kind]
+		b.disabled = not s.can_call(kind)
+		b.set_pressed_no_signal(view.input.support_kind == kind)
 
 
 func _on_card_picked(u: SimUnit, add: bool) -> void:
@@ -156,6 +203,25 @@ func on_event(e: Dictionary) -> void:
 				message("Objective failed: " + _objective_title(view.sm.objectives.objectives[e["index"]]))
 		"captured":
 			message("%s captured %s" % [w.units[e["unit"]].name, w.units[e["target"]].name])
+		"resource_points":
+			message("+%d Resource Points" % int(e["amount"]))
+		"support":
+			if e.get("enemy", false):
+				message("Incoming enemy air strike!")
+			else:
+				message("%s on the way" % SimSupport.LABELS.get(e["kind"], e["kind"]))
+		"support_refused":
+			message("Can't call %s there" % SimSupport.LABELS.get(e["kind"], "support").to_lower())
+		"repair_done":
+			message("%s repaired" % w.units[e["unit"]].name)
+		"salvaged", "unit_added":
+			var u: SimUnit = w.units[e["unit"]]
+			message("%s joins your force" % u.name)
+			if u.team == view.sm.player_team and not cards.has(u.id):
+				var c := UnitCard.new(u)
+				c.picked.connect(_on_card_picked)
+				force_bar.add_child(c)
+				cards[u.id] = c
 		"capture_refused", "capture_blocked":
 			message("%s cannot capture %s%s" % [w.units[e["unit"]].name, w.units[e["target"]].name,
 				" — enemy nearby" if e["type"] == "capture_blocked" else ""])
@@ -183,6 +249,7 @@ func _process(_delta: float) -> void:
 	for id in cards:
 		cards[id].selected = view.input.selection.has(w.units[id])
 	minimap.view_polygon = _camera_footprint()
+	_update_support()
 	var res: int = view.sm.objectives.result
 	if view.pause_menu and view.pause_menu.ended:
 		banner.visible = false  # the end panel takes over

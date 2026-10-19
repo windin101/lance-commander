@@ -9,6 +9,8 @@ signal selection_changed(mechs: Array)
 const PICK_PX := 40.0
 
 var abl: SimAbl = null  # the mission's ABL bridge: player orders go to the lance's pbrain
+var support: SimSupport = null
+var support_kind := ""  # a support power waiting for its target (HUD button pressed)
 var world: SimWorld
 var views: Dictionary = {}  # mech id -> MechView
 var camera: Camera3D
@@ -20,6 +22,9 @@ var box: ColorRect
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if support_kind != "" and _support_input(event):
+		get_viewport().set_input_as_handled()
+		return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
@@ -55,11 +60,11 @@ func toggle_alpha_strike() -> void:
 
 
 ## The mech nearest a screen point (within PICK_PX), optionally filtered by team.
-func mech_at(screen: Vector2, team: int = -1) -> SimUnit:
+func mech_at(screen: Vector2, team: int = -1, include_disabled := false) -> SimUnit:
 	var best: SimUnit = null
 	var best_d := PICK_PX
 	for m in world.units:
-		if m.is_disabled() or (team >= 0 and m.team != team) or not views.has(m.id):
+		if (m.is_disabled() and not include_disabled) or (team >= 0 and m.team != team) or not views.has(m.id):
 			continue
 		var v: MechView = views[m.id]
 		if camera.is_position_behind(v.aim_point()):
@@ -133,9 +138,38 @@ func _select_box(rect: Rect2, add: bool) -> void:
 	_set_selection(s)
 
 
+## Targeting a support power: left-click places it (a ground point, or a disabled mech
+## for the salvage craft); right-click or Esc cancels. Returns true if it used the event.
+func _support_input(event: InputEvent) -> bool:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		support_kind = ""
+		return true
+	if not (event is InputEventMouseButton and event.pressed):
+		return false
+	if event.button_index == MOUSE_BUTTON_RIGHT:
+		support_kind = ""
+		return true
+	if event.button_index != MOUSE_BUTTON_LEFT:
+		return false
+	var target = mech_at(event.position, -1, true) if support_kind == "salvage_craft" else ground_at(event.position)
+	if support and target != null and support.call_power(support_kind, target):
+		support_kind = ""
+	else:
+		world.events.append({"type": "support_refused", "kind": support_kind})
+	return true
+
+
 func _command(screen: Vector2) -> void:
 	if selection.is_empty():
 		return
+	# A selected repair truck services the damaged friendly mech clicked (support-powers.md 3.4).
+	var trucks := selection.filter(func(u): return u.refit_pool > 0.0)
+	if support and not trucks.is_empty():
+		var friend := mech_at(screen, player_team)
+		if friend is SimMech:
+			for t in trucks:
+				support.order_repair(t, friend)
+			return
 	var enemy := mech_at(screen)
 	if enemy == null or enemy.team == player_team:
 		enemy = structure_at(screen)
