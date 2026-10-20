@@ -51,7 +51,7 @@ func setup(mission_view: Node) -> void:
 	force_bar.add_theme_constant_override("separation", 6)
 	root.add_child(force_bar)
 	for u in view.world.units:
-		if u.team == view.sm.player_team and u.is_mover():
+		if u.team == view.sm.player_team and u.is_mover() and u.on_gui:
 			var c := UnitCard.new(u)
 			c.picked.connect(_on_card_picked)
 			force_bar.add_child(c)
@@ -188,7 +188,7 @@ func on_event(e: Dictionary) -> void:
 				message("Objective complete: " + _objective_title(view.sm.objectives.objectives[e["index"]]))
 		"disabled":
 			var u: SimUnit = w.units[e["unit"]]
-			if u.team == view.sm.player_team and u.is_mover():
+			if u.team == view.sm.player_team and u.is_mover() and u.on_gui:
 				message("%s is down!" % u.name)
 			elif u.is_mover():
 				message("%s destroyed" % u.name)
@@ -217,7 +217,7 @@ func on_event(e: Dictionary) -> void:
 		"salvaged", "unit_added":
 			var u: SimUnit = w.units[e["unit"]]
 			message("%s joins your force" % u.name)
-			if u.team == view.sm.player_team and not cards.has(u.id):
+			if u.team == view.sm.player_team and u.on_gui and not cards.has(u.id):
 				var c := UnitCard.new(u)
 				c.picked.connect(_on_card_picked)
 				force_bar.add_child(c)

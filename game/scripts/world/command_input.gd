@@ -131,7 +131,7 @@ func _select_click(screen: Vector2, add: bool) -> void:
 func _select_box(rect: Rect2, add: bool) -> void:
 	var s: Array[SimUnit] = selection.duplicate() if add else []
 	for m in world.units:
-		if m.team != player_team or m.is_disabled() or not views.has(m.id) or not m.is_mover():
+		if m.team != player_team or m.is_disabled() or not m.on_gui or not views.has(m.id) or not m.is_mover():
 			continue
 		var v: MechView = views[m.id]
 		if not camera.is_position_behind(v.aim_point()) and rect.has_point(camera.unproject_position(v.aim_point())):

@@ -191,7 +191,7 @@ func _cond_status(c: Dictionary, world: SimWorld) -> int:
 
 ## The player's own units: the player's commander, on the GUI (no allies, no hulks).
 func _player_force(m: SimUnit) -> bool:
-	return m.is_mover() and m.exists and m.team == player_team and m.commander == 0 and not m.hulk
+	return m.is_mover() and m.exists and m.team == player_team and m.commander == 0 and not m.hulk and m.on_gui
 
 
 func _evaluate(obj: Dictionary, world: SimWorld) -> int:
