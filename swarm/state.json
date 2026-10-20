@@ -6,10 +6,10 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T13:26:01+13:00",
+  "updated": "2026-10-20T14:35:09+13:00",
   "phase": {
     "current": 7,
-    "status": "gated"
+    "status": "failed"
   },
   "phases": {
     "0": {
@@ -161,40 +161,40 @@
     },
     "7": {
       "name": "HD art (dry run)",
-      "status": "gated",
+      "status": "failed",
       "started": "2026-10-19T16:08:13+13:00",
       "ended": null,
       "gate": {
-        "passed": true,
-        "at": "2026-10-20T13:26:00+13:00",
+        "passed": false,
+        "at": "2026-10-20T14:34:55+13:00",
         "checks": [
           {
             "name": "tests_green",
             "pass": true,
             "detail": "tests pass (125 cases): ALL TESTS PASSED",
-            "seconds": 38.8,
-            "at": "2026-10-20T13:26:00+13:00"
+            "seconds": 40.3,
+            "at": "2026-10-20T14:34:55+13:00"
           },
           {
             "name": "hd_provenance",
-            "pass": true,
-            "detail": "65 HD meshes, all with provenance rows and fit data",
+            "pass": false,
+            "detail": "FAIL: 7 without a row, 0 without fit data, of 72 HD meshes",
             "seconds": 0.0,
-            "at": "2026-10-20T13:26:00+13:00"
+            "at": "2026-10-20T14:34:55+13:00"
           },
           {
             "name": "import_size",
             "pass": true,
-            "detail": "imported total 1.24 GB, no file over 64 MB; top: burnin=80MB, overlays_hd=48MB, hangar_high=20MB, bw_hd_mesh=11MB, weaponsfacility_cad_0=10MB",
+            "detail": "imported total 1.34 GB, no file over 64 MB; top: burnin=80MB, overlays_hd=48MB, hangar_high=20MB, bw_hd_mesh=11MB, weaponsfacility_cad_0=10MB",
             "seconds": 0.1,
-            "at": "2026-10-20T13:26:00+13:00"
+            "at": "2026-10-20T14:34:55+13:00"
           },
           {
             "name": "provenance_table_current",
             "pass": true,
             "detail": "up to date",
             "seconds": 0.0,
-            "at": "2026-10-20T13:26:00+13:00"
+            "at": "2026-10-20T14:34:55+13:00"
           }
         ]
       },
@@ -1360,6 +1360,32 @@
       "created": "2026-10-20T12:32:29+13:00",
       "updated": "2026-10-20T12:32:29+13:00",
       "note": null
+    },
+    {
+      "id": "I79",
+      "sev": "P3",
+      "title": "Aircraft props (slayerp, shilonep, privatejet, shuttle?) get a smooth modern restyle, not the facet-exact CAD",
+      "detail": "Lee 2026-10-20: smooth modern look. The wave-2 CAD rebuilds (tools/cad/aircraft_cad.py pyramid_shell) stay in the game until replaced. Route: licensed CC sculpts via tools/art/stl_hd.py like the vehicles (Slayer and Shilone aerospace fighters, a generic business jet), fitted to the original's bounds, paint voted from the original mask (yellow/cyan livery).",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T13:30:29+13:00",
+      "updated": "2026-10-20T13:30:29+13:00",
+      "note": null
+    },
+    {
+      "id": "I80",
+      "sev": "P2",
+      "title": "Godot import auto-LOD drops back-to-back faces of original map objects (missing roofs/panels in game)",
+      "detail": "Found by the wave-3 CAD builders 2026-10-20: the converted originals use pairs of coincident faces facing opposite ways (double-sided panels). With generate_lods=true on import, Godot's LOD drops one of each pair at normal viewing distance: crashshanty1/2 render with no roof (an open box), crashengine loses the hull panel over its nacelle. A copy re-imported with generate_lods=false shows them. Affects every object still on its _hdtex/original model (and any converted mech/vehicle with such faces). Fix: set meshes/generate_lods=false in the .import of the converted objects (or in tools/convert's glb writer, emit real double-sided materials and drop the duplicate faces), then re-check a few maps.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T14:35:09+13:00",
+      "updated": "2026-10-20T14:35:09+13:00",
+      "note": null
     }
   ],
   "coverage": {
@@ -1376,8 +1402,8 @@
       },
       "hd_objects": {
         "needed": 144,
-        "done": 88,
-        "approved": 88
+        "done": 115,
+        "approved": 115
       }
     },
     "missions": {
@@ -1466,31 +1492,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:45:21+13:00",
-      "who": "playtester",
-      "msg": "issue I19 P3: mc2_10: seed 3 lance fed piecemeal into airfield defenders without repairing"
-    },
-    {
-      "at": "2026-10-19T16:45:21+13:00",
-      "who": "ai",
-      "msg": "issue I20 P2: mc2_13: FIT lance with no support cannot outlast 44 enemies incl 21 Powered Armor"
-    },
-    {
-      "at": "2026-10-19T16:45:21+13:00",
-      "who": "playtester",
-      "msg": "issue I21 P3: mc2_14: solo Thor fights every patrol head-on, no avoidance or retreat"
-    },
-    {
-      "at": "2026-10-19T16:45:21+13:00",
-      "who": "playtester",
-      "msg": "issue I22 P3: mc2_15: lance marches straight at nearest Legion through 58-unit base after partisans are spent"
-    },
-    {
-      "at": "2026-10-19T16:45:21+13:00",
-      "who": "playtester",
-      "msg": "issue I23 P3: mc2_16: bot chases 25 reinforcements nearest-first instead of capturing turrets and HQ and holding"
-    },
     {
       "at": "2026-10-19T16:45:21+13:00",
       "who": "ai",
@@ -2465,6 +2466,31 @@
       "at": "2026-10-20T13:26:01+13:00",
       "who": "agent",
       "msg": "wave 2: 23 buildings rebuilt (privatejet/shilonep kept facet-exact pending Lee's look call); nav1 is a flat ground decal, not a building: needed 145 -> 144"
+    },
+    {
+      "at": "2026-10-20T13:30:29+13:00",
+      "who": "game-art",
+      "msg": "issue I79 P3: Aircraft props (slayerp, shilonep, privatejet, shuttle?) get a smooth modern restyle, not the facet-exact CAD"
+    },
+    {
+      "at": "2026-10-20T14:14:24+13:00",
+      "who": "agent",
+      "msg": "lee: aircraft sources picked: Koroshiya (slayerp stand-in), Siberian_troll Shilone (shilonep), Starship-shape jet (privatejet), UnrestedGuy Union (3 dropships), X-38 (lifeboat); shuttle keeps its CAD rebuild"
+    },
+    {
+      "at": "2026-10-20T14:34:10+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate FAILED: tests_green=ok, hd_provenance=FAIL, import_size=ok, provenance_table_current=ok"
+    },
+    {
+      "at": "2026-10-20T14:34:55+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate FAILED: tests_green=ok, hd_provenance=FAIL, import_size=ok, provenance_table_current=ok"
+    },
+    {
+      "at": "2026-10-20T14:35:09+13:00",
+      "who": "game-art",
+      "msg": "issue I80 P2: Godot import auto-LOD drops back-to-back faces of original map objects (missing roofs/panels in game)"
     }
   ],
   "choices": [
