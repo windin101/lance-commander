@@ -131,11 +131,14 @@ def filled_rgb(im, iters=64):
 
 # --- texture regions -> 3D ------------------------------------------------------
 
-def raster_tri_uv(uv_px, mask_shape):
-    """Pixel centres inside a triangle given in pixel units (may lie outside the image: wrapped by the caller)."""
+def raster_tri_uv(uv_px, mask_shape, max_px=1_000_000):
+    """Pixel centres inside a triangle given in pixel units (may lie outside the image: wrapped by the caller).
+    A triangle whose UVs tile the texture many times is sampled on a coarser stride, at most max_px points:
+    a full grid over its bounding box ran to tens of GB and froze the workstation (2026-10-20)."""
     x0, y0 = np.floor(uv_px.min(0)).astype(int)
     x1, y1 = np.ceil(uv_px.max(0)).astype(int)
-    xs, ys = np.meshgrid(np.arange(x0, x1 + 1) + 0.5, np.arange(y0, y1 + 1) + 0.5)
+    step = max(1, int(np.ceil(np.sqrt((x1 - x0 + 1) * (y1 - y0 + 1) / max_px))))
+    xs, ys = np.meshgrid(np.arange(x0, x1 + 1, step) + 0.5, np.arange(y0, y1 + 1, step) + 0.5)
     pts = np.c_[xs.ravel(), ys.ravel()]
     a, b, c = uv_px
     m = np.array([b - a, c - a]).T
@@ -147,8 +150,12 @@ def raster_tri_uv(uv_px, mask_shape):
     return pts[inside], np.c_[1 - lam.sum(1), lam]
 
 
+CELL = 0.02  # regions_3d point spacing (m): 2 cm keeps every window of the reference set; 5 cm lost small ones, 1 cm still ran past 12 GB
+
+
 def regions_3d(orig, select, min_area=0.05, link=0.25):
-    """select(mat, img_index, ix, iy) -> bool mask of texture pixels; returns the 3D rectangles they cover."""
+    """select(mat, img_index, ix, iy) -> bool mask of texture pixels; returns the 3D rectangles they cover
+    ("pixels" counts 2 cm cells, not texture pixels)."""
     pts, nrm, tri_of = [], [], []
     for ti in range(len(orig.tris)):
         img = orig.mat_image[orig.mat[ti]]
@@ -163,9 +170,11 @@ def regions_3d(orig, select, min_area=0.05, link=0.25):
         sel = select(orig.mat[ti], img, ix, iy)
         if not sel.any():
             continue
-        pts.append(bary[sel] @ orig.tris[ti])
-        nrm.append(np.repeat(orig.normal[ti][None], sel.sum(), 0))
-        tri_of.append(np.full(sel.sum(), ti))
+        # one point per CELL: query_pairs below grows with the square of the point density (s_quetragon ran past 50 GB)
+        p3 = np.unique(np.round(bary[sel] @ orig.tris[ti] / CELL).astype(np.int64), axis=0) * CELL
+        pts.append(p3)
+        nrm.append(np.repeat(orig.normal[ti][None], len(p3), 0))
+        tri_of.append(np.full(len(p3), ti))
     if not pts:
         return []
     pts, nrm = np.concatenate(pts), np.concatenate(nrm)
