@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T21:13:24+13:00",
+  "updated": "2026-10-20T21:14:49+13:00",
   "phase": {
     "current": 7,
     "status": "gated"
@@ -1399,6 +1399,45 @@
       "created": "2026-10-20T19:10:06+13:00",
       "updated": "2026-10-20T19:10:06+13:00",
       "note": null
+    },
+    {
+      "id": "I82",
+      "sev": "P2",
+      "title": "HUD orders run, jump, guard and fire-from-position have no sim support; R/J/G/S/F unbound",
+      "detail": "New HUD (2cb986f) arms hud.command_mode for these; the sim has only move/attack/hold. Port the original orders (missiongui.cpp command palette; warrior.cpp tactical orders: run = move at run speed, jump = jump-jet move, guard = hold area and engage, fire from position = attack without moving) and bind R, J, G, S, F as in the original (missiongui.cpp key table). Stop and hold currently both issue hold.",
+      "repro": null,
+      "owner": "sim",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T21:14:49+13:00",
+      "updated": "2026-10-20T21:14:49+13:00",
+      "note": null
+    },
+    {
+      "id": "I83",
+      "sev": "P3",
+      "title": "Player mechs render solid bright green: mission paint 0x00FF00 base",
+      "detail": "mc2_01 parts carry BaseColor 0xff00ff00, HighlightColor1/2 0xff004000; mission.cpp:2625-2635 uses the mission colours in single player (prefs.baseColor 0xffff7e00 only in multiplayer or when absent). Check how the original's paint shader used these (pure green may be a mask key, not a colour) before changing MechPaint.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T21:14:49+13:00",
+      "updated": "2026-10-20T21:14:49+13:00",
+      "note": null
+    },
+    {
+      "id": "I84",
+      "sev": "P3",
+      "title": "HUD follow-ups: generated pilot portraits, comms subtitles/speaker data, tac map sensor ring and planet name, infantry doll",
+      "detail": "From the HUD build: portraits are silhouettes (Lee chose generated faces over the original photos); comms has no speaker/subtitle data (hud.pilot_says exists, nothing calls it); tac map lacks the sensor ring and shows the mission title (truncated) instead of the planet; mission bar counts only active objectives (0/1 on mc2_01); infantry plan-view doll reads poorly, powered armour should use its mech-style doll (poweredarmor_mech in dolls.json).",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 7,
+      "status": "open",
+      "created": "2026-10-20T21:14:49+13:00",
+      "updated": "2026-10-20T21:14:49+13:00",
+      "note": null
     }
   ],
   "coverage": {
@@ -1505,21 +1544,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:55:10+13:00",
-      "who": "game-art",
-      "msg": "issue I35 P2: HD mediumcopter: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T16:55:10+13:00",
-      "who": "game-art",
-      "msg": "issue I36 P2: HD heavycopter: reseed_mesh"
-    },
-    {
-      "at": "2026-10-19T16:55:10+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 6: 0 approved, 3 issues"
-    },
     {
       "at": "2026-10-19T16:55:33+13:00",
       "who": "game-art",
@@ -2504,6 +2528,21 @@
       "at": "2026-10-20T21:13:24+13:00",
       "who": "gate",
       "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
+    },
+    {
+      "at": "2026-10-20T21:14:49+13:00",
+      "who": "sim",
+      "msg": "issue I82 P2: HUD orders run, jump, guard and fire-from-position have no sim support; R/J/G/S/F unbound"
+    },
+    {
+      "at": "2026-10-20T21:14:49+13:00",
+      "who": "game-art",
+      "msg": "issue I83 P3: Player mechs render solid bright green: mission paint 0x00FF00 base"
+    },
+    {
+      "at": "2026-10-20T21:14:49+13:00",
+      "who": "game-art",
+      "msg": "issue I84 P3: HUD follow-ups: generated pilot portraits, comms subtitles/speaker data, tac map sensor ring and planet name, infantry doll"
     }
   ],
   "choices": [
