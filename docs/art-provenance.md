@@ -150,6 +150,28 @@ Each orientation was checked by eye against the original's front view. Mechs are
 - **Attention mode:** run the ComfyUI used for the Qwen edits with `--use-split-cross-attention`. With PyTorch SDPA on this ROCm nightly, edits intermittently come back as garbage.
 - **Retries:** split attention still fails now and then, so `hd_mech.py` validates each concept and retries with the next seed.
 
+## HUD paper dolls (`game/assets/ui/dolls/<unit>_doll.png`, `dolls.json`)
+
+These are derived from this project's own HD models (`game/assets/mechs/*_hd.glb`, `game/assets/vehicles/*_hd.glb`) by `tools/art/paper_doll.py` (2026-10-20), with per-unit overrides in `tools/art/paper_doll.json`. Each mask inherits the licence of the model it was drawn from: the Shared Source terms (non-commercial) for Hunyuan and CAD models, and the third-party licence recorded in `original/hd/<unit>/provenance.json` for adapted sculpts. Nothing is generated. Rerunning the tool rebuilds them exactly; `python3 -I tools/art/paper_doll.py <unit>` redoes one unit.
+
+- **Format.** RGBA PNG. R = G = B = location index, A = 255 inside the silhouette; outside, A = 0. Treat alpha as the authority, because Godot's `fix_alpha_border` is set off in the sidecars but a reimport with defaults bleeds RGB. The import must stay lossless (`compress/mode=0`) with no mipmaps, or the index values break.
+- **Mechs** (30, plus copters): SimMech.Body order, seen from behind in the rest pose (the pilot's view), about 256 px tall. The rear doll is the same mask, with Armor RCTORSO/RLTORSO/RRTORSO on locations 1/2/3.
+- **Vehicles, infantry, powered armour:** SimVehicle.Section order, plan view with forward up. Hull thirds are front and rear, and the middle third is split left and right. The turret is drawn inside a hull rim, so no section is hidden.
+- **`poweredarmor_mech_doll.png`:** an extra 8-location doll for powered armour. In the sim, powered armour is a 5-section SimVehicle.
+- **Overrides** (see the `_why` in the JSON): catapult (the LRM launchers are the arms), flea (the side pods are the arms), raven (no right-arm joint: the outer end of the right torso wing), uller (narrower centre torso), heavycopter (drawn bigger), poweredarmor_mech (the left arm is skinned to the torso).
+- **Review sheet:** `swarm/gallery/paper_dolls.png`.
+
 ## Retail-disc content
 
 Videos converted from the user's own retail disc live in `game/assets/retail/`. They are gitignored and never committed or distributed.
+
+## HUD fonts (`game/assets/fonts/`)
+
+Downloaded 2026-10-20 from github.com/google/fonts (raw files, `ofl/` tree), each with its `OFL.txt`.
+All are under the SIL Open Font License 1.1, which allows bundling with the game.
+
+| Font | Files | Used for |
+|---|---|---|
+| Chakra Petch (Cadson Demak) | `chakra_petch/ChakraPetch-{Medium,SemiBold,Bold}.ttf` | HUD headings, callsigns, buttons |
+| Barlow Semi Condensed (Jeremy Tribby) | `barlow_semi_condensed/BarlowSemiCondensed-{Regular,Medium,SemiBold}.ttf` | HUD body text |
+| Share Tech Mono (Carrois Apostrophe) | `share_tech_mono/ShareTechMono-Regular.ttf` | HUD numbers, captions |

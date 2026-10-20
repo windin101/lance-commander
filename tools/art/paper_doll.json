@@ -1,0 +1,34 @@
+{
+ "_about": "Per-unit overrides for tools/art/paper_doll.py (keys are documented there). joints: {joint name: location name | 'body'}.",
+ "catapult": {
+  "_why": "the LRM launchers (ca_lmissile/ca_rmissile) are the Catapult's arms",
+  "joints": {
+   "ca_lmissile": "larm",
+   "ca_rmissile": "rarm"
+  }
+ },
+ "flea": {
+  "_why": "no arm joints: the outer side pods are the arms",
+  "arms_from_body": 0.75
+ },
+ "raven": {
+  "_why": "only a left arm joint (ra_luarm): the outer end of the right torso wing is the right arm",
+  "arms_from_body": {
+   "r": 0.6
+  }
+ },
+ "uller": {
+  "_why": "narrow torso, far-out arm joints: the default split left a sliver of left torso",
+  "ct_frac": 0.3
+ },
+ "heavycopter": {
+  "_why": "thin fuselage: draw it bigger",
+  "size": 248
+ },
+ "poweredarmor_mech": {
+  "_why": "the left arm is skinned to pa_torso (only the gun has joint_lgun): the outer left torso is the arm",
+  "arms_from_body": {
+   "l": 0.55
+  }
+ }
+}
