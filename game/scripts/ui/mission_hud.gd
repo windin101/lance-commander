@@ -1,165 +1,346 @@
 class_name MissionHud
 extends CanvasLayer
-## The mission HUD: force bar of unit cards (bottom left), tactical minimap
-## (bottom right), weapons panel for the selected unit, objectives (top right),
-## message log, top bar with time and help, and the end-of-mission banner.
+## The mission HUD, built in code to Lee's approved mock-up (2026-10-20): framed cyan command
+## panels around the battlefield, the MechCommander 2 console's components restyled.
+##   top centre    mission bar: mission | current primary objective | done/total, progress
+##                 bar and a heading tape (camera yaw)
+##   top right     tac map (Minimap) with mission name, mission time and a hint
+##   top left      comms (CommsWindow), only while someone talks; objectives under it (O)
+##   bottom left   lance: one UnitCard per player unit, compact rows; the selected unit's
+##                 card expands. Recent messages sit above it.
+##   bottom centre command panel (orders, alpha strike, support powers, Resource Points)
+##                 with the rollover help line above it
+##   bottom right  systems monitor, only while a unit is selected
+## plus the end-of-mission banner and the drag-select box. Sizes are in the base unit
+## UiStyle.hud_unit (viewport height / 1080 x the player's HUD scale); the HUD rebuilds
+## itself when that changes.
+## Dev args (after --): --select=<unit id> selects a unit at start, --comms=<unit id> shows
+## that unit's pilot talking (screenshots of the expanded card, systems monitor and comms).
 
 const MAX_MESSAGES := 6
 const MESSAGE_LIFE := 8.0
+const MAX_FORCE := 12  # units in a full force (the original's 3 lances of 4)
+const LANCE_EM := 26.0
+const MISSION_EM := 54.0
+const TAC_EM := 20.0
+const OBJECTIVES_EM := 23.5
+# Panel anchors, in fractions of the viewport (the mock-up's % offsets).
+const EDGE_X := 0.01
+const EDGE_TOP := 0.016
+const EDGE_BOTTOM := 0.014
 
 var view: Node  # mission_view
+var kit: HudKit
+var unit_px := 0.0  # the base unit the HUD was built at
+var root: Control
 var cards: Dictionary = {}  # unit id -> UnitCard
 var minimap: Minimap
-var force_bar: HBoxContainer
-var weapons_panel: Control
-var objectives_label: Label
-var top_label: Label
+var mission_panel: PanelContainer
+var mission_name: Label
+var mission_objective: Label
+var mission_count: Label
+var mission_bar: HudKit.Bar
+var tape: HudKit.Tape
+var tac_panel: PanelContainer
+var tac_title: Label
+var tac_time: Label
+var objectives_panel: PanelContainer
+var objectives_list: VBoxContainer
+var objectives_visible := true
+var lance_panel: PanelContainer
+var lance_small: Label
+var lance_scroll: ScrollContainer
+var lance_list: VBoxContainer
 var log_label: Label
-var banner: Label
-var support_buttons: Dictionary = {}  # power -> Button
-var rp_label: Label
-var box: ColorRect
+var command_panel: CommandPanel
+var help_title: Label
+var help_text: Label
+var systems: SystemsMonitor
 var comms: CommsWindow
+var banner: Label
+var box: ColorRect
+var support_buttons: Dictionary = {}  # power -> CommandPanel.SupportTile
+var rp_label: Label
+var command_mode := ""  # an armed order (run, jump, guard, fire_from_position) for the next right-click
+var _placed: Array = []  # [Control, anchor Vector2, grow Vector2i (-1 begin, 0 both, 1 end), offset Vector2]
 var _messages: Array = []  # [text, time]
+var _map_tex: ImageTexture
+var _objectives_sig := ""
+var _help_key := ""
+var _args := {}
 
 
 func setup(mission_view: Node) -> void:
 	view = mission_view
-	var root := Control.new()
-	root.set_anchors_preset(Control.PRESET_FULL_RECT)
-	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(root)
-
-	top_label = _label(15)
-	top_label.position = Vector2(14, 10)
-	root.add_child(top_label)
-
-	objectives_label = _label(16)
-	objectives_label.anchor_left = 1.0
-	objectives_label.anchor_right = 1.0
-	objectives_label.offset_left = -540
-	objectives_label.offset_right = -14
-	objectives_label.offset_top = 10
-	objectives_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	root.add_child(objectives_label)
-
-	force_bar = HBoxContainer.new()
-	force_bar.anchor_top = 1.0
-	force_bar.anchor_bottom = 1.0
-	force_bar.offset_left = 12
-	force_bar.offset_top = -152
-	force_bar.add_theme_constant_override("separation", 6)
-	root.add_child(force_bar)
-	for u in view.world.units:
-		if u.team == view.sm.player_team and u.is_mover() and u.on_gui:
-			var c := UnitCard.new(u)
-			c.picked.connect(_on_card_picked)
-			force_bar.add_child(c)
-			cards[u.id] = c
-
-	weapons_panel = WeaponsPanel.new()
-	weapons_panel.hud = self
-	weapons_panel.anchor_top = 1.0
-	weapons_panel.anchor_bottom = 1.0
-	weapons_panel.offset_left = 12
-	weapons_panel.offset_top = -152 - 8 - 150
-	weapons_panel.offset_right = 12 + 300
-	weapons_panel.offset_bottom = -152 - 8
-	root.add_child(weapons_panel)
-
-	log_label = _label(15)
-	log_label.anchor_top = 1.0
-	log_label.anchor_bottom = 1.0
-	log_label.offset_left = 330
-	log_label.offset_top = -152 - 8 - 150
-	log_label.offset_right = 900
-	log_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
-	log_label.offset_bottom = -152 - 8
-	root.add_child(log_label)
-
-	minimap = Minimap.new()
-	minimap.anchor_left = 1.0
-	minimap.anchor_right = 1.0
-	minimap.anchor_top = 1.0
-	minimap.anchor_bottom = 1.0
-	minimap.offset_left = -272
-	minimap.offset_right = -12
-	minimap.offset_top = -272
-	minimap.offset_bottom = -12
-	root.add_child(minimap)
-	minimap.setup(view.world, view.sm.objectives, "res://assets/maps/%s/burnin.jpg" % view.mission, view.sm.player_team)
-	_build_support(root)
-	minimap.pan_to.connect(func(p: Vector2): view.camera.focus = Vector3(p.x, 0, -p.y))
-	minimap.move_to.connect(_on_minimap_move)
-
-	comms = CommsWindow.new()
-	comms.position = Vector2(14, 40)
-	root.add_child(comms)
-
-	banner = _label(64)
-	banner.set_anchors_preset(Control.PRESET_CENTER)
-	banner.add_theme_constant_override("outline_size", 10)
-	banner.visible = false
-	root.add_child(banner)
-
+	for a in OS.get_cmdline_user_args():
+		var kv := a.trim_prefix("--").split("=", true, 1)
+		_args[kv[0]] = kv[1] if kv.size() > 1 else ""
 	box = ColorRect.new()
-	box.color = Color(0.3, 1.0, 0.4, 0.15)
+	box.color = Color(UiStyle.HUD_EDGE, 0.15)
 	box.visible = false
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	root.add_child(box)
+	add_child(box)
+	_build()
+	if _args.has("select") or _args.has("comms"):
+		_dev_args.call_deferred()
 
 
-func _label(px: int) -> Label:
-	var l := Label.new()
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	l.add_theme_font_size_override("font_size", px)
-	l.add_theme_color_override("font_outline_color", Color.BLACK)
-	l.add_theme_constant_override("outline_size", 4)
-	return l
+func _viewport_height() -> float:
+	var vp := get_viewport()
+	return vp.get_visible_rect().size.y if vp else 1080.0
 
 
-## Support powers (support-powers.md): Resource Points and one button per power,
-## above the minimap. A pressed button arms CommandInput's targeting.
-func _build_support(root: Control) -> void:
-	if view.sm.support == null:
-		return
-	var panel := VBoxContainer.new()
-	panel.theme = UiStyle.theme()
-	panel.anchor_left = 1.0
-	panel.anchor_right = 1.0
-	panel.anchor_top = 1.0
-	panel.anchor_bottom = 1.0
-	panel.offset_left = -272
-	panel.offset_right = -12
-	panel.offset_top = -272 - 8 - 4 * 30 - 26
-	panel.offset_bottom = -280
-	panel.add_theme_constant_override("separation", 3)
-	root.add_child(panel)
-	rp_label = _label(15)
-	rp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	panel.add_child(rp_label)
-	for kind in SimSupport.ORDER:
-		var b := Button.new()
-		b.text = "%s  %d" % [SimSupport.LABELS[kind], SimSupport.COSTS[kind]]
-		b.toggle_mode = true
-		b.focus_mode = Control.FOCUS_NONE
-		b.add_theme_font_size_override("font_size", 13)
-		b.custom_minimum_size = Vector2(0, 27)
-		b.pressed.connect(func():
-			view.input.support_kind = kind if view.input.support_kind != kind else "")
-		panel.add_child(b)
-		support_buttons[kind] = b
+## (Re)build every panel at the current base unit.
+func _build() -> void:
+	if root:
+		remove_child(root)
+		root.queue_free()
+	_placed.clear()
+	cards.clear()
+	_objectives_sig = ""
+	unit_px = UiStyle.hud_unit(_viewport_height())
+	kit = HudKit.new(unit_px)
+	root = Control.new()
+	root.name = "Hud"
+	root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.theme = UiStyle.hud_theme(unit_px)
+	add_child(root)
+	move_child(root, 0)
+	_build_mission_bar()
+	_build_tac_map()
+	_build_comms_and_objectives()
+	_build_lance()
+	_build_command()
+	systems = SystemsMonitor.new(kit, view.world)
+	root.add_child(systems)
+	_place(systems, Vector2(1.0 - EDGE_X * 0.8, 1.0 - EDGE_BOTTOM), Vector2i(-1, -1))
+	banner = kit.label("", "display700", 4.6, UiStyle.HUD_INK, true, 0.08)
+	banner.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	banner.add_theme_constant_override("outline_size", kit.px(0.6))
+	banner.visible = false
+	root.add_child(banner)
+	_place(banner, Vector2(0.5, 0.42), Vector2i(0, 0))
+	_layout()
 
 
-func _update_support() -> void:
-	var s: SimSupport = view.sm.support
-	if s == null or rp_label == null:
-		return
-	rp_label.text = "RESOURCE POINTS  %d" % s.rp
-	for kind in support_buttons:
-		var b: Button = support_buttons[kind]
-		b.disabled = not s.can_call(kind)
-		b.set_pressed_no_signal(view.input.support_kind == kind)
+## Keep c at an anchor point of the viewport, growing the given way from it (re-fitted to
+## its minimum size every frame, so panels shrink back when content goes).
+func _place(c: Control, anchor: Vector2, grow: Vector2i, offset := Vector2.ZERO) -> void:
+	c.anchor_left = anchor.x
+	c.anchor_right = anchor.x
+	c.anchor_top = anchor.y
+	c.anchor_bottom = anchor.y
+	_placed.append([c, anchor, grow, offset])
+
+
+func _layout() -> void:
+	for p in _placed:
+		var c: Control = p[0]
+		var s := c.get_combined_minimum_size()
+		var g: Vector2i = p[2]
+		var o: Vector2 = p[3]
+		var x0 := 0.0 if g.x > 0 else (-s.x if g.x < 0 else -s.x / 2.0)
+		var y0 := 0.0 if g.y > 0 else (-s.y if g.y < 0 else -s.y / 2.0)
+		c.offset_left = roundf(x0 + o.x)
+		c.offset_right = roundf(x0 + o.x + s.x)
+		c.offset_top = roundf(y0 + o.y)
+		c.offset_bottom = roundf(y0 + o.y + s.y)
+
+
+func _build_mission_bar() -> void:
+	var p := kit.panel("", "", MISSION_EM)
+	mission_panel = p["panel"]
+	root.add_child(mission_panel)
+	_place(mission_panel, Vector2(0.5, 0.012), Vector2i(0, 1))
+	var m := kit.margin(1.4, 0.5, 1.4, 0.7)
+	p["body"].add_child(m)
+	var v := kit.vbox(0.5)
+	m.add_child(v)
+	var line := kit.hbox(0.45)
+	line.alignment = BoxContainer.ALIGNMENT_CENTER
+	v.add_child(line)
+	mission_name = kit.label("", "display600", 1.25, UiStyle.HUD_INK, true, 0.08)
+	line.add_child(mission_name)
+	line.add_child(kit.label("|", "display600", 1.25, UiStyle.HUD_EDGE))
+	mission_objective = kit.label("", "display600", 1.25, UiStyle.HUD_INK, true, 0.08)
+	mission_objective.clip_text = true
+	mission_objective.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	line.add_child(mission_objective)
+	line.add_child(kit.label("|", "display600", 1.25, UiStyle.HUD_EDGE))
+	mission_count = kit.label("", "mono", 1.25, UiStyle.HUD_INK)
+	line.add_child(mission_count)
+	mission_bar = kit.bar(0.35, "edge")
+	v.add_child(mission_bar)
+	tape = HudKit.Tape.new()
+	tape.u = unit_px
+	tape.custom_minimum_size = Vector2(0, kit.em(1.6))
+	v.add_child(tape)
+
+
+func _build_tac_map() -> void:
+	var p := kit.panel("", "", TAC_EM)
+	tac_panel = p["panel"]
+	root.add_child(tac_panel)
+	_place(tac_panel, Vector2(1.0 - EDGE_X, EDGE_TOP), Vector2i(-1, 1))
+	var m := kit.margin(0.6, 0.6, 0.6, 0.5)
+	p["body"].add_child(m)
+	var v := kit.vbox(0.5)
+	m.add_child(v)
+	minimap = Minimap.new()
+	minimap.ui_unit = unit_px
+	minimap.custom_minimum_size = Vector2(kit.em(TAC_EM - 1.2), kit.em(TAC_EM - 1.2))
+	v.add_child(minimap)
+	minimap.setup(view.world, view.sm.objectives, "res://assets/maps/%s/burnin.jpg" % view.mission, view.sm.player_team, _map_tex)
+	_map_tex = minimap.texture()
+	minimap.pan_to.connect(_pan_camera)
+	minimap.move_to.connect(_on_minimap_move)
+	var cap := kit.hbox(0.6)
+	v.add_child(cap)
+	tac_title = kit.label("", "mono", 1.0, UiStyle.HUD_DIM)
+	tac_title.uppercase = true
+	tac_title.clip_text = true
+	tac_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	cap.add_child(tac_title)
+	tac_time = kit.label("00:00", "mono", 1.0, UiStyle.HUD_INK)
+	cap.add_child(tac_time)
+	var hint := kit.label("RMB move", "mono", 1.0, UiStyle.HUD_DIM)
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	cap.add_child(hint)
+
+
+func _build_comms_and_objectives() -> void:
+	var old := comms
+	comms = CommsWindow.new()
+	comms.kit = kit
+	root.add_child(comms)
+	_place(comms, Vector2(EDGE_X, EDGE_TOP), Vector2i(1, 1))
+	if old and old.speaker_unit:
+		comms.speaker_unit = old.speaker_unit
+	var p := kit.panel("Objectives", "O", OBJECTIVES_EM)
+	objectives_panel = p["panel"]
+	objectives_panel.visible = objectives_visible
+	root.add_child(objectives_panel)
+	_place(objectives_panel, Vector2(EDGE_X, EDGE_TOP), Vector2i(1, 1), Vector2(0, kit.em(9.6)))
+	var m := kit.margin(1.0, 0.5, 1.0, 0.8)
+	p["body"].add_child(m)
+	objectives_list = kit.vbox(0.35)
+	m.add_child(objectives_list)
+
+
+func _build_lance() -> void:
+	var col := kit.vbox(0.6)
+	root.add_child(col)
+	_place(col, Vector2(EDGE_X * 0.8, 1.0 - EDGE_BOTTOM), Vector2i(1, -1))
+	log_label = kit.label("", "body500", 1.05, UiStyle.HUD_INK)
+	log_label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.8))
+	log_label.add_theme_constant_override("outline_size", kit.px(0.35))
+	log_label.custom_minimum_size.x = kit.em(LANCE_EM)
+	log_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	col.add_child(log_label)
+	var p := kit.panel("Lance", "", LANCE_EM)
+	lance_panel = p["panel"]
+	lance_small = p["small"]
+	col.add_child(lance_panel)
+	var m := kit.margin(0.6, 0.6, 0.6, 0.6)
+	p["body"].add_child(m)
+	lance_scroll = ScrollContainer.new()
+	lance_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	lance_scroll.custom_minimum_size.x = kit.em(LANCE_EM - 1.2)
+	m.add_child(lance_scroll)
+	lance_list = kit.vbox(0.45)
+	lance_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	lance_scroll.add_child(lance_list)
+	_rebuild_lance()
+
+
+## The player's force on the GUI, in mission order (at most MAX_FORCE).
+func player_units() -> Array:
+	var out := []
+	for u in view.world.units:
+		if u.team == view.sm.player_team and u.is_mover() and u.on_gui and not u.hulk:
+			out.append(u)
+	return out.slice(0, MAX_FORCE)
+
+
+func _rebuild_lance() -> void:
+	for c in lance_list.get_children():
+		lance_list.remove_child(c)
+		c.queue_free()
+	cards.clear()
+	var i := 0
+	for u in player_units():
+		i += 1
+		var n := i
+		var c := UnitCard.new(u, kit, n)
+		c.force_index = n
+		c.picked.connect(_on_card_picked)
+		c.ordered.connect(_on_card_order)
+		c.focus_requested.connect(_focus_unit)
+		c.hover_help = _hover
+		lance_list.add_child(c)
+		cards[u.id] = c
+
+
+func _build_command() -> void:
+	var col := kit.vbox(0.9)
+	root.add_child(col)
+	_place(col, Vector2(0.5, 1.0 - EDGE_BOTTOM), Vector2i(0, -1))
+	var help := kit.hbox(0.5)
+	help.alignment = BoxContainer.ALIGNMENT_CENTER
+	help.custom_minimum_size = Vector2(kit.em(CommandPanel.WIDTH_EM), kit.em(1.6))
+	col.add_child(help)
+	help_title = kit.label("", "display600", 1.1, UiStyle.HUD_EDGE, true, 0.08)
+	help_text = kit.label("", "body400", 1.1, UiStyle.HUD_INK)
+	for l in [help_title, help_text]:
+		l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
+		l.add_theme_constant_override("outline_size", kit.px(0.35))
+		help.add_child(l)
+	command_panel = CommandPanel.new(kit, view.sm.support != null)
+	command_panel.command.connect(_on_command)
+	command_panel.support.connect(_on_support)
+	command_panel.hover_help = _hover
+	col.add_child(command_panel)
+	support_buttons = command_panel.tiles
+	rp_label = command_panel.rp_label
+	_hover(_help_key)
+
+
+## The rollover help line: title and description of the hovered control ("" clears it).
+func _hover(key: String) -> void:
+	_help_key = key
+	var h := CommandPanel.help_for(key)
+	help_title.text = h[0] if h.size() > 0 else ""
+	help_text.text = h[1] if h.size() > 1 else ""
+
+
+## A command from the panel or a card. Stop and hold go straight to the selection; alpha
+## strike toggles; run, jump, guard and fire-from-position arm a mode for the next order.
+func _on_command(kind: String) -> void:
+	match kind:
+		"stop", "hold":
+			command_mode = ""
+			for m in view.input.selection:
+				view.input._order(m, "stop")
+		"alpha_strike":
+			view.input.toggle_alpha_strike()
+		_:
+			command_mode = "" if command_mode == kind else kind
+	# TODO(camera agent): CommandInput has no run/jump/guard/fire-from-position orders yet (the
+	# sim has move/attack/hold/capture only). When it grows an order_mode, the armed mode goes there.
+	if "order_mode" in view.input:
+		view.input.set("order_mode", command_mode)
+
+
+func _on_card_order(u: SimUnit, kind: String) -> void:
+	if not view.input.selection.has(u):
+		view.input._set_selection([u])
+	_on_command(kind)
+
+
+func _on_support(kind: String) -> void:
+	view.input.support_kind = kind if view.input.support_kind != kind else ""
 
 
 func _on_card_picked(u: SimUnit, add: bool) -> void:
@@ -169,9 +350,36 @@ func _on_card_picked(u: SimUnit, add: bool) -> void:
 	view.input._set_selection(s)
 
 
+## Double-click on a card: the camera follows the unit until the player pans (RtsCamera.follow).
+func _focus_unit(u: SimUnit) -> void:
+	view.camera.follow(u)
+
+
+## Minimap pan: RtsCamera.pan_to clamps to the map and stops any follow.
+func _pan_camera(p: Vector2) -> void:
+	view.camera.pan_to(p)
+
+
 func _on_minimap_move(p: Vector2) -> void:
 	for m in view.input.selection:
 		view.world.order_move(m, p)
+
+
+## A pilot talking: the comms panel shows their portrait and line, and their card blinks.
+func pilot_says(u: SimUnit, text: String, seconds := -1.0) -> void:
+	var who := "%s · %s" % [u.pilot.name if u.pilot else u.name, u.name]
+	comms.say(who, text, u, seconds)
+
+
+func _dev_args() -> void:
+	if _args.has("select"):
+		var id := int(_args["select"])
+		if id >= 0 and id < view.world.units.size():
+			view.input._set_selection([view.world.units[id]])
+	if _args.has("comms"):
+		var id := int(_args["comms"])
+		if id >= 0 and id < view.world.units.size():
+			pilot_says(view.world.units[id], "Airfield in sight. Picking up a 'Mech on the apron, looks like a Starslayer.", 600.0)
 
 
 func message(text: String) -> void:
@@ -218,10 +426,7 @@ func on_event(e: Dictionary) -> void:
 			var u: SimUnit = w.units[e["unit"]]
 			message("%s joins your force" % u.name)
 			if u.team == view.sm.player_team and u.on_gui and not cards.has(u.id):
-				var c := UnitCard.new(u)
-				c.picked.connect(_on_card_picked)
-				force_bar.add_child(c)
-				cards[u.id] = c
+				_rebuild_lance()
 		"capture_refused", "capture_blocked":
 			message("%s cannot capture %s%s" % [w.units[e["unit"]].name, w.units[e["target"]].name,
 				" — enemy nearby" if e["type"] == "capture_blocked" else ""])
@@ -229,35 +434,144 @@ func on_event(e: Dictionary) -> void:
 
 func _objective_title(obj: Dictionary) -> String:
 	var t: String = GameData.string(obj["title_string"]) if obj["title_string"] > 0 else ""
-	return t if not t.is_empty() else String(obj["title"])
+	return UiStyle.objective_title(t if not t.is_empty() else String(obj["title"]))
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_O:
+		objectives_visible = not objectives_visible
+		objectives_panel.visible = objectives_visible
+		get_viewport().set_input_as_handled()
 
 
 func _process(_delta: float) -> void:
+	if absf(UiStyle.hud_unit(_viewport_height()) - unit_px) > 0.01:
+		_build()  # viewport height or HUD scale changed
 	var w: SimWorld = view.world
-	top_label.text = "%s   %02d:%02d      LMB select · RMB move/attack/capture · H hold · F alpha strike · WASD/QE/wheel camera" % [
-		view.mission, int(w.time) / 60, int(w.time) % 60]
-	var lines: Array[String] = ["OBJECTIVES"]
-	for obj in view.sm.objectives.visible_objectives():
-		lines.append(("✔ " if obj["complete"] else "• ") + _objective_title(obj))
-	objectives_label.text = "\n".join(lines)
+	var sel: Array = view.input.selection
+	var first: SimUnit = sel[0] if not sel.is_empty() else null
+	_update_mission(w)
+	_update_objectives()
+	tac_title.text = view.title if not String(view.title).is_empty() else view.mission
+	tac_time.text = "%02d:%02d" % [int(w.time) / 60, int(w.time) % 60]
+	minimap.view_polygon = _camera_footprint()
+	# messages
 	var keep := []
 	for m in _messages:
 		if w.time - m[1] < MESSAGE_LIFE:
 			keep.append(m)
 	_messages = keep
 	log_label.text = "\n".join(_messages.map(func(m): return m[0]))
+	# lance
+	var tons := 0.0
+	var expanded_done := false
 	for id in cards:
-		cards[id].selected = view.input.selection.has(w.units[id])
-	minimap.view_polygon = _camera_footprint()
-	_update_support()
+		var c: UnitCard = cards[id]
+		var u: SimUnit = w.units[id]
+		tons += u.tonnage
+		c.selected = sel.has(u)
+		c.expanded = u == first and not expanded_done
+		if c.expanded:
+			expanded_done = true
+		c.speaking = comms.visible and comms.speaker_unit == u
+		c.active_mode = command_mode if c.selected else ""
+		# the card's number: its lowest selection group (Ctrl+n, CommandInput), else its force position
+		var gs: Array = view.input.groups_of(u)
+		c.group = gs.min() if not gs.is_empty() and gs.min() > 0 else c.force_index
+	lance_small.text = "%d t · %d / %d" % [roundi(tons), cards.size(), MAX_FORCE]
+	lance_scroll.custom_minimum_size.y = minf(lance_list.get_combined_minimum_size().y, _viewport_height() * 0.52)
+	# command panel, systems, comms
+	command_panel.update_state(command_mode, not sel.is_empty() and sel.all(func(m): return m.ignore_heat_discipline),
+		view.sm.support, view.input.support_kind)
+	systems.show_unit(first)
+	comms.set_voice(view.audio != null and view.audio.voice != null and view.audio.voice.playing)
+	_update_banner()
+	_layout()
+
+
+func _update_mission(w: SimWorld) -> void:
+	var objs: Array = view.sm.objectives.visible_objectives()
+	var done := objs.filter(func(o): return o["complete"]).size()
+	var current := ""
+	for o in objs:
+		if o["primary"] and not o["complete"] and not o["failed"]:
+			current = _objective_title(o)
+			break
+	if current.is_empty():
+		current = "All objectives complete" if done == objs.size() and not objs.is_empty() else "—"
+	mission_name.text = view.title if not String(view.title).is_empty() else view.mission
+	mission_objective.text = current
+	var f := UiStyle.font("display600", roundi(0.08 * 1.25 * unit_px))
+	var want := f.get_string_size(current.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, kit.px(1.25)).x + 2.0
+	mission_objective.custom_minimum_size.x = minf(want, kit.em(MISSION_EM - 2.8) - mission_name.get_minimum_size().x - mission_count.get_minimum_size().x - kit.em(3.0))
+	mission_count.text = "%d / %d" % [done, objs.size()]
+	mission_bar.value = float(done) / maxf(objs.size(), 1.0)
+	tape.heading = fposmod(view.camera.yaw_deg, 360.0)
+
+
+func _update_objectives() -> void:
+	var objs: Array = view.sm.objectives.visible_objectives()
+	var sig := ",".join(objs.map(func(o): return "%d%s%s" % [o["index"], o["complete"], o["failed"]]))
+	if sig == _objectives_sig:
+		return
+	_objectives_sig = sig
+	for c in objectives_list.get_children():
+		objectives_list.remove_child(c)
+		c.queue_free()
+	var secondary := objs.filter(func(o): return not o["primary"])
+	for o in objs.filter(func(o): return o["primary"]):
+		objectives_list.add_child(_objective_row(o))
+	if not secondary.is_empty():
+		var sec := kit.label("Secondary", "display600", 0.8, UiStyle.HUD_DIM, true, 0.14)
+		objectives_list.add_child(sec)
+		for o in secondary:
+			objectives_list.add_child(_objective_row(o))
+
+
+func _objective_row(o: Dictionary) -> HBoxContainer:
+	var row := kit.hbox(0.5)
+	var b := ObjectiveBox.new()
+	b.state = 1 if o["complete"] else (2 if o["failed"] else 0)
+	b.custom_minimum_size = Vector2(kit.em(1.05), kit.em(1.05))
+	b.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	row.add_child(b)
+	var t := kit.para(_objective_title(o), OBJECTIVES_EM - 2.0 - 1.6, "body400", 1.1,
+		UiStyle.HUD_DIM if o["complete"] or o["failed"] else UiStyle.HUD_INK)
+	row.add_child(t)
+	return row
+
+
+func _update_banner() -> void:
 	var res: int = view.sm.objectives.result
 	if view.pause_menu and view.pause_menu.ended:
 		banner.visible = false  # the end panel takes over
 	elif res != SimObjectives.Result.PLAYING and not banner.visible:
 		banner.visible = true
-		banner.text = "MISSION SUCCESSFUL" if res == SimObjectives.Result.WON else "MISSION FAILED"
-		banner.add_theme_color_override("font_color", Color(0.5, 1.0, 0.5) if res == SimObjectives.Result.WON else Color(1.0, 0.4, 0.3))
-		banner.position = get_viewport().get_visible_rect().size / 2.0 - banner.get_minimum_size() / 2.0
+		banner.text = "Mission successful" if res == SimObjectives.Result.WON else "Mission failed"
+		banner.add_theme_color_override("font_color", UiStyle.HUD_OK if res == SimObjectives.Result.WON else UiStyle.HUD_CRIT)
+
+
+## Fraction of the viewport covered by visible HUD panels (the mock-up's coverage meter:
+## union of panel rects on a 4 px grid).
+func coverage() -> float:
+	var vs := get_viewport().get_visible_rect().size
+	var gw := int(ceil(vs.x / 4.0))
+	var gh := int(ceil(vs.y / 4.0))
+	var grid := PackedByteArray()
+	grid.resize(gw * gh)
+	for c in [mission_panel, tac_panel, comms, objectives_panel, lance_panel, command_panel, systems]:
+		if c == null or not c.is_visible_in_tree():
+			continue
+		var r: Rect2 = c.get_global_rect()
+		var x0 := clampi(int(floor(r.position.x / 4.0)), 0, gw)
+		var x1 := clampi(int(ceil(r.end.x / 4.0)), 0, gw)
+		for y in range(clampi(int(floor(r.position.y / 4.0)), 0, gh), clampi(int(ceil(r.end.y / 4.0)), 0, gh)):
+			for x in range(x0, x1):
+				grid[y * gw + x] = 1
+	var n := 0
+	for v in grid:
+		n += v
+	return float(n) / maxf(grid.size(), 1.0)
 
 
 ## World positions of the four screen corners on the ground (water plane fallback).
@@ -279,38 +593,23 @@ func _camera_footprint() -> PackedVector2Array:
 	return out
 
 
-class WeaponsPanel:
+## An objective's checkbox: cyan square, green with a tick when done, red cross when failed.
+class ObjectiveBox:
 	extends Control
-	## Weapons of the first selected unit: name, range, recycle progress, ammo.
-	var hud
+	var state := 0  # 0 open, 1 done, 2 failed
 
-	func _process(_delta: float) -> void:
-		queue_redraw()
+	func _init() -> void:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	func _draw() -> void:
-		var sel: Array = hud.view.input.selection
-		if sel.is_empty():
-			return
-		var u: SimUnit = sel[0]
-		var font := get_theme_default_font()
-		draw_rect(Rect2(Vector2.ZERO, size), Color(0.05, 0.07, 0.08, 0.8))
-		draw_string(font, Vector2(8, 16), "%s — weapons" % u.name, HORIZONTAL_ALIGNMENT_LEFT, size.x - 16, 13, Color(0.9, 0.95, 0.9))
-		var now: float = hud.view.world.time
-		var y := 32.0
-		for w in u.weapon_indices():
-			if y > size.y - 6:
-				break
-			var item: Dictionary = u.items[w]
-			var wd := u.weapon(w)
-			var dead: bool = item["disabled"]
-			var col := Color(0.45, 0.45, 0.45) if dead else Color(0.85, 0.9, 0.85)
-			draw_string(font, Vector2(8, y + 9), item["component"]["name"], HORIZONTAL_ALIGNMENT_LEFT, 150, 11, col)
-			draw_string(font, Vector2(160, y + 9), String(wd.get("range", "")).left(3).to_upper(), HORIZONTAL_ALIGNMENT_LEFT, 30, 10, col)
-			var shots := u.weapon_shots(w)
-			draw_string(font, Vector2(190, y + 9), "∞" if shots < 0 else str(shots), HORIZONTAL_ALIGNMENT_LEFT, 40, 10, col)
-			var recycle := float(wd.get("recycle", 1.0))
-			var frac := 1.0 - clampf((float(item["ready_time"]) - now) / maxf(recycle, 0.01), 0.0, 1.0)
-			var r := Rect2(230, y + 2, size.x - 238, 7)
-			draw_rect(r, Color(0.15, 0.15, 0.15))
-			draw_rect(Rect2(r.position, Vector2(r.size.x * frac, r.size.y)), Color(0.3, 0.8, 0.9) if frac >= 1.0 else Color(0.25, 0.5, 0.6))
-			y += 14.0
+		var s := minf(size.x, size.y) * 0.86
+		var r := Rect2(Vector2(0, (size.y - s) * 0.5 + s * 0.12), Vector2(s, s))
+		var col := UiStyle.HUD_OK if state == 1 else (UiStyle.HUD_CRIT if state == 2 else UiStyle.HUD_EDGE)
+		draw_rect(r, col, false, 1.0)
+		var w := maxf(1.5, s / 7.0)
+		if state == 1:
+			draw_polyline(PackedVector2Array([r.position + r.size * Vector2(0.2, 0.52), r.position + r.size * Vector2(0.42, 0.74),
+				r.position + r.size * Vector2(0.8, 0.28)]), col, w, true)
+		elif state == 2:
+			draw_line(r.position + r.size * 0.25, r.position + r.size * 0.75, col, w, true)
+			draw_line(r.position + r.size * Vector2(0.75, 0.25), r.position + r.size * Vector2(0.25, 0.75), col, w, true)
