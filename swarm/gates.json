@@ -24,6 +24,18 @@
       "name": "tests_green",
       "cmd": "/home/leeo/Code/remake-kit/gates/tests_green.sh",
       "timeout": 1200
+    },
+    {
+      "name": "no_open_p1",
+      "cmd": "python3 -I /home/leeo/Code/remake-kit/gates/no_open_issues.py --repo . --max-sev P1"
+    },
+    {
+      "name": "balance_2_of_3",
+      "cmd": "python3 -I /home/leeo/Code/remake-kit/gates/sweep_balance.py --repo . --min-wins 2"
+    },
+    {
+      "name": "screens_fresh",
+      "cmd": "python3 -I /home/leeo/Code/remake-kit/gates/screens_fresh.py --repo . --dir docs/screens/readme --after 2cb986f"
     }
   ],
   "7.done": [

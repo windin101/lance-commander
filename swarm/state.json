@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T21:39:55+13:00",
+  "updated": "2026-10-20T21:42:56+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1545,11 +1545,6 @@
   ],
   "log": [
     {
-      "at": "2026-10-19T16:55:37+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 2: 2 approved, 2 issues"
-    },
-    {
       "at": "2026-10-19T16:55:49+13:00",
       "who": "game-art",
       "msg": "issue I40 P2: HD cyclops: reseed_concept"
@@ -2543,6 +2538,11 @@
       "at": "2026-10-20T21:39:55+13:00",
       "who": "conductor",
       "msg": "phase 8 (Playtest & polish) started"
+    },
+    {
+      "at": "2026-10-20T21:42:56+13:00",
+      "who": "agent",
+      "msg": "lee: phase 8 balance bar = every mission won on 2+ of 3 seeds by the improved bot; gate checks added (tests, no open P1, balance, screens fresh after 2cb986f)"
     }
   ],
   "choices": [
