@@ -22,6 +22,8 @@ var box: ColorRect
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if world and world.movie_mode:  # mission cinematic: player input off, as in the original (missiongui.cpp:430)
+		return
 	if support_kind != "" and _support_input(event):
 		get_viewport().set_input_as_handled()
 		return

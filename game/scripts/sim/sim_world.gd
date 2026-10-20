@@ -22,6 +22,7 @@ var units: Array[SimUnit] = []
 var projectiles: Array[Dictionary] = []  # {shot, target_id, impact_time}
 var events: Array[Dictionary] = []  # drained by the view each frame
 var flags: Dictionary = {}  # mission boolean flags (objectives, mission script, brains)
+var movie_mode := false  # a mission cinematic runs (ABL setMovieMode): no player orders until endMovieMode
 var fire_discipline_level := 20  # don't fire a weapon that would push heat past this level
 var projectile_speed := {"EnergyWeapon": 0.0, "BallisticWeapon": 450.0, "MissileWeapon": 160.0, "Weapon": 450.0}
 
@@ -308,6 +309,13 @@ func _pick_target(m: SimUnit) -> SimUnit:
 	if m.current_target and not m.current_target.is_disabled() \
 			and m.distance_to(m.current_target.position) <= reach:
 		return m.current_target
+	# Fire at will (nearest armed enemy in reach): units without a scripted brain, the player brain, and
+	# scripted units whose brain has ordered an attack. In the original a brain picks its own targets
+	# (NewScan + CoreAttack, warrior.cpp coreScan); a brain that never engages (mc2_17's camera dummies)
+	# never fires. Auto-firing those started mc2_17's battle ~75 s early (I12). Engaged brains keep the
+	# fallback because the port's patrol brains re-scan less often than the original's.
+	if m.brain != null and not m.brain_engaged and m.brain_name.to_lower() != "pbrain":
+		return null
 	if m.engage_m > 0.0:
 		reach = minf(reach, m.engage_m)
 	var best: SimUnit = null

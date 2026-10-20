@@ -326,6 +326,7 @@ func _issue(p: Pilot, o: Dictionary) -> void:
 		TO_ATTACK_OBJECT:
 			var t: SimUnit = o["target"]
 			u.current_target = t
+			u.brain_engaged = true
 			if o.get("pursue", true):
 				world.order_attack(u, t)
 			else:
@@ -1107,10 +1108,13 @@ func _register() -> void:
 	r.register_native("isPlayingVoiceOver", func(_i, _a): return voice_busy.call() if voice_busy.is_valid() else false)
 	r.register_native("stopVoiceOver", func(_i, _a): return 0)
 	r.register_native("inCallout", func(_i, _a): return false)
-	r.register_native("forceMovieEnd", func(_i, _a): return 0)
+	r.register_native("forceMovieEnd", func(_i, _a):
+		world.movie_mode = false
+		return 0)
 	for name in ["setMovieMode", "endMovieMode"]:
 		var n: String = name
 		r.register_native(n, func(_i, _a):
+			world.movie_mode = n == "setMovieMode"  # the original turns player input off in movie mode (missiongui.cpp:430)
 			world.events.append({"type": "abl_" + n.to_lower()})
 			return 0)
 	for name in ["setCameraPosition", "setCameraRotation", "setCameraGoalPosition", "setCameraGoalRotation", "fadeToColor"]:

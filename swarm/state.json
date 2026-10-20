@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T18:17:21+13:00",
+  "updated": "2026-10-20T18:47:41+13:00",
   "phase": {
     "current": 7,
     "status": "done"
@@ -500,8 +500,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-20T18:47:41+13:00",
+      "note": "2026-10-20 partial fix: scripted brains fire at will only after their brain has ordered an attack (SimUnit.brain_engaged), so mc2_17's camera dummies no longer fire; setMovieMode/endMovieMode now block player input and the autoplay bot (world.movie_mode). Remaining: the player lance's pbrain fire-at-will shoots the CamDum_son Cyclops at t=0.5, Steiner join at ~t=56, before liaoBetrays (~t=79). Open question for the original: how CamDum units were kept out of the player's targeting during the opening cinematic (visibility/contact?). New autoplay --shots=N prints who fires first. Sweep: 24/72 wins vs 22 baseline; mc2_17 survives 178-235 s vs 145-187."
     },
     {
       "id": "I13",
@@ -1492,11 +1492,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:49:02+13:00",
-      "who": "conductor",
-      "msg": "decided C23: Critic's nondeterminism claim filed as P3 unclear, not a bug \u2014 start-of-mission ABL pilot counts are identical per seed (39/39/39, 72/72/72); the differing number is the end-of-run count, which includes scripted mid-mission spawns"
-    },
     {
       "at": "2026-10-19T16:49:02+13:00",
       "who": "conductor",
@@ -2491,6 +2486,11 @@
       "at": "2026-10-20T18:17:21+13:00",
       "who": "conductor",
       "msg": "issue I10 fixed: sim_map.gd: paths that start off-map may cross off-map cells (Move.cpp:4379 travelOffMap); nothing on the map paths into them. mc2_06 seed 1: 48/49 enemies move, waves 2-3 trigger, mission resolves (LOST t=749, bot); mc2_12: 54/85 move, convoys travel (LOST t=625, bot). Test test_mover_starting_off_map_drives_in."
+    },
+    {
+      "at": "2026-10-20T18:47:41+13:00",
+      "who": "conductor",
+      "msg": "issue I12 updated: note \u2014 2026-10-20 partial fix: scripted brains fire at will only after their brain has ordered an attack (SimUnit.brain_engaged), so mc2_17's camera dummies no longer fire; setMovieMode/endMovieMode now block player input and the autoplay bot (world.movie_mode). Remaining: the player lance's pbrain fire-at-will shoots the CamDum_son Cyclops at t=0.5, Steiner join at ~t=56, before liaoBetrays (~t=79). Open question for the original: how CamDum units were kept out of the player's targeting during the opening cinematic (visibility/contact?). New autoplay --shots=N prints who fires first. Sweep: 24/72 wins vs 22 baseline; mc2_17 survives 178-235 s vs 145-187."
     }
   ],
   "choices": [
