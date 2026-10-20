@@ -4,7 +4,8 @@
     python3 -I tools/art/credits.py [--check]
 
 For each asset whose provenance says kind "adapted" (a Creative Commons 3D-print sculpt rigged by tools/art/stl_rig.py,
-stl_rig_vulture.py or stl_hd.py) this writes game/assets/<mechs|vehicles>/<asset>_hd.LICENSE.md and the generated
+stl_rig_vulture.py or stl_hd.py; static map props from stl_hd.py --kind objects since 2026-10-20) this writes
+game/assets/<mechs|vehicles|objects>/<asset>_hd.LICENSE.md and the generated
 blocks in CREDITS.md and README.md (between the "adapted-models" markers). Every notice names the creator, the title,
 a link to the material and to the licence, says what was changed and under which licence the adaptation is shared,
 and says the creator has not endorsed this project, as the CC 4.0 licences require. --check exits 1 if anything
@@ -29,6 +30,9 @@ CHANGES = {
               "pieces removed; the mesh simplified (vertex clustering); scaled, turned and fitted to the MechCommander 2 model it "
               "replaces; each part bound to the game model's moving parts (turret, launcher, rotor); painted by region from the "
               "original model's team-colour mask"),
+    "static": ("display bases, sprues and spare pieces removed; the mesh simplified (vertex clustering); scaled, turned and "
+               "fitted to the footprint and height of the MechCommander 2 map object it replaces, standing on the ground; "
+               "painted by region from the original model's own colours"),
 }
 # Sources whose uploader says they are remixes or assemblies of other models whose licences could not be confirmed.
 # Lee approved their use on 2026-10-19; the notice says so plainly.
@@ -47,7 +51,7 @@ def adapted():
     out = []
     for p in sorted((ROOT / "original/hd").glob("*/provenance.json")):
         d = json.loads(p.read_text())
-        folder = "vehicles" if d.get("class") == "vehicles" else "mechs"
+        folder = d.get("class") if d.get("class") in ("vehicles", "objects") else "mechs"
         if d.get("kind") == "adapted" and (ROOT / f"game/assets/{folder}/{d['asset']}_hd.glb").exists():
             d["_folder"] = folder
             out.append(d)
@@ -76,7 +80,9 @@ def name(asset):
             "heavycopter": "Heavy copter", "laohu": "Lao Hu", "shayu": "Sha Yu", "menshen": "Men Shen", "mobilehq": "Mobile HQ",
             "lrmc": "LRM carrier", "swarmlrmc": "Swarm LRM carrier", "apc": "APC", "mog": "MOG", "armoredcar": "Armoured car",
             "cargotruck": "Cargo truck", "fueltruck": "Fuel truck", "ordnancetruck": "Ordnance truck", "repairtruck": "Repair truck",
-            "trooptransport": "Troop transport", "aerospotter": "AeroSpotter"}.get(asset, asset.capitalize())
+            "trooptransport": "Troop transport", "aerospotter": "AeroSpotter", "slayerp": "Parked Slayer",
+            "shilonep": "Parked Shilone", "privatejet": "Private jet", "dropshipdavion": "Dropship (tan)",
+            "dropshipsteiner": "Dropship (blue)", "dropshipliao": "Dropship (green)", "lifeboat": "Lifeboat"}.get(asset, asset.capitalize())
 
 
 def notice(d):
@@ -86,8 +92,10 @@ def notice(d):
     rigid = tool.endswith("stl_hd.py")
     a, f = d["asset"], d["_folder"]
     unv = [v for k, v in UNVERIFIED.items() if any(k in u for u in urls)]
+    static = f == "objects"
     skel = ("The skeleton, joint names and animations in the same `.glb` are converted from Microsoft's 2006 MechCommander 2 "
             "Shared Source release" if not rigid else
+            "The node names and placement in the same `.glb` are converted from Microsoft's 2006 MechCommander 2 Shared Source release" if static else
             "The part hierarchy, pivots and animations in the same `.glb` are converted from Microsoft's 2006 MechCommander 2 Shared Source release")
     return f"""# {a}_hd.glb — licence and attribution
 
@@ -98,7 +106,7 @@ The 3D mesh of the HD {name(a)} in `{a}_hd.glb` (and its paint mask `{a}_hd_pain
 {chr(10) + "**Rights note.** " + " ".join(unv) + " Lee Osborne approved its use on 2026-10-19 on the strength of the licence shown on the page. If you hold rights in the original material and want it removed, please open an issue." + chr(10) if unv else ""}
 ## Changes made
 
-The original STL was modified for use as a game model: {CHANGES['rigid' if rigid else 'mech']}{('; ' + d['extra_changes']) if d.get('extra_changes') else ''}. The changes are made by `{tool}`
+The original STL was modified for use as a game model: {CHANGES['static' if static else 'rigid' if rigid else 'mech']}{('; ' + d['extra_changes']) if d.get('extra_changes') else ''}. The changes are made by `{tool}`
 in this repository (the settings it used: see `original/hd/{a}/provenance.json` in the build tree).
 
 ## Licence of this adaptation
