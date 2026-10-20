@@ -113,3 +113,21 @@ func test_extraction_blocked_while_enemies_near() -> void:
 	blocker.position = area + Vector2(100, 0)
 	_step(3)
 	assert_bool(_obj(5)["complete"]).is_false()
+
+
+## I11 (mission.cpp:1106-1124): a part placed destroyed (FIT Damage >= 1.0) spawns shut down and off the GUI
+## when it is the home commander's (mc2_08's Atlas, Part2), disabled otherwise (mc2_11's salvage-yard mechs).
+func test_parts_placed_destroyed() -> void:
+	var s8 := SimMission.load_mission(GameData, "mc2_08", 4)
+	var atlas: SimUnit = null
+	for u in s8.world.units:
+		if u.part_index == 2:
+			atlas = u
+	assert_object(atlas).is_not_null()
+	assert_int(atlas.status).is_equal(SimUnit.Status.SHUTDOWN)
+	assert_bool(atlas.on_gui).is_false()
+	assert_bool(s8.objectives._player_force(atlas)).is_false()
+	var s11 := SimMission.load_mission(GameData, "mc2_11", 4)
+	for u in s11.world.units:
+		if u.part_index in [9, 10, 11, 14, 39]:
+			assert_bool(u.is_disabled()).is_true()

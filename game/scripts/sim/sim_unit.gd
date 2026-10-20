@@ -37,6 +37,7 @@ var capturable := false  # CAPTURABLE: by type, or named by a capture objective 
 var captured_flag := false  # ABL setCaptured only (isCaptured reads it, A6)
 var refit_pool := 0.0  # repair truck: points left to repair with (support-powers.md 3.4)
 var resource_points := 0  # paid to the player when captured (RP buildings, ordnance trucks)
+var on_gui := true  # on the player's GUI; a home part spawned destroyed is shut down and off it for good (I11)
 var hulk := false  # a captured vehicle: on the capturer's team but inert and outside its force (A4)
 
 var position := Vector2.ZERO  # metres; x east, y north

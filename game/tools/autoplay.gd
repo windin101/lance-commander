@@ -58,7 +58,7 @@ func _init() -> void:
 							print("      extraction blocked by %s (team %d, commander %d, brain %s, %.0f m)" % [u.name, u.team, u.commander,
 								u.brain_name, u.position.distance_to(c["center"])])
 					for u in w.units:
-						if u.is_mover() and u.team == 0 and u.commander == 0 and u is SimMech and not SimObjectives.dead(u) and not u.hulk:
+						if u.is_mover() and u.team == 0 and u.commander == 0 and u is SimMech and not SimObjectives.dead(u) and not u.hulk and u.on_gui:
 							print("      lance %s %.0f m from the point (radius %.0f), path %d, order %d" % [u.name,
 								u.position.distance_to(c["center"]), c["radius"],
 								w.map.find_path(u.position, w.map.nearest_walkable(c["center"], u.hover), u.hover).size(), u.order])
@@ -120,7 +120,7 @@ const ENGAGE_M := 320.0  # armed enemies this close to the lance are fought befo
 func _orders(sm: SimMission) -> void:
 	var w := sm.world
 	var lance := w.units.filter(func(u): return u.team == 0 and u.commander == 0 and u.is_mover() \
-		and u.exists and not u.is_disabled() and not u.hulk and u.refit_pool <= 0.0)
+		and u.exists and not u.is_disabled() and not u.hulk and u.on_gui and u.refit_pool <= 0.0)
 	if lance.is_empty():
 		return
 	var centre := Vector2.ZERO

@@ -90,6 +90,13 @@ static func load_mission(data: Object, mission: String, seed_value: int = 1, run
 		m.warrior_index = int(part.get("Pilot", i))
 		m.exists = int(part.get("Exists", 1)) != 0
 		m.awake = int(part.get("Active", 1)) != 0
+		if float(part.get("Damage", 0.0)) >= 1.0:  # mission.cpp:1106-1124: a part placed destroyed
+			if m.commander == 0:  # home commander: shut down, off the GUI (not selectable, not counted)
+				m.status = SimUnit.Status.SHUTDOWN
+				m.powered_down = true
+				m.on_gui = false
+			else:  # anyone else: a disabled wreck from the start
+				m.status = SimUnit.Status.DISABLED
 		if slots.has(i):
 			var s: Array = slots[i]
 			m.group = s[1]

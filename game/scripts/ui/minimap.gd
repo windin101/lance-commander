@@ -89,6 +89,8 @@ func _draw() -> void:
 		var p := world_to_map(u.position)
 		if u.is_disabled():
 			draw_circle(p, 1.5, Color(0.2, 0.2, 0.2))
+		elif u.team == player_team and not u.on_gui:
+			continue  # off the GUI (gameTacMap.cpp:370)
 		elif u.team == player_team:
 			draw_circle(p, 3.0, Color(0.3, 1.0, 0.4))
 		else:
