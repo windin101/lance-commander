@@ -27,6 +27,7 @@ var cells := PackedInt32Array()  # raw MapCell words
 
 var _astar: AStarGrid2D
 var _astar_hover: AStarGrid2D
+var _astar_offmap: Dictionary = {}  # hover -> grid with off-map cells open (movers that start off the map)
 
 
 static func load_mission(mission: String, base_dir: String = "res://data/maps") -> SimMap:
@@ -95,9 +96,11 @@ func cell_flag(cell: Vector2i, field: String) -> int:
 
 ## Ground-mover cost of entering a cell (Move.cpp:4400-4470): clear 100,
 ## roads quarter cost, forest +ForestMoveCost; blocked when off-map, deep
-## water, or not passable. Hovercraft also cross deep water.
-func move_cost(cell: Vector2i, hover: bool = false) -> float:
-	if not in_bounds(cell) or cell_flag(cell, "offmap") == 1:
+## water, or not passable. Hovercraft also cross deep water. travel_offmap
+## opens off-map cells, as the original does for a mover whose path starts
+## off the map (Move.cpp:4379-4382, travelOffMap): reinforcements drive in.
+func move_cost(cell: Vector2i, hover: bool = false, travel_offmap: bool = false) -> float:
+	if not in_bounds(cell) or (cell_flag(cell, "offmap") == 1 and not travel_offmap):
 		return COST_BLOCKED
 	if cell_flag(cell, "deep") == 1:
 		return COST_CLEAR if hover else COST_BLOCKED
@@ -121,7 +124,7 @@ func build_pathing() -> void:
 	_astar = _build_grid(false)
 
 
-func _build_grid(hover: bool) -> AStarGrid2D:
+func _build_grid(hover: bool, travel_offmap: bool = false) -> AStarGrid2D:
 	var g := AStarGrid2D.new()
 	g.region = Rect2i(0, 0, cells_per_side, cells_per_side)
 	g.cell_size = Vector2(1, 1)
@@ -132,7 +135,7 @@ func _build_grid(hover: bool) -> AStarGrid2D:
 	for row in cells_per_side:
 		for col in cells_per_side:
 			var cell := Vector2i(col, row)
-			var cost := move_cost(cell, hover)
+			var cost := move_cost(cell, hover, travel_offmap)
 			if cost >= COST_BLOCKED:
 				g.set_point_solid(cell, true)
 			else:
@@ -153,6 +156,10 @@ func find_path(start: Vector2, goal: Vector2, hover: bool = false) -> PackedVect
 	var out := PackedVector2Array()
 	if not in_bounds(a) or not in_bounds(b) or not is_walkable(b, hover):
 		return out
+	if cell_flag(a, "offmap") == 1:  # starting off the map: off-map cells are open for this path
+		if not _astar_offmap.has(hover):
+			_astar_offmap[hover] = _build_grid(hover, true)
+		grid = _astar_offmap[hover]
 	for cell in grid.get_id_path(a, b):
 		out.append(cell_center(cell))
 	if out.size() > 0:

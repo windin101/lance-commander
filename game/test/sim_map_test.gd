@@ -87,3 +87,25 @@ func test_no_path_into_deep_water() -> void:
 			sea = map.cell_center(c)
 			break
 	assert_int(map.find_path(a, sea).size()).is_equal(0)
+
+
+## I10: reinforcements start on off-map cells (mc2_06 waves). As in the original (Move.cpp travelOffMap),
+## a path that starts off the map may cross off-map cells, but nothing on the map may path into them.
+func test_mover_starting_off_map_drives_in() -> void:
+	var m := SimMap.load_mission("mc2_06")
+	m.build_pathing()
+	var start := Vector2i(-1, -1)
+	for row in m.cells_per_side:
+		for col in m.cells_per_side:
+			var c := Vector2i(col, row)
+			if m.cell_flag(c, "offmap") == 1 and m.move_cost(c, false, true) < SimMap.COST_BLOCKED:
+				start = c
+				break
+		if start.x >= 0:
+			break
+	assert_bool(start.x >= 0).is_true()
+	var from := m.cell_center(start)
+	var goal := m.nearest_walkable(from, false, 60)
+	assert_bool(m.cell_flag(m.cell_of(goal), "offmap") == 0).is_true()
+	assert_int(m.find_path(from, goal).size()).is_greater(0)
+	assert_int(m.find_path(goal, from).size()).is_equal(0)
