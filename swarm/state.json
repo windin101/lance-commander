@@ -6,10 +6,10 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T20:03:05+13:00",
+  "updated": "2026-10-20T21:13:24+13:00",
   "phase": {
     "current": 7,
-    "status": "done"
+    "status": "gated"
   },
   "phases": {
     "0": {
@@ -161,40 +161,40 @@
     },
     "7": {
       "name": "HD art (dry run)",
-      "status": "done",
+      "status": "gated",
       "started": "2026-10-19T16:08:13+13:00",
       "ended": "2026-10-20T18:05:42+13:00",
       "gate": {
         "passed": true,
-        "at": "2026-10-20T18:05:20+13:00",
+        "at": "2026-10-20T21:13:24+13:00",
         "checks": [
           {
             "name": "tests_green",
             "pass": true,
-            "detail": "tests pass (125 cases): ALL TESTS PASSED",
-            "seconds": 38.3,
-            "at": "2026-10-20T18:05:20+13:00"
+            "detail": "tests pass (147 cases): ALL TESTS PASSED",
+            "seconds": 42.9,
+            "at": "2026-10-20T21:13:24+13:00"
           },
           {
             "name": "hd_provenance",
             "pass": true,
             "detail": "72 HD meshes, all with provenance rows and fit data",
             "seconds": 0.0,
-            "at": "2026-10-20T18:05:20+13:00"
+            "at": "2026-10-20T21:13:24+13:00"
           },
           {
             "name": "import_size",
             "pass": true,
             "detail": "imported total 1.47 GB, no file over 64 MB; top: burnin=80MB, overlays_hd=48MB, hangar_high=20MB, s_admin_core_cad_0=12MB, bw_hd_mesh=11MB",
             "seconds": 0.1,
-            "at": "2026-10-20T18:05:20+13:00"
+            "at": "2026-10-20T21:13:24+13:00"
           },
           {
             "name": "provenance_table_current",
             "pass": true,
             "detail": "up to date",
             "seconds": 0.0,
-            "at": "2026-10-20T18:05:20+13:00"
+            "at": "2026-10-20T21:13:24+13:00"
           }
         ]
       },
@@ -1506,21 +1506,6 @@
   ],
   "log": [
     {
-      "at": "2026-10-19T16:52:05+13:00",
-      "who": "conductor",
-      "msg": "decided C25: Batch 2 review skips the provenance backfill and reads the generation run's provenance.json \u2014 every batch-2 mech was produced by the new hd_mech.py, which writes it; a step-4 re-fit would only repeat a deterministic result"
-    },
-    {
-      "at": "2026-10-19T16:52:05+13:00",
-      "who": "conductor",
-      "msg": "batch 2 generation done 16:51: 23 mechs (bushwacker fit 0.964 -> 0.436); all 30 mech chassis have HD; review wf launched (6 groups)"
-    },
-    {
-      "at": "2026-10-19T16:55:10+13:00",
-      "who": "game-art",
-      "msg": "issue I34 P2: HD wolfhound: reseed_concept"
-    },
-    {
       "at": "2026-10-19T16:55:10+13:00",
       "who": "game-art",
       "msg": "issue I35 P2: HD mediumcopter: reseed_concept"
@@ -2504,6 +2489,21 @@
       "at": "2026-10-20T20:03:05+13:00",
       "who": "conductor",
       "msg": "issue I31 fixed: Cause: the loss check matches the original (mission.cpp:535: any home mover on the GUI and not disabled keeps the mission alive, support vehicles included), but our AI never auto-targeted unarmed units (C4 applied to every side), so a lone truck survived on some seeds and not others. AI units now take an unarmed target when nothing armed is in reach (C4 stays for the player's units). mc2_15: all three seeds now end LOST. Remaining stalls (mc2_10 s1-s2, mc2_11, mc2_22) are unarmed survivors out of any enemy's reach, which the original also never ends; bot limitation (I81). mc2_10 now loses its cargo convoy at t~26 to the Gulag defenders (Protect the Convoy objective), so 1/3 wins vs 3/3."
+    },
+    {
+      "at": "2026-10-20T20:34:08+13:00",
+      "who": "agent",
+      "msg": "lee: UI/camera rework. Camera and keys follow the original (arrows pan, Shift+arrows rotate/tilt, Alt+mouse, W/A/S/D/E/F are unit commands); HUD integer-scaled; generated pilot faces, not the original photos; heat shown in the unit panel as in his reference; HUD restyled as a modern interpretation (framed navy and cyan command panels) of the MC2 components; mock-up https://claude.ai/artifact/WvTS43EL3W61FNBtgbm9pH"
+    },
+    {
+      "at": "2026-10-20T20:54:11+13:00",
+      "who": "agent",
+      "msg": "lee approved the HUD/camera plan: 70% default HUD scale, height-based scaling, contextual panels; build started in 3 tracks (camera+compass+selection, paper dolls, HUD)"
+    },
+    {
+      "at": "2026-10-20T21:13:24+13:00",
+      "who": "gate",
+      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
     }
   ],
   "choices": [

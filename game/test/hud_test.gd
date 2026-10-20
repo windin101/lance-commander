@@ -1,5 +1,6 @@
 extends GdUnitTestSuite
-## HUD pieces: damage-diagram colours, minimap mapping, card selection, alpha strike.
+## HUD pieces: damage-diagram colours, minimap mapping, card selection, alpha strike, and the
+## approved-mock-up HUD: lance rows, expanded card, systems monitor, scale, doll masks.
 
 func test_paper_doll_colours() -> void:
 	assert_object(PaperDoll.color(10, 10, 5, 5)).is_equal(PaperDoll.OK)
@@ -63,4 +64,100 @@ func test_hud_in_live_view() -> void:
 	view.input.toggle_alpha_strike()
 	assert_bool(u.ignore_heat_discipline).is_false()
 	assert_int(hud._camera_footprint().size()).is_equal(4)
+	view.queue_free()
+
+
+func test_hud_unit_follows_viewport_height_and_setting() -> void:
+	assert_float(UiStyle.hud_unit(1080.0, 0.7)).is_equal_approx(0.0085 * 1920.0 * 0.7, 0.001)
+	assert_float(UiStyle.hud_unit(2160.0, 0.7)).is_equal_approx(2.0 * UiStyle.hud_unit(1080.0, 0.7), 0.001)
+	assert_float(UiStyle.hud_unit(720.0, 1.0)).is_equal_approx(0.0085 * 1920.0 * 720.0 / 1080.0, 0.001)
+	var keep := UiStyle.hud_scale()
+	UiStyle.set_hud_scale(5.0, false)
+	assert_float(UiStyle.hud_scale()).is_equal(UiStyle.HUD_SCALE_MAX)
+	UiStyle.set_hud_scale(0.1, false)
+	assert_float(UiStyle.hud_scale()).is_equal(UiStyle.HUD_SCALE_MIN)
+	UiStyle.set_hud_scale(keep, false)
+
+
+func test_doll_mask_and_fallback() -> void:
+	var sm := SimMission.load_mission(GameData, "mc2_01")
+	var mech: SimUnit = sm.world.units[0]
+	assert_bool(PaperDoll.mask_for("no_such_unit").is_empty()).is_true()
+	var d := DollView.new(mech)
+	mech.model = "no_such_unit"
+	d.set_unit(mech)
+	assert_bool(d.has_mask()).is_false()  # rectangle layout fallback
+	assert_object(d.material).is_null()
+	mech.model = "werewolf"
+	d.set_unit(mech)
+	if FileAccess.file_exists(PaperDoll.DOLL_DIR + "/werewolf_doll.png"):
+		assert_bool(d.has_mask()).is_true()
+		assert_object(d.material).is_not_null()
+		var r: Rect2 = d.mask["region"]
+		assert_float(r.size.x).is_greater(8.0)
+	d.free()
+	# rear: only the torso is lit, from the rear armour
+	mech.armor[SimMech.Armor.RCTORSO] = 0.0
+	var rear := PaperDoll.location_colours(mech, true)
+	var front := PaperDoll.location_colours(mech, false)
+	assert_object(rear[SimMech.Body.CTORSO]).is_equal(PaperDoll.HOLED)
+	assert_object(front[SimMech.Body.CTORSO]).is_equal(PaperDoll.OK)
+	assert_float(rear[SimMech.Body.LARM].a).is_less(0.5)
+
+
+func test_weapon_groups() -> void:
+	var sm := SimMission.load_mission(GameData, "mc2_01")
+	var g: Array = SystemsMonitor.weapon_groups(sm.world.units[0])  # Werewolf
+	assert_array(g.map(func(x): return x["label"])).contains_exactly(["Streak SRM2 ×2", "Large Laser", "MG Array ×3"])
+	assert_str(g[1]["range"]).is_equal("medium")
+
+
+func test_lance_rows_expand_and_systems_monitor() -> void:
+	var view: Node3D = load("res://scenes/mission_view.tscn").instantiate()
+	view.play_intro = false
+	add_child(view)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var hud: MissionHud = view.hud
+	var units := hud.player_units()
+	assert_int(units.size()).is_equal(3)
+	assert_int(hud.lance_list.get_child_count()).is_equal(units.size())  # one row per unit
+	for u in units:
+		assert_bool(hud.cards[u.id].expanded).is_false()
+	assert_bool(hud.systems.visible).is_false()
+	assert_bool(hud.comms.visible).is_false()
+	assert_float(hud.unit_px).is_equal_approx(UiStyle.hud_unit(hud.get_viewport().get_visible_rect().size.y), 0.01)
+	assert_float(hud.coverage()).is_less(0.2)  # at rest
+	var u: SimUnit = units[1]
+	view.input._set_selection([u])
+	await get_tree().process_frame
+	assert_bool(hud.cards[u.id].expanded).is_true()
+	assert_bool(hud.cards[units[0].id].expanded).is_false()
+	assert_bool(hud.cards[u.id].buttons.has("stop")).is_true()
+	assert_bool(hud.systems.visible).is_true()
+	assert_object(hud.systems.unit).is_same(u)
+	# card STOP and the panel's alpha strike reach the orders
+	hud._on_command("alpha_strike")
+	assert_bool(u.ignore_heat_discipline).is_true()
+	hud._on_command("guard")
+	assert_str(hud.command_mode).is_equal("guard")
+	hud._on_card_order(u, "stop")
+	assert_str(hud.command_mode).is_equal("")
+	# a pilot talking: comms up, the card blinks
+	hud.pilot_says(u, "Contact.", 5.0)
+	await get_tree().process_frame
+	assert_bool(hud.comms.visible).is_true()
+	assert_bool(hud.cards[u.id].speaking).is_true()
+	view.input._set_selection([])
+	await get_tree().process_frame
+	assert_bool(hud.systems.visible).is_false()
+	assert_bool(hud.cards[u.id].expanded).is_false()
+	# the HUD rebuilds at a new scale
+	var keep := UiStyle.hud_scale()
+	var before := hud.unit_px
+	UiStyle.set_hud_scale(1.0 if keep < 0.95 else 0.6, false)
+	await get_tree().process_frame
+	assert_bool(absf(hud.unit_px - before) > 0.01).is_true()
+	assert_int(hud.cards.size()).is_equal(3)
+	UiStyle.set_hud_scale(keep, false)
 	view.queue_free()
