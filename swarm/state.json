@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T18:05:42+13:00",
+  "updated": "2026-10-20T18:17:21+13:00",
   "phase": {
     "current": 7,
     "status": "done"
@@ -472,10 +472,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 300 --mission=mc2_06 --damage --targets ; and -- 1 150 --mission=mc2_12 --damage --targets",
       "owner": "sim",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-20T18:17:21+13:00",
+      "note": "sim_map.gd: paths that start off-map may cross off-map cells (Move.cpp:4379 travelOffMap); nothing on the map paths into them. mc2_06 seed 1: 48/49 enemies move, waves 2-3 trigger, mission resolves (LOST t=749, bot); mc2_12: 54/85 move, convoys travel (LOST t=625, bot). Test test_mover_starting_off_map_drives_in."
     },
     {
       "id": "I11",
@@ -1494,11 +1494,6 @@
   "log": [
     {
       "at": "2026-10-19T16:49:02+13:00",
-      "who": "playtester",
-      "msg": "issue I33 P3: End-of-run ABL pilot count differs by seed (mc2_11 41/42/42, mc2_22 72/73/73); start counts identical"
-    },
-    {
-      "at": "2026-10-19T16:49:02+13:00",
       "who": "conductor",
       "msg": "decided C23: Critic's nondeterminism claim filed as P3 unclear, not a bug \u2014 start-of-mission ABL pilot counts are identical per seed (39/39/39, 72/72/72); the differing number is the end-of-run count, which includes scripted mid-mission spawns"
     },
@@ -2491,6 +2486,11 @@
       "at": "2026-10-20T18:05:42+13:00",
       "who": "conductor",
       "msg": "phase 7 done"
+    },
+    {
+      "at": "2026-10-20T18:17:21+13:00",
+      "who": "conductor",
+      "msg": "issue I10 fixed: sim_map.gd: paths that start off-map may cross off-map cells (Move.cpp:4379 travelOffMap); nothing on the map paths into them. mc2_06 seed 1: 48/49 enemies move, waves 2-3 trigger, mission resolves (LOST t=749, bot); mc2_12: 54/85 move, convoys travel (LOST t=625, bot). Test test_mover_starting_off_map_drives_in."
     }
   ],
   "choices": [
