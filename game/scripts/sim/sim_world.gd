@@ -320,14 +320,24 @@ func _pick_target(m: SimUnit) -> SimUnit:
 		reach = minf(reach, m.engage_m)
 	var best: SimUnit = null
 	var best_d := INF
+	var unarmed: SimUnit = null  # the AI's fallback: its brains scan for any enemy mover (warrior.cpp coreScan)
+	var unarmed_d := INF
 	for e in enemies_of(m):
-		if e.num_weapons == 0:
-			continue  # unarmed units (trucks, transports, mobile HQs): only on an explicit order (C4)
 		var d := m.distance_to(e.position)
-		if d < best_d and d <= reach:
+		if d > reach:
+			continue
+		if e.num_weapons == 0:
+			# unarmed units (trucks, transports, mobile HQs): the player's units engage them only on an explicit
+			# order (C4); AI units take them when nothing armed is in reach, so a lone repair truck cannot hold a
+			# mission open forever (I31)
+			if not m.is_player and d < unarmed_d:
+				unarmed = e
+				unarmed_d = d
+			continue
+		if d < best_d:
 			best = e
 			best_d = d
-	return best
+	return best if best else unarmed
 
 
 func _land_projectiles() -> void:

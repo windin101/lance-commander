@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T19:10:06+13:00",
+  "updated": "2026-10-20T20:03:05+13:00",
   "phase": {
     "current": 7,
     "status": "done"
@@ -745,10 +745,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_15 --damage",
       "owner": "sim",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:49:02+13:00",
-      "updated": "2026-10-19T16:49:02+13:00",
-      "note": null
+      "updated": "2026-10-20T20:03:05+13:00",
+      "note": "Cause: the loss check matches the original (mission.cpp:535: any home mover on the GUI and not disabled keeps the mission alive, support vehicles included), but our AI never auto-targeted unarmed units (C4 applied to every side), so a lone truck survived on some seeds and not others. AI units now take an unarmed target when nothing armed is in reach (C4 stays for the player's units). mc2_15: all three seeds now end LOST. Remaining stalls (mc2_10 s1-s2, mc2_11, mc2_22) are unarmed survivors out of any enemy's reach, which the original also never ends; bot limitation (I81). mc2_10 now loses its cargo convoy at t~26 to the Gulag defenders (Protect the Convoy objective), so 1/3 wins vs 3/3."
     },
     {
       "id": "I32",
@@ -1505,11 +1505,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:49:22+13:00",
-      "who": "conductor",
-      "msg": "correction: the loss-check issue that replaces I13 is I31 (not I32 as C24 and I13's close note say); I32 = unknown-attacker capture targets, I33 = pilot-count variance"
-    },
     {
       "at": "2026-10-19T16:52:05+13:00",
       "who": "conductor",
@@ -2504,6 +2499,11 @@
       "at": "2026-10-20T19:10:06+13:00",
       "who": "playtester",
       "msg": "issue I81 P3: Autoplay bot ignores MoveAnyUnitToArea objectives and stalls at extraction with enemies near"
+    },
+    {
+      "at": "2026-10-20T20:03:05+13:00",
+      "who": "conductor",
+      "msg": "issue I31 fixed: Cause: the loss check matches the original (mission.cpp:535: any home mover on the GUI and not disabled keeps the mission alive, support vehicles included), but our AI never auto-targeted unarmed units (C4 applied to every side), so a lone truck survived on some seeds and not others. AI units now take an unarmed target when nothing armed is in reach (C4 stays for the player's units). mc2_15: all three seeds now end LOST. Remaining stalls (mc2_10 s1-s2, mc2_11, mc2_22) are unarmed survivors out of any enemy's reach, which the original also never ends; bot limitation (I81). mc2_10 now loses its cargo convoy at t~26 to the Gulag defenders (Protect the Convoy objective), so 1/3 wins vs 3/3."
     }
   ],
   "choices": [
