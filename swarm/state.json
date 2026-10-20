@@ -6,10 +6,10 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T21:38:23+13:00",
+  "updated": "2026-10-20T21:39:55+13:00",
   "phase": {
-    "current": 7,
-    "status": "gated"
+    "current": 8,
+    "status": "running"
   },
   "phases": {
     "0": {
@@ -161,9 +161,9 @@
     },
     "7": {
       "name": "HD art (dry run)",
-      "status": "gated",
+      "status": "done",
       "started": "2026-10-19T16:08:13+13:00",
-      "ended": "2026-10-20T18:05:42+13:00",
+      "ended": "2026-10-20T21:39:55+13:00",
       "gate": {
         "passed": true,
         "at": "2026-10-20T21:38:11+13:00",
@@ -208,22 +208,22 @@
       ],
       "done_gate": {
         "passed": true,
-        "at": "2026-10-20T18:05:42+13:00",
+        "at": "2026-10-20T21:39:55+13:00",
         "checks": [
           {
             "name": "coverage_complete",
             "pass": true,
             "detail": "complete: assets.hd_mechs,assets.hd_vehicles,assets.hd_objects all approved, no open P2+ issues for game-art",
             "seconds": 0.0,
-            "at": "2026-10-20T18:05:42+13:00"
+            "at": "2026-10-20T21:39:55+13:00"
           }
         ]
       }
     },
     "8": {
       "name": "Playtest & polish",
-      "status": "pending",
-      "started": null,
+      "status": "running",
+      "started": "2026-10-20T21:39:55+13:00",
       "ended": null,
       "gate": {
         "passed": null,
@@ -1547,16 +1547,6 @@
     {
       "at": "2026-10-19T16:55:37+13:00",
       "who": "game-art",
-      "msg": "issue I38 P2: HD urbanmech: turn"
-    },
-    {
-      "at": "2026-10-19T16:55:37+13:00",
-      "who": "game-art",
-      "msg": "issue I39 P2: HD atlas: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T16:55:37+13:00",
-      "who": "game-art",
       "msg": "phase 7 review group 2: 2 approved, 2 issues"
     },
     {
@@ -2543,6 +2533,16 @@
       "at": "2026-10-20T21:38:23+13:00",
       "who": "conductor",
       "msg": "issue I82 fixed: Run (Space held / toggle), Jump (J, jets only, 128 m, refused out of range), Guard (G, unit or point; pbrain KludgeHandleGuard engage 250/disengage 275), Fire from position (C), Stop (Backspace), Hold (H toggles hold position) ported from missiongui.cpp/controlGui.cpp/warrior.cpp/orders.abi; player orders walk by default as in the original; 23 new tests; mc2_01-03 sweep 9/9."
+    },
+    {
+      "at": "2026-10-20T21:39:55+13:00",
+      "who": "conductor",
+      "msg": "phase 7 done"
+    },
+    {
+      "at": "2026-10-20T21:39:55+13:00",
+      "who": "conductor",
+      "msg": "phase 8 (Playtest & polish) started"
     }
   ],
   "choices": [
