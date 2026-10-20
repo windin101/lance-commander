@@ -150,6 +150,7 @@ def raster_tri_uv(uv_px, mask_shape, max_px=1_000_000):
     return pts[inside], np.c_[1 - lam.sum(1), lam]
 
 
+LINK_CELL = 0.03  # regions_3d links one representative per 3 cm cube (6 cm split or merged windows 25 cm apart)
 CELL = 0.02  # regions_3d point spacing (m): 2 cm keeps every window of the reference set; 5 cm lost small ones, 1 cm still ran past 12 GB
 
 
@@ -181,13 +182,36 @@ def regions_3d(orig, select, min_area=0.05, link=0.25):
     # connected components in 3D (pixels a few cm apart), separating faces that reuse one texture region
     # link only pixels on (nearly) the same plane, so a window band wrapping a corner splits per wall
     # (facets of a curved roof, < 40 degrees apart, stay together)
-    tree = cKDTree(pts)
-    pairs = tree.query_pairs(link, output_type="ndarray")
-    pairs = pairs[(nrm[pairs[:, 0]] * nrm[pairs[:, 1]]).sum(1) > 0.75]
+    # The pairs are found between one representative per LINK_CELL cube and normal (not every point): query_pairs
+    # grows with the square of the density, and big glazed walls (s_main) ran past 12 GB even at 2 cm.
+    # Rectangles are still measured from the fine points below.
+    key = np.c_[np.floor(pts / LINK_CELL).astype(np.int64), np.round(nrm * 4).astype(np.int64)]
+    _, rep, inv = np.unique(key, axis=0, return_index=True, return_inverse=True)
+    inv = inv.ravel()
+    rp, rn = pts[rep], nrm[rep]
     from scipy.sparse import coo_matrix
     from scipy.sparse.csgraph import connected_components
-    g = coo_matrix((np.ones(len(pairs)), (pairs[:, 0], pairs[:, 1])), shape=(len(pts), len(pts)))
-    ncomp, lab = connected_components(g, directed=False)
+    tree = cKDTree(rp)
+    rlab = np.arange(len(rp))  # union-find by relabelling, one chunk of pairs at a time (bounded memory)
+    for c0 in range(0, len(rp), 20000):
+        part = cKDTree(rp[c0:c0 + 20000])
+        sd = part.sparse_distance_matrix(tree, link, output_type="ndarray")
+        i, j = sd["i"] + c0, sd["j"]
+        ok = (rn[i] * rn[j]).sum(1) > 0.75
+        a_, b_ = rlab[i[ok]], rlab[j[ok]]
+        if not len(a_):
+            continue
+        ids, comp = np.unique(np.r_[a_, b_], return_inverse=True)
+        g = coo_matrix((np.ones(len(a_)), (comp[:len(a_)], comp[len(a_):])), shape=(len(ids), len(ids)))
+        _, cl = connected_components(g, directed=False)
+        first = np.full(cl.max() + 1, np.iinfo(np.int64).max)
+        np.minimum.at(first, cl, ids)
+        remap = np.arange(len(rp))
+        remap[ids] = first[cl]
+        rlab = remap[rlab]
+    _, rlab = np.unique(rlab, return_inverse=True)
+    ncomp = int(rlab.max()) + 1
+    lab = rlab.ravel()[inv]
     out = []
     for k in range(ncomp):
         p, nn = pts[lab == k], nrm[lab == k]
