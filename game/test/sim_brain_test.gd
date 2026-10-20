@@ -123,3 +123,63 @@ func test_stop_clears_the_order() -> void:
 	sm.abl.player_order(player, "stop")
 	assert_int(player.brain.order["code"]).is_equal(SimAbl.TO_NONE)
 	assert_int(player.order).is_equal(SimWorld.Order.HOLD)
+
+
+# --- I82: the palette orders through pbrain ---------------------------------------------
+
+func test_player_move_walks_unless_run() -> void:
+	var player: SimUnit = _by_brain("PBrain")[0]
+	_run(0.2)
+	sm.abl.player_order(player, "move", player.position + Vector2(200, 0))
+	assert_bool(player.brain.order["run"]).is_false()
+	assert_bool(player.move_run).is_false()
+	sm.abl.player_order(player, "move", player.position + Vector2(200, 0), {"run": true})
+	assert_bool(player.move_run).is_true()
+
+
+func test_player_jump_order() -> void:
+	var player: SimUnit = _by_brain("PBrain").filter(func(u): return u.can_jump())[0]
+	_run(0.2)
+	sm.abl.player_order(player, "jump", player.position + Vector2(0, 400))
+	assert_int(player.order).is_not_equal(SimWorld.Order.JUMP)  # out of range: refused
+	assert_bool(sm.world.events.any(func(e): return e["type"] == "order_refused")).is_true()
+	var goal := sm.world.map.nearest_walkable(player.position + Vector2(0, 90))
+	sm.abl.player_order(player, "jump", goal)
+	assert_int(player.brain.order["code"]).is_equal(SimAbl.TO_JUMPTO_POINT)
+	assert_int(player.order).is_equal(SimWorld.Order.JUMP)
+	_run(SimWorld.JUMP_TIME + 0.3)
+	assert_float(player.position.distance_to(goal)).is_less(0.01)
+	assert_int(player.brain.order["code"]).is_equal(SimAbl.TO_NONE)
+	assert_array(sm.abl.runtime.errors).is_empty()
+
+
+func test_player_fire_from_position_and_hold_position_do_not_pursue() -> void:
+	var player: SimUnit = _by_brain("PBrain")[0]
+	var enemy: SimUnit = _by_brain("mc2_01_Pat1_1")[0]
+	_run(0.2)
+	sm.abl.player_order(player, "attack", enemy, {"pursue": false})
+	assert_int(player.order).is_equal(SimWorld.Order.ATTACK)
+	assert_bool(player.attack_pursue).is_false()
+	assert_bool(player.brain.order["pursue"]).is_false()
+	player.hold_position = true
+	sm.abl.player_order(player, "attack", enemy)
+	assert_bool(player.attack_pursue).is_false()
+
+
+func test_player_guard_point_runs_through_pbrain() -> void:
+	# pbrain KludgeHandleGuard: getTacOrder -> Sentry(point): engage what comes near (orders.abi:1509)
+	var player: SimUnit = _by_brain("PBrain")[0]
+	var enemy: SimUnit = _by_brain("mc2_01_Pat1_1")[0]
+	_run(0.2)
+	var post := player.position
+	sm.abl.player_order(player, "guard", post)
+	assert_int(player.brain.order["code"]).is_equal(SimAbl.TO_GUARD)
+	assert_int(player.order).is_equal(SimWorld.Order.GUARD)
+	enemy.position = sm.world.map.nearest_walkable(post + Vector2(0, 180))
+	_run(6.0)
+	assert_object(player.current_target).is_same(enemy)
+	# the brain took the guard over: its own attack order (Fight: orderAttackContact), not ours
+	assert_int(player.brain.order["code"]).is_equal(SimAbl.TO_ATTACK_OBJECT)
+	assert_int(int(player.brain.order["origin"])).is_not_equal(0)
+	assert_float(player.position.distance_to(post)).is_less(SimWorld.GUARD_DISENGAGE_M)
+	assert_array(sm.abl.runtime.errors).is_empty()

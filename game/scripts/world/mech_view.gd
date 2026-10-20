@@ -95,6 +95,7 @@ func sync(alpha: float) -> void:
 	var ground := map.height_at(pos)
 	if mech.hover:
 		ground = maxf(ground, map.water_level_m)
+	ground += lerpf(mech.prev_jump_alt, mech.jump_alt, alpha)  # a jump's arc (SimWorld._update_jump)
 	position = TerrainView.to_3d(pos, ground)
 	rotation.y = PI - deg_to_rad(facing)
 	if mech.is_disabled():

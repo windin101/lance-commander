@@ -148,3 +148,128 @@ func test_compass_follows_focus() -> void:
 	c.enabled = true
 	await get_tree().process_frame
 	assert_bool(c.visible).is_false()  # hidden in movie mode
+
+
+# --- I82: the command palette's modes ----------------------------------------------------
+
+func _ground_screen(input: CommandInput, offset: Vector3) -> Vector2:
+	return input.camera.unproject_position(input.camera.focus + offset)
+
+
+func test_right_click_walks_unless_run_is_armed() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	input._set_selection([w.units[0]])
+	input._command(_ground_screen(input, Vector3(30, 0, 0)))
+	assert_bool(w.units[0].move_run).is_false()
+	assert_bool(input.toggle_mode("run")).is_true()
+	assert_str(input.order_mode).is_equal("run")
+	input._command(_ground_screen(input, Vector3(-30, 0, 0)))
+	assert_bool(w.units[0].move_run).is_true()
+	assert_str(input.order_mode).is_equal("")  # a move uses the mode (setDefaultSpeed)
+
+
+func test_held_mode_key_arms_only_while_down() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	input._set_selection([w.units[0]])
+	input.hold_mode_key(KEY_SPACE, true)
+	assert_bool(input.mode_on("run")).is_true()
+	input._command(_ground_screen(input, Vector3(30, 0, 0)))
+	assert_bool(w.units[0].move_run).is_true()
+	assert_bool(input.mode_on("run")).is_true()  # still held
+	input.hold_mode_key(KEY_SPACE, false)
+	assert_bool(input.mode_on("run")).is_false()
+
+
+func test_jump_mode_needs_jump_jets_and_jumps_the_click() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	var ww: SimUnit = w.units[0]  # Werewolf: jump jets
+	var bw: SimUnit = w.units[1]  # Bushwacker: none
+	input._set_selection([ww, bw])
+	assert_bool(input.toggle_mode("jump")).is_false()
+	assert_bool(input.mode_on("jump")).is_false()
+	input._set_selection([ww])
+	assert_bool(input.toggle_mode("jump")).is_true()
+	var screen := input.camera.unproject_position(TerrainView.to_3d(ww.position + Vector2(40, 0), w.map.height_at(ww.position + Vector2(40, 0))))
+	input._command(screen)
+	assert_int(ww.order).is_equal(SimWorld.Order.JUMP)
+	assert_str(input.order_mode).is_equal("")
+
+
+func test_guard_mode_guards_the_point() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	input._set_selection([w.units[1]])
+	input.toggle_mode("guard")
+	input.toggle_mode("run")  # run combines with guard
+	assert_bool(input.mode_on("guard") and input.mode_on("run")).is_true()
+	input._command(_ground_screen(input, Vector3(30, 0, 0)))
+	assert_int(w.units[1].order).is_equal(SimWorld.Order.GUARD)
+	assert_str(input.order_mode).is_equal("")
+	input._set_selection([w.units[0]])  # a jumper
+	input.toggle_mode("guard")
+	input.toggle_mode("jump")  # jump is alone
+	assert_bool(input.mode_on("guard")).is_false()
+
+
+func test_fire_from_position_attack_keeps_run() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	var m: SimUnit = w.units[1]
+	input._set_selection([m])
+	var enemy: SimUnit = w.units.filter(func(u): return u is SimMech and u.team != 0)[0]
+	enemy.position = m.position + Vector2(40, 0)
+	view.views[enemy.id].sync(1.0)
+	input.toggle_mode("run")
+	input.toggle_mode("fire_from_position")
+	input._command(input.camera.unproject_position(view.views[enemy.id].aim_point()))
+	assert_int(m.order).is_equal(SimWorld.Order.ATTACK)
+	assert_bool(m.attack_pursue).is_false()
+	assert_bool(input.mode_on("fire_from_position")).is_false()  # used by the attack
+	assert_bool(input.mode_on("run")).is_true()  # an attack leaves Run on (missiongui.cpp:1893)
+
+
+func test_hold_toggles_and_stop_resets() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	input._set_selection([w.units[0], w.units[1]])
+	w.units[0].hold_position = true
+	input.toggle_hold_position()  # not all hold -> all hold
+	assert_bool(w.units[0].hold_position and w.units[1].hold_position).is_true()
+	assert_bool(input.mode_on("hold")).is_true()
+	input.toggle_hold_position()
+	assert_bool(w.units[0].hold_position or w.units[1].hold_position).is_false()
+	input._command(_ground_screen(input, Vector3(30, 0, 0)))
+	input.toggle_mode("guard")
+	input.fire_from_position = true
+	input.stop()
+	assert_int(w.units[0].order).is_equal(SimWorld.Order.HOLD)
+	assert_str(input.order_mode).is_equal("")
+
+
+func _press(input: CommandInput, key: int, down := true) -> void:
+	var e := InputEventKey.new()
+	e.keycode = key
+	e.pressed = down
+	if down:
+		input._key(e)
+	else:
+		input._input(e)
+
+
+func test_palette_hotkeys() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	input._set_selection([w.units[0]])
+	_press(input, KEY_H)
+	assert_bool(w.units[0].hold_position).is_true()
+	for k in [[KEY_J, "jump"], [KEY_G, "guard"], [KEY_SPACE, "run"], [KEY_C, "fire_from_position"]]:
+		_press(input, k[0])
+		assert_bool(input.mode_on(k[1])).is_true()
+		_press(input, k[0], false)
+		assert_bool(input.mode_on(k[1])).is_false()
+	input.toggle_mode("guard")
+	_press(input, KEY_BACKSPACE)
+	assert_str(input.order_mode).is_equal("")

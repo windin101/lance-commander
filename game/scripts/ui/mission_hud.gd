@@ -61,7 +61,7 @@ var banner: Label
 var box: ColorRect
 var support_buttons: Dictionary = {}  # power -> CommandPanel.SupportTile
 var rp_label: Label
-var command_mode := ""  # an armed order (run, jump, guard, fire_from_position) for the next right-click
+var command_mode := ""  # the armed order (CommandInput.order_mode: jump, guard, run, fire_from_position)
 var _placed: Array = []  # [Control, anchor Vector2, grow Vector2i (-1 begin, 0 both, 1 end), offset Vector2]
 var _messages: Array = []  # [text, time]
 var _map_tex: ImageTexture
@@ -315,22 +315,20 @@ func _hover(key: String) -> void:
 	help_text.text = h[1] if h.size() > 1 else ""
 
 
-## A command from the panel or a card. Stop and hold go straight to the selection; alpha
-## strike toggles; run, jump, guard and fire-from-position arm a mode for the next order.
+## A command from the panel or a card. Stop and hold act on the selection at once; alpha
+## strike toggles; run, jump, guard and fire-from-position toggle a mode CommandInput applies
+## to the next right-click (ControlGui::handleClick, controlGui.cpp:1560-1595).
 func _on_command(kind: String) -> void:
 	match kind:
-		"stop", "hold":
-			command_mode = ""
-			for m in view.input.selection:
-				view.input._order(m, "stop")
+		"stop":
+			view.input.stop()
+		"hold":
+			view.input.toggle_hold_position()
 		"alpha_strike":
 			view.input.toggle_alpha_strike()
 		_:
-			command_mode = "" if command_mode == kind else kind
-	# TODO(camera agent): CommandInput has no run/jump/guard/fire-from-position orders yet (the
-	# sim has move/attack/hold/capture only). When it grows an order_mode, the armed mode goes there.
-	if "order_mode" in view.input:
-		view.input.set("order_mode", command_mode)
+			view.input.toggle_mode(kind)
+	command_mode = view.input.order_mode
 
 
 func _on_card_order(u: SimUnit, kind: String) -> void:
@@ -463,6 +461,11 @@ func _process(_delta: float) -> void:
 	_messages = keep
 	log_label.text = "\n".join(_messages.map(func(m): return m[0]))
 	# lance
+	command_mode = view.input.order_mode
+	var modes := {}
+	for k in ["run", "jump", "guard", "fire_from_position", "hold"]:
+		modes[k] = view.input.mode_on(k)
+	modes["alpha_strike"] = not sel.is_empty() and sel.all(func(m): return m.ignore_heat_discipline)
 	var tons := 0.0
 	var expanded_done := false
 	for id in cards:
@@ -474,15 +477,14 @@ func _process(_delta: float) -> void:
 		if c.expanded:
 			expanded_done = true
 		c.speaking = comms.visible and comms.speaker_unit == u
-		c.active_mode = command_mode if c.selected else ""
+		c.active_modes = modes if c.selected else {}
 		# the card's number: its lowest selection group (Ctrl+n, CommandInput), else its force position
 		var gs: Array = view.input.groups_of(u)
 		c.group = gs.min() if not gs.is_empty() and gs.min() > 0 else c.force_index
 	lance_small.text = "%d t · %d / %d" % [roundi(tons), cards.size(), MAX_FORCE]
 	lance_scroll.custom_minimum_size.y = minf(lance_list.get_combined_minimum_size().y, _viewport_height() * 0.52)
 	# command panel, systems, comms
-	command_panel.update_state(command_mode, not sel.is_empty() and sel.all(func(m): return m.ignore_heat_discipline),
-		view.sm.support, view.input.support_kind)
+	command_panel.update_state(modes, view.sm.support, view.input.support_kind, view.input.can_jump())
 	systems.show_unit(first)
 	comms.set_voice(view.audio != null and view.audio.voice != null and view.audio.voice.playing)
 	_update_banner()
