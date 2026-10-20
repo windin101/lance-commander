@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 """HD vehicle (or copter) from a licensed third-party sculpt: STL -> simplified, fitted, rigidly skinned, painted.
 
-    python3 -I tools/art/stl_hd.py <asset> --stl model.stl [--stl part2.stl ...] [--kind vehicles|mechs]
+    python3 -I tools/art/stl_hd.py <asset> --stl model.stl [--stl part2.stl ...] [--kind vehicles|mechs|objects]
         [--joints J.json] [--views V.png] [--install] --source "Title by Author, URL" --licence "CC BY-SA 4.0"
 
 The rigid-asset counterpart of stl_rig.py (which un-poses walking mechs). Printable kits are piles of
 overlapping, non-manifold shells, so the Hunyuan path's decimate/unwrap/bake (ComfyUI) shreds them (tried
 2026-10-19: spikes everywhere); this works on the triangles directly, like stl_rig.py:
-  1. prep: load the STL(s) (mm, Z up). J.json "place" moves a numbered component (see --views) into place;
+  1. prep: load the STL(s) (mm, Z up; a file with inward-facing triangles is turned right side out).
+     J.json "place" moves a numbered component (see --views) into place;
      "parts" moves a kit's loose piece (turret, launcher) onto the hull
      ([{"file": i, "move": [x, y, z], "rot_z": deg}], i = index of --stl, raw mm); "drop" lists components to
      discard (by the number the --views sheet prints); components under "min_share" (default 0.3 %) of the
-     triangles go anyway (sprues, loose pins); "base_cut" (raw z) cuts a display base.
+     triangles go anyway (sprues, loose pins); "base_cut" (raw z) cuts a display base. "turn": [["x", 90], ["z", -90]]
+     turns the whole raw model about the raw axes in order, after "parts" and before everything else (a model printed
+     nose-up): "base_cut", "place", "drop" and the --views numbers then use the turned frame.
   2. simplify: vertex clustering on a grid sized to reach "faces" triangles (default 40000).
   3. fit to the original model (glTF frame): yaw search (5 deg; "yaw" pins it, "mirror": true allows a mirror)
      with the scale from the ground plan and the bottom on the ground, then rigid ICP ("no_icp": true skips it).
@@ -19,11 +22,24 @@ overlapping, non-manifold shells, so the Hunyuan path's decimate/unwrap/bake (Co
   4. skin: each triangle follows the original part nearest to it (a turret goes with its turret joint).
      J.json "parts_box": [{"node", "min", "max"} in fitted metres, glTF frame] overrides that.
   5. paint: each triangle votes over its 8 nearest original surface points for the team-paint class (base/hl1/hl2)
-     or one of the original mask's own colours (clustered: white liveries, hazard stripes), then a neighbour majority
-     pass removes speckle; stl_rig's palette carries the colours. "bounds": true (after the fit) matches the original's
+     or one of the original mask's own colours (clustered: white liveries, hazard stripes; "colours": n clusters,
+     default 8), then a neighbour majority pass removes speckle ("paint": "mean" first averages each triangle's
+     colours over its neighbours, "smooth" passes (default 3), then picks the nearest cluster: for a texture with
+     baked shading, whose tones otherwise break a hull into camouflage patches; --kind objects samples the original by area;
+     "paint_box": [{"min": [x, y, z], "max": [x, y, z], "colour": [r, g, b], "mirror": true}] (fitted metres) paints a
+     livery band that a differently shaped sculpt misses, e.g. the original's fin and wing-tip stripes, in order; with
+     "radius": m the box is a vertical cylinder about the centre of min/max (a roof disc)); stl_rig's palette carries the colours. "bounds": true (after the fit) matches the original's
      length, width and height separately; "stretch": [x, y, z] multiplies them; "nudge": [x, y, z] m moves the fit.
+     "gear": {"lift": m, "legs": [[x, z], ...], "wheel": m, "strut": m} (fitted metres, glTF frame) is for a sculpt
+     modelled in flight with no landing gear: it raises the fit by "lift" and adds a plain strut and wheel at each
+     leg (the original's gear positions), from the ground to the hull's underside; they are painted and skinned
+     like the rest. "wheel" (radius) defaults to 0.4 x lift, "strut" (radius) to a third of the wheel.
   6. write <asset>_hd.glb + _hd_paint.bin to original/hd/<asset>/stl/, or with --install to game/assets/<kind>/
-     plus original/hd/<asset>/provenance.json (kind "adapted", source, licence) for tools/art/credits.py.
+     plus original/hd/<asset>/provenance.json (kind "adapted", source, licence) for tools/art/credits.py; J.json
+     "extra_changes" (text) goes into it as the credit's asset-specific changes (a stand-in, a kit assembled).
+--kind objects (static map props, game/assets/objects; since 2026-10-20): the paint votes over the original's colour
+texture <asset>_0.png and every colour is kept as itself (no team channels: map objects get no MechPaint); the parts are
+the object's own static nodes, so the rigid skin never moves.
 --views draws the raw components (numbered), the fitted result's paint and parts, and the original's surface.
 """
 import argparse
@@ -120,11 +136,40 @@ def shade(T, col, k_px=420):
     return im
 
 
+def _cyl(c0, c1, r, n=12):
+    """Closed n-sided cylinder (triangles) from point c0 to c1."""
+    ax = np.asarray(c1, float) - c0
+    ax_ = ax / np.linalg.norm(ax)
+    u = np.cross(ax_, [0, 1, 0] if abs(ax_[1]) < 0.9 else [1, 0, 0]); u /= np.linalg.norm(u)
+    v = np.cross(ax_, u)
+    ring = [r * (np.cos(t) * u + np.sin(t) * v) for t in np.linspace(0, 2 * np.pi, n, endpoint=False)]
+    out = []
+    for i in range(n):
+        a_, b_ = ring[i], ring[(i + 1) % n]
+        out += [[c0 + a_, c0 + b_, c1 + b_], [c0 + a_, c1 + b_, c1 + a_], [c0, c0 + b_, c0 + a_], [c1, c1 + a_, c1 + b_]]
+    return np.array(out)
+
+
+def gear(Gf, spec):
+    """A strut and a wheel per leg ([x, z] m), from the ground to the hull's underside there."""
+    lift = spec["lift"]
+    rw = spec.get("wheel", 0.4 * lift)
+    rs = spec.get("strut", rw / 3)
+    V = Gf.reshape(-1, 3)
+    out = []
+    for x, z in spec["legs"]:
+        near = np.hypot(V[:, 0] - x, V[:, 2] - z) < max(0.6, 2 * rw)
+        top = V[near, 1].min() + 0.1 * rw if near.any() else lift + rw
+        out.append(_cyl(np.array([x, rw, z]), np.array([x, max(top, rw * 1.5), z]), rs))
+        out.append(_cyl(np.array([x - 0.4 * rw, rw, z]), np.array([x + 0.4 * rw, rw, z]), rw, 16))
+    return np.concatenate(out)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("asset")
     ap.add_argument("--stl", action="append", required=True)
-    ap.add_argument("--kind", default="vehicles", choices=["vehicles", "mechs"])
+    ap.add_argument("--kind", default="vehicles", choices=["vehicles", "mechs", "objects"])
     ap.add_argument("--joints")
     ap.add_argument("--views")
     ap.add_argument("--source", default="")
@@ -138,6 +183,10 @@ def main():
 
     # 1. prep
     parts = [stl_rig.load_stl(p) for p in a.stl]
+    for i_, T_ in enumerate(parts):  # an inside-out STL (negative signed volume, e.g. the X-38) renders from the inside
+        if np.einsum("ij,ij->i", T_[:, 0], np.cross(T_[:, 1], T_[:, 2])).sum() < 0:
+            parts[i_] = T_[:, ::-1].copy()
+            print(f"  {Path(a.stl[i_]).name}: inside out, winding reversed")
     for spec in over.get("parts", []):
         T = parts[spec["file"]]
         if "rot_z" in spec:
@@ -146,6 +195,10 @@ def main():
             T = (T - c) @ np.array([[np.cos(r), -np.sin(r), 0], [np.sin(r), np.cos(r), 0], [0, 0, 1]]).T + c
         parts[spec["file"]] = T + np.asarray(spec.get("move", [0, 0, 0]), float)
     T = np.concatenate(parts)
+    for ax_, deg_ in over.get("turn", []):  # J.json "turn": whole-model rotations about raw x/y/z (right-handed, degrees)
+        r_ = np.radians(deg_); k_ = "xyz".index(ax_); i, j = (k_ + 1) % 3, (k_ + 2) % 3
+        M = np.eye(3); M[i, i] = M[j, j] = np.cos(r_); M[i, j], M[j, i] = -np.sin(r_), np.sin(r_)
+        T = T @ M.T
     if "base_cut" in over:
         T = T[T[..., 2].min(1) >= over["base_cut"]]
     comp = components(T)
@@ -201,7 +254,7 @@ def main():
 
     # 3. fit in the glTF frame (x, y up, z); the original is in metres
     G = np.stack([S[..., 0], S[..., 2], -S[..., 1]], -1).reshape(-1, 3)
-    samples_all, sample_uv, owners = R.original_samples(og, ob)
+    samples_all, sample_uv, owners = R.original_samples(og, ob, density=400 if a.kind == "objects" else None)  # props: by area
     sub = lambda i: [i] + [d for c in og["nodes"][i].get("children", []) for d in sub(c)]
     mounted = [d for spec, _ in mounts for d in sub(names[spec["node"]])]
     samples = samples_all[~np.isin(owners, mounted)] if mounts else samples_all  # fit the hull to the original's hull
@@ -241,6 +294,10 @@ def main():
         Gf = V_.reshape(-1, 3, 3)
     if over.get("nudge"):  # J.json "nudge": [x, y, z] m after the fit: the bounds centring is off when a gun sticks out
         Gf = Gf + np.asarray(over["nudge"], float)
+    if over.get("gear"):  # J.json "gear": struts and wheels for a sculpt with no gear (in flight)
+        Gf = Gf + np.array([0, over["gear"]["lift"], 0])
+        Gf = np.concatenate([Gf, gear(Gf, over["gear"])])
+        flat = np.arange(Gf.size // 3).reshape(-1, 3)
     fit = R.chamfer(R.area_samples(Gf.reshape(-1, 3), flat, n=30000), tree_p, samples)
     Wn = R.world_matrices(og)
     forced = np.full(len(Gf), -1)
@@ -292,7 +349,7 @@ def main():
                     np.clip((uv_[..., 0] % 1) * marr.shape[1], 0, marr.shape[1] - 1).astype(int)]
     def classes(px):
         mx = px.max(-1)
-        pure = (mx > 40) & ((px < 0.35 * mx[..., None]).sum(-1) == 2)
+        pure = (mx > 40) & ((px < 0.35 * mx[..., None]).sum(-1) == 2) & (a.kind != "objects")  # objects: no team paint
         return pure, px.argmax(-1)
     allpx = colour_at(sample_uv)
     pure_s, _ = classes(allpx)
@@ -301,7 +358,7 @@ def main():
     if len(other):  # k-means on the original's non-team colours
         rng = np.random.default_rng(0)
         pts_ = other[rng.choice(len(other), min(len(other), 20000), replace=False)]
-        cent = pts_[rng.choice(len(pts_), min(8, len(pts_)), replace=False)]
+        cent = pts_[rng.choice(len(pts_), min(int(over.get("colours", 8)), len(pts_)), replace=False)]
         for _ in range(20):
             lab_ = ((pts_[:, None] - cent[None]) ** 2).sum(2).argmin(1)
             cent = np.array([pts_[lab_ == k].mean(0) if (lab_ == k).any() else cent[k] for k in range(len(cent))])
@@ -318,10 +375,27 @@ def main():
     vote = np.apply_along_axis(lambda r_: np.bincount(r_, minlength=3 + len(fixed)).argmax(), 1, lab)
     tri_tree = cKDTree(Cn)
     nb = tri_tree.query(Cn, k=min(12, len(Cn)))[1]
+    if over.get("paint") == "mean":  # J.json "paint": "mean": average the colours first, then pick the nearest cluster
+        col_ = px.mean(1)            # (a texture's shading tones then stop breaking a hull into camouflage patches)
+        for _ in range(int(over.get("smooth", 3))):
+            col_ = col_[nb].mean(1)
+        vote = np.where(pure.mean(1) > 0.5, vote, 3 + ((col_[:, None] - fr[None]) ** 2).sum(-1).argmin(-1))
     for _ in range(2):
         vote = np.apply_along_axis(lambda r_: np.bincount(r_, minlength=3 + len(fixed)).argmax(), 1, vote[nb])
     names_ = np.array(["hl1", "hl2", "base"] + fixed, dtype=object)  # argmax channel 0 = R = hl1, 1 = G = hl2, 2 = B = base
     paint = names_[vote]
+    boxcols = {}
+    for box in over.get("paint_box", []):  # J.json "paint_box": a livery band the transfer misses (fitted metres, glTF frame)
+        key = boxcols.setdefault(tuple(box["colour"]), f"box{len(boxcols)}")
+        C.PAINT[key] = tuple(box["colour"])
+        lo_, hi_ = np.asarray(box["min"], float), np.asarray(box["max"], float)
+        inside = lambda P_: ((P_ >= lo_).all(1) & (P_ <= hi_).all(1)) if "radius" not in box else (
+            (P_[:, 1] >= lo_[1]) & (P_[:, 1] <= hi_[1])
+            & (np.hypot(P_[:, 0] - (lo_[0] + hi_[0]) / 2, P_[:, 2] - (lo_[2] + hi_[2]) / 2) <= box["radius"]))
+        m = inside(Cn)
+        if box.get("mirror"):  # and the same box on the other side (x -> -x)
+            m |= inside(Cn * [-1, 1, 1])
+        paint[m] = key
     print("  parts:", {og["nodes"][o]["name"]: int((owner == o).sum()) for o in sorted(set(owner.tolist()))},
           "paint:", {k: int((paint == k).sum()) for k in C.PAINT if (paint == k).any()})
 
@@ -355,6 +429,7 @@ def main():
         (work / "provenance.json").write_text(json.dumps({
             "asset": a.asset, "kind": "adapted", "class": a.kind, "source": a.source, "licence": a.licence,
             "tool": "tools/art/stl_hd.py", "stl": [Path(p).name for p in a.stl], "joints": over,
+            **({"extra_changes": over["extra_changes"]} if over.get("extra_changes") else {}),
             "fit_m": round(float(fit), 3), "tris": int(len(tris)), "built_at": time.strftime("%Y-%m-%dT%H:%M:%S%z")}, indent=2) + "\n")
 
 
