@@ -1,7 +1,7 @@
 extends Node3D
 ## A playable mission: terrain, map objects, mechs, effects, RTS commands.
 ## The SimWorld steps at a fixed 10 Hz; views interpolate between ticks.
-## Dev args: --mission=mc2_NN, --demo (player lance attacks the nearest enemy), --arena (moves the
+## Dev args: --mission=mc2_NN, --no-hud, --demo (player lance attacks the nearest enemy), --arena (moves the
 ## Starslayer onto open ground 110 m north of the lance first), --sim-seconds=N
 ## (fast-forward before the first frame), --focus=player|battle, --kill-unit=N
 ## (destroy unit N at start and frame its wreck).
@@ -18,6 +18,7 @@ var decals: DecalsView
 var effects: EffectsView
 var input: CommandInput
 var camera: RtsCamera
+var compass: CameraCompass
 var views: Dictionary = {}  # mech id -> MechView
 var hud: MissionHud
 var audio: AudioDirector
@@ -70,10 +71,22 @@ func _ready() -> void:
 	camera.bounds_half = world.map.half_m
 	camera.height_at = world.map.height_at
 	camera.yaw_deg = float(cam_block.get("StartRotation", 0.0))
-	camera.distance = 220.0
+	camera.home_yaw = camera.yaw_deg
+	camera.distance = RtsCamera.DEFAULT_DISTANCE
+	camera.pitch_deg = RtsCamera.DEFAULT_PITCH
+	# The original's projection: perspective, 40 deg HORIZONTAL field of view (Camera.cpp:499).
+	camera.keep_aspect = Camera3D.KEEP_WIDTH
+	camera.fov = 40.0
+	camera.input_blocked = _cinematic
+	camera.follow_pos = func(u: SimUnit) -> Vector3:
+		return views[u.id].global_position if views.has(u.id) else Vector3(u.position.x, 0, -u.position.y)
 	add_child(camera)
 	camera.make_current()
 	_focus_player()
+	compass = CameraCompass.new()
+	compass.name = "Compass"
+	add_child(compass)
+	compass.setup(camera, _cinematic)
 	var weather := WeatherView.new()
 	weather.name = "Weather"
 	add_child(weather)
@@ -88,6 +101,8 @@ func _ready() -> void:
 	input.support = sm.support
 	add_child(input)
 	_build_hud()
+	if _args.has("no-hud"):  # dev: clean frames for HUD mock-ups and screenshots
+		hud.offset = Vector2(100000, 0)  # moves every HUD canvas item off-screen
 	audio = AudioDirector.new()
 	audio.name = "Audio"
 	add_child(audio)
@@ -153,6 +168,11 @@ func _process(delta: float) -> void:
 			_end_seen_at = world.time
 		elif world.time - _end_seen_at >= 3.0:
 			pause_menu.show_end(sm.objectives.result == SimObjectives.Result.WON)
+
+
+## A cinematic owns the camera: the opening flyby or ABL movie mode (missiongui.cpp:430).
+func _cinematic() -> bool:
+	return (world != null and world.movie_mode) or (flyby != null and flyby.is_running())
 
 
 ## The debrief's facts for this mission so far (MissionReport).
@@ -383,7 +403,7 @@ var _sun: DirectionalLight3D
 func _update_haze() -> void:
 	if _env == null:
 		return
-	var d := camera.distance if camera else 220.0
+	var d := camera.distance if camera else RtsCamera.DEFAULT_DISTANCE
 	_env.fog_depth_begin = d + 600.0
 	_env.fog_depth_end = d + 2600.0
 

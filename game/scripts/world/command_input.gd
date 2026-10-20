@@ -2,11 +2,18 @@ class_name CommandInput
 extends Node
 ## RTS commands: left-click / drag-box to select player units, right-click on an
 ## enemy unit or a destructible building to attack it, or on the ground to move
-## there. H = hold.
+## there. H = hold, A = alpha strike (F is the original's force-fire key, missiongui.cpp:208).
+## Groups as in the original (selectForceGroup / makeForceGroup, missiongui.cpp:3240-3298):
+## 0-9 selects that group, Shift+0-9 adds it (or drops it when it is all selected already),
+## Ctrl+0-9 assigns the selection to it. E selects every own unit on screen, Shift+E adds them
+## (selectVisible / addVisibleToSelection, missiongui.cpp:2069-2107). Double-clicking a friendly
+## unit selects its group(s) and makes the camera follow it (setTarget, missiongui.cpp:3307-3311).
 
 signal selection_changed(mechs: Array)
+signal groups_changed(groups: Dictionary)
 
 const PICK_PX := 40.0
+const DRAG_PX := 10.0  # a left press that moves further than this is a box select
 
 var abl: SimAbl = null  # the mission's ABL bridge: player orders go to the lance's pbrain
 var support: SimSupport = null
@@ -15,9 +22,11 @@ var world: SimWorld
 var views: Dictionary = {}  # mech id -> MechView
 var camera: Camera3D
 var selection: Array[SimUnit] = []
+var groups: Dictionary = {}  # 0-9 -> Array of SimUnit; per mission (this node lives with the mission)
 var player_team := 0
 var _drag_start := Vector2.ZERO
 var _dragging := false
+var _double := false  # the release after a double-click must not re-run the single click
 var box: ColorRect
 
 
@@ -29,14 +38,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
+			if event.pressed and event.double_click:
+				_dragging = false
+				_double = true
+				_double_click(event.position)
+			elif event.pressed:
 				_drag_start = event.position
 				_dragging = true
+			elif _double:
+				_double = false
 			elif _dragging:
 				_dragging = false
 				if box:
 					box.visible = false
-				if _drag_start.distance_to(event.position) > 8.0:
+				if _drag_start.distance_to(event.position) > DRAG_PX:
 					_select_box(Rect2(_drag_start, event.position - _drag_start).abs(), event.shift_pressed)
 				else:
 					_select_click(event.position, event.shift_pressed)
@@ -46,12 +61,89 @@ func _unhandled_input(event: InputEvent) -> void:
 		var r := Rect2(_drag_start, event.position - _drag_start).abs()
 		box.position = r.position
 		box.size = r.size
-		box.visible = r.size.length() > 8.0
-	elif event is InputEventKey and event.pressed and event.keycode == KEY_H:
+		box.visible = _drag_start.distance_to(event.position) > DRAG_PX
+	elif event is InputEventKey and event.pressed and not event.alt_pressed:
+		_key(event)
+
+
+func _key(event: InputEventKey) -> void:
+	if event.keycode == KEY_H:
 		for m in selection:
 			_order(m, "stop")
-	elif event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F:
+	elif event.echo:
+		return
+	elif event.keycode == KEY_A:
 		toggle_alpha_strike()
+	elif event.keycode == KEY_E:
+		select_visible(event.shift_pressed)
+	elif event.keycode >= KEY_0 and event.keycode <= KEY_9:
+		var n := int(event.keycode - KEY_0)
+		if event.ctrl_pressed:
+			assign_group(n)
+		else:
+			select_group(n, event.shift_pressed)
+	else:
+		return
+	get_viewport().set_input_as_handled()
+
+
+## Ctrl+n: group n becomes exactly the current selection (makeForceGroup).
+func assign_group(n: int) -> void:
+	groups[n] = selection.duplicate()
+	groups_changed.emit(groups)
+
+
+## Live members of group n.
+func group_units(n: int) -> Array[SimUnit]:
+	var out: Array[SimUnit] = []
+	for u in groups.get(n, []):
+		if not u.is_disabled() and u.on_gui:
+			out.append(u)
+	return out
+
+
+## The groups a unit belongs to (a unit may be in several, as in the original).
+func groups_of(u: SimUnit) -> Array[int]:
+	var out: Array[int] = []
+	for n in groups:
+		if groups[n].has(u):
+			out.append(n)
+	return out
+
+
+## n: select group n alone; Shift+n adds it, or deselects it if it is all selected already (selectForceGroup).
+func select_group(n: int, add: bool) -> void:
+	var members := group_units(n)
+	if not add:
+		_set_selection(members)
+		return
+	var s: Array[SimUnit] = selection.duplicate()
+	if not members.is_empty() and members.all(func(u): return s.has(u)):
+		s.assign(s.filter(func(u): return not members.has(u)))
+	else:
+		for u in members:
+			if not s.has(u):
+				s.append(u)
+	_set_selection(s)
+
+
+## E / Shift+E: every own unit on screen.
+func select_visible(add: bool) -> void:
+	_select_box(get_viewport().get_visible_rect(), add)
+
+
+func _double_click(screen: Vector2) -> void:
+	var m := mech_at(screen, player_team)
+	if m == null:
+		return
+	var s: Array[SimUnit] = [m]
+	for n in groups_of(m):
+		for u in group_units(n):
+			if not s.has(u):
+				s.append(u)
+	_set_selection(s)
+	if camera is RtsCamera:
+		(camera as RtsCamera).follow(m)
 
 
 ## Toggle "alpha strike" (ignore heat discipline) for the selection; all on unless all already on.
@@ -129,7 +221,9 @@ func _select_click(screen: Vector2, add: bool) -> void:
 
 
 func _select_box(rect: Rect2, add: bool) -> void:
-	var s: Array[SimUnit] = selection.duplicate() if add else []
+	var s: Array[SimUnit] = []
+	if add:
+		s.assign(selection)
 	for m in world.units:
 		if m.team != player_team or m.is_disabled() or not m.on_gui or not views.has(m.id) or not m.is_mover():
 			continue

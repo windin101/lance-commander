@@ -2,6 +2,7 @@ extends Node
 ## Developer hooks driven by user command-line arguments (after "--"):
 ##   --screenshot=<path>   render, save a PNG, quit
 ##   --frames=<n>          frames to wait first (default 40)
+##   --size=<w>x<h>        window size for the shot (default 1600x900)
 ##   --wait-effects=<n>    then keep waiting (up to 20 s) until the scene's "Effects"
 ##                         node has at least n live children
 ##   --cam=yaw,pitch,distance[,x,y]   camera override for the current scene's "Camera"
@@ -20,12 +21,14 @@ func _ready() -> void:
 
 
 func _take_screenshot() -> void:
-	get_window().size = Vector2i(1600, 900)
+	var sz: PackedStringArray = String(_args.get("size", "1600x900")).split("x")
+	get_window().size = Vector2i(int(sz[0]), int(sz[1])) if sz.size() == 2 else Vector2i(1600, 900)
 	await get_tree().process_frame
 	var scene := get_tree().current_scene
 	var cam = scene.get_node_or_null("Camera") if scene else null
 	if cam and _args.has("cam"):
 		var v: PackedStringArray = _args["cam"].split(",")
+		if "limits" in cam: cam.limits = false  # overview shots may sit outside the play limits
 		cam.yaw_deg = float(v[0])
 		if v.size() > 1: cam.pitch_deg = float(v[1])
 		if v.size() > 2: cam.distance = float(v[2])

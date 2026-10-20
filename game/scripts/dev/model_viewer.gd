@@ -65,6 +65,7 @@ func _ready() -> void:
 	camera.focus = Vector3(0, 0, 0)
 	camera.distance = 22.0
 	camera.min_distance = 2.0
+	camera.limits = false  # a turntable, not the mission camera
 	camera.pitch_deg = 15.0
 	camera.yaw_deg = 200.0
 	add_child(camera)

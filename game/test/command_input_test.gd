@@ -62,3 +62,89 @@ func test_right_click_building_orders_attack() -> void:
 	input._command(input.camera.unproject_position(p))
 	assert_int(w.units[0].order).is_equal(SimWorld.Order.ATTACK)
 	assert_object(w.units[0].order_target).is_same(hangar)
+
+
+func test_box_drag_threshold_is_10px() -> void:
+	assert_float(CommandInput.DRAG_PX).is_equal(10.0)
+
+
+func test_group_assign_select_and_add() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	var a: SimUnit = w.units[0]
+	var b: SimUnit = w.units[1]
+	input._set_selection([a])
+	input.assign_group(1)
+	input._set_selection([b])
+	input.assign_group(2)
+	input.select_group(1, false)
+	assert_array(input.selection).contains_exactly([a])
+	input.select_group(2, true)  # Shift+2 adds
+	assert_array(input.selection).contains_exactly([a, b])
+	input.select_group(2, true)  # all of it selected already: Shift+2 drops it
+	assert_array(input.selection).contains_exactly([a])
+	assert_array(input.groups_of(a)).contains_exactly([1])
+
+
+func test_group_keys() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	input._set_selection([w.units[0], w.units[1]])
+	var k := InputEventKey.new()
+	k.pressed = true
+	k.keycode = KEY_3
+	k.ctrl_pressed = true
+	input._key(k)  # Ctrl+3 assigns
+	input._set_selection([])
+	k.ctrl_pressed = false
+	input._key(k)  # 3 selects
+	assert_int(input.selection.size()).is_equal(2)
+
+
+func test_e_selects_units_on_screen() -> void:
+	var input: CommandInput = view.input
+	input._set_selection([])
+	input.select_visible(false)
+	assert_int(input.selection.size()).is_greater(0)
+	assert_bool(input.selection.all(func(u): return u.team == input.player_team)).is_true()
+
+
+func test_double_click_selects_group_and_follows() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	var a: SimUnit = w.units[0]
+	input._set_selection([a, w.units[1]])
+	input.assign_group(4)
+	input._set_selection([])
+	input._double_click(input.camera.unproject_position(view.views[a.id].aim_point()))
+	assert_int(input.selection.size()).is_equal(2)
+	assert_object(view.camera.following).is_same(a)
+	view.camera.pan_to(Vector2(a.position.x + 50, a.position.y))  # minimap click stops following
+	assert_object(view.camera.following).is_null()
+
+
+func test_camera_uses_original_projection() -> void:
+	assert_int(view.camera.keep_aspect).is_equal(Camera3D.KEEP_WIDTH)
+	assert_float(view.camera.fov).is_equal(40.0)
+
+
+func test_compass_follows_focus() -> void:
+	var cam: RtsCamera = view.camera
+	var c: CameraCompass = view.compass
+	cam.pan_to(Vector2(cam.focus.x + 60, -cam.focus.z + 40))
+	for i in 8:
+		await get_tree().process_frame
+	assert_float(Vector2(c.global_position.x, c.global_position.z).distance_to(Vector2(cam.focus.x, cam.focus.z))).is_less(0.01)
+	assert_float(c.global_position.y).is_equal_approx(cam.focus.y + 0.3, 0.01)
+	assert_vector(c.rotation).is_equal(Vector3.ZERO)
+	assert_bool(c.visible).is_true()
+	var k := InputEventKey.new()
+	k.pressed = true
+	k.keycode = KEY_BACKSLASH
+	c._unhandled_input(k)
+	await get_tree().process_frame
+	assert_bool(c.visible).is_false()
+	view.world.movie_mode = true
+	c.enabled = true
+	await get_tree().process_frame
+	assert_bool(c.visible).is_false()  # hidden in movie mode
