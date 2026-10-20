@@ -73,6 +73,7 @@ var prev_facing := 0.0
 var order: int = 0
 var order_target: SimUnit = null
 var current_target: SimUnit = null
+var brain_engaged := false  # its scripted brain has ordered an attack at least once (fire at will after that, I12)
 var path := PackedVector2Array()
 var path_index := 0
 var repath_time := 0.0

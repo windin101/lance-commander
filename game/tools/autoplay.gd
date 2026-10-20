@@ -107,6 +107,7 @@ func _init() -> void:
 
 var _start := {}
 var _damage := {}  # attacker "name (kind)" -> damage dealt to the player's lance
+var _shots_left := 0
 var _attackers := {}
 var _locs := {}  # armour location -> hits on the lance
 
@@ -263,6 +264,9 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool)
 	var w := sm.world
 	var o := sm.objectives
 	var next_order := 0.0
+	for a in args:
+		if a.begins_with("--shots="):
+			_shots_left = int(a.trim_prefix("--shots="))
 	while w.time < max_t and o.result == SimObjectives.Result.PLAYING:
 		sm.step()
 		for e in w.events:
@@ -297,11 +301,18 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool)
 						_attackers[src.id] = true
 						var loc := int(e.get("location", -1))
 						_locs[loc] = _locs.get(loc, 0) + 1
+				"shot":  # --shots=N: the first N shots, who fired at whom and under which brain (I12)
+					if _shots_left > 0:
+						_shots_left -= 1
+						var a: SimUnit = w.units[e["from"]]
+						var b: SimUnit = w.units[e["to"]]
+						print("t=%6.1f  SHOT %s [team %d cmd %d %s%s] -> %s [team %d cmd %d %s]" % [w.time, a.name, a.team, a.commander,
+							a.brain_name, " engaged" if a.brain_engaged else "", b.name, b.team, b.commander, b.brain_name])
 				"abl_wave", "abl_video", "abl_music":
 					if "--cues" in args:
 						print("t=%6.1f  %s %s" % [w.time, e["type"], e.get("file", e.get("id", ""))])
 		w.events.clear()
-		if w.time >= next_order:
+		if w.time >= next_order and not w.movie_mode:  # a player has no input during a cinematic
 			next_order = w.time + 3.0
 			_orders(sm)
 
