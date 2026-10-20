@@ -21,6 +21,10 @@ from building_cad import Builder  # noqa: E402
 from crash_cad import Wreck  # noqa: E402
 
 B = Builder()
-W = Wreck(B, "crashengine", eps=0.12, min_hole=0.4, min_area=0.06, all_double=True).build()
+W = Wreck(B, "crashengine", eps=0.12, min_hole=0.4, min_area=0.06, all_double=True)
+# Lee (2026-10-20): show the machinery. Material 3 is a plain hull sleeve (oval hatch) about 1.3 m outside the upper
+# nacelle machinery (material 2); Godot's import LOD always dropped it from the original, so players saw the
+# machinery. Leave the sleeve out so the machinery face is the outside, as the original and upscaled rows show.
+W.build(select=lambda i: W.o.mat[i] != 3)
 print(W.stats, file=sys.stderr)
 print(B.dump())
