@@ -11,8 +11,19 @@ const TICK := 0.1
 const COMBAT_PERIOD := 0.25
 const ARRIVE_M := 3.0
 const GETUP_TIME := 4.0
+## Jump flight time. The original flies the mech from the Jump gesture's takeoff frame to
+## its landing frame at 30 fps (mech3d.cpp:3968-3990), per appearance; those frames are not
+## converted, so one flight time for all.
+const JUMP_TIME := 2.0
+const JUMP_APEX := 0.25  # arc height as a share of the jump distance (the view's arc only)
+## pbrain's guard radii (pbrain.abl KludgeHandleGuard: SetEngageRadius(250),
+## SetDisengageRadius(275)), used by the native guard of units without a pbrain.
+const GUARD_ENGAGE_M := 250.0
+const GUARD_DISENGAGE_M := 275.0
 
-enum Order { HOLD, MOVE, ATTACK }
+## HOLD also serves the original's TACTICAL_ORDER_STOP and WAIT. JUMP = JUMPTO_POINT,
+## GUARD = TACTICAL_ORDER_GUARD (point or object). New values go last (saves, tests).
+enum Order { HOLD, MOVE, ATTACK, JUMP, GUARD }
 
 var rules: SimRules
 var map: SimMap
@@ -62,26 +73,109 @@ func unit_by_part(part_index: int) -> SimUnit:
 
 # --- orders -----------------------------------------------------------------
 
-func order_move(m: SimUnit, goal: Vector2) -> bool:
+## run: TRAVEL_MODE_FAST (run speed) or SLOW (walk speed); the order's mode picks the
+## gesture (warrior.cpp:3302 setMoveRun, mech.cpp:4197 allowedToRun).
+func order_move(m: SimUnit, goal: Vector2, run := true) -> bool:
+	if _after_landing(m, func(): order_move(m, goal, run)):
+		return true
 	var path := map.find_path(m.position, map.nearest_walkable(goal, m.hover), m.hover)
 	m.order = Order.MOVE
 	m.order_target = null
+	m.move_run = run
 	m.path = path
 	m.path_index = 0
 	return path.size() > 0
 
 
-func order_attack(m: SimUnit, target: SimUnit) -> void:
+## pursue false = fire from the current position (attackParams.pursue, missiongui.cpp:1806-1880):
+## the unit turns to the target and fires when it is in range, but never moves to close.
+func order_attack(m: SimUnit, target: SimUnit, run := true, pursue := true) -> void:
+	if _after_landing(m, func(): order_attack(m, target, run, pursue)):
+		return
 	m.order = Order.ATTACK
 	m.order_target = target
+	m.move_run = run
+	m.attack_pursue = pursue
 	m.path = PackedVector2Array()
 	m.repath_time = 0.0
 
 
 func order_hold(m: SimUnit) -> void:
+	if _after_landing(m, Callable()):
+		return  # a jump always lands; it then stands
 	m.order = Order.HOLD
 	m.order_target = null
 	m.path = PackedVector2Array()
+
+
+## TACTICAL_ORDER_STOP (MechWarrior::orderStop, warrior.cpp:5908): no move goal, no attack
+## target, no last target.
+func order_stop(m: SimUnit) -> void:
+	order_hold(m)
+	m.current_target = null
+
+
+## Why a jump to goal would be refused, or "" if it can be made: jump jets (canJump), the
+## horizontal distance within getJumpRange and a passable landing cell (canJumpToWPos,
+## missiongui.cpp:3492; Mover::handleTacticalOrder, mover.cpp:3186-3201).
+func jump_refusal(m: SimUnit, goal: Vector2) -> String:
+	if not m.can_jump():
+		return "no_jump_jets"
+	if m.is_disabled() or m.status != SimUnit.Status.NORMAL or (m is SimMech and (m.fallen or _legs_gone(m))):
+		return "cannot_move"
+	if m.position.distance_to(goal) > m.jump_range():
+		return "out_of_range"
+	var c := map.cell_of(goal)
+	if not map.in_bounds(c) or not map.is_walkable(c, m.hover):
+		return "impassable"
+	return ""
+
+
+## TACTICAL_ORDER_JUMPTO_POINT: fly straight to goal over anything in between
+## (Mech3DAppearance jumpVelocity, mech3d.cpp:3984); refused (false) as the original refuses it.
+func order_jump(m: SimUnit, goal: Vector2) -> bool:
+	if m.order == Order.JUMP or jump_refusal(m, goal) != "":
+		return false
+	m.order = Order.JUMP
+	m.order_target = null
+	m.path = PackedVector2Array()
+	m.jump_from = m.position
+	m.jump_to = goal
+	m.jump_start = time
+	m.after_jump = Callable()
+	events.append({"type": "jump", "unit": m.id, "to": goal})
+	return true
+
+
+## TACTICAL_ORDER_GUARD on a point (target null) or an object. Units with a pbrain get the
+## original's guard from the brain (pbrain.abl Sentry / Guard, orders.abi:1387-1528); this is
+## the same rule for units without one: stay at the anchor, engage an enemy that comes within
+## GUARD_ENGAGE_M of it, chase it no further than GUARD_DISENGAGE_M from it, then return.
+func order_guard(m: SimUnit, point: Vector2, target: SimUnit = null, run := true) -> void:
+	if _after_landing(m, func(): order_guard(m, point, target, run)):
+		return
+	m.order = Order.GUARD
+	m.order_target = null
+	m.guard_point = point
+	m.guard_target = target
+	m.move_run = run
+	m.attack_pursue = true
+	m.path = PackedVector2Array()
+	m.repath_time = 0.0
+
+
+## An order given in the air takes effect on landing (the latest one wins); true if deferred.
+func _after_landing(m: SimUnit, then: Callable) -> bool:
+	if m.order != Order.JUMP:
+		return false
+	m.after_jump = then
+	return true
+
+
+func guard_anchor(m: SimUnit) -> Vector2:
+	if m.guard_target and m.guard_target.exists:
+		return m.guard_target.position
+	return m.guard_point
 
 
 # --- tick ---------------------------------------------------------------------
@@ -91,6 +185,7 @@ func step(dt: float = TICK) -> void:
 	for m in units:
 		m.prev_position = m.position
 		m.prev_facing = m.facing
+		m.prev_jump_alt = m.jump_alt
 		if not m.exists:
 			continue
 		if m.brain and not m.is_disabled():
@@ -131,6 +226,9 @@ func _splash(v: SimVehicle) -> void:
 
 func _update_motion(m: SimUnit, dt: float) -> void:
 	m.speed = 0.0
+	if m.order == Order.JUMP:  # airborne: always lands, whatever happens to it in flight
+		_update_jump(m, dt)
+		return
 	if m.is_disabled() or m.status == SimUnit.Status.SHUTDOWN:
 		m.body_state = SimUnit.BodyState.STANDING if not m.is_disabled() else m.body_state
 		return
@@ -146,6 +244,9 @@ func _update_motion(m: SimUnit, dt: float) -> void:
 			m.body_state = SimMech.BodyState.STANDING
 		return
 	var goal = _current_goal(m)
+	if goal != null and m.hold_position and m.order != Order.MOVE:
+		# Hold position: only a move order moves the unit (warrior.cpp:3982-3988).
+		goal = null
 	if goal == null:
 		m.body_state = SimMech.BodyState.STANDING
 		_face_target(m, dt)
@@ -170,9 +271,34 @@ func _update_motion(m: SimUnit, dt: float) -> void:
 		m.body_state = SimMech.BodyState.WALKING
 
 
+## Airborne: straight line at constant speed, turning toward the landing point; lands on
+## the goal and stands (the jump order is done).
+func _update_jump(m: SimUnit, dt: float) -> void:
+	var t := clampf((time - m.jump_start) / JUMP_TIME, 0.0, 1.0)
+	var span := m.jump_to - m.jump_from
+	m.position = m.jump_from + span * t
+	m.speed = span.length() / JUMP_TIME
+	m.jump_alt = 4.0 * JUMP_APEX * span.length() * t * (1.0 - t)
+	m.body_state = SimUnit.BodyState.JUMPING
+	if span.length() > 0.5:
+		var diff := wrapf(rad_to_deg(atan2(span.x, span.y)) - m.facing, -180.0, 180.0)
+		m.facing = wrapf(m.facing + clampf(diff, -m.turn_rate * dt, m.turn_rate * dt), 0.0, 360.0)
+	if t >= 1.0:
+		m.jump_alt = 0.0
+		m.speed = 0.0
+		m.body_state = SimUnit.BodyState.STANDING
+		m.order = Order.HOLD
+		m.path = PackedVector2Array()
+		events.append({"type": "landed", "unit": m.id})
+		var then := m.after_jump
+		m.after_jump = Callable()
+		if then.is_valid() and not m.is_disabled():
+			then.call()
+
+
 ## Standing with a target outside the fire arc: turn in place toward it.
 func _face_target(m: SimUnit, dt: float) -> void:
-	var t: SimUnit = m.order_target if m.order == Order.ATTACK else m.current_target
+	var t: SimUnit = m.order_target if m.order in [Order.ATTACK, Order.GUARD] and m.order_target else m.current_target
 	if t == null or t.is_disabled():
 		return
 	var rel := m.rel_facing_to(t.position)
@@ -188,12 +314,14 @@ func fire_arc(m: SimUnit) -> float:
 
 ## Next point to walk to, or null. Advances the path; handles attack approach.
 func _current_goal(m: SimUnit) -> Variant:
+	if m.order == Order.GUARD:
+		return _guard_goal(m)
 	if m.order == Order.ATTACK:
 		var t: SimUnit = m.order_target
 		if t == null or t.is_disabled():
 			order_hold(m)
 			return null
-		if m.distance_to(t.position) <= attack_range(m):
+		if not m.attack_pursue or m.distance_to(t.position) <= attack_range(m):
 			m.path = PackedVector2Array()
 			return null
 		if m.path.is_empty() or time >= m.repath_time:
@@ -212,6 +340,47 @@ func _current_goal(m: SimUnit) -> Variant:
 		m.path = PackedVector2Array()
 		if m.order == Order.MOVE:
 			order_hold(m)
+		return null
+	return m.path[m.path_index]
+
+
+## Guard: pick up (or keep) an enemy near the anchor and close on it, else walk back.
+func _guard_goal(m: SimUnit) -> Variant:
+	if m.guard_target and (not m.guard_target.exists or m.guard_target.is_destroyed()):
+		order_hold(m)  # Guard(): the guarded object is gone (FAILED)
+		return null
+	var anchor := guard_anchor(m)
+	var t: SimUnit = m.order_target
+	if t and (t.is_disabled() or not t.exists or t.position.distance_to(anchor) > GUARD_DISENGAGE_M):
+		t = null
+	if t == null:
+		var best_d := GUARD_ENGAGE_M
+		for e in enemies_of(m):
+			var d := e.position.distance_to(anchor)
+			if d <= best_d and (e.num_weapons > 0 or not m.is_player):
+				best_d = d
+				t = e
+	m.order_target = t
+	if t:
+		if m.distance_to(t.position) <= attack_range(m):
+			m.path = PackedVector2Array()
+			return null
+		if m.path.is_empty() or time >= m.repath_time:
+			m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.hover), m.hover)
+			m.path_index = 0
+			m.repath_time = time + 2.0
+	elif m.position.distance_to(anchor) > ARRIVE_M * 4.0:
+		if m.path.is_empty() or time >= m.repath_time:
+			m.path = map.find_path(m.position, map.nearest_walkable(anchor, m.hover), m.hover)
+			m.path_index = 0
+			m.repath_time = time + 2.0
+	else:
+		m.path = PackedVector2Array()
+		return null
+	while m.path_index < m.path.size() and m.position.distance_to(m.path[m.path_index]) < ARRIVE_M:
+		m.path_index += 1
+	if m.path_index >= m.path.size():
+		m.path = PackedVector2Array()
 		return null
 	return m.path[m.path_index]
 
@@ -235,7 +404,7 @@ func _firing_position_path(m: SimUnit, t: SimUnit) -> PackedVector2Array:
 
 
 func max_speed(m: SimUnit) -> float:
-	var top := m.run_speed
+	var top := m.run_speed if m.move_run else m.walk_speed
 	if m is SimMech:
 		if _legs_gone(m):
 			return 0.0
@@ -303,7 +472,7 @@ func _combat(m: SimUnit) -> void:
 
 
 func _pick_target(m: SimUnit) -> SimUnit:
-	if m.order == Order.ATTACK and m.order_target and not m.order_target.is_disabled():
+	if m.order in [Order.ATTACK, Order.GUARD] and m.order_target and not m.order_target.is_disabled():
 		return m.order_target
 	var reach := attack_range(m) / 0.9
 	if m.current_target and not m.current_target.is_disabled() \

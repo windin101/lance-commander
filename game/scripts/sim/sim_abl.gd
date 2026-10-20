@@ -42,6 +42,8 @@ const TO_NONE := 0
 const TO_WAIT := 1
 const TO_MOVETO_POINT := 2
 const TO_MOVETO_OBJECT := 3
+const TO_JUMPTO_POINT := 4
+const TO_GUARD := 10
 const TO_STOP := 11
 const TO_POWERUP := 12
 const TO_POWERDOWN := 13
@@ -245,11 +247,16 @@ func run_alarm_handlers() -> void:
 
 ## A command from the player (CommandInput): becomes the pilot's tactical order with
 ## player origin, then raises PLAYER_ORDER so pbrain's handler sees it at once.
-## kind: "move" (arg: goal Vector2 m), "attack" (arg: SimUnit), "capture" (arg: SimUnit), "stop".
-func player_order(u: SimUnit, kind: String, arg: Variant = null) -> void:
+## kind: "move" (arg: goal Vector2 m), "attack" / "capture" (arg: SimUnit), "jump" (arg: goal),
+## "guard" (arg: a SimUnit to guard, or a ground point Vector2), "stop".
+## opts: "run" (TRAVEL_MODE_FAST; the original's default is walk, ControlGui WALK = 0,
+## missiongui.cpp:3155), "pursue" (attack: false = fire from current position, or the unit's
+## Hold position, missiongui.cpp:1873-1880).
+func player_order(u: SimUnit, kind: String, arg: Variant = null, opts: Dictionary = {}) -> void:
 	if not (u.brain is Pilot):
 		return
 	var p: Pilot = u.brain
+	var run: bool = opts.get("run", false)
 	var o: Dictionary
 	match kind:
 		"capture":
@@ -257,16 +264,30 @@ func player_order(u: SimUnit, kind: String, arg: Variant = null) -> void:
 			if not can_capture(t, u.team) or capture_blocker(t, u, false) != null:
 				world.events.append({"type": "capture_refused", "unit": u.id, "target": t.id})
 				return
-			o = {"code": TO_CAPTURE, "target": t, "goal": _capture_goal(u, t), "origin": 0}
+			o = {"code": TO_CAPTURE, "target": t, "goal": _capture_goal(u, t), "run": run, "origin": 0}
 		"move":
-			o = {"code": TO_MOVETO_POINT, "goal": arg, "run": true, "origin": 0}
+			o = {"code": TO_MOVETO_POINT, "goal": arg, "run": run, "origin": 0}
 		"attack":
-			o = {"code": TO_ATTACK_OBJECT, "target": arg, "pursue": true, "origin": 0}
+			var pursue: bool = opts.get("pursue", true) and not u.hold_position
+			o = {"code": TO_ATTACK_OBJECT, "target": arg, "pursue": pursue, "run": run, "origin": 0}
+		"jump":
+			# Refused as Mover::handleTacticalOrder refuses it (RADIO_ILLEGAL_ORDER, mover.cpp:3186-3201).
+			var why := world.jump_refusal(u, arg)
+			if why != "":
+				world.events.append({"type": "order_refused", "unit": u.id, "order": "jump", "why": why})
+				return
+			o = {"code": TO_JUMPTO_POINT, "goal": arg, "origin": 0}
+		"guard":
+			# missiongui.cpp:2022-2050 doGuard: a target object, or a ground point (run there).
+			if arg is SimUnit:
+				o = {"code": TO_GUARD, "target": arg, "goal": (arg as SimUnit).position, "run": true, "origin": 0}
+			else:
+				o = {"code": TO_GUARD, "goal": arg, "run": true, "origin": 0}
 		_:
 			o = {"code": TO_STOP, "origin": 0}
 	if int(o["code"]) == TO_STOP:
 		p.order = {"code": TO_NONE}
-		world.order_hold(u)
+		world.order_stop(u)
 	else:
 		_issue(p, o)
 	p.raise(EV_PLAYER_ORDER, int(o["code"]))
@@ -305,6 +326,11 @@ func _order_done(p: Pilot, u: SimUnit, o: Dictionary) -> bool:
 			return world.time > float(o.get("end", 0.0))
 		TO_MOVETO_POINT, TO_MOVETO_OBJECT:
 			return world.map.cell_of(u.position) == world.map.cell_of(o["goal"])
+		TO_JUMPTO_POINT:
+			return u.order != SimWorld.Order.JUMP
+		TO_GUARD:
+			var g: SimUnit = o.get("target")
+			return g != null and (not g.exists or g.is_destroyed())
 		TO_ATTACK_OBJECT:
 			var t: SimUnit = o.get("target")
 			return t == null or not t.exists or t.is_destroyed() or (t.is_disabled() and not o.get("obliterate", false))
@@ -320,15 +346,27 @@ func _order_done(p: Pilot, u: SimUnit, o: Dictionary) -> bool:
 func _issue(p: Pilot, o: Dictionary) -> void:
 	var u := p.unit
 	p.order = o
+	# Only a player order honours walk vs run: the brains' own moves still all run (their
+	# ABL speed flag is not ported yet; I82 left it alone to keep the AI's pace).
+	var player := int(o.get("origin", 2)) == 0
+	var run: bool = o.get("run", true) if player else true
 	match int(o["code"]):
 		TO_MOVETO_POINT, TO_MOVETO_OBJECT, TO_CAPTURE:
-			world.order_move(u, o["goal"])
+			world.order_move(u, o["goal"], run)
+		TO_JUMPTO_POINT:
+			world.order_jump(u, o["goal"])
+		TO_GUARD:
+			# pbrain takes the guard over at its next run (KludgeHandleGuard -> Sentry / Guard);
+			# until then, and for a brain that never does, the world's own guard rule.
+			world.order_guard(u, o["goal"], o.get("target"), run)
 		TO_ATTACK_OBJECT:
 			var t: SimUnit = o["target"]
 			u.current_target = t
 			u.brain_engaged = true
 			if o.get("pursue", true):
-				world.order_attack(u, t)
+				world.order_attack(u, t, run)
+			elif player:
+				world.order_attack(u, t, run, false)  # fire from current position: keeps the target
 			else:
 				world.order_hold(u)
 		TO_WAIT:
@@ -922,18 +960,22 @@ func _register() -> void:
 		params[3] = t.part_id if t else 0
 		params[4] = class_of(t) if t else 0
 		params[5] = 0
-		if params.size() > 18:
-			match int(ord["code"]):
-				TO_MOVETO_POINT:
-					var g: Vector2 = ord["goal"]
-					params[7] = 1 if ord.get("run", false) else 0
-					params[9] = int(g.x / WU)
-					params[10] = int(g.y / WU)
-				TO_ATTACK_OBJECT:
-					params[13] = 1 if ord.get("pursue", false) else 0
-					params[14] = 1 if ord.get("obliterate", false) else 0
-			params[17] = 0
-			params[18] = 0
+		# Each slot only if the script's array has it (pbrain passes integer[15]).
+		var put := func(k: int, v: int) -> void:
+			if k < params.size():
+				params[k] = v
+		match int(ord["code"]):
+			TO_MOVETO_POINT, TO_JUMPTO_POINT, TO_GUARD:
+				var g: Vector2 = ord["goal"]
+				put.call(7, 1 if ord.get("run", false) else 0)
+				put.call(9, int(g.x / WU))
+				put.call(10, int(g.y / WU))
+			TO_ATTACK_OBJECT:
+				put.call(7, 1 if ord.get("run", false) else 0)
+				put.call(13, 1 if ord.get("pursue", false) else 0)
+				put.call(14, 1 if ord.get("obliterate", false) else 0)
+		put.call(17, 0)
+		put.call(18, 0)
 		return int(ord["code"]))
 	r.register_native("clearTacOrder", func(_i, _a):
 		if current:

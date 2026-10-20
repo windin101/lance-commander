@@ -65,6 +65,19 @@ static func from_chassis(chassis: Dictionary, variant_index: int, rules: SimRule
 	return m
 
 
+func can_jump() -> bool:
+	return items.any(func(it): return it["form"] == "JumpJet")
+
+
+## BattleMech::getJumpRange (mech.cpp:6684): numJumpJets (5) plus one for a LongJump
+## pilot, times worldUnitsPerVertex (128 wu = one 25.6 m vertex).
+func jump_range() -> float:
+	if not can_jump():
+		return 0.0
+	var jets := 5 + (1 if pilot and pilot.specialties.has("LongJump") else 0)
+	return jets * 25.6
+
+
 func _build_inventory(variant: Dictionary, rules: SimRules) -> void:
 	var item_ids: Array = variant["items"]
 	var item_to_inv := {}

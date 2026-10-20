@@ -197,14 +197,15 @@ func _orders(sm: SimMission) -> void:
 		return
 
 
-## Orders go through the lance's pbrain, as the player's do (CommandInput).
+## Orders go through the lance's pbrain, as the player's do (CommandInput). The bot keeps
+## Run on (the original's Space held): a player order walks otherwise (I82).
 func _order(sm: SimMission, m: SimUnit, kind: String, arg: Variant) -> void:
 	if sm.abl and m.brain is SimAbl.Pilot:
-		sm.abl.player_order(m, kind, arg)
+		sm.abl.player_order(m, kind, arg, {"run": true})
 	elif kind == "attack":
 		sm.world.order_attack(m, arg)
 	elif kind == "stop":
-		sm.world.order_hold(m)
+		sm.world.order_stop(m)
 	else:
 		sm.world.order_move(m, arg)
 

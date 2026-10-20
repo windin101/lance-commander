@@ -84,6 +84,17 @@ var brain_name := ""  # the mission Warrior's Brain script name
 var last_attacker: SimUnit = null
 var last_attacked_time := -1.0
 var engage_m := 0.0  # auto-target radius limit (0 = weapon range); PBrain uses 100 m
+var move_run := true  # this move/attack runs (TRAVEL_MODE_FAST); a player order walks unless Run is on (I82)
+var attack_pursue := true  # an attack order closes to weapon range; false = fire from current position
+var hold_position := false  # player Hold (attackRange FIRERANGE_CURRENT): don't move for non-move orders
+var guard_point := Vector2.ZERO  # Order.GUARD anchor when guard_target is null
+var guard_target: SimUnit = null  # Order.GUARD: the object guarded
+var jump_from := Vector2.ZERO  # Order.JUMP: takeoff and landing points, start time
+var jump_to := Vector2.ZERO
+var jump_start := 0.0
+var jump_alt := 0.0  # height above the ground in a jump (the view's arc)
+var prev_jump_alt := 0.0
+var after_jump := Callable()  # an order given in the air, applied on landing
 
 
 func kind() -> String:
@@ -115,6 +126,12 @@ func weapon_indices() -> Array[int]:
 
 func weapon(inv: int) -> Dictionary:
 	return items[inv]["component"].get("weapon", {})
+
+
+## Jump jets fitted (BattleMech::canJump, mech.h:656): any JumpJet component sets
+## numJumpJets = 5 (mech.cpp:1512). Vehicles never jump (Mover::canJump, mover.h:1648).
+func can_jump() -> bool:
+	return false
 
 
 func uses_ammo(inv: int) -> bool:

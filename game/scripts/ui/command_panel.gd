@@ -10,15 +10,16 @@ signal command(kind: String)
 signal support(kind: String)
 
 const WIDTH_EM := 35.3
-## [id, title, hotkey, help]: the mock-up's (and the original's) letters. CommandInput binds
-## H (hold) and A (alpha strike) today; R, J, G, S and F (fire from position) are not bound yet.
+## [id, title, hotkey, help]: the original's keys (missiongui.cpp:198-300; CommandInput binds
+## them): Space, J, G and C arm their mode while held, Backspace stops, H toggles hold.
+## A is this port's alpha strike (the original's A fires energy weapons only).
 const COMMANDS := [
-	["run", "Run", "R", "Selected units run to the next point you right-click."],
-	["jump", "Jump", "J", "Selected 'Mechs with jump jets jump to the next point you right-click."],
-	["guard", "Guard", "G", "Selected units hold this area and engage anything that enters it."],
-	["stop", "Stop", "S", "Selected units stop where they are."],
-	["fire_from_position", "Fire from position", "F", "Selected units fire on the next target without moving."],
-	["hold", "Hold", "H", "Selected units hold position and fire only when fired on."],
+	["run", "Run", "SPC", "Selected units run on their next order. Hold Space, or toggle."],
+	["jump", "Jump", "J", "Selected 'Mechs with jump jets jump to the next point you right-click (128 m)."],
+	["guard", "Guard", "G", "Right-click a point or a unit: selected units guard it and engage anything that comes near."],
+	["stop", "Stop", "BKSP", "Selected units drop their orders and stop where they are."],
+	["fire_from_position", "Fire from position", "C", "Selected units fire on the next target you right-click without moving."],
+	["hold", "Hold", "H", "Selected units hold position: they fire but move only when ordered to. Toggle."],
 	["alpha_strike", "Alpha strike", "A", "Fire every weapon regardless of heat. Toggle."],
 ]
 const SUPPORT_HELP := {
@@ -125,11 +126,13 @@ static func thousands(n: int) -> String:
 	return ("-" if n < 0 else "") + s + out
 
 
-## Light the armed command, the alpha-strike state and the support tiles.
-func update_state(mode: String, alpha_on: bool, sup: SimSupport, armed_power: String) -> void:
+## Light the armed modes and unit settings (on: command id -> bool), grey Jump when the
+## selection has no jump jets (controlGui.cpp:1163-1166), and update the support tiles.
+func update_state(on: Dictionary, sup: SimSupport, armed_power: String, can_jump := true) -> void:
 	for id in icons:
 		var b: IconButton = icons[id]
-		b.on = (id == mode) or (id == "alpha_strike" and alpha_on)
+		b.on = on.get(id, false)
+		b.disabled = id == "jump" and not can_jump
 	if sup == null:
 		return
 	rp_label.text = thousands(sup.rp)
@@ -147,6 +150,11 @@ class IconButton:
 	var key := ""
 	var u := 11.4
 	var hot := false
+	var disabled := false:
+		set(v):
+			if v != disabled:
+				disabled = v
+				modulate.a = 0.4 if v else 1.0
 	var on := false:
 		set(v):
 			if v != on:

@@ -138,3 +138,139 @@ func test_turns_to_engage_target_behind() -> void:
 		w.events.clear()
 	assert_float(absf(a.rel_facing_to(t.position))).is_less_equal(w.fire_arc(a))
 	assert_int(shots).is_greater(0)
+
+
+# --- I82: run / walk, jump, guard, fire from position, hold position, stop ---------------
+
+func test_walk_order_moves_at_walk_speed() -> void:
+	var w := _mission().world
+	var m := w.units[1]  # Bushwacker
+	w.order_move(m, w.map.nearest_walkable(m.position + Vector2(-300, 0)), false)
+	for i in 30:
+		w.step()
+	assert_float(m.speed).is_less_equal(m.walk_speed + 0.01)
+	assert_float(m.speed).is_greater(m.walk_speed * 0.8)
+	assert_int(m.body_state).is_equal(SimMech.BodyState.WALKING)
+
+
+func test_jump_flies_to_the_point_and_lands() -> void:
+	var w := _mission().world
+	var m := w.units[0]  # Werewolf (Razorback Prime): jump jets
+	assert_bool(m.can_jump()).is_true()
+	assert_float(m.jump_range()).is_equal_approx(128.0, 0.01)  # 5 jets x 128 wu
+	var goal := w.map.nearest_walkable(m.position + Vector2(0, 100))
+	assert_bool(w.order_jump(m, goal)).is_true()
+	var top := 0.0
+	var states := {}
+	for i in int(SimWorld.JUMP_TIME / SimWorld.TICK) + 2:
+		w.step()
+		top = maxf(top, m.jump_alt)
+		states[m.body_state] = true
+	assert_float(m.position.distance_to(goal)).is_less(0.01)
+	assert_int(m.order).is_equal(SimWorld.Order.HOLD)
+	assert_float(m.jump_alt).is_equal(0.0)
+	assert_float(top).is_greater(10.0)
+	assert_bool(states.has(SimUnit.BodyState.JUMPING)).is_true()
+
+
+func test_jump_refused_out_of_range_impassable_or_without_jets() -> void:
+	var w := _mission().world
+	var ww := w.units[0]
+	var bw := w.units[1]  # Bushwacker: no jump jets
+	assert_bool(bw.can_jump()).is_false()
+	assert_str(w.jump_refusal(bw, bw.position + Vector2(0, 50))).is_equal("no_jump_jets")
+	assert_str(w.jump_refusal(ww, ww.position + Vector2(0, 200))).is_equal("out_of_range")
+	var veh: SimUnit = w.units.filter(func(u): return u is SimVehicle)[0]
+	assert_bool(w.order_jump(veh, veh.position + Vector2(0, 20))).is_false()
+	assert_bool(w.order_jump(ww, ww.position + Vector2(0, 200))).is_false()
+	assert_int(ww.order).is_equal(SimWorld.Order.HOLD)
+
+
+func test_order_in_the_air_waits_for_landing() -> void:
+	var w := _mission().world
+	var m := w.units[0]
+	var goal := w.map.nearest_walkable(m.position + Vector2(0, 100))
+	w.order_jump(m, goal)
+	w.step()
+	var next := w.map.nearest_walkable(goal + Vector2(80, 0))
+	w.order_move(m, next, true)
+	assert_int(m.order).is_equal(SimWorld.Order.JUMP)
+	for i in int(SimWorld.JUMP_TIME / SimWorld.TICK) + 2:
+		w.step()
+	assert_int(m.order).is_equal(SimWorld.Order.MOVE)
+
+
+func test_fire_from_position_never_moves() -> void:
+	var w := _mission().world
+	var m := w.units[1]
+	m.brain = null  # the world's own rules, no pbrain
+	var enemy: SimUnit = _enemy_mech(w)
+	enemy.position = w.map.nearest_walkable(m.position + Vector2(0, 600))
+	enemy.awake = false
+	var start := m.position
+	w.order_attack(m, enemy, true, false)
+	for i in 40:
+		w.step()
+	assert_float(m.position.distance_to(start)).is_less(0.5)
+	assert_int(m.order).is_equal(SimWorld.Order.ATTACK)
+	assert_object(m.order_target).is_same(enemy)
+
+
+func test_hold_position_stays_on_attack_but_moves_on_move() -> void:
+	var w := _mission().world
+	var m := w.units[1]
+	m.brain = null  # the world's own rules, no pbrain
+	var enemy: SimUnit = _enemy_mech(w)
+	enemy.position = w.map.nearest_walkable(m.position + Vector2(0, 600))
+	enemy.awake = false
+	m.hold_position = true
+	var start := m.position
+	w.order_attack(m, enemy)
+	for i in 30:
+		w.step()
+	assert_float(m.position.distance_to(start)).is_less(0.5)
+	w.order_move(m, w.map.nearest_walkable(m.position + Vector2(-200, 0)), true)
+	for i in 30:
+		w.step()
+	assert_float(m.position.distance_to(start)).is_greater(20.0)
+
+
+func test_guard_point_engages_intruder_and_returns() -> void:
+	var w := _mission().world
+	var m := w.units[1]
+	m.brain = null  # the world's own rules, no pbrain
+	var enemy: SimUnit = _enemy_mech(w)
+	var post := m.position
+	enemy.position = w.map.nearest_walkable(post + Vector2(0, 600))  # outside the guard radius
+	enemy.awake = false
+	w.order_guard(m, post)
+	for i in 20:
+		w.step()
+	assert_object(m.order_target).is_null()
+	assert_float(m.position.distance_to(post)).is_less(15.0)
+	enemy.position = w.map.nearest_walkable(post + Vector2(0, 220))  # comes within 250 m
+	for i in 5:
+		w.step()
+	assert_object(m.order_target).is_same(enemy)
+	enemy.position = w.map.nearest_walkable(post + Vector2(0, 700))  # gone past 275 m: let it go
+	for i in 200:
+		w.step()
+	assert_object(m.order_target).is_null()
+	assert_int(m.order).is_equal(SimWorld.Order.GUARD)
+	assert_float(m.position.distance_to(post)).is_less(20.0)
+
+
+func test_stop_clears_order_and_target() -> void:
+	var w := _mission().world
+	var m := w.units[1]
+	m.brain = null  # the world's own rules, no pbrain
+	var enemy: SimUnit = _enemy_mech(w)
+	w.order_attack(m, enemy)
+	m.current_target = enemy
+	w.order_stop(m)
+	assert_int(m.order).is_equal(SimWorld.Order.HOLD)
+	assert_object(m.current_target).is_null()
+
+
+func _enemy_mech(w: SimWorld) -> SimUnit:
+	return w.units.filter(func(u): return u is SimMech and u.team != 0)[0]

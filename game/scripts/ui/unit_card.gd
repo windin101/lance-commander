@@ -35,7 +35,7 @@ var expanded := false:
 			expanded = v
 			_build()
 var speaking := false
-var active_mode := ""  # the armed order button to light (MissionHud.command_mode)
+var active_modes := {}  # order id -> lit (MissionHud: CommandInput.mode_on)
 var hover_help: Callable  # (title, text) -> void, the rollover help line
 var doll: DollView
 var armor_bar: HudKit.Bar
@@ -287,7 +287,7 @@ func _refresh() -> void:
 	for k in buttons:
 		var b: Button = buttons[k]
 		if b.toggle_mode:
-			b.set_pressed_no_signal(active_mode == k)
+			b.set_pressed_no_signal(active_modes.get(k, false))
 
 
 ## Status word for a unit that is not simply fighting, or "" when it is.

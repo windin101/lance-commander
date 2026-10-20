@@ -2,7 +2,17 @@ class_name CommandInput
 extends Node
 ## RTS commands: left-click / drag-box to select player units, right-click on an
 ## enemy unit or a destructible building to attack it, or on the ground to move
-## there. H = hold, A = alpha strike (F is the original's force-fire key, missiongui.cpp:208).
+## there. A = alpha strike (the original's A is energy weapons only; F is its force fire,
+## missiongui.cpp:202-208).
+## Order modes as the original's command palette (ControlGui curOrder, controlGui.cpp:120-123,
+## 1340-1395): Run, Guard and Jump arm the next right-click; Run combines with Guard, Jump is
+## alone. A button toggles its mode and it stays armed until an order uses it (doMove / doJump /
+## doGuard call setDefaultSpeed; an attack keeps Run and clears fire-from-position,
+## missiongui.cpp:1893). A hotkey arms it only while held (the key table's press / release
+## pairs, missiongui.cpp:198-226, run by update(), :1745-1788): Space = run, J = jump,
+## G = guard, C = fire from current position. Backspace = stop (removeCommand -> doStop) and
+## H toggles hold position (toggleHoldPosition, controlGui.cpp:2895); both act at once.
+## Without Run a player order walks (WALK = 0 is the default, TRAVEL_MODE_SLOW).
 ## Groups as in the original (selectForceGroup / makeForceGroup, missiongui.cpp:3240-3298):
 ## 0-9 selects that group, Shift+0-9 adds it (or drops it when it is all selected already),
 ## Ctrl+0-9 assigns the selection to it. E selects every own unit on screen, Shift+E adds them
@@ -14,6 +24,12 @@ signal groups_changed(groups: Dictionary)
 
 const PICK_PX := 40.0
 const DRAG_PX := 10.0  # a left press that moves further than this is a box select
+const RUN := 1  # ControlGui::RUN / GUARD / JUMP (controlGui.cpp:120-123)
+const GUARD := 2
+const JUMP := 4
+const MODE_BITS := {"run": RUN, "guard": GUARD, "jump": JUMP}
+## Held keys -> the mode they arm while down (missiongui.cpp:203-226).
+const MODE_KEYS := {KEY_SPACE: "run", KEY_J: "jump", KEY_G: "guard", KEY_C: "fire_from_position"}
 
 var abl: SimAbl = null  # the mission's ABL bridge: player orders go to the lance's pbrain
 var support: SimSupport = null
@@ -28,6 +44,22 @@ var _drag_start := Vector2.ZERO
 var _dragging := false
 var _double := false  # the release after a double-click must not re-run the single click
 var box: ColorRect
+var mode_bits := 0  # the toggled palette modes (curOrder)
+var fire_from_position := false  # ControlGui fireFromCurrentPos
+var _held := {}  # mode keys held down -> their mode
+## The armed mode as one name ("" = none) for the HUD: jump, guard, run, then fire from position.
+## Setting it arms exactly that mode ("" disarms all).
+var order_mode: String:
+	get:
+		for k in ["jump", "guard", "run", "fire_from_position"]:
+			if mode_on(k):
+				return k
+		return ""
+	set(v):
+		mode_bits = 0
+		fire_from_position = false
+		if v != "":
+			toggle_mode(v)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -67,11 +99,16 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _key(event: InputEventKey) -> void:
-	if event.keycode == KEY_H:
-		for m in selection:
-			_order(m, "stop")
-	elif event.echo:
+	if event.echo:
+		if MODE_KEYS.has(event.keycode):
+			get_viewport().set_input_as_handled()
 		return
+	if MODE_KEYS.has(event.keycode) and not event.ctrl_pressed:
+		hold_mode_key(event.keycode, true)
+	elif event.keycode == KEY_BACKSPACE:
+		stop()
+	elif event.keycode == KEY_H:
+		toggle_hold_position()
 	elif event.keycode == KEY_A:
 		toggle_alpha_strike()
 	elif event.keycode == KEY_E:
@@ -85,6 +122,90 @@ func _key(event: InputEventKey) -> void:
 	else:
 		return
 	get_viewport().set_input_as_handled()
+
+
+func _input(event: InputEvent) -> void:
+	# A mode key's release disarms it wherever the focus is (the release functions).
+	if event is InputEventKey and not event.pressed and _held.has(event.keycode):
+		hold_mode_key(event.keycode, false)
+
+
+# --- order modes --------------------------------------------------------------
+
+func mode_on(kind: String) -> bool:
+	if kind == "fire_from_position":
+		return fire_from_position or _held.values().has(kind)
+	if kind == "hold":
+		return not selection.is_empty() and selection.all(func(m): return m.hold_position)
+	var bit: int = MODE_BITS.get(kind, 0)
+	return bit != 0 and (mode_bits & bit != 0 or _held.values().has(kind))
+
+
+## A palette button: toggleDefaultSpeed / toggleGuard / toggleJump / toggleFireFromCurrentPos
+## (controlGui.cpp:1340-1395, 1704). Jump needs every selected unit to have jump jets
+## (MissionInterfaceManager::jump, missiongui.cpp:1941); returns false when refused.
+func toggle_mode(kind: String) -> bool:
+	match kind:
+		"run":
+			mode_bits = (mode_bits ^ RUN) & (RUN | GUARD)
+		"guard":
+			mode_bits = (mode_bits ^ GUARD) & (GUARD | RUN)  # "can run and guard"
+		"jump":
+			if mode_bits & JUMP == 0 and not can_jump():
+				world.events.append({"type": "order_refused", "order": "jump", "why": "no_jump_jets"})
+				return false
+			mode_bits = (mode_bits ^ JUMP) & JUMP
+		"fire_from_position":
+			fire_from_position = not fire_from_position
+		_:
+			return false
+	return true
+
+
+## A mode key pressed (arms while held) or released (disarms).
+func hold_mode_key(key: int, down: bool) -> void:
+	var kind: String = MODE_KEYS.get(key, "")
+	if kind == "":
+		return
+	if not down:
+		_held.erase(key)
+		return
+	if kind == "jump" and not can_jump():
+		world.events.append({"type": "order_refused", "order": "jump", "why": "no_jump_jets"})
+		return
+	if kind == "jump":
+		mode_bits = 0  # jump is alone (toggleJump)
+	elif kind != "fire_from_position":
+		mode_bits &= ~JUMP
+	_held[key] = kind
+
+
+## Every selected unit has jump jets (MissionInterfaceManager::canJump, missiongui.cpp:3467).
+func can_jump() -> bool:
+	return not selection.is_empty() and selection.all(func(m): return m.can_jump())
+
+
+## setDefaultSpeed (controlGui.cpp:1367): an order used the palette mode.
+func _used_mode() -> void:
+	mode_bits = 0
+
+
+## Stop (button or Backspace): TACTICAL_ORDER_STOP to the selection, and the palette back to
+## its default (ControlGui::doStop, controlGui.cpp:1662-1701).
+func stop() -> void:
+	for m in selection:
+		_order(m, "stop")
+	mode_bits = 0
+	fire_from_position = false
+
+
+## Hold position (button or H): on for the whole selection unless all of it holds already
+## (toggleHoldPosition, controlGui.cpp:2895-2924). A unit setting, not an order: it lasts until
+## toggled, and the unit then moves only on a move order.
+func toggle_hold_position() -> void:
+	var on := not mode_on("hold")
+	for m in selection:
+		m.hold_position = on
 
 
 ## Ctrl+n: group n becomes exactly the current selection (makeForceGroup).
@@ -255,9 +376,16 @@ func _support_input(event: InputEvent) -> bool:
 	return true
 
 
+## A right-click order, as the right-button profile (missiongui.cpp:1503-1560): guard
+## armed -> guard the thing clicked or the ground point; jump armed -> jump there (doMove ->
+## doJump); a capturable target -> capture; an enemy -> attack (from the current position when
+## that mode is on or the unit holds position); else move, walking unless Run is armed.
 func _command(screen: Vector2) -> void:
 	if selection.is_empty():
 		return
+	if mode_on("jump") and not can_jump():
+		mode_bits &= ~JUMP  # the selection changed under an armed jump (missiongui.cpp:1291)
+		_held.erase(KEY_J)
 	# A selected repair truck services the damaged friendly mech clicked (support-powers.md 3.4).
 	var trucks := selection.filter(func(u): return u.refit_pool > 0.0)
 	if support and not trucks.is_empty():
@@ -266,7 +394,19 @@ func _command(screen: Vector2) -> void:
 			for t in trucks:
 				support.order_repair(t, friend)
 			return
-	var enemy := mech_at(screen)
+	var run := mode_on("run")
+	var target := mech_at(screen)
+	if mode_on("guard"):
+		if target == null:
+			target = structure_at(screen)
+		var at = target if target else ground_at(screen)
+		if at == null:
+			return
+		for m in selection:
+			_order(m, "guard", at, {"run": run})
+		_used_mode()
+		return
+	var enemy := target
 	if enemy == null or enemy.team == player_team:
 		enemy = structure_at(screen)
 	# A capturable target always means capture (capture-and-objectives.md A2); only an
@@ -274,16 +414,32 @@ func _command(screen: Vector2) -> void:
 	if enemy and abl and abl.can_capture(enemy, player_team):
 		if selection.all(func(m): return m is SimMech):
 			for m in selection:
-				_order(m, "capture", enemy)
+				_order(m, "capture", enemy, {"run": run})
 		else:
 			world.events.append({"type": "capture_refused", "unit": selection[0].id, "target": enemy.id})
 		return
 	if enemy and enemy.team != player_team:
+		var ffp := mode_on("fire_from_position")
 		for m in selection:
-			_order(m, "attack", enemy)
+			_order(m, "attack", enemy, {"run": run, "pursue": not (ffp or m.hold_position)})
+		fire_from_position = false
 		return
 	var g = ground_at(screen)
 	if g == null:
+		return
+	if mode_on("jump"):
+		# doJump: every selected unit must reach it (canJumpToWPos); else the click is refused.
+		var why := ""
+		for m in selection:
+			why = world.jump_refusal(m, g)
+			if why != "":
+				break
+		if why != "":
+			world.events.append({"type": "order_refused", "unit": selection[0].id, "order": "jump", "why": why})
+			return
+		for m in selection:
+			_order(m, "jump", g)
+		_used_mode()
 		return
 	# Spread a group around the click so they don't queue on one cell.
 	var n := selection.size()
@@ -292,22 +448,31 @@ func _command(screen: Vector2) -> void:
 		if n > 1:
 			var a := TAU * i / n
 			offset = Vector2(cos(a), sin(a)) * 14.0
-		_order(selection[i], "move", g + offset)
+		_order(selection[i], "move", g + offset, {"run": run})
+	_used_mode()
 
 
 ## Player orders go through the unit's pbrain (SimAbl) when it has one, as in the
 ## original; otherwise straight to the world.
-func _order(m: SimUnit, kind: String, arg: Variant = null) -> void:
+func _order(m: SimUnit, kind: String, arg: Variant = null, opts: Dictionary = {}) -> void:
 	if abl and m.brain is SimAbl.Pilot:
-		abl.player_order(m, kind, arg)
+		abl.player_order(m, kind, arg, opts)
 		return
+	var run: bool = opts.get("run", false)
 	match kind:
 		"attack":
-			world.order_attack(m, arg)
-		"move":
-			world.order_move(m, arg)
+			world.order_attack(m, arg, run, opts.get("pursue", true) and not m.hold_position)
+		"move", "capture":
+			world.order_move(m, arg if arg is Vector2 else (arg as SimUnit).position, run)
+		"jump":
+			world.order_jump(m, arg)
+		"guard":
+			if arg is SimUnit:
+				world.order_guard(m, (arg as SimUnit).position, arg, true)
+			else:
+				world.order_guard(m, arg, null, true)
 		_:
-			world.order_hold(m)
+			world.order_stop(m)
 
 
 func _set_selection(s: Array) -> void:
