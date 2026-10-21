@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-21T18:39:11+13:00",
+  "updated": "2026-10-21T18:46:54+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1464,6 +1464,19 @@
       "created": "2026-10-21T18:17:07+13:00",
       "updated": "2026-10-21T18:39:11+13:00",
       "note": "Mech Bay rework + Mech Lab (MW5 rules); jump jets allowed when flagged or carried by a stock variant"
+    },
+    {
+      "id": "I87",
+      "sev": "P3",
+      "title": "Weapon effects, explosions and damage visuals pass",
+      "detail": "Lee 2026-10-21: weapon effects, explosions and damage are pretty poor at the moment. For later (after feature complete, alongside the texture pass). Scope: weapon fire (beams, tracers, missile trails, muzzle flash), impacts, mech/vehicle/building explosions and wrecks, visible damage states (smoke, fire, sparks, scorching) on damaged units.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-21T18:46:54+13:00",
+      "updated": "2026-10-21T18:46:54+13:00",
+      "note": null
     }
   ],
   "coverage": {
@@ -1570,11 +1583,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:55:50+13:00",
-      "who": "game-art",
-      "msg": "issue I43 P2: HD madcat: reseed_concept"
-    },
     {
       "at": "2026-10-19T16:55:50+13:00",
       "who": "game-art",
@@ -2569,6 +2577,11 @@
       "at": "2026-10-21T18:39:11+13:00",
       "who": "conductor",
       "msg": "issue I86 fixed: Mech Bay rework + Mech Lab (MW5 rules); jump jets allowed when flagged or carried by a stock variant"
+    },
+    {
+      "at": "2026-10-21T18:46:54+13:00",
+      "who": "game-art",
+      "msg": "issue I87 P3: Weapon effects, explosions and damage visuals pass"
     }
   ],
   "choices": [

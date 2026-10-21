@@ -77,6 +77,38 @@ static func allowed_in(comp: Dictionary, loc: String) -> bool:
 	return int(comp.get("locations", {}).get(loc, -1)) >= 0
 
 
+## Weight class by tonnage (as SimMission.weight_class): light < 40, medium < 60,
+## heavy < 80, else assault.
+static func weight_class(tons: float) -> String:
+	if tons < 40.0:
+		return "light"
+	if tons < 60.0:
+		return "medium"
+	if tons < 80.0:
+		return "heavy"
+	return "assault"
+
+
+## The chassis description from the string table (the converter files it as abbr_string;
+## desc_string is the display name), "" when there is none.
+static func description(data: Object, chassis: String) -> String:
+	var ch: Dictionary = data.chassis.get(chassis, {})
+	var name := String(data.strings.get(str(int(ch.get("desc_string", -1))), ""))
+	var text := String(data.strings.get(str(int(ch.get("abbr_string", -1))), "")).strip_edges()
+	if text.length() <= name.length() + 20:
+		return ""  # 'Copters and the Talon carry only a name
+	return text
+
+
+## Weapons of each type a loadout carries: {B, E, M}.
+static func weapon_counts(data: Object, parts: Dictionary) -> Dictionary:
+	var out := {"B": 0, "E": 0, "M": 0}
+	for loc in LOCS:
+		for t in out:
+			out[t] += hardpoints_used(data, parts, loc, t)
+	return out
+
+
 static func kmh(speed: float) -> int:
 	for row in SPEED_TABLE:
 		if speed <= row[0]:

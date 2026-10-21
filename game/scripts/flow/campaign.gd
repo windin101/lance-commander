@@ -304,6 +304,34 @@ func buy(chassis: String, index: int) -> bool:
 	return true
 
 
+## Market (Mech Bay): where a bought mech goes. "deployed" when it fits the 12 slots and
+## the drop weight, else "reserve".
+func buy_destination(chassis: String, mission: String) -> String:
+	if deployed().size() < MAX_DEPLOY and deployed_tonnage() + tonnage(chassis) <= drop_limit(mission) + 0.01:
+		return "deployed"
+	return "reserve"
+
+
+## Why this offer can't be bought, or "".
+func buy_problem(chassis: String, index: int) -> String:
+	var cost := price(chassis, index)
+	if cost > c_bills:
+		return "Not enough C-Bills: %d more needed" % (cost - c_bills)
+	return ""
+
+
+## Buy from the market: pay, then deploy in the next free slot when it fits (else reserve).
+## Returns the new mech, or {} when it can't be bought.
+func buy_for(chassis: String, index: int, mission: String) -> Dictionary:
+	var dest := buy_destination(chassis, mission)
+	if not buy(chassis, index):
+		return {}
+	var m: Dictionary = mechs[-1]
+	if dest == "deployed":
+		deploy(m, mission)
+	return m
+
+
 func sell(m: Dictionary) -> bool:
 	if int(m["slot"]) > 0:
 		return false  # only reserve mechs can be sold
