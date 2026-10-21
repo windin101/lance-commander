@@ -73,3 +73,103 @@ func test_force_replaces_the_missions_lance() -> void:
 	var r := MissionReport.from_sim(sm, "t", GameData)
 	assert_int(r["survivors"].size()).is_equal(2)
 	assert_str(r["pilots"][0]["profile"]).is_equal("pmwflash")
+
+
+# --- Mech Lab (issue I86) -------------------------------------------------------------------
+
+func test_new_mechs_carry_their_stock_loadout() -> void:
+	var m := camp.add_mech("bushwacker", 0)
+	assert_str(m["loadout"]["name"]).is_equal("Bushwacker Prime")
+	assert_dict(m["loadout"]["parts"]).is_equal(Loadout.stock_parts(GameData, "bushwacker", 0))
+	assert_int(camp.mech_value(m)).is_equal(camp.price("bushwacker", 0))
+
+
+func test_refit_charges_parts_bought_and_fills_stores() -> void:
+	var m := camp.add_mech("bushwacker", 0)
+	var p := Loadout.copy(m["loadout"]["parts"])
+	p["larm"] = [100]  # AC/10 -> AC/5 (on mc2_02's market)
+	assert_str(camp.refit_problem(m, p, "mc2_02")).is_empty()
+	assert_bool(camp.refit(m, p, "mc2_02")).is_true()
+	assert_int(camp.c_bills).is_equal(80000 - int(GameData.components[100]["rp"]))
+	assert_dict(camp.stores).is_equal({101: 1})
+	assert_str(m["loadout"]["name"]).is_equal("Bushwacker Prime (modified)")
+	# Back to stock: the AC/10 comes out of stores for free and the AC/5 goes in.
+	var before := camp.c_bills
+	assert_bool(camp.refit(m, Loadout.stock_parts(GameData, "bushwacker", 0), "mc2_02")).is_true()
+	assert_int(camp.c_bills).is_equal(before)
+	assert_dict(camp.stores).is_equal({100: 1})
+	assert_str(m["loadout"]["name"]).is_equal("Bushwacker Prime")
+	# Illegal loadouts and parts not for sale are refused.
+	var bad := Loadout.copy(p)
+	bad["head"] = [114]
+	assert_bool(camp.refit(m, bad, "mc2_02")).is_false()
+	var off := Loadout.copy(Loadout.stock_parts(GameData, "bushwacker", 0))
+	off["rarm"] = [146]  # ER PPC: not on mc2_02's market
+	assert_str(camp.refit_problem(m, off, "mc2_02")).contains("not for sale")
+
+
+func test_saved_variant_applies_to_another_mech() -> void:
+	var a := camp.add_mech("bushwacker", 0)
+	var b := camp.add_mech("bushwacker", 0)
+	var w := camp.add_mech("werewolf", 0)
+	var p := Loadout.copy(a["loadout"]["parts"])
+	p["larm"] = [100, 7]  # AC/5 and a heat sink
+	assert_bool(camp.save_variant("bushwacker", "Bushwacker Prime", p)).is_false()  # designer name
+	assert_bool(camp.save_variant("bushwacker", "Cool Runner", p)).is_true()
+	assert_bool(camp.refit(a, p, "mc2_02")).is_true()
+	assert_str(a["loadout"]["name"]).is_equal("Cool Runner")
+	var sv: Dictionary = camp.variants_for("bushwacker")[0]
+	assert_bool(camp.apply_variant(w, sv, "mc2_02")).is_false()  # another chassis
+	assert_bool(camp.apply_variant(b, sv, "mc2_02")).is_true()
+	assert_dict(b["loadout"]["parts"]).is_equal(p)
+	assert_str(b["loadout"]["name"]).is_equal("Cool Runner")
+
+
+func test_save_and_load_keep_loadouts_stores_and_variants() -> void:
+	var m := camp.add_mech("bushwacker", 0, "pmwhacksaw", 1)
+	var p := Loadout.copy(m["loadout"]["parts"])
+	p["larm"] = [100]
+	camp.save_variant("bushwacker", "Light Gun", p)
+	camp.refit(m, p, "mc2_02")
+	var d: Dictionary = JSON.parse_string(JSON.stringify(camp.to_dict()))
+	var c2 := Campaign.create(GameData)
+	c2.from_dict(d)
+	assert_dict(c2.mechs[0]["loadout"]["parts"]).is_equal(p)
+	assert_str(c2.mechs[0]["loadout"]["name"]).is_equal("Light Gun")
+	assert_dict(c2.stores).is_equal({101: 1})
+	assert_int(c2.saved_variants.size()).is_equal(1)
+	assert_dict(c2.saved_variants[0]["parts"]).is_equal(p)
+	# The force carries the refit to the sim.
+	var f: Dictionary = c2.force()[0]
+	assert_bool(f["loadout"]["items"].has(100)).is_true()
+	assert_bool(f["loadout"]["items"].has(101)).is_false()
+
+
+## A save from before the Mech Lab holds a variant index only: it loads as that stock design.
+func test_old_saves_migrate_to_stock_loadouts() -> void:
+	var old := {"c_bills": 5000, "next_id": 3, "mechs": [{"id": 1, "chassis": "werewolf", "variant": 0, "pilot": "", "slot": 0},
+		{"id": 2, "chassis": "bushwacker", "variant": 0.0, "pilot": "pmwflash", "slot": 1.0}]}
+	camp.from_dict(JSON.parse_string(JSON.stringify(old)))
+	assert_int(camp.mechs.size()).is_equal(2)
+	assert_dict(camp.mechs[1]["loadout"]["parts"]).is_equal(Loadout.stock_parts(GameData, "bushwacker", 0))
+	assert_str(camp.mechs[0]["loadout"]["name"]).is_equal("Razorback Prime")
+	assert_dict(camp.stores).is_empty()
+	assert_array(camp.saved_variants).is_empty()
+
+
+func test_win_keeps_a_survivors_refit() -> void:
+	var m := camp.add_mech("bushwacker", 0, "pmwflash", 1)
+	var p := Loadout.copy(m["loadout"]["parts"])
+	p["larm"] = [100]
+	camp.refit(m, p, "mc2_02")
+	camp.apply_win({"payout": 0, "survivors": [{"chassis": "bushwacker", "variant": 0, "pilot": "pmwflash",
+		"loadout": {"name": "Bushwacker Prime (modified)", "parts": p}}], "pilots": []})
+	assert_int(camp.mechs.size()).is_equal(1)
+	assert_dict(camp.mechs[0]["loadout"]["parts"]).is_equal(p)
+	# Selling a refitted 'Mech pays its value with the new parts.
+	camp.withdraw(camp.mechs[0])
+	var before := camp.c_bills
+	var value := camp.mech_value(camp.mechs[0])
+	assert_int(value).is_equal(camp.price("bushwacker", 0) - int(GameData.components[101]["rp"]) + int(GameData.components[100]["rp"]))
+	assert_bool(camp.sell(camp.mechs[0])).is_true()
+	assert_int(camp.c_bills).is_equal(before + value)

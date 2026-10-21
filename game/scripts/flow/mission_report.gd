@@ -6,7 +6,7 @@ extends RefCounted
 ## {mission, title, won, time, objectives: [{title, primary, complete}],
 ##  lance: [{name, pilot, state, armour}], kills: [{name, count}], losses,
 ##  and for the campaign (campaign-layer.md 7-9): payout (C-Bills from objectives),
-##  survivors [{chassis, variant, pilot}], salvage [{chassis, variant, name}],
+##  survivors [{chassis, variant, pilot, loadout?}], salvage [{chassis, variant, name}],
 ##  pilots [{profile, kills: [weight class], dead}], bonus_files}
 
 
@@ -49,7 +49,10 @@ static func from_sim(sm: SimMission, title: String, data: Object) -> Dictionary:
 			continue
 		if u.team == sm.player_team and u.commander == 0 and not u.hulk:
 			if not u.is_disabled() and data.chassis.has(u.model):
-				survivors.append({"chassis": u.model, "variant": u.variant, "pilot": u.pilot_profile})
+				var s := {"chassis": u.model, "variant": u.variant, "pilot": u.pilot_profile}
+				if not u.loadout.is_empty():
+					s["loadout"] = u.loadout.duplicate(true)  # a Mech Lab refit walks out as it went in
+				survivors.append(s)
 			if u.pilot_profile != "":
 				pilots.append({"profile": u.pilot_profile, "kills": sm.kills.get(u.id, []), "dead": u.pilot.dead})
 		if u.is_disabled() and not u.is_destroyed() and data.chassis.has(u.model):

@@ -4,14 +4,18 @@ extends RefCounted
 ## inventory with deploy slots and pilots, the pilot roster, bonus technology, and the
 ## rules that change them. Owned and saved by Flow.
 ##
-## A mech in the inventory: {"id", "chassis", "variant" (CSV variant index), "pilot"
-## (profile or ""), "slot" (0 reserve, 1-12 deployed)}. Mechs carry no damage: every
-## mech starts every mission repaired (7.2).
+## A mech in the inventory: {"id", "chassis", "variant" (CSV variant index: the base
+## design, whose fixed items the mech keeps), "pilot" (profile or ""), "slot" (0 reserve,
+## 1-12 deployed), "loadout" {"name", "parts" {loc: [component ids]}} (stock or refitted in
+## the Mech Lab, Loadout rules)}. Mechs carry no damage: every mech starts every mission
+## repaired (7.2).
 ## A pilot: {"name", "gunnery", "piloting", "kills", "missions", "dead"}.
+## Stores: parts stripped in the Mech Lab, {component id: count}; fitting from them is free.
+## Saved variants: [{"name", "chassis", "parts"}], loadouts the player named in the lab.
 ##
-## Simplifications: no mech lab yet (designer variants only); a variant's availability
-## counts only components that some purchase file lists (structural parts such as the
-## engine and cockpit are never listed); promotions don't offer specialty picks yet.
+## Simplifications: a variant's availability counts only components that some purchase
+## file lists (structural parts such as the engine and cockpit are never listed);
+## promotions don't offer specialty picks yet.
 
 const START_CBILLS := 80000
 const MAX_DEPLOY := 12
@@ -26,6 +30,8 @@ var c_bills := START_CBILLS
 var mechs: Array[Dictionary] = []
 var pilots: Dictionary = {}  # profile -> pilot
 var bonus_files: Array[String] = []
+var stores: Dictionary = {}  # component id -> count
+var saved_variants: Array[Dictionary] = []  # {name, chassis, parts}
 var _next_id := 1
 var _universe: Dictionary = {}  # component ids any purchase file lists
 
@@ -42,6 +48,8 @@ func reset() -> void:
 	mechs.clear()
 	bonus_files.clear()
 	pilots.clear()
+	stores.clear()
+	saved_variants.clear()
 	_next_id = 1
 	var roster: Array = _json("res://data/roster.json", [])
 	for p in roster:
@@ -245,18 +253,46 @@ func force() -> Array[Dictionary]:
 	var out: Array[Dictionary] = []
 	for m in deployed():
 		var p: Dictionary = pilots.get(String(m["pilot"]), {})
+		var lo: Dictionary = loadout(m)
 		out.append({"chassis": m["chassis"], "variant": int(m["variant"]), "pilot": String(m["pilot"]),
-			"gunnery": float(p.get("gunnery", 50)), "piloting": float(p.get("piloting", 50))})
+			"gunnery": float(p.get("gunnery", 50)), "piloting": float(p.get("piloting", 50)),
+			"loadout": Loadout.to_sim(data, String(m["chassis"]), int(m["variant"]), lo["parts"], String(lo["name"]))})
 	return out
 
 
 # --- buying, selling, salvage (5.2, 6.2) ---------------------------------------------------
 
-func add_mech(chassis: String, index: int, pilot := "", slot := 0) -> Dictionary:
-	var m := {"id": _next_id, "chassis": chassis, "variant": index, "pilot": pilot, "slot": slot}
+## lo: {"name", "parts"} for a refitted mech; empty for the variant's stock loadout.
+func add_mech(chassis: String, index: int, pilot := "", slot := 0, lo := {}) -> Dictionary:
+	var m := {"id": _next_id, "chassis": chassis, "variant": index, "pilot": pilot, "slot": slot,
+		"loadout": _clean_loadout(chassis, index, lo)}
 	_next_id += 1
 	mechs.append(m)
 	return m
+
+
+func _clean_loadout(chassis: String, index: int, lo: Dictionary) -> Dictionary:
+	if lo.is_empty() or not lo.has("parts"):
+		return stock_loadout(chassis, index)
+	return {"name": String(lo.get("name", variant(chassis, index).get("name", chassis))),
+		"parts": Loadout.normalize(lo["parts"])}
+
+
+func stock_loadout(chassis: String, index: int) -> Dictionary:
+	return {"name": String(variant(chassis, index).get("name", chassis)),
+		"parts": Loadout.stock_parts(data, chassis, index)}
+
+
+## A mech's loadout (stock when it has none: a mech made before the lab).
+func loadout(m: Dictionary) -> Dictionary:
+	if not m.has("loadout") or not (m["loadout"] is Dictionary) or not m["loadout"].has("parts"):
+		m["loadout"] = stock_loadout(String(m["chassis"]), int(m["variant"]))
+	return m["loadout"]
+
+
+## What a mech is worth: chassis + fixed items + its parts (4.4); the sale price.
+func mech_value(m: Dictionary) -> int:
+	return Loadout.value(data, String(m["chassis"]), int(m["variant"]), loadout(m)["parts"])
 
 
 func buy(chassis: String, index: int) -> bool:
@@ -271,7 +307,7 @@ func buy(chassis: String, index: int) -> bool:
 func sell(m: Dictionary) -> bool:
 	if int(m["slot"]) > 0:
 		return false  # only reserve mechs can be sold
-	c_bills += price(m["chassis"], int(m["variant"]))
+	c_bills += mech_value(m)
 	mechs.erase(m)
 	return true
 
@@ -289,6 +325,81 @@ func buy_salvage(chassis: String, index: int) -> bool:
 	return true
 
 
+# --- Mech Lab (Loadout rules, issue I86) ------------------------------------------------------
+
+## The bill for refitting m to parts with this mission's market (Loadout.quote).
+func refit_quote(m: Dictionary, parts: Dictionary, mission: String) -> Dictionary:
+	return Loadout.quote(data, loadout(m)["parts"], parts, stores, available_components(mission))
+
+
+## Why m can't be refitted to parts now, or "".
+func refit_problem(m: Dictionary, parts: Dictionary, mission: String) -> String:
+	var bad := Loadout.problems(data, String(m["chassis"]), int(m["variant"]), parts)
+	if not bad.is_empty():
+		return "Illegal loadout: " + bad[0]
+	var q := refit_quote(m, parts, mission)
+	if not q["unavailable"].is_empty():
+		return "%s is not for sale this mission" % Loadout.component(data, int(q["unavailable"][0])).get("name", "?")
+	if int(q["cost"]) > c_bills:
+		return "Not enough C-Bills"
+	return ""
+
+
+## Refit m: parts that leave go to stores, arriving parts come from stores or are bought.
+## Instant (no calendar). name "" keeps a matching variant's name or marks it modified.
+func refit(m: Dictionary, parts: Dictionary, mission: String, name := "") -> bool:
+	if refit_problem(m, parts, mission) != "":
+		return false
+	var q := refit_quote(m, parts, mission)
+	c_bills -= int(q["cost"])
+	stores = q["stores"]
+	m["loadout"] = {"name": name if name != "" else loadout_name(m, parts), "parts": Loadout.normalize(parts)}
+	return true
+
+
+## The name a loadout shows: a saved or stock variant it matches, else "<base> (modified)".
+func loadout_name(m: Dictionary, parts: Dictionary) -> String:
+	var chassis := String(m["chassis"])
+	for sv in saved_variants:
+		if sv["chassis"] == chassis and Loadout.same(sv["parts"], parts):
+			return String(sv["name"])
+	for v in Loadout.stock_variants(data.chassis.get(chassis, {})):
+		if Loadout.same(Loadout.stock_parts(data, chassis, int(v["index"])), parts) \
+				and Loadout.fixed_slots(data, chassis, int(v["index"])) == Loadout.fixed_slots(data, chassis, int(m["variant"])):
+			return String(v.get("name", chassis))
+	return "%s (modified)" % String(variant(chassis, int(m["variant"])).get("name", chassis))
+
+
+## Save a loadout under a player name for its chassis (replaces one of the same name).
+## Designer variant names are refused.
+func save_variant(chassis: String, name: String, parts: Dictionary) -> bool:
+	name = name.strip_edges()
+	if name.is_empty():
+		return false
+	for v in data.chassis.get(chassis, {}).get("variants", []):
+		if String(v.get("name", "")).to_lower() == name.to_lower():
+			return false
+	for sv in saved_variants:
+		if sv["chassis"] == chassis and String(sv["name"]).to_lower() == name.to_lower():
+			sv["parts"] = Loadout.normalize(parts)
+			sv["name"] = name
+			return true
+	saved_variants.append({"name": name, "chassis": chassis, "parts": Loadout.normalize(parts)})
+	return true
+
+
+func variants_for(chassis: String) -> Array[Dictionary]:
+	var out: Array[Dictionary] = saved_variants.filter(func(sv): return sv["chassis"] == chassis)
+	return out
+
+
+## Apply a saved variant to another mech of its chassis (a refit at its cost).
+func apply_variant(m: Dictionary, sv: Dictionary, mission: String) -> bool:
+	if String(sv.get("chassis", "")) != String(m["chassis"]):
+		return false
+	return refit(m, sv["parts"], mission, String(sv["name"]))
+
+
 # --- after a mission (7, 8.3, 9) -----------------------------------------------------------
 
 ## Apply a won mission's report: objective pay, the force group replaced by the mechs
@@ -300,7 +411,7 @@ func apply_win(report: Dictionary) -> void:
 	var slot := 1
 	for s in report.get("survivors", []):
 		if data.chassis.has(String(s["chassis"])):
-			add_mech(String(s["chassis"]), int(s["variant"]), String(s.get("pilot", "")), slot)
+			add_mech(String(s["chassis"]), int(s["variant"]), String(s.get("pilot", "")), slot, s.get("loadout", {}))
 			slot += 1
 	for p in report.get("pilots", []):
 		var pd: Dictionary = pilots.get(String(p["profile"]), {})
@@ -338,15 +449,21 @@ static func rank(p: Dictionary) -> String:
 # --- save ----------------------------------------------------------------------------------
 
 func to_dict() -> Dictionary:
-	return {"c_bills": c_bills, "mechs": mechs, "pilots": pilots, "bonus_files": bonus_files, "next_id": _next_id}
+	var st := {}
+	for id in stores:
+		st[str(id)] = int(stores[id])
+	return {"c_bills": c_bills, "mechs": mechs, "pilots": pilots, "bonus_files": bonus_files, "next_id": _next_id,
+		"stores": st, "saved_variants": saved_variants}
 
 
 func from_dict(d: Dictionary) -> void:
 	c_bills = int(d.get("c_bills", START_CBILLS))
 	mechs.clear()
 	for m in d.get("mechs", []):
+		# Saves from before the Mech Lab hold a variant index only: that variant's stock loadout.
 		mechs.append({"id": int(m["id"]), "chassis": String(m["chassis"]), "variant": int(m["variant"]),
-			"pilot": String(m.get("pilot", "")), "slot": int(m.get("slot", 0))})
+			"pilot": String(m.get("pilot", "")), "slot": int(m.get("slot", 0)),
+			"loadout": _clean_loadout(String(m["chassis"]), int(m["variant"]), m.get("loadout", {}))})
 	for p in d.get("pilots", {}):
 		if pilots.has(p):
 			pilots[p].merge(d["pilots"][p], true)
@@ -354,3 +471,13 @@ func from_dict(d: Dictionary) -> void:
 	for b in d.get("bonus_files", []):
 		bonus_files.append(String(b))
 	_next_id = int(d.get("next_id", mechs.size() + 1))
+	stores.clear()
+	var st: Dictionary = d.get("stores", {})
+	for id in st:
+		if int(st[id]) > 0:
+			stores[int(id)] = int(st[id])
+	saved_variants.clear()
+	for sv in d.get("saved_variants", []):
+		if sv is Dictionary and sv.has("parts"):
+			saved_variants.append({"name": String(sv.get("name", "")), "chassis": String(sv.get("chassis", "")),
+				"parts": Loadout.normalize(sv["parts"])})
