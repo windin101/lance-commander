@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-20T21:42:56+13:00",
+  "updated": "2026-10-21T18:39:11+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1438,6 +1438,32 @@
       "created": "2026-10-20T21:14:49+13:00",
       "updated": "2026-10-20T21:14:49+13:00",
       "note": null
+    },
+    {
+      "id": "I85",
+      "sev": "P2",
+      "title": "Capture order stalls short of the target: mc2_13 Weapons Facility #3, mech stands at 37 m with TO_CAPTURE forever",
+      "detail": "game: SimAbl.player_order('capture') on mc2_13's third WeaponsFacility (team -1, no blocker, goal_path=1) walks the Shootist to a point 37 m from the facility and stops (order HOLD, pbrain order still TO_CAPTURE). _capture_step only captures within CAPTURE_M (30) + extent and only re-moves for movers, so the order never completes; re-issuing the capture lands on the same spot. Walking the mech to map.nearest_walkable(t.position) then capturing works at once (t=200), so a cell within reach exists and _capture_goal (sim_abl.gd:414-434) picked one outside reach (probably the fallback t.position when no ring point passed find_path, or a ring point > reach). A human clicking capture would stall the same way. Spec: capture-and-objectives.md A2 (capture on arrival within reach). Before the bot workaround, mc2_13 ran to 1800 s PLAYING on all 3 seeds (docs/reports/playtest/2026-10-21/steps/4-leash).",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 400 --mission=mc2_13 --trace  (look for 'CAPTURE stalled x1: Shootist at 37 m from WeaponsFacility'; the bot now works around it on the 3rd stall)",
+      "owner": "sim",
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-21T18:00:26+13:00",
+      "updated": "2026-10-21T18:00:26+13:00",
+      "note": null
+    },
+    {
+      "id": "I86",
+      "sev": "P2",
+      "title": "Mech Bay rework + Mech Lab with MW5 fitting rules",
+      "detail": "Approved by Lee 2026-10-21 (mockup https://claude.ai/artifact/JXH7QBMduutA5KUxxtPkJy). Rules: hardpoints per location = max per type over stock variants; structure = tonnage - heaviest stock payload; slots per location = max(BT standard, stock use), ammo implicit; heat over capacity warns, allowed; armour plating 2t/+32; stripped parts to stores; market = mission purchase list; saved named variants.",
+      "repro": null,
+      "owner": "builder",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-21T18:17:07+13:00",
+      "updated": "2026-10-21T18:39:11+13:00",
+      "note": "Mech Bay rework + Mech Lab (MW5 rules); jump jets allowed when flagged or carried by a stock variant"
     }
   ],
   "coverage": {
@@ -1544,21 +1570,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:55:49+13:00",
-      "who": "game-art",
-      "msg": "issue I40 P2: HD cyclops: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T16:55:49+13:00",
-      "who": "game-art",
-      "msg": "issue I41 P2: HD enfield: reseed_mesh"
-    },
-    {
-      "at": "2026-10-19T16:55:50+13:00",
-      "who": "game-art",
-      "msg": "issue I42 P2: HD laohu: reseed_concept"
-    },
     {
       "at": "2026-10-19T16:55:50+13:00",
       "who": "game-art",
@@ -2543,6 +2554,21 @@
       "at": "2026-10-20T21:42:56+13:00",
       "who": "agent",
       "msg": "lee: phase 8 balance bar = every mission won on 2+ of 3 seeds by the improved bot; gate checks added (tests, no open P1, balance, screens fresh after 2cb986f)"
+    },
+    {
+      "at": "2026-10-21T18:00:26+13:00",
+      "who": "sim",
+      "msg": "issue I85 P2: Capture order stalls short of the target: mc2_13 Weapons Facility #3, mech stands at 37 m with TO_CAPTURE forever"
+    },
+    {
+      "at": "2026-10-21T18:17:07+13:00",
+      "who": "builder",
+      "msg": "issue I86 P2: Mech Bay rework + Mech Lab with MW5 fitting rules"
+    },
+    {
+      "at": "2026-10-21T18:39:11+13:00",
+      "who": "conductor",
+      "msg": "issue I86 fixed: Mech Bay rework + Mech Lab (MW5 rules); jump jets allowed when flagged or carried by a stock variant"
     }
   ],
   "choices": [

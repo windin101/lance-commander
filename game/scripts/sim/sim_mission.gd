@@ -21,7 +21,8 @@ var kills: Dictionary = {}  # killer unit id -> [weight class of each kill] (pil
 var use_abl := true  # false: no AI brains at all (sim tests that need passive enemies)
 
 
-## force: the campaign's chosen mechs ([{chassis, variant, pilot, gunnery, piloting}]); when
+## force: the campaign's chosen mechs ([{chassis, variant, pilot, gunnery, piloting, loadout?}],
+## loadout as Loadout.to_sim builds it); when
 ## given they replace the mission's own player units (campaign-layer.md 3.4).
 static func load_mission(data: Object, mission: String, seed_value: int = 1, run_abl := true, force: Array = []) -> SimMission:
 	var sm := SimMission.new()
@@ -159,7 +160,7 @@ func _spawn_force(data: Object, rules: SimRules, force: Array, drop_wu: Vector2)
 		var pilot := SimPilot.from_fit(data.pilots.get(String(f["pilot"]), {}))
 		pilot.gunnery = float(f.get("gunnery", pilot.gunnery))
 		pilot.piloting = float(f.get("piloting", pilot.piloting))
-		var m := SimMech.from_chassis(data.chassis[chassis], int(f.get("variant", 0)), world.rules, pilot)
+		var m := SimMech.from_chassis(data.chassis[chassis], int(f.get("variant", 0)), world.rules, pilot, f.get("loadout", {}))
 		m.model = chassis
 		m.variant = int(f.get("variant", 0))
 		m.pilot_profile = String(f["pilot"])

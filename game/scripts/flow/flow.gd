@@ -11,6 +11,7 @@ const MISSION := "res://scenes/mission_view.tscn"
 const DEBRIEF := "res://scenes/debrief.tscn"
 const INTRO := "res://scenes/intro.tscn"
 const MECH_BAY := "res://scenes/mech_bay.tscn"
+const MECH_LAB := "res://scenes/mech_lab.tscn"
 const SALVAGE := "res://scenes/salvage.tscn"
 
 var save_path := "user://campaign.json"
@@ -19,6 +20,7 @@ var current := ""  # mission being briefed / played
 var completed: Dictionary = {}  # mission -> last report (won)
 var last_report: Dictionary = {}
 var campaign: Campaign  # C-Bills, mechs, pilots (campaign-layer.md)
+var lab_mech_id := -1  # the inventory mech the Mech Lab refits (and the bay reselects after)
 
 
 func _ready() -> void:
@@ -125,6 +127,16 @@ func proceed_from_briefing() -> void:
 		get_tree().change_scene_to_file(MECH_BAY)
 	else:
 		launch()
+
+
+func goto_mech_bay() -> void:
+	get_tree().change_scene_to_file(MECH_BAY)
+
+
+## Mech Bay -> Mech Lab for one inventory mech.
+func goto_mech_lab(mech_id: int) -> void:
+	lab_mech_id = mech_id
+	get_tree().change_scene_to_file(MECH_LAB)
 
 
 func uses_logistics(mission: String) -> bool:

@@ -15,6 +15,7 @@ const ARMOR_POINTS_PER_PLATE := 32.0
 const PLATE_SHARE := [0.0, 0.17, 0.125, 0.125, 0.12, 0.12, 0.13, 0.13, 0.03, 0.02, 0.02]
 
 var variant_name := ""
+var loadout: Dictionary = {}  # campaign loadout {name, parts} when spawned from one (Mech Lab)
 
 var internal: Array[float] = []  # current, per body location
 var max_internal: Array[float] = []
@@ -38,9 +39,20 @@ var ct_first_injured_time := -1.0
 var engine_blow_time := -1.0
 var fall_time := -1.0
 
-static func from_chassis(chassis: Dictionary, variant_index: int, rules: SimRules, mech_pilot: SimPilot) -> SimMech:
+## lo: a campaign loadout (Loadout.to_sim: name, parts, items, crit_slots, armor_plates)
+## that replaces the variant's own items, crit slots and plating; the variant still gives
+## internal structure and armour.
+static func from_chassis(chassis: Dictionary, variant_index: int, rules: SimRules, mech_pilot: SimPilot, lo: Dictionary = {}) -> SimMech:
 	var m := SimMech.new()
 	var variant: Dictionary = chassis["variants"][variant_index]
+	if lo.has("items") and lo.has("crit_slots"):
+		var v := variant.duplicate()
+		v["items"] = lo["items"]
+		v["crit_slots"] = lo["crit_slots"]
+		v["armor_plates"] = int(lo.get("armor_plates", variant.get("armor_plates", 0)))
+		v["name"] = String(lo.get("name", variant["name"]))
+		variant = v
+		m.loadout = {"name": v["name"], "parts": lo.get("parts", {})}
 	m.name = chassis["name"]
 	m.variant_name = variant["name"]
 	m.tonnage = chassis["tonnage"]
