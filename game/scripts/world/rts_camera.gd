@@ -37,7 +37,7 @@ const CLEARANCE_STEP := 0.25  # ANGLE_UP_INC: pitch raised until the camera clea
 @export var edge_scroll := true
 @export var limits := true  # pitch / zoom / bounds limits; dev views (model viewer, --cam) turn them off
 
-var home_yaw := 0.0  # Home returns here: the mission's [Cameras] StartRotation
+var home_yaw := 0.0  # Home returns here: the mission's [Cameras] StartRotation, via from_original_yaw
 var height_at: Callable  # optional: Vector2 -> float, keeps the focus on the ground
 var input_blocked: Callable  # optional: -> bool, true while a cinematic owns the camera
 var follow_pos: Callable  # optional: SimUnit -> Vector3, where a followed unit is drawn
@@ -232,6 +232,13 @@ func _apply(delta: float = 0.0) -> void:
 			pos = _orbit(yaw, view_pitch)
 	global_position = pos
 	look_at(focus, Vector3.UP)
+
+
+## The original's cameraRotation in our yaw. Its camera sits at (-sin r, +cos r) from the focus in
+## x east, y north (Camera.cpp setCameraOrigin, Vector3D = YawPitchRange), so r = 0 looks south
+## and rotateLeft adds to r: the mirror of ours, which is 0 = north, rotate left subtracts.
+static func from_original_yaw(r: float) -> float:
+	return 180.0 - r
 
 
 func _orbit(yaw: float, pitch_d: float) -> Vector3:

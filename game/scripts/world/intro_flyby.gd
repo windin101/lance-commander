@@ -11,7 +11,7 @@ const WORLD_UNIT_M := 0.2
 
 var view: Node
 var cfg: Dictionary
-var base_yaw := 0.0
+var base_yaw := 0.0  # the original's StartRotation; legs' yaw_offset is relative to it
 var legs: Array = []
 var _leg := -1
 var _t := 0.0
@@ -19,6 +19,7 @@ var _from_focus := Vector3.ZERO
 var _from_yaw := 0.0
 var _from_pitch := 0.0
 var _done := false
+var skipped := false  # the player pressed Esc/Space: the mission script's movie is skipped too
 
 
 func setup(mission_view: Node, flyby_cfg: Dictionary, start_rotation: float) -> void:
@@ -34,7 +35,7 @@ func setup(mission_view: Node, flyby_cfg: Dictionary, start_rotation: float) -> 
 	view.input.set_process_unhandled_input(false)
 	var p := Vector2(s[0], s[1]) * WORLD_UNIT_M
 	view.camera.focus = Vector3(p.x, 0, -p.y)
-	view.camera.yaw_deg = base_yaw + float(legs[0].get("yaw_offset", 0.0))
+	view.camera.yaw_deg = RtsCamera.from_original_yaw(base_yaw + float(legs[0].get("yaw_offset", 0.0)))
 	view.camera.pitch_deg = float(legs[0].get("pitch", 35.0))
 	_next_leg()
 
@@ -60,7 +61,7 @@ func _process(delta: float) -> void:
 	var r := _ease(_t / maxf(float(leg.get("turn_time", 1.0)), 0.01))
 	var target_focus := Vector3(to.x, 0, -to.y)
 	view.camera.focus = _from_focus.lerp(target_focus, m)
-	var target_yaw := base_yaw + float(leg.get("yaw_offset", 0.0))
+	var target_yaw := RtsCamera.from_original_yaw(base_yaw + float(leg.get("yaw_offset", 0.0)))
 	view.camera.yaw_deg = rad_to_deg(lerp_angle(deg_to_rad(_from_yaw), deg_to_rad(target_yaw), r))
 	view.camera.pitch_deg = lerpf(_from_pitch, float(leg.get("pitch", 35.0)), r)
 	if _t >= float(leg.get("hold", leg.get("move_time", 1.0))):
@@ -74,9 +75,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		var last: Dictionary = legs[legs.size() - 1]
 		var to: Vector2 = Vector2(last["to"][0], last["to"][1]) * WORLD_UNIT_M
 		view.camera.focus = Vector3(to.x, 0, -to.y)
-		view.camera.yaw_deg = base_yaw + float(last.get("yaw_offset", 0.0))
+		view.camera.yaw_deg = RtsCamera.from_original_yaw(base_yaw + float(last.get("yaw_offset", 0.0)))
 		view.camera.pitch_deg = float(last.get("pitch", 35.0))
 		get_viewport().set_input_as_handled()
+		skipped = true
 		_finish()
 
 

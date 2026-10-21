@@ -1150,12 +1150,17 @@ func _register() -> void:
 	r.register_native("isPlayingVoiceOver", func(_i, _a): return voice_busy.call() if voice_busy.is_valid() else false)
 	r.register_native("stopVoiceOver", func(_i, _a): return 0)
 	r.register_native("inCallout", func(_i, _a): return false)
+	# A query, not an action: 1 once the player has pressed Esc during the cinematic (Camera::forceMovieToEnd,
+	# missiongui.cpp:435-436; execForceMovieEnd, ablmc2.cpp:5287). The script itself then fades and calls
+	# endMovieMode. Clearing movie_mode here let mc2_17's every-tick poll (mc2_17.abl:1068) end the cinematic
+	# at t=3 (I12).
 	r.register_native("forceMovieEnd", func(_i, _a):
-		world.movie_mode = false
-		return 0)
+		return 1 if world.force_movie_end else 0)
 	for name in ["setMovieMode", "endMovieMode"]:
 		var n: String = name
 		r.register_native(n, func(_i, _a):
+			if n == "setMovieMode" and not world.movie_mode:
+				world.force_movie_end = false  # Camera::setMovieMode (Camera.h:711-719)
 			world.movie_mode = n == "setMovieMode"  # the original turns player input off in movie mode (missiongui.cpp:430)
 			world.events.append({"type": "abl_" + n.to_lower()})
 			return 0)

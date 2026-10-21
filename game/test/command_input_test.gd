@@ -131,6 +131,18 @@ func test_camera_uses_original_projection() -> void:
 func test_compass_follows_focus() -> void:
 	var cam: RtsCamera = view.camera
 	var c: CameraCompass = view.compass
+	# mc2_01's script opens with a movie (setMovieMode); a dev view skips it as Esc does, and the
+	# script then fades and calls endMovieMode itself. The compass stays hidden until then.
+	var seen: bool = view.world.movie_mode
+	for i in 400:
+		if seen and not view.world.movie_mode:
+			break
+		if view.world.movie_mode:
+			seen = true
+			view.world.force_movie_end = true
+		view.sm.step()
+	assert_bool(seen).is_true()
+	assert_bool(view.world.movie_mode).is_false()
 	cam.pan_to(Vector2(cam.focus.x + 60, -cam.focus.z + 40))
 	for i in 8:
 		await get_tree().process_frame
