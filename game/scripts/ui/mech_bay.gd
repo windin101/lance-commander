@@ -7,12 +7,17 @@ extends Control
 ##   centre     the selected 'Mech's HD model and name plate
 ##   right      its pilot and skills, rating bars and loadout by location; Open Mech Lab,
 ##              Deploy / Withdraw, Assign pilot, Sell, Apply variant
+##   market     Buy 'Mechs swaps the roster for the mission's offers (cards with thumbnail,
+##              class, price, hardpoints) and the summary for the selected offer's
+##              description, ratings, stock loadout, stats and Buy; a bought 'Mech joins
+##              the lance when it fits the slots and drop weight, else the reserve
 ##   bottom     the deployment strip (3 lances of 4 slots) and Launch
 ## Rules as before: deploy within the drop weight and the 12-slot cap, a pilot per deployed
 ## 'Mech (Pilot Ready), sell reserve 'Mechs, buy from the mission's purchase list, Launch
 ## when every deployed 'Mech has a pilot. Buying, selling and the lab need PlayPurchasing.
 ## Dev: --sample-campaign fills the bay with mission 2's lance for screenshots;
-## --open=buy|pilots|assign|variants opens that list.
+## --open=buy|pilots|assign|variants opens that list; --open=market --offer=<chassis>
+## opens the market on that offer.
 
 var mission := ""
 var camp: Campaign
@@ -38,6 +43,21 @@ var _problem: Label
 var _launch: Button
 var _overlay: Control
 var _msg := ""
+var _roster_panel: Control
+var _summary_panel: Control
+# the market (Buy 'Mechs): offer list in the roster's place, detail in the summary's
+var mode := "hangar"  # or "market"
+var offer: Dictionary = {}  # the selected purchasable() entry
+var _market_panel: Control
+var _market_list: VBoxContainer
+var _market_small: Label
+var _offer_panel: Control
+var _offer_title: Label
+var _offer_small: Label
+var _offer_body: VBoxContainer
+var _offer_foot: VBoxContainer
+var buy_button: Button
+var buy_note: Label  # where a purchase goes, or why it can't be made
 
 
 ## mission 2's lance as the mock-up shows it (dev screenshots); returns the mission.
@@ -78,6 +98,12 @@ func _ready() -> void:
 		if a.begins_with("--open="):
 			match a.trim_prefix("--open="):
 				"buy": _open_buy()
+				"market":
+					_open_buy()
+					for o in camp.purchasable(mission):  # --offer=<chassis> picks one
+						for b in OS.get_cmdline_user_args():
+							if b == "--offer=" + String(o["chassis"]):
+								select_offer(o)
 				"pilots": _open_pilots()
 				"assign": _open_assign()
 				"variants": _open_variants()
@@ -132,6 +158,7 @@ func _build() -> void:
 	# roster
 	var roster := kit.panel("Hangar", "")
 	_roster_small = roster["small"]
+	_roster_panel = roster["panel"]
 	kit.place(roster["panel"], 0.01, 0.13, 0.01, 0.845, 30.0)
 	add_child(roster["panel"])
 	var scroll := ScrollContainer.new()
@@ -181,6 +208,7 @@ func _build() -> void:
 
 	# summary
 	var sum := kit.panel("Loadout", "")
+	_summary_panel = sum["panel"]
 	_summary_title = sum["title"]
 	_summary_small = sum["small"]
 	kit.place(sum["panel"], 0.99, 0.13, 0.99, 0.845, 32.0, true)
@@ -203,6 +231,8 @@ func _build() -> void:
 	_foot.add_theme_constant_override("h_separation", kit.px(0.5))
 	_foot.add_theme_constant_override("v_separation", kit.px(0.5))
 	sf.add_child(_foot)
+
+	_build_market()
 
 	# deployment strip
 	var dep := PanelContainer.new()
@@ -245,8 +275,16 @@ func _refresh() -> void:
 		var list := _sorted()
 		_sel = int(list[0]["id"]) if not list.is_empty() else -1
 	_refresh_top()
-	_refresh_roster()
-	_refresh_summary()
+	var market := mode == "market"
+	_roster_panel.visible = not market
+	_summary_panel.visible = not market
+	_market_panel.visible = market
+	_offer_panel.visible = market
+	if market:
+		_refresh_market()
+	else:
+		_refresh_roster()
+		_refresh_summary()
 	_refresh_deploy()
 
 
@@ -317,9 +355,11 @@ func _thumb(m: Dictionary, size_em: float) -> Control:
 	tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(tr)
+	var ref: WeakRef = weakref(tr)  # cards are rebuilt; the shot may land after this one is gone
 	thumbs.request(String(m["chassis"]), paint, func(tex):
-		if is_instance_valid(tr):
-			tr.texture = tex)
+		var t: TextureRect = ref.get_ref()
+		if t:
+			t.texture = tex)
 	return box
 
 
@@ -430,30 +470,7 @@ func _refresh_summary() -> void:
 	pl.add_child(pv)
 	_summary_body.add_child(pl)
 	# ratings
-	var g := GridContainer.new()
-	g.columns = 3
-	g.add_theme_constant_override("h_separation", kit.px(0.7))
-	g.add_theme_constant_override("v_separation", kit.px(0.45))
-	var bars := [["Firepower", st["alpha"] / 40.0, "%d" % roundi(st["alpha"]), false],
-		["Sustained", st["dps"] / 8.0, "%.1f" % st["dps"], false],
-		["Armour", st["armor"] / 432.0, "%d" % int(st["armor"]), false],
-		["Speed", st["speed"] / 130.0, "%d" % int(st["speed"]), false],
-		["Heat", st["heat"] / maxf(1.0, st["heat_cap"]), "%d/%d" % [int(st["heat"]), int(st["heat_cap"])], true]]
-	for b in bars:
-		var n := kit.label(b[0], "display600", 0.88, UiStyle.HUD_DIM, true, 0.1)
-		n.custom_minimum_size.x = kit.em(6.5)
-		g.add_child(n)
-		var bar := BayKit.StatBar.new()
-		bar.custom_minimum_size = Vector2(0, maxf(2.0, roundf(kit.em(0.45))))
-		bar.value = b[1]
-		if b[3]:
-			bar.heat = true
-			bar.over = b[1] > 1.0
-		g.add_child(bar)
-		var v := kit.label(b[2], "mono", 0.88, UiStyle.HUD_INK)
-		v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		v.custom_minimum_size.x = kit.em(3.6)
-		g.add_child(v)
+	var g := _rating_grid(st)
 	_summary_body.add_child(g)
 	# loadout by location
 	var ld := GridContainer.new()
@@ -612,14 +629,275 @@ func _overlay_row(text: String, sub: String, action: String, enabled: bool, on_p
 
 
 func _open_buy() -> void:
-	var list := _overlay_panel("Buy 'Mechs", "purchase list · %s C" % BayKit.money(camp.c_bills))
-	for o in camp.purchasable(mission):
-		list.add_child(_overlay_row(String(o["name"]), "%d t · %s C" % [int(o["tonnage"]), BayKit.money(int(o["price"]))], "Buy",
-			int(o["price"]) <= camp.c_bills, func():
-				camp.buy(String(o["chassis"]), int(o["variant"]))
-				_sel = int(camp.mechs[-1]["id"])
-				_refresh()
-				_open_buy()))
+	_close_overlay()
+	mode = "market"
+	var offers := camp.purchasable(mission)
+	if offer.is_empty() or not offers.any(func(o): return _same_offer(o, offer)):
+		offer = offers[0] if not offers.is_empty() else {}
+	_refresh()
+
+
+func _close_market() -> void:
+	mode = "hangar"
+	_refresh()
+
+
+static func _same_offer(a: Dictionary, b: Dictionary) -> bool:
+	return String(a.get("chassis", "")) == String(b.get("chassis", "")) and int(a.get("variant", -1)) == int(b.get("variant", -1))
+
+
+func select_offer(o: Dictionary) -> void:
+	offer = o
+	_refresh()
+
+
+## Buy the selected offer (Campaign.buy_for: deployed when it fits, else reserve).
+func buy_offer() -> Dictionary:
+	if offer.is_empty():
+		return {}
+	var m := camp.buy_for(String(offer["chassis"]), int(offer["variant"]), mission)
+	if not m.is_empty():
+		_sel = int(m["id"])
+		_msg = "Bought %s: %s." % [offer["name"], ("deployed in slot %d" % int(m["slot"])) if int(m["slot"]) > 0 else "in reserve"]
+		Flow.save_progress()
+	_refresh()
+	return m
+
+
+func _rating_grid(st: Dictionary) -> GridContainer:
+	var g := GridContainer.new()
+	g.columns = 3
+	g.add_theme_constant_override("h_separation", kit.px(0.7))
+	g.add_theme_constant_override("v_separation", kit.px(0.45))
+	var bars := [["Firepower", st["alpha"] / 40.0, "%d" % roundi(st["alpha"]), false],
+		["Sustained", st["dps"] / 8.0, "%.1f" % st["dps"], false],
+		["Armour", st["armor"] / 432.0, "%d" % int(st["armor"]), false],
+		["Speed", st["speed"] / 130.0, "%d" % int(st["speed"]), false],
+		["Heat", st["heat"] / maxf(1.0, st["heat_cap"]), "%d/%d" % [int(st["heat"]), int(st["heat_cap"])], true]]
+	for b in bars:
+		var n := kit.label(b[0], "display600", 0.88, UiStyle.HUD_DIM, true, 0.1)
+		n.custom_minimum_size.x = kit.em(6.5)
+		g.add_child(n)
+		var bar := BayKit.StatBar.new()
+		bar.custom_minimum_size = Vector2(0, maxf(2.0, roundf(kit.em(0.45))))
+		bar.value = b[1]
+		if b[3]:
+			bar.heat = true
+			bar.over = b[1] > 1.0
+		g.add_child(bar)
+		var v := kit.label(b[2], "mono", 0.88, UiStyle.HUD_INK)
+		v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		v.custom_minimum_size.x = kit.em(3.6)
+		g.add_child(v)
+	return g
+
+
+# --- the market ------------------------------------------------------------------------------
+
+func _build_market() -> void:
+	var mk := kit.panel("Market", "")
+	_market_panel = mk["panel"]
+	_market_small = mk["small"]
+	kit.place(mk["panel"], 0.01, 0.13, 0.01, 0.845, 30.0)
+	mk["panel"].visible = false
+	add_child(mk["panel"])
+	var sc := ScrollContainer.new()
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	mk["body"].add_child(sc)
+	var mm := kit.margin(0.6, 0.6, 0.6, 0.6)
+	mm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.add_child(mm)
+	_market_list = kit.vbox(0.5)
+	_market_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	mm.add_child(_market_list)
+	mk["body"].add_child(kit.rule())
+	var fm := kit.margin(0.6, 0.6, 0.6, 0.6)
+	mk["body"].add_child(fm)
+	var back := kit.button("Back to hangar", _close_market)
+	fm.add_child(back)
+
+	var od := kit.panel("Offer", "")
+	_offer_panel = od["panel"]
+	_offer_title = od["title"]
+	_offer_small = od["small"]
+	kit.place(od["panel"], 0.99, 0.13, 0.99, 0.845, 32.0, true)
+	od["panel"].visible = false
+	add_child(od["panel"])
+	var os := ScrollContainer.new()
+	os.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	os.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	od["body"].add_child(os)
+	var om := kit.margin(1.0, 0.8, 1.0, 0.8)
+	om.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	os.add_child(om)
+	_offer_body = kit.vbox(0.85)
+	_offer_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	om.add_child(_offer_body)
+	od["body"].add_child(kit.rule())
+	var of := kit.margin(0.7, 0.7, 0.7, 0.7)
+	od["body"].add_child(of)
+	_offer_foot = kit.vbox(0.5)
+	of.add_child(_offer_foot)
+	buy_note = kit.para("", 29, "body500", 0.95, UiStyle.HUD_DIM)
+	_offer_foot.add_child(buy_note)
+	var row := GridContainer.new()
+	row.columns = 2
+	row.add_theme_constant_override("h_separation", kit.px(0.5))
+	_offer_foot.add_child(row)
+	buy_button = kit.button("Buy", func(): buy_offer(), true)
+	buy_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(buy_button)
+	var close := kit.button("Back to hangar", _close_market)
+	close.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(close)
+
+
+func _offer_card(o: Dictionary) -> Control:
+	var chassis := String(o["chassis"])
+	var sel := _same_offer(o, offer)
+	var afford := int(o["price"]) <= camp.c_bills
+	var card := PanelContainer.new()
+	var s := StyleBoxFlat.new()
+	s.bg_color = UiStyle.HUD_PANEL_2 if not sel else UiStyle.HUD_PANEL_2.lerp(UiStyle.HUD_EDGE, 0.12)
+	s.border_color = UiStyle.HUD_EDGE if sel else Color(UiStyle.HUD_EDGE, 0.18)
+	s.set_border_width_all(1)
+	if sel:
+		s.shadow_color = Color(UiStyle.HUD_GLOW, 0.3)
+		s.shadow_size = kit.px(0.4)
+	s.content_margin_left = kit.em(0.7)
+	s.content_margin_right = kit.em(0.7)
+	s.content_margin_top = kit.em(0.5)
+	s.content_margin_bottom = kit.em(0.5)
+	card.add_theme_stylebox_override("panel", s)
+	card.mouse_filter = Control.MOUSE_FILTER_STOP
+	card.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	card.gui_input.connect(func(e):
+		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
+			select_offer(o))
+	var h := kit.hbox(0.8)
+	card.add_child(h)
+	h.add_child(_thumb({"chassis": chassis}, 4.6))
+	var v := kit.vbox(0.2)
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.add_child(kit.label(String(o["name"]), "display600", 1.1, UiStyle.HUD_INK, true, 0.05))
+	var tons := float(o["tonnage"])
+	v.add_child(kit.label("%s · %d t · %s" % [GameData.chassis[chassis]["name"], int(tons), Loadout.weight_class(tons).capitalize()],
+		"body500", 0.95, UiStyle.HUD_DIM))
+	var hp := kit.hbox(0.25)
+	var counts := Loadout.weapon_counts(GameData, Loadout.stock_parts(GameData, chassis, int(o["variant"])))
+	for t in ["B", "E", "M"]:
+		for i in int(counts[t]):
+			hp.add_child(kit.badge(t))
+	v.add_child(hp)
+	h.add_child(v)
+	var price := kit.label("%s C" % BayKit.money(int(o["price"])), "mono", 1.0, UiStyle.HUD_INK if afford else UiStyle.HUD_CRIT)
+	price.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	h.add_child(price)
+	return card
+
+
+func _refresh_market() -> void:
+	for c in _market_list.get_children():
+		c.queue_free()
+	for c in _offer_body.get_children():
+		c.queue_free()
+	var offers := camp.purchasable(mission)
+	_market_small.text = "%d offers · %s C" % [offers.size(), BayKit.money(camp.c_bills)]
+	for o in offers:
+		_market_list.add_child(_offer_card(o))
+	if offers.is_empty():
+		_market_list.add_child(kit.para("Nothing for sale this mission.", 26, "body500", 1.0, UiStyle.HUD_WARN))
+	if offer.is_empty():
+		_offer_title.text = "Offer"
+		_offer_small.text = ""
+		_plate_name.text = ""
+		_plate_sub.text = ""
+		stage.visible = false
+		buy_button.disabled = true
+		buy_note.text = ""
+		return
+	var chassis := String(offer["chassis"])
+	var idx := int(offer["variant"])
+	stage.visible = true
+	if chassis != _shown_chassis:
+		stage.show_mech(chassis, paint)
+		_shown_chassis = chassis
+	var tons := float(offer["tonnage"])
+	var parts := Loadout.stock_parts(GameData, chassis, idx)
+	var st := Loadout.stats(GameData, chassis, parts)
+	var cname := String(GameData.chassis[chassis]["name"])
+	_plate_name.text = cname
+	_plate_sub.text = "%s · %d t · for sale" % [offer["name"], int(tons)]
+	_offer_title.text = String(offer["name"])
+	_offer_small.text = "%d t · %s" % [int(tons), Loadout.weight_class(tons)]
+	var desc := UiStyle.clean(Loadout.description(GameData, chassis))
+	if desc != "":
+		_offer_body.add_child(kit.para(desc, 29, "body400", 1.0, UiStyle.HUD_DIM))
+	_offer_body.add_child(_rating_grid(st))
+	# stock loadout with each location's hardpoints
+	var inf := Loadout.info(GameData, chassis)
+	var ld := GridContainer.new()
+	ld.columns = 3
+	ld.add_theme_constant_override("h_separation", kit.px(0.6))
+	ld.add_theme_constant_override("v_separation", kit.px(0.3))
+	for loc in Loadout.LOCS:
+		var hp := kit.hbox(0.2)
+		for t in ["B", "E", "M"]:
+			var used := Loadout.hardpoints_used(GameData, parts, loc, t)
+			for i in int(inf["hardpoints"][loc][t]):
+				hp.add_child(kit.badge(t, i >= used))
+		if parts[loc].is_empty() and hp.get_child_count() == 0:
+			hp.queue_free()
+			continue
+		var l := kit.label(Loadout.LOC_SHORT[loc], "mono", 0.85, UiStyle.HUD_DIM)
+		l.custom_minimum_size.x = kit.em(2.4)
+		ld.add_child(l)
+		var c := Loadout.counts({loc: parts[loc]})
+		var names: Array[String] = []
+		for id in c:
+			names.append(Loadout.short_name(String(Loadout.component(GameData, id).get("name", "?"))) + (" ×%d" % c[id] if c[id] > 1 else ""))
+		var nm := kit.label(", ".join(names) if not names.is_empty() else "–", "body500", 1.0,
+			UiStyle.HUD_INK if not names.is_empty() else UiStyle.HUD_DIM)
+		nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		nm.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		ld.add_child(nm)
+		ld.add_child(hp)
+	_offer_body.add_child(ld)
+	var facts := GridContainer.new()
+	facts.columns = 2
+	facts.add_theme_constant_override("h_separation", kit.px(0.8))
+	facts.add_theme_constant_override("v_separation", kit.px(0.2))
+	var dest := camp.buy_destination(chassis, mission)
+	for f in [["Top speed", "%d km/h" % int(st["speed"])], ["Armour", "%d / %d" % [int(st["armor"]), int(st["max_armor"])]],
+			["Alpha heat", "%d / %d" % [int(st["heat"]), int(st["heat_cap"])]], ["Jump jets", "Yes" if st["jump"] else "No"],
+			["Longest range", Loadout.RANGE_NAMES[int(st["range"])]],
+			["Price", "%s C" % BayKit.money(int(offer["price"]))], ["Your C-Bills", "%s C" % BayKit.money(camp.c_bills)]]:
+		var k := kit.label(f[0], "display600", 0.85, UiStyle.HUD_DIM, true, 0.1)
+		k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		facts.add_child(k)
+		var val := kit.label(f[1], "mono", 1.0, UiStyle.HUD_INK)
+		val.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		facts.add_child(val)
+	_offer_body.add_child(facts)
+	if _msg != "":
+		_offer_body.add_child(kit.para(_msg, 29, "body500", 1.0, UiStyle.HUD_OK))
+	var problem := camp.buy_problem(chassis, idx)
+	buy_button.text = ("Buy · %s C" % BayKit.money(int(offer["price"]))).to_upper()
+	buy_button.disabled = problem != ""
+	buy_button.tooltip_text = problem
+	if problem != "":
+		buy_note.text = problem + "."
+		buy_note.add_theme_color_override("font_color", UiStyle.HUD_CRIT)
+	elif dest == "deployed":
+		buy_note.text = "Joins the lance in the next free slot: %d / %d t after, %d / %d slots." % [
+			int(camp.deployed_tonnage() + tons), int(camp.drop_limit(mission)), camp.deployed().size() + 1, Campaign.MAX_DEPLOY]
+		buy_note.add_theme_color_override("font_color", UiStyle.HUD_OK)
+	else:
+		var why := "all %d slots are full" % Campaign.MAX_DEPLOY if camp.deployed().size() >= Campaign.MAX_DEPLOY \
+			else "it would take the drop weight to %d / %d t" % [int(camp.deployed_tonnage() + tons), int(camp.drop_limit(mission))]
+		buy_note.text = "Goes to the reserve: %s. %s C left after." % [why, BayKit.money(camp.c_bills - int(offer["price"]))]
+		buy_note.add_theme_color_override("font_color", UiStyle.HUD_WARN)
 
 
 func _open_pilots() -> void:

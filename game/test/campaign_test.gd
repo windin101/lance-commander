@@ -173,3 +173,18 @@ func test_win_keeps_a_survivors_refit() -> void:
 	assert_int(value).is_equal(camp.price("bushwacker", 0) - int(GameData.components[101]["rp"]) + int(GameData.components[100]["rp"]))
 	assert_bool(camp.sell(camp.mechs[0])).is_true()
 	assert_int(camp.c_bills).is_equal(before + value)
+
+
+func test_market_buys_into_the_lance_when_it_fits() -> void:
+	MechBay.dev_sample(camp)  # 140 t deployed in 3 slots, 170 t limit on mc2_02
+	assert_str(camp.buy_destination("werewolf", "mc2_02")).is_equal("deployed")  # 30 t: exactly 170
+	assert_str(camp.buy_destination("bushwacker", "mc2_02")).is_equal("reserve")
+	camp.c_bills = 200000
+	var w := camp.buy_for("werewolf", 0, "mc2_02")
+	assert_int(int(w["slot"])).is_equal(4)
+	var b := camp.buy_for("bushwacker", 0, "mc2_02")
+	assert_int(int(b["slot"])).is_equal(0)
+	camp.c_bills = 100
+	assert_str(camp.buy_problem("werewolf", 0)).contains("Not enough C-Bills")
+	assert_dict(camp.buy_for("werewolf", 0, "mc2_02")).is_empty()
+	assert_int(camp.c_bills).is_equal(100)
