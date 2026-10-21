@@ -64,6 +64,9 @@ var order_mode: String:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if world and world.movie_mode:  # mission cinematic: player input off, as in the original (missiongui.cpp:430)
+		if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+			world.force_movie_end = true  # Esc asks the script to end it (missiongui.cpp:435-436)
+			get_viewport().set_input_as_handled()
 		return
 	if support_kind != "" and _support_input(event):
 		get_viewport().set_input_as_handled()

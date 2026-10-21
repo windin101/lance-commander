@@ -28,6 +28,7 @@ var title := ""  # the mission's display name (briefing title)
 var _end_seen_at := -1.0
 var _videos: Dictionary = {}  # comms clip name -> res:// path (retail disc, if converted)
 var _acc := 0.0
+var _skip_movie := false  # dev runs and tests: the mission script's cinematic is skipped as by Esc
 var _args := {}
 
 
@@ -70,7 +71,7 @@ func _ready() -> void:
 	camera.far = 6000.0
 	camera.bounds_half = world.map.half_m
 	camera.height_at = world.map.height_at
-	camera.yaw_deg = float(cam_block.get("StartRotation", 0.0))
+	camera.yaw_deg = RtsCamera.from_original_yaw(float(cam_block.get("StartRotation", 180.0)))
 	camera.home_yaw = camera.yaw_deg
 	camera.distance = RtsCamera.DEFAULT_DISTANCE
 	camera.pitch_deg = RtsCamera.DEFAULT_PITCH
@@ -117,10 +118,11 @@ func _ready() -> void:
 		sm.abl.voice_busy = func() -> bool:
 			return audio.voice.playing or not audio._voice_queue.is_empty() or hud.comms.is_playing()
 	var dev_run := not play_intro or ((_args.has("demo") or _args.has("arena") or _args.has("sim-seconds") or _args.has("screenshot")) and not _args.has("flyby"))
+	_skip_movie = dev_run
 	flyby = IntroFlyby.new()
 	flyby.name = "Flyby"
 	add_child(flyby)
-	flyby.setup(self, {} if dev_run else script_cfg.get("flyby", {}), camera.yaw_deg)
+	flyby.setup(self, {} if dev_run else script_cfg.get("flyby", {}), float(cam_block.get("StartRotation", 180.0)))
 	title = MissionBrief.load_mission(GameData, mission).title
 	pause_menu = PauseMenu.new()
 	pause_menu.name = "PauseMenu"
@@ -133,6 +135,8 @@ func _ready() -> void:
 		_demo_orders()
 	var ff := float(_args.get("sim-seconds", "0"))
 	while ff > 0.0:
+		if world.movie_mode:
+			world.force_movie_end = true  # a dev run: skip the script's cinematic (as Esc)
 		sm.step()
 		_consume_events(false)
 		ff -= SimWorld.TICK
@@ -152,6 +156,10 @@ func _process(delta: float) -> void:
 	_update_haze()
 	_acc += delta
 	while _acc >= SimWorld.TICK:
+		# Skipping the opening flyby, or a dev run that has none, skips the script's movie as Esc does
+		# (forceMovieEnd, missiongui.cpp:435-436); the script fades and calls endMovieMode itself.
+		if world.movie_mode and (_skip_movie or flyby.skipped):
+			world.force_movie_end = true
 		sm.step()
 		_acc -= SimWorld.TICK
 	var alpha := _acc / SimWorld.TICK
