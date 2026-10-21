@@ -207,6 +207,7 @@ func _build_full() -> void:
 		b.text = a[1].to_upper()
 		b.focus_mode = Control.FOCUS_NONE
 		b.toggle_mode = a[0] != "stop"
+		b.disabled = a[0] == "jump" and not unit.can_jump()  # jump jets only (mech.cpp:1512)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.pressed.connect(func(): ordered.emit(unit, a[0]))
 		b.mouse_entered.connect(func(): if hover_help.is_valid(): hover_help.call(a[0]))
