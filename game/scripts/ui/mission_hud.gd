@@ -14,7 +14,7 @@ extends CanvasLayer
 ## plus the end-of-mission banner and the drag-select box. Sizes are in the base unit
 ## UiStyle.hud_unit (viewport height / 1080 x the player's HUD scale); the HUD rebuilds
 ## itself when that changes.
-## Dev args (after --): --select=<unit id> selects a unit at start, --comms=<unit id> shows
+## Dev args (after --): --select=<unit id>[,<id>...] selects units at start, --comms=<unit id> shows
 ## that unit's pilot talking (screenshots of the expanded card, systems monitor and comms).
 
 const MAX_MESSAGES := 6
@@ -50,6 +50,8 @@ var objectives_visible := true
 var lance_panel: PanelContainer
 var lance_small: Label
 var lance_scroll: ScrollContainer
+var focus_unit: SimUnit  # the selected unit the systems monitor shows (click a selected card to switch)
+const MAX_EXPANDED := 4
 var lance_list: VBoxContainer
 var log_label: Label
 var command_panel: CommandPanel
@@ -342,6 +344,10 @@ func _on_support(kind: String) -> void:
 
 
 func _on_card_picked(u: SimUnit, add: bool) -> void:
+	if not add and view.input.selection.size() > 1 and view.input.selection.has(u):
+		focus_unit = u  # a card in a selected group: show it in the systems monitor, keep the group selected
+		return
+	focus_unit = u
 	var s: Array = view.input.selection.duplicate() if add else []
 	if not s.has(u):
 		s.append(u)
@@ -370,10 +376,13 @@ func pilot_says(u: SimUnit, text: String, seconds := -1.0) -> void:
 
 
 func _dev_args() -> void:
-	if _args.has("select"):
-		var id := int(_args["select"])
-		if id >= 0 and id < view.world.units.size():
-			view.input._set_selection([view.world.units[id]])
+	if _args.has("select"):  # one id or a comma list
+		var pick: Array = []
+		for t in String(_args["select"]).split(","):
+			var id := int(t)
+			if id >= 0 and id < view.world.units.size():
+				pick.append(view.world.units[id])
+		view.input._set_selection(pick)
 	if _args.has("comms"):
 		var id := int(_args["comms"])
 		if id >= 0 and id < view.world.units.size():
@@ -447,7 +456,7 @@ func _process(_delta: float) -> void:
 		_build()  # viewport height or HUD scale changed
 	var w: SimWorld = view.world
 	var sel: Array = view.input.selection
-	var first: SimUnit = sel[0] if not sel.is_empty() else null
+	var first: SimUnit = focus_unit if sel.has(focus_unit) else (sel[0] if not sel.is_empty() else null)
 	_update_mission(w)
 	_update_objectives()
 	tac_title.text = view.title if not String(view.title).is_empty() else view.mission
@@ -467,15 +476,16 @@ func _process(_delta: float) -> void:
 		modes[k] = view.input.mode_on(k)
 	modes["alpha_strike"] = not sel.is_empty() and sel.all(func(m): return m.ignore_heat_discipline)
 	var tons := 0.0
-	var expanded_done := false
+	var expanded_n := 0
 	for id in cards:
 		var c: UnitCard = cards[id]
 		var u: SimUnit = w.units[id]
 		tons += u.tonnage
 		c.selected = sel.has(u)
-		c.expanded = u == first and not expanded_done
+		# every selected unit gets its full card, up to MAX_EXPANDED; past that, highlighted compact rows
+		c.expanded = c.selected and expanded_n < MAX_EXPANDED
 		if c.expanded:
-			expanded_done = true
+			expanded_n += 1
 		c.speaking = comms.visible and comms.speaker_unit == u
 		c.active_modes = modes if c.selected else {}
 		# the card's number: its lowest selection group (Ctrl+n, CommandInput), else its force position
