@@ -89,6 +89,40 @@ func test_pools_keep_their_caps() -> void:
 	fx.queue_free()
 
 
+func test_debris_is_shards_not_boxes() -> void:
+	# Phase 8: debris chunks are irregular shards; one mesh holds every variant (UV2.x) and the shader keeps one.
+	var m := EffectsView.shard_mesh()
+	assert_object(m).is_not_null()
+	assert_bool(EffectsView.shard_mesh() == m).is_true()  # built once, shared
+	var arr := m.surface_get_arrays(0)
+	var verts: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+	var uv2: PackedVector2Array = arr[Mesh.ARRAY_TEX_UV2]
+	var normals: PackedVector3Array = arr[Mesh.ARRAY_NORMAL]
+	assert_int(verts.size() % 3).is_equal(0)
+	assert_int(verts.size()).is_less(EffectsView.SHARD_VARIANTS * 40 * 3)  # light: well under 40 triangles a shard
+	var seen := {}
+	for i in uv2.size():
+		seen[int(uv2[i].x)] = true
+	assert_int(seen.size()).is_equal(EffectsView.SHARD_VARIANTS)
+	var box := AABB()
+	for i in verts.size():
+		box = box.expand(verts[i]) if i > 0 else AABB(verts[i], Vector3.ZERO)
+	assert_float(box.get_longest_axis_size()).is_less(1.4)  # about the unit cube the old BoxMesh filled
+	# flat-shaded faces: each triangle's three normals agree and point away from its shard's centre
+	for t in range(0, verts.size(), 3):
+		assert_bool(normals[t].is_equal_approx(normals[t + 1]) and normals[t].is_equal_approx(normals[t + 2])).is_true()
+	# the debris emitter draws it, with the cap unchanged
+	var fx := EffectsView.new()
+	fx.caps = {"debris": 8}
+	add_child(fx)
+	await get_tree().process_frame
+	var e := fx._emitters["debris"] as GPUParticles3D
+	assert_int(e.amount).is_equal(8)
+	assert_bool(e.draw_pass_1 == m).is_true()
+	assert_bool(e.draw_pass_1 is BoxMesh).is_false()
+	fx.queue_free()
+
+
 func test_projectile_lands_its_impact_after_its_flight() -> void:
 	var fx := EffectsView.new()
 	add_child(fx)
