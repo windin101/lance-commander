@@ -68,6 +68,10 @@ var walk_speed := 10.0  # m/s
 var max_torso_yaw := 120.0  # turret or torso twist
 var fire_arc_half := 12.5  # gamesys Mover:FireWeapon FireArc / 2 (mover.cpp:1876)
 var turn_rate := 180.0  # degrees per second
+var turret_rel := 0.0  # torso twist / turret angle from the body's facing, degrees (+ = clockwise)
+var turret_rate := 360.0  # torso or turret yaw rate, degrees per second (chassis TorsoYawRate, MaxTurretYawRate)
+var cruise := 0.0  # the speed carried from the last tick (vehicle acceleration)
+var max_accel := 0.0  # vehicles: speed change per second (VehicleDynamics MaxAccel); 0 = instant
 var hover := false  # hovercraft: may cross water
 var speed := 0.0
 var prev_position := Vector2.ZERO

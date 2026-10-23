@@ -66,6 +66,8 @@ def parse_vehicle(f):
         "mine_layer": int(general.get("MineLayer", 0) or 0),
         "mine_sweeper": bool(general.get("MineSweeper", False)),
         "max_velocity": float(dyn.get("MaxVelocity", 10.0)),
+        # gvehicl.cpp:934, 2977-2993: the speed changes by MaxAccel per second
+        "max_accel": float(dyn.get("MaxAccel", 0.0)),
         "max_turret_yaw": float(dyn.get("MaxTurretYaw", 0)),
         "max_turret_yaw_rate": float(dyn.get("MaxTurretYawRate", 0)),
         "armor": {s.lower(): float(f.get(s, {}).get("MaxArmorPoints", 0)) for s in SECTIONS},

@@ -43,5 +43,6 @@
  "weapon_nodes": 2,
  "los_factor": 1.0,
  "mine_layer": 0,
- "mine_sweeper": false
+ "mine_sweeper": false,
+ "max_accel": 15.0
 }

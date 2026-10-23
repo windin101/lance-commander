@@ -395,3 +395,42 @@ func test_optimal_fire_range_follows_the_weapons() -> void:
 	world.add_unit(cat)
 	world.add_unit(hb)
 	assert_float(world.optimal_fire_range(cat)).is_greater(world.optimal_fire_range(hb))
+
+
+# --- I93: turret slew and vehicle acceleration -----------------------------------------------
+
+func test_a_turret_must_turn_before_it_fires_behind() -> void:
+	_flat_world()
+	rules.vehicle_weapon_nodes = false
+	var p := _vehicle("partisan", 1, Vector2.ZERO)  # MaxTurretYawRate 120
+	p.facing = 0.0
+	_target_mech(Vector2(0, -60))  # straight behind it
+	var first := -1.0
+	var t := 0.0
+	while t < 5.0 and first < 0.0:
+		world.step()
+		t += SimWorld.TICK
+		for e in world.events:
+			if e["type"] == "shot" and e["from"] == p.id:
+				first = t
+		world.events.clear()
+	assert_float(first).is_greater_equal(1.3)  # (180 - 12.5) / 120 s
+	assert_float(first).is_less(2.5)
+	rules.slew = false
+	var q := _vehicle("partisan", 1, Vector2(30, 0))
+	q.facing = 0.0
+	assert_int(_shots_by(q, 0.3)).is_greater(0)  # instant twist without the rule
+
+
+func test_vehicles_accelerate_at_max_accel() -> void:
+	_flat_world()
+	var legion := _vehicle("tankk", 1, Vector2.ZERO)  # MaxAccel 0.5, 12 m/s
+	world.order_move(legion, Vector2(0, 300))
+	for i in 20:
+		world.step()
+	assert_float(legion.speed).is_less_equal(1.05)  # 2 s at 0.5 m/s2
+	var h := _vehicle("harasser", 1, Vector2(50, 0))  # MaxAccel 15
+	world.order_move(h, Vector2(50, 300))
+	for i in 20:
+		world.step()
+	assert_float(h.speed).is_greater(10.0)  # MaxAccel 15: near full speed already

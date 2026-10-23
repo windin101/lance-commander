@@ -165,6 +165,24 @@ area-connectivity weights (the path search decides), path locks (units may overl
 Friendly units never block a line of sight, here or in the original (Team::lineOfSight reads
 terrain and cell heights only). Flag `attack_goals`.
 
+## Torso and turret slew, vehicle acceleration (I93, 2026-10-24)
+
+- **Twist:** a mech's torso and a vehicle's turret turn toward the current target (or the order
+  target) at their yaw rate when it is outside the fire arc, and back to the front with no target
+  (`BattleMech::updateTorso`, mech.cpp:4580-4623; `GroundVehicle::updateTurret`,
+  gvehicl.cpp:2130-2156), never past the twist limit (`MaxTorsoYaw` / `MaxTurretYaw`,
+  gvehicl.cpp:2937-2961). Rates: chassis `TorsoYawRate` (360 deg/s on every mech, 0 on the
+  copters, which must turn their body), vehicle `MaxTurretYawRate` (90-180, the Partisan 120,
+  the artillery piece 720).
+- **Lock:** a weapon fires only when the target is within FireArc/2 (12.5 deg) of the torso or
+  turret (`weaponLocked`, gvehicl.cpp:4283, mech.cpp:7342), not of the whole twist range.
+- **Acceleration:** a vehicle's speed rises by `MaxAccel` per second (gvehicl.cpp:934,
+  2977-2993; `max_accel` in `data/vehicles/*.json`: most 5, Harasser and Monsoon 15, Legion 0.5,
+  mobile orbital gun 0.1). Stopping at a goal stays immediate. Mechs' gait changes are not
+  modelled.
+- Flag `slew`. Arena (40 fights, 4 mechs at 150 m): 4 Partisans' damage 17 -> 22 per minute,
+  fights 26 -> 22 s; 6 Harassers 84 -> 25 per minute (they turn their hulls), fights 9 -> 13 s.
+
 ## Who an engaged AI shoots (F6, I12)
 
 `combatDecisionTree` (warrior.cpp:3472-3540) fires only at the pilot's last target, the one its

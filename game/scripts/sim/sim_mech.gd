@@ -61,6 +61,7 @@ static func from_chassis(chassis: Dictionary, variant_index: int, rules: SimRule
 	m.run_speed = float(chassis.get("max_run_speed", 20))
 	m.walk_speed = m.run_speed * 0.52
 	m.max_torso_yaw = float(chassis.get("max_torso_yaw", 120))
+	m.turret_rate = float(chassis.get("torso_yaw_rate", 360))
 	for key in BODY_KEYS:
 		m.max_internal.append(float(chassis["max_internal"][key]))
 		m.internal.append(float(variant["internal"][key]))

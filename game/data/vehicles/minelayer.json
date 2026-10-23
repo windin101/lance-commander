@@ -39,5 +39,6 @@
  "num_other": 4,
  "num_weapons": 0,
  "num_ammo": 0,
- "weapon_nodes": 1
+ "weapon_nodes": 1,
+ "max_accel": 5.0
 }
