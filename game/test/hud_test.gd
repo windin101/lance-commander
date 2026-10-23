@@ -161,3 +161,41 @@ func test_lance_rows_expand_and_systems_monitor() -> void:
 	assert_int(hud.cards.size()).is_equal(3)
 	UiStyle.set_hud_scale(keep, false)
 	view.queue_free()
+
+
+## The tac-map camera footprint moves the way the camera moves and is ordered as a convex quad (Lee 2026-10-21:
+## "if I move the screen right the tac map goes left").
+func test_footprint_follows_camera() -> void:
+	var view: Node3D = load("res://scenes/mission_view.tscn").instantiate()
+	view.play_intro = false
+	add_child(view)
+	for i in 6:
+		await get_tree().process_frame
+	var hud: MissionHud = view.hud
+	var cam: RtsCamera = view.camera
+	cam.yaw_deg = 0.0
+	var start := Vector2(cam.focus.x, -cam.focus.z)
+	cam.pan_to(start)
+	for i in 4:
+		await get_tree().process_frame
+	var c0 := _centroid(hud._camera_footprint())
+	print("footprint at yaw 0: ", hud._camera_footprint(), " focus ", start)
+	cam.pan_to(start + Vector2(200, 0))  # east
+	for i in 4:
+		await get_tree().process_frame
+	var c1 := _centroid(hud._camera_footprint())
+	cam.pan_to(start + Vector2(0, 200))  # north
+	for i in 4:
+		await get_tree().process_frame
+	var c2 := _centroid(hud._camera_footprint())
+	print("centroids ", c0, " east ", c1, " north ", c2)
+	assert_float(c1.x - c0.x).is_greater(100.0)
+	assert_float(c2.y - c0.y).is_greater(100.0)
+	view.queue_free()
+
+
+func _centroid(p: PackedVector2Array) -> Vector2:
+	var s := Vector2.ZERO
+	for v in p:
+		s += v
+	return s / maxf(1.0, p.size())
