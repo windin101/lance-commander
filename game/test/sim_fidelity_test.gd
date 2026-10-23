@@ -345,3 +345,53 @@ func test_an_attacker_in_reach_without_sight_moves_to_a_spot_with_it() -> void:
 			seen = true
 			break
 	assert_bool(seen).is_true()
+
+
+# --- group goals and attack positions (group.cpp:401, mover.cpp:4364) -----------------------
+
+func test_group_move_goals_spread_round_the_click() -> void:
+	_flat_world()
+	var g := Vector2(40, 40)
+	var goals := world.group_move_goals(g, 5)
+	assert_int(goals.size()).is_equal(5)
+	assert_int(world.map.cell_of(goals[0]).x).is_equal(world.map.cell_of(g).x)  # the click itself first
+	for i in range(1, 5):
+		assert_float((goals[i] as Vector2).distance_to(goals[0])).is_greater(world.map.cell_m * 1.5)  # its neighbours are taken
+	for i in 5:
+		for j in range(i + 1, 5):
+			assert_float((goals[i] as Vector2).distance_to(goals[j])).is_greater(1.0)  # one cell each
+
+
+func test_a_lance_attacking_one_target_spreads_on_the_fire_ring() -> void:
+	_flat_world()
+	var target := _target_mech(Vector2(0, 300))
+	target.team = 1
+	var lance: Array = []
+	for i in 4:
+		var m := SimFixture.mech(["bushwacker", "shootist", "catapult", "hunchback"][i], rules)
+		m.team = 0
+		m.is_player = true
+		m.group = 0
+		m.position = Vector2(i * 4.0, 0)
+		world.add_unit(m)
+		lance.append(m)
+		world.order_attack(m, target)
+	for k in 600:
+		world.step()
+		world.events.clear()
+	var min_sep := INF
+	for i in 4:
+		assert_bool(world.line_of_sight(lance[i], target)).is_true()
+		assert_float(lance[i].distance_to(target.position)).is_less_equal(world.attack_range(lance[i]) / 0.9 + 12.0)
+		for j in range(i + 1, 4):
+			min_sep = minf(min_sep, lance[i].position.distance_to(lance[j].position))
+	assert_float(min_sep).is_greater(world.map.cell_m * 0.9)  # not stacked in one file
+
+
+func test_optimal_fire_range_follows_the_weapons() -> void:
+	_flat_world()
+	var cat := SimFixture.mech("catapult", rules)  # LRM boat
+	var hb := SimFixture.mech("hunchback", rules)  # AC20
+	world.add_unit(cat)
+	world.add_unit(hb)
+	assert_float(world.optimal_fire_range(cat)).is_greater(world.optimal_fire_range(hb))

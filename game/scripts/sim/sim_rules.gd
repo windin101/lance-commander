@@ -56,6 +56,9 @@ var brain_target_only := true
 ## I92: brain moves walk unless the script asks to run (corebrain.abx:235-237); an attack
 ## approaches at the pilot's last move speed (warrior.cpp:5574, 5314). Off: every brain move runs.
 var brain_walk := true
+## Attackers walk to an attack goal (Mover::calcMoveGoal: a cell on the fire-range ring with a
+## line of sight, spread from group mates) instead of stopping at the first point in reach.
+var attack_goals := true
 
 # Original behaviour kept on purpose (combat-rules.md "Kept original rules").
 ## O1 (I88, Lee 2026-10-23: copy the original): a vehicle fires only from weapon nodes 2-3

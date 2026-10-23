@@ -114,6 +114,7 @@ func order_attack(m: SimUnit, target: SimUnit, run := true, pursue := true) -> v
 	m.attack_pursue = pursue
 	m.path = PackedVector2Array()
 	m.repath_time = 0.0
+	m.attack_goal = null
 
 
 func order_hold(m: SimUnit) -> void:
@@ -344,20 +345,26 @@ func _current_goal(m: SimUnit) -> Variant:
 		if t == null or t.is_disabled():
 			order_hold(m)
 			return null
-		if not m.attack_pursue or (m.distance_to(t.position) <= attack_range(m) and _can_fire_on(m, t)):
+		if not m.attack_pursue:
 			m.path = PackedVector2Array()
 			return null
-		if m.path.is_empty() or time >= m.repath_time:
-			if m.distance_to(t.position) <= attack_range(m):
-				# in reach without a line of fire (behind a building or a crest): walk to a spot
-				# that has one (the attack tactic repositions on NOT_LOCKED)
-				m.path = _sight_position_path(m, t)
-			else:
-				m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.hover), m.hover)
-			if m.path.is_empty():
-				m.path = _firing_position_path(m, t)
-			m.path_index = 0
-			m.repath_time = time + 2.0
+		if rules.attack_goals:
+			_attack_goal_path(m, t)
+		else:
+			if m.distance_to(t.position) <= attack_range(m) and _can_fire_on(m, t):
+				m.path = PackedVector2Array()
+				return null
+			if m.path.is_empty() or time >= m.repath_time:
+				if m.distance_to(t.position) <= attack_range(m):
+					# in reach without a line of fire (behind a building or a crest): walk to a spot
+					# that has one (the attack tactic repositions on NOT_LOCKED)
+					m.path = _sight_position_path(m, t)
+				else:
+					m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.hover), m.hover)
+				if m.path.is_empty():
+					m.path = _firing_position_path(m, t)
+				m.path_index = 0
+				m.repath_time = time + 2.0
 	if m.path.is_empty():
 		if m.order == Order.MOVE:
 			order_hold(m)
@@ -411,6 +418,224 @@ func _guard_goal(m: SimUnit) -> Variant:
 		m.path = PackedVector2Array()
 		return null
 	return m.path[m.path_index]
+
+
+# --- group goals and attack positions (group.cpp, mover.cpp calcMoveGoal) ----------------
+
+const GOALMAP_DIM := 61  # GOALMAP_DIM / GOALMAP_CELL_DIM (group.cpp:399, mover.cpp:123)
+const MAX_ATTACK_CELLRANGE := 30  # mover.h:592
+const OPTIMAL_INCREMENTS := 32  # Mover::initOptimalCells(32) (mission.cpp:2952)
+const MAX_MOVE_GOALS := 60  # mover.cpp:4089; MaxMoveGoalChecks = 60 (mover.cpp:133)
+## gamesys Mover:General OptimalRangePoints (20, 45, 100, 100, 160) and the tie table
+## (mover.cpp:318-336): short, medium, long, short-medium, medium-long.
+var optimal_range_points: Array = [20.0, 45.0, 100.0, 100.0, 160.0]
+const OPTIMAL_RANGE_TIE := [255, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
+	4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+
+## MoverGroup::calcMoveGoals (group.cpp:401-526): goals for n movers around a clicked point. A
+## uniform-cost flood over the passable cells of a 61 x 61 window, from the goal cell outwards
+## (4 directions); a cell becomes a goal if nobody's claimed goal has marked it as a neighbour,
+## and each claimed goal marks its 8 neighbours. The original marks the neighbours of
+## (row, row + dc) instead of (row, col + dc) (group.cpp:483, `nCol = curRow + ...`); that is kept,
+## so only goals on the window's diagonal mark theirs correctly. The first goal is the click
+## itself, the next ones about two cells out (17 m), later ones may sit side by side.
+func group_move_goals(goal: Vector2, n: int, hover := false) -> Array:
+	var out: Array = []
+	if n <= 0:
+		return out
+	var gc := map.cell_of(goal)
+	var half := GOALMAP_DIM / 2
+	var size := GOALMAP_DIM * GOALMAP_DIM
+	var open := PackedByteArray()
+	open.resize(size)
+	var no_neighbour := PackedByteArray()
+	no_neighbour.resize(size)
+	no_neighbour.fill(1)
+	var seen := PackedByteArray()
+	seen.resize(size)
+	for r in GOALMAP_DIM:
+		for c in GOALMAP_DIM:
+			var cell := Vector2i(gc.x - half + c, gc.y - half + r)
+			open[r * GOALMAP_DIM + c] = 1 if map.in_bounds(cell) and map.is_walkable(cell, hover) else 0
+	var queue: Array[int] = [half * GOALMAP_DIM + half]  # equal costs: a FIFO is the priority queue
+	seen[queue[0]] = 1
+	var head := 0
+	while head < queue.size():
+		var idx: int = queue[head]
+		head += 1
+		var r := idx / GOALMAP_DIM
+		var c := idx % GOALMAP_DIM
+		if open[idx] == 1 and no_neighbour[idx] == 1:
+			no_neighbour[idx] = 0  # GOALFLAG_AVAILABLE cleared
+			out.append(map.cell_center(Vector2i(gc.x - half + c, gc.y - half + r)))
+			if out.size() == n:
+				break
+			for d in [Vector2i(-1, 0), Vector2i(-1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(1, 0), Vector2i(1, -1), Vector2i(0, -1), Vector2i(-1, -1)]:
+				var nr: int = r + d.x
+				var nc: int = r + d.y  # sic (group.cpp:483)
+				if nr >= 0 and nc >= 0 and nr < GOALMAP_DIM and nc < GOALMAP_DIM:
+					no_neighbour[nr * GOALMAP_DIM + nc] = 0
+		for d in [Vector2i(-1, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(0, -1)]:
+			var sr: int = r + d.x
+			var sc: int = c + d.y
+			if sr < 0 or sc < 0 or sr >= GOALMAP_DIM or sc >= GOALMAP_DIM:
+				continue
+			var sidx := sr * GOALMAP_DIM + sc
+			if open[sidx] == 1 and seen[sidx] == 0:
+				seen[sidx] = 1
+				queue.append(sidx)
+	return out
+
+
+## Mover::calcOptimalRange (mover.cpp:5826-5884): the range point (gamesys OptimalRangePoints)
+## covered by the most damage per second of working weapons; ties by OptimalRangeTieTable.
+func optimal_fire_range(m: SimUnit) -> float:
+	var totals := [0.0, 0.0, 0.0, 0.0, 0.0]
+	var any := false
+	for w in m.weapon_indices():
+		if m.items[w]["disabled"] or m.weapon_shots(w) == 0:
+			continue
+		var wpn := m.weapon(w)
+		var span: Array = rules.weapon_ranges[rules.range_index(wpn.get("range", "short"))]
+		var dps := float(wpn.get("damage", 0.0)) / maxf(float(wpn.get("recycle", 1.0)), 0.01)
+		any = true
+		for i in 5:
+			var pt: float = optimal_range_points[i]
+			if pt > float(span[0]) and pt <= float(span[1]):
+				totals[i] += dps
+	if not any:
+		return 0.0
+	var best := 0
+	for i in 5:
+		if totals[i] > totals[best]:
+			best = i
+	if totals[best] <= 0.0:
+		return 0.0
+	var tie := 0
+	for i in 5:
+		if totals[i] == totals[best]:
+			tie |= 1 << i
+	if tie != (1 << best):
+		best = OPTIMAL_RANGE_TIE[tie]
+		if best == 255:
+			return 0.0
+	return optimal_range_points[best]
+
+
+## Mover min/max fire range: the weapons' span (calcFireRanges, as turret.cpp:2215).
+func fire_range_span(m: SimUnit) -> Vector2:
+	var lo := INF
+	var hi := 0.0
+	for w in m.weapon_indices():
+		if m.items[w]["disabled"] or m.weapon_shots(w) == 0:
+			continue
+		var span: Array = rules.weapon_ranges[rules.range_index(m.weapon(w).get("range", "short"))]
+		lo = minf(lo, float(span[0]))
+		hi = maxf(hi, float(span[1]))
+	return Vector2(0.0 if lo == INF else lo, hi)
+
+
+## Mover::calcMoveGoal for an attack order (mover.cpp:4364-4900): where to stand to fire on t.
+## Over a 61 x 61 cell map centred on the target, cells score:
+##   +500 on the ring at the pilot's fire range (FIRERANGE_OPTIMAL: the optimal range, in cells,
+##        32 bearings; optimalCells),
+##   -500 beyond the longest weapon's reach and inside the shortest's minimum,
+##   +100 in the 3 x 3 round the target for a non-player order,
+##   -1 per cell (Manhattan) from the attacker, -100 on a group mate's goal,
+##   -10000 where it can't stand (impassable, off-map; deep water unless a hovercraft), and
+##   -10000 on its own cell when it must move somewhere else (no line of fire there).
+## The 60 best are tried in order and the first with a line of sight to t wins; failing that, the
+## best (calcBestGoalFromTarget is not ported). Area connectivity is left to the path search.
+func attack_goal(m: SimUnit, t: SimUnit, somewhere_else := false) -> Vector2:
+	var cs := map.cell_m
+	var tc := map.cell_of(t.position)
+	var half := GOALMAP_DIM / 2
+	var span := fire_range_span(m)
+	var fr := optimal_fire_range(m)
+	var fire_cells := clampi(int(fr / cs), 1, MAX_ATTACK_CELLRANGE - 1) if fr > 0.0 else 2
+	var min_cells := mini(int(span.x / cs), MAX_ATTACK_CELLRANGE - 1)
+	var max_cells := mini(int(span.y / cs), MAX_ATTACK_CELLRANGE - 1)
+	var size := GOALMAP_DIM * GOALMAP_DIM
+	var wt := PackedInt32Array()
+	wt.resize(size)
+	var ring := {}
+	for i in OPTIMAL_INCREMENTS:
+		var a := deg_to_rad(360.0 / OPTIMAL_INCREMENTS * i)
+		var dr := sin(a) * fire_cells
+		var dc := cos(a) * fire_cells
+		ring[Vector2i(int(dc - 0.5) if dc < 0.0 else int(dc + 0.5), int(dr - 0.5) if dr < 0.0 else int(dr + 0.5))] = true
+	var sc := map.cell_of(m.position) - tc + Vector2i(half, half)
+	sc = Vector2i(clampi(sc.x, 0, GOALMAP_DIM - 1), clampi(sc.y, 0, GOALMAP_DIM - 1))
+	var mates: Dictionary = {}
+	if m.group >= 0:
+		for o in movers():
+			if o != m and o.team == m.team and o.commander == m.commander and o.group == m.group and o.attack_goal != null:
+				mates[map.cell_of(o.attack_goal)] = true
+	for r in GOALMAP_DIM:
+		for c in GOALMAP_DIM:
+			var off := Vector2i(c - half, r - half)
+			var cell := tc + off
+			var idx := r * GOALMAP_DIM + c
+			if not map.in_bounds(cell):
+				wt[idx] = -999999
+				continue
+			var w := 0
+			var d := sqrt(float(off.x * off.x + off.y * off.y))
+			if d > max_cells + 0.5 and d < MAX_ATTACK_CELLRANGE - 0.5:
+				w -= 500
+			if min_cells > 0 and d < min_cells - 0.5:
+				w -= 500
+			if ring.has(off):
+				w += 500
+			if not m.is_player and absi(off.x) <= 1 and absi(off.y) <= 1:
+				w += 100
+			w -= absi(c - sc.x) + absi(r - sc.y)
+			if mates.has(cell):
+				w -= 100
+			if not map.is_walkable(cell, m.hover):
+				w -= 10000
+			wt[idx] = w
+	if somewhere_else:
+		wt[sc.y * GOALMAP_DIM + sc.x] -= 10000
+	var cands: Array = []
+	for idx in size:
+		if wt[idx] > -10000:
+			cands.append(idx)
+	cands.sort_custom(func(a, b): return wt[a] > wt[b])
+	var h := los_height(m)
+	var th := los_height(t)
+	var ext := sight_radius(t) if t is SimStructure else 0.0
+	for k in mini(cands.size(), MAX_MOVE_GOALS):
+		var idx: int = cands[k]
+		var p := map.cell_center(tc + Vector2i(idx % GOALMAP_DIM - half, idx / GOALMAP_DIM - half))
+		if p.distance_to(t.position) <= visual_range(m) and map.line_of_sight(p, h, t.position, th, ext, 0.0, rules.max_tree_los):
+			return p
+	if cands.is_empty():
+		return map.nearest_walkable(t.position, m.hover)
+	var b: int = cands[0]
+	return map.cell_center(tc + Vector2i(b % GOALMAP_DIM - half, b / GOALMAP_DIM - half))
+
+
+## The attack order's movement: walk to the attack goal and fire from it (and on the way). A new
+## goal when the target has moved two cells from where it was picked, or on arriving without a
+## line of fire (MOVEPARAM_SOMEWHERE_ELSE); at most every 2 s.
+func _attack_goal_path(m: SimUnit, t: SimUnit) -> void:
+	var stale: bool = m.attack_goal == null or t.position.distance_to(m.attack_goal_from) > 2.0 * map.cell_m
+	var arrived: bool = m.attack_goal != null and m.path.is_empty() and m.position.distance_to(m.attack_goal) <= map.cell_m
+	var blind := arrived and not _can_fire_on(m, t)
+	if not (stale or blind) or (time < m.repath_time and m.attack_goal != null):
+		return
+	m.attack_goal = attack_goal(m, t, blind)
+	m.attack_goal_from = t.position
+	m.repath_time = time + 2.0
+	m.path_index = 0
+	if map.cell_of(m.attack_goal) == map.cell_of(m.position):
+		m.path = PackedVector2Array()
+		return
+	m.path = map.find_path(m.position, m.attack_goal, m.hover)
+	if m.path.is_empty():
+		m.path = _firing_position_path(m, t)
 
 
 ## In range is not enough with line of sight on: a pursuing attacker keeps closing until it

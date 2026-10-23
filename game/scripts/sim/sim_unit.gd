@@ -101,6 +101,8 @@ var after_jump := Callable()  # an order given in the air, applied on landing
 var los_height_m := -1.0  # sight point above the ground (getLOSPosition); -1 = not looked up yet
 var los_factor := 1.0  # LOSFactor: scales the visual range (gameobj.cpp:1890)
 var attack_radius_m := 275.0  # pilot attackRadius: drop the last target beyond it (warrior.cpp:3532-3538)
+var attack_goal = null  # Vector2: where an attack order stands to fire (Mover::calcMoveGoal), or null
+var attack_goal_from := Vector2.ZERO  # the target's position when it was picked
 var _sensor_inv := -2  # inventory index of the Sensors component, -1 none (-2 not looked up)
 
 
