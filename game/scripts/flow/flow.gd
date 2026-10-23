@@ -88,6 +88,8 @@ func record(report: Dictionary) -> void:
 		var nxt := next_after(current)
 		if nxt != "":
 			current = nxt
+	elif campaign:
+		campaign.log_mission(report)  # a lost mission still goes in its pilots' logs
 	save_progress()
 
 

@@ -9,7 +9,8 @@ extends RefCounted
 ## 1-12 deployed), "loadout" {"name", "parts" {loc: [component ids]}} (stock or refitted in
 ## the Mech Lab, Loadout rules)}. Mechs carry no damage: every mech starts every mission
 ## repaired (7.2).
-## A pilot: {"name", "gunnery", "piloting", "kills", "missions", "dead"}.
+## A pilot: {"name", "gunnery", "piloting", "kills", "missions", "dead", "log"}; log is the
+## mission log [{mission, title, won, kills, mech_kills, mech, variant, dead}], newest last.
 ## Stores: parts stripped in the Mech Lab, {component id: count}; fitting from them is free.
 ## Saved variants: [{"name", "chassis", "parts"}], loadouts the player named in the lab.
 ##
@@ -58,7 +59,7 @@ func reset() -> void:
 		var sk: Dictionary = fit.get("Skills", {})
 		pilots[p] = {"name": String(gen.get("Name", p.trim_prefix("pmw").capitalize())),
 			"gunnery": float(sk.get("Gunnery", 50)), "piloting": float(sk.get("Piloting", 50)),
-			"kills": 0, "missions": 0, "dead": false}
+			"kills": 0, "missions": 0, "dead": false, "log": []}
 
 
 static func _json(path: String, fallback: Variant) -> Variant:
@@ -433,6 +434,7 @@ func apply_variant(m: Dictionary, sv: Dictionary, mission: String) -> bool:
 ## Apply a won mission's report: objective pay, the force group replaced by the mechs
 ## that walked out (repaired), pilots updated (kills, skills, deaths).
 func apply_win(report: Dictionary) -> void:
+	log_mission(report)
 	c_bills += int(report.get("payout", 0))
 	for m in deployed():
 		mechs.erase(m)
@@ -458,6 +460,74 @@ func apply_win(report: Dictionary) -> void:
 	for b in report.get("bonus_files", []):
 		if not bonus_files.has(String(b)):
 			bonus_files.append(String(b))
+
+
+## Add a finished mission (won or lost) to each of its pilots' mission logs.
+func log_mission(report: Dictionary) -> void:
+	for p in report.get("pilots", []):
+		var pd: Dictionary = pilots.get(String(p.get("profile", "")), {})
+		if pd.is_empty():
+			continue
+		if not pd.has("log"):
+			pd["log"] = []
+		pd["log"].append({"mission": String(report.get("mission", "")), "title": String(report.get("title", "")),
+			"won": bool(report.get("won", false)), "kills": p.get("kills", []).size(),
+			"mech_kills": p.get("kills", []).filter(func(k): return String(k) != "vehicle").size(),
+			"mech": String(p.get("mech", "")), "variant": String(p.get("variant", "")), "dead": bool(p.get("dead", false))})
+
+
+# --- pilots (the bay's personnel screen) ------------------------------------------------------
+
+## The mech a pilot sits in, or {}.
+func mech_of(profile: String) -> Dictionary:
+	for m in mechs:
+		if String(m["pilot"]) == profile:
+			return m
+	return {}
+
+
+## "kia", "assigned", "available" (this mission's lists, free) or "unavailable".
+func pilot_status(profile: String, mission: String) -> String:
+	var pd: Dictionary = pilots.get(profile, {})
+	if pd.is_empty() or pd["dead"]:
+		return "kia"
+	if not mech_of(profile).is_empty():
+		return "assigned"
+	return "available" if available_pilots(mission).has(profile) else "unavailable"
+
+
+## Put a pilot in a mech: a reserve mech is deployed first (refused if it can't be), a
+## pilot already in another mech moves, and the mech's old pilot steps out.
+func assign_pilot(profile: String, m: Dictionary, mission: String) -> bool:
+	if not available_pilots(mission).has(profile) or not mechs.has(m):
+		return false
+	if int(m["slot"]) == 0 and not deploy(m, mission):
+		return false
+	var old := mech_of(profile)
+	if not old.is_empty():
+		old["pilot"] = ""
+	m["pilot"] = profile
+	return true
+
+
+func unassign_pilot(profile: String) -> void:
+	var m := mech_of(profile)
+	if not m.is_empty():
+		m["pilot"] = ""
+
+
+## Gunnery, piloting and sensors the pilot was hired with (the profile FIT).
+func hire_skills(profile: String) -> Dictionary:
+	var sk: Dictionary = data.pilots.get(profile, {}).get("Skills", {})
+	return {"gunnery": float(sk.get("Gunnery", 50)), "piloting": float(sk.get("Piloting", 50)), "sensors": float(sk.get("Sensors", 50))}
+
+
+## The next rank and the gunnery/piloting average it needs (8.4), or ["", 0] at Ace.
+static func next_rank(p: Dictionary) -> Array:
+	for r in [["Regular", 50.0], ["Veteran", 60.0], ["Elite", 70.0], ["Ace", 79.0]]:
+		if (float(p.get("gunnery", 50)) + float(p.get("piloting", 50))) / 2.0 <= r[1]:
+			return r
+	return ["", 0.0]
 
 
 ## Rank from the average of gunnery and piloting (8.4).
@@ -492,9 +562,19 @@ func from_dict(d: Dictionary) -> void:
 		mechs.append({"id": int(m["id"]), "chassis": String(m["chassis"]), "variant": int(m["variant"]),
 			"pilot": String(m.get("pilot", "")), "slot": int(m.get("slot", 0)),
 			"loadout": _clean_loadout(String(m["chassis"]), int(m["variant"]), m.get("loadout", {}))})
+	for p in pilots:
+		pilots[p]["log"] = []  # saves from before the mission log have none
 	for p in d.get("pilots", {}):
 		if pilots.has(p):
 			pilots[p].merge(d["pilots"][p], true)
+			var log: Array = []
+			for e in d["pilots"][p].get("log", []):
+				if e is Dictionary:
+					log.append({"mission": String(e.get("mission", "")), "title": String(e.get("title", "")),
+						"won": bool(e.get("won", false)), "kills": int(e.get("kills", 0)),
+						"mech_kills": int(e.get("mech_kills", e.get("kills", 0))), "mech": String(e.get("mech", "")),
+						"variant": String(e.get("variant", "")), "dead": bool(e.get("dead", false))})
+			pilots[p]["log"] = log
 	bonus_files.clear()
 	for b in d.get("bonus_files", []):
 		bonus_files.append(String(b))

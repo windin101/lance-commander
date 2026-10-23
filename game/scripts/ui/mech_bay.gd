@@ -11,13 +11,18 @@ extends Control
 ##              class, price, hardpoints) and the summary for the selected offer's
 ##              description, ratings, stock loadout, stats and Buy; a bought 'Mech joins
 ##              the lance when it fits the slots and drop weight, else the reserve
+##   personnel  Pilots (and Assign pilot) swaps them for pilot cards (portrait, rank, status,
+##              skills), the selected pilot's portrait on the stage, and a résumé: bio
+##              (data/pilot_bios.json), skill bars with growth since hire, service record,
+##              mission log, assigned 'Mech; Assign / Unassign
 ##   bottom     the deployment strip (3 lances of 4 slots) and Launch
 ## Rules as before: deploy within the drop weight and the 12-slot cap, a pilot per deployed
 ## 'Mech (Pilot Ready), sell reserve 'Mechs, buy from the mission's purchase list, Launch
 ## when every deployed 'Mech has a pilot. Buying, selling and the lab need PlayPurchasing.
 ## Dev: --sample-campaign fills the bay with mission 2's lance for screenshots;
 ## --open=buy|pilots|assign|variants opens that list; --open=market --offer=<chassis>
-## opens the market on that offer.
+## opens the market on that offer; --sample-history adds two missions of record, and
+## --open=pilots --pilot=<profile> opens the personnel screen on that pilot.
 
 var mission := ""
 var camp: Campaign
@@ -58,6 +63,24 @@ var _offer_body: VBoxContainer
 var _offer_foot: VBoxContainer
 var buy_button: Button
 var buy_note: Label  # where a purchase goes, or why it can't be made
+# personnel (Pilots / Assign pilot): pilot cards in the roster's place, the portrait on the
+# stage, the résumé in the summary's place
+var pilot := ""  # the selected pilot's profile
+var assign_to := -1  # mech id when opened from Assign pilot: the résumé offers that mech
+var _pilot_panel: Control
+var _pilot_list: VBoxContainer
+var _pilot_small: Label
+var _resume_panel: Control
+var _resume_title: Label
+var _resume_small: Label
+var _resume_body: VBoxContainer
+var _resume_foot: VBoxContainer
+var _portrait_frame: Control
+var _portrait: TextureRect
+var assign_button: Button
+var unassign_button: Button
+var assign_note: Label
+static var _bios := {}
 
 
 ## mission 2's lance as the mock-up shows it (dev screenshots); returns the mission.
@@ -71,6 +94,28 @@ static func dev_sample(c: Campaign) -> String:
 	return "mc2_02"
 
 
+## dev: a few missions of history for the sample lance (personnel screenshots).
+static func dev_history(c: Campaign) -> void:
+	var reports := [
+		{"mission": "mc2_01", "title": "Liberation: The Gulag", "won": true, "pilots": [
+			{"profile": "pmwhacksaw", "kills": ["medium", "light", "heavy", "vehicle"], "mech": "Bushwacker", "variant": "Bushwacker Prime"},
+			{"profile": "pmwlongshot", "kills": ["light"], "mech": "Werewolf", "variant": "Razorback Prime"},
+			{"profile": "pmwflash", "kills": ["vehicle"], "mech": "Urbanmech", "variant": "Urbanmech Prime"}]},
+		{"mission": "mc2_02", "title": "Reacquisition: Base Gemini", "won": false, "pilots": [
+			{"profile": "pmwhacksaw", "kills": ["light"], "mech": "Bushwacker", "variant": "Bushwacker Prime"},
+			{"profile": "pmwflash", "kills": [], "mech": "Urbanmech", "variant": "Urbanmech Prime"}]},
+	]
+	for r in reports:
+		c.log_mission(r)
+		if r["won"]:
+			for p in r["pilots"]:
+				var pd: Dictionary = c.pilots[p["profile"]]
+				pd["missions"] = int(pd["missions"]) + 1
+				pd["kills"] = int(pd["kills"]) + p["kills"].size()
+				pd["piloting"] = float(pd["piloting"]) + 1.0
+				pd["gunnery"] = float(pd["gunnery"]) + 0.01 * 60.0 * p["kills"].size()
+
+
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	mission = Flow.current
@@ -78,6 +123,8 @@ func _ready() -> void:
 	if OS.get_cmdline_user_args().has("--sample-campaign"):  # dev: screenshot without playing mc2_01
 		mission = dev_sample(camp)
 		Flow.current = mission
+		if OS.get_cmdline_user_args().has("--sample-history"):
+			dev_history(camp)
 	var vh := get_viewport().get_visible_rect().size.y if get_viewport() else 1080.0
 	kit = BayKit.new(UiStyle.hud_unit(vh))
 	theme = UiStyle.hud_theme(kit.u)
@@ -104,7 +151,11 @@ func _ready() -> void:
 						for b in OS.get_cmdline_user_args():
 							if b == "--offer=" + String(o["chassis"]):
 								select_offer(o)
-				"pilots": _open_pilots()
+				"pilots":
+					_open_pilots()
+					for b in OS.get_cmdline_user_args():  # --pilot=<profile> picks one
+						if b.begins_with("--pilot="):
+							select_pilot(b.trim_prefix("--pilot="))
 				"assign": _open_assign()
 				"variants": _open_variants()
 
@@ -233,6 +284,7 @@ func _build() -> void:
 	sf.add_child(_foot)
 
 	_build_market()
+	_build_personnel()
 
 	# deployment strip
 	var dep := PanelContainer.new()
@@ -276,12 +328,18 @@ func _refresh() -> void:
 		_sel = int(list[0]["id"]) if not list.is_empty() else -1
 	_refresh_top()
 	var market := mode == "market"
-	_roster_panel.visible = not market
-	_summary_panel.visible = not market
+	var crew := mode == "pilots"
+	_roster_panel.visible = mode == "hangar"
+	_summary_panel.visible = mode == "hangar"
 	_market_panel.visible = market
 	_offer_panel.visible = market
+	_pilot_panel.visible = crew
+	_resume_panel.visible = crew
+	_portrait_frame.visible = crew and _overlay == null
 	if market:
 		_refresh_market()
+	elif crew:
+		_refresh_personnel()
 	else:
 		_refresh_roster()
 		_refresh_summary()
@@ -583,7 +641,9 @@ func _close_overlay() -> void:
 	if _overlay:
 		_overlay.queue_free()
 		_overlay = null
-	stage.visible = not _mech(_sel).is_empty()
+	stage.visible = mode != "pilots" and not _mech(_sel).is_empty()
+	if _portrait_frame:
+		_portrait_frame.visible = mode == "pilots"
 
 
 ## A framed list over the centre of the bay; returns its list box.
@@ -901,43 +961,26 @@ func _refresh_market() -> void:
 
 
 func _open_pilots() -> void:
-	var list := _overlay_panel("Pilots", "available this mission")
-	var on := {}
-	for m in camp.mechs:
-		if String(m["pilot"]) != "":
-			on[String(m["pilot"])] = m
-	for p in camp.available_pilots(mission):
-		var d: Dictionary = camp.pilots[p]
-		var where := ("in %s (slot %d)" % [_chassis_name(on[p]), int(on[p]["slot"])]) if on.has(p) else "unassigned"
-		list.add_child(_overlay_row(String(d["name"]), "%s · GUN %d · PLT %d · %d missions · %d kills · %s" % [Campaign.rank(d),
-			int(d["gunnery"]), int(d["piloting"]), int(d["missions"]), int(d["kills"]), where], "", false, func(): pass))
+	_close_overlay()
+	mode = "pilots"
+	assign_to = -1
+	if pilot == "" or camp.pilot_status(pilot, mission) == "unavailable":
+		var list := _crew()
+		pilot = list[0] if not list.is_empty() else ""
+	_refresh()
 
 
+## Assign pilot (hangar): the personnel screen with the résumé offering the selected mech.
 func _open_assign() -> void:
 	var m := _mech(_sel)
 	if m.is_empty():
 		return
-	var list := _overlay_panel("Assign pilot", "%s · %s" % [_chassis_name(m), _variant_short(m)])
-	if int(m["slot"]) == 0 and not camp.can_deploy(m, mission):
-		list.add_child(kit.para("This 'Mech can't be deployed: %s." % ("all 12 slots are full" if camp.deployed().size() >= Campaign.MAX_DEPLOY else "it would go over the drop weight"), 30, "body500", 1.0, UiStyle.HUD_WARN))
-		return
-	if int(m["slot"]) == 0:
-		list.add_child(kit.para("Assigning a pilot deploys this 'Mech in the next free slot.", 30, "body500", 1.0, UiStyle.HUD_DIM))
-	var assign := func(p: String):
-		if int(m["slot"]) == 0:
-			camp.deploy(m, mission)
-		m["pilot"] = p
-		_close_overlay()
-		_refresh()
-	if String(m["pilot"]) != "":
-		list.add_child(_overlay_row("No pilot", "take %s out of the cockpit" % _pilot_name(String(m["pilot"])), "Clear", true,
-			func(): assign.call("")))
-	for p in camp.free_pilots(mission):
-		if p == String(m["pilot"]):
-			continue
-		var d: Dictionary = camp.pilots[p]
-		list.add_child(_overlay_row(String(d["name"]), "%s · GUN %d · PLT %d · %d kills" % [Campaign.rank(d), int(d["gunnery"]),
-			int(d["piloting"]), int(d["kills"])], "Assign", true, func(): assign.call(p)))
+	_close_overlay()
+	mode = "pilots"
+	assign_to = int(m["id"])
+	var free := camp.free_pilots(mission)
+	pilot = String(m["pilot"]) if String(m["pilot"]) != "" else (free[0] if not free.is_empty() else "")
+	_refresh()
 
 
 func _open_variants() -> void:
@@ -968,3 +1011,393 @@ func _open_variants() -> void:
 				Flow.save_progress()
 				_close_overlay()
 				_refresh()))
+
+
+# --- personnel ---------------------------------------------------------------------------------
+
+static func bio(profile: String) -> String:
+	if _bios.is_empty() and FileAccess.file_exists("res://data/pilot_bios.json"):
+		var d = JSON.parse_string(FileAccess.get_file_as_string("res://data/pilot_bios.json"))
+		_bios = d if d is Dictionary else {"_": ""}
+	return String(_bios.get(profile, ""))
+
+
+## Pilots shown: assigned (by slot), then available, then killed in action.
+func _crew() -> Array:
+	var order := {"assigned": 0, "available": 1, "kia": 2}
+	var out := []
+	for p in camp.pilots:
+		var st := camp.pilot_status(p, mission)
+		if order.has(st) and (st != "kia" or int(camp.pilots[p]["missions"]) > 0 or not camp.pilots[p]["log"].is_empty()):
+			out.append(p)
+	out.sort_custom(func(a, b):
+		var sa: int = order[camp.pilot_status(a, mission)]
+		var sb: int = order[camp.pilot_status(b, mission)]
+		if sa != sb:
+			return sa < sb
+		var ma := camp.mech_of(a)
+		var mb := camp.mech_of(b)
+		if not ma.is_empty() and not mb.is_empty() and int(ma["slot"]) != int(mb["slot"]):
+			return (int(ma["slot"]) if int(ma["slot"]) > 0 else 99) < (int(mb["slot"]) if int(mb["slot"]) > 0 else 99)
+		return String(camp.pilots[a]["name"]) < String(camp.pilots[b]["name"]))
+	return out
+
+
+func select_pilot(profile: String) -> void:
+	if camp.pilots.has(profile):
+		pilot = profile
+		_refresh()
+
+
+func _close_personnel() -> void:
+	mode = "hangar"
+	assign_to = -1
+	_close_overlay()
+	_refresh()
+
+
+## The chip for a pilot: [text, colour].
+func _pilot_chip(profile: String) -> Array:
+	match camp.pilot_status(profile, mission):
+		"kia": return ["KIA", UiStyle.HUD_CRIT]
+		"assigned":
+			var m := camp.mech_of(profile)
+			return ["%s%s" % [_chassis_name(m), (" · %d" % int(m["slot"])) if int(m["slot"]) > 0 else ""], UiStyle.HUD_OK]
+		"available": return ["Available", UiStyle.HUD_EDGE]
+	return ["Unavailable", UiStyle.HUD_DIM]
+
+
+func _build_personnel() -> void:
+	var pl := kit.panel("Personnel", "")
+	_pilot_panel = pl["panel"]
+	_pilot_small = pl["small"]
+	kit.place(pl["panel"], 0.01, 0.13, 0.01, 0.845, 30.0)
+	pl["panel"].visible = false
+	add_child(pl["panel"])
+	var sc := ScrollContainer.new()
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	pl["body"].add_child(sc)
+	var mm := kit.margin(0.6, 0.6, 0.6, 0.6)
+	mm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.add_child(mm)
+	_pilot_list = kit.vbox(0.45)
+	_pilot_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	mm.add_child(_pilot_list)
+	pl["body"].add_child(kit.rule())
+	var fm := kit.margin(0.6, 0.6, 0.6, 0.6)
+	pl["body"].add_child(fm)
+	fm.add_child(kit.button("Back to hangar", _close_personnel))
+
+	# the portrait on the stage
+	var frame := PanelContainer.new()
+	frame.add_theme_stylebox_override("panel", UiStyle.HudFrame.make(kit.u, Vector4(kit.em(0.8), kit.em(0.8), kit.em(0.8), kit.em(0.8))))
+	frame.anchor_left = 0.5
+	frame.anchor_right = 0.5
+	frame.anchor_top = 0.16
+	frame.anchor_bottom = 0.16
+	frame.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	frame.visible = false
+	_portrait = TextureRect.new()
+	_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	_portrait.custom_minimum_size = Vector2(kit.em(33.0), kit.em(46.0))
+	_portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	frame.add_child(_portrait)
+	_portrait_frame = frame
+	add_child(frame)
+
+	var rs := kit.panel("Résumé", "")
+	_resume_panel = rs["panel"]
+	_resume_title = rs["title"]
+	_resume_small = rs["small"]
+	kit.place(rs["panel"], 0.99, 0.13, 0.99, 0.845, 32.0, true)
+	rs["panel"].visible = false
+	add_child(rs["panel"])
+	var rsc := ScrollContainer.new()
+	rsc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	rsc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	rs["body"].add_child(rsc)
+	var rm := kit.margin(1.0, 0.8, 1.0, 0.8)
+	rm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	rsc.add_child(rm)
+	_resume_body = kit.vbox(0.85)
+	_resume_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	rm.add_child(_resume_body)
+	rs["body"].add_child(kit.rule())
+	var rf := kit.margin(0.7, 0.7, 0.7, 0.7)
+	rs["body"].add_child(rf)
+	_resume_foot = kit.vbox(0.5)
+	rf.add_child(_resume_foot)
+	assign_note = kit.para("", 29, "body500", 0.95, UiStyle.HUD_DIM)
+	_resume_foot.add_child(assign_note)
+	var g := GridContainer.new()
+	g.columns = 2
+	g.add_theme_constant_override("h_separation", kit.px(0.5))
+	g.add_theme_constant_override("v_separation", kit.px(0.5))
+	_resume_foot.add_child(g)
+	assign_button = kit.button("Assign to 'Mech", func(): _assign_pressed(), true)
+	assign_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	g.add_child(assign_button)
+	unassign_button = kit.button("Unassign", func():
+		camp.unassign_pilot(pilot)
+		_refresh())
+	unassign_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	g.add_child(unassign_button)
+	var back := kit.button("Back to hangar", _close_personnel)
+	back.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	g.add_child(back)
+
+
+func _assign_pressed() -> void:
+	if assign_to >= 0 and not _mech(assign_to).is_empty():
+		assign_selected(_mech(assign_to))
+	else:
+		_open_mech_pick()
+
+
+## Put the selected pilot in m (Campaign.assign_pilot) and go back to the hangar on it.
+func assign_selected(m: Dictionary) -> bool:
+	if not camp.assign_pilot(pilot, m, mission):
+		return false
+	_sel = int(m["id"])
+	_msg = "%s is now in the %s (slot %d)." % [camp.pilots[pilot]["name"], _chassis_name(m), int(m["slot"])]
+	_close_overlay()
+	if assign_to >= 0:
+		_close_personnel()
+	else:
+		_refresh()
+	return true
+
+
+## The 'Mechs the selected pilot could take, over the centre of the bay.
+func _open_mech_pick() -> void:
+	var list := _overlay_panel("Assign %s" % camp.pilots[pilot]["name"], "deployed first; a reserve 'Mech deploys")
+	_portrait_frame.visible = false
+	for m in _sorted():
+		var ok := int(m["slot"]) > 0 or camp.can_deploy(m, mission)
+		var cur := String(m["pilot"])
+		var sub := "%s · %s · %s" % [_variant_short(m), ("slot %d" % int(m["slot"])) if int(m["slot"]) > 0 else "reserve",
+			("pilot " + _pilot_name(cur)) if cur != "" else "no pilot"]
+		if not ok:
+			sub += " · can't deploy: over the drop weight or slots"
+		list.add_child(_overlay_row(_chassis_name(m), sub, "Assign", ok and cur != pilot, func(): assign_selected(m)))
+
+
+func _pilot_card(profile: String) -> Control:
+	var pd: Dictionary = camp.pilots[profile]
+	var sel := profile == pilot
+	var card := PanelContainer.new()
+	var s := StyleBoxFlat.new()
+	s.bg_color = UiStyle.HUD_PANEL_2 if not sel else UiStyle.HUD_PANEL_2.lerp(UiStyle.HUD_EDGE, 0.12)
+	s.border_color = UiStyle.HUD_EDGE if sel else Color(UiStyle.HUD_EDGE, 0.18)
+	s.set_border_width_all(1)
+	if sel:
+		s.shadow_color = Color(UiStyle.HUD_GLOW, 0.3)
+		s.shadow_size = kit.px(0.4)
+	s.content_margin_left = kit.em(0.6)
+	s.content_margin_right = kit.em(0.7)
+	s.content_margin_top = kit.em(0.45)
+	s.content_margin_bottom = kit.em(0.45)
+	card.add_theme_stylebox_override("panel", s)
+	card.mouse_filter = Control.MOUSE_FILTER_STOP
+	card.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	card.gui_input.connect(func(e):
+		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
+			select_pilot(profile))
+	if pd["dead"]:
+		card.modulate = Color(1, 1, 1, 0.6)
+	var h := kit.hbox(0.7)
+	card.add_child(h)
+	var face := TextureRect.new()
+	face.texture = PilotPortraits.texture_for(profile)
+	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	face.custom_minimum_size = Vector2(kit.em(2.8), kit.em(2.8 * 46.0 / 33.0))
+	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.add_child(face)
+	var v := kit.vbox(0.15)
+	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	v.add_child(kit.label(String(pd["name"]), "display600", 1.1, UiStyle.HUD_INK, true, 0.05))
+	v.add_child(kit.label(Campaign.rank(pd), "body500", 0.95, UiStyle.HUD_DIM))
+	v.add_child(kit.label("GUN %d   PLT %d" % [int(pd["gunnery"]), int(pd["piloting"])], "mono", 0.85, UiStyle.HUD_DIM))
+	h.add_child(v)
+	var chip := _pilot_chip(profile)
+	h.add_child(kit.chip(chip[0], chip[1]))
+	return card
+
+
+static func _pretty(key: String) -> String:
+	var a := RegEx.create_from_string("([a-z])([A-Z])").sub(key, "$1 $2", true)
+	return RegEx.create_from_string("([A-Z]+)([A-Z][a-z])").sub(a, "$1 $2", true).replace("Hevay", "Heavy")
+
+
+func _heading(text: String) -> Label:
+	return kit.label(text, "display600", 0.9, UiStyle.HUD_EDGE, true, 0.12)
+
+
+func _refresh_personnel() -> void:
+	for c in _pilot_list.get_children():
+		c.queue_free()
+	for c in _resume_body.get_children():
+		c.queue_free()
+	var crew := _crew()
+	var target := _mech(assign_to)
+	_pilot_small.text = ("for %s · slot %d" % [_chassis_name(target), int(target["slot"])]) if not target.is_empty() and int(target["slot"]) > 0 \
+		else ("for %s" % _chassis_name(target) if not target.is_empty() else "%d pilots" % crew.size())
+	for p in crew:
+		_pilot_list.add_child(_pilot_card(p))
+	stage.visible = false
+	if pilot == "" or not camp.pilots.has(pilot):
+		_resume_title.text = "Résumé"
+		_plate_name.text = ""
+		_plate_sub.text = ""
+		assign_button.disabled = true
+		unassign_button.disabled = true
+		assign_note.text = "No pilot available."
+		return
+	var pd: Dictionary = camp.pilots[pilot]
+	var fit: Dictionary = GameData.pilots.get(pilot, {})
+	var callsign := String(fit.get("General", {}).get("Callsign", pd["name"])).to_upper()
+	var rank := Campaign.rank(pd)
+	_portrait.texture = PilotPortraits.texture_for(pilot)
+	_plate_name.text = String(pd["name"])
+	var chip := _pilot_chip(pilot)
+	_plate_sub.text = "%s%s · %s" % [("\"%s\" · " % callsign) if callsign != String(pd["name"]).to_upper() else "", rank,
+		"assigned to the %s" % chip[0] if camp.pilot_status(pilot, mission) == "assigned" else String(chip[0]).to_lower()]
+	_resume_title.text = String(pd["name"])
+	_resume_small.text = rank
+	var text := bio(pilot)
+	if text != "":
+		_resume_body.add_child(kit.para(text, 29, "body400", 1.0, UiStyle.HUD_DIM))
+	# skills
+	var hire := camp.hire_skills(pilot)
+	var g := GridContainer.new()
+	g.columns = 4
+	g.add_theme_constant_override("h_separation", kit.px(0.7))
+	g.add_theme_constant_override("v_separation", kit.px(0.45))
+	for row in [["Gunnery", float(pd["gunnery"]), float(pd["gunnery"]) - hire["gunnery"]],
+			["Piloting", float(pd["piloting"]), float(pd["piloting"]) - hire["piloting"]],
+			["Sensors", hire["sensors"], 0.0]]:
+		var n := kit.label(row[0], "display600", 0.88, UiStyle.HUD_DIM, true, 0.1)
+		n.custom_minimum_size.x = kit.em(6.5)
+		g.add_child(n)
+		var bar := BayKit.StatBar.new()
+		bar.custom_minimum_size = Vector2(0, maxf(2.0, roundf(kit.em(0.45))))
+		bar.value = row[1] / Campaign.SKILL_CAP
+		bar.ghost = (row[1] - row[2]) / Campaign.SKILL_CAP if row[2] > 0.0 else -1.0
+		g.add_child(bar)
+		var v := kit.label("%.1f" % row[1] if not is_equal_approx(row[1], roundf(row[1])) else "%d" % int(row[1]), "mono", 0.88, UiStyle.HUD_INK)
+		v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		v.custom_minimum_size.x = kit.em(3.0)
+		g.add_child(v)
+		var d := kit.label(("+%.1f" % row[2]) if row[2] > 0.05 else "", "mono", 0.85, UiStyle.HUD_OK)
+		d.custom_minimum_size.x = kit.em(3.4)
+		g.add_child(d)
+	_resume_body.add_child(g)
+	_resume_body.add_child(kit.label("Ghost marks: skill at hire. Sensors does not train.", "body400", 0.85, UiStyle.HUD_DIM))
+	# service record
+	_resume_body.add_child(_heading("Service record"))
+	var nxt := Campaign.next_rank(pd)
+	var avg := (float(pd["gunnery"]) + float(pd["piloting"])) / 2.0
+	var specs: Array[String] = []
+	for k in fit.get("SpecialtySkills", {}):
+		if int(fit["SpecialtySkills"][k]) > 0:
+			specs.append(_pretty(String(k)))
+	var awards: Array[String] = []
+	for k in fit.get("Awards", {}):
+		if int(fit["Awards"][k]) > 0:
+			awards.append(_pretty(String(k)))
+	var valor := 0
+	var uncommon := 0
+	for e in pd["log"]:
+		# medals as the original's review (8.3): 3-6 'Mech kills in a won mission, or 7+
+		if e["won"] and int(e.get("mech_kills", 0)) >= 7:
+			uncommon += 1
+		elif e["won"] and int(e.get("mech_kills", 0)) >= 3:
+			valor += 1
+	if valor > 0:
+		awards.append("Valor" + (" ×%d" % valor if valor > 1 else ""))
+	if uncommon > 0:
+		awards.append("Uncommon Valor" + (" ×%d" % uncommon if uncommon > 1 else ""))
+	var rec := GridContainer.new()
+	rec.columns = 2
+	rec.add_theme_constant_override("h_separation", kit.px(0.8))
+	rec.add_theme_constant_override("v_separation", kit.px(0.25))
+	for f in [["Missions", str(int(pd["missions"]))], ["Kills", str(int(pd["kills"]))], ["Rank", "%s (average %.1f)" % [rank, avg]],
+			["Next rank", ("%s above %d" % [nxt[0], int(nxt[1])]) if nxt[0] != "" else "top rank"],
+			["Wounds", "KIA" if pd["dead"] else "none (healed between missions)"],
+			["Specialties", ", ".join(specs) if not specs.is_empty() else "none yet"],
+			["Awards", ", ".join(awards) if not awards.is_empty() else "none yet"]]:
+		var k := kit.label(f[0], "display600", 0.85, UiStyle.HUD_DIM, true, 0.1)
+		k.custom_minimum_size.x = kit.em(7.5)
+		k.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+		rec.add_child(k)
+		var val := kit.label(f[1], "body500", 1.0, UiStyle.HUD_INK)
+		val.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		val.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		rec.add_child(val)
+	_resume_body.add_child(rec)
+	# mission log
+	_resume_body.add_child(_heading("Mission log"))
+	if pd["log"].is_empty():
+		_resume_body.add_child(kit.label("No missions flown yet.", "body400", 0.95, UiStyle.HUD_DIM))
+	var lg := GridContainer.new()
+	lg.columns = 4
+	lg.add_theme_constant_override("h_separation", kit.px(0.6))
+	lg.add_theme_constant_override("v_separation", kit.px(0.25))
+	var entries: Array = pd["log"].duplicate()
+	entries.reverse()
+	for e in entries:
+		var t := kit.label(String(e["title"]) if String(e["title"]) != "" else String(e["mission"]), "body500", 0.95, UiStyle.HUD_INK)
+		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		t.clip_text = true
+		t.custom_minimum_size.x = kit.em(10)
+		lg.add_child(t)
+		var res := "KIA" if e["dead"] else ("Won" if e["won"] else "Lost")
+		lg.add_child(kit.label(res, "mono", 0.85, UiStyle.HUD_CRIT if res != "Won" else UiStyle.HUD_OK))
+		lg.add_child(kit.label("%d kill%s" % [int(e["kills"]), "" if int(e["kills"]) == 1 else "s"], "mono", 0.85, UiStyle.HUD_DIM))
+		var mech := kit.label(String(e["mech"]), "body500", 0.9, UiStyle.HUD_DIM)
+		mech.tooltip_text = String(e["variant"])
+		lg.add_child(mech)
+	_resume_body.add_child(lg)
+	# assigned mech
+	_resume_body.add_child(_heading("Assigned 'Mech"))
+	var m := camp.mech_of(pilot)
+	if m.is_empty():
+		_resume_body.add_child(kit.label("Not assigned.", "body400", 0.95, UiStyle.HUD_DIM))
+	else:
+		var row := kit.hbox(0.7)
+		row.add_child(_thumb(m, 3.6))
+		var mv := kit.vbox(0.1)
+		mv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		mv.add_child(kit.label(_chassis_name(m), "display600", 1.05, UiStyle.HUD_INK, true, 0.05))
+		mv.add_child(kit.label("%s · %d t · %s" % [_variant_short(m), int(camp.tonnage(m["chassis"])),
+			("slot %d" % int(m["slot"])) if int(m["slot"]) > 0 else "reserve"], "mono", 0.85, UiStyle.HUD_DIM))
+		row.add_child(mv)
+		_resume_body.add_child(row)
+	# actions
+	var status := camp.pilot_status(pilot, mission)
+	unassign_button.disabled = status != "assigned"
+	if not target.is_empty():
+		assign_button.text = ("Assign to %s" % _chassis_name(target)).to_upper()
+		var ok := status in ["available", "assigned"] and String(target["pilot"]) != pilot \
+			and (int(target["slot"]) > 0 or camp.can_deploy(target, mission))
+		assign_button.disabled = not ok
+		if status == "kia":
+			assign_note.text = "Killed in action."
+		elif String(target["pilot"]) == pilot:
+			assign_note.text = "Already in this %s." % _chassis_name(target)
+		elif not ok:
+			assign_note.text = "The %s can't deploy: over the drop weight or all slots full." % _chassis_name(target)
+		else:
+			assign_note.text = "%s%s%s." % ["Takes the %s" % _chassis_name(target),
+				(" from %s" % _pilot_name(String(target["pilot"]))) if String(target["pilot"]) != "" else "",
+				(", leaving the %s without a pilot" % _chassis_name(m)) if not m.is_empty() else ""]
+	else:
+		assign_button.text = "ASSIGN TO 'MECH"
+		assign_button.disabled = not (status in ["available", "assigned"])
+		assign_note.text = "Killed in action." if status == "kia" else ("Pick a 'Mech for %s." % pd["name"] if status != "unavailable" else "Not available this mission.")
+	assign_note.add_theme_color_override("font_color", UiStyle.HUD_CRIT if status == "kia" else UiStyle.HUD_DIM)
