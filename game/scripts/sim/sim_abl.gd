@@ -49,6 +49,7 @@ const TO_POWERUP := 12
 const TO_POWERDOWN := 13
 const TO_EJECT := 15
 const TO_ATTACK_OBJECT := 16
+const TO_ATTACK_POINT := 17
 const TO_CAPTURE := 21
 const CAPTURE_M := 30.0  # capture happens on arrival this close (capture-and-objectives.md A2)
 const BLOCK_CAPTURE_M := 75.0  # gamesys BlockCaptureRange: an armed enemy this close to the target blocks it
@@ -272,7 +273,12 @@ func player_order(u: SimUnit, kind: String, arg: Variant = null, opts: Dictionar
 			o = {"code": TO_MOVETO_POINT, "goal": arg, "run": run, "origin": 0}
 		"attack":
 			var pursue: bool = opts.get("pursue", true) and not u.hold_position
-			o = {"code": TO_ATTACK_OBJECT, "target": arg, "pursue": pursue, "run": run, "origin": 0}
+			o = {"code": TO_ATTACK_OBJECT, "target": arg, "pursue": pursue, "run": run, "origin": 0,
+				"range": String(opts.get("range", "")), "force": bool(opts.get("force", false))}
+		"attack_point":
+			var pursue_p: bool = opts.get("pursue", true) and not u.hold_position
+			o = {"code": TO_ATTACK_POINT, "goal": arg, "pursue": pursue_p, "run": run, "origin": 0,
+				"suppression": bool(opts.get("suppression", false))}
 		"jump":
 			# Refused as Mover::handleTacticalOrder refuses it (RADIO_ILLEGAL_ORDER, mover.cpp:3186-3201).
 			var why := world.jump_refusal(u, arg)
@@ -337,6 +343,8 @@ func _order_done(p: Pilot, u: SimUnit, o: Dictionary) -> bool:
 		TO_ATTACK_OBJECT:
 			var t: SimUnit = o.get("target")
 			return t == null or not t.exists or t.is_destroyed() or (t.is_disabled() and not o.get("obliterate", false))
+		TO_ATTACK_POINT:
+			return u.order != SimWorld.Order.ATTACK_POINT
 		TO_POWERUP:
 			return u.status == SimUnit.Status.NORMAL
 		TO_CAPTURE:
@@ -375,12 +383,16 @@ func _issue(p: Pilot, o: Dictionary) -> void:
 			var t: SimUnit = o["target"]
 			u.current_target = t
 			u.brain_engaged = true
+			var rng_mode := String(o.get("range", ""))
+			var force := bool(o.get("force", false))
 			if o.get("pursue", true):
-				world.order_attack(u, t, run)
+				world.order_attack(u, t, run, true, rng_mode, force)
 			elif player:
-				world.order_attack(u, t, run, false)  # fire from current position: keeps the target
+				world.order_attack(u, t, run, false, rng_mode, force)  # fire from current position: keeps the target
 			else:
 				world.order_hold(u)
+		TO_ATTACK_POINT:
+			world.order_attack_point(u, o["goal"], run, bool(o.get("pursue", true)), bool(o.get("suppression", false)))
 		TO_WAIT:
 			world.order_hold(u)
 

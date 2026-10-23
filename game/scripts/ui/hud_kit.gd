@@ -175,6 +175,21 @@ const ICONS := {
 	"hold": [[Vector2(6, 20), Vector2(6, 9)], [Vector2(10, 20), Vector2(10, 6)], [Vector2(14, 20), Vector2(14, 6)],
 		[Vector2(18, 20), Vector2(18, 10)], [Vector2(4, 20), Vector2(20, 20)]],
 	"alpha_strike": [[Vector2(13, 2), Vector2(5, 14), Vector2(11, 14), Vector2(10, 22), Vector2(18, 10), Vector2(12, 10), Vector2(13, 2)]],
+	# range bands: one, two or three arcs ahead of a firing point
+	"short": [[Vector2(4, 12), Vector2(7, 12)], "c", Vector2(10, 6), Vector2(13, 9), Vector2(13, 15), Vector2(10, 18)],
+	"medium": [[Vector2(4, 12), Vector2(7, 12)], "c", Vector2(10, 6), Vector2(13, 9), Vector2(13, 15), Vector2(10, 18),
+		"c", Vector2(14, 4), Vector2(18, 8), Vector2(18, 16), Vector2(14, 20)],
+	"long": [[Vector2(4, 12), Vector2(7, 12)], "c", Vector2(10, 6), Vector2(13, 9), Vector2(13, 15), Vector2(10, 18),
+		"c", Vector2(14, 4), Vector2(18, 8), Vector2(18, 16), Vector2(14, 20),
+		"c", Vector2(18, 2), Vector2(23, 7), Vector2(23, 17), Vector2(18, 22)],
+	# force fire: crosshair with a bar through it
+	"force_fire": ["circle", [Vector2(12, 3), Vector2(12, 21)], [Vector2(3, 12), Vector2(21, 12)],
+		[Vector2(5, 19), Vector2(19, 5)]],
+	# lay mines: three mines on the ground line
+	"lay_mines": [[Vector2(3, 18), Vector2(21, 18)], [Vector2(5, 18), Vector2(5, 15), Vector2(8, 15), Vector2(8, 18)],
+		[Vector2(10, 18), Vector2(10, 15), Vector2(13, 15), Vector2(13, 18)],
+		[Vector2(15, 18), Vector2(15, 15), Vector2(18, 15), Vector2(18, 18)], [Vector2(12, 4), Vector2(12, 11)],
+		[Vector2(9, 8), Vector2(12, 11), Vector2(15, 8)]],
 }
 
 

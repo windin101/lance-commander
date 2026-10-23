@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T09:53:38+13:00",
+  "updated": "2026-10-24T11:43:07+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1685,6 +1685,19 @@
       "created": "2026-10-24T09:12:22+13:00",
       "updated": "2026-10-24T09:12:26+13:00",
       "note": "audio.py effect_objects() keys by row index; audio-only reconvert adds weapons[155]=sfx_flamer_fire.ogg (only audio.json + the new ogg change); tests in test_convert.py + audio_test.gd"
+    },
+    {
+      "id": "I104",
+      "sev": "P2",
+      "title": "Missing original controls: force fire, S/M/L range, waypoints, death from above, lay-mines button",
+      "detail": "Phase 8 step 4. Original command table missiongui.cpp:195-310, ControlGui.h:179-201.",
+      "repro": null,
+      "owner": "ui",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T11:43:07+13:00",
+      "updated": "2026-10-24T11:43:07+13:00",
+      "note": "Done 2026-10-24 (uncommitted). F force fire (forceShot missiongui.cpp:3208) on any unit/building or a ground point (TACTICAL_ORDER_ATTACK_POINT, one volley, gvehicl.cpp:4838-4842); S/M/L range keys and buttons (ordered fire range 30/45/60 m, mover.cpp:5888-5918; attack goal drops the beyond-max penalty); Ctrl waypoints queued and run on release with markers (missiongui.cpp:842,1703-1722; warrior.cpp:1555-1708); DFA on jump landing (mech.cpp:819-925, tonnage/10+0.5 to its top, same to the jumper's legs; flag SimRules.dfa); LAYMINES as a palette button (M is medium range again). Command panel gained 5 buttons (12 in one row), icons in hud_kit.gd; mission_hud.gd mode list extended (one line). Tests: command_input_test.gd (force fire on ally and ground, range radio, waypoints, lay mines refused), sim_fidelity_test.gd (attack point volley/suppression, forced friendly target, DFA). Not added: aimed shots Numpad 2/5/8, power down/up, eject, energy-weapons-only."
     }
   ],
   "coverage": {
@@ -1791,16 +1804,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I35 duplicate: superseded by I47"
-    },
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I47 updated: repro, note \u2014 repro planned by hd_redo.py: mesh seeds tried [1234] -> 4242"
-    },
     {
       "at": "2026-10-19T17:46:46+13:00",
       "who": "conductor",
@@ -2790,6 +2793,16 @@
       "at": "2026-10-24T09:53:38+13:00",
       "who": "conductor",
       "msg": "issue I93 fixed: Fixed 2026-10-24 (uncommitted). SimUnit.turret_rel/turret_rate/max_accel; SimWorld._update_turret turns torsos and turrets at TorsoYawRate / MaxTurretYawRate within their twist limit (mech.cpp:4580-4623, gvehicl.cpp:2130-2156, 2937-2961); weapons lock within FireArc/2 of the torso or turret (gvehicl.cpp:4283, mech.cpp:7342); copters (TorsoYawRate 0) turn their bodies; vehicles accelerate at MaxAccel (gvehicl.cpp:2977-2993; vehicles.py now converts max_accel). Flag SimRules.slew. Arena (40 fights): Partisan x4 dmg/min 17->22, Harasser x6 84->25 (fights 9->13 s), Partisan x10+LRMC x2+Catapult x2 214->207. Missions (seeds 1-3, slew on/off): mc2_05 3/3 vs 2/3 (lance damage taken 534 vs 461), mc2_15 3/3 vs 3/3 (334 vs 389), mc2_22 0/3 vs 0/3 (1075 vs 1298). Tests: sim_fidelity_test.gd test_a_turret_must_turn_before_it_fires_behind, test_vehicles_accelerate_at_max_accel."
+    },
+    {
+      "at": "2026-10-24T11:43:07+13:00",
+      "who": "ui",
+      "msg": "issue I104 P2: Missing original controls: force fire, S/M/L range, waypoints, death from above, lay-mines button"
+    },
+    {
+      "at": "2026-10-24T11:43:07+13:00",
+      "who": "conductor",
+      "msg": "issue I104 fixed: Done 2026-10-24 (uncommitted). F force fire (forceShot missiongui.cpp:3208) on any unit/building or a ground point (TACTICAL_ORDER_ATTACK_POINT, one volley, gvehicl.cpp:4838-4842); S/M/L range keys and buttons (ordered fire range 30/45/60 m, mover.cpp:5888-5918; attack goal drops the beyond-max penalty); Ctrl waypoints queued and run on release with markers (missiongui.cpp:842,1703-1722; warrior.cpp:1555-1708); DFA on jump landing (mech.cpp:819-925, tonnage/10+0.5 to its top, same to the jumper's legs; flag SimRules.dfa); LAYMINES as a palette button (M is medium range again). Command panel gained 5 buttons (12 in one row), icons in hud_kit.gd; mission_hud.gd mode list extended (one line). Tests: command_input_test.gd (force fire on ally and ground, range radio, waypoints, lay mines refused), sim_fidelity_test.gd (attack point volley/suppression, forced friendly target, DFA). Not added: aimed shots Numpad 2/5/8, power down/up, eject, energy-weapons-only."
     }
   ],
   "choices": [

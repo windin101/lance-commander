@@ -285,3 +285,69 @@ func test_palette_hotkeys() -> void:
 	input.toggle_mode("guard")
 	_press(input, KEY_BACKSPACE)
 	assert_str(input.order_mode).is_equal("")
+
+
+func test_force_fire_on_an_ally_and_on_the_ground() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	var a: SimUnit = w.units[0]
+	var ally: SimUnit = w.units[1]
+	ally.position = a.position + Vector2(40, 0)
+	view.views[ally.id].sync(1.0)
+	input._set_selection([a])
+	assert_bool(input.toggle_mode("force_fire")).is_true()
+	input._command(input.camera.unproject_position(view.views[ally.id].aim_point()))
+	assert_int(a.order).is_equal(SimWorld.Order.ATTACK)
+	assert_object(a.order_target).is_same(ally)  # forceShot: a friend too (missiongui.cpp:3208)
+	assert_bool(input.mode_on("force_fire")).is_false()  # one shot
+	input.toggle_mode("force_fire")
+	var focus: Vector3 = input.camera.focus
+	input._command(input.camera.unproject_position(focus + Vector3(-30, 0, 0)))
+	assert_int(a.order).is_equal(SimWorld.Order.ATTACK_POINT)
+
+
+func test_range_buttons_set_the_attack_range() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	input._set_selection([w.units[0]])
+	assert_str(input.attack_range_mode()).is_equal("")
+	input.toggle_mode("long")
+	assert_bool(input.mode_on("long")).is_true()
+	input.toggle_mode("short")  # a radio group
+	assert_bool(input.mode_on("long")).is_false()
+	assert_str(input.attack_range_mode()).is_equal("short")
+	var enemy: SimUnit = w.units.filter(func(u): return u is SimMech and u.team != 0)[0]
+	enemy.position = w.units[0].position + Vector2(40, 0)
+	view.views[enemy.id].sync(1.0)
+	input._command(input.camera.unproject_position(view.views[enemy.id].aim_point()))
+	assert_str(w.units[0].range_mode).is_equal("short")
+	assert_float(w.ordered_fire_range(w.units[0])).is_equal(30.0)  # (60 - 0) / 2 (mover.cpp:5907)
+
+
+func test_waypoints_queue_and_run_in_order() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	var m: SimUnit = w.units[0]
+	input._set_selection([m])
+	var a := w.map.nearest_walkable(m.position + Vector2(40, 0))
+	var b := w.map.nearest_walkable(m.position + Vector2(40, 40))
+	m.order_queue.append(func(): input._order_now(m, "move", a, {}))
+	m.order_queue.append(func(): input._order_now(m, "move", b, {}))
+	input._queued.append(m)
+	input.run_waypoints()
+	var reached_a := false
+	for i in 400:
+		view.sm.step()
+		view.world.events.clear()
+		reached_a = reached_a or m.position.distance_to(a) < 6.0
+		if m.order_queue.is_empty() and m.order == SimWorld.Order.HOLD:
+			break
+	assert_bool(reached_a).is_true()
+	assert_float(m.position.distance_to(b)).is_less(8.0)
+	assert_bool(m.queue_running).is_false()
+
+
+func test_lay_mines_needs_a_minelayer() -> void:
+	var input: CommandInput = view.input
+	input._set_selection([view.world.units[0]])
+	assert_bool(input.toggle_mode("lay_mines")).is_false()

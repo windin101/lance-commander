@@ -29,8 +29,15 @@ const GUARD := 2
 const JUMP := 4
 const MODE_BITS := {"run": RUN, "guard": GUARD, "jump": JUMP}
 ## Held keys -> the mode they arm while down (missiongui.cpp:203-226).
+## S / M / L arm the short, medium and long attack range while held (attackShort / attackMedium /
+## attackLong, missiongui.cpp:196-198, 1896-1931; released: defaultAttack, FIRERANGE_OPTIMAL);
+## F is force fire (forceShot, missiongui.cpp:206, 3208-3240).
 const MODE_KEYS := {KEY_SPACE: "run", KEY_J: "jump", KEY_G: "guard", KEY_C: "fire_from_position",
-	KEY_M: "lay_mines"}  # M: this port's key for the minelayer's LAYMINES button (controlGui.cpp:1110)
+	KEY_S: "short", KEY_M: "medium", KEY_L: "long", KEY_F: "force_fire"}
+const RANGES := ["short", "medium", "long"]
+## Waypoints: orders given with the waypoint key (left Ctrl, missiongui.cpp:842-843) held are
+## queued and run in order when it is released (missiongui.cpp:1703-1722, 2505-2509).
+const WAYPOINT_KEY := KEY_CTRL
 
 var abl: SimAbl = null  # the mission's ABL bridge: player orders go to the lance's pbrain
 var support: SimSupport = null
@@ -47,6 +54,10 @@ var _double := false  # the release after a double-click must not re-run the sin
 var box: ColorRect
 var mode_bits := 0  # the toggled palette modes (curOrder)
 var fire_from_position := false  # ControlGui fireFromCurrentPos
+var range_mode := ""  # ControlGui setRange: "" (FIRERANGE_OPTIMAL) or short / medium / long (the range buttons)
+var force_fire := false  # the force-fire button: the next right-click is a forced shot
+var lay_mines := false  # the LAYMINES button (controlGui.cpp:1110-1117): a minelayer's moves lay mines
+var _queued: Array[SimUnit] = []  # units given waypoints since the waypoint key went down
 var _held := {}  # mode keys held down -> their mode
 ## The armed mode as one name ("" = none) for the HUD: jump, guard, run, then fire from position.
 ## Setting it arms exactly that mode ("" disarms all).
@@ -132,6 +143,21 @@ func _input(event: InputEvent) -> void:
 	# A mode key's release disarms it wherever the focus is (the release functions).
 	if event is InputEventKey and not event.pressed and _held.has(event.keycode):
 		hold_mode_key(event.keycode, false)
+	if event is InputEventKey and not event.pressed and event.keycode == WAYPOINT_KEY:
+		run_waypoints()
+
+
+## The waypoint key released: every unit given waypoints starts on them (setExecutingQueue +
+## executeTacOrderQueue, missiongui.cpp:1703-1722).
+func run_waypoints() -> void:
+	for m in _queued:
+		if not m.order_queue.is_empty():
+			m.queue_running = true
+	_queued.clear()
+
+
+func _waypointing() -> bool:
+	return Input.is_key_pressed(WAYPOINT_KEY)
 
 
 # --- order modes --------------------------------------------------------------
@@ -142,7 +168,11 @@ func mode_on(kind: String) -> bool:
 	if kind == "hold":
 		return not selection.is_empty() and selection.all(func(m): return m.hold_position)
 	if kind == "lay_mines":
-		return _held.values().has(kind)
+		return lay_mines
+	if kind == "force_fire":
+		return force_fire or _held.values().has(kind)
+	if kind in RANGES:
+		return attack_range_mode() == kind
 	var bit: int = MODE_BITS.get(kind, 0)
 	return bit != 0 and (mode_bits & bit != 0 or _held.values().has(kind))
 
@@ -163,9 +193,26 @@ func toggle_mode(kind: String) -> bool:
 			mode_bits = (mode_bits ^ JUMP) & JUMP
 		"fire_from_position":
 			fire_from_position = not fire_from_position
+		"short", "medium", "long":
+			range_mode = "" if range_mode == kind else kind  # the range buttons are a radio group
+		"force_fire":
+			force_fire = not force_fire
+		"lay_mines":
+			if not lay_mines and not selection.any(func(m): return m is SimVehicle and m.mine_stock > 0):
+				world.events.append({"type": "order_refused", "order": "lay_mines", "why": "no_minelayer"})
+				return false
+			lay_mines = not lay_mines
 		_:
 			return false
 	return true
+
+
+## The attack range for the next attack: a held S/M/L key, else the range button, else optimal.
+func attack_range_mode() -> String:
+	for k in RANGES:
+		if _held.values().has(k):
+			return k
+	return range_mode
 
 
 ## A mode key pressed (arms while held) or released (disarms).
@@ -181,7 +228,7 @@ func hold_mode_key(key: int, down: bool) -> void:
 		return
 	if kind == "jump":
 		mode_bits = 0  # jump is alone (toggleJump)
-	elif kind != "fire_from_position":
+	elif kind != "fire_from_position" and not (kind in RANGES) and kind != "force_fire":
 		mode_bits &= ~JUMP
 	_held[key] = kind
 
@@ -402,6 +449,25 @@ func _command(screen: Vector2) -> void:
 			return
 	var run := mode_on("run")
 	var target := mech_at(screen)
+	if mode_on("force_fire"):
+		# forceShot (missiongui.cpp:3208-3240): attack whatever is under the cursor, a friend or a
+		# building included, else the ground point (TACTICAL_ORDER_ATTACK_POINT); firing from the
+		# current position when that is armed.
+		var ffp_f := mode_on("fire_from_position")
+		var hit: SimUnit = target if target and not selection.has(target) else structure_at(screen)
+		if hit:
+			for m in selection:
+				_order(m, "attack", hit, {"run": run, "pursue": not (ffp_f or m.hold_position), "force": true,
+					"range": attack_range_mode()})
+		else:
+			var gp = ground_at(screen)
+			if gp == null:
+				return
+			for m in selection:
+				_order(m, "attack_point", gp, {"run": run, "pursue": not (ffp_f or m.hold_position)})
+		force_fire = false
+		fire_from_position = false
+		return
 	if mode_on("guard"):
 		if target == null:
 			target = structure_at(screen)
@@ -436,7 +502,7 @@ func _command(screen: Vector2) -> void:
 	if enemy and enemy.team != player_team:
 		var ffp := mode_on("fire_from_position")
 		for m in selection:
-			_order(m, "attack", enemy, {"run": run, "pursue": not (ffp or m.hold_position)})
+			_order(m, "attack", enemy, {"run": run, "pursue": not (ffp or m.hold_position), "range": attack_range_mode()})
 		fire_from_position = false
 		return
 	var g = ground_at(screen)
@@ -472,13 +538,33 @@ func _command(screen: Vector2) -> void:
 ## Player orders go through the unit's pbrain (SimAbl) when it has one, as in the
 ## original; otherwise straight to the world.
 func _order(m: SimUnit, kind: String, arg: Variant = null, opts: Dictionary = {}) -> void:
+	if _waypointing() and kind in ["move", "jump", "attack", "attack_point", "capture", "guard"]:
+		# addQueuedTacOrder (warrior.cpp:1555-1590); up to 16 (MAX_QUEUED_TACORDERS_PER_WARRIOR)
+		if m.order_queue.size() < 16:
+			m.order_queue.append(func(): _order_now(m, kind, arg, opts))
+			m.queue_running = false
+			if not _queued.has(m):
+				_queued.append(m)
+			world.events.append({"type": "waypoint", "unit": m.id, "at": arg if arg is Vector2 else (arg as SimUnit).position,
+				"kind": kind, "run": bool(opts.get("run", false))})
+		return
+	m.order_queue.clear()  # a direct order clears the queue (clearTacOrderQueue)
+	m.queue_running = false
+	_order_now(m, kind, arg, opts)
+
+
+func _order_now(m: SimUnit, kind: String, arg: Variant = null, opts: Dictionary = {}) -> void:
 	if abl and m.brain is SimAbl.Pilot:
 		abl.player_order(m, kind, arg, opts)
 		return
 	var run: bool = opts.get("run", false)
 	match kind:
 		"attack":
-			world.order_attack(m, arg, run, opts.get("pursue", true) and not m.hold_position)
+			world.order_attack(m, arg, run, opts.get("pursue", true) and not m.hold_position,
+				String(opts.get("range", "")), bool(opts.get("force", false)))
+		"attack_point":
+			world.order_attack_point(m, arg, run, opts.get("pursue", true) and not m.hold_position,
+				bool(opts.get("suppression", false)))
 		"move", "capture":
 			world.order_move(m, arg if arg is Vector2 else (arg as SimUnit).position, run)
 		"jump":

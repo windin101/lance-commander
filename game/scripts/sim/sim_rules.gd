@@ -64,6 +64,8 @@ var attack_goals := true
 ## weaponLocked gvehicl.cpp:4283, mech.cpp:7342); vehicles change speed at MaxAccel
 ## (gvehicl.cpp:2970-2993). Off: instant twist and speed.
 var slew := true
+## Death from above on a jump landing (mech.cpp:819-925).
+var dfa := true
 
 # Original behaviour kept on purpose (combat-rules.md "Kept original rules").
 ## O1 (I88, Lee 2026-10-23: copy the original): a vehicle fires only from weapon nodes 2-3

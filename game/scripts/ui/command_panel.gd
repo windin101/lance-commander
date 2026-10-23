@@ -21,13 +21,21 @@ const COMMANDS := [
 	["fire_from_position", "Fire from position", "C", "Selected units fire on the next target you right-click without moving."],
 	["hold", "Hold", "H", "Selected units hold position: they fire but move only when ordered to. Toggle."],
 	["alpha_strike", "Alpha strike", "A", "Fire every weapon regardless of heat. Toggle."],
+	# the original's range buttons (ControlGui SHORT/MED/LONG_RANGE, controlGui.h:181-184) and keys
+	["short", "Short range", "S", "Attack from short range (30 m). Hold S and right-click, or toggle; off again for the best range."],
+	["medium", "Medium range", "M", "Attack from medium range (45 m). Hold M and right-click, or toggle."],
+	["long", "Long range", "L", "Attack from long range (60 m). Hold L and right-click, or toggle."],
+	["force_fire", "Force fire", "F", "Fire on whatever you right-click next: the ground, a building or your own unit."],
+	["lay_mines", "Lay mines", "", "Selected minelayers lay a mine in every cell they drive through on their next moves. Toggle."],
 ]
+## Waypoints have no button: hold Ctrl while giving orders to queue them (the original's
+## waypoint key, missiongui.cpp:842).
 const SUPPORT_HELP := {
 	"air_strike": "Call an air strike on a point. It lands seven seconds later.",
 	"sensor_probe": "Drop a sensor probe: reveals enemies around it for two minutes.",
 	"artillery_piece": "Deliver a Long Tom artillery piece. It shells enemies in reach, even out of its own sight when your units see them.",
 	"repair_truck": "Deliver a repair truck. Select it and right-click a damaged 'Mech.",
-	"minelayer": "Deliver a minelayer. Select it, hold M and right-click: it lays mines along the way.",
+	"minelayer": "Deliver a minelayer. Select it, press Lay mines and right-click: it lays mines along the way.",
 	"salvage_craft": "Send a salvage craft to a disabled 'Mech to recover it.",
 }
 
@@ -55,9 +63,9 @@ func _init(hud_kit: HudKit, with_support: bool) -> void:
 	add_child(v)
 	var im := kit.margin(0.8, 0.7, 0.8, 0.4)
 	v.add_child(im)
-	var row := kit.hbox(0.45)
+	var row := kit.hbox(0.3)
 	im.add_child(row)
-	var side := (WIDTH_EM - 1.6 - 6 * 0.45) / 7.0
+	var side := (WIDTH_EM - 1.6 - (COMMANDS.size() - 1) * 0.3) / COMMANDS.size()
 	for c in COMMANDS:
 		var b := IconButton.new()
 		b.id = c[0]
@@ -141,7 +149,7 @@ func update_state(on: Dictionary, sup: SimSupport, armed_power: String, can_jump
 	for id in icons:
 		var b: IconButton = icons[id]
 		b.on = on.get(id, false)
-		b.disabled = id == "jump" and not can_jump
+		b.disabled = (id == "jump" and not can_jump) or (id == "lay_mines" and not on.get("can_lay_mines", false))
 	if sup == null:
 		return
 	rp_label.text = thousands(sup.rp)

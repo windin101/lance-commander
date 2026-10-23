@@ -434,3 +434,66 @@ func test_vehicles_accelerate_at_max_accel() -> void:
 	for i in 20:
 		world.step()
 	assert_float(h.speed).is_greater(10.0)  # MaxAccel 15: near full speed already
+
+
+# --- force fire, attack point, DFA -----------------------------------------------------------
+
+func test_attack_point_fires_one_volley_unless_suppressing() -> void:
+	_flat_world()
+	var gun := _vehicle("guardtower", 0, Vector2.ZERO)
+	var nearby := _target_mech(Vector2(0, 110))
+	nearby.team = 1
+	world.order_attack_point(gun, Vector2(0, 120), true, false)
+	assert_int(_shots_by(gun, 1.0)).is_equal(1)
+	assert_int(gun.order).is_equal(SimWorld.Order.HOLD)  # one volley clears it
+	world.order_attack_point(gun, Vector2(0, 120), true, false, true)
+	var shots := 0
+	var hits := 0
+	for i in 200:
+		world.step()
+		for e in world.events:
+			if e["type"] == "shot" and e["from"] == gun.id:
+				shots += 1
+			if e["type"] == "impact" and e["unit"] == nearby.id:
+				hits += 1
+		world.events.clear()
+	assert_int(shots).is_greater(1)  # suppression keeps shelling the point
+	assert_int(hits).is_equal(shots)  # the Long Tom's blast reaches 10 m off the point
+
+
+func test_force_fire_keeps_a_friendly_target() -> void:
+	_flat_world()
+	var a := SimFixture.mech("atlas", rules)
+	a.team = 0
+	world.add_unit(a)
+	var friend := _target_mech(Vector2(0, 80))
+	world.order_attack(a, friend, true, false, "", true)
+	assert_int(_shots_by(a, 3.0)).is_greater(0)
+	var b := SimFixture.mech("atlas", rules)
+	b.team = 0
+	b.position = Vector2(20, 0)
+	world.add_unit(b)
+	world.order_attack(b, friend, true, false)  # not forced: a friend is dropped
+	assert_int(_shots_by(b, 3.0)).is_equal(0)
+
+
+func test_death_from_above_on_landing() -> void:
+	_flat_world()
+	var j := SimFixture.mech("laohu", rules) if GameData.chassis.has("laohu") else SimFixture.mech("shadowcat", rules)
+	j.team = 0
+	world.add_unit(j)
+	var under := _target_mech(Vector2(0, 60))
+	under.team = 1
+	var hit_before := _armour_sum(under)
+	var own_before := _armour_sum(j)
+	assert_bool(world.order_jump(j, Vector2(0, 60))).is_true()
+	var dfa := 0
+	for i in 40:
+		world.step()
+		for e in world.events:
+			if e["type"] == "dfa":
+				dfa += 1
+		world.events.clear()
+	assert_int(dfa).is_equal(1)
+	assert_float(hit_before - _armour_sum(under)).is_greater(0.0)
+	assert_float(own_before - _armour_sum(j)).is_greater(0.0)  # the jumper's legs take it too
