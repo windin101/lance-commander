@@ -107,6 +107,7 @@ var los_height_m := -1.0  # sight point above the ground (getLOSPosition); -1 = 
 var los_factor := 1.0  # LOSFactor: scales the visual range (gameobj.cpp:1890)
 var attack_radius_m := 275.0  # pilot attackRadius: drop the last target beyond it (warrior.cpp:3532-3538)
 var range_mode := ""  # attackParams.range: "" FIRERANGE_OPTIMAL, or "short" / "medium" / "long" (the S/M/L keys)
+var aim_location := -1  # attackParams.aimLocation: a body location for aimed shots (Numpad 2/5/8), -1 none
 var force_target := false  # force fire (F): the attack order may target a friend (missiongui.cpp:3208)
 var attack_point := Vector2.ZERO  # Order.ATTACK_POINT: the ground point fired at
 var suppression := false  # keep shelling the point (artillery piece suppression fire, gvehicl.cpp:4841)

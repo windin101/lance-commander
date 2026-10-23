@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T11:53:38+13:00",
+  "updated": "2026-10-24T11:59:37+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1711,6 +1711,19 @@
       "created": "2026-10-24T11:53:38+13:00",
       "updated": "2026-10-24T11:53:38+13:00",
       "note": "Done 2026-10-24 (uncommitted). Suppression fire: GUARDTOWER button + right-click ground (doGuardTower missiongui.cpp:5480-5508), cleared by un-pressing (controlGui.cpp:2205-2228) or Stop (mover.cpp:3166). Lay mines button (done in step 4). Scout copter delivery (2000 RP, scoutcopter chassis, PMWScout, shut down until the VTOL leaves). Air movers: chassis.mech_profiles converts [MechProfile] MoveType/LOSFactor to data/chassis/*.json; the copters (also the missions' Light/Medium/Heavy copters, previously walking) fly straight (SimMap.AIR), set off no mines, are strike-immune in flight, can't capture, don't count for extraction. Tests: support_test.gd (scout delivery/flight, strike immunity, no capture), command_input_test.gd (suppression button). Copter missions sweep (jobs 2): mc2_04 3/3, mc2_06 2/3, mc2_10 3/3 (formation sweep 3/3, 3/3, 3/3)."
+    },
+    {
+      "id": "I106",
+      "sev": "P2",
+      "title": "Step 5b: aimed shots, power down/up, eject; blast damage in chunks",
+      "detail": "Numpad 2/5/8 aimed attacks (attackParams.aimLocation), PgDn/PgUp power down/up, End eject; A stays alpha strike (Lee 2026-10-24). Explosions now apply DamageChunkSize 5 chunks with per-chunk artillery hit locations (carnage.cpp:349-367); mc2_06 s1 Zeus was disabled by a single 15-point friendly Long Tom head hit.",
+      "repro": null,
+      "owner": "programmer",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T11:59:37+13:00",
+      "updated": "2026-10-24T11:59:37+13:00",
+      "note": "Tests: command_input_test aimed/power/eject, sim_fidelity aimed shots + 3-chunk Long Tom; full suite passes."
     }
   ],
   "coverage": {
@@ -1817,16 +1830,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I54 updated: repro, note \u2014 repro planned by hd_redo.py: mesh seeds tried [1234, 4242] -> 777"
-    },
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I34 fixed: wolfhound approved in review"
-    },
     {
       "at": "2026-10-19T17:46:46+13:00",
       "who": "conductor",
@@ -2816,6 +2819,16 @@
       "at": "2026-10-24T11:53:38+13:00",
       "who": "conductor",
       "msg": "issue I105 fixed: Done 2026-10-24 (uncommitted). Suppression fire: GUARDTOWER button + right-click ground (doGuardTower missiongui.cpp:5480-5508), cleared by un-pressing (controlGui.cpp:2205-2228) or Stop (mover.cpp:3166). Lay mines button (done in step 4). Scout copter delivery (2000 RP, scoutcopter chassis, PMWScout, shut down until the VTOL leaves). Air movers: chassis.mech_profiles converts [MechProfile] MoveType/LOSFactor to data/chassis/*.json; the copters (also the missions' Light/Medium/Heavy copters, previously walking) fly straight (SimMap.AIR), set off no mines, are strike-immune in flight, can't capture, don't count for extraction. Tests: support_test.gd (scout delivery/flight, strike immunity, no capture), command_input_test.gd (suppression button). Copter missions sweep (jobs 2): mc2_04 3/3, mc2_06 2/3, mc2_10 3/3 (formation sweep 3/3, 3/3, 3/3)."
+    },
+    {
+      "at": "2026-10-24T11:59:37+13:00",
+      "who": "programmer",
+      "msg": "issue I106 P2: Step 5b: aimed shots, power down/up, eject; blast damage in chunks"
+    },
+    {
+      "at": "2026-10-24T11:59:37+13:00",
+      "who": "conductor",
+      "msg": "issue I106 fixed: Tests: command_input_test aimed/power/eject, sim_fidelity aimed shots + 3-chunk Long Tom; full suite passes."
     }
   ],
   "choices": [

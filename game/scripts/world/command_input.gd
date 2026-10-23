@@ -33,7 +33,12 @@ const MODE_BITS := {"run": RUN, "guard": GUARD, "jump": JUMP}
 ## attackLong, missiongui.cpp:196-198, 1896-1931; released: defaultAttack, FIRERANGE_OPTIMAL);
 ## F is force fire (forceShot, missiongui.cpp:206, 3208-3240).
 const MODE_KEYS := {KEY_SPACE: "run", KEY_J: "jump", KEY_G: "guard", KEY_C: "fire_from_position",
-	KEY_S: "short", KEY_M: "medium", KEY_L: "long", KEY_F: "force_fire"}
+	KEY_S: "short", KEY_M: "medium", KEY_L: "long", KEY_F: "force_fire",
+	KEY_KP_2: "aim_leg", KEY_KP_5: "aim_arm", KEY_KP_8: "aim_head", KEY_END: "eject"}
+## Aimed shots: Numpad 2 / 5 / 8 held + right-click an enemy ground 'Mech (aimLeg / aimArm / aimHead,
+## missiongui.cpp:217-219, 2109-2265). End held + click your own 'Mech ejects its pilot (eject,
+## missiongui.cpp:226, 2303-2318). PgDn / PgUp power the selection down and up (2273-2289).
+const AIMS := ["aim_leg", "aim_arm", "aim_head"]
 const RANGES := ["short", "medium", "long"]
 ## Waypoints: orders given with the waypoint key (left Ctrl, missiongui.cpp:842-843) held are
 ## queued and run in order when it is released (missiongui.cpp:1703-1722, 2505-2509).
@@ -123,6 +128,9 @@ func _key(event: InputEventKey) -> void:
 		hold_mode_key(event.keycode, true)
 	elif event.keycode == KEY_BACKSPACE:
 		stop()
+	elif event.keycode == KEY_PAGEDOWN or event.keycode == KEY_PAGEUP:
+		for m in selection:
+			_order(m, "power_up" if event.keycode == KEY_PAGEUP else "power_down")
 	elif event.keycode == KEY_H:
 		toggle_hold_position()
 	elif event.keycode == KEY_A:
@@ -174,6 +182,8 @@ func mode_on(kind: String) -> bool:
 		return suppress
 	if kind == "force_fire":
 		return force_fire or _held.values().has(kind)
+	if kind in AIMS or kind == "eject":
+		return _held.values().has(kind)
 	if kind in RANGES:
 		return attack_range_mode() == kind
 	var bit: int = MODE_BITS.get(kind, 0)
@@ -245,7 +255,7 @@ func hold_mode_key(key: int, down: bool) -> void:
 		return
 	if kind == "jump":
 		mode_bits = 0  # jump is alone (toggleJump)
-	elif kind != "fire_from_position" and not (kind in RANGES) and kind != "force_fire":
+	elif kind != "fire_from_position" and not (kind in RANGES) and not (kind in AIMS) and not (kind in ["force_fire", "eject"]):
 		mode_bits &= ~JUMP
 	_held[key] = kind
 
@@ -466,6 +476,15 @@ func _command(screen: Vector2) -> void:
 			return
 	var run := mode_on("run")
 	var target := mech_at(screen)
+	for aim_kind in AIMS:
+		if mode_on(aim_kind):
+			_aimed(target, aim_kind, run)
+			return
+	if mode_on("eject"):
+		var own := mech_at(screen, player_team)
+		if own is SimMech and own.commander == 0:
+			_order(own, "eject")
+		return
 	if suppress:
 		# doGuardTower (missiongui.cpp:5480-5508): suppressionFire on the selected units and an attack
 		# point from where they stand (FIRERANGE_CURRENT, no pursue); the button stays pressed
@@ -560,6 +579,35 @@ func _command(screen: Vector2) -> void:
 			continue
 		_order(selection[i], "move", at, {"run": run})
 	_used_mode()
+
+
+## An aimed shot at an enemy ground 'Mech: the legs or arms take the left one unless it is gone,
+## the head is refused once destroyed (missiongui.cpp:2109-2265); every selected unit attacks it
+## aiming there. Refused (mState_DONT) on anything else.
+func _aimed(target: SimUnit, kind: String, run: bool) -> void:
+	if not (target is SimMech) or target.team == player_team or target.flying or target.is_disabled():
+		world.events.append({"type": "order_refused", "order": kind, "why": "not_a_mech"})
+		return
+	var t: SimMech = target
+	var B := SimMech.Body
+	var gone := func(b: int) -> bool: return t.damage_state[b] == SimMech.DamageState.DESTROYED
+	var loc := -1
+	match kind:
+		"aim_leg":
+			if not (gone.call(B.LLEG) and gone.call(B.RLEG)):
+				loc = B.RLEG if gone.call(B.LLEG) else B.LLEG
+		"aim_arm":
+			if not (gone.call(B.LARM) and gone.call(B.RARM)):
+				loc = B.RARM if gone.call(B.LARM) else B.LARM
+		"aim_head":
+			if not gone.call(B.HEAD):
+				loc = B.HEAD
+	if loc < 0:
+		world.events.append({"type": "order_refused", "order": kind, "why": "location_destroyed"})
+		return
+	var ffp := mode_on("fire_from_position")
+	for m in selection:
+		_order(m, "attack", t, {"run": run, "pursue": not (ffp or m.hold_position), "aim": loc})
 
 
 ## Player orders go through the unit's pbrain (SimAbl) when it has one, as in the

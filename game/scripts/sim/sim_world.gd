@@ -105,13 +105,14 @@ func order_move(m: SimUnit, goal: Vector2, run := true) -> bool:
 
 ## pursue false = fire from the current position (attackParams.pursue, missiongui.cpp:1806-1880):
 ## the unit turns to the target and fires when it is in range, but never moves to close.
-func order_attack(m: SimUnit, target: SimUnit, run := true, pursue := true, range_mode := "", force := false) -> void:
-	if _after_landing(m, func(): order_attack(m, target, run, pursue, range_mode, force)):
+func order_attack(m: SimUnit, target: SimUnit, run := true, pursue := true, range_mode := "", force := false, aim := -1) -> void:
+	if _after_landing(m, func(): order_attack(m, target, run, pursue, range_mode, force, aim)):
 		return
 	m.order = Order.ATTACK
 	m.order_target = target
 	m.range_mode = range_mode
 	m.force_target = force
+	m.aim_location = aim
 	m.move_run = run
 	m.attack_pursue = pursue
 	m.path = PackedVector2Array()
@@ -882,7 +883,13 @@ func _combat(m: SimUnit) -> void:
 			var after := 30.0 * (m.heat + float(m.weapon(w)["heat"])) / m.heat_capacity
 			if after > fire_discipline_level:
 				continue
-		if SimCombat.attack_chance(rules, m, w, target) < 0.0:
+		# an aimed order (attackParams.aimLocation, warrior.cpp:3418-3421, 3500-3503) aims its
+		# non-area-effect weapons at that location of the ordered mech
+		var aim := -1
+		if m.aim_location >= 0 and m.order == Order.ATTACK and target == m.order_target and target is SimMech \
+				and not (rules.area_effect_weapons and rules.area_effect.has(int(m.items[w]["master_id"]))):
+			aim = m.aim_location
+		if SimCombat.attack_chance(rules, m, w, target, aim) < 0.0:
 			continue
 		if not direct:
 			if not (int(m.items[w]["master_id"]) in rules.indirect_fire_ids):
@@ -896,7 +903,7 @@ func _combat(m: SimUnit) -> void:
 			node = m.pick_weapon_node()
 			if not m.weapon_node_allows(node, time):
 				continue  # O1: no usable weapon node (gvehicl.cpp:4610-4616)
-		var shot := SimCombat.fire_weapon(rules, rng, m, w, target, time)
+		var shot := SimCombat.fire_weapon(rules, rng, m, w, target, time, aim)
 		if not shot["fired"]:
 			continue
 		if node >= 0:
@@ -1063,9 +1070,15 @@ func _follow_parent(s: SimStructure) -> void:
 ## carnage.cpp:343-436): every mover within the radius takes the damage at an artillery hit
 ## location; buildings take it whole; a turret only within its little extent of the radius.
 ## A mine in the blast's cell goes off (weaponbolt.cpp:826).
-func explosion(at: Vector2, damage: float, radius_m: float, source: SimUnit = null) -> void:
+func explosion(at: Vector2, damage: float, radius_m: float, source: SimUnit = null, chunk := 5.0) -> void:
 	if damage <= 0.0 or radius_m <= 0.0:
 		return
+	# A mover takes the blast in chunks of DamageChunkSize (5 unless the explosion type says
+	# otherwise; longtomhit.fit and swarmlrmhit.fit 5), each with its own artillery hit location.
+	# The original fixes the chunk once and loops while damage is left, so 12 damage lands as three
+	# hits of 5 (carnage.cpp:349-367).
+	var piece := minf(chunk, damage)
+	var pieces := int(ceil(damage / chunk))
 	for u in units:
 		if not u.exists or u.is_destroyed() or u == source:
 			continue
@@ -1078,17 +1091,20 @@ func explosion(at: Vector2, damage: float, radius_m: float, source: SimUnit = nu
 				continue
 		elif d > radius_m:
 			continue
-		var loc: int
-		if u is SimMech:
-			loc = SimCombat.hit_location(rules, rng, u, at)
-		else:
-			loc = u.roll_hit_location(rules, rng, at)
-		SimCombat.apply_shot(rules, rng, u, {"hit": true, "damage": damage, "location": loc, "master_id": -3}, time)
+		var n := pieces if u.is_mover() else 1
+		var amount := piece if u.is_mover() else damage  # buildings and turrets take it whole
+		for k in n:
+			var loc: int
+			if u is SimMech:
+				loc = SimCombat.hit_location(rules, rng, u, at)
+			else:
+				loc = u.roll_hit_location(rules, rng, at)
+			SimCombat.apply_shot(rules, rng, u, {"hit": true, "damage": amount, "location": loc, "master_id": -3}, time)
+			events.append({"type": "impact", "unit": u.id, "from": source.id if source else -1, "location": loc,
+				"damage": amount, "form": "blast"})
 		if source and u.is_mover():
 			u.last_attacker = source
 			u.last_attacked_time = time
-		events.append({"type": "impact", "unit": u.id, "from": source.id if source else -1, "location": loc,
-			"damage": damage, "form": "blast"})
 	var c := map.cell_of(at)
 	if map.mine_at(c) == 1:
 		map.set_mine(c, 2)

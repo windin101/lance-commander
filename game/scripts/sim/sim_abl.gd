@@ -275,7 +275,24 @@ func player_order(u: SimUnit, kind: String, arg: Variant = null, opts: Dictionar
 		"attack":
 			var pursue: bool = opts.get("pursue", true) and not u.hold_position
 			o = {"code": TO_ATTACK_OBJECT, "target": arg, "pursue": pursue, "run": run, "origin": 0,
-				"range": String(opts.get("range", "")), "force": bool(opts.get("force", false))}
+				"range": String(opts.get("range", "")), "force": bool(opts.get("force", false)),
+				"aim": int(opts.get("aim", -1))}
+		"power_down", "power_up":
+			# TACTICAL_ORDER_POWERDOWN / POWERUP (missiongui.cpp:2273-2289, PgDn / PgUp)
+			_power(u, kind == "power_up")
+			p.order = {"code": TO_POWERUP if kind == "power_up" else TO_POWERDOWN, "origin": 0}
+			p.raise(EV_PLAYER_ORDER, int(p.order["code"]))
+			run_alarm_handlers()
+			return
+		"eject":
+			# TACTICAL_ORDER_EJECT (doEject, missiongui.cpp:5384-5394; End + click on your own mech)
+			if u is SimMech and not u.is_disabled() and not sm.player_invulnerable:
+				world.order_hold(u)
+				u.ejected = true
+				u.status = SimUnit.Status.DISABLED
+				p.order = {"code": TO_EJECT, "origin": 0}
+				world.events.append({"type": "ejected", "unit": u.id})
+			return
 		"attack_point":
 			var pursue_p: bool = opts.get("pursue", true) and not u.hold_position
 			o = {"code": TO_ATTACK_POINT, "goal": arg, "pursue": pursue_p, "run": run, "origin": 0,
@@ -386,10 +403,11 @@ func _issue(p: Pilot, o: Dictionary) -> void:
 			u.brain_engaged = true
 			var rng_mode := String(o.get("range", ""))
 			var force := bool(o.get("force", false))
+			var aim := int(o.get("aim", -1))
 			if o.get("pursue", true):
-				world.order_attack(u, t, run, true, rng_mode, force)
+				world.order_attack(u, t, run, true, rng_mode, force, aim)
 			elif player:
-				world.order_attack(u, t, run, false, rng_mode, force)  # fire from current position: keeps the target
+				world.order_attack(u, t, run, false, rng_mode, force, aim)  # fire from current position: keeps the target
 			else:
 				world.order_hold(u)
 		TO_ATTACK_POINT:
@@ -1334,6 +1352,22 @@ func _core_move_object(id: int, params: int) -> int:
 		return 0
 	_issue(current, o)
 	return 0
+
+
+## Power a mech down (an ordered shutdown: heat won't restart it) or back up (the PgDn / PgUp
+## orders; corePower below is the brains' version).
+func _power(u: SimUnit, up: bool) -> void:
+	if not (u is SimMech) or u.is_disabled():
+		return
+	if up:
+		if u.powered_down or u.status == SimUnit.Status.SHUTDOWN:
+			u.powered_down = false
+			u.status = SimUnit.Status.NORMAL
+	elif u.status != SimUnit.Status.SHUTDOWN:
+		world.order_hold(u)
+		u.current_target = null
+		u.powered_down = true
+		u.status = SimUnit.Status.SHUTDOWN
 
 
 func _core_power(up: bool) -> int:
