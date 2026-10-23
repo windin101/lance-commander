@@ -1,0 +1,3621 @@
+{
+	"_doc": "Weapon and damage effects (I87), read by game/scripts/world/effects_view.gd. A weapon's look is families[f] overlaid by weapons[special_fx] and then components[component id]. 'original' blocks come from tools/art/weapon_fx_original.py (the Shared Source bolt FITs and Effects.csv) and are the baseline the look was tuned from; the code never reads them. Sizes in metres, times in seconds, colours #rrggbb. Impacts and explosions are lists of particle elements (emitter: flash|spark|fire|smoke|dust|debris|splash) plus an optional light and ring.",
+	"caps": {
+		"flash": 384,
+		"spark": 2048,
+		"fire": 1024,
+		"smoke": 2048,
+		"dust": 1024,
+		"debris": 384,
+		"splash": 512,
+		"ribbons": 160,
+		"bolts": 24,
+		"lights": 16,
+		"rings": 24,
+		"projectiles": 320,
+		"columns": 24,
+		"damage_smokers": 48,
+		"flame": 768
+	},
+	"emitters": {
+		"_doc": "The shared particle pools. life is the pool's longest particle life (each particle carries its own); shader add = glowing, mix = lit smoke, debris = lit chunks. size is a particle's diameter, grow adds multiples of it over the life.",
+		"flash": {
+			"shader": "add",
+			"tex": "glow",
+			"life": 1.0,
+			"grow": 1.0,
+			"grow_power": 0.5,
+			"fade_in": 0.0,
+			"fade_out": 0.25,
+			"energy": 1.0
+		},
+		"spark": {
+			"shader": "add",
+			"tex": "spark",
+			"streak": true,
+			"life": 2.0,
+			"gravity": 14.0,
+			"drag": 1.4,
+			"stretch": 0.03,
+			"fade_out": 0.5,
+			"energy": 1.0
+		},
+		"fire": {
+			"shader": "add",
+			"tex": "fire",
+			"cells": 4,
+			"ramp": true,
+			"life": 3.0,
+			"gravity": -5.0,
+			"drag": 2.4,
+			"grow": 1.5,
+			"grow_power": 0.6,
+			"fade_in": 0.04,
+			"fade_out": 0.3,
+			"spin": 1.5,
+			"cool": 0.8,
+			"soft": 1.5,
+			"energy": 1.0
+		},
+		"flame": {
+			"shader": "add",
+			"tex": "fire",
+			"cells": 4,
+			"ramp": true,
+			"life": 1.5,
+			"gravity": -3.0,
+			"drag": 0.6,
+			"grow": 4.0,
+			"grow_power": 0.7,
+			"fade_in": 0.03,
+			"fade_out": 0.45,
+			"spin": 2.0,
+			"cool": 0.7,
+			"soft": 1.0,
+			"energy": 1.0
+		},
+		"smoke": {
+			"shader": "mix",
+			"tex": "smoke",
+			"cells": 4,
+			"life": 12.0,
+			"gravity": -1.4,
+			"drag": 0.35,
+			"grow": 2.4,
+			"grow_power": 0.5,
+			"fade_in": 0.06,
+			"fade_out": 0.4,
+			"spin": 0.6,
+			"soft": 2.0
+		},
+		"dust": {
+			"shader": "mix",
+			"tex": "smoke",
+			"cells": 4,
+			"life": 8.0,
+			"gravity": 3.0,
+			"drag": 1.8,
+			"grow": 1.8,
+			"grow_power": 0.4,
+			"fade_in": 0.03,
+			"fade_out": 0.35,
+			"spin": 0.4,
+			"soft": 2.0
+		},
+		"splash": {
+			"shader": "mix",
+			"tex": "smoke",
+			"cells": 4,
+			"life": 4.0,
+			"gravity": 14.0,
+			"drag": 0.9,
+			"grow": 1.4,
+			"grow_power": 0.5,
+			"fade_in": 0.02,
+			"fade_out": 0.4,
+			"spin": 0.5
+		},
+		"debris": {
+			"shader": "debris",
+			"life": 4.0,
+			"gravity": 20.0,
+			"drag": 0.3,
+			"tumble": true,
+			"spin": 9.0
+		}
+	},
+	"families": {
+		"laser": {
+			"kind": "beam",
+			"width": 1.0,
+			"core": 0.28,
+			"core_color": "#ffffff",
+			"energy": 5.0,
+			"flicker": 0.12,
+			"muzzle": "laser_flare",
+			"hit": "laser_hit",
+			"miss": "laser_ground",
+			"water": "steam_small",
+			"scorch": 2.0,
+			"light": 0.8
+		},
+		"er_laser": {
+			"kind": "beam",
+			"width": 0.75,
+			"core": 0.2,
+			"core_color": "#ffffff",
+			"energy": 7.0,
+			"flicker": 0.05,
+			"muzzle": "laser_flare",
+			"hit": "laser_hit",
+			"miss": "laser_ground",
+			"water": "steam_small",
+			"scorch": 2.0,
+			"light": 0.8
+		},
+		"pulse_laser": {
+			"kind": "beam",
+			"width": 0.95,
+			"core": 0.28,
+			"core_color": "#ffffff",
+			"energy": 6.0,
+			"pulses": 3,
+			"pulse_on": 0.5,
+			"muzzle": "laser_flare",
+			"hit": "laser_hit",
+			"miss": "laser_ground",
+			"water": "steam_small",
+			"scorch": 1.6,
+			"light": 0.6
+		},
+		"ppc": {
+			"kind": "lightning",
+			"width": 1.0,
+			"core": 0.22,
+			"core_color": "#f4f8ff",
+			"energy": 6.0,
+			"duration": 0.32,
+			"jitter": 1.6,
+			"branches": 5,
+			"muzzle": "ppc_flare",
+			"hit": "ppc_hit",
+			"miss": "ppc_ground",
+			"water": "steam_big",
+			"scorch": 4.0,
+			"light": 1.4
+		},
+		"autocannon": {
+			"kind": "tracer",
+			"rounds": 1,
+			"spacing": 0.12,
+			"length": 7.0,
+			"width": 0.6,
+			"core": 0.3,
+			"energy": 6.5,
+			"muzzle": "ac_flare",
+			"hit": "ac_hit",
+			"miss": "ac_ground",
+			"water": "splash_medium",
+			"crater": 3.0,
+			"light": 0.6,
+			"core_color": "#fff4c0"
+		},
+		"gauss": {
+			"kind": "tracer",
+			"rounds": 1,
+			"length": 4.0,
+			"width": 0.6,
+			"core": 0.6,
+			"energy": 6.0,
+			"shock": 1.0,
+			"muzzle": "gauss_flare",
+			"hit": "gauss_hit",
+			"miss": "gauss_ground",
+			"water": "splash_big",
+			"crater": 3.5,
+			"light": 0.6
+		},
+		"mg": {
+			"kind": "tracer",
+			"rounds": 10,
+			"spacing": 0.045,
+			"spread": 1.8,
+			"length": 5.0,
+			"width": 0.32,
+			"core": 0.35,
+			"energy": 8.0,
+			"muzzle": "mg_flare",
+			"hit": "mg_hit",
+			"miss": "mg_ground",
+			"water": "splash_small",
+			"crater": 0.0,
+			"light": 0.0,
+			"core_color": "#fff4c0"
+		},
+		"missile": {
+			"kind": "missile",
+			"count": 5,
+			"stagger": 0.08,
+			"spread": 3.5,
+			"arc": 12.0,
+			"arc_per_m": 0.06,
+			"length": 2.2,
+			"width": 0.5,
+			"energy": 5.0,
+			"color": "#ffb04a",
+			"smoke": "#c8c4bc",
+			"smoke_size": 2.4,
+			"smoke_life": 2.0,
+			"smoke_rate": 40,
+			"muzzle": "missile_flare",
+			"hit": "missile_hit",
+			"miss": "missile_ground",
+			"water": "splash_medium",
+			"crater": 3.0,
+			"light": 0.5
+		},
+		"flamer": {
+			"kind": "flame",
+			"duration": 0.9,
+			"rate": 150,
+			"width": 3.2,
+			"muzzle": "",
+			"hit": "flamer_hit",
+			"miss": "flamer_ground",
+			"water": "steam_big",
+			"burn": 3.5,
+			"scorch": 4.0,
+			"light": 1.0,
+			"jet_color": "#ff7a1e",
+			"jet_core": "#fff0b0",
+			"jet_width": 2.4
+		},
+		"artillery": {
+			"kind": "shell",
+			"length": 8.0,
+			"width": 0.7,
+			"core": 0.5,
+			"energy": 6.0,
+			"arc": 40.0,
+			"arc_per_m": 0.12,
+			"color": "#ffb050",
+			"smoke": "#a09a90",
+			"smoke_size": 3.2,
+			"smoke_life": 3.0,
+			"smoke_rate": 45,
+			"muzzle": "artillery_flare",
+			"hit": "artillery_blast",
+			"miss": "artillery_blast",
+			"water": "splash_huge",
+			"crater": 14.0,
+			"light": 2.5
+		}
+	},
+	"weapons": {
+		"12": {
+			"family": "laser",
+			"name": "Laser",
+			"glow_color": "#ff1a0d",
+			"duration": 0.5,
+			"original": {
+				"weapons": [
+					"Laser"
+				],
+				"trail": "Med_las_hit",
+				"flare": "med_las_flare",
+				"hit": "Generic_hit",
+				"miss": "Ground_Hit_Small",
+				"kind": "beam",
+				"fit": "medlase.fit",
+				"beam_s": 0.5,
+				"width_m": 0.3,
+				"core": "#ffffff",
+				"glow": "#ff0000",
+				"texture": "fx_laser01",
+				"uv_rate": 1.0,
+				"uv_repeat": 15.0,
+				"unit_len_m": 20.0,
+				"wiggle": 1.0
+			}
+		},
+		"15": {
+			"family": "laser",
+			"name": "Large Laser",
+			"glow_color": "#ff1a0d",
+			"duration": 0.7,
+			"width": 1.4,
+			"core": 0.3,
+			"original": {
+				"weapons": [
+					"Large Laser"
+				],
+				"trail": "Lrg_las_hit",
+				"flare": "Lrg_las_flare",
+				"hit": "Generic_hit",
+				"miss": "Ground_Hit_Small",
+				"kind": "beam",
+				"fit": "lrglase.fit",
+				"beam_s": 0.7,
+				"width_m": 0.6,
+				"core": "#ffffff",
+				"glow": "#ff0000",
+				"texture": "fx_laser01",
+				"uv_rate": 1.0,
+				"uv_repeat": 15.0,
+				"unit_len_m": 20.0,
+				"wiggle": 1.0
+			}
+		},
+		"14": {
+			"family": "er_laser",
+			"name": "ER Laser",
+			"glow_color": "#ff4a12",
+			"duration": 0.5,
+			"original": {
+				"weapons": [
+					"ER Laser"
+				],
+				"trail": "Med_ER_hit",
+				"flare": "Med_ER_flare",
+				"hit": "Generic_hit",
+				"miss": "Ground_Hit_Small",
+				"kind": "beam",
+				"fit": "meder.fit",
+				"beam_s": 0.5,
+				"width_m": 0.3,
+				"core": "#ffffff",
+				"glow": "#ff3600",
+				"texture": "fx_laser04",
+				"uv_rate": 1.0,
+				"uv_repeat": 15.0,
+				"unit_len_m": 20.0,
+				"wiggle": 1.0
+			}
+		},
+		"17": {
+			"family": "er_laser",
+			"name": "ER Large Laser",
+			"glow_color": "#ff4a12",
+			"duration": 0.7,
+			"width": 1.0,
+			"original": {
+				"weapons": [
+					"ER Large Laser"
+				],
+				"trail": "Lrg_ER_hit",
+				"flare": "Lrg_ER_flare",
+				"hit": "Generic_hit",
+				"miss": "Ground_Hit_Small",
+				"kind": "beam",
+				"fit": "lrger.fit",
+				"beam_s": 0.7,
+				"width_m": 0.6,
+				"core": "#ffffff",
+				"glow": "#ff3600",
+				"texture": "fx_laser04",
+				"uv_rate": 1.0,
+				"uv_repeat": 15.0,
+				"unit_len_m": 20.0,
+				"wiggle": 1.0
+			}
+		},
+		"1": {
+			"family": "er_laser",
+			"name": "Clan ER Laser",
+			"glow_color": "#ff4a12",
+			"duration": 0.5,
+			"original": {
+				"weapons": [
+					"Clan ER Laser"
+				],
+				"trail": "Med_ClanER_hit",
+				"flare": "Med_ClanER_flare",
+				"hit": "Generic_hit",
+				"miss": "Ground_Hit_Small",
+				"kind": "beam",
+				"fit": "mederclan.fit",
+				"beam_s": 0.5,
+				"width_m": 0.3,
+				"core": "#ffffff",
+				"glow": "#ff3600",
+				"texture": "fx_laser04",
+				"uv_rate": 1.0,
+				"uv_repeat": 15.0,
+				"unit_len_m": 20.0,
+				"wiggle": 1.0
+			}
+		},
+		"2": {
+			"family": "er_laser",
+			"name": "Clan ER Large Laser",
+			"glow_color": "#ff4a12",
+			"duration": 0.7,
+			"width": 1.0,
+			"original": {
+				"weapons": [
+					"Clan ER Large Laser"
+				],
+				"trail": "Lrg_ClanER_hit",
+				"flare": "Lrg_ClanER_flare",
+				"hit": "Generic_hit",
+				"miss": "Ground_Hit_Small",
+				"kind": "beam",
+				"fit": "lrgerclan.fit",
+				"beam_s": 0.7,
+				"width_m": 0.6,
+				"core": "#ffffff",
+				"glow": "#ff3600",
+				"texture": "fx_laser04",
+				"uv_rate": 1.0,
+				"uv_repeat": 15.0,
+				"unit_len_m": 20.0,
+				"wiggle": 1.0
+			}
+		},
+		"13": {
+			"family": "pulse_laser",
+			"name": "Pulse Laser",
+			"glow_color": "#1eff3c",
+			"duration": 0.7,
+			"pulses": 3,
+			"original": {
+				"weapons": [
+					"Clan Pulse Laser",
+					"Pulse Laser"
+				],
+				"trail": "Med_Pulse_hit",
+				"flare": "Med_Pulse_flare",
+				"hit": "Generic_hit",
+				"miss": "Ground_Hit_Small",
+				"kind": "beam",
+				"fit": "medpuls.fit",
+				"beam_s": 0.7,
+				"width_m": 0.4,
+				"core": "#ffffff",
+				"glow": "#007800",
+				"texture": "fx_laser02",
+				"uv_rate": -6.0,
+				"uv_repeat": 1.0,
+				"unit_len_m": 9.0,
+				"wiggle": 1.0
+			}
+		},
+		"16": {
+			"family": "pulse_laser",
+			"name": "Large Pulse Laser",
+			"glow_color": "#1eff3c",
+			"duration": 0.6,
+			"pulses": 4,
+			"width": 1.35,
+			"original": {
+				"weapons": [
+					"Clan Large Pulse Laser",
+					"Large Pulse Laser"
+				],
+				"trail": "lrg_pulse_hit",
+				"flare": "Lrg_Pulse_flare",
+				"hit": "Generic_hit",
+				"miss": "Ground_Hit_Small",
+				"kind": "beam",
+				"fit": "lrgpuls.fit",
+				"beam_s": 0.6,
+				"width_m": 0.65,
+				"core": "#ffffff",
+				"glow": "#007800",
+				"texture": "fx_laser02",
+				"uv_rate": -6.0,
+				"uv_repeat": 1.0,
+				"unit_len_m": 9.0,
+				"wiggle": 1.0
+			}
+		},
+		"29": {
+			"family": "laser",
+			"name": "Clan Heavy Laser",
+			"glow_color": "#6a5cff",
+			"duration": 0.5,
+			"width": 1.3,
+			"core": 0.3,
+			"energy": 6.0,
+			"original": {
+				"weapons": [
+					"Clan Heavy Laser"
+				],
+				"trail": "hvy_las_hit",
+				"flare": "hvy_las_flare",
+				"hit": "Generic_hit",
+				"miss": "Ground_Hit",
+				"kind": "beam",
+				"fit": "Hvylase.fit",
+				"beam_s": 0.5,
+				"width_m": 0.6,
+				"core": "#ffffff",
+				"glow": "#5a5aff",
+				"texture": "fx_laser03",
+				"uv_rate": 1.0,
+				"uv_repeat": 15.0,
+				"unit_len_m": 20.0,
+				"wiggle": 1.0
+			}
+		},
+		"30": {
+			"family": "laser",
+			"name": "Clan Heavy Large Laser",
+			"glow_color": "#6a5cff",
+			"duration": 0.7,
+			"width": 1.9,
+			"core": 0.3,
+			"energy": 6.5,
+			"scorch": 3.0,
+			"original": {
+				"weapons": [
+					"Clan Heavy Large Laser"
+				],
+				"trail": "Hvy_Lrg_hit",
+				"flare": "Hvy_lrg_flare",
+				"hit": "Generic_hit",
+				"miss": "Ground_Hit",
+				"kind": "beam",
+				"fit": "Hvylrglase.fit",
+				"beam_s": 0.7,
+				"width_m": 1.1,
+				"core": "#ffffff",
+				"glow": "#5a5aff",
+				"texture": "fx_laser03",
+				"uv_rate": 1.0,
+				"uv_repeat": 15.0,
+				"unit_len_m": 20.0,
+				"wiggle": 1.0
+			}
+		},
+		"4": {
+			"family": "ppc",
+			"name": "PPC",
+			"glow_color": "#3ec8ff",
+			"original": {
+				"weapons": [
+					"PPC"
+				],
+				"trail": "ppc_trail",
+				"flare": "PPC_flare",
+				"hit": "ppc_hit",
+				"miss": "PPC_Miss",
+				"kind": "bolt",
+				"fit": "nppc.fit",
+				"length_m": 8.0,
+				"width_m": 0.4,
+				"speed_mps": 100.0,
+				"front": "#ff6cff",
+				"mid_edge": "#ea00ea",
+				"middle": "#00ffff",
+				"back": "#009f9f",
+				"after_hit_s": 0.35,
+				"light": "#00ffff",
+				"gos_trail": "ppc_trail"
+			}
+		},
+		"5": {
+			"family": "ppc",
+			"name": "ER PPC",
+			"glow_color": "#5a8cff",
+			"width": 0.8,
+			"core": 0.18,
+			"jitter": 1.1,
+			"energy": 7.0,
+			"original": {
+				"weapons": [
+					"Clan ER PPC",
+					"ER PPC"
+				],
+				"trail": "ppc_trail",
+				"flare": "PPC_flare",
+				"hit": "ppc_hit",
+				"miss": "PPC_Miss",
+				"kind": "bolt",
+				"fit": "nerppc.fit",
+				"length_m": 8.0,
+				"width_m": 0.4,
+				"speed_mps": 100.0,
+				"front": "#0000ff",
+				"mid_edge": "#00caca",
+				"middle": "#67befe",
+				"back": "#009595",
+				"after_hit_s": 0.35,
+				"light": "#67befe",
+				"gos_trail": "ppc_trail"
+			}
+		},
+		"7": {
+			"family": "autocannon",
+			"name": "Light Autocannon (AC5)",
+			"color": "#ffd040",
+			"length": 5.0,
+			"width": 0.45,
+			"hit": "ac_hit_small",
+			"crater": 2.0,
+			"original": {
+				"weapons": [
+					"Clan Light Ultra Autocannon (AC5)",
+					"Light Autocannon (AC5)",
+					"Light Ultra Autocannon (AC5)"
+				],
+				"trail": "AC_5_Trail",
+				"flare": "ac_5_flare",
+				"hit": "Generic_hit",
+				"miss": "AC_5_Miss",
+				"kind": "bolt",
+				"fit": "ac5.fit",
+				"length_m": 4.0,
+				"width_m": 0.3,
+				"speed_mps": 120.0,
+				"front": "#ffff00",
+				"mid_edge": "#ffff80",
+				"middle": "#ffffbf",
+				"back": "#aeae00",
+				"after_hit_s": 0.15
+			}
+		},
+		"18": {
+			"family": "autocannon",
+			"name": "Autocannon (AC10)",
+			"color": "#ffb830",
+			"length": 7.0,
+			"width": 0.6,
+			"original": {
+				"weapons": [
+					"Autocannon (AC10)",
+					"Clan Ultra Autocannon (AC10)",
+					"Ultra Autocannon (AC10)"
+				],
+				"trail": "ac_10_Trail",
+				"flare": "ac_10_flare",
+				"hit": "AC_10_Hit",
+				"miss": "AC_10_Miss",
+				"kind": "bolt",
+				"fit": "ac10.fit",
+				"length_m": 6.0,
+				"width_m": 0.4,
+				"speed_mps": 110.0,
+				"front": "#ffff00",
+				"mid_edge": "#ffff80",
+				"middle": "#ffffbf",
+				"back": "#aeae00",
+				"after_hit_s": 0.25
+			}
+		},
+		"19": {
+			"family": "autocannon",
+			"name": "Heavy Autocannon (AC20)",
+			"color": "#ff9a20",
+			"length": 9.0,
+			"width": 0.85,
+			"hit": "ac_hit_heavy",
+			"muzzle": "ac_flare_heavy",
+			"crater": 4.5,
+			"light": 1.0,
+			"original": {
+				"weapons": [
+					"Clan Heavy Ultra Autocannon (AC20)",
+					"Heavy Autocannon (AC20)",
+					"Heavy Ultra Autocannon (AC20)"
+				],
+				"trail": "ac_20_Trail",
+				"flare": "ac_20_flare",
+				"hit": "AC_20_Hit",
+				"miss": "AC_20_Miss",
+				"kind": "bolt",
+				"fit": "ac20.fit",
+				"length_m": 8.0,
+				"width_m": 0.5,
+				"speed_mps": 100.0,
+				"front": "#ffff00",
+				"mid_edge": "#ffff80",
+				"middle": "#ffffbf",
+				"back": "#aeae00",
+				"after_hit_s": 0.25
+			}
+		},
+		"10": {
+			"family": "gauss",
+			"name": "Gauss Rifle",
+			"color": "#dfeaff",
+			"original": {
+				"weapons": [
+					"Clan Gauss Rifle",
+					"Gauss Rifle"
+				],
+				"trail": "gauss_trail",
+				"flare": "Gauss_flare",
+				"hit": "Gauss_hit",
+				"miss": "Gauss_Miss",
+				"kind": "bolt",
+				"fit": "gauss.fit",
+				"length_m": 4.0,
+				"width_m": 0.5,
+				"speed_mps": 100.0,
+				"front": "#008080",
+				"mid_edge": "#6db6b6",
+				"middle": "#808080",
+				"back": "#000080",
+				"after_hit_s": 0.35
+			},
+			"width": 0.7
+		},
+		"28": {
+			"family": "gauss",
+			"name": "Light Gauss Rifle",
+			"color": "#cdf6ff",
+			"width": 0.5,
+			"length": 3.4,
+			"hit": "gauss_hit_light",
+			"original": {
+				"weapons": [
+					"Light Gauss Rifle"
+				],
+				"trail": "Light_gauss_trail",
+				"flare": "Gauss_flare",
+				"hit": "Gauss_hit",
+				"miss": "Gauss_Miss",
+				"kind": "bolt",
+				"fit": "gauss_lt.fit",
+				"length_m": 7.0,
+				"width_m": 0.3,
+				"speed_mps": 65.0,
+				"front": "#00ffff",
+				"mid_edge": "#008080",
+				"middle": "#808080",
+				"back": "#008080",
+				"after_hit_s": 0.35,
+				"light": "#00007f"
+			}
+		},
+		"11": {
+			"family": "mg",
+			"name": "MG Array",
+			"color": "#ffe860",
+			"original": {
+				"weapons": [
+					"MG Array"
+				],
+				"trail": "NONE",
+				"flare": "mg_flare",
+				"hit": "mg_hit",
+				"miss": "MG_Miss",
+				"kind": "bolt",
+				"fit": "mg.fit",
+				"length_m": 0.02,
+				"width_m": 0.02,
+				"speed_mps": 1999.8,
+				"front": "#ffff00",
+				"mid_edge": "#ffff00",
+				"middle": "#ffff00",
+				"back": "#ffff00",
+				"after_hit_s": 0.0
+			}
+		},
+		"9": {
+			"family": "missile",
+			"name": "LRM5 Rack",
+			"count": 5,
+			"original": {
+				"weapons": [
+					"Clan LRM5 Rack",
+					"LRM5 Rack"
+				],
+				"trail": "lrm_trail",
+				"flare": "Missile_flare",
+				"hit": "missile_hit",
+				"miss": "Missile_Miss",
+				"kind": "bolt",
+				"fit": "lrm.fit",
+				"length_m": 10.0,
+				"width_m": 0.3,
+				"speed_mps": 50.0,
+				"front": "#5c6263",
+				"mid_edge": "#f8fe01",
+				"middle": "#ffffff",
+				"back": "#f45000",
+				"after_hit_s": 1.0,
+				"arc_m": 6.0,
+				"light": "#7f7f00",
+				"gos_trail": "lrm_trail"
+			}
+		},
+		"74": {
+			"family": "missile",
+			"name": "Swarm LRM5 Rack",
+			"count": 5,
+			"spread": 9.0,
+			"color": "#ff9040",
+			"hit": "swarm_hit",
+			"miss": "swarm_hit",
+			"original": {
+				"weapons": [
+					"Swarm LRM5 Rack"
+				],
+				"trail": "Swarm_lrm_trail",
+				"flare": "missile_flare",
+				"hit": "Swarm_LRM_Hit",
+				"miss": "Swarm_LRM_Hit",
+				"kind": "bolt",
+				"fit": "swarmLRM.fit",
+				"length_m": 22.0,
+				"width_m": 0.8,
+				"speed_mps": 50.0,
+				"front": "#ff0000",
+				"mid_edge": "#ff8000",
+				"middle": "#ffff00",
+				"back": "#400000",
+				"after_hit_s": 1.0,
+				"arc_m": 6.0,
+				"area_m": 24.0
+			}
+		},
+		"8": {
+			"family": "missile",
+			"name": "SRM2 Pack",
+			"count": 2,
+			"stagger": 0.1,
+			"arc": 1.5,
+			"arc_per_m": 0.0,
+			"spread": 1.5,
+			"smoke_life": 1.4,
+			"hit": "srm_hit",
+			"original": {
+				"weapons": [
+					"Clan Streak SRM2 Pack",
+					"SRM2 Pack",
+					"Streak SRM2 Pack"
+				],
+				"trail": "srm_trail",
+				"flare": "Missile_flare",
+				"hit": "missile_hit",
+				"miss": "Missile_Miss",
+				"kind": "bolt",
+				"fit": "srm.fit",
+				"length_m": 6.0,
+				"width_m": 0.3,
+				"speed_mps": 40.0,
+				"front": "#ffffff",
+				"mid_edge": "#ddb617",
+				"middle": "#555555",
+				"back": "#b64b18",
+				"after_hit_s": 0.75,
+				"light": "#5f5f00"
+			}
+		},
+		"27": {
+			"family": "missile",
+			"name": "Thunderbolt Missile",
+			"count": 1,
+			"arc": 4.0,
+			"arc_per_m": 0.015,
+			"spread": 0.0,
+			"length": 4.0,
+			"width": 0.8,
+			"smoke_size": 2.4,
+			"smoke_life": 3.0,
+			"smoke_rate": 45,
+			"hit": "thunderbolt_hit",
+			"miss": "thunderbolt_hit",
+			"crater": 6.0,
+			"light": 1.4,
+			"original": {
+				"weapons": [
+					"Thunderbolt Missile"
+				],
+				"trail": "TBolt_trail",
+				"flare": "missile_flare",
+				"hit": "TBolt_hit",
+				"miss": "Missile_Miss",
+				"kind": "bolt",
+				"fit": "thunderbolt.fit",
+				"length_m": 6.0,
+				"width_m": 0.3,
+				"speed_mps": 50.0,
+				"front": "#ffffff",
+				"mid_edge": "#ddb617",
+				"middle": "#555555",
+				"back": "#b64b18",
+				"after_hit_s": 1.0,
+				"arc_m": 4.0,
+				"light": "#5f5f00"
+			}
+		},
+		"3": {
+			"family": "flamer",
+			"name": "Flamer Array",
+			"original": {
+				"weapons": [
+					"Flamer Array"
+				],
+				"trail": "flamer_trail",
+				"flare": "Missile_flare",
+				"hit": "Flamer_hit",
+				"miss": "Flamer_Miss",
+				"kind": "bolt",
+				"fit": "flamer.fit",
+				"length_m": 10.0,
+				"width_m": 0.3,
+				"speed_mps": 50.0,
+				"front": "#5c6263",
+				"mid_edge": "#f8fe01",
+				"middle": "#ffffff",
+				"back": "#f45000",
+				"after_hit_s": 0.35,
+				"light": "#7f7f00",
+				"gos_trail": "lrm_trail"
+			}
+		},
+		"31": {
+			"family": "artillery",
+			"name": "Long Tom Cannon",
+			"original": {
+				"weapons": [
+					"Long Tom Cannon"
+				],
+				"trail": "long_tom_trail",
+				"flare": "NONE",
+				"hit": "Long_Tom_Hit",
+				"miss": "Long_Tom_Hit",
+				"kind": "bolt",
+				"fit": "longtom.fit",
+				"length_m": 22.0,
+				"width_m": 0.8,
+				"speed_mps": 65.0,
+				"front": "#ff0000",
+				"mid_edge": "#ff8000",
+				"middle": "#ffff00",
+				"back": "#400000",
+				"after_hit_s": 1.0,
+				"arc_m": 8.0,
+				"area_m": 37.4
+			}
+		}
+	},
+	"components": {
+		"103": {
+			"rounds": 2,
+			"_why": "Ultra: double tap"
+		},
+		"108": {
+			"rounds": 2
+		},
+		"109": {
+			"rounds": 2
+		},
+		"110": {
+			"rounds": 2
+		},
+		"111": {
+			"rounds": 2
+		},
+		"112": {
+			"rounds": 2
+		},
+		"125": {
+			"color": "#ffd890",
+			"_why": "Streak: a hotter exhaust"
+		},
+		"135": {
+			"color": "#ffd890"
+		}
+	},
+	"forms": {
+		"EnergyWeapon": 12,
+		"BallisticWeapon": 18,
+		"MissileWeapon": 9,
+		"Weapon": 18,
+		"_why": "fallback special_fx when a shot names no component"
+	},
+	"impacts": {
+		"laser_flare": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						1.8,
+						2.34
+					],
+					"life": [
+						0.12,
+						0.16
+					],
+					"color": "glow",
+					"energy": 3.0
+				}
+			]
+		},
+		"laser_hit": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						2.88,
+						3.6
+					],
+					"life": [
+						0.1,
+						0.14
+					],
+					"color": "glow",
+					"energy": 3.0
+				},
+				{
+					"emitter": "spark",
+					"count": 5,
+					"size": [
+						0.22,
+						0.36
+					],
+					"speed": [
+						13.0,
+						28.6
+					],
+					"life": [
+						0.25,
+						0.5
+					],
+					"color": "#ffd27a",
+					"energy": 4.0,
+					"dir": "back",
+					"spread": 70
+				}
+			],
+			"repeat": 0.07
+		},
+		"laser_ground": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						2.52,
+						3.24
+					],
+					"life": [
+						0.1,
+						0.14
+					],
+					"color": "glow",
+					"energy": 2.5
+				},
+				{
+					"emitter": "spark",
+					"count": 4,
+					"size": [
+						0.18,
+						0.29
+					],
+					"speed": [
+						7.8,
+						18.2
+					],
+					"life": [
+						0.2,
+						0.4
+					],
+					"color": "#ffc070",
+					"energy": 3.0,
+					"dir": "up",
+					"spread": 60
+				},
+				{
+					"emitter": "smoke",
+					"count": 1,
+					"size": [
+						1.44,
+						2.16
+					],
+					"speed": [
+						0.7,
+						2.0
+					],
+					"life": [
+						1.0,
+						1.6
+					],
+					"color": "#5a5550",
+					"alpha": 0.45,
+					"dir": "up",
+					"spread": 30
+				}
+			],
+			"repeat": 0.09
+		},
+		"ppc_flare": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 2,
+					"size": [
+						3.6,
+						5.4
+					],
+					"life": [
+						0.16,
+						0.22
+					],
+					"color": "glow",
+					"energy": 4.0
+				}
+			],
+			"light": {
+				"color": "glow",
+				"energy": 6.0,
+				"range": 33.8,
+				"life": 0.25
+			}
+		},
+		"ppc_hit": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 2,
+					"size": [
+						6.3,
+						9.0
+					],
+					"life": [
+						0.16,
+						0.26
+					],
+					"color": "glow",
+					"energy": 4.0
+				},
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						3.6,
+						4.32
+					],
+					"life": [
+						0.1,
+						0.14
+					],
+					"color": "#ffffff",
+					"energy": 6.0
+				},
+				{
+					"emitter": "spark",
+					"count": 34,
+					"size": [
+						0.22,
+						0.4
+					],
+					"speed": [
+						15.6,
+						44.2
+					],
+					"life": [
+						0.25,
+						0.6
+					],
+					"color": "#bfe8ff",
+					"color2": "glow",
+					"energy": 5.0,
+					"dir": "sphere"
+				},
+				{
+					"emitter": "smoke",
+					"count": 4,
+					"size": [
+						2.52,
+						3.96
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						1.4,
+						2.4
+					],
+					"color": "#4a4c52",
+					"alpha": 0.5,
+					"dir": "up",
+					"spread": 50,
+					"radius": 0.8
+				}
+			],
+			"light": {
+				"color": "glow",
+				"energy": 9.0,
+				"range": 44.2,
+				"life": 0.35
+			},
+			"ring": {
+				"size": 16.2,
+				"life": 0.28,
+				"color": "glow",
+				"energy": 3.0
+			}
+		},
+		"ppc_ground": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 2,
+					"size": [
+						5.4,
+						7.2
+					],
+					"life": [
+						0.16,
+						0.24
+					],
+					"color": "glow",
+					"energy": 4.0
+				},
+				{
+					"emitter": "spark",
+					"count": 23,
+					"size": [
+						0.22,
+						0.36
+					],
+					"speed": [
+						13.0,
+						33.8
+					],
+					"life": [
+						0.25,
+						0.55
+					],
+					"color": "#bfe8ff",
+					"energy": 5.0,
+					"dir": "up",
+					"spread": 75
+				},
+				{
+					"emitter": "dust",
+					"count": 8,
+					"size": [
+						2.88,
+						4.68
+					],
+					"speed": [
+						3.9,
+						9.1
+					],
+					"life": [
+						1.4,
+						2.2
+					],
+					"color": "#7a6c5a",
+					"alpha": 0.7,
+					"dir": "up",
+					"spread": 45
+				}
+			],
+			"light": {
+				"color": "glow",
+				"energy": 7.0,
+				"range": 39.0,
+				"life": 0.3
+			},
+			"ring": {
+				"size": 14.4,
+				"life": 0.25,
+				"color": "glow",
+				"energy": 2.5,
+				"flat": true
+			}
+		},
+		"ac_flare": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 2,
+					"size": [
+						2.34,
+						3.24
+					],
+					"life": [
+						0.06,
+						0.09
+					],
+					"color": "#ffd27a",
+					"energy": 4.0
+				},
+				{
+					"emitter": "smoke",
+					"count": 1,
+					"size": [
+						1.44,
+						1.98
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						0.6,
+						0.9
+					],
+					"color": "#8a8680",
+					"alpha": 0.4,
+					"dir": "fwd",
+					"spread": 20
+				}
+			],
+			"light": {
+				"color": "#ffb060",
+				"energy": 4.0,
+				"range": 23.4,
+				"life": 0.08
+			}
+		},
+		"ac_flare_heavy": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 3,
+					"size": [
+						3.96,
+						5.76
+					],
+					"life": [
+						0.07,
+						0.11
+					],
+					"color": "#ffd27a",
+					"energy": 4.0
+				},
+				{
+					"emitter": "smoke",
+					"count": 4,
+					"size": [
+						2.52,
+						3.6
+					],
+					"speed": [
+						2.6,
+						6.5
+					],
+					"life": [
+						0.8,
+						1.3
+					],
+					"color": "#8a8680",
+					"alpha": 0.45,
+					"dir": "fwd",
+					"spread": 30
+				}
+			],
+			"light": {
+				"color": "#ffb060",
+				"energy": 6.0,
+				"range": 31.2,
+				"life": 0.1
+			}
+		},
+		"ac_hit_small": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						2.52,
+						3.24
+					],
+					"life": [
+						0.08,
+						0.12
+					],
+					"color": "#ffd890",
+					"energy": 3.5
+				},
+				{
+					"emitter": "spark",
+					"count": 13,
+					"size": [
+						0.18,
+						0.29
+					],
+					"speed": [
+						13.0,
+						31.2
+					],
+					"life": [
+						0.25,
+						0.5
+					],
+					"color": "#ffd27a",
+					"energy": 4.0,
+					"dir": "back",
+					"spread": 75
+				},
+				{
+					"emitter": "debris",
+					"count": 3,
+					"size": [
+						0.27,
+						0.54
+					],
+					"speed": [
+						6.5,
+						13.0
+					],
+					"life": [
+						0.8,
+						1.2
+					],
+					"color": "#3a3836",
+					"dir": "back",
+					"spread": 70
+				}
+			]
+		},
+		"ac_hit": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 2,
+					"size": [
+						3.6,
+						4.68
+					],
+					"life": [
+						0.08,
+						0.12
+					],
+					"color": "#ffd890",
+					"energy": 4.0
+				},
+				{
+					"emitter": "fire",
+					"count": 3,
+					"size": [
+						1.8,
+						2.7
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						0.25,
+						0.4
+					],
+					"color": "#ffffff",
+					"energy": 2.0,
+					"dir": "back",
+					"spread": 60
+				},
+				{
+					"emitter": "spark",
+					"count": 21,
+					"size": [
+						0.22,
+						0.36
+					],
+					"speed": [
+						15.6,
+						36.4
+					],
+					"life": [
+						0.3,
+						0.6
+					],
+					"color": "#ffd27a",
+					"energy": 4.0,
+					"dir": "back",
+					"spread": 80
+				},
+				{
+					"emitter": "debris",
+					"count": 5,
+					"size": [
+						0.36,
+						0.72
+					],
+					"speed": [
+						7.8,
+						15.6
+					],
+					"life": [
+						0.9,
+						1.4
+					],
+					"color": "#3a3836",
+					"dir": "back",
+					"spread": 70
+				},
+				{
+					"emitter": "smoke",
+					"count": 3,
+					"size": [
+						2.16,
+						3.24
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						1.2,
+						2.0
+					],
+					"color": "#55524e",
+					"alpha": 0.55,
+					"dir": "up",
+					"spread": 40
+				}
+			],
+			"light": {
+				"color": "#ffb060",
+				"energy": 4.0,
+				"range": 20.8,
+				"life": 0.12
+			}
+		},
+		"ac_hit_heavy": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 2,
+					"size": [
+						5.4,
+						7.2
+					],
+					"life": [
+						0.1,
+						0.14
+					],
+					"color": "#ffd890",
+					"energy": 4.0
+				},
+				{
+					"emitter": "fire",
+					"count": 6,
+					"size": [
+						2.88,
+						4.32
+					],
+					"speed": [
+						2.6,
+						6.5
+					],
+					"life": [
+						0.3,
+						0.5
+					],
+					"color": "#ffffff",
+					"energy": 2.0,
+					"dir": "back",
+					"spread": 70
+				},
+				{
+					"emitter": "spark",
+					"count": 34,
+					"size": [
+						0.25,
+						0.43
+					],
+					"speed": [
+						18.2,
+						44.2
+					],
+					"life": [
+						0.35,
+						0.7
+					],
+					"color": "#ffd27a",
+					"energy": 4.0,
+					"dir": "back",
+					"spread": 85
+				},
+				{
+					"emitter": "debris",
+					"count": 10,
+					"size": [
+						0.45,
+						0.99
+					],
+					"speed": [
+						9.1,
+						19.5
+					],
+					"life": [
+						1.0,
+						1.6
+					],
+					"color": "#3a3836",
+					"dir": "back",
+					"spread": 75
+				},
+				{
+					"emitter": "smoke",
+					"count": 5,
+					"size": [
+						3.24,
+						4.68
+					],
+					"speed": [
+						1.3,
+						5.2
+					],
+					"life": [
+						1.6,
+						2.6
+					],
+					"color": "#4d4a46",
+					"alpha": 0.6,
+					"dir": "up",
+					"spread": 45
+				}
+			],
+			"light": {
+				"color": "#ffa050",
+				"energy": 6.0,
+				"range": 28.6,
+				"life": 0.16
+			}
+		},
+		"ac_ground": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						2.88,
+						3.96
+					],
+					"life": [
+						0.07,
+						0.1
+					],
+					"color": "#ffd890",
+					"energy": 3.0
+				},
+				{
+					"emitter": "dust",
+					"count": 9,
+					"size": [
+						2.52,
+						4.32
+					],
+					"speed": [
+						5.2,
+						13.0
+					],
+					"life": [
+						1.2,
+						2.0
+					],
+					"color": "#7d6e5a",
+					"alpha": 0.75,
+					"dir": "up",
+					"spread": 35
+				},
+				{
+					"emitter": "debris",
+					"count": 8,
+					"size": [
+						0.36,
+						0.81
+					],
+					"speed": [
+						7.8,
+						16.9
+					],
+					"life": [
+						0.9,
+						1.4
+					],
+					"color": "#4a4034",
+					"dir": "up",
+					"spread": 40
+				}
+			]
+		},
+		"gauss_flare": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						2.88,
+						3.6
+					],
+					"life": [
+						0.08,
+						0.1
+					],
+					"color": "#dfeaff",
+					"energy": 4.0
+				}
+			],
+			"ring": {
+				"size": 9.0,
+				"life": 0.22,
+				"color": "#cfe0ff",
+				"energy": 1.5,
+				"facing": true
+			}
+		},
+		"gauss_hit": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						5.4,
+						6.48
+					],
+					"life": [
+						0.08,
+						0.12
+					],
+					"color": "#ffffff",
+					"energy": 5.0
+				},
+				{
+					"emitter": "spark",
+					"count": 39,
+					"size": [
+						0.22,
+						0.4
+					],
+					"speed": [
+						23.4,
+						52.0
+					],
+					"life": [
+						0.3,
+						0.6
+					],
+					"color": "#fff2d0",
+					"energy": 5.0,
+					"dir": "back",
+					"spread": 90
+				},
+				{
+					"emitter": "debris",
+					"count": 13,
+					"size": [
+						0.45,
+						1.08
+					],
+					"speed": [
+						10.4,
+						23.4
+					],
+					"life": [
+						1.0,
+						1.6
+					],
+					"color": "#3a3836",
+					"dir": "back",
+					"spread": 80
+				},
+				{
+					"emitter": "smoke",
+					"count": 4,
+					"size": [
+						2.88,
+						4.32
+					],
+					"speed": [
+						2.6,
+						6.5
+					],
+					"life": [
+						1.4,
+						2.2
+					],
+					"color": "#5a5854",
+					"alpha": 0.6,
+					"dir": "back",
+					"spread": 60
+				}
+			],
+			"ring": {
+				"size": 14.4,
+				"life": 0.25,
+				"color": "#e0ecff",
+				"energy": 2.0,
+				"facing": true
+			},
+			"light": {
+				"color": "#e8f0ff",
+				"energy": 5.0,
+				"range": 23.4,
+				"life": 0.1
+			}
+		},
+		"gauss_hit_light": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						3.96,
+						5.04
+					],
+					"life": [
+						0.08,
+						0.12
+					],
+					"color": "#ffffff",
+					"energy": 5.0
+				},
+				{
+					"emitter": "spark",
+					"count": 23,
+					"size": [
+						0.18,
+						0.32
+					],
+					"speed": [
+						18.2,
+						41.6
+					],
+					"life": [
+						0.3,
+						0.5
+					],
+					"color": "#fff2d0",
+					"energy": 5.0,
+					"dir": "back",
+					"spread": 85
+				},
+				{
+					"emitter": "debris",
+					"count": 6,
+					"size": [
+						0.36,
+						0.81
+					],
+					"speed": [
+						9.1,
+						18.2
+					],
+					"life": [
+						0.9,
+						1.4
+					],
+					"color": "#3a3836",
+					"dir": "back",
+					"spread": 75
+				}
+			],
+			"ring": {
+				"size": 10.8,
+				"life": 0.22,
+				"color": "#e0ecff",
+				"energy": 1.6,
+				"facing": true
+			}
+		},
+		"gauss_ground": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						3.6,
+						4.68
+					],
+					"life": [
+						0.07,
+						0.1
+					],
+					"color": "#ffffff",
+					"energy": 3.0
+				},
+				{
+					"emitter": "dust",
+					"count": 13,
+					"size": [
+						3.24,
+						5.4
+					],
+					"speed": [
+						7.8,
+						18.2
+					],
+					"life": [
+						1.4,
+						2.4
+					],
+					"color": "#7d6e5a",
+					"alpha": 0.8,
+					"dir": "up",
+					"spread": 30
+				},
+				{
+					"emitter": "debris",
+					"count": 13,
+					"size": [
+						0.45,
+						0.99
+					],
+					"speed": [
+						10.4,
+						20.8
+					],
+					"life": [
+						1.0,
+						1.6
+					],
+					"color": "#4a4034",
+					"dir": "up",
+					"spread": 35
+				}
+			],
+			"ring": {
+				"size": 12.6,
+				"life": 0.3,
+				"color": "#d8cbb0",
+				"energy": 0.0,
+				"flat": true,
+				"mix": true
+			}
+		},
+		"mg_flare": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						1.26,
+						1.8
+					],
+					"life": [
+						0.04,
+						0.06
+					],
+					"color": "#ffe080",
+					"energy": 4.0
+				}
+			],
+			"repeat": 0.06
+		},
+		"mg_hit": {
+			"elements": [
+				{
+					"emitter": "spark",
+					"count": 5,
+					"size": [
+						0.14,
+						0.22
+					],
+					"speed": [
+						10.4,
+						23.4
+					],
+					"life": [
+						0.15,
+						0.3
+					],
+					"color": "#ffe080",
+					"energy": 4.0,
+					"dir": "back",
+					"spread": 80
+				},
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						1.26,
+						1.62
+					],
+					"life": [
+						0.05,
+						0.07
+					],
+					"color": "#ffe8a0",
+					"energy": 3.0
+				}
+			]
+		},
+		"mg_ground": {
+			"elements": [
+				{
+					"emitter": "dust",
+					"count": 1,
+					"size": [
+						1.08,
+						1.8
+					],
+					"speed": [
+						2.6,
+						6.5
+					],
+					"life": [
+						0.6,
+						1.0
+					],
+					"color": "#7d6e5a",
+					"alpha": 0.7,
+					"dir": "up",
+					"spread": 25
+				},
+				{
+					"emitter": "debris",
+					"count": 1,
+					"size": [
+						0.18,
+						0.32
+					],
+					"speed": [
+						3.9,
+						9.1
+					],
+					"life": [
+						0.5,
+						0.8
+					],
+					"color": "#4a4034",
+					"dir": "up",
+					"spread": 35
+				}
+			]
+		},
+		"missile_flare": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						2.16,
+						2.88
+					],
+					"life": [
+						0.08,
+						0.12
+					],
+					"color": "#ffc070",
+					"energy": 3.0
+				},
+				{
+					"emitter": "smoke",
+					"count": 3,
+					"size": [
+						1.8,
+						2.88
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						0.8,
+						1.4
+					],
+					"color": "#b0aca4",
+					"alpha": 0.5,
+					"dir": "fwd",
+					"spread": 50
+				}
+			]
+		},
+		"missile_hit": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						3.96,
+						5.04
+					],
+					"life": [
+						0.08,
+						0.12
+					],
+					"color": "#ffd890",
+					"energy": 4.0
+				},
+				{
+					"emitter": "fire",
+					"count": 5,
+					"size": [
+						2.16,
+						3.42
+					],
+					"speed": [
+						1.3,
+						5.2
+					],
+					"life": [
+						0.3,
+						0.5
+					],
+					"color": "#ffffff",
+					"energy": 2.2,
+					"dir": "sphere"
+				},
+				{
+					"emitter": "spark",
+					"count": 10,
+					"size": [
+						0.18,
+						0.32
+					],
+					"speed": [
+						13.0,
+						28.6
+					],
+					"life": [
+						0.3,
+						0.55
+					],
+					"color": "#ffc070",
+					"energy": 4.0,
+					"dir": "sphere"
+				},
+				{
+					"emitter": "smoke",
+					"count": 3,
+					"size": [
+						2.52,
+						3.6
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						1.4,
+						2.2
+					],
+					"color": "#4d4a46",
+					"alpha": 0.6,
+					"dir": "up",
+					"spread": 50
+				}
+			],
+			"light": {
+				"color": "#ffa050",
+				"energy": 3.0,
+				"range": 18.2,
+				"life": 0.12
+			}
+		},
+		"srm_hit": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						4.68,
+						5.76
+					],
+					"life": [
+						0.09,
+						0.13
+					],
+					"color": "#ffd890",
+					"energy": 4.0
+				},
+				{
+					"emitter": "fire",
+					"count": 8,
+					"size": [
+						2.52,
+						3.96
+					],
+					"speed": [
+						2.6,
+						6.5
+					],
+					"life": [
+						0.3,
+						0.55
+					],
+					"color": "#ffffff",
+					"energy": 2.2,
+					"dir": "sphere"
+				},
+				{
+					"emitter": "spark",
+					"count": 16,
+					"size": [
+						0.22,
+						0.36
+					],
+					"speed": [
+						15.6,
+						33.8
+					],
+					"life": [
+						0.3,
+						0.6
+					],
+					"color": "#ffc070",
+					"energy": 4.0,
+					"dir": "sphere"
+				},
+				{
+					"emitter": "debris",
+					"count": 4,
+					"size": [
+						0.36,
+						0.72
+					],
+					"speed": [
+						7.8,
+						15.6
+					],
+					"life": [
+						0.9,
+						1.4
+					],
+					"color": "#3a3836",
+					"dir": "sphere"
+				},
+				{
+					"emitter": "smoke",
+					"count": 4,
+					"size": [
+						2.88,
+						4.32
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						1.6,
+						2.4
+					],
+					"color": "#4d4a46",
+					"alpha": 0.6,
+					"dir": "up",
+					"spread": 50
+				}
+			],
+			"light": {
+				"color": "#ffa050",
+				"energy": 4.0,
+				"range": 20.8,
+				"life": 0.14
+			}
+		},
+		"missile_ground": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						3.96,
+						5.04
+					],
+					"life": [
+						0.08,
+						0.12
+					],
+					"color": "#ffd890",
+					"energy": 3.5
+				},
+				{
+					"emitter": "fire",
+					"count": 4,
+					"size": [
+						2.16,
+						3.24
+					],
+					"speed": [
+						2.6,
+						6.5
+					],
+					"life": [
+						0.25,
+						0.45
+					],
+					"color": "#ffffff",
+					"energy": 2.0,
+					"dir": "up",
+					"spread": 50
+				},
+				{
+					"emitter": "dust",
+					"count": 10,
+					"size": [
+						2.88,
+						4.68
+					],
+					"speed": [
+						5.2,
+						13.0
+					],
+					"life": [
+						1.4,
+						2.2
+					],
+					"color": "#6e6050",
+					"alpha": 0.8,
+					"dir": "up",
+					"spread": 40
+				},
+				{
+					"emitter": "debris",
+					"count": 6,
+					"size": [
+						0.36,
+						0.81
+					],
+					"speed": [
+						7.8,
+						16.9
+					],
+					"life": [
+						0.9,
+						1.4
+					],
+					"color": "#4a4034",
+					"dir": "up",
+					"spread": 45
+				}
+			]
+		},
+		"swarm_hit": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						5.4,
+						6.84
+					],
+					"life": [
+						0.1,
+						0.14
+					],
+					"color": "#ffd890",
+					"energy": 4.0
+				},
+				{
+					"emitter": "fire",
+					"count": 9,
+					"size": [
+						3.24,
+						5.04
+					],
+					"speed": [
+						2.6,
+						7.8
+					],
+					"life": [
+						0.35,
+						0.6
+					],
+					"color": "#ffffff",
+					"energy": 2.2,
+					"dir": "sphere",
+					"radius": 1.5
+				},
+				{
+					"emitter": "spark",
+					"count": 13,
+					"size": [
+						0.22,
+						0.36
+					],
+					"speed": [
+						15.6,
+						33.8
+					],
+					"life": [
+						0.3,
+						0.6
+					],
+					"color": "#ffc070",
+					"energy": 4.0,
+					"dir": "sphere"
+				},
+				{
+					"emitter": "dust",
+					"count": 8,
+					"size": [
+						3.6,
+						5.4
+					],
+					"speed": [
+						3.9,
+						10.4
+					],
+					"life": [
+						1.6,
+						2.6
+					],
+					"color": "#6e6050",
+					"alpha": 0.7,
+					"dir": "up",
+					"spread": 50,
+					"radius": 2.0
+				}
+			],
+			"light": {
+				"color": "#ffa050",
+				"energy": 4.0,
+				"range": 26.0,
+				"life": 0.16
+			}
+		},
+		"thunderbolt_hit": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 2,
+					"size": [
+						8.1,
+						10.8
+					],
+					"life": [
+						0.12,
+						0.18
+					],
+					"color": "#ffe0a0",
+					"energy": 4.0
+				},
+				{
+					"emitter": "fire",
+					"count": 18,
+					"size": [
+						4.68,
+						7.56
+					],
+					"speed": [
+						3.9,
+						10.4
+					],
+					"life": [
+						0.45,
+						0.8
+					],
+					"color": "#ffffff",
+					"energy": 2.4,
+					"dir": "sphere",
+					"radius": 1.5
+				},
+				{
+					"emitter": "spark",
+					"count": 39,
+					"size": [
+						0.25,
+						0.43
+					],
+					"speed": [
+						18.2,
+						46.8
+					],
+					"life": [
+						0.4,
+						0.8
+					],
+					"color": "#ffc070",
+					"energy": 4.0,
+					"dir": "sphere"
+				},
+				{
+					"emitter": "debris",
+					"count": 13,
+					"size": [
+						0.54,
+						1.26
+					],
+					"speed": [
+						10.4,
+						23.4
+					],
+					"life": [
+						1.2,
+						1.8
+					],
+					"color": "#3a3836",
+					"dir": "up",
+					"spread": 70
+				},
+				{
+					"emitter": "smoke",
+					"count": 8,
+					"size": [
+						5.4,
+						7.56
+					],
+					"speed": [
+						1.3,
+						5.2
+					],
+					"life": [
+						2.4,
+						3.6
+					],
+					"color": "#45423e",
+					"alpha": 0.65,
+					"dir": "up",
+					"spread": 50,
+					"radius": 1.5
+				}
+			],
+			"light": {
+				"color": "#ffa050",
+				"energy": 8.0,
+				"range": 39.0,
+				"life": 0.3
+			},
+			"ring": {
+				"size": 25.2,
+				"life": 0.35,
+				"color": "#ffd0a0",
+				"energy": 1.6
+			}
+		},
+		"flamer_hit": {
+			"elements": [
+				{
+					"emitter": "fire",
+					"count": 3,
+					"size": [
+						2.88,
+						4.32
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						0.4,
+						0.7
+					],
+					"color": "#ffffff",
+					"energy": 2.0,
+					"dir": "up",
+					"spread": 60,
+					"radius": 1.0
+				},
+				{
+					"emitter": "smoke",
+					"count": 1,
+					"size": [
+						2.88,
+						4.32
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						1.4,
+						2.0
+					],
+					"color": "#3a3836",
+					"alpha": 0.55,
+					"dir": "up",
+					"spread": 30
+				}
+			],
+			"repeat": 0.08
+		},
+		"flamer_ground": {
+			"elements": [
+				{
+					"emitter": "fire",
+					"count": 3,
+					"size": [
+						2.88,
+						4.32
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						0.4,
+						0.7
+					],
+					"color": "#ffffff",
+					"energy": 2.0,
+					"dir": "up",
+					"spread": 40,
+					"radius": 1.2
+				},
+				{
+					"emitter": "smoke",
+					"count": 1,
+					"size": [
+						2.88,
+						4.32
+					],
+					"speed": [
+						1.3,
+						3.9
+					],
+					"life": [
+						1.4,
+						2.0
+					],
+					"color": "#3a3836",
+					"alpha": 0.55,
+					"dir": "up",
+					"spread": 30
+				}
+			],
+			"repeat": 0.08
+		},
+		"burning_ground": {
+			"elements": [
+				{
+					"emitter": "fire",
+					"count": 1,
+					"size": [
+						1.8,
+						3.24
+					],
+					"speed": [
+						0.7,
+						2.6
+					],
+					"life": [
+						0.4,
+						0.8
+					],
+					"color": "#ffffff",
+					"energy": 1.8,
+					"dir": "up",
+					"spread": 20,
+					"radius": 1.6,
+					"flat": true
+				},
+				{
+					"emitter": "smoke",
+					"count": 1,
+					"size": [
+						2.16,
+						3.6
+					],
+					"speed": [
+						1.3,
+						3.2
+					],
+					"life": [
+						1.6,
+						2.4
+					],
+					"color": "#2e2c2a",
+					"alpha": 0.4,
+					"dir": "up",
+					"spread": 15,
+					"radius": 1.2
+				}
+			],
+			"repeat": 0.12
+		},
+		"artillery_flare": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 3,
+					"size": [
+						7.2,
+						9.0
+					],
+					"life": [
+						0.1,
+						0.14
+					],
+					"color": "#ffd27a",
+					"energy": 4.0
+				},
+				{
+					"emitter": "smoke",
+					"count": 8,
+					"size": [
+						4.32,
+						6.12
+					],
+					"speed": [
+						3.9,
+						9.1
+					],
+					"life": [
+						1.6,
+						2.6
+					],
+					"color": "#8a8680",
+					"alpha": 0.5,
+					"dir": "fwd",
+					"spread": 40
+				}
+			],
+			"light": {
+				"color": "#ffb060",
+				"energy": 8.0,
+				"range": 46.8,
+				"life": 0.14
+			}
+		},
+		"artillery_blast": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 3,
+					"size": [
+						13.5,
+						18.9
+					],
+					"life": [
+						0.14,
+						0.22
+					],
+					"color": "#fff0c0",
+					"energy": 4.0
+				},
+				{
+					"emitter": "fire",
+					"count": 34,
+					"size": [
+						5.4,
+						9.45
+					],
+					"speed": [
+						6.9,
+						18.4
+					],
+					"life": [
+						0.6,
+						1.1
+					],
+					"color": "#ffffff",
+					"energy": 2.4,
+					"dir": "up",
+					"spread": 70,
+					"radius": 3.0
+				},
+				{
+					"emitter": "spark",
+					"count": 50,
+					"size": [
+						0.27,
+						0.47
+					],
+					"speed": [
+						23.0,
+						57.5
+					],
+					"life": [
+						0.6,
+						1.2
+					],
+					"color": "#ffc070",
+					"energy": 4.0,
+					"dir": "up",
+					"spread": 80
+				},
+				{
+					"emitter": "debris",
+					"count": 24,
+					"size": [
+						0.54,
+						1.35
+					],
+					"speed": [
+						13.8,
+						32.2
+					],
+					"life": [
+						1.4,
+						2.4
+					],
+					"color": "#3e362c",
+					"dir": "up",
+					"spread": 55
+				},
+				{
+					"emitter": "dust",
+					"count": 20,
+					"size": [
+						6.75,
+						10.8
+					],
+					"speed": [
+						4.6,
+						13.8
+					],
+					"life": [
+						3.0,
+						5.0
+					],
+					"color": "#6e6050",
+					"alpha": 0.8,
+					"dir": "up",
+					"spread": 70,
+					"radius": 4.0
+				},
+				{
+					"emitter": "smoke",
+					"count": 10,
+					"size": [
+						8.1,
+						12.15
+					],
+					"speed": [
+						2.3,
+						6.9
+					],
+					"life": [
+						5.0,
+						8.0
+					],
+					"color": "#3a3835",
+					"alpha": 0.7,
+					"dir": "up",
+					"spread": 30,
+					"radius": 3.0
+				}
+			],
+			"light": {
+				"color": "#ffa050",
+				"energy": 14.0,
+				"range": 91.0,
+				"life": 0.6
+			},
+			"ring": {
+				"size": 54.0,
+				"life": 0.5,
+				"color": "#d8c8a8",
+				"energy": 0.0,
+				"flat": true,
+				"mix": true
+			}
+		},
+		"steam_small": {
+			"elements": [
+				{
+					"emitter": "splash",
+					"count": 2,
+					"size": [
+						1.44,
+						2.16
+					],
+					"speed": [
+						2.6,
+						6.5
+					],
+					"life": [
+						0.8,
+						1.3
+					],
+					"color": "#e8eef2",
+					"alpha": 0.6,
+					"dir": "up",
+					"spread": 25
+				}
+			],
+			"repeat": 0.1
+		},
+		"steam_big": {
+			"elements": [
+				{
+					"emitter": "splash",
+					"count": 6,
+					"size": [
+						2.52,
+						4.32
+					],
+					"speed": [
+						3.9,
+						9.1
+					],
+					"life": [
+						1.2,
+						2.0
+					],
+					"color": "#e8eef2",
+					"alpha": 0.6,
+					"dir": "up",
+					"spread": 35
+				}
+			]
+		},
+		"splash_small": {
+			"elements": [
+				{
+					"emitter": "splash",
+					"count": 2,
+					"size": [
+						0.72,
+						1.26
+					],
+					"speed": [
+						5.2,
+						10.4
+					],
+					"life": [
+						0.5,
+						0.8
+					],
+					"color": "#d8e4ea",
+					"alpha": 0.8,
+					"dir": "up",
+					"spread": 15
+				}
+			]
+		},
+		"splash_medium": {
+			"elements": [
+				{
+					"emitter": "splash",
+					"count": 9,
+					"size": [
+						1.44,
+						2.7
+					],
+					"speed": [
+						10.4,
+						20.8
+					],
+					"life": [
+						0.8,
+						1.3
+					],
+					"color": "#d8e4ea",
+					"alpha": 0.85,
+					"dir": "up",
+					"spread": 18
+				}
+			],
+			"ring": {
+				"size": 10.8,
+				"life": 0.8,
+				"color": "#e0ecf0",
+				"energy": 0.0,
+				"flat": true,
+				"mix": true
+			}
+		},
+		"splash_big": {
+			"elements": [
+				{
+					"emitter": "splash",
+					"count": 14,
+					"size": [
+						2.16,
+						3.6
+					],
+					"speed": [
+						15.6,
+						28.6
+					],
+					"life": [
+						1.0,
+						1.6
+					],
+					"color": "#d8e4ea",
+					"alpha": 0.9,
+					"dir": "up",
+					"spread": 15
+				}
+			],
+			"ring": {
+				"size": 16.2,
+				"life": 1.0,
+				"color": "#e0ecf0",
+				"energy": 0.0,
+				"flat": true,
+				"mix": true
+			}
+		},
+		"splash_huge": {
+			"elements": [
+				{
+					"emitter": "splash",
+					"count": 40,
+					"size": [
+						4.5,
+						8.1
+					],
+					"speed": [
+						23.4,
+						44.2
+					],
+					"life": [
+						1.6,
+						2.6
+					],
+					"color": "#d8e4ea",
+					"alpha": 0.9,
+					"dir": "up",
+					"spread": 20,
+					"radius": 2.0
+				}
+			],
+			"ring": {
+				"size": 54.0,
+				"life": 1.4,
+				"color": "#e0ecf0",
+				"energy": 0.0,
+				"flat": true,
+				"mix": true
+			}
+		},
+		"strike_blast": {
+			"_why": "air strike bombs (strike_impact events)",
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 3,
+					"size": [
+						16.2,
+						21.6
+					],
+					"life": [
+						0.16,
+						0.24
+					],
+					"color": "#fff0c0",
+					"energy": 4.0
+				},
+				{
+					"emitter": "fire",
+					"count": 40,
+					"size": [
+						6.75,
+						10.8
+					],
+					"speed": [
+						6.9,
+						18.4
+					],
+					"life": [
+						0.7,
+						1.2
+					],
+					"color": "#ffffff",
+					"energy": 2.4,
+					"dir": "up",
+					"spread": 70,
+					"radius": 4.0
+				},
+				{
+					"emitter": "spark",
+					"count": 60,
+					"size": [
+						0.27,
+						0.47
+					],
+					"speed": [
+						23.0,
+						57.5
+					],
+					"life": [
+						0.6,
+						1.2
+					],
+					"color": "#ffc070",
+					"energy": 4.0,
+					"dir": "up",
+					"spread": 80
+				},
+				{
+					"emitter": "debris",
+					"count": 30,
+					"size": [
+						0.54,
+						1.35
+					],
+					"speed": [
+						13.8,
+						34.5
+					],
+					"life": [
+						1.4,
+						2.4
+					],
+					"color": "#3e362c",
+					"dir": "up",
+					"spread": 55
+				},
+				{
+					"emitter": "dust",
+					"count": 24,
+					"size": [
+						8.1,
+						12.15
+					],
+					"speed": [
+						4.6,
+						13.8
+					],
+					"life": [
+						3.0,
+						5.0
+					],
+					"color": "#6e6050",
+					"alpha": 0.8,
+					"dir": "up",
+					"spread": 70,
+					"radius": 5.0
+				},
+				{
+					"emitter": "smoke",
+					"count": 12,
+					"size": [
+						9.45,
+						13.5
+					],
+					"speed": [
+						2.3,
+						6.9
+					],
+					"life": [
+						6.0,
+						8.0
+					],
+					"color": "#3a3835",
+					"alpha": 0.7,
+					"dir": "up",
+					"spread": 30,
+					"radius": 4.0
+				}
+			],
+			"light": {
+				"color": "#ffa050",
+				"energy": 16.0,
+				"range": 104.0,
+				"life": 0.7
+			},
+			"ring": {
+				"size": 64.8,
+				"life": 0.55,
+				"color": "#d8c8a8",
+				"energy": 0.0,
+				"flat": true,
+				"mix": true
+			}
+		},
+		"marker_flash": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 1,
+					"size": [
+						3.6,
+						4.32
+					],
+					"life": [
+						0.3,
+						0.4
+					],
+					"color": "#ff4030",
+					"energy": 3.0
+				}
+			]
+		},
+		"fireball": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 3,
+					"size": [
+						9.45,
+						12.15
+					],
+					"life": [
+						0.14,
+						0.2
+					],
+					"color": "#fff0c0",
+					"energy": 4.0
+				},
+				{
+					"emitter": "fire",
+					"count": 30,
+					"size": [
+						4.05,
+						7.43
+					],
+					"speed": [
+						4.6,
+						12.6
+					],
+					"life": [
+						0.6,
+						1.1
+					],
+					"color": "#ffffff",
+					"energy": 2.6,
+					"dir": "sphere",
+					"radius": 2.0,
+					"rise": 3.0
+				},
+				{
+					"emitter": "spark",
+					"count": 60,
+					"size": [
+						0.22,
+						0.41
+					],
+					"speed": [
+						18.4,
+						50.6
+					],
+					"life": [
+						0.6,
+						1.3
+					],
+					"color": "#ffc070",
+					"energy": 4.0,
+					"dir": "sphere"
+				},
+				{
+					"emitter": "debris",
+					"count": 22,
+					"size": [
+						0.47,
+						1.22
+					],
+					"speed": [
+						11.5,
+						27.6
+					],
+					"life": [
+						1.4,
+						2.4
+					],
+					"color": "#2e2c2a",
+					"dir": "up",
+					"spread": 70
+				}
+			],
+			"light": {
+				"color": "#ffa050",
+				"energy": 14.0,
+				"range": 71.5,
+				"life": 0.9
+			},
+			"ring": {
+				"size": 35.1,
+				"life": 0.45,
+				"color": "#ffd8a8",
+				"energy": 1.4
+			}
+		},
+		"fireball_small": {
+			"elements": [
+				{
+					"emitter": "flash",
+					"count": 2,
+					"size": [
+						5.4,
+						6.75
+					],
+					"life": [
+						0.12,
+						0.16
+					],
+					"color": "#fff0c0",
+					"energy": 4.0
+				},
+				{
+					"emitter": "fire",
+					"count": 14,
+					"size": [
+						2.7,
+						4.59
+					],
+					"speed": [
+						3.4,
+						9.2
+					],
+					"life": [
+						0.5,
+						0.9
+					],
+					"color": "#ffffff",
+					"energy": 2.4,
+					"dir": "sphere",
+					"radius": 1.2,
+					"rise": 2.0
+				},
+				{
+					"emitter": "spark",
+					"count": 30,
+					"size": [
+						0.19,
+						0.32
+					],
+					"speed": [
+						13.8,
+						36.8
+					],
+					"life": [
+						0.5,
+						1.0
+					],
+					"color": "#ffc070",
+					"energy": 4.0,
+					"dir": "sphere"
+				},
+				{
+					"emitter": "debris",
+					"count": 12,
+					"size": [
+						0.34,
+						0.81
+					],
+					"speed": [
+						9.2,
+						20.7
+					],
+					"life": [
+						1.2,
+						2.0
+					],
+					"color": "#2e2c2a",
+					"dir": "up",
+					"spread": 70
+				}
+			],
+			"light": {
+				"color": "#ffa050",
+				"energy": 9.0,
+				"range": 46.8,
+				"life": 0.6
+			},
+			"ring": {
+				"size": 18.9,
+				"life": 0.35,
+				"color": "#ffd8a8",
+				"energy": 1.2
+			}
+		},
+		"secondary": {
+			"elements": [
+				{
+					"emitter": "fire",
+					"count": 10,
+					"size": [
+						3.24,
+						5.4
+					],
+					"speed": [
+						3.4,
+						9.2
+					],
+					"life": [
+						0.5,
+						0.9
+					],
+					"color": "#ffffff",
+					"energy": 2.4,
+					"dir": "up",
+					"spread": 60,
+					"radius": 2.0
+				},
+				{
+					"emitter": "spark",
+					"count": 20,
+					"size": [
+						0.19,
+						0.32
+					],
+					"speed": [
+						11.5,
+						32.2
+					],
+					"life": [
+						0.5,
+						1.0
+					],
+					"color": "#ffc070",
+					"energy": 4.0,
+					"dir": "up",
+					"spread": 70
+				}
+			],
+			"light": {
+				"color": "#ffa050",
+				"energy": 6.0,
+				"range": 39.0,
+				"life": 0.4
+			}
+		},
+		"black_smoke": {
+			"elements": [
+				{
+					"emitter": "smoke",
+					"count": 10,
+					"size": [
+						6.75,
+						10.8
+					],
+					"speed": [
+						2.3,
+						5.8
+					],
+					"life": [
+						4.0,
+						6.0
+					],
+					"color": "#2a2826",
+					"alpha": 0.75,
+					"dir": "up",
+					"spread": 40,
+					"radius": 3.0
+				}
+			]
+		},
+		"collapse_dust": {
+			"elements": [
+				{
+					"emitter": "dust",
+					"count": 30,
+					"size": [
+						8.1,
+						13.5
+					],
+					"speed": [
+						3.4,
+						10.3
+					],
+					"life": [
+						3.5,
+						6.0
+					],
+					"color": "#8a7c68",
+					"alpha": 0.85,
+					"dir": "ground",
+					"radius": 1.0
+				},
+				{
+					"emitter": "dust",
+					"count": 12,
+					"size": [
+						8.1,
+						13.5
+					],
+					"speed": [
+						3.4,
+						8.0
+					],
+					"life": [
+						4.0,
+						6.5
+					],
+					"color": "#7a6e5e",
+					"alpha": 0.8,
+					"dir": "up",
+					"spread": 25,
+					"radius": 1.0
+				},
+				{
+					"emitter": "debris",
+					"count": 26,
+					"size": [
+						0.68,
+						1.89
+					],
+					"speed": [
+						9.2,
+						23.0
+					],
+					"life": [
+						1.4,
+						2.4
+					],
+					"color": "#4a4440",
+					"dir": "up",
+					"spread": 60,
+					"radius": 1.0
+				}
+			]
+		}
+	},
+	"deaths": {
+		"_doc": "Sequences: [t, impact, offset_up_fraction]. size scales every element (1 = a 10 m mech). column: lingering smoke (s, puffs/s at the start, puff size); burn: flames at the base (s). Columns drift with 'wind' (m/s, x and z).",
+		"mech": {
+			"sequence": [
+				[
+					0.0,
+					"fireball",
+					0.5
+				],
+				[
+					0.25,
+					"secondary",
+					0.7
+				],
+				[
+					0.55,
+					"secondary",
+					0.35
+				],
+				[
+					0.8,
+					"black_smoke",
+					0.4
+				]
+			],
+			"column": {
+				"life": 45.0,
+				"rate": 5.0,
+				"size": 4.5,
+				"wind": [
+					1.6,
+					0.6
+				]
+			},
+			"burn": 14.0
+		},
+		"vehicle": {
+			"sequence": [
+				[
+					0.0,
+					"fireball_small",
+					0.5
+				],
+				[
+					0.35,
+					"black_smoke",
+					0.4
+				]
+			],
+			"column": {
+				"life": 30.0,
+				"rate": 3.5,
+				"size": 3.2,
+				"wind": [
+					1.6,
+					0.6
+				]
+			},
+			"burn": 10.0
+		},
+		"building": {
+			"sequence": [
+				[
+					0.0,
+					"fireball",
+					0.4
+				],
+				[
+					0.2,
+					"collapse_dust",
+					0.0
+				],
+				[
+					0.6,
+					"secondary",
+					0.5
+				],
+				[
+					1.0,
+					"black_smoke",
+					0.5
+				]
+			],
+			"column": {
+				"life": 60.0,
+				"rate": 4.0,
+				"size": 6.0,
+				"wind": [
+					1.6,
+					0.6
+				]
+			},
+			"burn": 20.0
+		}
+	},
+	"damage": {
+		"_doc": "Damaged units: smoke from the damage fraction 'smoke_from' up, rate rising to 'smoke_rate' puffs/s; at 'critical' and above, sparks and flames too. A destroyed location also smokes.",
+		"smoke_from": 0.2,
+		"smoke_rate": 9.0,
+		"smoke_size": 3.2,
+		"smoke_color": "#262422",
+		"critical": 0.5,
+		"spark_rate": 4.0,
+		"fire_rate": 7.0,
+		"limb_rate": 3.0,
+		"wind": [
+			1.2,
+			0.4
+		]
+	}
+}

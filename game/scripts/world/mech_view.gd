@@ -22,6 +22,9 @@ var _anim := ""
 var _wrecked := false
 var _next_weapon := 0
 var _paint_name := ""  # paint-mask name: "<model>_hd" for HD models
+var smoke_nodes: Array[Node3D] = []
+var _weapon_node: Dictionary = {}  # weapon inventory index -> Node3D (fixed at load, as the original)
+var bounds := AABB(Vector3(-3, 0, -3), Vector3(6, 10, 6))  # model bounds in this node's frame, for effects
 
 
 func setup(sim_mech: SimUnit, sim_map: SimMap) -> void:
@@ -50,10 +53,17 @@ func setup(sim_mech: SimUnit, sim_map: SimMap) -> void:
 	var side_path := "res://assets/mechs/%s.json" % mech.model
 	if mech is SimMech and FileAccess.file_exists(side_path):
 		sidecar = JSON.parse_string(FileAccess.get_file_as_string(side_path))
+		var types: Array[int] = []
 		for w in sidecar.get("weapon_nodes", []):
 			var n := model.find_child(w["node"], true, false) as Node3D
 			if n:
 				weapon_nodes.append(n)
+				types.append(int(w.get("type", 0)))
+		for s in sidecar.get("smoke_nodes", []):
+			var n := model.find_child(String(s), true, false) as Node3D
+			if n:
+				smoke_nodes.append(n)
+		_assign_weapon_nodes(types)
 	ring = MeshInstance3D.new()
 	var torus := TorusMesh.new()
 	var radius := 5.5 if mech is SimMech else (1.6 if mech.tonnage < 5 else 3.6)
@@ -69,6 +79,7 @@ func setup(sim_mech: SimUnit, sim_map: SimMap) -> void:
 	ring.visible = false
 	add_child(ring)
 	sync(1.0)
+	_measure_bounds()
 
 
 func _asset_path(suffix: String) -> String:
@@ -197,3 +208,141 @@ func muzzle() -> Vector3:
 func aim_point() -> Vector3:
 	var h := 5.0 if mech is SimMech else (0.9 if mech.tonnage < 5 else 2.0)
 	return global_position + Vector3.UP * h
+
+
+# --- effects hooks (I87): read-only views of the sim unit ------------------------------------------------
+
+## Each weapon fires from one node for the whole mission, the least-used node that takes its type, as the
+## original assigns them at load (mech3d.cpp getWeaponNode; WeaponType 0 any, 1 missile, 2 ballistic,
+## 3 non-energy, 4 energy, 5 direct = energy or ballistic).
+func _assign_weapon_nodes(types: Array[int]) -> void:
+	var used: Array[int] = []
+	used.resize(weapon_nodes.size())
+	used.fill(0)
+	for w in mech.weapon_indices():
+		var form := String(mech.items[w]["form"])
+		var ok: Array = [0]
+		match form:
+			"MissileWeapon":
+				ok = [1, 0, 3]
+			"BallisticWeapon":
+				ok = [2, 0, 5, 3]
+			_:
+				ok = [4, 0, 5]
+		var best := -1
+		for i in weapon_nodes.size():
+			if ok.has(types[i]) and (best < 0 or used[i] < used[best]):
+				best = i
+		if best >= 0:
+			used[best] += 1
+			_weapon_node[w] = weapon_nodes[best]
+
+
+func _measure_bounds() -> void:
+	# Skinned meshes report their rest-pose AABB (metres off for the HD rigs), so a skinned model is measured by
+	# the origins of its rig nodes (joints, weapon, smoke and foot nodes) and unskinned meshes by their AABBs.
+	var inv := global_transform.affine_inverse()
+	var pts := PackedVector3Array()
+	for mi in model.find_children("*", "MeshInstance3D", true, false):
+		var m := mi as MeshInstance3D
+		if m.mesh == null or m.skin != null or not m.skeleton.is_empty():
+			continue
+		var b: AABB = (inv * m.global_transform) * m.get_aabb()
+		pts.append(b.position)
+		pts.append(b.end)
+	for n in model.find_children("*", "Node3D", true, false):
+		if not (n is MeshInstance3D) and not (n is Skeleton3D):
+			pts.append(inv * (n as Node3D).global_position)
+	if pts.size() < 2:
+		return
+	var box := AABB(pts[0], Vector3.ZERO)
+	for p in pts:
+		box = box.expand(p)
+	box.size.y = box.end.y * 1.08 - maxf(box.position.y, 0.0) if pts.size() > 2 else box.size.y
+	box.position.y = maxf(box.position.y, 0.0)
+	box = box.grow(0.0)
+	if box.size.y > 0.5:
+		bounds = box
+
+
+## The weapon's muzzle node (null: no weapon nodes, e.g. vehicles; use muzzle_point).
+func muzzle_node(weapon: int) -> Node3D:
+	if _wrecked:
+		return null
+	var n: Node3D = _weapon_node.get(weapon)
+	if n and mech is SimMech:
+		var arm_gone: bool = (n.name.contains("leftarm") and mech.damage_state[SimMech.Body.LARM] == SimMech.DamageState.DESTROYED) \
+			or (n.name.contains("rightarm") and mech.damage_state[SimMech.Body.RARM] == SimMech.DamageState.DESTROYED)
+		if arm_gone:
+			return null
+	return n
+
+
+## Where weapon `weapon` fires from: its node, else the front of the hull near the top.
+func muzzle_point(weapon: int) -> Vector3:
+	var n := muzzle_node(weapon)
+	if n:
+		return n.global_position
+	if weapon_nodes.size() > 0 and not _wrecked:
+		return muzzle()
+	var top := bounds.position.y + bounds.size.y * (0.75 if mech is SimMech else 0.8)
+	return to_global(Vector3(0, top, bounds.end.z * 0.5))
+
+
+## A point on the body location `loc` (SimMech.Body for mechs; anywhere on the hull for vehicles), world space.
+func body_point(loc: int) -> Vector3:
+	var c := bounds.get_center()
+	var h := bounds.size.y
+	var w := bounds.size.x * 0.5
+	c.z = clampf(c.z, -w * 0.3, w * 0.3)  # a rig node far forward or back must not drag the body centre
+	var y0 := bounds.position.y
+	var local := Vector3(c.x, y0 + h * 0.55, c.z)
+	if mech is SimMech:
+		# model forward is +Z, so the mech's left is +X
+		match loc:
+			SimMech.Body.HEAD: local = Vector3(c.x, y0 + h * 0.9, c.z)
+			SimMech.Body.CTORSO: local = Vector3(c.x, y0 + h * 0.68, c.z)
+			SimMech.Body.LTORSO: local = Vector3(c.x + w * 0.35, y0 + h * 0.68, c.z)
+			SimMech.Body.RTORSO: local = Vector3(c.x - w * 0.35, y0 + h * 0.68, c.z)
+			SimMech.Body.LARM: local = Vector3(c.x + w * 0.75, y0 + h * 0.6, c.z)
+			SimMech.Body.RARM: local = Vector3(c.x - w * 0.75, y0 + h * 0.6, c.z)
+			SimMech.Body.LLEG: local = Vector3(c.x + w * 0.3, y0 + h * 0.25, c.z)
+			SimMech.Body.RLEG: local = Vector3(c.x - w * 0.3, y0 + h * 0.25, c.z)
+	local += Vector3(randf_range(-0.12, 0.12) * w, randf_range(-0.05, 0.05) * h, randf_range(-0.1, 0.1) * bounds.size.z)
+	return to_global(local)
+
+
+## Where damage smoke rises: a smoke node if the model has one, else the upper body.
+func smoke_point() -> Vector3:
+	if not smoke_nodes.is_empty():
+		return smoke_nodes[randi() % smoke_nodes.size()].global_position
+	return body_point(SimMech.Body.CTORSO if mech is SimMech else 0)
+
+
+## Effect size relative to a 10 m mech.
+func fx_scale() -> float:
+	return clampf(maxf(bounds.size.y, bounds.size.x) / 10.0, 0.35, 1.8)
+
+
+## 0 = pristine, 1 = gone: armour plus internal structure lost.
+func damage_fraction() -> float:
+	var have := 0.0
+	var full := 0.0
+	for i in mech.armor.size():
+		have += mech.armor[i]
+		full += mech.max_armor[i]
+	if mech.get("internal") != null and mech.get("max_internal") != null:
+		for i in mech.internal.size():
+			have += mech.internal[i]
+			full += mech.max_internal[i]
+	return 1.0 - have / full if full > 0.0 else 0.0
+
+
+## Destroyed body locations (mechs only).
+func destroyed_locations() -> Array:
+	var out: Array = []
+	if mech is SimMech:
+		for i in mech.damage_state.size():
+			if mech.damage_state[i] == SimMech.DamageState.DESTROYED and i != SimMech.Body.CTORSO:
+				out.append(i)
+	return out

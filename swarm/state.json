@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-23T14:13:47+13:00",
+  "updated": "2026-10-23T18:10:38+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -500,8 +500,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-20T18:47:41+13:00",
-      "note": "2026-10-20 partial fix: scripted brains fire at will only after their brain has ordered an attack (SimUnit.brain_engaged), so mc2_17's camera dummies no longer fire; setMovieMode/endMovieMode now block player input and the autoplay bot (world.movie_mode). Remaining: the player lance's pbrain fire-at-will shoots the CamDum_son Cyclops at t=0.5, Steiner join at ~t=56, before liaoBetrays (~t=79). Open question for the original: how CamDum units were kept out of the player's targeting during the opening cinematic (visibility/contact?). New autoplay --shots=N prints who fires first. Sweep: 24/72 wins vs 22 baseline; mc2_17 survives 178-235 s vs 145-187."
+      "updated": "2026-10-23T16:08:58+13:00",
+      "note": "Fidelity 2026-10-23 (F6): what is left is sim_world.gd:492-515. Once its brain has attacked, an AI unit fires at the nearest armed enemy whenever it has no order target. The original's combatDecisionTree fires only at getLastTarget() and drops it beyond attackRadius (warrior.cpp:3493,3532-3538). See docs/reports/fidelity/2026-10-23-combat.md"
     },
     {
       "id": "I13",
@@ -1473,9 +1473,87 @@
       "repro": null,
       "owner": "game-art",
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-21T18:46:54+13:00",
-      "updated": "2026-10-21T18:46:54+13:00",
+      "updated": "2026-10-23T18:10:38+13:00",
+      "note": "Weapon and damage effects pass accepted by Lee 2026-10-23"
+    },
+    {
+      "id": "I88",
+      "sev": "P1",
+      "title": "Partisan and Legion fire freely; the original's vehicle fire path lets them fire only 2 shots per mission (mc2_15, mc2_22)",
+      "detail": "game (fidelity): gvehicl.cpp:4601-4618 returns 3 (no shot) when the weapon node index is above 3. Gvactor.cpp:91-92,579-660 numbers vehicle weapon nodes 2-5 (after 2 smoke nodes) and always picks the least-used one. A shape with weapon_03/04 gets stuck after weapon_01 and 02 have fired once. Only Partisan.ase and Legion.ase (TankK) have 4 nodes. Ours (sim_world.gd:442-473) fires every ready weapon. Measured with the original rule emulated: mc2_15 0/3 -> 3/3 wins, Legion damage 461-568 -> 40. mc2_22 0/3 -> 1/3 (2/3 with heat off too), Partisan damage 568-1014 -> 18-26. Arena, 10 Partisans + 2 LRMC + 2 Catapult vs 4 mechs: lance wins 2/40 -> 40/40. Also in mc2_02, 05, 09, 12, 16, 18, 21, 23, 24. Lee's call: replicate behind a SimRules flag (as C1-C3) or keep firing and retune. The shipped exe is SafeDisc-encrypted, so this is from the source only. Report: docs/reports/fidelity/2026-10-23-combat.md F1",
+      "repro": "python3 docs/reports/fidelity/2026-10-23-combat/make_variant.py game/tools/autoplay.gd /tmp/v.gd; godot --headless --path game -s /tmp/v.gd -- 1 1800 --mission=mc2_15 --damage [--v-nodes]",
+      "owner": null,
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-23T16:08:57+13:00",
+      "updated": "2026-10-23T16:08:57+13:00",
+      "note": null
+    },
+    {
+      "id": "I89",
+      "sev": "P2",
+      "title": "Heat (H*) only taxes mechs: the player's all-mech lance loses 10-15 hit points against vehicle forces; the original had no heat",
+      "detail": "game (fidelity): sim_combat.gd:65-66 subtracts heat.csv fire_mod (17 at level 8, 45 at 16, 57 at 20), and sim_world.gd:456-459 holds weapons above level 20. Vehicles have uses_heat=false (sim_vehicle.gd:20-21). Original: no heat term in mover.cpp:6197-6420; updateHeat is compiled out. The duel tuning in combat-rules.md was mech vs mech only. Measured lance hit rate: 62-78% with heat, 75-87% without. mc2_19 0/3 -> 2/3 wins with heat off; mc2_15 0/3 -> 1/3; mc2_22 lasts 481-636 s instead of 129-436 s. Lee's call: keep, tax vehicles too, or soften fire_mod. Report F2",
+      "repro": "godot --headless --path game -s /tmp/v.gd -- 1 1800 --mission=mc2_19 --damage [--v-heatoff]  (v.gd from make_variant.py)",
+      "owner": null,
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-23T16:08:57+13:00",
+      "updated": "2026-10-23T16:08:57+13:00",
+      "note": null
+    },
+    {
+      "id": "I90",
+      "sev": "P2",
+      "title": "Contacts: 500 m around any team unit with no line of sight; the original is visual LOS within 225 m plus per-unit sensors (vehicles 0 m)",
+      "detail": "game (fidelity, contradicts abl-natives.md:1466): sim_abl.gd:21 SENSOR_M=500, is_contact sim_abl.gd:546-555. Original: visual = LOS within VisualRangeTable 9 x 25 m = 225 m (gameobj.cpp:1881-1897, gamesys.fit:29), MaxTreeLOSBlock 6. Sensor contacts by fitted sensor (Contact.cpp:274-330, compbas.csv:15-38): Vehicle Sensors 0 (visual only), Standard 1 m, Extended 400, Advanced 550, Cyclops 800. Patrol and guard brains newScan with VISUAL_OR_SENSOR inside their 300 m priority radius (corebrain.abx:276), so ours engage unseen. In mc2_22, 8 enemies at 405-492 m see the drop from t=0. Not measured: SENSOR_M is a const. Making it and a visual radius settable would let mc2_20 and mc2_23 be probed. Report F3",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_22 --damage --shots=200",
+      "owner": null,
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-23T16:08:58+13:00",
+      "updated": "2026-10-23T16:08:58+13:00",
+      "note": null
+    },
+    {
+      "id": "I91",
+      "sev": "P2",
+      "title": "Weapons fire without line of sight: no terrain or forest cover, LRMs need no spotter",
+      "detail": "game (fidelity): sim_world.gd:442-473 checks only range and arc; there is no LOS anywhere in game/scripts/sim/. Original calcWeaponsStatus (warrior.cpp:3396-3414): direct fire needs lineOfSight(target); indirect fire needs a team member's LOS (teamLineOfSight). Affects every forested or hilly map (mc2_22 has 14 forests) and LRM carriers, which in the original fire only with a spotter. Not measured. Report F4",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_22 --damage",
+      "owner": null,
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-23T16:08:58+13:00",
+      "updated": "2026-10-23T16:08:58+13:00",
+      "note": null
+    },
+    {
+      "id": "I92",
+      "sev": "P3",
+      "title": "AI brain moves always run; the original's patrols walk unless CoreRun is set",
+      "detail": "game (fidelity): sim_abl.gd:349-352 runs every brain move. Original corePatrol adds TACORDER_PARAM_RUN only when CoreRun is set (corebrain.abx:235-237); otherwise vehicles walk at 9 m/s (GroundVehicle:Movement WalkSpeed; Partisan runs at 15) and mechs at about half run speed. Patrols and help groups reach the lance 1.7-1.9x sooner, which adds to the 'converging groups' losses in mc2_20, 22 and 23. Not measured. Report F5",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_20 --damage --trace",
+      "owner": null,
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-23T16:08:58+13:00",
+      "updated": "2026-10-23T16:08:58+13:00",
+      "note": null
+    },
+    {
+      "id": "I93",
+      "sev": "P3",
+      "title": "No turret or torso slew time and no vehicle acceleration: vehicles fire at any bearing at once",
+      "detail": "game (fidelity, small): sim_world.gd:312 arc = turret yaw + 12.5 deg, so 180 for 360-deg turrets, and speed changes instantly. Original weaponLocked is relative to turret facing (gvehicl.cpp:4283-4286), the turret turns at MaxTurretYawRate (Partisan 120 deg/s), and MaxAccel 5 (gvehicl.cpp:2977-2993). Report F7",
+      "repro": "godot --headless --path game -s docs/reports/fidelity/2026-10-23-combat/arena.gd -- 40 partisan:4 150 pursue",
+      "owner": null,
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-23T16:08:58+13:00",
+      "updated": "2026-10-23T16:08:58+13:00",
       "note": null
     }
   ],
@@ -1583,46 +1661,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:55:50+13:00",
-      "who": "game-art",
-      "msg": "issue I44 P2: HD ryoken: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T16:55:50+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 4: 2 approved, 2 issues"
-    },
-    {
-      "at": "2026-10-19T16:56:26+13:00",
-      "who": "game-art",
-      "msg": "issue I45 P2: HD thor: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T16:56:26+13:00",
-      "who": "game-art",
-      "msg": "issue I46 P2: HD vulture: reseed_mesh"
-    },
-    {
-      "at": "2026-10-19T16:56:26+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 5: 2 approved, 2 issues"
-    },
-    {
-      "at": "2026-10-19T16:59:41+13:00",
-      "who": "conductor",
-      "msg": "issue I37 updated: repro, note \u2014 seed 8 (tries 8-11) drifted again; next untried block is 12"
-    },
-    {
-      "at": "2026-10-19T16:59:41+13:00",
-      "who": "conductor",
-      "msg": "issue I39 updated: repro, note \u2014 seeds 7-11 tried; the fault is the crop (head cut off at render zoom 1.25), so re-render from step 1; if it still crops, widen the pad margin in hd_mech.render"
-    },
-    {
-      "at": "2026-10-19T16:59:41+13:00",
-      "who": "conductor",
-      "msg": "issue I35 updated: repro, note \u2014 copters need the vehicle prompt; seeds 7-10 tried"
-    },
     {
       "at": "2026-10-19T16:59:41+13:00",
       "who": "conductor",
@@ -2582,6 +2620,46 @@
       "at": "2026-10-23T14:13:47+13:00",
       "who": "conductor",
       "msg": "issue I81 updated: note \u2014 Bot now drives to MoveAnyUnitToArea markers (mc2_08 '2 - Link up with Atlas' done on all 3 seeds) and clears every non-ally mover within 256 m of the extraction point before moving in (mc2_09 3/3, mc2_11 s1 extracted). docs/reports/playtest/2026-10-23/README.md"
+    },
+    {
+      "at": "2026-10-23T16:08:57+13:00",
+      "who": "agent",
+      "msg": "issue I88 P1: Partisan and Legion fire freely; the original's vehicle fire path lets them fire only 2 shots per mission (mc2_15, mc2_22)"
+    },
+    {
+      "at": "2026-10-23T16:08:57+13:00",
+      "who": "agent",
+      "msg": "issue I89 P2: Heat (H*) only taxes mechs: the player's all-mech lance loses 10-15 hit points against vehicle forces; the original had no heat"
+    },
+    {
+      "at": "2026-10-23T16:08:58+13:00",
+      "who": "agent",
+      "msg": "issue I90 P2: Contacts: 500 m around any team unit with no line of sight; the original is visual LOS within 225 m plus per-unit sensors (vehicles 0 m)"
+    },
+    {
+      "at": "2026-10-23T16:08:58+13:00",
+      "who": "agent",
+      "msg": "issue I91 P2: Weapons fire without line of sight: no terrain or forest cover, LRMs need no spotter"
+    },
+    {
+      "at": "2026-10-23T16:08:58+13:00",
+      "who": "agent",
+      "msg": "issue I92 P3: AI brain moves always run; the original's patrols walk unless CoreRun is set"
+    },
+    {
+      "at": "2026-10-23T16:08:58+13:00",
+      "who": "agent",
+      "msg": "issue I93 P3: No turret or torso slew time and no vehicle acceleration: vehicles fire at any bearing at once"
+    },
+    {
+      "at": "2026-10-23T16:08:58+13:00",
+      "who": "conductor",
+      "msg": "issue I12 updated: note \u2014 Fidelity 2026-10-23 (F6): what is left is sim_world.gd:492-515. Once its brain has attacked, an AI unit fires at the nearest armed enemy whenever it has no order target. The original's combatDecisionTree fires only at getLastTarget() and drops it beyond attackRadius (warrior.cpp:3493,3532-3538). See docs/reports/fidelity/2026-10-23-combat.md"
+    },
+    {
+      "at": "2026-10-23T18:10:38+13:00",
+      "who": "conductor",
+      "msg": "issue I87 fixed: Weapon and damage effects pass accepted by Lee 2026-10-23"
     }
   ],
   "choices": [

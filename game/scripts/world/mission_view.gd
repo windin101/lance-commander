@@ -4,7 +4,7 @@ extends Node3D
 ## Dev args: --mission=mc2_NN, --no-hud, --demo (player lance attacks the nearest enemy), --arena (moves the
 ## Starslayer onto open ground 110 m north of the lance first), --sim-seconds=N
 ## (fast-forward before the first frame), --focus=player|battle, --kill-unit=N
-## (destroy unit N at start and frame its wreck).
+## (destroy unit N at start and frame its wreck), --sim-until-shots=N (fast-forward until N shots are fired), --freeze (the sim does not step; the fx range drives it).
 
 @export var mission := "mc2_01"
 @export var play_intro := true
@@ -59,12 +59,13 @@ func _ready() -> void:
 	decals.setup(world.map)
 	_lighting(cam_block, mission_fit)
 
-	for m in world.units:
-		if m.is_mover():
-			_add_view(m)
 	effects = EffectsView.new()
 	effects.name = "Effects"
 	add_child(effects)
+	effects.setup(world.map)
+	for m in world.units:
+		if m.is_mover():
+			_add_view(m)
 
 	camera = RtsCamera.new()
 	camera.name = "Camera"
@@ -134,12 +135,20 @@ func _ready() -> void:
 	if _args.has("demo"):
 		_demo_orders()
 	var ff := float(_args.get("sim-seconds", "0"))
+	var until_shots := int(_args.get("sim-until-shots", "0"))  # dev (perf): fast-forward into the battle
+	if until_shots > 0:
+		ff = maxf(ff, 900.0)
 	while ff > 0.0:
 		if world.movie_mode:
 			world.force_movie_end = true  # a dev run: skip the script's cinematic (as Esc)
 		sm.step()
+		for e in world.events:
+			if e["type"] == "shot":
+				until_shots -= 1
 		_consume_events(false)
 		ff -= SimWorld.TICK
+		if until_shots <= 0 and _args.has("sim-until-shots"):
+			break
 	if _args.get("focus", "") == "battle":
 		_focus_battle()
 	if _args.has("kill-unit"):  # dev: destroy a unit at start and frame it (wreck checks)
@@ -155,6 +164,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_update_haze()
 	_acc += delta
+	if _args.has("freeze"):  # dev (fx range): the sim stands still, effects are driven by hand
+		_acc = 0.0
 	while _acc >= SimWorld.TICK:
 		# Skipping the opening flyby, or a dev run that has none, skips the script's movie as Esc does
 		# (forceMovieEnd, missiongui.cpp:435-436); the script fades and calls endMovieMode itself.
@@ -193,6 +204,8 @@ func _add_view(m: SimUnit) -> void:
 	add_child(v)
 	v.setup(m, world.map)
 	views[m.id] = v
+	if effects:
+		effects.track(v)
 	var foot_m := 1.25 * (1.6 + 0.024 * float(m.get("tonnage") if m.get("tonnage") != null else 50.0))  # 3.5 m at 50 t, 5 m at 100 t
 	v.footstep.connect(func(at: Vector3) -> void:
 		if audio:
@@ -221,35 +234,78 @@ func _consume_events(show: bool) -> void:
 			"shot":
 				if not (views.has(e["from"]) and views.has(e["to"])):
 					continue
-				var from: MechView = views[e["from"]]
-				var to: MechView = views[e["to"]]
-				effects.spawn_shot(from.muzzle(), to.aim_point(), e["form"], e["hit"], e["flight"])
-				if not e["hit"] and decals and e["form"] != "laser":  # a miss gouges the ground near the target
-					var tu: SimUnit = world.units[e["to"]]
-					decals.crater(tu.position + Vector2(randf_range(-6.0, 6.0), randf_range(-6.0, 6.0)), randf_range(2.5, 4.0))
-			"impact":
-				if e.get("damage", 0.0) >= 5.0 and views.has(e["unit"]):
-					effects.spawn_impact(views[e["unit"]].aim_point(), 0.7)
+				_shot_effect(e)
 			"strike_impact":
 				var p: Vector2 = e["at"]
-				effects.spawn_impact(TerrainView.to_3d(p, world.map.height_at(p) + 3.0), 6.0)
+				effects.burst("strike_blast", TerrainView.to_3d(p, world.map.height_at(p) + 1.0))
 				if decals:
 					decals.crater(p, 16.0)
 					decals.crater(p, 24.0, true)
 			"support":
 				if e["kind"] == "air_strike":
 					var p: Vector2 = e["at"]
-					effects.spawn_impact(TerrainView.to_3d(p, world.map.height_at(p) + 1.0), 0.6)  # marker flash
+					effects.burst("marker_flash", TerrainView.to_3d(p, world.map.height_at(p) + 1.0))
 			"disabled":
 				var u: SimUnit = world.units[e["unit"]]
 				if decals:
 					decals.crater(u.position, 18.0 if u is SimStructure else 10.0, true)
 				if u is SimStructure:
+					var box: AABB = objects_view.bounds(u.object_index)
 					objects_view.destroy(u.object_index)
-					effects.spawn_impact(TerrainView.to_3d(u.position, world.map.height_at(u.position) + 6.0), 4.0)
+					var base := TerrainView.to_3d(u.position, world.map.height_at(u.position))
+					var size := 1.0
+					var height := 10.0
+					if box.size.length() > 0.1:
+						base = Vector3(box.get_center().x, box.position.y, box.get_center().z)
+						size = clampf(maxf(box.size.x, box.size.z) / 14.0, 0.6, 3.0)
+						height = box.size.y
+					effects.destroyed("building", base, size, height)
 				elif views.has(e["unit"]):
-					effects.spawn_impact(views[e["unit"]].aim_point(), 3.0)
+					var v: MechView = views[e["unit"]]
+					effects.destroyed("mech" if u is SimMech else "vehicle", v.global_position, v.fx_scale(), v.bounds.size.y)
 	world.events.clear()
+
+
+## The visible shot (I87): the weapon's own effect from its muzzle node to the body location it hit, or into
+## the ground past the target; misses leave a crater or scorch where they land.
+func _shot_effect(e: Dictionary) -> void:
+	var shooter: SimUnit = world.units[e["from"]]
+	var item: Dictionary = shooter.items[e["weapon"]]
+	var fx_id := int(item["component"].get("weapon", {}).get("special_fx", 0))
+	var opts := {"component": int(item["master_id"])}
+	var muzzle: Variant = null
+	if views.has(e["from"]):
+		var from: MechView = views[e["from"]]
+		var node := from.muzzle_node(e["weapon"])
+		if node:
+			opts["from_node"] = node
+		muzzle = from.muzzle_point(e["weapon"])
+	else:
+		muzzle = _structure_point(shooter, 0.8)  # turrets and armed buildings
+	var aim: Variant = null
+	if views.has(e["to"]):
+		var to: MechView = views[e["to"]]
+		opts["to_node"] = to
+		aim = to.body_point(int(e.get("location", 1))) if e["hit"] else to.aim_point()
+	else:
+		aim = _structure_point(world.units[e["to"]], 0.5)
+	if muzzle == null or aim == null:
+		return
+	if decals:
+		opts["on_ground"] = func(at: Vector3, size_m: float, scorch: bool) -> void:
+			decals.crater(Vector2(at.x, -at.z), size_m, scorch)
+	effects.fire(fx_id, muzzle, aim, e["hit"], e["flight"], opts)
+
+
+## A point at height fraction `up` of a map structure's model (null: no model).
+func _structure_point(u: SimUnit, up: float) -> Variant:
+	if not (u is SimStructure) or objects_view == null:
+		return null
+	var box: AABB = objects_view.bounds(u.object_index)
+	if box.size.length() < 0.1:
+		return TerrainView.to_3d(u.position, world.map.height_at(u.position) + 4.0 * up)
+	var c := box.get_center()
+	return Vector3(c.x, box.position.y + box.size.y * up, c.z)
 
 
 func _audio_event(e: Dictionary) -> void:
