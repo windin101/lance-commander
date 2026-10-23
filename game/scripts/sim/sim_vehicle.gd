@@ -60,6 +60,8 @@ static func from_data(v: Dictionary, rules: SimRules, vehicle_pilot: SimPilot) -
 	u.run_speed = float(v.get("max_velocity", 10))
 	u.walk_speed = minf(WALK_SPEED, u.run_speed)
 	u.max_torso_yaw = float(v.get("max_turret_yaw", 0))
+	u.turret_rate = float(v.get("max_turret_yaw_rate", 0))
+	u.max_accel = float(v.get("max_accel", 0.0))
 	u.fire_arc_half = FIRE_ARC_HALF
 	u.turn_rate = turn_rate_for(u.tonnage)
 	u.explosion_damage = float(v.get("explosion_damage", 0))

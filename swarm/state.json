@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T09:14:34+13:00",
+  "updated": "2026-10-24T09:53:38+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1436,8 +1436,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-20T21:14:49+13:00",
-      "updated": "2026-10-24T09:08:18+13:00",
-      "note": "Portraits done (bee39f2). Remaining: comms subtitles/speaker data, tac map sensor ring and planet name."
+      "updated": "2026-10-24T09:29:44+13:00",
+      "note": "Sensor rings, Carver V location and briefing videos done. Comms subtitles: no data in the original (playWave plays audio only); would need transcription of the WAVs, Lee's call."
     },
     {
       "id": "I85",
@@ -1551,10 +1551,10 @@
       "repro": "godot --headless --path game -s docs/reports/fidelity/2026-10-23-combat/arena.gd -- 40 partisan:4 150 pursue",
       "owner": null,
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-23T16:08:58+13:00",
-      "updated": "2026-10-23T16:08:58+13:00",
-      "note": null
+      "updated": "2026-10-24T09:53:38+13:00",
+      "note": "Fixed 2026-10-24 (uncommitted). SimUnit.turret_rel/turret_rate/max_accel; SimWorld._update_turret turns torsos and turrets at TorsoYawRate / MaxTurretYawRate within their twist limit (mech.cpp:4580-4623, gvehicl.cpp:2130-2156, 2937-2961); weapons lock within FireArc/2 of the torso or turret (gvehicl.cpp:4283, mech.cpp:7342); copters (TorsoYawRate 0) turn their bodies; vehicles accelerate at MaxAccel (gvehicl.cpp:2977-2993; vehicles.py now converts max_accel). Flag SimRules.slew. Arena (40 fights): Partisan x4 dmg/min 17->22, Harasser x6 84->25 (fights 9->13 s), Partisan x10+LRMC x2+Catapult x2 214->207. Missions (seeds 1-3, slew on/off): mc2_05 3/3 vs 2/3 (lance damage taken 534 vs 461), mc2_15 3/3 vs 3/3 (334 vs 389), mc2_22 0/3 vs 0/3 (1075 vs 1298). Tests: sim_fidelity_test.gd test_a_turret_must_turn_before_it_fires_behind, test_vehicles_accelerate_at_max_accel."
     },
     {
       "id": "I94",
@@ -1791,16 +1791,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I43 duplicate: superseded by I51"
-    },
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I51 updated: repro, note \u2014 repro planned by hd_redo.py: concept seeds tried [8] -> 9"
-    },
     {
       "at": "2026-10-19T17:46:46+13:00",
       "who": "conductor",
@@ -2790,6 +2780,16 @@
       "at": "2026-10-24T09:14:34+13:00",
       "who": "conductor",
       "msg": "issue I100 fixed: Fixed 2026-10-24 (uncommitted). SimSupport._repair_step marks the truck's power-down as an ordered shutdown (powered_down, orderPowerDown tacordr.cpp:1471) like the bay; _end_repair powers the mech back up unless it was already ordered down. Test: support_test.gd test_a_mech_stays_powered_down_through_the_truck_repair."
+    },
+    {
+      "at": "2026-10-24T09:29:44+13:00",
+      "who": "conductor",
+      "msg": "issue I84 updated: note \u2014 Sensor rings, Carver V location and briefing videos done. Comms subtitles: no data in the original (playWave plays audio only); would need transcription of the WAVs, Lee's call."
+    },
+    {
+      "at": "2026-10-24T09:53:38+13:00",
+      "who": "conductor",
+      "msg": "issue I93 fixed: Fixed 2026-10-24 (uncommitted). SimUnit.turret_rel/turret_rate/max_accel; SimWorld._update_turret turns torsos and turrets at TorsoYawRate / MaxTurretYawRate within their twist limit (mech.cpp:4580-4623, gvehicl.cpp:2130-2156, 2937-2961); weapons lock within FireArc/2 of the torso or turret (gvehicl.cpp:4283, mech.cpp:7342); copters (TorsoYawRate 0) turn their bodies; vehicles accelerate at MaxAccel (gvehicl.cpp:2977-2993; vehicles.py now converts max_accel). Flag SimRules.slew. Arena (40 fights): Partisan x4 dmg/min 17->22, Harasser x6 84->25 (fights 9->13 s), Partisan x10+LRMC x2+Catapult x2 214->207. Missions (seeds 1-3, slew on/off): mc2_05 3/3 vs 2/3 (lance damage taken 534 vs 461), mc2_15 3/3 vs 3/3 (334 vs 389), mc2_22 0/3 vs 0/3 (1075 vs 1298). Tests: sim_fidelity_test.gd test_a_turret_must_turn_before_it_fires_behind, test_vehicles_accelerate_at_max_accel."
     }
   ],
   "choices": [

@@ -59,6 +59,11 @@ var brain_walk := true
 ## Attackers walk to an attack goal (Mover::calcMoveGoal: a cell on the fire-range ring with a
 ## line of sight, spread from group mates) instead of stopping at the first point in reach.
 var attack_goals := true
+## I93: torsos and turrets turn at their yaw rate and weapons lock relative to them
+## (BattleMech::updateTorso mech.cpp:4580-4623, GroundVehicle::updateTurret gvehicl.cpp:2130-2156,
+## weaponLocked gvehicl.cpp:4283, mech.cpp:7342); vehicles change speed at MaxAccel
+## (gvehicl.cpp:2970-2993). Off: instant twist and speed.
+var slew := true
 
 # Original behaviour kept on purpose (combat-rules.md "Kept original rules").
 ## O1 (I88, Lee 2026-10-23: copy the original): a vehicle fires only from weapon nodes 2-3

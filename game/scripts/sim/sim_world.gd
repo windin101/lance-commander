@@ -209,6 +209,7 @@ func step(dt: float = TICK) -> void:
 			m.brain.think(self, m)
 		if m.is_mover():
 			_update_motion(m, dt)
+			_update_turret(m, dt)
 			_mine_check(m, dt)
 		elif m is SimTurret:
 			m.update(self, dt)
@@ -250,6 +251,8 @@ func _splash(v: SimVehicle) -> void:
 
 func _update_motion(m: SimUnit, dt: float) -> void:
 	m.speed = 0.0
+	var cruising := m.cruise
+	m.cruise = 0.0  # standing still unless the move below runs
 	if m.order == Order.JUMP:  # airborne: always lands, whatever happens to it in flight
 		_update_jump(m, dt)
 		return
@@ -275,6 +278,7 @@ func _update_motion(m: SimUnit, dt: float) -> void:
 		m.body_state = SimMech.BodyState.STANDING
 		_face_target(m, dt)
 		return
+	m.cruise = cruising
 	var to_goal: Vector2 = goal - m.position
 	var dist := to_goal.length()
 	var desired := rad_to_deg(atan2(to_goal.x, to_goal.y))  # 0 = north, clockwise
@@ -284,6 +288,10 @@ func _update_motion(m: SimUnit, dt: float) -> void:
 	var top := max_speed(m)
 	var align := clampf(1.0 - (absf(diff) - 30.0) / 60.0, 0.0, 1.0)  # slow when turning hard
 	m.speed = minf(top * align, dist / dt)
+	if rules.slew and m.max_accel > 0.0:
+		# vehicles gain speed at MaxAccel (gvehicl.cpp:2977-2993); the stop at a goal stays immediate
+		m.speed = minf(m.speed, m.cruise + m.max_accel * dt)
+	m.cruise = m.speed
 	m.position += Vector2(sin(deg_to_rad(m.facing)), cos(deg_to_rad(m.facing))) * m.speed * dt
 	if m.speed <= 0.01:
 		m.body_state = SimMech.BodyState.STANDING
@@ -293,6 +301,26 @@ func _update_motion(m: SimUnit, dt: float) -> void:
 		m.body_state = SimMech.BodyState.RUNNING
 	else:
 		m.body_state = SimMech.BodyState.WALKING
+
+
+## BattleMech::updateTorso / GroundVehicle::updateTurret: turn the torso or turret toward the
+## current target (back to the front with none) at its yaw rate when the target is outside the
+## fire arc, within its twist limit (gvehicl.cpp:2937-2961).
+func _update_turret(m: SimUnit, dt: float) -> void:
+	if not rules.slew or m.is_disabled() or m.status != SimUnit.Status.NORMAL:
+		return
+	var t: SimUnit = m.order_target if m.order in [Order.ATTACK, Order.GUARD] and m.order_target else m.current_target
+	var want := 0.0
+	if t and not t.is_disabled():
+		want = m.rel_facing_to(t.position)
+	var off := wrapf(want - m.turret_rel, -180.0, 180.0)
+	if absf(off) <= m.fire_arc_half and t != null:
+		return
+	if t == null and absf(m.turret_rel) <= m.fire_arc_half:
+		return
+	var step := clampf(off, -m.turret_rate * dt, m.turret_rate * dt)
+	var lim := m.max_torso_yaw
+	m.turret_rel = clampf(m.turret_rel + step, -lim, lim) if lim < 180.0 else wrapf(m.turret_rel + step, -180.0, 180.0)
 
 
 ## Airborne: straight line at constant speed, turning toward the landing point; lands on
@@ -333,7 +361,10 @@ func _face_target(m: SimUnit, dt: float) -> void:
 
 
 func fire_arc(m: SimUnit) -> float:
-	return minf(float(m.max_torso_yaw) + m.fire_arc_half, 180.0)
+	var twist := float(m.max_torso_yaw)
+	if rules.slew and m.turret_rate <= 0.0:
+		twist = 0.0  # no yaw rate (the copters' TorsoYawRate 0): the body has to face the target
+	return minf(twist + m.fire_arc_half, 180.0)
 
 
 ## Next point to walk to, or null. Advances the path; handles attack approach.
@@ -741,7 +772,11 @@ func _combat(m: SimUnit) -> void:
 	if target == null:
 		return
 	m.current_target = target
-	if absf(m.rel_facing_to(target.position)) > fire_arc(m):
+	if rules.slew:
+		# weaponLocked: the bearing from the torso or turret, within FireArc/2 (warrior.cpp:3393-3410)
+		if absf(wrapf(m.rel_facing_to(target.position) - m.turret_rel, -180.0, 180.0)) > m.fire_arc_half:
+			return
+	elif absf(m.rel_facing_to(target.position)) > fire_arc(m):
 		return
 	# calcWeaponsStatus (warrior.cpp:3396-3414): direct fire needs line of sight; indirect-fire
 	# weapons may fire on any team mate's (I91)
