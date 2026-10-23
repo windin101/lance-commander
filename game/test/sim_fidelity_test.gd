@@ -306,3 +306,42 @@ func test_an_attacker_closes_until_it_can_see_the_target() -> void:
 	assert_float(a.distance_to(target.position)).is_less_equal(world.attack_range(a) / 0.9 + 1.0)  # in reach...
 	_shots_by(a, 6.0)
 	assert_float(a.position.distance_to(start)).is_greater(10.0)  # ...but keeps walking for a line of fire
+
+
+func test_a_unit_placed_on_a_blocked_cell_can_walk_out() -> void:
+	_flat_world()
+	var m := world.map
+	for dy in range(-1, 2):
+		for dx in range(-1, 2):
+			var c := m.cell_of(Vector2.ZERO) + Vector2i(dx, dy)
+			m.cells[c.y * m.cells_per_side + c.x] = 0  # impassable footprint (mc2_04's facility Anubis)
+	m._astar = null
+	var path := m.find_path(Vector2.ZERO, Vector2(100, 0))
+	assert_bool(path.is_empty()).is_false()
+	assert_bool(m.is_walkable(m.cell_of(path[0]))).is_true()
+
+
+func test_an_attacker_in_reach_without_sight_moves_to_a_spot_with_it() -> void:
+	_flat_world()
+	var m := world.map
+	var target := _target_mech(Vector2(0, 60))
+	target.team = 1
+	# a 12 m wall of raised (building) cells right in front of the target, toward the attacker
+	for x in range(-3, 4):
+		var c := m.cell_of(Vector2(x * m.cell_m, 45))
+		m.cells[c.y * m.cells_per_side + c.x] = (1 << 10) | (3 << 18)
+	m._los_local = PackedFloat32Array()
+	var a := SimFixture.mech("atlas", rules)
+	a.team = 0
+	world.add_unit(a)
+	assert_bool(world.line_of_sight(a, target)).is_false()
+	world.order_attack(a, target)
+	var seen := false
+	for i in 200:
+		world.step()
+		world.events.clear()
+		world._los_cache.clear()
+		if world.line_of_sight(a, target):
+			seen = true
+			break
+	assert_bool(seen).is_true()

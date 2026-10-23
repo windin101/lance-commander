@@ -1,0 +1,64 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_16
+force: campaign 5 units 320 t of 320 t, RP 16000: Lao Hu Prime(pmwsteel), Lao Hu Prime(pmwclaymore), Shootist Prime(pmwworm), Catapult Prime(pmwmeat), Raven Prime(pmwpalerider)
+ABL pilots: 51
+t=   6.2  SUPPORT air_strike (-875, -610) rp_left=9000
+t=  33.2  CAPTURED LaoHu DavionSensorControl.fit
+t=  33.2  objective done: 1. Capture Sensor Control
+t=  56.3  CAPTURED LaoHu DavionTurretControl.fit
+t=  59.9  CAPTURED LaoHu RepairBay
+t= 108.3  CAPTURED Raven DavionTurretControl.fit
+t= 166.0  LOST Raven (disabled, armour 35%, heat 0, ejected false, pilot 0.0 wounds, last hit by Vulture)
+t= 175.2  LOST LaoHu (disabled, armour 60%, heat 0, ejected false, pilot 1.0 wounds, last hit by Uller)
+t= 209.2  SUPPORT repair_truck (-564, 800) rp_left=3000
+t= 236.5  CAPTURED Catapult DavionTurretControl.fit
+t= 238.6  REPAIR_DONE LaoHu 
+t= 249.7  REPAIR_DONE Catapult 
+t= 251.8  CAPTURED LaoHu DavionTurretControl.fit
+t= 277.3  objective done: 2. Destroy All Base Defenders
+t= 293.6  CAPTURED Catapult DavionTurretControl.fit
+t= 293.6  objective done: a. Capture All Main Base Davion Turret Controls
+t= 300.3  CAPTURED Shootist RepairBay
+t= 428.9  REPAIR_DONE Shootist 
+t= 429.7  PULLBACK LaoHu at 29%
+t= 429.7  BAY LaoHu -> RepairBay (532 m)
+t= 431.9  LOST LaoHu (disabled, armour 17%, heat 0, ejected false, pilot 1.0 wounds, last hit by Madcat)
+t= 477.7  PULLBACK Shootist at 27%
+t= 477.7  BAY Shootist -> RepairBay (596 m)
+t= 483.7  BAY Shootist -> RepairBay (566 m)
+t= 508.8  REPAIR_DONE Shootist 
+t= 537.7  FALLBACK 9 threats (dps 25 vs 6, health 57%) to (-555, -86)
+t= 538.0  LOST Shootist (disabled, armour 23%, heat 0, ejected false, pilot 2.0 wounds, last hit by Wolfhound)
+t= 538.2  LOST Catapult (disabled, armour 62%, heat 0, ejected false, pilot 0.0 wounds, last hit by ShadowCat)
+t= 569.0  harness: no armed lance unit left since t=539 (only support vehicles); scored LOST (I13)
+seed 1 end t=569 result=LOST  player alive 1  enemies alive 21
+damage to lance: 1082 from 33 attackers; hits by location (0 head .. 10 rear RT): { 1: 48, 4: 35, 5: 44, 6: 54, 3: 54, 7: 38, 8: 6, 2: 33, 9: 3, 0: 4, 10: 2 }
+damage by lance: 1216; kills 22
+       314  Madcat (mech)
+       186  Vulture (mech)
+       120  ShadowCat (mech)
+        90  MediumAutoCannonTurret (vehicle)
+        84  Uller (mech)
+        63  Lrmcarrier (vehicle)
+        63  Hunter (vehicle)
+        50  Wolfhound (mech)
+        30  GaussTurret (vehicle)
+        28  Centipede (vehicle)
+  obj 0 P: done  1. Capture Sensor Control
+  obj 1 P: done  2. Destroy All Base Defenders
+  obj 2 P: open  3. Destroy All Reinforcements
+  obj 3 P: open  4. Capture Davion Base HQ
+  obj 4 P: gated  5. Move All Surviving Mechs to Extraction Point
+  obj 5 s: done  a. Capture All Main Base Davion Turret Controls
+  obj 6 s: open  b. Capture All Main Base Davion Gate Controls
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_16_NorthPatrol:attack": 1, "mc2_16_SensorGuard:attack": 2, "mc2_16_SensorPatrol:attack": 2, "mc2_16_1stMain:attack": 1, "mc2_16_BaseGuard:attack": 8, "mc2_16_BasePatrol2:attack": 2, "mc2_16_1stMain_lrm:base1escort": 1, "mc2_16_1stMain:base1escort": 2, "mc2_16_BaseGuard_lrm:start": 1, "mc2_16_2ndMain_part:base1escort": 1, "mc2_16_2ndMain2:base1patrol": 2, "mc2_16_2ndMain:attack": 1, "mc2_16_3rdMain:base1escort": 2, "mc2_16_3rdMain_lrm:base1escort": 1, "mc2_16_3rdMain:attack": 1, "mc2_16_BasePatrol3:attack": 1, "mc2_16_1stEast2:base1patrol": 2, "mc2_16_1stEast:base1escort": 3, "mc2_16_2ndEast:base1escort": 1, "mc2_16_2ndEast2:base1patrol": 3, "mc2_16_3rdEast:base1escort": 2, "mc2_16_3rdEast2:base1patrol": 1, "mc2_16_4thMain:base1escort": 2, "mc2_16_BaseGuard2:attack": 1, "mc2_16_BaseGuard3_lrm:attack": 2, "PBrain:": 5 }
+enemy pilots that moved >20 m: 46 / 51
+
+--- stderr ---
+WARNING: 491 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

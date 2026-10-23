@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_14
+force: campaign 1 units 75 t of 75 t, RP 0: Lao Hu Prime(pmwsteel)
+ABL pilots: 36
+t=  87.3  CAPTURED LaoHu MeetHall
+t=  87.3  objective done: Contact the Liao Operative
+t= 163.5  CAPTURED LaoHu S_TurretControl
+t= 175.4  CAPTURED LaoHu S_TurretControl
+t= 193.8  CAPTURED LaoHu S_TurretControl
+t= 306.7  FALLBACK 4 threats (dps 6 vs 2, health 20%) to (671, 525)
+t= 422.6  CAPTURED LaoHu RepairBay
+t= 423.7  BAY LaoHu -> RepairBay (37 m)
+t= 459.7  REPAIR_DONE LaoHu RepairBay
+t= 507.8  objective done: Destroy Orbital Gun Alpha
+t= 656.6  CAPTURED LaoHu S_TurretControl
+t= 669.9  CAPTURED LaoHu S_TurretControl
+t= 687.7  FALLBACK 3 threats (dps 4 vs 1, health 58%) to (-721, -379)
+t= 747.7  FALLBACK 2 threats (dps 6 vs 0, health 31%) to (-798, -340)
+t= 749.5  LOST LaoHu (disabled, armour 19%, heat 0, ejected false, pilot 1.0 wounds, last hit by Hunter)
+t= 754.5  MISSION LOST
+seed 1 end t=755 result=LOST  player alive 0  enemies alive 18
+damage to lance: 430 from 21 attackers; hits by location (0 head .. 10 rear RT): { 2: 21, 5: 17, 3: 15, 6: 12, 4: 7, 0: 1, 7: 19, 1: 14, 8: 1, 9: 2 }
+damage by lance: 516; kills 17
+       186  MediumAutoCannonTurret (vehicle)
+        68  Werewolf (mech)
+        60  Monsoon (vehicle)
+        58  SRMTurret (vehicle)
+        20  Hunchback (mech)
+        18  Hunter (vehicle)
+        12  Vedette (vehicle)
+         9  Lrmcarrier (vehicle)
+  obj 0 P: done  Contact the Liao Operative
+  obj 1 P: done  Destroy Orbital Gun Alpha
+  obj 2 P: open  Destroy Orbital Gun Beta
+  obj 3 P: open  Destroy Orbital Gun Gamma
+  obj 4 P: open  Destroy Mobile Orbital Gun Omega
+  obj 5 P: gated  Move to the Extraction Point
+  obj 6 s: open  Capture Airport Sensor Control
+  obj 7 s: open  Destroy Fuel Supplies at Resupply Depot
+  obj 8 s: open  Capture Communications Array
+  obj 9 s: open  Destroy all Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_14_patrol8:start": 1, "mc2_14_patrol1:attack": 1, "mc2_14_patrol2:attack": 2, "mc2_14_static1:attack": 3, "mc2_14_patrol3:attack": 1, "mc2_14_patrol4:attack": 2, "mc2_14_static1:start": 7, "mc2_14_patrol5:start": 2, "mc2_14_patrol6:attack": 1, "mc2_14_patrol7:start": 1, "mc2_14_patrol15:start": 2, "mc2_14_patrol16:attack": 2, "mc2_14_patrol9:attack": 1, "mc2_14_MOG_patrol:start": 1, "mc2_14_patrol10:start": 2, "mc2_14_patrol11:start": 2, "mc2_14_patrol12:attack": 2, "mc2_14_patrol13:start": 1, "mc2_14_patrol14:start": 1, "PBrain:": 1 }
+enemy pilots that moved >20 m: 29 / 36
+
+--- stderr ---
+WARNING: 913 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

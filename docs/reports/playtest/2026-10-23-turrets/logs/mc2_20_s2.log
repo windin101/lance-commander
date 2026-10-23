@@ -1,0 +1,75 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_20
+force: campaign 5 units 320 t of 320 t, RP 12000: Mad Cat Prime(pmwscooter), Mad Cat Prime(pmwvenom), Shootist Prime(pmwbubba), Catapult Prime(pmwwicked), Wolfhound Prime(pmwsteel)
+ABL pilots: 79
+t=  63.5  SUPPORT salvage_craft Hunchback rp_left=2000
+t= 145.3  objective done: 1. Goto Davion Dropship
+t= 161.0  CAPTURED Wolfhound OrdnanceTruckProp
+t= 209.3  LOST Wolfhound (disabled, armour 20%, heat 0, ejected false, pilot 2.0 wounds, last hit by ShadowCat)
+t= 221.6  SUPPORT repair_truck (135, 388) rp_left=0
+t= 244.2  REPAIR_DONE Hunchback 
+t= 261.2  REPAIR_DONE Madcat 
+t= 269.9  CAPTURED Madcat LiaoTurretControl.fit
+t= 269.9  LOST LRMTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Madcat)
+t= 297.5  REPAIR_DONE Madcat 
+t= 304.2  CAPTURED Hunchback OrdnanceTruckProp
+t= 306.8  CAPTURED Shootist OrdnanceTruckProp
+t= 342.7  SUPPORT artillery_piece (130, 662) rp_left=0
+t= 380.2  REPAIR_DONE Catapult 
+t= 441.5  REPAIR_DONE Hunchback 
+t= 448.3  objective done: 4. Destroy Mobile Orbital Gun#1
+t= 451.8  REPAIR_DONE Madcat 
+t= 451.9  LOST Repairtruck (disabled, armour 100%, heat 0, ejected false, pilot 0.0 wounds, last hit by -)
+t= 452.8  CAPTURED Hunchback OrdnanceTruckProp
+t= 453.8  CAPTURED Hunchback OrdnanceTruckProp
+t= 458.3  CAPTURED Madcat OrdnanceTruckProp
+t= 459.7  SUPPORT salvage_craft Highlander rp_left=2000
+t= 459.8  CAPTURED Hunchback OrdnanceTruckProp
+t= 471.7  SUPPORT repair_truck (198, 1027) rp_left=0
+t= 492.8  CAPTURED Madcat Prison
+t= 492.8  objective done: 2. Rescue Drop Ship Crew at Prison
+t= 497.8  REPAIR_DONE Highlander 
+t= 567.1  CAPTURED Madcat LiaoTurretControl.fit
+t= 622.5  LOST LookoutTower (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by -)
+t= 622.9  LOST Hunchback (disabled, armour 42%, heat 0, ejected false, pilot 3.0 wounds, last hit by Swarmlrmc)
+t= 633.7  REPAIR_DONE Madcat 
+t= 634.0  LOST Shootist (disabled, armour 30%, heat 4, ejected false, pilot 1.0 wounds, last hit by Storm)
+t= 735.3  REPAIR_DONE Catapult 
+t= 749.7  REPAIR_DONE Madcat 
+t= 773.1  CAPTURED Catapult OrdnanceTruckProp
+t= 783.5  CAPTURED Highlander RepairBay
+t= 812.2  objective done: 3. Destroy Orbital Turret
+t= 994.3  objective done: 5. Destroy Moblie Orbital Gun #2
+t=1042.0  objective done: 6. Go To Davion Dropship for Extraction
+t=1047.1  MISSION WON
+seed 2 end t=1047 result=WON  player alive 6  enemies alive 5
+damage to lance: 1170 from 54 attackers; hits by location (0 head .. 10 rear RT): { 4: 40, 7: 30, 1: 71, 2: 43, 3: 38, 5: 46, 6: 35, 0: 17, 10: 2, 8: 3 }
+damage by lance: 5616; kills 69
+       157  Zeus (mech)
+       103  Highlander (mech)
+       103  Madcat (mech)
+        96  Swarmlrmc (vehicle)
+        90  Hollander (mech)
+        81  MenShen (mech)
+        78  Starslayer (mech)
+        63  Storm (vehicle)
+        60  Lrmcarrier (vehicle)
+        54  LRMTurret (vehicle)
+  obj 0 P: done  1. Goto Davion Dropship
+  obj 1 P: done  2. Rescue Drop Ship Crew at Prison
+  obj 2 P: done  3. Destroy Orbital Turret
+  obj 3 P: done  4. Destroy Mobile Orbital Gun#1
+  obj 4 P: done  5. Destroy Moblie Orbital Gun #2
+  obj 5 P: done  6. Go To Davion Dropship for Extraction
+  obj 6 s: open  a. Destroy All Enemy Forces
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_20_Base_PD2:attack": 2, "mc2_20_MOG_PD:noweapons": 1, "mc2_20_s1Sth_Patrol_M2:start": 2, "mc2_20_s1Sth_Patrol_M1:start": 3, "mc2_20_Prision_guard:attack": 4, "mc2_20_Prision_PD:attack": 2, "mc2_20_Prision_Patrol_M1:attack": 5, "mc2_20_s1WST_Patrol_M1:attack": 6, "mc2_20_MogM_Mog:start": 1, "mc2_20_MogM_escort_M1:attack": 2, "mc2_20_MogM_escort_V1:attack": 4, "mc2_20_MOG_REIN:attack": 5, "pbrain:attack": 2, "mc2_20_MOG_guard:attack": 1, "mc2_20_Base_Rein_V1:attack": 3, "mc2_20_Base_Patrol_M1:attack": 5, "mc2_20_Base_Rein_M1:attack": 1, "mc2_20_Base_PD:attack": 1, "mc2_20_base_Patrol_v1:attack": 1, "mc2_20_Base_guard:attack": 3, "mc2_20_Turret1_guard:attack": 2, "mc2_20_Dship_PD:attack": 4, "mc2_20_Dship_Patrol_V1:attack": 5, "mc2_20_MOG_guard_V1:attack": 9, "PBrain:": 5, "pbrain:": 2 }
+enemy pilots that moved >20 m: 70 / 81
+
+--- stderr ---
+WARNING: 628 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

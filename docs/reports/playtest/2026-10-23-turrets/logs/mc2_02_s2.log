@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_02
+force: campaign 3 units 165 t of 170 t, RP 6000: Bushwacker Prime(pmwmeat), Bushwacker Prime(pmwworm), Bushwacker Prime(pmwpalerider)
+ABL pilots: 45
+t=   6.7  CAPTURED Bushwacker HeavyIndustrial
+t=   6.7  objective done: 1. Capture Resource Building
+t=  15.5  SUPPORT air_strike (422, -30) rp_left=9000
+t= 139.5  objective done: 2. Destroy All Bandits at Base Gemini South
+t= 152.5  CAPTURED Bushwacker S_TurretControl
+t= 205.2  CAPTURED Bushwacker S_TurretControl
+t= 241.7  CAPTURED Bushwacker S_TurretControl
+t= 258.8  CAPTURED Bushwacker S_SensorControl
+t= 258.8  objective done: 3. Capture Steiner Sensor Control
+t= 344.3  LOST Bushwacker (disabled, armour 28%, heat 0, ejected false, pilot 0.0 wounds, last hit by Flea)
+t= 347.7  LOST Bushwacker (disabled, armour 22%, heat 0, ejected false, pilot 2.0 wounds, last hit by Armoredcar)
+t= 488.6  objective done: 4. Destroy All Bandits at Base Gemini North
+t= 488.6  objective done: Destroy All Bandit Forces Occupying Base Gemini
+t= 489.7  SUPPORT repair_truck (-508, 280) rp_left=3000
+t= 510.1  REPAIR_DONE Bushwacker 
+t= 516.1  CAPTURED Bushwacker S_TurretControl
+t= 518.4  CAPTURED Bushwacker S_HQ
+t= 518.4  objective done: 5. Capture Steiner Headquarters
+t= 523.4  MISSION WON
+seed 2 end t=523 result=WON  player alive 2  enemies alive 11
+damage to lance: 322 from 23 attackers; hits by location (0 head .. 10 rear RT): { 3: 24, 1: 28, 2: 26, 4: 25, 5: 20, 7: 13, 6: 17, 0: 4, 8: 1 }
+damage by lance: 774; kills 26
+       166  SRMPopup (vehicle)
+        35  Flea (mech)
+        33  Lrmcarrier (vehicle)
+        32  Centipede (vehicle)
+        29  Armoredcar (vehicle)
+        23  Urbanmech (mech)
+         4  Partisan (vehicle)
+  obj 0 P: done  1. Capture Resource Building
+  obj 1 P: done  2. Destroy All Bandits at Base Gemini South
+  obj 2 P: done  3. Capture Steiner Sensor Control
+  obj 3 P: done  4. Destroy All Bandits at Base Gemini North
+  obj 4 P: done  5. Capture Steiner Headquarters
+  obj 5 P: done  Destroy All Bandit Forces Occupying Base Gemini
+  obj 6 s hidden: done  Hidden Trigger for Calling in Base Assault Team
+  obj 7 s hidden: done  SUPER HIDDEN OBJECTIVE TO TRIGGER A VO
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_02_BaseDef_Out_Mech_1:attack": 1, "mc2_02_BaseDef_Mech_1:attack": 1, "mc2_02_BaseDef_Pat_veh_1:attack": 1, "mc2_02_BaseDef_veh_1:attack": 4, "mc2_02_Airport_Veh_1:start": 1, "mc2_02_Airport_Veh_1:attack": 1, "mc2_02_Cargo_2:start": 1, "mc2_02_BaseDef_LRM:attack": 1, "mc2_02_NBase_veh_2:attack": 1, "mc2_02_NBaseG_PD:attack": 3, "mc2_02_NBaseG_v1:attack": 2, "mc2_02_NBase_veh_1:attack": 2, "mc2_02_NBasePat_veh_1:attack": 1, "mc2_02_LakePat_veh_1:start": 3, "mc2_02_LakeRP_veh_1:start": 2, "mc2_02_NBasePat_1:attack": 1, "mc2_02_NBase_REIN_1:start": 3, "mc2_02_RPGuard_veh_1:attack": 2, "mc2_02_Cargo_5:start": 1, "mc2_02_Cargo_4:start": 1, "mc2_02_NBase_REIN_m1:start": 1, "mc2_02_CampGuard_APC:start": 1, "mc2_02_CampGuard_MecH:attack": 1, "mc2_02_CampGuard_1:start": 4, "mc2_02_CampGuard_1:attack": 2, "PBrain:": 3 }
+enemy pilots that moved >20 m: 26 / 45
+
+--- stderr ---
+WARNING: 486 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

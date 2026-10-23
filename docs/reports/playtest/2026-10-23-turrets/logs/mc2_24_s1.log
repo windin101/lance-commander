@@ -1,0 +1,57 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_24
+force: campaign 8 units 450 t of 450 t, RP 10000: Shootist Prime(pmwrooster), Catapult Prime(pmwmother), Catapult Prime(pmwghost), Catapult Prime(pmwscooter), Vulture Prime(pmwbubba), Men Shen Prime(pmwvenom), Sha Yu Prime(pmwwicked), Razorback Prime(pmwsteel)
+ABL pilots: 72
+t=  63.9  LOST ShaYu (destroyed, armour 58%, heat 0, ejected false, pilot 1.0 wounds, last hit by Bushwacker)
+t=  69.7  SUPPORT salvage_craft Bushwacker rp_left=0
+t=  75.9  PULLBACK Werewolf at 25%
+t=  78.3  LOST Werewolf (destroyed, armour 17%, heat 0, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t=  82.9  LOST Bushwacker (disabled, armour 13%, heat 0, ejected false, pilot 1.0 wounds, last hit by Bushwacker)
+t= 106.2  LOST Shootist (disabled, armour 12%, heat 0, ejected false, pilot 1.0 wounds, last hit by Bushwacker)
+t= 186.1  LOST MenShen (destroyed, armour 36%, heat 5, ejected false, pilot 1.0 wounds, last hit by LRMTurret)
+t= 239.1  CAPTURED Catapult S_TurretControl
+t= 398.9  CAPTURED Catapult RepairBay
+t= 414.0  LOST Vulture (disabled, armour 35%, heat 0, ejected false, pilot 0.0 wounds, last hit by Zeus)
+t= 461.5  LOST Catapult (disabled, armour 31%, heat 0, ejected false, pilot 2.0 wounds, last hit by Hunchback)
+t= 546.7  BAY Catapult -> RepairBay (205 m)
+t= 574.6  REPAIR_DONE Catapult RepairBay
+t= 576.7  BAY Catapult -> RepairBay (205 m)
+t= 601.6  REPAIR_DONE Catapult RepairBay
+t= 625.4  CAPTURED Catapult S_TurretControl
+t= 644.7  CAPTURED Catapult S_TurretControl
+t= 659.5  CAPTURED Catapult S_TurretControl
+t= 789.8  CAPTURED Catapult S_spotlightControl
+t= 844.4  objective done: Destroy Steiner High Command
+t=1258.4  objective done: Eliminate Renard
+t=1259.3  BAY Catapult -> RepairBay (722 m)
+t=1425.4  REPAIR_DONE Catapult RepairBay
+seed 1 end t=1800 result=PLAYING  player alive 2  enemies alive 9
+damage to lance: 1268 from 36 attackers; hits by location (0 head .. 10 rear RT): { 6: 47, 2: 48, 7: 39, 5: 45, 1: 63, 0: 10, 4: 43, 3: 33, 8: 1, 10: 1 }
+damage by lance: 5388; kills 43
+       448  Highlander (mech)
+       238  Bushwacker (mech)
+       180  Hunchback (mech)
+       144  LRMTurret (vehicle)
+        80  Legion (vehicle)
+        60  LongTomTurret (vehicle)
+        42  Zeus (mech)
+        27  Swarmlrmc (vehicle)
+        18  Jagermech (mech)
+        12  Urbanmech (mech)
+  obj 0 P: done  Destroy Steiner High Command
+  obj 1 P: done  Eliminate Renard
+  obj 2 P: inactive (flag F1)  Extract All Surviving Mechs
+  obj 3 s hidden: done  Hidden Area Trigger to Popup Renard Obj
+  obj 4 s hidden: done  Hidden Trigger for Destroying Fuel Trucks
+  obj 5 s hidden: open  Hidden Objective for Triggering Extract
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_24_EC3_FGate_highl:attack": 2, "mc2_24_EC6_North_Renards2:attack": 2, "mc2_24_EC6_North_Renards:attack": 1, "mc2_24_EC6_North_Renards3:attack": 2, "mc2_24_EC1_East_G4S:attack": 1, "mc2_24_EC1_East_G3S:attack": 1, "mc2_24_EC2_West_legion:attack": 5, "mc2_24_EC1_East_G2:attack": 2, "mc2_24_EC1_East_G1:attack": 2, "mc2_24_EC3_FGate_bushw1:attack": 2, "pbrain:attack": 1, "mc2_24_EC3_FGate_bushw2:attack": 1, "mc2_24_EC2_West_razors:attack": 2, "mc2_24_EC2_West_razors2:attack": 1, "mc2_24_EC2_West_razors2:start": 1, "mc2_24_EC4_West_Mechs4:attack": 1, "mc2_24_EC4_West_Mechs3:attack": 1, "mc2_24_EC4_West_Mechs1:attack": 2, "mc2_24_EC4_West_Mechs2:attack": 2, "mc2_24_EC5_North_power:start": 5, "mc2_24_EC5_North_power:attack": 3, "mc2_24_EC2_West_haras:attack": 2, "mc2_24_EC3_FGate_haras:attack": 2, "mc2_24_EC6_South_Mechs2:start": 2, "mc2_24_EC6_South_Mechs:start": 2, "mc2_24_EC2_West_hollands:getplayer": 2, "mc2_24_EC2_West_bushws:getplayer": 1, "mc2_24_EC2_West_bushws:attack": 1, "mc2_24_Fuel_CNV:start": 5, "mc2_24_EC1_Reb_mech:attack": 1, "mc2_24_EC1_Reb_veds:attack": 3, "mc2_24_EC1_Reb_LRMs3S:attack": 3, "PBrain:": 8, "pbrain:": 1 }
+enemy pilots that moved >20 m: 57 / 73
+
+--- stderr ---
+WARNING: 925 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

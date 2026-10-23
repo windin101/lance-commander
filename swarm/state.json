@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-23T20:14:43+13:00",
+  "updated": "2026-10-23T21:19:56+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1631,8 +1631,8 @@
       "phase": 8,
       "status": "open",
       "created": "2026-10-23T20:13:52+13:00",
-      "updated": "2026-10-23T20:13:52+13:00",
-      "note": null
+      "updated": "2026-10-23T21:19:56+13:00",
+      "note": "2026-10-23 (uncommitted): bot spots enemy turret forts (300 m), captures their control or destroys control/generator, counts covering turrets in fall-back, drops a Long Tom at forts from outside their reach and sets idle guns on turrets, stall watch (150 s without damage -> leave threats 2 min), reachable repair trucks only. Harness: an immobile Long Tom no longer holds a dead lance's mission open (the mc2_03/09 'stalls'). Sweep 2026-10-23-turrets: 24/72 runs (fidelity 14, pre-fidelity 28), 8 missions 2/3+ (5, 9), 1 run at the cap (17). Still weak: mc2_03, 07, 09 (turret forts, Swarm LRM carriers) and most of mc2_11 on."
     },
     {
       "id": "I100",
@@ -1646,6 +1646,19 @@
       "created": "2026-10-23T20:14:43+13:00",
       "updated": "2026-10-23T20:14:43+13:00",
       "note": null
+    },
+    {
+      "id": "I101",
+      "sev": "P1",
+      "title": "Units placed on blocked cells never move; attackers stuck in reach without a line of fire",
+      "detail": "Found diagnosing the fidelity sweep's mc2_04 regression: Part45 (mc2_04_E4_anubis) is placed inside the WeaponsFacility's impassable 8-16 m footprint. Godot AStarGrid2D returns no path from a solid start, so it never moved; with LOS on, attackers 22 m away could neither see (8 m walls) nor reach it, and every seed stalled to 1800 s. Fixed: SimMap.find_path walks out to the nearest open cell first; SimWorld._sight_position_path moves an attacker in reach without LOS to a spot with one (NOT_LOCKED repositioning). Tests: sim_fidelity_test.gd test_a_unit_placed_on_a_blocked_cell_can_walk_out, test_an_attacker_in_reach_without_sight_moves_to_a_spot_with_it.",
+      "repro": null,
+      "owner": "sim",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-23T21:19:40+13:00",
+      "updated": "2026-10-23T21:19:40+13:00",
+      "note": "Fixed 2026-10-23 (uncommitted): find_path blocked-start walk-out, sight repositioning; mc2_04 0/3 -> 2/3 (sweep 2026-10-23-turrets)."
     }
   ],
   "coverage": {
@@ -1752,26 +1765,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T17:43:38+13:00",
-      "who": "game-art",
-      "msg": "issue I51 P2: HD madcat: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T17:43:38+13:00",
-      "who": "game-art",
-      "msg": "issue I52 P2: HD ryoken: reseed_mesh"
-    },
-    {
-      "at": "2026-10-19T17:43:38+13:00",
-      "who": "game-art",
-      "msg": "issue I53 P2: HD thor: reseed_mesh"
-    },
-    {
-      "at": "2026-10-19T17:43:38+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 2: 1 approved, 3 issues"
-    },
     {
       "at": "2026-10-19T17:43:42+13:00",
       "who": "game-art",
@@ -2751,6 +2744,26 @@
       "at": "2026-10-23T20:14:43+13:00",
       "who": "sim",
       "msg": "issue I100 P2: Repair truck: heat system restarts a mech it just powered down"
+    },
+    {
+      "at": "2026-10-23T21:19:40+13:00",
+      "who": "sim",
+      "msg": "issue I101 P1: Units placed on blocked cells never move; attackers stuck in reach without a line of fire"
+    },
+    {
+      "at": "2026-10-23T21:19:40+13:00",
+      "who": "conductor",
+      "msg": "issue I101 fixed: Fixed 2026-10-23 (uncommitted): find_path blocked-start walk-out, sight repositioning; mc2_04 0/3 -> 2/3 (sweep 2026-10-23-turrets)."
+    },
+    {
+      "at": "2026-10-23T21:19:40+13:00",
+      "who": "conductor",
+      "msg": "issue I99 updated: note \u2014 2026-10-23 (uncommitted): bot spots enemy turret forts (300 m), captures their control or destroys control/generator, counts covering turrets in fall-back, drops a Long Tom at forts from outside their reach and sets idle guns on turrets, stall watch (150 s without damage -> leave threats 2 min), reachable repair trucks only. Harness: an immobile Long Tom no longer holds a dead lance's mission open (the mc2_03/09 'stalls'). Sweep 2026-10-23-turrets: 24/72 runs (fidelity 14, pre-fidelity 28), 8 missions 2/3+ (5, 9), 1 run at the cap (13). Still weak: mc2_03, 07, 09 (turret forts, Swarm LRM carriers), and everything from mc2_11 on except 15 and 21."
+    },
+    {
+      "at": "2026-10-23T21:19:56+13:00",
+      "who": "conductor",
+      "msg": "issue I99 updated: note \u2014 2026-10-23 (uncommitted): bot spots enemy turret forts (300 m), captures their control or destroys control/generator, counts covering turrets in fall-back, drops a Long Tom at forts from outside their reach and sets idle guns on turrets, stall watch (150 s without damage -> leave threats 2 min), reachable repair trucks only. Harness: an immobile Long Tom no longer holds a dead lance's mission open (the mc2_03/09 'stalls'). Sweep 2026-10-23-turrets: 24/72 runs (fidelity 14, pre-fidelity 28), 8 missions 2/3+ (5, 9), 1 run at the cap (17). Still weak: mc2_03, 07, 09 (turret forts, Swarm LRM carriers) and most of mc2_11 on."
     }
   ],
   "choices": [

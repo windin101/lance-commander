@@ -1,0 +1,75 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_10
+force: campaign 5 units 275 t of 280 t, RP 6000: Shootist Prime(pmwsteel), Bushwacker Prime(pmwclaymore), Bushwacker Prime(pmwworm), Bushwacker Prime(pmwmeat), Sha Yu Prime(pmwpalerider)
+ABL pilots: 48
+t=  24.2  ALLY LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  33.3  ALLY LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  38.1  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Hunter)
+t=  39.8  ALLY LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  64.8  ALLY LOST s_admin_wing (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  72.8  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t=  84.2  ALLY LOST s_admin_entry (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Hunter)
+t= 109.5  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 110.2  CAPTURED ShaYu S_TurretControl
+t= 120.8  ALLY LOST s_admin_core (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 139.3  ALLY LOST s_admin_entry (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 156.8  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 176.0  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 201.0  ALLY LOST s_admin_core (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 202.3  ALLY LOST s_admin_entry (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 203.0  SUPPORT repair_truck (-329, -5) rp_left=0
+t= 220.1  REPAIR_DONE ShaYu 
+t= 229.3  ALLY LOST s_admin_wing (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 263.3  ALLY LOST RelayStation (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 277.8  ALLY LOST TransformerStation (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 295.8  ALLY LOST LiquidStorage (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 303.8  ALLY LOST WaterTower (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 315.8  objective done: Destroy all Gulag Defenders
+t= 318.8  CAPTURED ShaYu S_TurretControl
+t= 415.3  LOST Bushwacker (disabled, armour 82%, heat 6, ejected false, pilot 1.0 wounds, last hit by Attack Copter)
+t= 438.7  PULLBACK ShaYu at 28%
+t= 447.7  LOST ShaYu (destroyed, armour 12%, heat 0, ejected false, pilot 1.0 wounds, last hit by Atlas)
+t= 476.1  REPAIR_DONE Shootist 
+t= 504.7  PULLBACK Bushwacker at 28%
+t= 525.8  REPAIR_DONE Bushwacker 
+t= 543.9  LOST Bushwacker (disabled, armour 42%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hunchback)
+t= 633.8  objective done: Destroy Steiner Reinforcements
+t= 647.8  REPAIR_DONE Bushwacker 
+t= 675.8  objective done: Destroy All Airfield Defenders
+t= 694.5  REPAIR_DONE Shootist 
+t= 694.6  LOST Repairtruck (disabled, armour 100%, heat 0, ejected false, pilot 0.0 wounds, last hit by -)
+t= 702.2  CAPTURED Bushwacker S_TurretControl
+t= 711.8  CAPTURED Shootist S_TurretControl
+t= 725.6  CAPTURED Shootist OrdnanceTruckProp
+t= 762.7  objective done: Move All Surviving Mechs to Extraction Point
+t= 767.7  MISSION WON
+seed 1 end t=768 result=WON  player alive 17  enemies alive 1
+damage to lance: 984 from 30 attackers; hits by location (0 head .. 10 rear RT): { 3: 33, 5: 43, 6: 51, 2: 49, 4: 48, 1: 47, 7: 21, 0: 6, 9: 3, 8: 7, 10: 3 }
+damage by lance: 1844; kills 27
+       158  Atlas (mech)
+       154  SRMTurret (vehicle)
+       130  Hollander (mech)
+       128  Centipede (vehicle)
+       110  Hunchback (mech)
+        98  Heavy Copter (mech)
+        96  Attack Copter (mech)
+        52  SRMPopup (vehicle)
+        51  Zeus (mech)
+         4  Werewolf (mech)
+  obj 0 P: done  Destroy all Gulag Defenders
+  obj 1 P: done  Destroy Steiner Reinforcements
+  obj 2 P: done  Destroy All Airfield Defenders
+  obj 3 P: done  Move All Surviving Mechs to Extraction Point
+  obj 4 s: open  Sec:  Capture Steiner Headquarters
+  obj 5 s hidden: open  Protect the Convoy
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_10_EC1_Grp1:start": 1, "mc2_10_EC1_Grp3a:attack": 1, "mc2_10_EC1_Grp3:attack": 1, "mc2_10_EC1_Grp4:attack1": 2, "mc2_10_EC2_Grp4:start": 1, "mc2_10_EC2_Grp1:attack": 4, "mc2_10_EC2_Grp2:start": 2, "mc2_10_EC2_Grp3:attack": 1, "mc2_10_EC4_Grp1:attack": 3, "mc2_10_EC4_Grp2:attack": 4, "mc2_10_EC5_Grp1:attack": 7, "mc2_10_EC2_Pd:attack": 1, "mc2_10_EC3_Conv2:togulag": 4, "mc2_10_EC3_Conv1:togulag": 4, "DredAttack01:noweapons": 3, "mc2_10_EC3_Conv3:togulag": 4, "PBrain:": 5 }
+enemy pilots that moved >20 m: 42 / 48
+
+--- stderr ---
+WARNING: 413 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

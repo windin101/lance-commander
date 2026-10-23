@@ -20,6 +20,7 @@ var force_paint: Array = []  # the replaced lance's paint, for the campaign forc
 var kills: Dictionary = {}  # killer unit id -> [weight class of each kill] (pilot experience, campaign-layer.md 8.2)
 var use_abl := true  # false: no AI brains at all (sim tests that need passive enemies)
 var pilots: Dictionary = {}  # profile -> warrior FIT (support deliveries' pilots)
+static var remap_building_teams := true  # false: placements keep team 2+ (A/B probes)
 static var use_turrets := true  # false: map turrets stay scenery (tests that need a quiet map)
 
 
@@ -230,7 +231,7 @@ func _add_structures(mission: String) -> void:
 		# the placement's team (mc2_06's own HQ is team 0); allies (2) join the player's team and
 		# any higher team the enemy's (Building::setTeamId, bldng.cpp:930-937; turret.cpp:366-381)
 		var team := int(o.get("team", t.get("building_team", -1)))
-		s.team = 0 if team == 2 else (1 if team > 2 else team)
+		s.team = (0 if team == 2 else (1 if team > 2 else team)) if remap_building_teams else team
 		s.position = Vector2(float(o["x"]), float(o["y"])) * WORLD_UNIT_M
 		s.facing = float(o["rotation"])
 		var cell := world.map.cell_of(s.position)

@@ -261,14 +261,29 @@ func find_path(start: Vector2, goal: Vector2, hover: bool = false) -> PackedVect
 	var out := PackedVector2Array()
 	if not in_bounds(a) or not in_bounds(b) or not is_walkable(b, hover):
 		return out
+	if not is_walkable(a, hover) and cell_flag(a, "offmap") == 0:
+		# A unit standing on a blocked cell (mc2_04's Anubis is placed inside the weapons
+		# facility's footprint) walks out to the nearest open cell first; grid A* refuses a
+		# solid start, which left such units frozen for the whole mission.
+		var out_at := nearest_walkable(start, hover, 6)
+		var c := cell_of(out_at)
+		if c == a or not is_walkable(c, hover):
+			return out
+		out.append(cell_center(c))
+		a = c
+		if a == b:
+			out.append(goal)
+			return out
 	if cell_flag(a, "offmap") == 1:  # starting off the map: off-map cells are open for this path
 		if not _astar_offmap.has(hover):
 			_astar_offmap[hover] = _build_grid(hover, true)
 		grid = _astar_offmap[hover]
+	var lead := out.size()
 	for cell in grid.get_id_path(a, b):
 		out.append(cell_center(cell))
-	if out.size() > 0:
-		out[out.size() - 1] = goal
+	if out.size() == lead:
+		return PackedVector2Array()
+	out[out.size() - 1] = goal
 	return out
 
 

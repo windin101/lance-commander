@@ -542,6 +542,8 @@ static func class_of(u: SimUnit) -> int:
 		return 2
 	if u is SimVehicle:
 		return 3
+	if u is SimTurret:
+		return 30  # TURRET_CLASS (oconst.abi:288)
 	if u is SimStructure:
 		return 16
 	return 0
