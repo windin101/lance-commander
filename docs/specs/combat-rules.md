@@ -212,8 +212,16 @@ The command table is missiongui.cpp:195-310; the palette's buttons are ControlGu
   enemy. AI DFA through TACORDER_PARAM_ATTACK_DFA (warrior.cpp:5582) is not ported. Flag `dfa`.
 - **Lay mines** is a palette button again (LAYMINES), so M is the medium-range key as in the
   original.
-- Not added (still missing): aimed shots on Numpad 2/5/8 (aimLeg/Arm/Head), power down/up
-  (PgDn/PgUp), eject (End), energy weapons only (the original's A; ours is alpha strike).
+- **Aimed shots, Numpad 2 / 5 / 8 held + right-click** an enemy ground 'Mech (aimLeg / aimArm /
+  aimHead, missiongui.cpp:217-219, 2109-2265): an attack order with `aimLocation` (the left leg or
+  arm unless it is gone, then the right; the head unless destroyed; refused otherwise). Its
+  weapons (not the area-effect ones) roll the aimed to-hit (head x0.08, arm x0.15, leg x0.20,
+  +20 SharpShooter) and land on that location (warrior.cpp:3418-3421, 3500-3503).
+- **Power down / up, PgDn / PgUp** (missiongui.cpp:2273-2289): an ordered shutdown of the
+  selection (heat doesn't restart it) and back up.
+- **Eject, End held + right-click** your own 'Mech (missiongui.cpp:2303-2318, doEject 5384-5394):
+  the pilot ejects and the 'Mech is disabled; refused while the player is invulnerable.
+- Kept ours: A is alpha strike, not the original's energy-weapons-only (Lee, 2026-10-24).
 
 ## Who an engaged AI shoots (F6, I12)
 

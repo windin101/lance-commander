@@ -458,7 +458,7 @@ func test_attack_point_fires_one_volley_unless_suppressing() -> void:
 				hits += 1
 		world.events.clear()
 	assert_int(shots).is_greater(1)  # suppression keeps shelling the point
-	assert_int(hits).is_equal(shots)  # the Long Tom's blast reaches 10 m off the point
+	assert_int(hits).is_equal(shots * 3)  # the 15-point blast lands as 3 chunks of 5 (carnage.cpp:349-367)
 
 
 func test_force_fire_keeps_a_friendly_target() -> void:
@@ -497,3 +497,24 @@ func test_death_from_above_on_landing() -> void:
 	assert_int(dfa).is_equal(1)
 	assert_float(hit_before - _armour_sum(under)).is_greater(0.0)
 	assert_float(own_before - _armour_sum(j)).is_greater(0.0)  # the jumper's legs take it too
+
+
+func test_an_aimed_order_aims_its_shots() -> void:
+	_flat_world()
+	var a := SimFixture.mech("atlas", rules)
+	a.team = 0
+	a.pilot = SimPilot.make(95, 50)
+	world.add_unit(a)
+	var t := _target_mech(Vector2(0, 50))
+	t.team = 1
+	world.order_attack(a, t, true, false, "", false, SimMech.Body.HEAD)
+	var locs := {}
+	var k := 0.0
+	while k < 20.0:
+		world.step()
+		k += SimWorld.TICK
+		for e in world.events:
+			if e["type"] == "shot" and e["from"] == a.id and e["hit"]:
+				locs[e["location"]] = true
+		world.events.clear()
+	assert_array(locs.keys()).is_equal([SimMech.Body.HEAD])  # every hit lands on the head

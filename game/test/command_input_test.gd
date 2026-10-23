@@ -374,3 +374,38 @@ func test_suppression_button_sets_artillery_on_a_point() -> void:
 	input.toggle_mode("suppress")  # un-pressed: all suppression stops (controlGui.cpp:2205-2228)
 	assert_bool(gun.suppression).is_false()
 	assert_int(gun.order).is_equal(SimWorld.Order.HOLD)
+
+
+func test_aimed_shot_power_and_eject() -> void:
+	var input: CommandInput = view.input
+	var w: SimWorld = view.world
+	var a: SimUnit = w.units[0]
+	input._set_selection([a])
+	var enemy: SimMech = w.units.filter(func(u): return u is SimMech and u.team != 0)[0]
+	enemy.position = a.position + Vector2(40, 0)
+	view.views[enemy.id].sync(1.0)
+	input._held[KEY_KP_8] = "aim_head"
+	input._command(input.camera.unproject_position(view.views[enemy.id].aim_point()))
+	input._held.erase(KEY_KP_8)
+	assert_int(a.order).is_equal(SimWorld.Order.ATTACK)
+	assert_int(a.aim_location).is_equal(SimMech.Body.HEAD)
+	enemy.damage_state[SimMech.Body.LLEG] = SimMech.DamageState.DESTROYED
+	input._held[KEY_KP_2] = "aim_leg"
+	input._command(input.camera.unproject_position(view.views[enemy.id].aim_point()))
+	input._held.erase(KEY_KP_2)
+	assert_int(a.aim_location).is_equal(SimMech.Body.RLEG)  # the left one is gone
+	# PgDn / PgUp
+	var ev := InputEventKey.new()
+	ev.pressed = true
+	ev.keycode = KEY_PAGEDOWN
+	input._key(ev)
+	assert_int(a.status).is_equal(SimUnit.Status.SHUTDOWN)
+	ev.keycode = KEY_PAGEUP
+	input._key(ev)
+	assert_int(a.status).is_equal(SimUnit.Status.NORMAL)
+	# End + click on your own 'Mech
+	input._held[KEY_END] = "eject"
+	input._command(input.camera.unproject_position(view.views[a.id].aim_point()))
+	input._held.erase(KEY_END)
+	assert_bool(a.ejected).is_true()
+	assert_bool(a.is_disabled()).is_true()
