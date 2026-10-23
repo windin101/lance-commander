@@ -32,8 +32,8 @@ func test_zoom_limits_depend_on_pitch() -> void:
 	cam.pitch_deg = 35.0
 	cam.distance = 5000.0
 	cam._apply()
-	assert_float(cam.distance).is_equal_approx(RtsCamera.max_distance_for(35.0), 0.01)
-	assert_float(cam.distance).is_equal_approx(305.8, 0.1)
+	assert_float(cam.distance).is_equal_approx(RtsCamera.zoom_limit(35.0), 0.01)
+	assert_float(cam.distance).is_equal_approx(305.8 * RtsCamera.ZOOM_OUT_MULT, 0.2)
 	cam.distance = 1.0
 	cam._apply()
 	assert_float(cam.distance).is_equal(112.0)
@@ -67,6 +67,19 @@ func test_pan_speed_scales_with_zoom_and_clears_follow() -> void:
 	cam.tick(1.0, Vector2(0, 1), 0, 0, 0)  # 1 s forward = north = -Z
 	assert_float(-cam.focus.z).is_equal_approx(66.5 / s, 0.01)
 	assert_object(cam.following).is_null()
+
+
+func test_zoom_past_original_limit_keeps_rates_and_scales_pan() -> void:
+	cam.yaw_deg = 0.0
+	cam.pitch_deg = 35.0
+	var far := RtsCamera.max_distance_for(35.0)
+	cam.distance = far
+	var s_far := cam.scale_factor()
+	cam.distance = far * 2.0
+	assert_float(cam.scale_factor()).is_equal_approx(s_far, 0.0001)
+	var z0 := cam.focus.z
+	cam.tick(1.0, Vector2(0, 1), 0, 0, 0)
+	assert_float(z0 - cam.focus.z).is_equal_approx(66.5 / s_far * 2.0, 0.01)
 
 
 func test_focus_clamped_inside_map_edge() -> void:

@@ -14,6 +14,7 @@ const DEFAULT_DISTANCE := 240.0  # AltitudeDefault 1200 wu (Camera.cpp:122)
 const MIN_PITCH := 10.0
 const MAX_PITCH := 88.0
 const ZOOM_REF_M := 111.8  # distance where the scale factor is 1 (fully zoomed in)
+const ZOOM_OUT_MULT := 2.0  # zoom out this many times past the original's furthest (Lee, 2026-10-21)
 const PAN_SPEED := 66.5  # m/s at scale 1: scrollInc / getScaleFactor (missiongui.cpp:2525-2552)
 const ZOOM_SPEED := 200.0  # m/s held, times the scale factor (missiongui.cpp:2554-2565)
 const TILT_SPEED := 38.0  # deg/s held, divided by the scale factor (missiongui.cpp:2602-2615)
@@ -88,7 +89,8 @@ func tick(delta: float, pan: Vector2, rot: int, tilt: int, zoom: int) -> void:
 		var yaw := deg_to_rad(yaw_deg)
 		var fwd := Vector3(sin(yaw), 0, -cos(yaw))
 		var right := Vector3(cos(yaw), 0, sin(yaw))
-		focus += (fwd * pan.y + right * pan.x) * PAN_SPEED / s * delta
+		var beyond := maxf(1.0, distance / max_distance_for(pitch_deg))  # past the original's limit pan grows with distance
+		focus += (fwd * pan.y + right * pan.x) * PAN_SPEED / s * beyond * delta
 	_rotate_step(rot, delta)
 	if tilt != 0:
 		pitch_deg += tilt * TILT_SPEED / s * delta
@@ -113,8 +115,15 @@ func _rotate_step(rot: int, delta: float) -> void:
 
 
 ## The original's zoom scale: 1 fully in, falling as the camera pulls back (getScaleFactor).
+## Past the original's furthest zoom it holds its value there, so zoom and tilt keep their far-out rate.
 func scale_factor() -> float:
-	return maxf(0.05, 1.0 - (distance - ZOOM_REF_M) / max_distance_for(pitch_deg))
+	var far := max_distance_for(pitch_deg)
+	return maxf(0.05, 1.0 - (minf(distance, far) - ZOOM_REF_M) / far)
+
+
+## Furthest zoom allowed: the original's limit times ZOOM_OUT_MULT.
+static func zoom_limit(pitch: float) -> float:
+	return max_distance_for(pitch) * ZOOM_OUT_MULT
 
 
 ## Furthest zoom at a tilt: 299.4 m at 10 deg rising to 319.4 m at 88 deg (~306 m at 35).
@@ -208,7 +217,7 @@ func _blocked() -> bool:
 func _apply(delta: float = 0.0) -> void:
 	if limits:
 		pitch_deg = clampf(pitch_deg, MIN_PITCH, MAX_PITCH)
-		distance = clampf(distance, min_distance, max_distance_for(pitch_deg))
+		distance = clampf(distance, min_distance, zoom_limit(pitch_deg))
 		var lim := maxf(bounds_half - EDGE_MARGIN, 0.0)
 		focus.x = clampf(focus.x, -lim, lim)
 		focus.z = clampf(focus.z, -lim, lim)

@@ -303,6 +303,7 @@ func _build_command() -> void:
 	command_panel.command.connect(_on_command)
 	command_panel.support.connect(_on_support)
 	command_panel.hover_help = _hover
+	command_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER  # a long help line widens the column, not the panel
 	col.add_child(command_panel)
 	support_buttons = command_panel.tiles
 	rp_label = command_panel.rp_label
