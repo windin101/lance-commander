@@ -573,8 +573,9 @@ drops (§2.3), for full-strength air strikes (§3.1), and for indirect fire
   `PMWGuardTower`). With no brain it fires at the nearest armed enemy in reach, on its own or a
   team mate's sight. Suppression fire on a ground point is not implemented yet.
 - **Minelayer:** delivered the same way (`minelayer.json`, pilot `PMWMinelayer`). Select it,
-  hold **M** and right-click: the move lays mines (`SimSupport.order_lay_mines`). This port has
-  no LAYMINES button yet; M stands in for it.
+  press the command panel's **Lay mines** button (the original's LAYMINES, controlGui.cpp:1110-1117)
+  and right-click: its moves lay mines (`SimSupport.order_lay_mines`). M is the original's
+  medium-range key again.
 - The support row now carries six tiles in the original's order, less the scout copter: air
   strike, artillery piece, sensor probe, repair truck, minelayer, salvage craft.
 

@@ -165,6 +165,33 @@ func _ready() -> void:
 
 
 var _turrets: Array[SimTurret] = []  # map turrets: their guns turn in the view
+var _waypoints: Dictionary = {}  # unit id -> queued waypoint markers (the original's Walk/Run/JumpWayPoint)
+
+
+## A queued order's marker on the ground (getWayPointMarker, warrior.cpp:1565-1575).
+func _add_waypoint_marker(e: Dictionary) -> void:
+	var p: Vector2 = e["at"]
+	var mi := MeshInstance3D.new()
+	var mesh := CylinderMesh.new()
+	mesh.top_radius = 1.2
+	mesh.bottom_radius = 1.2
+	mesh.height = 0.3
+	mi.mesh = mesh
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.albedo_color = Color(1.0, 0.75, 0.2) if e.get("run", false) or e.get("kind", "") == "jump" else Color(0.4, 1.0, 0.5)
+	mi.material_override = mat
+	mi.position = TerrainView.to_3d(p, world.map.height_at(p) + 0.2)
+	add_child(mi)
+	var list: Array = _waypoints.get(int(e["unit"]), [])
+	list.append(mi)
+	_waypoints[int(e["unit"])] = list
+
+
+func _pop_waypoint_marker(unit_id: int) -> void:
+	var list: Array = _waypoints.get(unit_id, [])
+	if not list.is_empty():
+		(list.pop_front() as Node).queue_free()
 
 
 func _process(delta: float) -> void:
@@ -249,9 +276,13 @@ func _consume_events(show: bool) -> void:
 			"shot":
 				# movers have views; turrets and buildings are drawn by ObjectsView
 				if not ((views.has(e["from"]) or world.units[e["from"]] is SimStructure) \
-						and (views.has(e["to"]) or world.units[e["to"]] is SimStructure)):
+						and (int(e["to"]) < 0 or views.has(e["to"]) or world.units[e["to"]] is SimStructure)):
 					continue
 				_shot_effect(e)
+			"waypoint":
+				_add_waypoint_marker(e)
+			"waypoint_reached":
+				_pop_waypoint_marker(int(e["unit"]))
 			"blast", "mine":
 				# an area-effect shell (Long Tom, Swarm LRM) or a mine going off
 				var p: Vector2 = e["at"]
@@ -308,7 +339,10 @@ func _shot_effect(e: Dictionary) -> void:
 	else:
 		muzzle = _structure_point(shooter, 0.8)  # turrets and armed buildings
 	var aim: Variant = null
-	if views.has(e["to"]):
+	if int(e["to"]) < 0:  # a shot at a ground point (force fire, suppression)
+		var gp: Vector2 = e["at"]
+		aim = TerrainView.to_3d(gp, world.map.height_at(gp) + 0.5)
+	elif views.has(e["to"]):
 		var to: MechView = views[e["to"]]
 		opts["to_node"] = to
 		aim = to.body_point(int(e.get("location", 1))) if e["hit"] else to.aim_point()
@@ -341,7 +375,7 @@ func _audio_event(e: Dictionary) -> void:
 				var at: Vector3 = views[e["from"]].global_position if views.has(e["from"]) \
 					else TerrainView.to_3d(shooter.position, world.map.height_at(shooter.position) + 4.0)
 				audio.weapon_fire(int(shooter.items[e["weapon"]]["master_id"]), at)
-				if shooter.team == sm.player_team or world.units[e["to"]].team == sm.player_team:
+				if shooter.team == sm.player_team or (int(e["to"]) >= 0 and world.units[e["to"]].team == sm.player_team):
 					audio.last_combat_time = world.time
 		"impact":
 			var u: SimUnit = world.units[e["unit"]]

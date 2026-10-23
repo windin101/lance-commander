@@ -23,7 +23,7 @@ const GUARD_DISENGAGE_M := 275.0
 
 ## HOLD also serves the original's TACTICAL_ORDER_STOP and WAIT. JUMP = JUMPTO_POINT,
 ## GUARD = TACTICAL_ORDER_GUARD (point or object). New values go last (saves, tests).
-enum Order { HOLD, MOVE, ATTACK, JUMP, GUARD }
+enum Order { HOLD, MOVE, ATTACK, JUMP, GUARD, ATTACK_POINT }
 
 var rules: SimRules
 var map: SimMap
@@ -105,16 +105,35 @@ func order_move(m: SimUnit, goal: Vector2, run := true) -> bool:
 
 ## pursue false = fire from the current position (attackParams.pursue, missiongui.cpp:1806-1880):
 ## the unit turns to the target and fires when it is in range, but never moves to close.
-func order_attack(m: SimUnit, target: SimUnit, run := true, pursue := true) -> void:
-	if _after_landing(m, func(): order_attack(m, target, run, pursue)):
+func order_attack(m: SimUnit, target: SimUnit, run := true, pursue := true, range_mode := "", force := false) -> void:
+	if _after_landing(m, func(): order_attack(m, target, run, pursue, range_mode, force)):
 		return
 	m.order = Order.ATTACK
 	m.order_target = target
+	m.range_mode = range_mode
+	m.force_target = force
 	m.move_run = run
 	m.attack_pursue = pursue
 	m.path = PackedVector2Array()
 	m.repath_time = 0.0
 	m.attack_goal = null
+
+
+## TACTICAL_ORDER_ATTACK_POINT (tacordr.cpp:995-1015, the force-fire key on the ground): fire at a
+## ground point, closing to reach unless firing from the current position. One volley ends it
+## (gvehicl.cpp:4838-4842, mech.cpp:4784) unless suppression is on (the artillery piece's
+## GUARDTOWER button, support-powers.md 3.9).
+func order_attack_point(m: SimUnit, point: Vector2, run := true, pursue := true, suppression := false) -> void:
+	if _after_landing(m, func(): order_attack_point(m, point, run, pursue, suppression)):
+		return
+	m.order = Order.ATTACK_POINT
+	m.order_target = null
+	m.attack_point = point
+	m.move_run = run
+	m.attack_pursue = pursue
+	m.suppression = suppression
+	m.path = PackedVector2Array()
+	m.repath_time = 0.0
 
 
 func order_hold(m: SimUnit) -> void:
@@ -208,6 +227,7 @@ func step(dt: float = TICK) -> void:
 		if m.brain and not m.is_disabled():
 			m.brain.think(self, m)
 		if m.is_mover():
+			_run_queue(m)
 			_update_motion(m, dt)
 			_update_turret(m, dt)
 			_mine_check(m, dt)
@@ -311,7 +331,10 @@ func _update_turret(m: SimUnit, dt: float) -> void:
 		return
 	var t: SimUnit = m.order_target if m.order in [Order.ATTACK, Order.GUARD] and m.order_target else m.current_target
 	var want := 0.0
-	if t and not t.is_disabled():
+	if m.order == Order.ATTACK_POINT:
+		want = m.rel_facing_to(m.attack_point)
+		t = m
+	elif t and not t.is_disabled():
 		want = m.rel_facing_to(t.position)
 	var off := wrapf(want - m.turret_rel, -180.0, 180.0)
 	if absf(off) <= m.fire_arc_half and t != null:
@@ -342,18 +365,65 @@ func _update_jump(m: SimUnit, dt: float) -> void:
 		m.order = Order.HOLD
 		m.path = PackedVector2Array()
 		events.append({"type": "landed", "unit": m.id})
+		_death_from_above(m)
 		var then := m.after_jump
 		m.after_jump = Callable()
 		if then.is_valid() and not m.is_disabled():
 			then.call()
 
 
+## Death from above (BattleMechType::handleCollision, mech.cpp:819-925): a mech landing on an
+## enemy mover (inside one cell of it; the original tests the two extents) hits it for
+## jumper tonnage / 10 + 0.5 in its top section (ATTACKSOURCE_DFA) and takes the same in its own
+## legs (ATTACKSOURCE_MINE, the bottom section); "I jumped on the below, therefore, my legs should
+## be preferentially damaged". Friends only bounce: no damage. Off with SimRules.dfa.
+func _death_from_above(m: SimUnit) -> void:
+	if not rules.dfa or not (m is SimMech):
+		return
+	var dmg := m.tonnage / 10.0 + 0.5
+	for o in movers():
+		if o == m or not o.exists or o.is_disabled() or o.team == m.team or o.distance_to(m.position) > map.cell_m:
+			continue
+		var loc: int = SimCombat.hit_location(rules, rng, o, m.position, SimRules.Section.TOP) if o is SimMech \
+			else o.roll_hit_location(rules, rng, m.position)
+		SimCombat.apply_shot(rules, rng, o, {"hit": true, "damage": dmg, "location": loc, "master_id": -1}, time)
+		o.last_attacker = m
+		o.last_attacked_time = time
+		var own := SimCombat.hit_location(rules, rng, m, o.position, SimRules.Section.BOTTOM)
+		SimCombat.apply_shot(rules, rng, m, {"hit": true, "damage": dmg, "location": own, "master_id": -1}, time)
+		events.append({"type": "dfa", "unit": m.id, "target": o.id, "damage": dmg})
+		events.append({"type": "impact", "unit": o.id, "from": m.id, "location": loc, "damage": dmg, "form": "dfa"})
+		events.append({"type": "impact", "unit": m.id, "from": o.id, "location": own, "damage": dmg, "form": "dfa"})
+		break
+
+
+## The waypoint queue (MechWarrior::executeTacOrderQueue, warrior.cpp:1698-1708; 4890-4906): once
+## running, each queued order starts when the unit has nothing else to do.
+func _run_queue(m: SimUnit) -> void:
+	if not m.queue_running:
+		return
+	if m.order_queue.is_empty():
+		m.queue_running = false
+		return
+	if m.order != Order.HOLD or m.is_disabled():
+		return
+	var next: Callable = m.order_queue.pop_front()
+	events.append({"type": "waypoint_reached", "unit": m.id, "left": m.order_queue.size()})
+	if next.is_valid():
+		next.call()
+
+
 ## Standing with a target outside the fire arc: turn in place toward it.
 func _face_target(m: SimUnit, dt: float) -> void:
 	var t: SimUnit = m.order_target if m.order in [Order.ATTACK, Order.GUARD] and m.order_target else m.current_target
-	if t == null or t.is_disabled():
+	var aim: Vector2
+	if m.order == Order.ATTACK_POINT:
+		aim = m.attack_point
+	elif t == null or t.is_disabled():
 		return
-	var rel := m.rel_facing_to(t.position)
+	else:
+		aim = t.position
+	var rel := m.rel_facing_to(aim)
 	if absf(rel) <= fire_arc(m) - 10.0:
 		return
 	var max_turn := m.turn_rate * dt
@@ -371,6 +441,14 @@ func fire_arc(m: SimUnit) -> float:
 func _current_goal(m: SimUnit) -> Variant:
 	if m.order == Order.GUARD:
 		return _guard_goal(m)
+	if m.order == Order.ATTACK_POINT:
+		if not m.attack_pursue or m.distance_to(m.attack_point) <= attack_range(m):
+			m.path = PackedVector2Array()
+			return null
+		if m.path.is_empty() or time >= m.repath_time:
+			m.path = map.find_path(m.position, map.nearest_walkable(m.attack_point, m.hover), m.hover)
+			m.path_index = 0
+			m.repath_time = time + 2.0
 	if m.order == Order.ATTACK:
 		var t: SimUnit = m.order_target
 		if t == null or t.is_disabled():
@@ -554,6 +632,17 @@ func optimal_fire_range(m: SimUnit) -> float:
 	return optimal_range_points[best]
 
 
+## Mover::getOrderedFireRange (mover.cpp:5888-5918): FIRERANGE_OPTIMAL the optimal range; the
+## S/M/L keys' SHORT/MEDIUM/LONG use half the width of that weapon range band, (max - min) / 2,
+## as the original computes it: 30, 45 and 60 m with gamesys WeaponRanges 0-60, 30-120, 60-180.
+func ordered_fire_range(m: SimUnit) -> float:
+	match m.range_mode:
+		"short", "medium", "long":
+			var span: Array = rules.weapon_ranges[rules.range_index(m.range_mode)]
+			return (float(span[1]) - float(span[0])) / 2.0
+	return optimal_fire_range(m)
+
+
 ## Mover min/max fire range: the weapons' span (calcFireRanges, as turret.cpp:2215).
 func fire_range_span(m: SimUnit) -> Vector2:
 	var lo := INF
@@ -583,7 +672,7 @@ func attack_goal(m: SimUnit, t: SimUnit, somewhere_else := false) -> Vector2:
 	var tc := map.cell_of(t.position)
 	var half := GOALMAP_DIM / 2
 	var span := fire_range_span(m)
-	var fr := optimal_fire_range(m)
+	var fr := ordered_fire_range(m)
 	var fire_cells := clampi(int(fr / cs), 1, MAX_ATTACK_CELLRANGE - 1) if fr > 0.0 else 2
 	var min_cells := mini(int(span.x / cs), MAX_ATTACK_CELLRANGE - 1)
 	var max_cells := mini(int(span.y / cs), MAX_ATTACK_CELLRANGE - 1)
@@ -613,8 +702,8 @@ func attack_goal(m: SimUnit, t: SimUnit, somewhere_else := false) -> Vector2:
 				continue
 			var w := 0
 			var d := sqrt(float(off.x * off.x + off.y * off.y))
-			if d > max_cells + 0.5 and d < MAX_ATTACK_CELLRANGE - 0.5:
-				w -= 500
+			if m.range_mode == "" and d > max_cells + 0.5 and d < MAX_ATTACK_CELLRANGE - 0.5:
+				w -= 500  # only without an explicit S/M/L range (mover.cpp:4473-4483)
 			if min_cells > 0 and d < min_cells - 0.5:
 				w -= 500
 			if ring.has(off):
@@ -768,6 +857,9 @@ func _combat(m: SimUnit) -> void:
 		return
 	if m is SimMech and m.fallen:
 		return
+	if m.order == Order.ATTACK_POINT:
+		_fire_at_point(m)
+		return
 	var target := _pick_target(m)
 	if target == null:
 		return
@@ -829,6 +921,60 @@ func _launch(m: SimUnit, w: int, target: SimUnit, shot: Dictionary) -> void:
 	target.last_attacked_time = time
 	events.append({"type": "shot", "from": m.id, "to": target.id, "weapon": w, "form": form,
 		"hit": shot["hit"], "location": shot["location"], "flight": flight})
+
+
+## Fire every ready weapon in reach at the attack point: line of sight to the point (a team mate's
+## for indirect fire), the fire arc, the weapon's range band (calcWeaponsStatus with a target
+## point, warrior.cpp:3370-3414). No to-hit roll matters: the shot lands on the point.
+func _fire_at_point(m: SimUnit) -> void:
+	var p := m.attack_point
+	var rel := m.rel_facing_to(p)
+	if rules.slew:
+		if absf(wrapf(rel - m.turret_rel, -180.0, 180.0)) > m.fire_arc_half:
+			return
+	elif absf(rel) > fire_arc(m):
+		return
+	var d := m.distance_to(p)
+	var seen := d <= visual_range(m) and map.line_of_sight(m.position, los_height(m), p, 0.0, 0.0, 0.0, rules.max_tree_los)
+	var team_seen := -1
+	var fired := false
+	for w in m.weapon_indices():
+		if not m.is_weapon_ready(w, time) or m.weapon_shots(w) == 0:
+			continue
+		var wpn := m.weapon(w)
+		var span: Array = rules.weapon_ranges[rules.range_index(wpn.get("range", "short"))]
+		if d <= float(span[0]) - SimRules.MAP_CELL_DIAGONAL or d > float(span[1]) + SimRules.MAP_CELL_DIAGONAL:
+			continue
+		var mid := int(m.items[w]["master_id"])
+		if not seen:
+			if not (mid in rules.indirect_fire_ids):
+				continue
+			if team_seen < 0:
+				team_seen = 0
+				for f in movers():
+					if f.team == m.team and f.exists and not f.is_disabled() and f.distance_to(p) <= visual_range(f) \
+							and map.line_of_sight(f.position, los_height(f), p, 0.0, 0.0, 0.0, rules.max_tree_los):
+						team_seen = 1
+						break
+			if team_seen == 0:
+				continue
+		m.items[w]["ready_time"] = time + float(wpn.get("recycle", 1.0))
+		if rules.heat_enabled and m.uses_heat:
+			m.heat += float(wpn.get("heat", 0.0))
+		if m.uses_ammo(w):
+			m.reduce_ammo(int(wpn["ammo_id"]), 1)
+		var form: String = m.items[w]["form"]
+		var speed: float = projectile_speed.get(form, 0.0)
+		var flight := d / speed if speed > 0.0 else 0.0
+		var proj := {"shot": {"hit": false}, "target": -1, "at": p, "from": m.id, "impact_time": time + flight, "form": form}
+		if rules.area_effect_weapons and rules.area_effect.has(mid):
+			proj["area"] = rules.area_effect[mid]
+		projectiles.append(proj)
+		events.append({"type": "shot", "from": m.id, "to": -1, "at": p, "weapon": w, "form": form, "hit": false,
+			"location": -1, "flight": flight})
+		fired = true
+	if fired and not m.suppression:
+		order_hold(m)  # pilot->clearCurTacOrder() after the volley
 
 
 ## Turret::fireWeapon (turret.cpp:1352-1600): line of sight to the target (a team mate's for an
@@ -947,9 +1093,10 @@ func explosion(at: Vector2, damage: float, radius_m: float, source: SimUnit = nu
 
 
 func _pick_target(m: SimUnit) -> SimUnit:
-	if m.current_target and m.current_target.team == m.team:
+	var forced := m.order == Order.ATTACK and m.force_target
+	if m.current_target and m.current_target.team == m.team and not forced:
 		m.current_target = null  # it changed sides (a captured turret or building): not a target now
-	if m.order in [Order.ATTACK, Order.GUARD] and m.order_target and m.order_target.team == m.team:
+	if m.order in [Order.ATTACK, Order.GUARD] and m.order_target and m.order_target.team == m.team and not forced:
 		order_hold(m)
 	if m.order in [Order.ATTACK, Order.GUARD] and m.order_target and not m.order_target.is_disabled():
 		return m.order_target
@@ -1009,6 +1156,15 @@ func _land_projectiles() -> void:
 	for p in projectiles:
 		if p["impact_time"] > time + 0.0001:
 			still.append(p)
+			continue
+		if int(p["target"]) < 0:  # a shot at a ground point (force fire, suppression)
+			var at: Vector2 = p["at"]
+			if p.has("area"):
+				events.append({"type": "blast", "at": at, "radius": float(p["area"][1]), "from": p.get("from", -1)})
+				explosion(at, float(p["area"][0]), float(p["area"][1]), units[p["from"]])
+			elif map.mine_at(map.cell_of(at)) == 1:  # a shot into a mined cell sets it off (gvehicl.cpp:4821-4828)
+				map.set_mine(map.cell_of(at), 2)
+				events.append({"type": "mine", "at": map.cell_center(map.cell_of(at)), "unit": -1})
 			continue
 		var target := units[p["target"]]
 		if p.has("area"):

@@ -553,8 +553,9 @@ func _process(_delta: float) -> void:
 	# lance
 	command_mode = view.input.order_mode
 	var modes := {}
-	for k in ["run", "jump", "guard", "fire_from_position", "hold"]:
+	for k in ["run", "jump", "guard", "fire_from_position", "hold", "short", "medium", "long", "force_fire", "lay_mines"]:
 		modes[k] = view.input.mode_on(k)
+	modes["can_lay_mines"] = sel.any(func(m): return m is SimVehicle and m.mine_stock > 0)
 	modes["alpha_strike"] = not sel.is_empty() and sel.all(func(m): return m.ignore_heat_discipline)
 	var tons := 0.0
 	var expanded_n := 0

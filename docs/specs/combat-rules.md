@@ -183,6 +183,38 @@ terrain and cell heights only). Flag `attack_goals`.
 - Flag `slew`. Arena (40 fights, 4 mechs at 150 m): 4 Partisans' damage 17 -> 22 per minute,
   fights 26 -> 22 s; 6 Harassers 84 -> 25 per minute (they turn their hulls), fights 9 -> 13 s.
 
+## Player controls from the original (2026-10-24)
+
+The command table is missiongui.cpp:195-310; the palette's buttons are ControlGui::Commands
+(ControlGui.h:179-201). Added:
+- **Force fire, F** (`forceShot`, missiongui.cpp:3208-3240): the next right-click attacks
+  whatever is under the cursor, a friend or a building included (`force_target`), or, on open
+  ground, the point (TACTICAL_ORDER_ATTACK_POINT). From the current position when C is armed.
+- **Attack point** (`SimWorld.order_attack_point`): fire every weapon in reach at the point (its
+  line of sight, or a team mate's for indirect fire). Area-effect shells blast there; a shot into
+  a mined cell sets the mine off (gvehicl.cpp:4821-4828). One volley ends the order
+  (gvehicl.cpp:4838-4842) unless suppression is on (step 5).
+- **Range keys S / M / L** and buttons (attackShort/Medium/Long, missiongui.cpp:1896-1931; the
+  SHORT/MED/LONG_RANGE buttons): the next attack stands at the ordered fire range of
+  `getOrderedFireRange` (mover.cpp:5888-5918): half the width of the weapon range band, which
+  with gamesys WeaponRanges is 30, 45 and 60 m (the original's own arithmetic, kept). With an
+  explicit range the attack goal drops its "beyond maximum range" penalty (mover.cpp:4473).
+  Held keys apply while down; the buttons are a radio group; neither set means
+  FIRERANGE_OPTIMAL.
+- **Waypoints, Ctrl** (WAYPOINT_KEY = left Ctrl, missiongui.cpp:842; addQueuedTacOrder
+  warrior.cpp:1555-1590; executeTacOrderQueue 1698-1708, 4890-4906): orders given with Ctrl held
+  are queued (up to 16) and shown as markers; releasing Ctrl starts them, each when the unit is
+  idle. A direct order clears the queue. Looping patrols are not ported.
+- **Death from above** (BattleMechType::handleCollision, mech.cpp:819-925): a mech landing
+  within a cell of an enemy mover hits it for jumper tonnage / 10 + 0.5 in its top section and
+  takes the same in its legs. The original refuses a jump order clicked on a unit
+  (`doJump`, missiongui.cpp:1961-2000), so the player jumps onto the ground beside or under the
+  enemy. AI DFA through TACORDER_PARAM_ATTACK_DFA (warrior.cpp:5582) is not ported. Flag `dfa`.
+- **Lay mines** is a palette button again (LAYMINES), so M is the medium-range key as in the
+  original.
+- Not added (still missing): aimed shots on Numpad 2/5/8 (aimLeg/Arm/Head), power down/up
+  (PgDn/PgUp), eject (End), energy weapons only (the original's A; ours is alpha strike).
+
 ## Who an engaged AI shoots (F6, I12)
 
 `combatDecisionTree` (warrior.cpp:3472-3540) fires only at the pilot's last target, the one its
