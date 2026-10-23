@@ -135,9 +135,8 @@ func _make_emitter(kind: String, cfg: Dictionary, amount: int) -> GPUParticles3D
 	var mesh: Mesh
 	if shader == "debris":
 		mat.shader = load("res://shaders/fx_debris.gdshader")
-		var box := BoxMesh.new()
-		box.size = Vector3.ONE
-		mesh = box
+		mat.set_shader_parameter("variants", float(SHARD_VARIANTS))
+		mesh = shard_mesh()
 	else:
 		mat.shader = load("res://shaders/fx_sprite_%s.gdshader" % shader)
 		var q := QuadMesh.new()
@@ -159,6 +158,86 @@ func _make_emitter(kind: String, cfg: Dictionary, amount: int) -> GPUParticles3D
 	p.draw_pass_1 = mesh
 	add_child(p)
 	return p
+
+
+## Debris shards (phase 8): one mesh holds SHARD_VARIANTS irregular fragments (torn plates, wedges, splinters,
+## bent armour), each a flat-shaded prism whose top face is tapered or skewed against its base. UV2.x carries the
+## variant; fx_debris.gdshader keeps only the particle's own variant (picked from its random CUSTOM.w) and
+## collapses the rest, so every particle is still one instance of one draw. UV2.y is a per-face random (metal or
+## soot facet), UV is a position along the shard for the scorch gradient. Each variant spans about the unit cube
+## the old BoxMesh filled (a shard is thinner, so its length runs a little past it), so sizes in weapon_fx.json
+## keep their meaning.
+const SHARD_VARIANTS := 6
+static var _shard_cache: ArrayMesh
+
+
+static func shard_mesh() -> ArrayMesh:
+	if _shard_cache:
+		return _shard_cache
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 8061
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	# [sides, length, width, thickness, top scale, top skew, bend]
+	var kinds := [
+		[5, 1.0, 0.75, 0.12, 0.9, 0.08, 0.0],    # torn armour plate
+		[3, 1.0, 0.6, 0.45, 0.15, 0.25, 0.0],    # wedge: the top closes to an edge
+		[4, 1.0, 0.22, 0.2, 0.5, 0.1, 0.0],      # splinter / strut
+		[6, 0.85, 0.7, 0.18, 0.85, 0.05, 0.35],  # bent plate
+		[5, 0.7, 0.6, 0.5, 0.45, 0.2, 0.0],      # chunky fragment
+		[4, 1.0, 0.5, 0.1, 0.95, 0.15, 0.2],     # thin sheet
+	]
+	for v in SHARD_VARIANTS:
+		var k: Array = kinds[v % kinds.size()]
+		var n: int = k[0]
+		var base: Array[Vector3] = []
+		var a0 := rng.randf() * TAU
+		for i in n:
+			var a := a0 + TAU * (float(i) + rng.randf_range(-0.25, 0.25)) / n
+			var r := rng.randf_range(0.75, 1.0)
+			base.append(Vector3(cos(a) * r * 0.62 * k[1], 0.0, sin(a) * r * 0.62 * k[2]))
+		var skew := Vector3(rng.randf_range(-1, 1), 0, rng.randf_range(-1, 1)) * float(k[5])
+		var top: Array[Vector3] = []
+		for p in base:
+			var q: Vector3 = p * float(k[4]) + skew * 0.5
+			q.y = float(k[3]) * rng.randf_range(0.7, 1.0)
+			top.append(q)
+		var bend := float(k[6])
+		for arr in [base, top]:
+			for i in arr.size():
+				var p: Vector3 = arr[i]
+				p.y += bend * p.x * p.x * 2.0 - float(k[3]) * 0.5
+				arr[i] = p
+		var centre := Vector3.ZERO
+		for p in base + top:
+			centre += p
+		centre /= float(2 * n)
+		var faces: Array = []
+		for i in range(1, n - 1):
+			faces.append([base[0], base[i + 1], base[i]])
+			faces.append([top[0], top[i], top[i + 1]])
+		for i in n:
+			var j := (i + 1) % n
+			faces.append([base[i], base[j], top[j]])
+			faces.append([base[i], top[j], top[i]])
+		for f in faces:
+			var nrm: Vector3 = (f[1] - f[0]).cross(f[2] - f[0])
+			if nrm.length_squared() < 1e-10:
+				continue
+			nrm = nrm.normalized()
+			var fc: Vector3 = (f[0] + f[1] + f[2]) / 3.0
+			var tri: Array = f
+			if nrm.dot(fc - centre) < 0.0:
+				nrm = -nrm
+				tri = [f[0], f[2], f[1]]
+			var facet := rng.randf()
+			for p in tri:
+				st.set_normal(nrm)
+				st.set_uv(Vector2(p.x / max(float(k[1]), 0.01) + 0.5, p.y + 0.5))
+				st.set_uv2(Vector2(float(v), facet))
+				st.add_vertex(p - centre)
+	_shard_cache = st.commit()
+	return _shard_cache
 
 
 static func _fire_ramp() -> GradientTexture1D:
