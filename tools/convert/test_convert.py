@@ -10,6 +10,7 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import audio  # noqa: E402
 import chassis  # noqa: E402
 import components  # noqa: E402
 import convert_all  # noqa: E402
@@ -190,6 +191,64 @@ class ReferenceTests(unittest.TestCase):
         s = strings_rc.load(os.path.join(SRC, "Script1.rc"), os.path.join(SRC, "resource.h"))
         self.assertIn("Fusion Engine", s[32001])
         self.assertEqual(s[28919], "ATLAS")
+
+
+class AudioEffectIdTests(unittest.TestCase):
+    def test_effect_id_is_row_index_not_first_cell(self):
+        rows = [
+            ["3", "PP2K Effect Name", "Flash", "Hit", "Object Number", "Miss", "Weapon Name"],
+            ["3", "NONE", "NONE", "NONE", "0", "NONE", "No Weapon Here"],
+            ["1", "a", "b", "c", "461", "d", "Medium ER Clan Laser"],
+            ["2", "a", "b", "c", "462", "d", "Large ER Clan Laser"],
+            ["3", "flamer_trail", "b", "c", "188", "d", "Flamer"],
+        ]
+        self.assertEqual(audio.effect_objects(rows), {0: 0, 1: 461, 2: 462, 3: 188})
+
+
+@unittest.skipUnless(HAVE_REF, "reference/ not cloned")
+class WeaponFireSoundReferenceTests(unittest.TestCase):
+    def test_every_weapon_resolves_its_own_fire_sound(self):
+        data = os.path.join(SRC, "Data")
+        comps = components.load(os.path.join(data, "Objects", "compbas.csv"))
+        sound = os.path.join(data, "Sound")
+        idx = audio._index([os.path.join(sound, "SoundFX"), sound])
+        sound_list = [l.strip() for l in open(os.path.join(sound, "Sound.rsp"), encoding="cp1252")]
+        got = {cid: os.path.basename(p).lower() for cid, p in
+               audio.weapon_fire_sounds(data, comps, sound_list, idx).items()}
+        names = {c["id"]: c["name"] for c in comps}
+        by_name = {names[cid]: f for cid, f in got.items()}
+        self.assertEqual(by_name["Flamer Array"], "sfx_flamer_fire.wav")
+        self.assertEqual(by_name["Laser"], "sfx_lazer_fire(rate).wav")
+        self.assertEqual(by_name["MG Array"], "sfx_mgun_fire.wav")
+        self.assertEqual(by_name["Thunderbolt Missile"], "sfx_thunderbolt_fire.wav")
+        self.assertEqual(by_name["Swarm LRM5 Rack"], "sfx_lrm_salvo.wav")
+        # Light Gauss's bolt FIT says FiringSoundFX 0 (<NULL>) in the original data: silent.
+        self.assertNotIn("Light Gauss Rifle", by_name)
+        weapons = [c for c in comps if c.get("weapon")]
+        self.assertEqual(len(got), len(weapons) - 1)
+
+
+@unittest.skipUnless(HAVE_REF, "reference/ not cloned")
+class PilotRadioReferenceTests(unittest.TestCase):
+    def test_radio_table_and_voice_packets(self):
+        sound = os.path.join(SRC, "Data", "Sound")
+        msgs = audio.radio_messages(sound)
+        self.assertEqual(len(msgs), 31)  # RadioMessageType RADIO_ACK .. RADIO_ARMORHOLE (dradio.h)
+        by = {m["name"]: m for m in msgs}
+        self.assertEqual(by["RADIO_UNDER_ATTACK"]["map"], 19)
+        self.assertEqual(by["RADIO_UNDER_ATTACK"]["priority"], 1)
+        self.assertTrue(by["RADIO_UNDER_ATTACK"]["pilot_id"])
+        self.assertEqual(by["RADIO_EJECTING"]["priority"], 0)
+        self.assertEqual(by["RADIO_ACK"]["chances"], [33, 33, 34])
+        for n in range(1, 27):
+            lines = audio.pilot_voice_files(sound, n)
+            self.assertEqual(len(lines), 42)
+            self.assertEqual(lines[19][0], "underattacka")  # packet = mapping + style
+            self.assertEqual(lines[37][0], "callsigna")
+        # a voice that spells the salvage stem differently on disk is still found
+        self.assertIsNotNone(audio.pilot_voice_files(sound, 26)[14][1])
+        # and one that never recorded it has no file (the original never plays RADIO_MECH_SALVAGE)
+        self.assertIsNone(audio.pilot_voice_files(sound, 2)[14][1])
 
 
 if __name__ == "__main__":
