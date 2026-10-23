@@ -11,6 +11,7 @@ shader_type spatial;
 render_mode cull_disabled, depth_draw_opaque;
 
 uniform sampler2D mask_tex : hint_default_black, filter_linear_mipmap_anisotropic;    // R hl1, G hl2, B metal tone, A glass code
+uniform sampler2D mask_id_tex : hint_default_black, filter_nearest_mipmap;           // the same texture: exact glass codes
 uniform sampler2D detail_tex : hint_default_white, filter_linear_mipmap_anisotropic;  // R AO, G curvature, B decal, A soot
 uniform sampler2D normal_tex : hint_normal, filter_linear_mipmap_anisotropic;
 uniform sampler2D zones_tex : hint_default_black, filter_linear_mipmap;              // R region, G piping, B stripe, A band
@@ -39,11 +40,11 @@ uniform vec3 emissive_colour : source_color = vec3(1.0, 0.72, 0.38);
 uniform vec3 lens_colour : source_color = vec3(0.25, 1.0, 0.4);
 uniform float emissive_energy = 3.0;
 
-uniform float wear : hint_range(0.0, 1.0) = 0.85;    // chipped paint along edges
-uniform float grime : hint_range(0.0, 1.0) = 0.8;    // dirt in recesses and runs
+uniform float wear : hint_range(0.0, 1.0) = 1.0;    // chipped paint along edges
+uniform float grime : hint_range(0.0, 1.0) = 0.95;    // dirt in recesses and runs
 uniform float burns : hint_range(0.0, 1.0) = 0.45;   // scorch blotches
 uniform float soot : hint_range(0.0, 1.0) = 0.8;     // by weapons and vents
-uniform float mud : hint_range(0.0, 1.0) = 0.7;      // lower legs and feet
+uniform float mud : hint_range(0.0, 1.0) = 0.9;      // lower legs and feet
 uniform vec3 mud_colour : source_color = vec3(0.24, 0.19, 0.14);
 uniform float detail_near = 35.0;
 uniform float detail_far = 110.0;
@@ -151,7 +152,7 @@ void fragment() {
 	paint *= 0.9 + 0.2 * g1.g;
 	paint = mix(paint, paint * vec3(1.08, 1.05, 0.95) + 0.03, smoothstep(0.55, 0.75, g1.r) * 0.5);   // sun-faded patches
 	float metal_zone = max(smoothstep(0.12, 0.3, m.b), steel_region);
-	float metal_tone = steel_region > 0.5 ? 0.85 : m.b;
+	float metal_tone = steel_region > 0.5 ? (m.b > 0.1 ? m.b : 0.7) : m.b;   // housings keep their dark gunmetal
 	vec3 steel = mix(vec3(0.08, 0.08, 0.085), vec3(0.3, 0.305, 0.32), smoothstep(0.3, 0.9, metal_tone));
 	steel *= 0.88 + 0.24 * g2.b;
 	// wear: convex edges lose their paint down to bright scuffed steel; fine scratches across the panels
@@ -159,14 +160,17 @@ void fragment() {
 	float chip = clamp(edge * wear * 2.6 - (1.0 - g2.b) * 0.9, 0.0, 1.0) * near_;
 	chip = max(chip, smoothstep(0.78, 0.84, g3.b) * edge * near_);   // pitting along worn edges
 	float scratch = smoothstep(0.82, 0.88, g2.a) * smoothstep(0.6, 0.8, g1.b) * wear * 0.45 * near_;
-	chip = max(chip, scratch) * (1.0 - metal_zone);
+	chip = max(chip, scratch) * (1.0 - metal_zone) * (1.0 - smoothstep(0.02, 0.2, m.a));   // no white chips round the glass
 	vec3 albedo = mix(paint, steel, metal_zone);
 	vec3 bare = vec3(0.34, 0.34, 0.35) * (0.9 + 0.2 * g2.b);
 	// stencil numbers, and the crest where the scheme has one
 	float num = smoothstep(0.7, 0.85, decal);
 	float crest = smoothstep(0.35, 0.45, decal) * (1.0 - smoothstep(0.6, 0.7, decal)) * insignia_on;
 	albedo = mix(albedo, decal_colour, (num + crest) * (0.78 + 0.22 * g1.b));
-	albedo = mix(albedo, bare, chip);
+	// a chip shows bright scuffed steel inside a dark lip of torn paint and primer, so it reads on any colour
+	float lip = clamp(edge * wear * 2.6 - (1.0 - g2.b) * 0.6, 0.0, 1.0) * near_ * (1.0 - metal_zone);
+	albedo = mix(albedo, albedo * 0.35, clamp(lip - chip, 0.0, 1.0) * 0.8);
+	albedo = mix(albedo, bare * 1.25, chip);
 	// recesses, panel lines and runs of grime
 	float concave = smoothstep(0.42, 0.22, curv);   // well below neutral: curvature noise must not draw dark dots
 	float cavity = clamp(smoothstep(0.12, 0.6, 1.0 - ao) * 1.1 + concave * 0.7, 0.0, 1.0);   // real recesses, not bake noise
@@ -174,11 +178,12 @@ void fragment() {
 	vec3 dirt = albedo * vec3(0.3, 0.27, 0.22);
 	float runs = smoothstep(0.5, 0.72, g2.a) * (0.5 + 0.5 * (1.0 - ao)) * (1.0 - clamp(world_n.y, 0.0, 1.0) * 0.6);
 	albedo = mix(albedo, dirt, clamp((cavity * 1.1 + runs * 0.8) * grime, 0.0, 0.94));
-	albedo *= mix(1.0, ao, 0.25);   // grime settles in every occluded corner
+	albedo *= mix(1.0, ao, 0.3);
+	albedo = mix(albedo, albedo * 0.55, smoothstep(0.45, 0.75, g1.r) * smoothstep(0.3, 0.7, 1.0 - ao) * grime * 0.6);   // grime patches   // grime settles in every occluded corner
 	// soot by weapons and vents; mud up the legs; scorch blotches; the wreck's burn
 	float sootm = clamp(d.a * soot * (0.6 + 0.8 * g1.r), 0.0, 1.0);
 	albedo = mix(albedo, vec3(0.03, 0.028, 0.025), sootm * 0.9);
-	float low = 1.0 - smoothstep(height_m * 0.03, height_m * 0.2, rel_h + (g1.g - 0.5) * height_m * 0.08);
+	float low = 1.0 - smoothstep(height_m * 0.05, height_m * 0.26, rel_h + (g1.g - 0.5) * height_m * 0.1);
 	float mudm = clamp(mud * low * smoothstep(0.35, 0.6, g2.g + (1.0 - low) * -0.2) * 1.1, 0.0, 0.9);
 	albedo = mix(albedo, mud_colour * (0.85 + 0.3 * g2.g), mudm * 0.85);
 	float blot = smoothstep(0.66, 0.8, g1.r + (g2.g - 0.5) * 0.2) * burns;
@@ -191,12 +196,12 @@ void fragment() {
 	float smask = clamp(snow * smoothstep(0.35, 0.75, up + (g1.g - 0.5) * 0.4) * 1.6, 0.0, 1.0);
 	albedo = mix(albedo, vec3(0.88, 0.9, 0.93), smask);
 
-	float metallic = mix(0.12, mix(0.55, 0.85, smoothstep(0.3, 0.9, metal_tone)), max(metal_zone, chip)) * (1.0 - mudm * 0.8) * (1.0 - sootm * 0.6);
-	float metal_rough = mix(0.6, 0.38, smoothstep(0.3, 0.9, metal_tone));   // dark gunmetal (housings) is satin, not chrome
+	float metallic = mix(0.08, mix(0.3, 0.75, smoothstep(0.3, 0.9, metal_tone)), max(metal_zone, chip)) * (1.0 - mudm * 0.8) * (1.0 - sootm * 0.6);
+	float metal_rough = mix(0.72, 0.45, smoothstep(0.3, 0.9, metal_tone));   // dark gunmetal (housings) is satin, not chrome
 	float rough = mix(0.58, metal_rough, max(metal_zone, chip)) + 0.12 * (g2.g - 0.5) + dmask * 0.3 + cavity * grime * 0.2
 		+ mudm * 0.35 + sootm * 0.3;
 	rough = mix(rough, 0.95, scorch);
-	float code = m.a * 255.0;
+	float code = texture(mask_id_tex, UV).a * 255.0;   // nearest: a linear blend at the edge made lens and light fringes
 	if (!FRONT_FACING) {
 		ALBEDO = vec3(0.025, 0.024, 0.023);
 		METALLIC = 0.0;
@@ -208,10 +213,14 @@ void fragment() {
 		NORMAL_MAP = texture(normal_tex, UV).rgb;
 		METALLIC = 0.0;
 		SPECULAR = 0.8;
-		if (code > 220.0) {   // canopy: tinted blue glass, a dark interior and a sky-blue rim
-			ALBEDO = vec3(0.02, 0.05, 0.1);
-			ROUGHNESS = 0.04 + dmask * 0.2;
-			EMISSION = (vec3(0.03, 0.09, 0.16) + vec3(0.2, 0.42, 0.65) * fres) * (1.0 - scorch);
+		if (code > 220.0) {   // canopy: a dark tinted pane that mirrors a sky gradient, strongest at grazing angles
+			vec3 rv = (INV_VIEW_MATRIX * vec4(reflect(-VIEW, NORMAL), 0.0)).xyz;
+			vec3 sky = mix(vec3(0.07, 0.07, 0.08), mix(vec3(0.42, 0.5, 0.6), vec3(0.75, 0.82, 0.9), smoothstep(0.0, 0.7, rv.y)),
+				smoothstep(-0.15, 0.05, rv.y));
+			ALBEDO = vec3(0.01, 0.018, 0.03);
+			ROUGHNESS = 0.03 + dmask * 0.3;
+			SPECULAR = 1.0;
+			EMISSION = sky * (0.12 + 0.85 * fres) * (1.0 - dmask * 0.7) * (1.0 - scorch);
 		} else if (code > 150.0) {   // sensor lens
 			ALBEDO = vec3(0.02, 0.06, 0.03);
 			ROUGHNESS = 0.05;
@@ -225,7 +234,8 @@ void fragment() {
 	} else {
 		ALBEDO = albedo;
 		METALLIC = metallic * (1.0 - dmask * 0.7) * (1.0 - smask);
-		ROUGHNESS = clamp(mix(rough, 0.7, smask), 0.05, 1.0);
+		ROUGHNESS = clamp(mix(rough + 0.08 * (1.0 - metal_zone), 0.7, smask), 0.05, 1.0);
+		SPECULAR = mix(0.3, 0.5, max(metal_zone, chip));   // painted armour: low specular, no mirror of the hangar's cyan
 		NORMAL_MAP = texture(normal_tex, UV).rgb;
 		AO = ao;
 		AO_LIGHT_AFFECT = 0.55;

@@ -51,9 +51,9 @@
    "hl1": "#d06020",
    "hl2": "#2a4a8a",
    "regions": {
-    "body": "base",
+    "body": "hl2",
     "head": "base",
-    "arms": "base",
+    "arms": "hl2",
     "upper_legs": "hl2",
     "lower_legs": "hl2",
     "feet": "hl2",
@@ -74,9 +74,9 @@
    "hl1": "#d06020",
    "hl2": "#2a4a8a",
    "regions": {
-    "body": "base",
+    "body": "hl2",
     "head": "base",
-    "arms": "base",
+    "arms": "hl2",
     "upper_legs": "hl2",
     "lower_legs": "hl2",
     "feet": "hl2",
@@ -370,12 +370,12 @@
    "missions": [
     "mc2_04"
    ]
-  }
- },
- "unassigned": [
-  {
-   "triple": "#626934|#e08e52|#b02828",
-   "units": 138,
+  },
+  "#626934|#e08e52|#b02828": {
+   "faction": "liao",
+   "scheme": "liao",
+   "evidence": "inferred-medium",
+   "note": "mc2_06 and mc2_18-20: fields Sha Yu (a Liao 'Mech by the Mechlopedia) with Liao vehicle waves; mc2_06 and mc2_19 briefings name Liao",
    "missions": [
     "mc2_06",
     "mc2_18",
@@ -383,9 +383,20 @@
     "mc2_20"
    ]
   },
-  {
-   "triple": "#004080|#feca32|#feca32",
-   "units": 102,
+  "#626934|#e08e52|#e08e52": {
+   "faction": "liao",
+   "scheme": "liao",
+   "evidence": "inferred-medium",
+   "note": "mc2_20, the triple above with one highlight",
+   "missions": [
+    "mc2_20"
+   ]
+  },
+  "#004080|#feca32|#feca32": {
+   "faction": "steiner",
+   "scheme": "steiner",
+   "evidence": "inferred-medium",
+   "note": "blue and gold on Zeus (a Steiner 'Mech), Werewolf, Legion, Bushwacker; mc2_23 and mc2_24 are Steiner missions",
    "missions": [
     "mc2_11",
     "mc2_14",
@@ -394,7 +405,9 @@
     "mc2_23",
     "mc2_24"
    ]
-  },
+  }
+ },
+ "unassigned": [
   {
    "triple": "#ffffff|#c0c0c0|#808080",
    "units": 18,
@@ -459,13 +472,6 @@
    "missions": [
     "mc2_08",
     "mc2_19",
-    "mc2_20"
-   ]
-  },
-  {
-   "triple": "#626934|#e08e52|#e08e52",
-   "units": 5,
-   "missions": [
     "mc2_20"
    ]
   },
