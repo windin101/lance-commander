@@ -1,0 +1,53 @@
+{
+ "turn": false,
+ "l": {
+  "hip": [
+   260,
+   4170
+  ],
+  "knee": [
+   1880,
+   3400
+  ],
+  "ankle": [
+   1420,
+   900
+  ]
+ },
+ "r": {
+  "hip": [
+   300,
+   4200
+  ],
+  "knee": [
+   440,
+   2190
+  ],
+  "ankle": [
+   -1600,
+   900
+  ]
+ },
+ "arms": {},
+ "upper": [
+  {
+   "node": "ca_torso",
+   "ax_max": 1450,
+   "z_min": 4700
+  },
+  {
+   "node": "ca_lmissile",
+   "x_sign": 1,
+   "ax_min": 1450,
+   "z_min": 4700
+  },
+  {
+   "node": "ca_rmissile",
+   "x_sign": -1,
+   "ax_min": 1450,
+   "z_min": 4700
+  }
+ ],
+ "v2": {},
+ "_from": "~/craft/solid/mc2/stl/catapult/joints.json (the v1 fit), copied by hd_v2_rollout.py"
+}

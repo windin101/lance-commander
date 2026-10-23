@@ -1,0 +1,68 @@
+{
+ "turn": false,
+ "l": {
+  "hip": [
+   80,
+   3920
+  ],
+  "knee": [
+   -220,
+   2440
+  ],
+  "ankle": [
+   1000,
+   1000
+  ]
+ },
+ "r": {
+  "hip": [
+   60,
+   3920
+  ],
+  "knee": [
+   -920,
+   2800
+  ],
+  "ankle": [
+   -960,
+   1000
+  ]
+ },
+ "upper_joints": {
+  "joint_luarm": [
+   1450,
+   1000,
+   6600
+  ],
+  "joint_lgun": [
+   2300,
+   850,
+   5550
+  ],
+  "joint_ruarm": [
+   -2000,
+   -50,
+   6500
+  ],
+  "joint_rgun": [
+   -2600,
+   -250,
+   5800
+  ]
+ },
+ "arm_tips": {
+  "l": [
+   2650,
+   -1100,
+   5050
+  ],
+  "r": [
+   -2600,
+   -1500,
+   5000
+  ]
+ },
+ "arm_reach": 650,
+ "v2": {},
+ "_from": "~/craft/solid/mc2/stl/hunchback/joints.json (the v1 fit), copied by hd_v2_rollout.py"
+}

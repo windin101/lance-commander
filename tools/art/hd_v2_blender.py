@@ -226,7 +226,7 @@ elif mode == "bake":
     if hi is None:
         # 2. normal map with rounded edges (game mesh = sculpt; with a hi-poly source the map above is the detail)
         bev = nt.nodes.new("ShaderNodeBevel")
-        bev.samples = 8
+        bev.samples = 16
         bev.inputs["Radius"].default_value = float(opt.get("bevel", 0.012))
         nt.links.new(bev.outputs["Normal"], bsdf.inputs["Normal"])
         im = new_img("normal")

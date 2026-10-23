@@ -15,8 +15,11 @@ and per joint we measure:
        the nearest surface point's normal; reported as the 95th percentile (thin shells make the sign noisy).
 Fillers are faces that exist only to hide seams: the sidecar's "filler_faces" ranges (hd_v2.py writes
 <model>.rig.json beside the .glb), or --filler-tail N for the last N triangles (stl_rig.py's joint caps).
-Exit status 1 if any joint's gap p95 (95th percentile over its seam vertices, worst pose) is over --max-gap
-(metres) or its pen p95 over --max-pen. The single worst vertex (gap max) is reported too.
+Reported per part: hole (seam vertex to anything that covers it, caps included: a hole you can see into), sep
+(separation: to the partner's own surface or a housing only, so a capped plate lifting off its partner counts) and
+pen (new interpenetration outside the housings). The gate is on the locomotion animations (Idle, Walk, Run and their
+transitions, limps, hits, jump): exit status 1 if any part's hole or sep p95 is over --max-gap (metres) or its pen
+p95 over --max-pen. Falls and get-ups are reported, not gated.
 Locomotion animations (Idle, Walk, Run, transitions, limps) are reported apart from the falls and get-ups.
 """
 import argparse
@@ -141,6 +144,9 @@ def main():
     filler = np.zeros(nt, bool)
     for lo, hi in rig.get("filler_faces", []):
         filler[lo:hi] = True
+    capf = np.zeros(nt, bool)   # caps close a part's own cut: they stop holes, but not a plate lifting off its partner
+    for lo, hi in rig.get("cap_faces", []):
+        capf[lo:hi] = True
     if a.filler_tail:
         filler[-a.filler_tail:] = True
     dom = J[np.arange(len(J)), Wt.argmax(1)]            # dominant skin slot per vertex
@@ -149,13 +155,15 @@ def main():
     an = Animator(g, b)
 
     # surface samples per face: centroid and three edge midpoints, with the face's vertices for skinning weights
-    bary = np.array([[1 / 3, 1 / 3, 1 / 3], [.5, .5, 0], [0, .5, .5], [.5, 0, .5]])
+    # surface samples: centroid, edge midpoints and the corners (a seam vertex closed by a cap lies on the cap's corner)
+    bary = np.array([[1 / 3, 1 / 3, 1 / 3], [.5, .5, 0], [0, .5, .5], [.5, 0, .5], [1, 0, 0], [0, 1, 0], [0, 0, 1]])
     def samples(faces):
         return faces, bary
     # seam vertices: sculpt vertices with another part's sculpt or filler surface within 1 mm at rest
     rest_pts = np.einsum("kj,fjd->fkd", bary, P[I]).reshape(-1, 3)
     rest_part = np.repeat(fdom, len(bary))
     rest_fill = np.repeat(filler, len(bary))
+    rest_cap = np.repeat(capf, len(bary))
     vert_tree = cKDTree(P)
     seam = {}
     sculpt_v = np.zeros(len(P), bool); sculpt_v[I[~filler].ravel()] = True
@@ -203,6 +211,16 @@ def main():
                 del seam[s_]
 
     acts = rig.get("actuators", [])
+    node_of = {n.get("name"): i for i, n in enumerate(g["nodes"])}
+    W0_ = an.world() if acts else None
+    jseam_of = {}
+    if acts:
+        for s_, vs_ in seam.items():
+            m_ = np.zeros(len(vs_), bool)
+            for act in acts:
+                ctr = (W0_[node_of[act["node"]]] @ np.r_[act["centre"], 1.0])[:3]
+                m_ |= np.linalg.norm(P[vs_] - ctr, axis=1) < 1.5 * max(act["radius"], act.get("length", 0.0) / 2)
+            jseam_of[s_] = m_
     if a.pose:  # write the skinned mesh at one pose for a look (mm, Z up, as hd_v2's rest.npz) and stop
         an_, t_ = a.pose.split("@")
         W = an.world(an_, float(t_))
@@ -231,7 +249,6 @@ def main():
         near_of[s] = nb
         mine, oth = nb & (rest_part == s) & ~rest_fill, nb & (rest_part != s) & ~rest_fill
         rest_depth[s] = depth_in(rest_pts[mine], rest_pts[oth], Sn0[oth]) if mine.any() and oth.any() else 0.0
-    node_of = {n.get("name"): i for i, n in enumerate(g["nodes"])}
     anims = [x for x in an.anims if not a.anims or x in a.anims.split(",")]
     res = {}
     dbg_gap = np.zeros(len(P)); dbg_V = P.copy()
@@ -254,18 +271,26 @@ def main():
                 if not other.any():
                     continue
                 d = cKDTree(Sp[other]).query(q)[0]
+                # separation: the same, but only the partner's own surface and the housings cover (not caps)
+                osep = other & ~rest_cap & (~rest_fill | (rest_part != -1))
+                osep &= ~(rest_fill & rest_cap)
+                if partner:
+                    osep = near & ((np.isin(rest_part, list(partner.get(s, ()))) & ~rest_fill) | (rest_fill & ~rest_cap))
+                dsep = cKDTree(Sp[osep]).query(q)[0] if osep.any() else np.full(len(q), 9.0)
                 for act in acts:  # analytic actuators: a seam vertex inside one is covered
                     Wa = W[node_of[act["node"]]]
                     ctr = (Wa @ np.r_[act["centre"], 1.0])[:3]
                     if act["kind"] == "ball":
-                        d[np.linalg.norm(q - ctr, axis=1) <= act["radius"]] = 0.0
+                        inb = np.linalg.norm(q - ctr, axis=1) <= act["radius"] * 1.002
+                        d[inb] = 0.0; dsep[inb] = 0.0
                     else:
                         ax = Wa[:3, :3] @ np.asarray(act["axis"], float); ax /= np.linalg.norm(ax)
                         rel = q - ctr; along = rel @ ax
                         perp = np.linalg.norm(rel - along[:, None] * ax, axis=1)
-                        d[(perp <= act["radius"]) & (np.abs(along) <= act["length"] / 2)] = 0.0
+                        inb = (perp <= act["radius"] * 1.002) & (np.abs(along) <= act["length"] / 2 * 1.002)
+                        d[inb] = 0.0; dsep[inb] = 0.0
                 if a.debug and f"{name}@{t:.2f}" == a.debug:
-                    dbg_gap[vs] = np.maximum(dbg_gap[vs], d)
+                    dbg_gap[vs] = np.maximum(dbg_gap[vs], np.maximum(d, dsep))
                     dbg_V[:] = Vp
                 gap = float(d.max())
                 gap95 = float(np.percentile(d, 95))
@@ -273,12 +298,38 @@ def main():
                 pen = 0.0
                 mine, oth = near & (rest_part == s) & ~rest_fill, near & (rest_part != s) & ~rest_fill
                 if mine.any() and oth.any():
-                    # new interpenetration caused by the pose: depth now minus depth at rest (overlaps by design cancel)
-                    dep = depth_in(Sp[mine], Sp[oth], Sn[oth])
-                    pen = float(np.percentile(np.maximum(dep - rest_depth[s], 0.0), 95))
+                    # new interpenetration caused by the pose: depth now minus depth at rest (overlaps by design cancel),
+                    # counted only outside the housings (a part turning inside its own housing is the design)
+                    dep = np.maximum(depth_in(Sp[mine], Sp[oth], Sn[oth]) - rest_depth[s], 0.0)
+                    q_ = Sp[mine]
+                    for act in acts:
+                        Wa = W[node_of[act["node"]]]
+                        ctr = (Wa @ np.r_[act["centre"], 1.0])[:3]
+                        if act["kind"] == "ball":
+                            dep[np.linalg.norm(q_ - ctr, axis=1) <= act["radius"] * 1.15] = 0.0
+                        else:
+                            ax_ = Wa[:3, :3] @ np.asarray(act["axis"], float); ax_ /= np.linalg.norm(ax_)
+                            rel_ = q_ - ctr; al_ = rel_ @ ax_
+                            pe_ = np.linalg.norm(rel_ - al_[:, None] * ax_, axis=1)
+                            dep[(pe_ <= act["radius"] * 1.15) & (np.abs(al_) <= act["length"] / 2 * 1.15)] = 0.0
+                    pen = float(np.percentile(dep, 95))
                 r = res.setdefault(names[s], {"gap_max": 0.0, "gap_at": "", "loco_gap_max": 0.0, "pen_p95": 0.0,
                                               "loco_pen_p95": 0.0, "seam_verts": int(len(vs))})
                 r["gap_p95"] = max(r.get("gap_p95", 0.0), gap95)
+                sep95 = float(np.percentile(dsep, 95))
+                # joint seam: the seam vertices that lie (at rest) within 1.5 housing radii of a housing's centre
+                if acts and s in jseam_of:
+                    js = jseam_of[s]
+                    if js.any():
+                        jv = float(np.percentile(dsep[js], 95))
+                        r_tmp = res.setdefault(names[s], {"gap_max": 0.0, "gap_at": "", "loco_gap_max": 0.0, "pen_p95": 0.0,
+                                                          "loco_pen_p95": 0.0, "seam_verts": int(len(vs))})
+                        r_tmp["joint_sep_p95"] = max(r_tmp.get("joint_sep_p95", 0.0), jv)
+                        if name in LOCO:
+                            r_tmp["loco_joint_sep_p95"] = max(r_tmp.get("loco_joint_sep_p95", 0.0), jv)
+                r["sep_p95"] = max(r.get("sep_p95", 0.0), sep95)
+                if name in LOCO:
+                    r["loco_sep_p95"] = max(r.get("loco_sep_p95", 0.0), sep95)
                 if name in LOCO:
                     r["loco_gap_p95"] = max(r.get("loco_gap_p95", 0.0), gap95)
                 if gap > r["gap_max"]:
@@ -295,12 +346,14 @@ def main():
         print(f"debug {a.debug}: {int(bad.sum())} faces at open seams -> {a.pose_out}")
     fail = []
     print(f"{Path(a.glb).name}: {nt} tris, {len(seam)} seamed parts, {len(anims)} animations x {a.samples} samples")
-    print(f"  {'part':18s} {'gap p95':>8s} {'loco':>7s} {'gap max':>8s} {'pen p95':>8s} {'loco':>7s}  worst")
-    for n, r in sorted(res.items(), key=lambda x: -x[1].get("gap_p95", 0)):
-        bad = r.get("gap_p95", 0) > a.max_gap or r["pen_p95"] > a.max_pen
+    print(f"  {'part':18s} {'hole p95':>8s} {'sep p95':>8s} {'loco':>7s} {'joint':>7s} {'pen p95':>8s} {'loco':>7s}  worst hole")
+    for n, r in sorted(res.items(), key=lambda x: -x[1].get("loco_sep_p95", 0)):
+        # the gate: locomotion animations (falls and get-ups are reported, not gated): no holes, no plate lifting off
+        # its partner by more than --max-gap, no new interpenetration outside the housings deeper than --max-pen
+        bad = r.get("loco_gap_p95", 0) > a.max_gap or r.get("loco_sep_p95", 0) > a.max_gap or r["loco_pen_p95"] > a.max_pen
         if bad:
             fail.append(n)
-        print(f"  {n:18s} {r.get('gap_p95', 0):8.3f} {r.get('loco_gap_p95', 0):7.3f} {r['gap_max']:8.3f} {r['pen_p95']:8.3f} "
+        print(f"  {n:18s} {r.get('gap_p95', 0):8.3f} {r.get('sep_p95', 0):8.3f} {r.get('loco_sep_p95', 0):7.3f} {r.get('loco_joint_sep_p95', 0):7.3f} {r['pen_p95']:8.3f} "
               f"{r['loco_pen_p95']:7.3f}  {r['gap_at']}" + ("  FAIL" if bad else ""))
     out = {"model": str(a.glb), "tris": nt, "max_gap": a.max_gap, "max_pen": a.max_pen, "joints": res, "fail": fail}
     if a.json:

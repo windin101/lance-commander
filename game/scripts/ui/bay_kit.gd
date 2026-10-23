@@ -135,7 +135,13 @@ static func money(v: int) -> String:
 
 
 ## The mission's player paint (its first home-commander part), [red, green, blue] ARGB.
-static func player_paint(mission: String) -> Array:
+## The player's paint scheme for the bay, lab and market models (PaintScheme.player(): the original used the
+## player's preference colours on these screens). mission_paint() keeps the old per-mission triple.
+static func player_paint(_mission: String = "") -> Dictionary:
+	return PaintScheme.player()
+
+
+static func mission_paint(mission: String) -> Array:
 	var path := "res://data/missions/%s.json" % mission
 	if FileAccess.file_exists(path):
 		var fit = JSON.parse_string(FileAccess.get_file_as_string(path))

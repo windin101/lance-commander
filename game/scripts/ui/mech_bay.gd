@@ -27,7 +27,7 @@ extends Control
 var mission := ""
 var camp: Campaign
 var kit: BayKit
-var paint: Array = []
+var paint = {}  # the player's scheme (PaintScheme.player())
 var stage: MechStage
 var thumbs: MechStage.Thumbs
 var _sel := -1  # selected mech id
@@ -158,6 +158,7 @@ func _ready() -> void:
 							select_pilot(b.trim_prefix("--pilot="))
 				"assign": _open_assign()
 				"variants": _open_variants()
+				"paint": open_paint()
 
 
 func _purchasing() -> bool:
@@ -226,7 +227,7 @@ func _build() -> void:
 	var rf := kit.margin(0.6, 0.6, 0.6, 0.6)
 	roster["body"].add_child(rf)
 	var rfh := GridContainer.new()
-	rfh.columns = 2
+	rfh.columns = 3
 	rfh.add_theme_constant_override("h_separation", kit.px(0.5))
 	rf.add_child(rfh)
 	var buy := kit.button("Buy 'Mechs", _open_buy)
@@ -236,6 +237,9 @@ func _build() -> void:
 	var pil := kit.button("Pilots", _open_pilots)
 	pil.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	rfh.add_child(pil)
+	var pnt := kit.button("Paint", open_paint)
+	pnt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	rfh.add_child(pnt)
 
 	# the 'Mech
 	stage = MechStage.new()
@@ -636,6 +640,38 @@ func _refresh_deploy() -> void:
 
 
 # --- overlays --------------------------------------------------------------------------------
+
+var _paint_panel: Control
+
+
+## The player's paint scheme (PaintPanel) over the loadout column, with the bay's 'Mech as the live preview.
+func open_paint() -> void:
+	_close_overlay()
+	if _paint_panel:
+		_paint_panel.queue_free()
+	var p := kit.panel("Paint scheme", "every player unit")
+	kit.place(p["panel"], 0.99, 0.13, 0.99, 0.845, 32.0, true)
+	add_child(p["panel"])
+	_paint_panel = p["panel"]
+	var mm := kit.margin(0.9, 0.7, 0.9, 0.7)
+	p["body"].add_child(mm)
+	var pp := PaintPanel.new(kit)
+	mm.add_child(pp)
+	pp.changed.connect(func(sch: Dictionary):
+		paint = sch
+		MechStage.Thumbs.cache.clear()
+		var m := _mech(_sel)
+		if not m.is_empty():
+			stage.show_mech(String(m["chassis"]), paint)
+		_refresh_roster())
+	p["body"].add_child(kit.rule())
+	var fm := kit.margin(0.7, 0.6, 0.7, 0.6)
+	p["body"].add_child(fm)
+	var close := kit.button("Done", func():
+		_paint_panel.queue_free()
+		_paint_panel = null)
+	close.size_flags_horizontal = Control.SIZE_SHRINK_END
+	fm.add_child(close)
 
 func _close_overlay() -> void:
 	if _overlay:
