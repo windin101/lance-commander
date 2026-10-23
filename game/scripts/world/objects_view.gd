@@ -63,6 +63,27 @@ func build(sim_map: SimMap, mission: String) -> int:
 	return placed
 
 
+## World-space bounds of map object `index` (for blast sizes); empty if it has no node (trees: a small box).
+func bounds(index: int) -> AABB:
+	if _tree_slot.has(index):
+		var slot: Array = _tree_slot[index]
+		var xf: Transform3D = _tree_xf[slot[0]][slot[1]]
+		return AABB(xf.origin - Vector3(2, 0, 2), Vector3(4, 8, 4))
+	var node: Node3D = nodes.get(index)
+	if node == null:
+		return AABB()
+	var box := AABB()
+	var first := true
+	for mi in node.find_children("*", "MeshInstance3D", true, false):
+		var m := mi as MeshInstance3D
+		if m.mesh == null:
+			continue
+		var b: AABB = m.global_transform * m.get_aabb()
+		box = b if first else box.merge(b)
+		first = false
+	return box
+
+
 func destroy(index: int) -> void:
 	if _tree_slot.has(index):  # a destroyed tree: the leaves go and the trunk is broken off to a stump
 		var slot: Array = _tree_slot[index]
