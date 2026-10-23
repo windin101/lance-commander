@@ -4,7 +4,7 @@ extends RefCounted
 ## plain Dictionary so Flow can save it with the campaign.
 ##
 ## {mission, title, won, time, objectives: [{title, primary, complete}],
-##  lance: [{name, pilot, state, armour}], kills: [{name, count}], losses,
+##  lance: [{name, pilot, state, armour}], kills: [{name, force, count}], losses,
 ##  and for the campaign (campaign-layer.md 7-9): payout (C-Bills from objectives),
 ##  survivors [{chassis, variant, pilot, loadout?}], salvage [{chassis, variant, name}],
 ##  pilots [{profile, kills: [weight class], dead, mech, variant}], bonus_files}
@@ -40,7 +40,8 @@ static func from_sim(sm: SimMission, title: String, data: Object) -> Dictionary:
 			lance.append({"name": u.name, "pilot": String(pilot.get("Name", "")), "state": state,
 				"armour": roundi(_armour_frac(u) * 100.0)})
 		elif u.team != sm.player_team and u.is_disabled():
-			kills[u.name] = kills.get(u.name, 0) + 1
+			var key := "%s|%s" % [u.name, ForceNames.of_unit(u)]
+			kills[key] = kills.get(key, 0) + 1
 	var survivors := []
 	var pilots := []
 	var salvage := []
@@ -67,7 +68,8 @@ static func from_sim(sm: SimMission, title: String, data: Object) -> Dictionary:
 				payout += int(obj.get("resource_points", 0))
 	var kill_list := []
 	for n in kills:
-		kill_list.append({"name": n, "count": kills[n]})
+		var parts: PackedStringArray = String(n).split("|")
+		kill_list.append({"name": parts[0], "force": parts[1] if parts.size() > 1 else "", "count": kills[n]})
 	kill_list.sort_custom(func(a, b): return a["count"] > b["count"])
 	return {"mission": sm.world.map.name, "title": title, "won": sm.objectives.result == SimObjectives.Result.WON,
 		"time": w.time, "objectives": objectives, "lance": lance, "kills": kill_list, "losses": losses,

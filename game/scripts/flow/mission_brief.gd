@@ -22,6 +22,9 @@ var support: Array[String] = []  # support powers enabled by the mission's *Enab
 var rain_chance := 0  # Weather ChanceOfRain (%)
 var rain_level := 0.0  # Weather StartingRainLevel
 var time_limit := -1.0  # MissionSettings TimeLimit (s), -1 none
+## Named forces in the mission (ForceNames, by the parts' colours): {"opposing": {name: units},
+## "allied": {name: units}}; parts in unmapped colours are left out.
+var forces := {"opposing": {}, "allied": {}}
 
 const SUPPORT_FLAGS := [["AirStrikesEnabledDefault", "Air strike", true], ["ArtilleryPieceEnabledDefault", "Artillery", false],
 	["MineLayersEnabledDefault", "Mine layer", true], ["ScoutCoptersEnabledDefault", "Scout 'Copter", true],
@@ -70,8 +73,15 @@ static func load_mission(data: Object, mission_name: String) -> MissionBrief:
 	b.rain_chance = int(weather.get("ChanceOfRain", 0))
 	b.rain_level = float(weather.get("StartingRainLevel", 0.0))
 	var parts := int(fit.get("Parts", {}).get("NumParts", 0))
+	var player_team := int(fit.get("Player0", {}).get("DefaultTeam", 0))
 	for i in range(1, parts + 1):
 		var p: Dictionary = fit.get("Part%d" % i, {})
+		var home := int(p.get("TeamID", 0)) == player_team
+		if not (home and int(p.get("CommanderID", -1)) == 0):
+			var force := ForceNames.for_paint([int(p.get("HighlightColor1", -1)), int(p.get("HighlightColor2", -1)), int(p.get("BaseColor", -1))])
+			if force != "":
+				var side: Dictionary = b.forces["allied" if home else "opposing"]
+				side[force] = int(side.get(force, 0)) + 1
 		if not p.get("PlayerPart", false):
 			continue
 		if b.drop_zone == null:

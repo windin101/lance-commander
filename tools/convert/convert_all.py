@@ -216,8 +216,11 @@ def main():
     report.append(f"audio: {len(manifest['weapons'])} weapon sounds, {len(manifest['sfx'])} sfx, "
                   f"{len(manifest['music'])} tunes, {len(manifest['vo'])} vo, missing {missing}")
 
-    # Retail-disc videos (user's own copy; never committed): mission comms clips + intro.
-    videos = video.convert(ROOT, args.retail_mdf, comms=comms_videos, cinematics=CINEMATICS)
+    # Retail-disc videos (user's own copy; never committed): mission comms clips, cinematics and
+    # the operation briefing videos.
+    campaign_path = os.path.join(OUT, "campaign.json")
+    briefings = video.briefing_videos(json.load(open(campaign_path))) if os.path.exists(campaign_path) else []
+    videos = video.convert(ROOT, args.retail_mdf, comms=comms_videos, cinematics=CINEMATICS, briefings=briefings)
     write("videos.json", videos)
     report.append(f"retail videos: {sorted(videos) if videos else 'none (no disc image)'}")
 

@@ -21,7 +21,8 @@ func _ready() -> void:
 			"lance": [{"name": "Werewolf", "pilot": "Flash", "state": "Destroyed", "armour": 0},
 				{"name": "Bushwacker", "pilot": "Hacksaw", "state": "Damaged", "armour": 48},
 				{"name": "Bushwacker", "pilot": "Longshot", "state": "Operational", "armour": 91}],
-			"kills": [{"name": "Harasser", "count": 4}, {"name": "LRM Carrier", "count": 3}, {"name": "Starslayer", "count": 1}],
+			"kills": [{"name": "Harasser", "force": "Bandit Legion", "count": 4}, {"name": "LRM Carrier", "force": "Bandit Legion", "count": 3},
+				{"name": "Starslayer", "count": 1}],
 			"losses": 1}
 	var won: bool = report.get("won", false)
 	var margin := MarginContainer.new()
@@ -119,6 +120,8 @@ func _kills() -> Control:
 		var n := UiStyle.label(String(k["name"]), 15)
 		n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(n)
+		if String(k.get("force", "")) != "":
+			row.add_child(UiStyle.label(String(k["force"]), 13, UiStyle.DIM))
 		row.add_child(UiStyle.label("× %d" % int(k["count"]), 15, UiStyle.DIM))
 		c[1].add_child(row)
 	c[1].add_child(UiStyle.label("Total destroyed: %d · lance losses: %d" % [total, int(report.get("losses", 0))], 14, UiStyle.DIM))

@@ -70,3 +70,24 @@ func test_quick_start_mission_launches_from_the_briefing() -> void:
 	assert_object(s.bay_button).is_null()
 	assert_bool(s.launch_button.disabled).is_false()
 	assert_str(s.launch_button.text).is_equal("LAUNCH MISSION")
+
+
+## The operation's video (retail disc, gitignored: skipped when not converted) plays on its own
+## once, then on the button; stopping it brings the target view back.
+func test_operation_video_plays_once_then_on_demand() -> void:
+	if not ResourceLoader.exists("res://assets/retail/video/node_02.ogv"):
+		return
+	BriefingScreen._videos_seen.clear()
+	MechBay.dev_sample(Flow.campaign)
+	var s := _screen("mc2_02")
+	assert_bool(s.video_button.visible).is_true()
+	assert_bool(s.video_playing()).is_true()
+	assert_bool(s.target.visible).is_false()
+	s.stop_video()
+	assert_bool(s.video_playing()).is_false()
+	assert_bool(s.target.visible).is_true()
+	var again := _screen("mc2_02")
+	assert_bool(again.video_playing()).is_false()  # seen this session
+	again.play_video()
+	assert_bool(again.video_playing()).is_true()
+	again.stop_video()
