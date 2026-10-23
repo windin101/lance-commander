@@ -1,0 +1,7371 @@
+{
+ "_provenance": {
+  "method": "local Whisper large-v3 transcripts (tools/convert/subtitles.py), reviewed; corrections and speakers in tools/convert/subtitles_edits.json. The original showed no subtitles.",
+  "source": "MechCommander 2 Shared Source release audio (reference/mc2-source, docs/MC2-SOURCE-EULA.md)",
+  "speakers": "pilot lines: the callsign(s) of the profiles using that voice; voice-overs: from the mission scripts' comments and the briefings, blank when unknown"
+ },
+ "pilots": {
+  "pilot1/plt1_acknowledgea": {
+   "duration": 1.05,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Roger that.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_acknowledgeb": {
+   "duration": 0.91,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Affirmative",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_acknowledgec": {
+   "duration": 0.92,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Right.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_airstrikeattack": {
+   "duration": 0.9,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Airstrike!",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_ammoout": {
+   "duration": 1.2,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Ammo's running dry.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_armorholea": {
+   "duration": 1.4,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "I got a big hole in my armor.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_armorholeb": {
+   "duration": 1.09,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "I'm losing armor!",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_buildingdead": {
+   "duration": 1.1,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "blew it up sir",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_calledshot": {
+   "duration": 1.68,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "One trick shot coming up.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_callsigna": {
+   "duration": 0.89,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Bubba here.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_callsignb": {
+   "duration": 0.88,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Let's hear it for Bubba.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_cannotcapture": {
+   "duration": 1.96,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "I can't get it, the enemy's too close.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_capturebuilding": {
+   "duration": 0.95,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Building captured.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_capturevehicle": {
+   "duration": 1.05,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Vehicle captured.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_ejecting": {
+   "duration": 1.06,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Ejecting!",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_guard": {
+   "duration": 1.3,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "I'm on guard alright.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_hittingmines": {
+   "duration": 1.66,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Shoot! I'm in a minefield!",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_illegalorder": {
+   "duration": 1.44,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "I can't do that, sir.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_mechcrippled": {
+   "duration": 1.68,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "My 'Mech's limping something awful.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_mechdeada": {
+   "duration": 1.25,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Popped him good!",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_mechdeadb": {
+   "duration": 1.42,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "I done whooped him good.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_mechsalvagablea": {
+   "duration": 1.62,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Here's one for the salvage heap.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_mechsalvagableb": {
+   "duration": 1.58,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "This 'Mech's salvageable, Commander.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_moveblocked": {
+   "duration": 1.42,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "My path is blocked.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_objectdead": {
+   "duration": 0.74,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Got it.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_pilothurt": {
+   "duration": 1.5,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Now that hurt.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_refitcomplete": {
+   "duration": 1.22,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "I'm all fixed up.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_refitnotcomplete": {
+   "duration": 1.34,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "I ain't quite done yet.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_sensorcontacta": {
+   "duration": 2.28,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Yeah, uh, I got something on sensors.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_sensorcontactb": {
+   "duration": 1.66,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "I've got a sensor contact.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_targetacknowledgea": {
+   "duration": 1.27,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Target confirmed.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_targetacknowledgeb": {
+   "duration": 1.27,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Target acknowledged.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_taunta": {
+   "duration": 1.39,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "You're all mine now.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_tauntb": {
+   "duration": 1.38,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "This is gonna get hot.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_tauntc": {
+   "duration": 1.52,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "You and me are gonna go around.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_underattacka": {
+   "duration": 1.42,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "They're shooting at me!",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_underattackb": {
+   "duration": 1.42,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Commander, I'm taking fire.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_vehicledeada": {
+   "duration": 0.81,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Bye!",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_vehicledeadb": {
+   "duration": 1.73,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Enemy vehicle destroyed.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_weaponsdown": {
+   "duration": 1.48,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "I've lost the weapon system.",
+   "voice": "pilot1"
+  },
+  "pilot1/plt1_weaponsout": {
+   "duration": 1.57,
+   "speaker": "BUBBA / ELITE / ROOKIE / CLAN GREEN / REGULAR / VETERAN",
+   "text": "Well, I ain't got no weapons left!",
+   "voice": "pilot1"
+  },
+  "pilot10/plt10_acknowledgea": {
+   "duration": 0.83,
+   "speaker": "HAMMER",
+   "text": "Yes sir",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_acknowledgeb": {
+   "duration": 1.04,
+   "speaker": "HAMMER",
+   "text": "I read you sir.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_acknowledgec": {
+   "duration": 0.76,
+   "speaker": "HAMMER",
+   "text": "Copy that.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_airstrikeattack": {
+   "duration": 0.9,
+   "speaker": "HAMMER",
+   "text": "Incoming!",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_ammoout": {
+   "duration": 1.19,
+   "speaker": "HAMMER",
+   "text": "Ammo depleted, sir.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_armorholea": {
+   "duration": 1.66,
+   "speaker": "HAMMER",
+   "text": "I'm taking heavy fire, sir.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_armorholeb": {
+   "duration": 1.49,
+   "speaker": "HAMMER",
+   "text": "Man, they're pounding me!",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_buildingdead": {
+   "duration": 1.19,
+   "speaker": "HAMMER",
+   "text": "Building destroyed.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_calledshot": {
+   "duration": 2.06,
+   "speaker": "HAMMER",
+   "text": "You set 'em up, I'll knock 'em down.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_calledsigna": {
+   "duration": 0.62,
+   "speaker": "HAMMER",
+   "text": "Hammer here",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_calledsignb": {
+   "duration": 0.69,
+   "speaker": "HAMMER",
+   "text": "This is Hammer",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_callsigna": {
+   "duration": 1.12,
+   "speaker": "HAMMER",
+   "text": "Hammer here.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_callsignb": {
+   "duration": 0.99,
+   "speaker": "HAMMER",
+   "text": "This is Hammer.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_cannotcapture": {
+   "duration": 1.0,
+   "speaker": "HAMMER",
+   "text": "Capture aborted.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_capturebuilding": {
+   "duration": 0.99,
+   "speaker": "HAMMER",
+   "text": "building secured.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_capturevehicle": {
+   "duration": 1.35,
+   "speaker": "HAMMER",
+   "text": "Vehicle captured, sir.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_ejecting": {
+   "duration": 0.95,
+   "speaker": "HAMMER",
+   "text": "Punch it out!",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_guard": {
+   "duration": 2.01,
+   "speaker": "HAMMER",
+   "text": "Copy sir, guarding this position.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_hittingmines": {
+   "duration": 1.55,
+   "speaker": "HAMMER",
+   "text": "Hold up! Sound off, landmines!",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_illegalorder": {
+   "duration": 1.19,
+   "speaker": "HAMMER",
+   "text": "Cannot comply, sir.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_mechcrippled": {
+   "duration": 2.26,
+   "speaker": "HAMMER",
+   "text": "I've got serious internal leg damage, sir.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_mechdeada": {
+   "duration": 1.42,
+   "speaker": "HAMMER",
+   "text": "He's not going anywhere.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_mechdeadb": {
+   "duration": 1.04,
+   "speaker": "HAMMER",
+   "text": "Target destroyed.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_mechsalvageablea": {
+   "duration": 1.58,
+   "speaker": "HAMMER",
+   "text": "Here's one for the salvage heap.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_mechsalvageableb": {
+   "duration": 1.59,
+   "speaker": "HAMMER",
+   "text": "This 'Mech's salvageable, Commander.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_moveblocked": {
+   "duration": 1.65,
+   "speaker": "HAMMER",
+   "text": "My path is blocked, sir.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_objectdead": {
+   "duration": 1.18,
+   "speaker": "HAMMER",
+   "text": "Something's burning.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_pilothurt": {
+   "duration": 1.69,
+   "speaker": "HAMMER",
+   "text": "I'm getting knocked around in here!",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_refitcomplete": {
+   "duration": 1.94,
+   "speaker": "HAMMER",
+   "text": "Powering up, let's do this.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_refitnotcomplete": {
+   "duration": 1.6,
+   "speaker": "HAMMER",
+   "text": "We can take care of that later.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_sensorcontacta": {
+   "duration": 1.37,
+   "speaker": "HAMMER",
+   "text": "Reporting sensor contact.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_sensorcontactb": {
+   "duration": 1.37,
+   "speaker": "HAMMER",
+   "text": "I got something on sensors.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_targetacknowledgea": {
+   "duration": 0.73,
+   "speaker": "HAMMER",
+   "text": "I got him.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_targetacknowledgeb": {
+   "duration": 0.92,
+   "speaker": "HAMMER",
+   "text": "Copy that target.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_taunta": {
+   "duration": 1.52,
+   "speaker": "HAMMER",
+   "text": "Say your prayers.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_tauntb": {
+   "duration": 1.32,
+   "speaker": "HAMMER",
+   "text": "Here it comes.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_tauntc": {
+   "duration": 1.09,
+   "speaker": "HAMMER",
+   "text": "Yeah, take it!",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_underattacka": {
+   "duration": 1.41,
+   "speaker": "HAMMER",
+   "text": "I've got incoming fire!",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_underattackb": {
+   "duration": 1.78,
+   "speaker": "HAMMER",
+   "text": "Commander, I'm being targeted.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_vehicledeada": {
+   "duration": 1.15,
+   "speaker": "HAMMER",
+   "text": "Toasted!",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_vehicledeadb": {
+   "duration": 1.38,
+   "speaker": "HAMMER",
+   "text": "Vehicle destroyed.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_weaponsdown": {
+   "duration": 1.38,
+   "speaker": "HAMMER",
+   "text": "I just lost a weapon.",
+   "voice": "pilot10"
+  },
+  "pilot10/plt10_weaponsout": {
+   "duration": 1.96,
+   "speaker": "HAMMER",
+   "text": "Reporting all weapons gone.",
+   "voice": "pilot10"
+  },
+  "pilot11/plt11_acknowledgea": {
+   "duration": 0.74,
+   "speaker": "JINX",
+   "text": "Roger",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_acknowledgeb": {
+   "duration": 0.96,
+   "speaker": "JINX",
+   "text": "Understood.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_acknowledgec": {
+   "duration": 0.96,
+   "speaker": "JINX",
+   "text": "Yes sir!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_airstrikeattack": {
+   "duration": 0.96,
+   "speaker": "JINX",
+   "text": "Airstrike!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_ammoout": {
+   "duration": 1.28,
+   "speaker": "JINX",
+   "text": "No more ammo, sir.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_armorholea": {
+   "duration": 1.83,
+   "speaker": "JINX",
+   "text": "Sir, they're cracking me open!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_armorholeb": {
+   "duration": 2.62,
+   "speaker": "JINX",
+   "text": "They're smoking my cockpit!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_buildingdead": {
+   "duration": 1.08,
+   "speaker": "JINX",
+   "text": "Knocked it down.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_calledshot": {
+   "duration": 1.08,
+   "speaker": "JINX",
+   "text": "That's tricky!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_callsigna": {
+   "duration": 0.92,
+   "speaker": "JINX",
+   "text": "It's Jinx!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_callsigna-": {
+   "duration": 1.0,
+   "speaker": "JINX",
+   "text": "Jinx here",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_callsignb": {
+   "duration": 1.04,
+   "speaker": "JINX",
+   "text": "This is Jinx",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_callsignb-": {
+   "duration": 1.35,
+   "speaker": "JINX",
+   "text": "This is Jinx",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_cannotcapture": {
+   "duration": 2.34,
+   "speaker": "JINX",
+   "text": "I can't capture it. The enemy is too close.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_capturebuilding": {
+   "duration": 1.33,
+   "speaker": "JINX",
+   "text": "Building captured, sir.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_capturevehicle": {
+   "duration": 1.09,
+   "speaker": "JINX",
+   "text": "I got the vehicle!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_ejecting": {
+   "duration": 1.0,
+   "speaker": "JINX",
+   "text": "I'm ejecting!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_guard": {
+   "duration": 1.6,
+   "speaker": "JINX",
+   "text": "Roger that, on guard.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_hittingmines": {
+   "duration": 1.28,
+   "speaker": "JINX",
+   "text": "I'm in a minefield!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_illegalorder": {
+   "duration": 1.27,
+   "speaker": "JINX",
+   "text": "I can't do that, sir.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_mechcrippled": {
+   "duration": 1.27,
+   "speaker": "JINX",
+   "text": "My 'Mech is limping.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_mechdeada": {
+   "duration": 0.7,
+   "speaker": "JINX",
+   "text": "I got him!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_mechdeadb": {
+   "duration": 1.15,
+   "speaker": "JINX",
+   "text": "Yeah! Nailed him!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_mechsalvageablea": {
+   "duration": 2.35,
+   "speaker": "JINX",
+   "text": "One more for the salvage heap.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_mechsalvageableb": {
+   "duration": 1.99,
+   "speaker": "JINX",
+   "text": "This 'Mech's salvageable, Commander.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_moveblocked": {
+   "duration": 1.91,
+   "speaker": "JINX",
+   "text": "My path is blocked.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_objectdead": {
+   "duration": 0.82,
+   "speaker": "JINX",
+   "text": "Nailed it!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_pilothurt": {
+   "duration": 1.6,
+   "speaker": "JINX",
+   "text": "Sir! I'm hit!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_refitcomplete": {
+   "duration": 1.15,
+   "speaker": "JINX",
+   "text": "Ready to roll, sir.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_refitnotcomplete": {
+   "duration": 1.9,
+   "speaker": "JINX",
+   "text": "Whoa! I'm not fully repaired!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_sensorcontacta": {
+   "duration": 1.27,
+   "speaker": "JINX",
+   "text": "New contact.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_sensorcontactb": {
+   "duration": 1.62,
+   "speaker": "JINX",
+   "text": "I got something on sensors.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_targetacknowledgea": {
+   "duration": 0.75,
+   "speaker": "JINX",
+   "text": "Targeting",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_targetacknowledgeb": {
+   "duration": 1.81,
+   "speaker": "JINX",
+   "text": "Roger that, target confirmed",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_taunta": {
+   "duration": 1.27,
+   "speaker": "JINX",
+   "text": "Watch this.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_tauntb": {
+   "duration": 1.43,
+   "speaker": "JINX",
+   "text": "Okay, here we go.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_tauntc": {
+   "duration": 1.23,
+   "speaker": "JINX",
+   "text": "This is for you.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_underattacka": {
+   "duration": 1.77,
+   "speaker": "JINX",
+   "text": "You might want to help me out over here.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_underattackb": {
+   "duration": 1.76,
+   "speaker": "JINX",
+   "text": "Commander, I'm taking fire!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_vehicledeada": {
+   "duration": 0.64,
+   "speaker": "JINX",
+   "text": "Ha!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_vehicledeadb": {
+   "duration": 0.75,
+   "speaker": "JINX",
+   "text": "Yes.",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_weaponsdown": {
+   "duration": 1.48,
+   "speaker": "JINX",
+   "text": "Whoa, I lost a weapon!",
+   "voice": "pilot11"
+  },
+  "pilot11/plt11_weaponsout": {
+   "duration": 1.67,
+   "speaker": "JINX",
+   "text": "All my weapons are gone, sir.",
+   "voice": "pilot11"
+  },
+  "pilot12/plt12_acknowledgea": {
+   "duration": 0.91,
+   "speaker": "LONGSHOT",
+   "text": "Roger",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_acknowledgeb": {
+   "duration": 0.91,
+   "speaker": "LONGSHOT",
+   "text": "Okay, sir.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_acknowledgec": {
+   "duration": 0.92,
+   "speaker": "LONGSHOT",
+   "text": "I copy.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_airstrikeattack": {
+   "duration": 1.23,
+   "speaker": "LONGSHOT",
+   "text": "Airstrike!",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_ammoout": {
+   "duration": 1.06,
+   "speaker": "LONGSHOT",
+   "text": "I'm out of ammo.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_armorholea": {
+   "duration": 1.75,
+   "speaker": "LONGSHOT",
+   "text": "I've got an armor blow through.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_armorholeb": {
+   "duration": 1.53,
+   "speaker": "LONGSHOT",
+   "text": "My armor's peeling off!",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_buildingdead": {
+   "duration": 0.86,
+   "speaker": "LONGSHOT",
+   "text": "Got it sir.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_calledshot": {
+   "duration": 0.86,
+   "speaker": "LONGSHOT",
+   "text": "I'll try.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_callsigna": {
+   "duration": 1.12,
+   "speaker": "LONGSHOT",
+   "text": "Longshot here.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_callsignb": {
+   "duration": 1.13,
+   "speaker": "LONGSHOT",
+   "text": "This is Longshot.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_cannotcapture": {
+   "duration": 1.28,
+   "speaker": "LONGSHOT",
+   "text": "Aborting capture.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_capturebuilding": {
+   "duration": 1.32,
+   "speaker": "LONGSHOT",
+   "text": "I got the building.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_capturevehicle": {
+   "duration": 1.32,
+   "speaker": "LONGSHOT",
+   "text": "Vehicle captured.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_ejecting": {
+   "duration": 1.16,
+   "speaker": "LONGSHOT",
+   "text": "I'm punching out!",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_guard": {
+   "duration": 1.39,
+   "speaker": "LONGSHOT",
+   "text": "Roger that, on guard.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_hittingmines": {
+   "duration": 1.92,
+   "speaker": "LONGSHOT",
+   "text": "Nobody move, we've got a minefield.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_illegalorder": {
+   "duration": 1.54,
+   "speaker": "LONGSHOT",
+   "text": "I can't follow that order.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_mechcrippled": {
+   "duration": 1.36,
+   "speaker": "LONGSHOT",
+   "text": "I'm at half speed!",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_mechdeada": {
+   "duration": 1.12,
+   "speaker": "LONGSHOT",
+   "text": "That's gotta hurt.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_mechdeadb": {
+   "duration": 1.6,
+   "speaker": "LONGSHOT",
+   "text": "Update the kill board.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_moveblocked": {
+   "duration": 1.41,
+   "speaker": "LONGSHOT",
+   "text": "I can't get there.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_objectdead": {
+   "duration": 1.11,
+   "speaker": "LONGSHOT",
+   "text": "Target destroyed.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_pilothurt": {
+   "duration": 1.83,
+   "speaker": "LONGSHOT",
+   "text": "I'm getting beat up in here!",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_refitcomplete": {
+   "duration": 0.86,
+   "speaker": "LONGSHOT",
+   "text": "Good to go.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_refitnotcomplete": {
+   "duration": 1.28,
+   "speaker": "LONGSHOT",
+   "text": "That'll have to do.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_sensorcontacta": {
+   "duration": 1.81,
+   "speaker": "LONGSHOT",
+   "text": "I'm showing something on sensors.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_sensorcontactb": {
+   "duration": 1.12,
+   "speaker": "LONGSHOT",
+   "text": "Got a contact.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_targetacknowledgea": {
+   "duration": 0.91,
+   "speaker": "LONGSHOT",
+   "text": "Copy target.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_targetacknowledgeb": {
+   "duration": 1.08,
+   "speaker": "LONGSHOT",
+   "text": "Target locked in.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_taunta": {
+   "duration": 1.43,
+   "speaker": "LONGSHOT",
+   "text": "You're gonna feel this one.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_tauntb": {
+   "duration": 0.99,
+   "speaker": "LONGSHOT",
+   "text": "Hold still.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_tauntc": {
+   "duration": 1.27,
+   "speaker": "LONGSHOT",
+   "text": "I'm taking you out.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_underattacka": {
+   "duration": 1.16,
+   "speaker": "LONGSHOT",
+   "text": "I'm taking fire.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_underattackb": {
+   "duration": 1.62,
+   "speaker": "LONGSHOT",
+   "text": "Sir, I'm under attack.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_vehicledeada": {
+   "duration": 1.24,
+   "speaker": "LONGSHOT",
+   "text": "Clean his clock.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_vehicledeadb": {
+   "duration": 1.54,
+   "speaker": "LONGSHOT",
+   "text": "Enemy destroyed.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_weaponsdown": {
+   "duration": 1.1,
+   "speaker": "LONGSHOT",
+   "text": "I lost a weapon.",
+   "voice": "pilot12"
+  },
+  "pilot12/plt12_weaponsout": {
+   "duration": 1.83,
+   "speaker": "LONGSHOT",
+   "text": "Lost all my firepower!",
+   "voice": "pilot12"
+  },
+  "pilot13/plt13_acknowledgea": {
+   "duration": 0.93,
+   "speaker": "MEAT",
+   "text": "Roger that.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_acknowledgeb": {
+   "duration": 1.2,
+   "speaker": "MEAT",
+   "text": "No problem boss.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_acknowledgec": {
+   "duration": 0.69,
+   "speaker": "MEAT",
+   "text": "I'm on it.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_airstrikeattack": {
+   "duration": 1.07,
+   "speaker": "MEAT",
+   "text": "Airstrike!",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_ammoout": {
+   "duration": 1.32,
+   "speaker": "MEAT",
+   "text": "I'm all out, sir.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_armorholea": {
+   "duration": 1.69,
+   "speaker": "MEAT",
+   "text": "This guy's a wrecking machine!",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_armorholeb": {
+   "duration": 1.53,
+   "speaker": "MEAT",
+   "text": "I'm taking heavy damage!",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_buildingdead": {
+   "duration": 1.18,
+   "speaker": "MEAT",
+   "text": "The building's trashed.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_calledshot": {
+   "duration": 1.84,
+   "speaker": "MEAT",
+   "text": "No problem, check this out.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_callsigna": {
+   "duration": 0.95,
+   "speaker": "MEAT",
+   "text": "It's Meat.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_callsignb": {
+   "duration": 0.94,
+   "speaker": "MEAT",
+   "text": "This is Meat.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_cannotcapture": {
+   "duration": 2.19,
+   "speaker": "MEAT",
+   "text": "I can't capture, the enemy's too close.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_capturebuilding": {
+   "duration": 1.38,
+   "speaker": "MEAT",
+   "text": "Building captured.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_capturevehicle": {
+   "duration": 1.28,
+   "speaker": "MEAT",
+   "text": "Vehicle captured.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_ejecting": {
+   "duration": 1.33,
+   "speaker": "MEAT",
+   "text": "Ejecting!",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_guard": {
+   "duration": 1.71,
+   "speaker": "MEAT",
+   "text": "Guard duty, uh-huh.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_hittingmines": {
+   "duration": 2.08,
+   "speaker": "MEAT",
+   "text": "Oh, I'm in a minefield over here!",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_illegalorder": {
+   "duration": 1.69,
+   "speaker": "MEAT",
+   "text": "I can't do that, boss.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_mechcrippled": {
+   "duration": 1.69,
+   "speaker": "MEAT",
+   "text": "Hey boss, my 'Mech is limping!",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_mechdeada": {
+   "duration": 1.35,
+   "speaker": "MEAT",
+   "text": "He blew up good.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_mechdeadb": {
+   "duration": 1.67,
+   "speaker": "MEAT",
+   "text": "Enemy 'Mech destroyed.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_mechsalvageablea": {
+   "duration": 2.02,
+   "speaker": "MEAT",
+   "text": "I got one for the salvage heap.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_mechsalvageableb": {
+   "duration": 2.11,
+   "speaker": "MEAT",
+   "text": "This 'Mech's salvageable, Commander.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_moveblocked": {
+   "duration": 1.48,
+   "speaker": "MEAT",
+   "text": "My path is blocked.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_objectdead": {
+   "duration": 1.47,
+   "speaker": "MEAT",
+   "text": "Target's trashed.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_pilothurt": {
+   "duration": 1.19,
+   "speaker": "MEAT",
+   "text": "I took one in the gut!",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_refitcomplete": {
+   "duration": 0.97,
+   "speaker": "MEAT",
+   "text": "All fixed up.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_refitnotcomplete": {
+   "duration": 1.56,
+   "speaker": "MEAT",
+   "text": "Mostly repaired, sir.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_sensorcontacta": {
+   "duration": 1.57,
+   "speaker": "MEAT",
+   "text": "Uh oh, new contact.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_sensorcontactb": {
+   "duration": 1.88,
+   "speaker": "MEAT",
+   "text": "Heads up, I got a new contact.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_targetacknowledgea": {
+   "duration": 0.86,
+   "speaker": "MEAT",
+   "text": "I got him.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_targetacknowledgeb": {
+   "duration": 1.98,
+   "speaker": "MEAT",
+   "text": "Target confirmed and locked in.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_taunta": {
+   "duration": 1.51,
+   "speaker": "MEAT",
+   "text": "Here you go tough guy.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_tauntb": {
+   "duration": 1.52,
+   "speaker": "MEAT",
+   "text": "Someone's looking for trouble.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_tauntc": {
+   "duration": 1.84,
+   "speaker": "MEAT",
+   "text": "Welcome to the neighborhood.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_underattacka": {
+   "duration": 1.85,
+   "speaker": "MEAT",
+   "text": "Hey, I'm under fire over here!",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_underattackb": {
+   "duration": 1.85,
+   "speaker": "MEAT",
+   "text": "Commander, I'm taking fire!",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_vehicledeada": {
+   "duration": 1.35,
+   "speaker": "MEAT",
+   "text": "Gotcha, Crawler.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_vehicledeadb": {
+   "duration": 2.49,
+   "speaker": "MEAT",
+   "text": "Oh yeah, enemy vehicle destroyed.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_weaponsdown": {
+   "duration": 1.76,
+   "speaker": "MEAT",
+   "text": "I've lost the weapon system.",
+   "voice": "pilot13"
+  },
+  "pilot13/plt13_weaponsout": {
+   "duration": 1.76,
+   "speaker": "MEAT",
+   "text": "Got no weapons left.",
+   "voice": "pilot13"
+  },
+  "pilot14/plt14_acknowledgea": {
+   "duration": 0.89,
+   "speaker": "MOTHER",
+   "text": "Confirmed.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_acknowledgeb": {
+   "duration": 0.74,
+   "speaker": "MOTHER",
+   "text": "Copy that.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_acknowledgec": {
+   "duration": 1.34,
+   "speaker": "MOTHER",
+   "text": "Sure thing, Chief.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_airstrikeattack": {
+   "duration": 0.88,
+   "speaker": "MOTHER",
+   "text": "Airstrike!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_ammoout": {
+   "duration": 0.98,
+   "speaker": "MOTHER",
+   "text": "My gun's dry.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_armorholea": {
+   "duration": 1.23,
+   "speaker": "MOTHER",
+   "text": "That hit busted through!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_armorholeb": {
+   "duration": 0.88,
+   "speaker": "MOTHER",
+   "text": "I'm in it deep!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_buildingdead": {
+   "duration": 1.12,
+   "speaker": "MOTHER",
+   "text": "The building's gone!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_calledshot": {
+   "duration": 1.21,
+   "speaker": "MOTHER",
+   "text": "You want fries with that?",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_callsigna": {
+   "duration": 0.76,
+   "speaker": "MOTHER",
+   "text": "Mother here.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_callsignb": {
+   "duration": 0.91,
+   "speaker": "MOTHER",
+   "text": "This is Mother.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_cannotcapture": {
+   "duration": 1.38,
+   "speaker": "MOTHER",
+   "text": "Bogey's too close!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_capturebuilding": {
+   "duration": 1.0,
+   "speaker": "MOTHER",
+   "text": "Building's ours.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_capturevehicle": {
+   "duration": 1.0,
+   "speaker": "MOTHER",
+   "text": "Vehicle's ours.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_ejecting": {
+   "duration": 0.99,
+   "speaker": "MOTHER",
+   "text": "Punch it out!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_guard": {
+   "duration": 1.64,
+   "speaker": "MOTHER",
+   "text": "No problem, on guard.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_hittingmines": {
+   "duration": 1.27,
+   "speaker": "MOTHER",
+   "text": "We got a minefield!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_illegalorder": {
+   "duration": 1.27,
+   "speaker": "MOTHER",
+   "text": "Sir, no sir!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_mechcrippled": {
+   "duration": 1.52,
+   "speaker": "MOTHER",
+   "text": "Legs out, I can't keep up.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_mechdeada": {
+   "duration": 1.02,
+   "speaker": "MOTHER",
+   "text": "Scratch that one.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_mechdeadb": {
+   "duration": 1.03,
+   "speaker": "MOTHER",
+   "text": "Hoorah!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_moveblocked": {
+   "duration": 1.25,
+   "speaker": "MOTHER",
+   "text": "Can't get through, sir.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_objectdead": {
+   "duration": 2.33,
+   "speaker": "MOTHER",
+   "text": "Strategic objective annihilated, sir.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_pilothurt": {
+   "duration": 1.59,
+   "speaker": "MOTHER",
+   "text": "I think I cracked a rib!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_refitcomplete": {
+   "duration": 0.71,
+   "speaker": "MOTHER",
+   "text": "Power it up!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_refitnotcomplete": {
+   "duration": 1.22,
+   "speaker": "MOTHER",
+   "text": "Good enough, let's go!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_sensorcontacta": {
+   "duration": 1.51,
+   "speaker": "MOTHER",
+   "text": "I got a sensor contact!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_sensorcontactb": {
+   "duration": 0.94,
+   "speaker": "MOTHER",
+   "text": "I got contact.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_targetacknowledgea": {
+   "duration": 0.81,
+   "speaker": "MOTHER",
+   "text": "Copy target.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_targetacknowledgeb": {
+   "duration": 0.98,
+   "speaker": "MOTHER",
+   "text": "Target confirmed.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_taunta": {
+   "duration": 1.37,
+   "speaker": "MOTHER",
+   "text": "Hehehe.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_tauntb": {
+   "duration": 0.93,
+   "speaker": "MOTHER",
+   "text": "Get some!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_tauntc": {
+   "duration": 1.23,
+   "speaker": "MOTHER",
+   "text": "Born to kill!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_underattacka": {
+   "duration": 1.24,
+   "speaker": "MOTHER",
+   "text": "Taking fire, sir.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_underattackb": {
+   "duration": 1.25,
+   "speaker": "MOTHER",
+   "text": "Somebody likes me.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_vehicledeada": {
+   "duration": 0.7,
+   "speaker": "MOTHER",
+   "text": "Popped one.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_vehicledeadb": {
+   "duration": 0.99,
+   "speaker": "MOTHER",
+   "text": "Choke on that!",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_weaponsdown": {
+   "duration": 1.11,
+   "speaker": "MOTHER",
+   "text": "Just lost a weapon.",
+   "voice": "pilot14"
+  },
+  "pilot14/plt14_weaponsout": {
+   "duration": 1.88,
+   "speaker": "MOTHER",
+   "text": "All weapons gone, I'm playing D!",
+   "voice": "pilot14"
+  },
+  "pilot15/plt15_acknowledgea": {
+   "duration": 1.2,
+   "speaker": "NUKE",
+   "text": "Yes, my commander.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_acknowledgeb": {
+   "duration": 0.82,
+   "speaker": "NUKE",
+   "text": "Aff.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_acknowledgec": {
+   "duration": 0.72,
+   "speaker": "NUKE",
+   "text": "Roger",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_activeprobe": {
+   "duration": 1.95,
+   "speaker": "NUKE",
+   "text": "Active probe shows a shutdown 'Mech.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_airstrikeattack": {
+   "duration": 0.9,
+   "speaker": "NUKE",
+   "text": "Airstrike!",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_ammoout": {
+   "duration": 1.8,
+   "speaker": "NUKE",
+   "text": "I have spent my ammo reserves.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_amrmorholea": {
+   "duration": 1.73,
+   "speaker": "NUKE",
+   "text": "Reporting an armor breach.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_amrmorholeb": {
+   "duration": 1.76,
+   "speaker": "NUKE",
+   "text": "I am taking heavy damage.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_armorholea": {
+   "duration": 1.35,
+   "speaker": "NUKE",
+   "text": "My armor is breached.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_armorholeb": {
+   "duration": 1.74,
+   "speaker": "NUKE",
+   "text": "My armor has been savaged.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_buildingdead": {
+   "duration": 1.46,
+   "speaker": "NUKE",
+   "text": "I have taken the building",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_calledshot": {
+   "duration": 1.64,
+   "speaker": "NUKE",
+   "text": "I am up to the task.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_callsigna": {
+   "duration": 1.26,
+   "speaker": "NUKE",
+   "text": "Sir, this is Nuke.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_callsignb": {
+   "duration": 1.01,
+   "speaker": "NUKE",
+   "text": "Nuke reporting.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_cannotcapture": {
+   "duration": 1.85,
+   "speaker": "NUKE",
+   "text": "I am unable to capture the target",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_capturebuilding": {
+   "duration": 1.62,
+   "speaker": "NUKE",
+   "text": "The building is yours.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_capturevehicle": {
+   "duration": 1.88,
+   "speaker": "NUKE",
+   "text": "I have claimed the vehicle for you.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_ejecting": {
+   "duration": 1.21,
+   "speaker": "NUKE",
+   "text": "I am ejecting!",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_guard": {
+   "duration": 1.96,
+   "speaker": "NUKE",
+   "text": "Aff, I will guard this spot",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_hittingmines": {
+   "duration": 1.55,
+   "speaker": "NUKE",
+   "text": "I have entered a minefield!",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_illegalorder": {
+   "duration": 1.34,
+   "speaker": "NUKE",
+   "text": "I cannot comply.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_mechcrippled": {
+   "duration": 2.03,
+   "speaker": "NUKE",
+   "text": "I am limping due to leg damage",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_mechdeada": {
+   "duration": 1.5,
+   "speaker": "NUKE",
+   "text": "Target destroyed.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_mechdeadb": {
+   "duration": 0.77,
+   "speaker": "NUKE",
+   "text": "Go with honor.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_mechsalvageablea": {
+   "duration": 1.25,
+   "speaker": "NUKE",
+   "text": "Salvage this one.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_mechsalvageableb": {
+   "duration": 1.27,
+   "speaker": "NUKE",
+   "text": "More salvage.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_moveblocked": {
+   "duration": 1.31,
+   "speaker": "NUKE",
+   "text": "My path is blocked.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_objectdead": {
+   "duration": 1.63,
+   "speaker": "NUKE",
+   "text": "The target is eliminated.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_pilothurt": {
+   "duration": 3.11,
+   "speaker": "NUKE",
+   "text": "Nothing is wrong.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_refitcomplete": {
+   "duration": 2.11,
+   "speaker": "NUKE",
+   "text": "My 'Mech is functional once more.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_refitnotcomplete": {
+   "duration": 1.69,
+   "speaker": "NUKE",
+   "text": "There are still repairs to make.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_sensorcontacta": {
+   "duration": 1.53,
+   "speaker": "NUKE",
+   "text": "I have a sensor contact",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_sensorcontactb": {
+   "duration": 1.31,
+   "speaker": "NUKE",
+   "text": "Sensor contact",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_targetacknowledgea": {
+   "duration": 0.7,
+   "speaker": "NUKE",
+   "text": "Targeting",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_targetacknowledgeb": {
+   "duration": 1.33,
+   "speaker": "NUKE",
+   "text": "Target is confirmed.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_taunta": {
+   "duration": 1.34,
+   "speaker": "NUKE",
+   "text": "You are not worthy.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_tauntb": {
+   "duration": 1.05,
+   "speaker": "NUKE",
+   "text": "Free birth",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_tauntc": {
+   "duration": 1.55,
+   "speaker": "NUKE",
+   "text": "I relish the fight.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_underattacka": {
+   "duration": 1.1,
+   "speaker": "NUKE",
+   "text": "I am engaged.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_underattackb": {
+   "duration": 1.18,
+   "speaker": "NUKE",
+   "text": "I am under attack",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_vehicledeada": {
+   "duration": 0.9,
+   "speaker": "NUKE",
+   "text": "It is done.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_vehicledeadb": {
+   "duration": 1.69,
+   "speaker": "NUKE",
+   "text": "Requesting new target",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_weaponsdown": {
+   "duration": 2.34,
+   "speaker": "NUKE",
+   "text": "A weapon system has sustained damage.",
+   "voice": "pilot15"
+  },
+  "pilot15/plt15_weaponsout": {
+   "duration": 1.62,
+   "speaker": "NUKE",
+   "text": "I am without weapons.",
+   "voice": "pilot15"
+  },
+  "pilot16/plt16_acknowledgea": {
+   "duration": 0.77,
+   "speaker": "PALERIDER",
+   "text": "I'm on it",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_acknowledgeb": {
+   "duration": 0.76,
+   "speaker": "PALERIDER",
+   "text": "Okay.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_acknowledgec": {
+   "duration": 0.93,
+   "speaker": "PALERIDER",
+   "text": "Sure thing.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_airstrikeattack": {
+   "duration": 0.92,
+   "speaker": "PALERIDER",
+   "text": "Incoming",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_ammoout": {
+   "duration": 1.27,
+   "speaker": "PALERIDER",
+   "text": "My ammo is depleted.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_armorholea": {
+   "duration": 1.62,
+   "speaker": "PALERIDER",
+   "text": "My armor's almost gone.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_armorholeb": {
+   "duration": 1.46,
+   "speaker": "PALERIDER",
+   "text": "This is getting serious.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_buildingdead": {
+   "duration": 1.08,
+   "speaker": "PALERIDER",
+   "text": "building destroyed.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_calledshot": {
+   "duration": 1.8,
+   "speaker": "PALERIDER",
+   "text": "Shooting from the hip.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_callsigna": {
+   "duration": 1.26,
+   "speaker": "PALERIDER",
+   "text": "Palerider here.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_callsignb": {
+   "duration": 1.27,
+   "speaker": "PALERIDER",
+   "text": "It's Palerider.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_cannotcapture": {
+   "duration": 1.65,
+   "speaker": "PALERIDER",
+   "text": "Enemy's too close for capture.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_capturebuilding": {
+   "duration": 1.08,
+   "speaker": "PALERIDER",
+   "text": "building captured",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_capturevehicle": {
+   "duration": 1.21,
+   "speaker": "PALERIDER",
+   "text": "Vehicle captured.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_ejecting": {
+   "duration": 0.81,
+   "speaker": "PALERIDER",
+   "text": "Ejecting",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_guard": {
+   "duration": 1.41,
+   "speaker": "PALERIDER",
+   "text": "taking guard position",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_hittingmines": {
+   "duration": 1.25,
+   "speaker": "PALERIDER",
+   "text": "Found a minefield.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_illegalorder": {
+   "duration": 1.17,
+   "speaker": "PALERIDER",
+   "text": "No can do.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_mechcrippled": {
+   "duration": 1.3,
+   "speaker": "PALERIDER",
+   "text": "This 'Mech is crippled.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_mechdeada": {
+   "duration": 1.29,
+   "speaker": "PALERIDER",
+   "text": "Guess he didn't make it.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_mechdeadb": {
+   "duration": 1.02,
+   "speaker": "PALERIDER",
+   "text": "One less enemy.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_moveblocked": {
+   "duration": 1.01,
+   "speaker": "PALERIDER",
+   "text": "Can't get there.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_objectdead": {
+   "duration": 1.02,
+   "speaker": "PALERIDER",
+   "text": "Target destroyed.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_pilothurt": {
+   "duration": 1.39,
+   "speaker": "PALERIDER",
+   "text": "I'm bleeding pretty bad.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_refitcomplete": {
+   "duration": 1.11,
+   "speaker": "PALERIDER",
+   "text": "All fixed up.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_refitnotcomplete": {
+   "duration": 1.52,
+   "speaker": "PALERIDER",
+   "text": "I'm not done repairing.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_sensorcontacta": {
+   "duration": 1.51,
+   "speaker": "PALERIDER",
+   "text": "We have enemy contact.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_sensorcontactb": {
+   "duration": 0.9,
+   "speaker": "PALERIDER",
+   "text": "contact",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_targetacknowledgea": {
+   "duration": 0.89,
+   "speaker": "PALERIDER",
+   "text": "I got him.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_targetacknowledgeb": {
+   "duration": 1.02,
+   "speaker": "PALERIDER",
+   "text": "Good as dead.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_taunta": {
+   "duration": 1.43,
+   "speaker": "PALERIDER",
+   "text": "Say your prayers.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_tauntb": {
+   "duration": 1.26,
+   "speaker": "PALERIDER",
+   "text": "This should be quick.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_tauntc": {
+   "duration": 1.26,
+   "speaker": "PALERIDER",
+   "text": "See you in hell.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_underattacka": {
+   "duration": 1.65,
+   "speaker": "PALERIDER",
+   "text": "Whoa, now I got trouble.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_underattackb": {
+   "duration": 1.3,
+   "speaker": "PALERIDER",
+   "text": "I'm taking fire.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_vehicledeada": {
+   "duration": 1.31,
+   "speaker": "PALERIDER",
+   "text": "Target eliminated.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_vehicledeadb": {
+   "duration": 0.63,
+   "speaker": "PALERIDER",
+   "text": "dead",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_weaponsdown": {
+   "duration": 1.24,
+   "speaker": "PALERIDER",
+   "text": "There goes a weapon.",
+   "voice": "pilot16"
+  },
+  "pilot16/plt16_weaponsout": {
+   "duration": 2.38,
+   "speaker": "PALERIDER",
+   "text": "Weapons out. Wake me when it's over.",
+   "voice": "pilot16"
+  },
+  "pilot17/plt17_acknowledgea": {
+   "duration": 1.1,
+   "speaker": "PAYBACK",
+   "text": "Aff, my commander.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_acknowledgeb": {
+   "duration": 1.1,
+   "speaker": "PAYBACK",
+   "text": "Affirmative.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_acknowledgec": {
+   "duration": 0.64,
+   "speaker": "PAYBACK",
+   "text": "I will.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_airstrikeattack": {
+   "duration": 0.78,
+   "speaker": "PAYBACK",
+   "text": "Incoming!",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_ammoout": {
+   "duration": 1.26,
+   "speaker": "PAYBACK",
+   "text": "Ammunition depleted.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_armorholea": {
+   "duration": 1.69,
+   "speaker": "PAYBACK",
+   "text": "My armor is compromised.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_armorholeb": {
+   "duration": 1.44,
+   "speaker": "PAYBACK",
+   "text": "I am heavily damaged.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_buildingdead": {
+   "duration": 1.57,
+   "speaker": "PAYBACK",
+   "text": "The building is destroyed.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_calledshot": {
+   "duration": 2.49,
+   "speaker": "PAYBACK",
+   "text": "Only a true-born could make this shot.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_callsigna": {
+   "duration": 1.28,
+   "speaker": "PAYBACK",
+   "text": "Payback reporting.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_callsignb": {
+   "duration": 1.3,
+   "speaker": "PAYBACK",
+   "text": "This is Payback.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_cannotcapture": {
+   "duration": 3.16,
+   "speaker": "PAYBACK",
+   "text": "I must abort the capture. I am ashamed.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_capturebuilding": {
+   "duration": 1.47,
+   "speaker": "PAYBACK",
+   "text": "I have taken the building.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_capturevehicle": {
+   "duration": 2.24,
+   "speaker": "PAYBACK",
+   "text": "As expected, I have taken the vehicle.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_ejecting": {
+   "duration": 1.25,
+   "speaker": "PAYBACK",
+   "text": "I am ejecting!",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_guard": {
+   "duration": 2.34,
+   "speaker": "PAYBACK",
+   "text": "By my bond, I will guard this location.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_hittingmines": {
+   "duration": 1.47,
+   "speaker": "PAYBACK",
+   "text": "I am in a minefield!",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_illegalorder": {
+   "duration": 1.76,
+   "speaker": "PAYBACK",
+   "text": "I am unable to comply.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_mechcrippled": {
+   "duration": 1.75,
+   "speaker": "PAYBACK",
+   "text": "My speed is reduced.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_mechdeada": {
+   "duration": 2.36,
+   "speaker": "PAYBACK",
+   "text": "'Mech destroyed. Was there any doubt?",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_mechdeadb": {
+   "duration": 1.68,
+   "speaker": "PAYBACK",
+   "text": "None may challenge me.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_mechsalvagablea": {
+   "duration": 1.62,
+   "speaker": "PAYBACK",
+   "text": "Here's one for the salvage heap.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_mechsalvagableb": {
+   "duration": 1.58,
+   "speaker": "PAYBACK",
+   "text": "This 'Mech's salvageable, Commander.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_moveblocked": {
+   "duration": 1.49,
+   "speaker": "PAYBACK",
+   "text": "I cannot proceed.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_objectdead": {
+   "duration": 1.11,
+   "speaker": "PAYBACK",
+   "text": "It is done.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_pilothurt": {
+   "duration": 1.55,
+   "speaker": "PAYBACK",
+   "text": "I am unhurt.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_refitcomplete": {
+   "duration": 1.23,
+   "speaker": "PAYBACK",
+   "text": "Back to the fray!",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_refitnotcomplete": {
+   "duration": 1.22,
+   "speaker": "PAYBACK",
+   "text": "I am unworried.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_sensorcontacta": {
+   "duration": 2.15,
+   "speaker": "PAYBACK",
+   "text": "I have made sensor contact with the enemy.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_sensorcontactb": {
+   "duration": 1.28,
+   "speaker": "PAYBACK",
+   "text": "I have contact.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_targetacknowledgea": {
+   "duration": 0.81,
+   "speaker": "PAYBACK",
+   "text": "Very well.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_targetacknowledgeb": {
+   "duration": 1.0,
+   "speaker": "PAYBACK",
+   "text": "Aye, Commander.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_taunta": {
+   "duration": 1.19,
+   "speaker": "PAYBACK",
+   "text": "Freebirth.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_tauntb": {
+   "duration": 2.35,
+   "speaker": "PAYBACK",
+   "text": "You are not worthy of my ordnance.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_tauntc": {
+   "duration": 1.42,
+   "speaker": "PAYBACK",
+   "text": "Prepare yourself.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_underattacka": {
+   "duration": 1.59,
+   "speaker": "PAYBACK",
+   "text": "I am taking damage.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_underattackb": {
+   "duration": 1.59,
+   "speaker": "PAYBACK",
+   "text": "Combat is engaged.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_vehicledeada": {
+   "duration": 1.14,
+   "speaker": "PAYBACK",
+   "text": "eliminated",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_vehicledeadb": {
+   "duration": 1.39,
+   "speaker": "PAYBACK",
+   "text": "A waste of effort.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_weaponsdown": {
+   "duration": 1.86,
+   "speaker": "PAYBACK",
+   "text": "I have a damaged weapons system.",
+   "voice": "pilot17"
+  },
+  "pilot17/plt17_weaponsout": {
+   "duration": 2.6,
+   "speaker": "PAYBACK",
+   "text": "I have no weapons! I am defenseless!",
+   "voice": "pilot17"
+  },
+  "pilot18/plt18_acknowledgea": {
+   "duration": 0.76,
+   "speaker": "PSYCHO",
+   "text": "10-4",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_acknowledgeb": {
+   "duration": 0.73,
+   "speaker": "PSYCHO",
+   "text": "Alright.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_acknowledgec": {
+   "duration": 0.86,
+   "speaker": "PSYCHO",
+   "text": "Roger that.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_airstrikeattack": {
+   "duration": 0.85,
+   "speaker": "PSYCHO",
+   "text": "Airstrike",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_ammoout": {
+   "duration": 1.95,
+   "speaker": "PSYCHO",
+   "text": "Aw, come on, I'm out of ammo!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_armorholea": {
+   "duration": 1.51,
+   "speaker": "PSYCHO",
+   "text": "Hey, I'm getting torn up!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_armorholeb": {
+   "duration": 1.49,
+   "speaker": "PSYCHO",
+   "text": "They're beating the crap out of me!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_buildingdead": {
+   "duration": 2.12,
+   "speaker": "PSYCHO",
+   "text": "Yeah, the building's trashed.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_calledshot": {
+   "duration": 1.45,
+   "speaker": "PSYCHO",
+   "text": "No sweat.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_callsigna": {
+   "duration": 0.95,
+   "speaker": "PSYCHO",
+   "text": "Psycho here.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_callsignb": {
+   "duration": 1.11,
+   "speaker": "PSYCHO",
+   "text": "This is Psycho.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_cannotcapture": {
+   "duration": 3.11,
+   "speaker": "PSYCHO",
+   "text": "I can't capture! The enemy's too freaking close!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_capturebuilding": {
+   "duration": 1.96,
+   "speaker": "PSYCHO",
+   "text": "Alright, the building's captured.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_capturevehicle": {
+   "duration": 1.12,
+   "speaker": "PSYCHO",
+   "text": "I got the vehicle.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_ejecting": {
+   "duration": 1.07,
+   "speaker": "PSYCHO",
+   "text": "Ejecting!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_guard": {
+   "duration": 1.5,
+   "speaker": "PSYCHO",
+   "text": "Nothing will get past me.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_hittingmines": {
+   "duration": 1.93,
+   "speaker": "PSYCHO",
+   "text": "I'm in a freakin' minefield!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_illegalorder": {
+   "duration": 1.08,
+   "speaker": "PSYCHO",
+   "text": "I can't do that!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_mechcrippled": {
+   "duration": 3.17,
+   "speaker": "PSYCHO",
+   "text": "Oh, for crying out loud, my 'Mech is limping!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_mechdeada": {
+   "duration": 1.9,
+   "speaker": "PSYCHO",
+   "text": "Yeah, that's right. Die.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_mechdeadb": {
+   "duration": 0.99,
+   "speaker": "PSYCHO",
+   "text": "'Mech destroyed.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_moveblocked": {
+   "duration": 1.71,
+   "speaker": "PSYCHO",
+   "text": "My path is blocked.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_objectdead": {
+   "duration": 1.91,
+   "speaker": "PSYCHO",
+   "text": "Target all gone.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_pilothurt": {
+   "duration": 1.72,
+   "speaker": "PSYCHO",
+   "text": "Son of a... I'm hit!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_refitcomplete": {
+   "duration": 1.71,
+   "speaker": "PSYCHO",
+   "text": "Alright, alright, I'm ready to go.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_refitnotcomplete": {
+   "duration": 1.08,
+   "speaker": "PSYCHO",
+   "text": "I ain't done yet!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_sensorcontacta": {
+   "duration": 0.87,
+   "speaker": "PSYCHO",
+   "text": "check sensors",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_sensorcontactb": {
+   "duration": 0.85,
+   "speaker": "PSYCHO",
+   "text": "Got a contact.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_targetacknowledgea": {
+   "duration": 1.3,
+   "speaker": "PSYCHO",
+   "text": "Okay, I got it.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_targetacknowledgeb": {
+   "duration": 1.71,
+   "speaker": "PSYCHO",
+   "text": "He's as good as dead.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_taunta": {
+   "duration": 1.38,
+   "speaker": "PSYCHO",
+   "text": "Let's go. You and me.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_tauntb": {
+   "duration": 0.82,
+   "speaker": "PSYCHO",
+   "text": "I'll kill ya!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_tauntc": {
+   "duration": 1.24,
+   "speaker": "PSYCHO",
+   "text": "You're dead meat.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_underattacka": {
+   "duration": 1.73,
+   "speaker": "PSYCHO",
+   "text": "Hey, I'm under fire!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_underattackb": {
+   "duration": 1.91,
+   "speaker": "PSYCHO",
+   "text": "Can't you hear that? I'm taking fire!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_vehicledeada": {
+   "duration": 0.61,
+   "speaker": "PSYCHO",
+   "text": "Got it.",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_vehicledeadb": {
+   "duration": 0.82,
+   "speaker": "PSYCHO",
+   "text": "Nice!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_weaponsdown": {
+   "duration": 1.17,
+   "speaker": "PSYCHO",
+   "text": "I lost a weapon!",
+   "voice": "pilot18"
+  },
+  "pilot18/plt18_weaponsout": {
+   "duration": 2.76,
+   "speaker": "PSYCHO",
+   "text": "I got no weapons! I got no weapons!",
+   "voice": "pilot18"
+  },
+  "pilot19/plt19_acknowledgea": {
+   "duration": 1.1,
+   "speaker": "ROOSTER",
+   "text": "You betcha, sir!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_acknowledgeb": {
+   "duration": 0.99,
+   "speaker": "ROOSTER",
+   "text": "I got it sir.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_acknowledgec": {
+   "duration": 0.99,
+   "speaker": "ROOSTER",
+   "text": "Okay, sir.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_airstrikeattack": {
+   "duration": 0.93,
+   "speaker": "ROOSTER",
+   "text": "Airstrike!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_ammoout": {
+   "duration": 1.49,
+   "speaker": "ROOSTER",
+   "text": "I got no more ammo!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_armorholea": {
+   "duration": 1.96,
+   "speaker": "ROOSTER",
+   "text": "I can't keep getting hit like this!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_armorholeb": {
+   "duration": 1.52,
+   "speaker": "ROOSTER",
+   "text": "My armor's melting off!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_buildingdead": {
+   "duration": 1.52,
+   "speaker": "ROOSTER",
+   "text": "Building destroyed.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_calledshot": {
+   "duration": 1.53,
+   "speaker": "ROOSTER",
+   "text": "One Trick Shot, coming up!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_callsigna": {
+   "duration": 1.13,
+   "speaker": "ROOSTER",
+   "text": "Rooster here!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_callsignb": {
+   "duration": 1.27,
+   "speaker": "ROOSTER",
+   "text": "This is Rooster.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_cannotcapture": {
+   "duration": 2.54,
+   "speaker": "ROOSTER",
+   "text": "Can't capture! Enemies all over the place!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_capturebuilding": {
+   "duration": 1.11,
+   "speaker": "ROOSTER",
+   "text": "building captured.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_capturevehicle": {
+   "duration": 1.32,
+   "speaker": "ROOSTER",
+   "text": "Vehicle captured.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_ejecting": {
+   "duration": 0.96,
+   "speaker": "ROOSTER",
+   "text": "Ejecting!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_guard": {
+   "duration": 0.96,
+   "speaker": "ROOSTER",
+   "text": "I'm on guard!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_hittingmines": {
+   "duration": 1.45,
+   "speaker": "ROOSTER",
+   "text": "Dang it! I'm in a minefield!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_illegalorder": {
+   "duration": 1.18,
+   "speaker": "ROOSTER",
+   "text": "I don't know how to do that!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_mechcrippled": {
+   "duration": 1.38,
+   "speaker": "ROOSTER",
+   "text": "I ain't walking too good.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_mechdeada": {
+   "duration": 2.03,
+   "speaker": "ROOSTER",
+   "text": "Dogger! He blew up good!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_mechdeadb": {
+   "duration": 1.8,
+   "speaker": "ROOSTER",
+   "text": "Enemy 'Mech destroyed.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_mechsalvageablea": {
+   "duration": 1.63,
+   "speaker": "ROOSTER",
+   "text": "Here's one for the salvage heap.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_mechsalvageableb": {
+   "duration": 1.63,
+   "speaker": "ROOSTER",
+   "text": "This 'Mech's salvageable, Commander.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_moveblocked": {
+   "duration": 1.36,
+   "speaker": "ROOSTER",
+   "text": "I can't get through here!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_objectdead": {
+   "duration": 1.73,
+   "speaker": "ROOSTER",
+   "text": "Hehe, it's gone!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_pilothurt": {
+   "duration": 1.41,
+   "speaker": "ROOSTER",
+   "text": "I'm getting pretty banged up!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_refitcomplete": {
+   "duration": 1.16,
+   "speaker": "ROOSTER",
+   "text": "I'm all fixed up!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_refitnotcomplete": {
+   "duration": 1.62,
+   "speaker": "ROOSTER",
+   "text": "I ain't done getting fixed!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_sensorcontacta": {
+   "duration": 2.05,
+   "speaker": "ROOSTER",
+   "text": "Hey! I got a sensor contact!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_sensorcontactb": {
+   "duration": 1.51,
+   "speaker": "ROOSTER",
+   "text": "I got a new sensor Trace!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_targetacknowledgea": {
+   "duration": 1.3,
+   "speaker": "ROOSTER",
+   "text": "It's good as dead!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_targetacknowledgeb": {
+   "duration": 1.54,
+   "speaker": "ROOSTER",
+   "text": "Roger that! I'm on it!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_taunta": {
+   "duration": 1.09,
+   "speaker": "ROOSTER",
+   "text": "Let's tune up!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_tauntb": {
+   "duration": 1.96,
+   "speaker": "ROOSTER",
+   "text": "Locked, loaded, and firing.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_tauntc": {
+   "duration": 2.19,
+   "speaker": "ROOSTER",
+   "text": "Like hitting a tin can on a fence!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_underattacka": {
+   "duration": 1.23,
+   "speaker": "ROOSTER",
+   "text": "They got me pegged!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_underattackb": {
+   "duration": 0.98,
+   "speaker": "ROOSTER",
+   "text": "They're shooting me up!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_vehicledeada": {
+   "duration": 1.58,
+   "speaker": "ROOSTER",
+   "text": "Another one bites the dust.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_vehicledeadb": {
+   "duration": 1.75,
+   "speaker": "ROOSTER",
+   "text": "Enemy vehicle destroyed.",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_weaponsdown": {
+   "duration": 1.63,
+   "speaker": "ROOSTER",
+   "text": "Dang! There goes a weapon!",
+   "voice": "pilot19"
+  },
+  "pilot19/plt19_weaponsout": {
+   "duration": 1.84,
+   "speaker": "ROOSTER",
+   "text": "That's it! I'm out of weapons!",
+   "voice": "pilot19"
+  },
+  "pilot2/plt2_acknowledgea": {
+   "duration": 0.86,
+   "speaker": "CHOPPER",
+   "text": "Roger that",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_acknowledgeb": {
+   "duration": 0.99,
+   "speaker": "CHOPPER",
+   "text": "I got it.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_acknowledgec": {
+   "duration": 0.99,
+   "speaker": "CHOPPER",
+   "text": "Alright, copy that.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_airstrikeattack": {
+   "duration": 1.14,
+   "speaker": "CHOPPER",
+   "text": "Airstrike!",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_ammoout": {
+   "duration": 1.15,
+   "speaker": "CHOPPER",
+   "text": "Ammo's out, Chief.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_armorholea": {
+   "duration": 2.1,
+   "speaker": "CHOPPER",
+   "text": "My armor's getting trashed.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_armorholeb": {
+   "duration": 1.67,
+   "speaker": "CHOPPER",
+   "text": "I can't take much more of this.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_buildingdead": {
+   "duration": 1.43,
+   "speaker": "CHOPPER",
+   "text": "That building's trashed.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_calledshot": {
+   "duration": 1.78,
+   "speaker": "CHOPPER",
+   "text": "I'll take out the pruning shears.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_callsigna": {
+   "duration": 1.06,
+   "speaker": "CHOPPER",
+   "text": "It's Chopper.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_callsignb": {
+   "duration": 1.33,
+   "speaker": "CHOPPER",
+   "text": "This is Chopper here.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_cannotcapture": {
+   "duration": 3.04,
+   "speaker": "CHOPPER",
+   "text": "Can't capture. The enemy's too close.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_capturebuilding": {
+   "duration": 1.71,
+   "speaker": "CHOPPER",
+   "text": "Buildings captured boss.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_capturevehicle": {
+   "duration": 1.52,
+   "speaker": "CHOPPER",
+   "text": "Vehicles captured, sir.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_ejecting": {
+   "duration": 1.03,
+   "speaker": "CHOPPER",
+   "text": "I'm ejecting",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_guard": {
+   "duration": 2.03,
+   "speaker": "CHOPPER",
+   "text": "I'm on guard, don't you worry.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_hittingmines": {
+   "duration": 2.63,
+   "speaker": "CHOPPER",
+   "text": "What the... Hey, I'm in a minefield!",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_illegalorder": {
+   "duration": 1.82,
+   "speaker": "CHOPPER",
+   "text": "I can't do that boss.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_mechcrippled": {
+   "duration": 2.71,
+   "speaker": "CHOPPER",
+   "text": "This makes limping. I am a sitting duck out here.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_mechdeada": {
+   "duration": 2.01,
+   "speaker": "CHOPPER",
+   "text": "Yes! Scrap metal!",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_mechdeadb": {
+   "duration": 2.88,
+   "speaker": "CHOPPER",
+   "text": "Alright, enemy 'Mech destroyed.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_moveblocked": {
+   "duration": 1.78,
+   "speaker": "CHOPPER",
+   "text": "Can't trace a path.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_objectdead": {
+   "duration": 1.47,
+   "speaker": "CHOPPER",
+   "text": "Targets trashed.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_pilothurt": {
+   "duration": 2.2,
+   "speaker": "CHOPPER",
+   "text": "Mmm! I took some shrapnel.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_refitcomplete": {
+   "duration": 1.95,
+   "speaker": "CHOPPER",
+   "text": "Jeez, five by five.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_refitnotcomplete": {
+   "duration": 2.49,
+   "speaker": "CHOPPER",
+   "text": "Come on, I'm not fully repaired!",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_sensorcontacta": {
+   "duration": 2.21,
+   "speaker": "CHOPPER",
+   "text": "Hello! New contact!",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_sensorcontactb": {
+   "duration": 2.0,
+   "speaker": "CHOPPER",
+   "text": "Heads up, I got a contact.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_targetacknowledgea": {
+   "duration": 1.25,
+   "speaker": "CHOPPER",
+   "text": "Copy that target.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_targetacknowledgeb": {
+   "duration": 1.26,
+   "speaker": "CHOPPER",
+   "text": "Target locked.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_taunta": {
+   "duration": 2.06,
+   "speaker": "CHOPPER",
+   "text": "Get in the crosshairs.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_tauntb": {
+   "duration": 1.79,
+   "speaker": "CHOPPER",
+   "text": "Time to get nasty!",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_tauntc": {
+   "duration": 1.4,
+   "speaker": "CHOPPER",
+   "text": "Let's do it!",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_underattacka": {
+   "duration": 1.39,
+   "speaker": "CHOPPER",
+   "text": "Hey, I'm under fire!",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_underattackb": {
+   "duration": 1.25,
+   "speaker": "CHOPPER",
+   "text": "I'm being targeted.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_vehicledeada": {
+   "duration": 1.56,
+   "speaker": "CHOPPER",
+   "text": "Goodbye.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_vehicledeadb": {
+   "duration": 2.25,
+   "speaker": "CHOPPER",
+   "text": "Enemy vehicle destroyed.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_weaponsdown": {
+   "duration": 1.9,
+   "speaker": "CHOPPER",
+   "text": "I lost a weapon.",
+   "voice": "pilot2"
+  },
+  "pilot2/plt2_weaponsout": {
+   "duration": 1.54,
+   "speaker": "CHOPPER",
+   "text": "All my weapons are out.",
+   "voice": "pilot2"
+  },
+  "pilot20/plt20_acknowledgea": {
+   "duration": 0.89,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "I'm your man!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_acknowledgeb": {
+   "duration": 0.67,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "You betcha!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_acknowledgec": {
+   "duration": 0.89,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "whatever you say",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_airstrikeattack": {
+   "duration": 1.44,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Airstrike, Airstrike!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_ammoout": {
+   "duration": 1.66,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "My ammo's at zero, sir.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_armorholea": {
+   "duration": 1.45,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "My armor's coming apart!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_armorholeb": {
+   "duration": 1.01,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "I'm losing armor!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_buildingdead": {
+   "duration": 1.22,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "building destroyed.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_calledshot": {
+   "duration": 1.35,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "One Trick Shot, coming up.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_callsigna": {
+   "duration": 1.02,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Scooter here.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_callsignb": {
+   "duration": 1.02,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "This is Scooter.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_cannotcapture": {
+   "duration": 2.06,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Can't capture. The enemy's too close.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_capturebuilding": {
+   "duration": 1.09,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "building captured",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_capturevehicle": {
+   "duration": 1.09,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Vehicle captured.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_egg": {
+   "duration": 1.95,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Tell my wife I...",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_ejecting": {
+   "duration": 1.19,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Ejecting!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_guard": {
+   "duration": 1.5,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Roger that, on guard.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_hittingmines": {
+   "duration": 1.51,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "I'm in a minefield!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_illegalorder": {
+   "duration": 1.11,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "I can't do that, sir.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_mechcrippled": {
+   "duration": 1.87,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Whoa! My neck is limping!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_mechdeada": {
+   "duration": 1.88,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Yes, 'Mech destroyed.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_mechdeadb": {
+   "duration": 1.33,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Enemy 'Mech destroyed!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_mechsalvageablea": {
+   "duration": 1.7,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Yeah, I got one for the salvage heap.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_mechsalvageableb": {
+   "duration": 1.7,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "This 'Mech's salvageable, Commander.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_moveblocked": {
+   "duration": 1.15,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "My path is blocked.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_objectdead": {
+   "duration": 1.46,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Target vaporized.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_pilothurt": {
+   "duration": 0.89,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "OW!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_refitcomplete": {
+   "duration": 1.08,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Good to go, sir.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_refitnotcomplete": {
+   "duration": 1.37,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "partially repaired, sir.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_sensorcontacta": {
+   "duration": 1.38,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "I got a sensor bogey.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_sensorcontactb": {
+   "duration": 1.96,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "I'm showing a new contact.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_targetacknowledgea": {
+   "duration": 1.22,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Target acknowledged.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_targetacknowledgeb": {
+   "duration": 1.71,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Roger that, target confirmed",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_taunta": {
+   "duration": 1.84,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "That's it. Now I'm mad.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_tauntb": {
+   "duration": 1.69,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "These guys aren't so tough.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_tauntc": {
+   "duration": 1.2,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Time to kick butt.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_underattacka": {
+   "duration": 1.7,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Sir, I am under fire.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_underattackb": {
+   "duration": 1.71,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Commander, I'm taking fire!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_vehicledeada": {
+   "duration": 0.65,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Gotcha!",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_vehicledeadb": {
+   "duration": 1.52,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Enemy vehicle destroyed.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_weaponsdown": {
+   "duration": 2.11,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Oh no, I lost a weapon.",
+   "voice": "pilot20"
+  },
+  "pilot20/plt20_weaponsout": {
+   "duration": 2.67,
+   "speaker": "SCOOTER / SPARKY",
+   "text": "Holy cow, I am out of weapons!",
+   "voice": "pilot20"
+  },
+  "pilot21/plt21_acknowledgea": {
+   "duration": 0.78,
+   "speaker": "SHADOW",
+   "text": "Right on that!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_acknowledgeb": {
+   "duration": 1.1,
+   "speaker": "SHADOW",
+   "text": "Shouldn't take long.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_acknowledgec": {
+   "duration": 0.96,
+   "speaker": "SHADOW",
+   "text": "I'll take care of it.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_airstrikeattack": {
+   "duration": 0.84,
+   "speaker": "SHADOW",
+   "text": "Airstrike!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_ammoout": {
+   "duration": 1.43,
+   "speaker": "SHADOW",
+   "text": "My ammo's all gone.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_armorholea": {
+   "duration": 2.02,
+   "speaker": "SHADOW",
+   "text": "My armor's getting stripped off!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_armorholeb": {
+   "duration": 1.5,
+   "speaker": "SHADOW",
+   "text": "I'm taking heavy hits!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_buildingdead": {
+   "duration": 1.5,
+   "speaker": "SHADOW",
+   "text": "No more building!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_calledshot": {
+   "duration": 1.52,
+   "speaker": "SHADOW",
+   "text": "That may be tough.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_callsigna": {
+   "duration": 1.38,
+   "speaker": "SHADOW",
+   "text": "Shadow reporting.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_callsignb": {
+   "duration": 0.99,
+   "speaker": "SHADOW",
+   "text": "Shadow here.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_cannotcapture": {
+   "duration": 1.15,
+   "speaker": "SHADOW",
+   "text": "I can't capture!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_capturebuilding": {
+   "duration": 1.34,
+   "speaker": "SHADOW",
+   "text": "The building's ours.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_capturevehicle": {
+   "duration": 1.47,
+   "speaker": "SHADOW",
+   "text": "I got the vehicle you ordered.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_egg": {
+   "duration": 3.38,
+   "speaker": "SHADOW",
+   "text": "You like me! You really, really like me!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_ejecting": {
+   "duration": 0.96,
+   "speaker": "SHADOW",
+   "text": "Ejecting!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_guard": {
+   "duration": 1.33,
+   "speaker": "SHADOW",
+   "text": "Taking guard position.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_hittingmines": {
+   "duration": 1.52,
+   "speaker": "SHADOW",
+   "text": "We got a minefield!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_illegalorder": {
+   "duration": 1.13,
+   "speaker": "SHADOW",
+   "text": "No can do, sir.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_mechcrippled": {
+   "duration": 2.64,
+   "speaker": "SHADOW",
+   "text": "Servo's trashed! My 'Mech is limping!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_mechdeada": {
+   "duration": 0.95,
+   "speaker": "SHADOW",
+   "text": "Nighty Night!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_mechdeadb": {
+   "duration": 1.48,
+   "speaker": "SHADOW",
+   "text": "'Mech destroyed.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_moveblocked": {
+   "duration": 1.84,
+   "speaker": "SHADOW",
+   "text": "Uh, my path is blocked.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_objectdead": {
+   "duration": 1.83,
+   "speaker": "SHADOW",
+   "text": "Give me a real target!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_pilothurt": {
+   "duration": 1.42,
+   "speaker": "SHADOW",
+   "text": "Ow! My arm!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_refitcomplete": {
+   "duration": 0.86,
+   "speaker": "SHADOW",
+   "text": "Good to go.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_refitnotcomplete": {
+   "duration": 1.36,
+   "speaker": "SHADOW",
+   "text": "I'm not fully repaired.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_sensorcontacta": {
+   "duration": 1.03,
+   "speaker": "SHADOW",
+   "text": "Enemy nearby",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_sensorcontactb": {
+   "duration": 1.51,
+   "speaker": "SHADOW",
+   "text": "Got a bad guy on sensors.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_targetacknowledgea": {
+   "duration": 1.08,
+   "speaker": "SHADOW",
+   "text": "Target locked.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_targetacknowledgeb": {
+   "duration": 0.67,
+   "speaker": "SHADOW",
+   "text": "aye aye",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_taunta": {
+   "duration": 1.61,
+   "speaker": "SHADOW",
+   "text": "Almost got him.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_tauntb": {
+   "duration": 1.3,
+   "speaker": "SHADOW",
+   "text": "Hold still.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_tauntc": {
+   "duration": 2.36,
+   "speaker": "SHADOW",
+   "text": "Got my finger on the trigger.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_underattacka": {
+   "duration": 1.52,
+   "speaker": "SHADOW",
+   "text": "I got their attention!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_underattackb": {
+   "duration": 1.53,
+   "speaker": "SHADOW",
+   "text": "Who's swinging at me?",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_vehicledeada": {
+   "duration": 1.37,
+   "speaker": "SHADOW",
+   "text": "One for the trash heap.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_vehicledeadb": {
+   "duration": 1.19,
+   "speaker": "SHADOW",
+   "text": "Target destroyed.",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_weaponsdown": {
+   "duration": 1.37,
+   "speaker": "SHADOW",
+   "text": "I'm losing weapons!",
+   "voice": "pilot21"
+  },
+  "pilot21/plt21_weaponsout": {
+   "duration": 2.39,
+   "speaker": "SHADOW",
+   "text": "I got no weapons left. None!",
+   "voice": "pilot21"
+  },
+  "pilot22/plt22_acknowledgea": {
+   "duration": 0.7,
+   "speaker": "STEEL",
+   "text": "Roger",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_acknowledgeb": {
+   "duration": 1.04,
+   "speaker": "STEEL",
+   "text": "You got it sir.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_acknowledgec": {
+   "duration": 1.04,
+   "speaker": "STEEL",
+   "text": "Affirmative.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_airstrikeattack": {
+   "duration": 1.04,
+   "speaker": "STEEL",
+   "text": "Airstrike!",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_ammoout": {
+   "duration": 1.31,
+   "speaker": "STEEL",
+   "text": "I'm out of ammo, Commander.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_armorholea": {
+   "duration": 1.24,
+   "speaker": "STEEL",
+   "text": "My armor's coming apart.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_armorholeb": {
+   "duration": 1.11,
+   "speaker": "STEEL",
+   "text": "I'm losing armor.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_buildingdead": {
+   "duration": 1.23,
+   "speaker": "STEEL",
+   "text": "building destroyed.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_calledshot": {
+   "duration": 1.23,
+   "speaker": "STEEL",
+   "text": "Concentrating fire.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_callsigna": {
+   "duration": 1.14,
+   "speaker": "STEEL",
+   "text": "Steel reporting.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_callsignb": {
+   "duration": 1.14,
+   "speaker": "STEEL",
+   "text": "This is Steel.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_cannotcapture": {
+   "duration": 2.33,
+   "speaker": "STEEL",
+   "text": "Aborting capture. The enemy's too close.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_capturebuilding": {
+   "duration": 1.12,
+   "speaker": "STEEL",
+   "text": "building captured.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_capturevehicle": {
+   "duration": 1.13,
+   "speaker": "STEEL",
+   "text": "Vehicle captured.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_egg3": {
+   "duration": 2.57,
+   "speaker": "STEEL",
+   "text": "You're wearing a tutu and a garter belt?",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_ejecting": {
+   "duration": 0.86,
+   "speaker": "STEEL",
+   "text": "Ejecting!",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_guard": {
+   "duration": 2.07,
+   "speaker": "STEEL",
+   "text": "Roger that, guarding this position.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_hittingmines": {
+   "duration": 1.66,
+   "speaker": "STEEL",
+   "text": "I've entered a minefield.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_illegalorder": {
+   "duration": 1.22,
+   "speaker": "STEEL",
+   "text": "I can't do that, sir.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_mechcrippled": {
+   "duration": 1.48,
+   "speaker": "STEEL",
+   "text": "I've got a limping 'Mech here.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_mechdeada": {
+   "duration": 1.58,
+   "speaker": "STEEL",
+   "text": "Scratch one enemy 'Mech.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_mechdeadb": {
+   "duration": 1.58,
+   "speaker": "STEEL",
+   "text": "Enemy 'Mech destroyed.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_moveblocked": {
+   "duration": 1.22,
+   "speaker": "STEEL",
+   "text": "My path is blocked.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_objectdead": {
+   "duration": 1.36,
+   "speaker": "STEEL",
+   "text": "Requesting a new target.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_pilothurt": {
+   "duration": 2.06,
+   "speaker": "STEEL",
+   "text": "I think I broke something.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_refitcomplete": {
+   "duration": 1.27,
+   "speaker": "STEEL",
+   "text": "I'm back in action.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_refitnotcomplete": {
+   "duration": 1.6,
+   "speaker": "STEEL",
+   "text": "They couldn't fix everything, sir.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_sensorcontacta": {
+   "duration": 1.79,
+   "speaker": "STEEL",
+   "text": "Uh oh, new contact.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_sensorcontactb": {
+   "duration": 1.99,
+   "speaker": "STEEL",
+   "text": "Heads up, I've got a new contact.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_targetacknowledgea": {
+   "duration": 1.07,
+   "speaker": "STEEL",
+   "text": "Target acknowledged.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_targetacknowledgeb": {
+   "duration": 2.26,
+   "speaker": "STEEL",
+   "text": "Roger that, target confirmed",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_taunta": {
+   "duration": 2.22,
+   "speaker": "STEEL",
+   "text": "Stay right there.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_tauntb": {
+   "duration": 2.22,
+   "speaker": "STEEL",
+   "text": "Two more months to retirement.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_tauntc": {
+   "duration": 1.34,
+   "speaker": "STEEL",
+   "text": "Let's get on with it!",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_underattacka": {
+   "duration": 1.25,
+   "speaker": "STEEL",
+   "text": "I am under fire.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_underattackb": {
+   "duration": 1.64,
+   "speaker": "STEEL",
+   "text": "Commander, I'm taking fire.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_vehicledeada": {
+   "duration": 2.12,
+   "speaker": "STEEL",
+   "text": "Oh yeah, another one bites the dust.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_vehicledeadb": {
+   "duration": 1.44,
+   "speaker": "STEEL",
+   "text": "Enemy vehicle destroyed.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_weaponsdown": {
+   "duration": 1.45,
+   "speaker": "STEEL",
+   "text": "I've lost the weapons system.",
+   "voice": "pilot22"
+  },
+  "pilot22/plt22_weaponsout": {
+   "duration": 2.34,
+   "speaker": "STEEL",
+   "text": "All weapons gone, I'm a paperweight.",
+   "voice": "pilot22"
+  },
+  "pilot23/plt23_acknowledgea": {
+   "duration": 0.58,
+   "speaker": "TWITCH",
+   "text": "Roger",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_acknowledgeb": {
+   "duration": 0.89,
+   "speaker": "TWITCH",
+   "text": "I got it, I got it!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_acknowledgec": {
+   "duration": 0.89,
+   "speaker": "TWITCH",
+   "text": "Yeah, sure, you got it.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_airstrikeattack": {
+   "duration": 0.89,
+   "speaker": "TWITCH",
+   "text": "Airstrike!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_ammoout": {
+   "duration": 1.44,
+   "speaker": "TWITCH",
+   "text": "I'm out of ammo, sir.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_armorholea": {
+   "duration": 1.29,
+   "speaker": "TWITCH",
+   "text": "Oh man, this doesn't look good.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_armorholeb": {
+   "duration": 1.28,
+   "speaker": "TWITCH",
+   "text": "I'm losing armor!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_buildingdead": {
+   "duration": 1.38,
+   "speaker": "TWITCH",
+   "text": "Whoops! No more building.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_calledshot": {
+   "duration": 1.65,
+   "speaker": "TWITCH",
+   "text": "You want me to what? Okay.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_callsigna": {
+   "duration": 1.0,
+   "speaker": "TWITCH",
+   "text": "Uh, Twitch here.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_callsignb": {
+   "duration": 0.82,
+   "speaker": "TWITCH",
+   "text": "Twitch reporting.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_cannotcapture": {
+   "duration": 1.74,
+   "speaker": "TWITCH",
+   "text": "I can't capture that, the enemy's too close!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_capturebuilding": {
+   "duration": 1.22,
+   "speaker": "TWITCH",
+   "text": "I got it! I got the building!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_capturevehicle": {
+   "duration": 1.21,
+   "speaker": "TWITCH",
+   "text": "Where do you want me to park it?",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_ejecting": {
+   "duration": 1.4,
+   "speaker": "TWITCH",
+   "text": "Ejecting! Ejecting!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_guard": {
+   "duration": 1.81,
+   "speaker": "TWITCH",
+   "text": "Great, guard duty again.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_hittingmines": {
+   "duration": 1.38,
+   "speaker": "TWITCH",
+   "text": "Woah, what's this, a minefield?",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_illegalorder": {
+   "duration": 1.15,
+   "speaker": "TWITCH",
+   "text": "I can't do that, sir!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_mechcrippled": {
+   "duration": 1.44,
+   "speaker": "TWITCH",
+   "text": "Oh, my butt's dragging!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_mechdeada": {
+   "duration": 1.19,
+   "speaker": "TWITCH",
+   "text": "I got him, he's down!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_mechdeadb": {
+   "duration": 0.96,
+   "speaker": "TWITCH",
+   "text": "This one's dead.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_moveblocked": {
+   "duration": 1.2,
+   "speaker": "TWITCH",
+   "text": "Ah! My path is blocked!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_objectdead": {
+   "duration": 0.82,
+   "speaker": "TWITCH",
+   "text": "It's gone!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_pilothurt": {
+   "duration": 1.27,
+   "speaker": "TWITCH",
+   "text": "Ow! Oh man, I'm bleeding!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_refitcomplete": {
+   "duration": 1.27,
+   "speaker": "TWITCH",
+   "text": "Yeah, 'Mech repaired.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_refitnotcomplete": {
+   "duration": 1.68,
+   "speaker": "TWITCH",
+   "text": "I'm not repaired all the way!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_sensorcontacta": {
+   "duration": 1.53,
+   "speaker": "TWITCH",
+   "text": "Oh, new contact!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_sensorcontactb": {
+   "duration": 1.6,
+   "speaker": "TWITCH",
+   "text": "I got something on sensors!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_targetacknowledgea": {
+   "duration": 1.26,
+   "speaker": "TWITCH",
+   "text": "Yeah, target acknowledged.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_targetacknowledgeb": {
+   "duration": 1.04,
+   "speaker": "TWITCH",
+   "text": "Roger that, target.",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_taunta": {
+   "duration": 1.39,
+   "speaker": "TWITCH",
+   "text": "Oh boy, here we go!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_tauntb": {
+   "duration": 1.25,
+   "speaker": "TWITCH",
+   "text": "Let's go loser!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_tauntc": {
+   "duration": 1.1,
+   "speaker": "TWITCH",
+   "text": "Come on, come on, come on!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_underattacka": {
+   "duration": 1.41,
+   "speaker": "TWITCH",
+   "text": "Hey, I'm under fire over here!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_underattackb": {
+   "duration": 1.13,
+   "speaker": "TWITCH",
+   "text": "Commander, I'm taking heat!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_vehicledeada": {
+   "duration": 1.55,
+   "speaker": "TWITCH",
+   "text": "Not so tough anymore, are ya?",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_vehicledeadb": {
+   "duration": 0.89,
+   "speaker": "TWITCH",
+   "text": "Enemy down",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_weaponsdown": {
+   "duration": 1.39,
+   "speaker": "TWITCH",
+   "text": "Ah! Ah! There goes a weapon!",
+   "voice": "pilot23"
+  },
+  "pilot23/plt23_weaponsout": {
+   "duration": 1.95,
+   "speaker": "TWITCH",
+   "text": "Pull me out! I got no weapon!",
+   "voice": "pilot23"
+  },
+  "pilot24/plt24_acknowledgea": {
+   "duration": 0.89,
+   "speaker": "VENOM",
+   "text": "Affirmative",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_acknowledgeb": {
+   "duration": 0.87,
+   "speaker": "VENOM",
+   "text": "Roger that.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_acknowledgec": {
+   "duration": 1.27,
+   "speaker": "VENOM",
+   "text": "Sure, no problem.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_airstrikeattack": {
+   "duration": 1.16,
+   "speaker": "VENOM",
+   "text": "Airstrike",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_ammoout": {
+   "duration": 1.16,
+   "speaker": "VENOM",
+   "text": "My ammo's out!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_armorholea": {
+   "duration": 1.55,
+   "speaker": "VENOM",
+   "text": "They're tearing my 'Mech apart!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_armorholeb": {
+   "duration": 1.3,
+   "speaker": "VENOM",
+   "text": "I'm losing armor!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_buildingdead": {
+   "duration": 1.87,
+   "speaker": "VENOM",
+   "text": "That's one big building.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_calledshot": {
+   "duration": 1.1,
+   "speaker": "VENOM",
+   "text": "Taking aim.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_callsigna": {
+   "duration": 1.11,
+   "speaker": "VENOM",
+   "text": "Venom reporting.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_callsignb": {
+   "duration": 1.11,
+   "speaker": "VENOM",
+   "text": "This is Venom.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_cannotcapture": {
+   "duration": 2.11,
+   "speaker": "VENOM",
+   "text": "Aborting capture, enemy too close.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_capturebuilding": {
+   "duration": 1.36,
+   "speaker": "VENOM",
+   "text": "I got the building!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_capturevehicle": {
+   "duration": 1.16,
+   "speaker": "VENOM",
+   "text": "I got the vehicle.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_ejecting": {
+   "duration": 1.19,
+   "speaker": "VENOM",
+   "text": "Ejecting!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_guard": {
+   "duration": 1.25,
+   "speaker": "VENOM",
+   "text": "Securing this position.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_hittingmines": {
+   "duration": 1.41,
+   "speaker": "VENOM",
+   "text": "I'm in a minefield!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_illegalorder": {
+   "duration": 1.05,
+   "speaker": "VENOM",
+   "text": "Cannot comply.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_mechcrippled": {
+   "duration": 1.27,
+   "speaker": "VENOM",
+   "text": "I got a bad leg!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_mechdeada": {
+   "duration": 1.13,
+   "speaker": "VENOM",
+   "text": "Smoke them!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_mechdeadb": {
+   "duration": 2.21,
+   "speaker": "VENOM",
+   "text": "Yes! 'Mech destroyed!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_mechsalvageablea": {
+   "duration": 1.3,
+   "speaker": "VENOM",
+   "text": "Here's one for the salvage heap.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_mechsalvageableb": {
+   "duration": 1.3,
+   "speaker": "VENOM",
+   "text": "We can salvage that 'Mech.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_moveblocked": {
+   "duration": 1.27,
+   "speaker": "VENOM",
+   "text": "My path is blocked.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_objectdead": {
+   "duration": 2.02,
+   "speaker": "VENOM",
+   "text": "Target destroyed. Next.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_pilothurt": {
+   "duration": 0.83,
+   "speaker": "VENOM",
+   "text": "That hurts!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_refitcomplete": {
+   "duration": 1.68,
+   "speaker": "VENOM",
+   "text": "Got this crate moving again.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_refitnotcomplete": {
+   "duration": 1.01,
+   "speaker": "VENOM",
+   "text": "I can handle it!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_sensorcontacta": {
+   "duration": 1.26,
+   "speaker": "VENOM",
+   "text": "I got a contact!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_sensorcontactb": {
+   "duration": 1.55,
+   "speaker": "VENOM",
+   "text": "I've got something on sensors.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_targetacknowledgea": {
+   "duration": 1.55,
+   "speaker": "VENOM",
+   "text": "Target locked.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_targetacknowledgeb": {
+   "duration": 2.15,
+   "speaker": "VENOM",
+   "text": "Roger that. Target confirmed.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_taunta": {
+   "duration": 1.61,
+   "speaker": "VENOM",
+   "text": "I'm gonna make this hurt.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_tauntb": {
+   "duration": 1.88,
+   "speaker": "VENOM",
+   "text": "I should get paid by the piece.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_tauntc": {
+   "duration": 1.51,
+   "speaker": "VENOM",
+   "text": "Eat this!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_underattacka": {
+   "duration": 1.02,
+   "speaker": "VENOM",
+   "text": "I'm being hit!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_underattackb": {
+   "duration": 1.83,
+   "speaker": "VENOM",
+   "text": "Commander, I'm taking fire!",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_vehicledeada": {
+   "duration": 1.51,
+   "speaker": "VENOM",
+   "text": "Vehicle toasted.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_vehicledeadb": {
+   "duration": 1.5,
+   "speaker": "VENOM",
+   "text": "Vehicle destroyed.",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_weaponsdown": {
+   "duration": 1.23,
+   "speaker": "VENOM",
+   "text": "I'm down a weapon",
+   "voice": "pilot24"
+  },
+  "pilot24/plt24_weaponsout": {
+   "duration": 2.36,
+   "speaker": "VENOM",
+   "text": "No weapons left. Want me to bleed on him?",
+   "voice": "pilot24"
+  },
+  "pilot25/plt25_acknowledgea": {
+   "duration": 0.61,
+   "speaker": "WICKED",
+   "text": "Got it.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_acknowledgeb": {
+   "duration": 0.62,
+   "speaker": "WICKED",
+   "text": "Roger",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_acknowledgec": {
+   "duration": 0.71,
+   "speaker": "WICKED",
+   "text": "Aye sir",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_airstrikeattack": {
+   "duration": 1.36,
+   "speaker": "WICKED",
+   "text": "Incoming airstrikes.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_ammoout": {
+   "duration": 1.36,
+   "speaker": "WICKED",
+   "text": "ammo depleted sir",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_armorholea": {
+   "duration": 1.68,
+   "speaker": "WICKED",
+   "text": "Woo! That was a heavy hit!",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_armorholeb": {
+   "duration": 1.53,
+   "speaker": "WICKED",
+   "text": "I got an armor problem.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_buildingdead": {
+   "duration": 1.53,
+   "speaker": "WICKED",
+   "text": "Building destroyed.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_calledshot": {
+   "duration": 1.43,
+   "speaker": "WICKED",
+   "text": "lining up the shot",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_callsigna": {
+   "duration": 1.1,
+   "speaker": "WICKED",
+   "text": "Wicked here.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_callsignb": {
+   "duration": 1.26,
+   "speaker": "WICKED",
+   "text": "Wicked reporting.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_cannotcapture": {
+   "duration": 2.53,
+   "speaker": "WICKED",
+   "text": "Aborting capture, the enemy's too close.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_capturebuilding": {
+   "duration": 1.14,
+   "speaker": "WICKED",
+   "text": "Got the building.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_capturevehicle": {
+   "duration": 1.33,
+   "speaker": "WICKED",
+   "text": "Vehicle captured.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_ejecting": {
+   "duration": 0.99,
+   "speaker": "WICKED",
+   "text": "I'm punching out.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_guard": {
+   "duration": 1.66,
+   "speaker": "WICKED",
+   "text": "Roger that, on guard.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_hittingmines": {
+   "duration": 1.38,
+   "speaker": "WICKED",
+   "text": "We've got a minefield.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_illegalorder": {
+   "duration": 1.11,
+   "speaker": "WICKED",
+   "text": "Can't do that, sir.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_mechcrippled": {
+   "duration": 2.44,
+   "speaker": "WICKED",
+   "text": "My 'Mech is limping. I've got a bad servo.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_mechdeada": {
+   "duration": 0.78,
+   "speaker": "WICKED",
+   "text": "Got one.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_mechdeadb": {
+   "duration": 1.03,
+   "speaker": "WICKED",
+   "text": "Enemy down.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_moveblocked": {
+   "duration": 1.26,
+   "speaker": "WICKED",
+   "text": "Can't get there, sir.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_objectdead": {
+   "duration": 0.98,
+   "speaker": "WICKED",
+   "text": "It's gone.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_pilothurt": {
+   "duration": 1.59,
+   "speaker": "WICKED",
+   "text": "I think my arm is broken!",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_refitcomplete": {
+   "duration": 1.06,
+   "speaker": "WICKED",
+   "text": "All patched up.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_refitnotcomplete": {
+   "duration": 1.06,
+   "speaker": "WICKED",
+   "text": "Good enough, sir.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_sensorcontacta": {
+   "duration": 1.49,
+   "speaker": "WICKED",
+   "text": "Enemy contact.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_sensorcontactb": {
+   "duration": 1.73,
+   "speaker": "WICKED",
+   "text": "I got something on sensors.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_targetacknowledgea": {
+   "duration": 1.18,
+   "speaker": "WICKED",
+   "text": "Locking target.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_targetacknowledgeb": {
+   "duration": 1.19,
+   "speaker": "WICKED",
+   "text": "Roger, targeting",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_taunta": {
+   "duration": 1.18,
+   "speaker": "WICKED",
+   "text": "Open wide!",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_tauntb": {
+   "duration": 1.63,
+   "speaker": "WICKED",
+   "text": "Okay, here we go.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_tauntc": {
+   "duration": 1.39,
+   "speaker": "WICKED",
+   "text": "Suck it down.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_underattacka": {
+   "duration": 1.03,
+   "speaker": "WICKED",
+   "text": "I'm being targeted.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_underattackb": {
+   "duration": 1.34,
+   "speaker": "WICKED",
+   "text": "I'm under fire, sir.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_vehicledeada": {
+   "duration": 1.33,
+   "speaker": "WICKED",
+   "text": "Target destroyed.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_vehicledeadb": {
+   "duration": 1.33,
+   "speaker": "WICKED",
+   "text": "Requesting new target.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_weaponsdown": {
+   "duration": 1.19,
+   "speaker": "WICKED",
+   "text": "I'm down a weapon.",
+   "voice": "pilot25"
+  },
+  "pilot25/plt25_weaponsout": {
+   "duration": 2.49,
+   "speaker": "WICKED",
+   "text": "All weapons gone, I've got nothing left.",
+   "voice": "pilot25"
+  },
+  "pilot26/plt26_acknowledgea": {
+   "duration": 0.94,
+   "speaker": "WORM",
+   "text": "Roger that",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_acknowledgeb": {
+   "duration": 1.06,
+   "speaker": "WORM",
+   "text": "Affirmative",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_acknowledgec": {
+   "duration": 1.23,
+   "speaker": "WORM",
+   "text": "Consider it done.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_airstrikeattack": {
+   "duration": 0.93,
+   "speaker": "WORM",
+   "text": "airstrike",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_ammoout": {
+   "duration": 1.58,
+   "speaker": "WORM",
+   "text": "I'm out of ammo, sir.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_armorholea": {
+   "duration": 1.93,
+   "speaker": "WORM",
+   "text": "Oh man, this doesn't look good.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_armorholeb": {
+   "duration": 1.76,
+   "speaker": "WORM",
+   "text": "I can see daylight through my 'Mech!",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_buildingdead": {
+   "duration": 1.21,
+   "speaker": "WORM",
+   "text": "Wiped it out.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_calledshot": {
+   "duration": 1.44,
+   "speaker": "WORM",
+   "text": "Okay?",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_callsigna": {
+   "duration": 0.92,
+   "speaker": "WORM",
+   "text": "Worm here.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_callsignb": {
+   "duration": 1.11,
+   "speaker": "WORM",
+   "text": "This is Worm.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_cannotcapture": {
+   "duration": 2.16,
+   "speaker": "WORM",
+   "text": "I can't capture. The enemy's too close.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_capturebuilding": {
+   "duration": 0.96,
+   "speaker": "WORM",
+   "text": "building captured",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_capturevehicle": {
+   "duration": 0.95,
+   "speaker": "WORM",
+   "text": "Vehicle captured",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_ejecting": {
+   "duration": 0.88,
+   "speaker": "WORM",
+   "text": "Ejecting!",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_guard": {
+   "duration": 1.91,
+   "speaker": "WORM",
+   "text": "Great, guard duty again.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_hittingmines": {
+   "duration": 1.29,
+   "speaker": "WORM",
+   "text": "I'm getting a hot foot",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_illegalorder": {
+   "duration": 0.91,
+   "speaker": "WORM",
+   "text": "I can't.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_mechcrippled": {
+   "duration": 1.53,
+   "speaker": "WORM",
+   "text": "I got a limpin' 'Mech!",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_mechdeada": {
+   "duration": 0.82,
+   "speaker": "WORM",
+   "text": "I got him!",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_mechdeadb": {
+   "duration": 1.56,
+   "speaker": "WORM",
+   "text": "Yeah, he's done.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_mechsavageablea": {
+   "duration": 2.78,
+   "speaker": "WORM",
+   "text": "Heh heh, one for the salvage heaps.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_mechsavageableb": {
+   "duration": 2.08,
+   "speaker": "WORM",
+   "text": "This 'Mech's salvageable, Commander.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_moveblocked": {
+   "duration": 1.26,
+   "speaker": "WORM",
+   "text": "I can't get there.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_objectdead": {
+   "duration": 1.09,
+   "speaker": "WORM",
+   "text": "It's gone.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_pilothurt": {
+   "duration": 1.98,
+   "speaker": "WORM",
+   "text": "Ugh, I took one in the shoulder.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_refitcomplete": {
+   "duration": 1.19,
+   "speaker": "WORM",
+   "text": "Good to go boss.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_refitnotcomplete": {
+   "duration": 1.97,
+   "speaker": "WORM",
+   "text": "Uh, I'm not repaired all the way.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_sensorcontacta": {
+   "duration": 1.7,
+   "speaker": "WORM",
+   "text": "Ooh, new contact!",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_sensorcontactb": {
+   "duration": 1.59,
+   "speaker": "WORM",
+   "text": "I got something on sensors.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_targetacknowledgea": {
+   "duration": 1.59,
+   "speaker": "WORM",
+   "text": "Yeah, target locked in.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_targetacknowledgeb": {
+   "duration": 1.97,
+   "speaker": "WORM",
+   "text": "Roger that, target confirmed",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_taunta": {
+   "duration": 1.27,
+   "speaker": "WORM",
+   "text": "It's just you and me.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_tauntb": {
+   "duration": 1.26,
+   "speaker": "WORM",
+   "text": "Show me something.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_tauntc": {
+   "duration": 1.27,
+   "speaker": "WORM",
+   "text": "Stand still, maggot.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_underattacka": {
+   "duration": 2.02,
+   "speaker": "WORM",
+   "text": "Hey, I'm under fire over here!",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_underattackb": {
+   "duration": 0.91,
+   "speaker": "WORM",
+   "text": "They're on me!",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_vehicledeada": {
+   "duration": 1.32,
+   "speaker": "WORM",
+   "text": "One less enemy.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_vehicledeadb": {
+   "duration": 1.04,
+   "speaker": "WORM",
+   "text": "He's dust.",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_weaponsdown": {
+   "duration": 1.34,
+   "speaker": "WORM",
+   "text": "I'm losing weapons",
+   "voice": "pilot26"
+  },
+  "pilot26/plt26_weaponsout": {
+   "duration": 2.13,
+   "speaker": "WORM",
+   "text": "Pull me out! I got no weapons!",
+   "voice": "pilot26"
+  },
+  "pilot3/plt3_acknowledgea": {
+   "duration": 0.56,
+   "speaker": "CLAYMORE",
+   "text": "Aye",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_acknowledgeb": {
+   "duration": 1.02,
+   "speaker": "CLAYMORE",
+   "text": "I copy sir",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_acknowledgec": {
+   "duration": 1.0,
+   "speaker": "CLAYMORE",
+   "text": "Acknowledged.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_airstrikeattack": {
+   "duration": 0.8,
+   "speaker": "CLAYMORE",
+   "text": "Airstrike!",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_ammoout": {
+   "duration": 1.47,
+   "speaker": "CLAYMORE",
+   "text": "My ammo's all out.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_armorholea": {
+   "duration": 1.59,
+   "speaker": "CLAYMORE",
+   "text": "I'm getting short for home!",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_armorholeb": {
+   "duration": 1.6,
+   "speaker": "CLAYMORE",
+   "text": "Me 'Mech's falling apart!",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_buildingdead": {
+   "duration": 1.25,
+   "speaker": "CLAYMORE",
+   "text": "The building's destroyed.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_calledshot": {
+   "duration": 1.26,
+   "speaker": "CLAYMORE",
+   "text": "I'll do my best.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_callsigna": {
+   "duration": 1.37,
+   "speaker": "CLAYMORE",
+   "text": "Claymore reporting.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_callsignb": {
+   "duration": 1.17,
+   "speaker": "CLAYMORE",
+   "text": "This is Claymore.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_cannotcapture": {
+   "duration": 2.46,
+   "speaker": "CLAYMORE",
+   "text": "I can't capture, the enemy's too close",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_capturebuilding": {
+   "duration": 1.34,
+   "speaker": "CLAYMORE",
+   "text": "I've got the building, sir.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_capturevehicle": {
+   "duration": 1.35,
+   "speaker": "CLAYMORE",
+   "text": "Vehicles captured, sir.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_ejecting": {
+   "duration": 0.93,
+   "speaker": "CLAYMORE",
+   "text": "Ejecting!",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_guard": {
+   "duration": 1.8,
+   "speaker": "CLAYMORE",
+   "text": "Guard order acknowledged.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_hittingmines": {
+   "duration": 1.16,
+   "speaker": "CLAYMORE",
+   "text": "I'm in a minefield!",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_illegalorder": {
+   "duration": 1.17,
+   "speaker": "CLAYMORE",
+   "text": "I can't do that.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_mechcrippled": {
+   "duration": 2.12,
+   "speaker": "CLAYMORE",
+   "text": "I've damaged my leg. I cannae run.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_mechdeada": {
+   "duration": 1.26,
+   "speaker": "CLAYMORE",
+   "text": "Take that.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_mechdeadb": {
+   "duration": 1.26,
+   "speaker": "CLAYMORE",
+   "text": "'Mech destroyed.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_moveblocked": {
+   "duration": 1.26,
+   "speaker": "CLAYMORE",
+   "text": "I can't even move there.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_objectdead": {
+   "duration": 1.56,
+   "speaker": "CLAYMORE",
+   "text": "Target destroyed, sir.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_pilothurt": {
+   "duration": 2.51,
+   "speaker": "CLAYMORE",
+   "text": "Damn! I've got blood in my eyes!",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_refitcomplete": {
+   "duration": 1.09,
+   "speaker": "CLAYMORE",
+   "text": "I'm ready to go.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_refitnotcomplete": {
+   "duration": 1.53,
+   "speaker": "CLAYMORE",
+   "text": "Ready as I'll ever be.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_sensorcontacta": {
+   "duration": 1.89,
+   "speaker": "CLAYMORE",
+   "text": "Hey, new contact!",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_sensorcontactb": {
+   "duration": 1.28,
+   "speaker": "CLAYMORE",
+   "text": "I've got a contact.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_targetacknowledgea": {
+   "duration": 1.28,
+   "speaker": "CLAYMORE",
+   "text": "Copy that, target",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_targetacknowledgeb": {
+   "duration": 1.55,
+   "speaker": "CLAYMORE",
+   "text": "That'll be my pleasure.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_taunta": {
+   "duration": 1.7,
+   "speaker": "CLAYMORE",
+   "text": "You'll have to shoot better than that!",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_tauntb": {
+   "duration": 0.98,
+   "speaker": "CLAYMORE",
+   "text": "Haha!",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_tauntc": {
+   "duration": 0.98,
+   "speaker": "CLAYMORE",
+   "text": "Here we go!",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_underattacka": {
+   "duration": 1.17,
+   "speaker": "CLAYMORE",
+   "text": "Someone likes me.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_underattackb": {
+   "duration": 1.18,
+   "speaker": "CLAYMORE",
+   "text": "I'm being targeted",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_vehicledeada": {
+   "duration": 1.04,
+   "speaker": "CLAYMORE",
+   "text": "Goodbye.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_vehicledeadb": {
+   "duration": 1.44,
+   "speaker": "CLAYMORE",
+   "text": "Vehicle destroyed.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_weaponsdown": {
+   "duration": 1.55,
+   "speaker": "CLAYMORE",
+   "text": "I've lost the weapon system.",
+   "voice": "pilot3"
+  },
+  "pilot3/plt3_weaponsout": {
+   "duration": 2.4,
+   "speaker": "CLAYMORE",
+   "text": "All weapons gone, I'm a sitting duck.",
+   "voice": "pilot3"
+  },
+  "pilot4/plt4_acknowledgea": {
+   "duration": 0.86,
+   "speaker": "COBRA",
+   "text": "Affirmative",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_acknowledgeb": {
+   "duration": 1.03,
+   "speaker": "COBRA",
+   "text": "No problem.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_acknowledgec": {
+   "duration": 0.91,
+   "speaker": "COBRA",
+   "text": "Roger that",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_activeprobe": {
+   "duration": 2.15,
+   "speaker": "COBRA",
+   "text": "Active probe shows a shutdown 'Mech.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_airstrikeattack": {
+   "duration": 1.8,
+   "speaker": "COBRA",
+   "text": "We've got an incoming airstrike.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_ammoout": {
+   "duration": 1.56,
+   "speaker": "COBRA",
+   "text": "My ammo's at zero.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_armorholea": {
+   "duration": 1.67,
+   "speaker": "COBRA",
+   "text": "My armor's cheesecloth!",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_armorholeb": {
+   "duration": 1.25,
+   "speaker": "COBRA",
+   "text": "This doesn't look good.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_buildingdead": {
+   "duration": 1.01,
+   "speaker": "COBRA",
+   "text": "Scragged it.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_calledshot": {
+   "duration": 1.44,
+   "speaker": "COBRA",
+   "text": "Difficult, but no problem.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_callsigna": {
+   "duration": 1.05,
+   "speaker": "COBRA",
+   "text": "Cobra reporting.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_callsignb": {
+   "duration": 1.06,
+   "speaker": "COBRA",
+   "text": "This is Cobra.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_cannotcapture": {
+   "duration": 2.29,
+   "speaker": "COBRA",
+   "text": "Negative on the capture. Enemy's too close.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_capturebuilding": {
+   "duration": 1.5,
+   "speaker": "COBRA",
+   "text": "Building's yours, sir.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_capturevehicle": {
+   "duration": 1.08,
+   "speaker": "COBRA",
+   "text": "Vehicle's yours.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_ejecting": {
+   "duration": 0.86,
+   "speaker": "COBRA",
+   "text": "Ejecting.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_guard": {
+   "duration": 1.98,
+   "speaker": "COBRA",
+   "text": "No problem. On guard.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_hittingmines": {
+   "duration": 1.65,
+   "speaker": "COBRA",
+   "text": "Sir, we got a minefield.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_illegalorder": {
+   "duration": 1.64,
+   "speaker": "COBRA",
+   "text": "Negative, I can't do that sir.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_mechcrippled": {
+   "duration": 2.01,
+   "speaker": "COBRA",
+   "text": "'Mech's limping, speed's reduced.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_mechdeada": {
+   "duration": 1.0,
+   "speaker": "COBRA",
+   "text": "See ya!",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_mechdeadb": {
+   "duration": 1.01,
+   "speaker": "COBRA",
+   "text": "He's smokin'!",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_mechsalvageablea": {
+   "duration": 1.45,
+   "speaker": "COBRA",
+   "text": "salvage for everyone",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_mechsalvageableb": {
+   "duration": 1.66,
+   "speaker": "COBRA",
+   "text": "This 'Mech's salvageable, sir.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_moveblocked": {
+   "duration": 1.7,
+   "speaker": "COBRA",
+   "text": "Uh, my path is blocked.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_objectdead": {
+   "duration": 1.02,
+   "speaker": "COBRA",
+   "text": "It's outta here.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_pilothurt": {
+   "duration": 1.95,
+   "speaker": "COBRA",
+   "text": "Okay, that one hurt.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_refitcomplete": {
+   "duration": 0.8,
+   "speaker": "COBRA",
+   "text": "Good to go.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_refitnotcomplete": {
+   "duration": 1.32,
+   "speaker": "COBRA",
+   "text": "I got a partial repair.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_sensorcontacta": {
+   "duration": 1.15,
+   "speaker": "COBRA",
+   "text": "I got a sensor bogey",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_sensorcontactb": {
+   "duration": 1.46,
+   "speaker": "COBRA",
+   "text": "I'm showing a new contact.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_targetacknowledgea": {
+   "duration": 1.08,
+   "speaker": "COBRA",
+   "text": "Target acknowledged.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_targetacknowledgeb": {
+   "duration": 1.2,
+   "speaker": "COBRA",
+   "text": "Target confirmed.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_taunta": {
+   "duration": 2.02,
+   "speaker": "COBRA",
+   "text": "Hm. Throttle's twitchy.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_tauntb": {
+   "duration": 1.11,
+   "speaker": "COBRA",
+   "text": "Here we go.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_tauntc": {
+   "duration": 1.11,
+   "speaker": "COBRA",
+   "text": "This'll be quick.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_underattacka": {
+   "duration": 0.97,
+   "speaker": "COBRA",
+   "text": "Under fire.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_underattackb": {
+   "duration": 1.65,
+   "speaker": "COBRA",
+   "text": "Commander, I'm taking fire.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_vehicledeada": {
+   "duration": 0.75,
+   "speaker": "COBRA",
+   "text": "Gotcha.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_vehicledeadb": {
+   "duration": 0.78,
+   "speaker": "COBRA",
+   "text": "Got it.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_weaponsdown": {
+   "duration": 1.58,
+   "speaker": "COBRA",
+   "text": "Okay, I've lost a weapon.",
+   "voice": "pilot4"
+  },
+  "pilot4/plt4_weaponsout": {
+   "duration": 1.87,
+   "speaker": "COBRA",
+   "text": "All weapons gone. Pull me out!",
+   "voice": "pilot4"
+  },
+  "pilot5/plt5_acknowledgea": {
+   "duration": 1.2,
+   "speaker": "CREEP",
+   "text": "Confirmed.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_acknowledgeb": {
+   "duration": 0.82,
+   "speaker": "CREEP",
+   "text": "Okay.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_acknowledgec": {
+   "duration": 1.26,
+   "speaker": "CREEP",
+   "text": "I got it.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_airstrikeattack": {
+   "duration": 1.25,
+   "speaker": "CREEP",
+   "text": "Airstrike!",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_ammoout": {
+   "duration": 1.7,
+   "speaker": "CREEP",
+   "text": "I'm out of ammo, you hear me?",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_armorholea": {
+   "duration": 2.12,
+   "speaker": "CREEP",
+   "text": "I'm taking a buttload of damage.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_armorholeb": {
+   "duration": 2.12,
+   "speaker": "CREEP",
+   "text": "I'm really taking hits, you hear me?",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_buildingdead": {
+   "duration": 1.83,
+   "speaker": "CREEP",
+   "text": "Building destroyed.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_calledshot": {
+   "duration": 1.84,
+   "speaker": "CREEP",
+   "text": "This should mess them up.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_callsigna": {
+   "duration": 2.39,
+   "speaker": "CREEP",
+   "text": "Haha, it's Creep.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_callsignb": {
+   "duration": 1.42,
+   "speaker": "CREEP",
+   "text": "This is Creep.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_cannotcapture": {
+   "duration": 2.22,
+   "speaker": "CREEP",
+   "text": "No capture, enemy too close.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_capturebuilding": {
+   "duration": 2.1,
+   "speaker": "CREEP",
+   "text": "building captured",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_capturevehicle": {
+   "duration": 2.35,
+   "speaker": "CREEP",
+   "text": "Hmm, vehicle captured.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_ejecting": {
+   "duration": 1.33,
+   "speaker": "CREEP",
+   "text": "Ejecting!",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_guard": {
+   "duration": 2.16,
+   "speaker": "CREEP",
+   "text": "Sure, guard duty.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_hittingmines": {
+   "duration": 2.4,
+   "speaker": "CREEP",
+   "text": "I'm in a minefield!",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_illegalorder": {
+   "duration": 1.86,
+   "speaker": "CREEP",
+   "text": "I can't do that sir.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_mechcrippled": {
+   "duration": 3.07,
+   "speaker": "CREEP",
+   "text": "Oh, my 'Mech is limping!",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_mechdeada": {
+   "duration": 1.9,
+   "speaker": "CREEP",
+   "text": "Ha ha ha ha ha!",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_mechdeadb": {
+   "duration": 1.29,
+   "speaker": "CREEP",
+   "text": "I got him.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_moveblocked": {
+   "duration": 2.1,
+   "speaker": "CREEP",
+   "text": "Can't get there from here.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_objectdead": {
+   "duration": 1.76,
+   "speaker": "CREEP",
+   "text": "Target liquidated.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_pilothurt": {
+   "duration": 1.75,
+   "speaker": "CREEP",
+   "text": "Ooh, that got me! I'm shot!",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_refitcomplete": {
+   "duration": 2.45,
+   "speaker": "CREEP",
+   "text": "All fixed up.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_refitnotcomplete": {
+   "duration": 1.68,
+   "speaker": "CREEP",
+   "text": "Wait, I'm not finished!",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_sensorcontacta": {
+   "duration": 2.52,
+   "speaker": "CREEP",
+   "text": "Hey, a contact.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_sensorcontactb": {
+   "duration": 2.17,
+   "speaker": "CREEP",
+   "text": "sensor contact",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_targetacknowledgea": {
+   "duration": 1.02,
+   "speaker": "CREEP",
+   "text": "Uh huh",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_targetacknowledgeb": {
+   "duration": 1.63,
+   "speaker": "CREEP",
+   "text": "Right.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_taunta": {
+   "duration": 2.92,
+   "speaker": "CREEP",
+   "text": "I'm gonna like this.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_tauntb": {
+   "duration": 2.07,
+   "speaker": "CREEP",
+   "text": "Finger on the trigger.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_tauntc": {
+   "duration": 2.07,
+   "speaker": "CREEP",
+   "text": "I'm coming for ya.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_underattacka": {
+   "duration": 1.9,
+   "speaker": "CREEP",
+   "text": "Help! I'm under fire!",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_underattackb": {
+   "duration": 1.9,
+   "speaker": "CREEP",
+   "text": "Hey! I'm getting nailed!",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_vehicledeada": {
+   "duration": 1.53,
+   "speaker": "CREEP",
+   "text": "Dead.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_vehicledeadb": {
+   "duration": 1.86,
+   "speaker": "CREEP",
+   "text": "He paid with his life.",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_weaponsdown": {
+   "duration": 1.95,
+   "speaker": "CREEP",
+   "text": "Whoa! I lost a weapon!",
+   "voice": "pilot5"
+  },
+  "pilot5/plt5_weaponsout": {
+   "duration": 2.63,
+   "speaker": "CREEP",
+   "text": "All weapons gone. What do I do?",
+   "voice": "pilot5"
+  },
+  "pilot6/plt6_acknowledgea": {
+   "duration": 0.97,
+   "speaker": "DAGGER",
+   "text": "Got it sir.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_acknowledgeb": {
+   "duration": 0.79,
+   "speaker": "DAGGER",
+   "text": "Roger",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_acknowledgec": {
+   "duration": 0.81,
+   "speaker": "DAGGER",
+   "text": "Affirmative",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_airstrikeattack": {
+   "duration": 0.96,
+   "speaker": "DAGGER",
+   "text": "Airstrike!",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_ammoout": {
+   "duration": 1.28,
+   "speaker": "DAGGER",
+   "text": "I'm all out of ammo.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_armorholea": {
+   "duration": 1.42,
+   "speaker": "DAGGER",
+   "text": "This is getting bad.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_armorholeb": {
+   "duration": 1.5,
+   "speaker": "DAGGER",
+   "text": "I'm losing a lot of armor.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_buildingdead": {
+   "duration": 1.17,
+   "speaker": "DAGGER",
+   "text": "Building leveled.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_calledshot": {
+   "duration": 2.08,
+   "speaker": "DAGGER",
+   "text": "Tricky, but I'll give it a shot.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_callsigna": {
+   "duration": 1.08,
+   "speaker": "DAGGER",
+   "text": "Dagger reporting.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_callsignb": {
+   "duration": 1.07,
+   "speaker": "DAGGER",
+   "text": "This is Dagger.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_cannotcapture": {
+   "duration": 2.54,
+   "speaker": "DAGGER",
+   "text": "Capture impossible. The enemy is too close.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_capturebuilding": {
+   "duration": 1.43,
+   "speaker": "DAGGER",
+   "text": "I've secured the building.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_capturevehicle": {
+   "duration": 1.22,
+   "speaker": "DAGGER",
+   "text": "I got the vehicle.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_ejecting": {
+   "duration": 1.6,
+   "speaker": "DAGGER",
+   "text": "Ejecting!",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_guard": {
+   "duration": 1.38,
+   "speaker": "DAGGER",
+   "text": "Guarding as ordered.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_hittingmines": {
+   "duration": 1.38,
+   "speaker": "DAGGER",
+   "text": "I found a minefield.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_illegalorder": {
+   "duration": 1.39,
+   "speaker": "DAGGER",
+   "text": "I can't do that, sir.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_mechcrippled": {
+   "duration": 2.09,
+   "speaker": "DAGGER",
+   "text": "Not good. My 'Mech is limping.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_mechdeada": {
+   "duration": 1.56,
+   "speaker": "DAGGER",
+   "text": "One for the kill board.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_mechdeadb": {
+   "duration": 1.72,
+   "speaker": "DAGGER",
+   "text": "'Mech destroyed!",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_moveblocked": {
+   "duration": 1.31,
+   "speaker": "DAGGER",
+   "text": "My path is blocked.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_objectdead": {
+   "duration": 1.32,
+   "speaker": "DAGGER",
+   "text": "I need a new target.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_pilothurt": {
+   "duration": 1.2,
+   "speaker": "DAGGER",
+   "text": "Oh, that hurts.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_refitcomplete": {
+   "duration": 1.48,
+   "speaker": "DAGGER",
+   "text": "Repairs complete sir.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_refitnotcomplete": {
+   "duration": 1.49,
+   "speaker": "DAGGER",
+   "text": "That's as good as I'm gonna get.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_sensorcontacta": {
+   "duration": 1.22,
+   "speaker": "DAGGER",
+   "text": "sensor contact",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_sensorcontactb": {
+   "duration": 1.91,
+   "speaker": "DAGGER",
+   "text": "Got something on sensors.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_targetacknowledgea": {
+   "duration": 1.89,
+   "speaker": "DAGGER",
+   "text": "10-4, target locked in",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_targetacknowledgeb": {
+   "duration": 1.72,
+   "speaker": "DAGGER",
+   "text": "Roger, target confirmed",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_taunta": {
+   "duration": 1.58,
+   "speaker": "DAGGER",
+   "text": "Come and get me, baby!",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_tauntb": {
+   "duration": 1.81,
+   "speaker": "DAGGER",
+   "text": "Looking for the shot.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_tauntc": {
+   "duration": 1.52,
+   "speaker": "DAGGER",
+   "text": "Open wide!",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_underattacka": {
+   "duration": 1.69,
+   "speaker": "DAGGER",
+   "text": "Sir, I'm under attack.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_underattackb": {
+   "duration": 2.04,
+   "speaker": "DAGGER",
+   "text": "Commander, the enemy is attacking.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_vehicledeada": {
+   "duration": 1.14,
+   "speaker": "DAGGER",
+   "text": "Yeah!",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_vehicledeadb": {
+   "duration": 1.38,
+   "speaker": "DAGGER",
+   "text": "See ya!",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_weaponsdown": {
+   "duration": 1.69,
+   "speaker": "DAGGER",
+   "text": "Sir, I've lost the weapon.",
+   "voice": "pilot6"
+  },
+  "pilot6/plt6_weaponsout": {
+   "duration": 2.29,
+   "speaker": "DAGGER",
+   "text": "All weapons gone. That's it for me.",
+   "voice": "pilot6"
+  },
+  "pilot7/plt7_acknowledgea": {
+   "duration": 1.54,
+   "speaker": "FLASH",
+   "text": "Won't be a problem.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_acknowledgeb": {
+   "duration": 0.77,
+   "speaker": "FLASH",
+   "text": "Roger that.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_acknowledgec": {
+   "duration": 0.77,
+   "speaker": "FLASH",
+   "text": "I copy",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_airstrikeattack": {
+   "duration": 1.28,
+   "speaker": "FLASH",
+   "text": "Incoming airstrike!",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_ammoout": {
+   "duration": 2.16,
+   "speaker": "FLASH",
+   "text": "Ammo depleted, but I think I can take him.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_armorholea": {
+   "duration": 1.52,
+   "speaker": "FLASH",
+   "text": "They're ripping through my armor!",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_armorholeb": {
+   "duration": 1.35,
+   "speaker": "FLASH",
+   "text": "Taking heavy hits.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_buildingdead": {
+   "duration": 1.98,
+   "speaker": "FLASH",
+   "text": "I have eliminated the building.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_calledshot": {
+   "duration": 1.29,
+   "speaker": "FLASH",
+   "text": "Lining up the shot.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_callsigna": {
+   "duration": 0.91,
+   "speaker": "FLASH",
+   "text": "Flash here.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_callsignb": {
+   "duration": 1.41,
+   "speaker": "FLASH",
+   "text": "Sir, this is Flash.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_cannotcapture": {
+   "duration": 2.74,
+   "speaker": "FLASH",
+   "text": "Negative on the capture. Enemy's way too close.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_capturebuilding": {
+   "duration": 1.36,
+   "speaker": "FLASH",
+   "text": "The building's ours.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_capturevehicle": {
+   "duration": 1.67,
+   "speaker": "FLASH",
+   "text": "I've got the vehicle you ordered.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_ejecting": {
+   "duration": 1.0,
+   "speaker": "FLASH",
+   "text": "ejecting",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_guard": {
+   "duration": 1.0,
+   "speaker": "FLASH",
+   "text": "Guarding, sir.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_hittingmines": {
+   "duration": 1.66,
+   "speaker": "FLASH",
+   "text": "I've hit a minefield!",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_illegalorder": {
+   "duration": 1.67,
+   "speaker": "FLASH",
+   "text": "Sorry sir, can't do that.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_mechcrippled": {
+   "duration": 2.19,
+   "speaker": "FLASH",
+   "text": "My 'Mech's limping, but I'm still in the game.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_mechdeada": {
+   "duration": 1.85,
+   "speaker": "FLASH",
+   "text": "Another one for the kill board.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_mechdeadb": {
+   "duration": 1.59,
+   "speaker": "FLASH",
+   "text": "It's all about me.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_moveblocked": {
+   "duration": 1.96,
+   "speaker": "FLASH",
+   "text": "Can't get there. I need another order.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_objectdead": {
+   "duration": 1.64,
+   "speaker": "FLASH",
+   "text": "Whoosh! That was fun!",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_pilothurt": {
+   "duration": 1.33,
+   "speaker": "FLASH",
+   "text": "Commander, I'm hurt.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_refitcomplete": {
+   "duration": 1.09,
+   "speaker": "FLASH",
+   "text": "Back in action.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_refitnotcomplete": {
+   "duration": 1.09,
+   "speaker": "FLASH",
+   "text": "Whatever.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_sensorcontacta": {
+   "duration": 1.64,
+   "speaker": "FLASH",
+   "text": "I'm showing something on sensors.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_sensorcontactb": {
+   "duration": 1.18,
+   "speaker": "FLASH",
+   "text": "Go to contact.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_targetacknowledgea": {
+   "duration": 0.82,
+   "speaker": "FLASH",
+   "text": "He's mine.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_targetacknowledgeb": {
+   "duration": 1.21,
+   "speaker": "FLASH",
+   "text": "Target confirmed.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_taunta": {
+   "duration": 1.46,
+   "speaker": "FLASH",
+   "text": "Say goodbye.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_tauntb": {
+   "duration": 1.46,
+   "speaker": "FLASH",
+   "text": "Anybody watching this?",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_tauntc": {
+   "duration": 1.19,
+   "speaker": "FLASH",
+   "text": "Funtime",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_underattacka": {
+   "duration": 1.42,
+   "speaker": "FLASH",
+   "text": "Looks like I'm in the hot seat.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_underattackb": {
+   "duration": 1.21,
+   "speaker": "FLASH",
+   "text": "I'm under attack.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_vehicledeada": {
+   "duration": 1.02,
+   "speaker": "FLASH",
+   "text": "Good shot, huh?",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_vehicledeadb": {
+   "duration": 0.82,
+   "speaker": "FLASH",
+   "text": "See that?",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_weaponsdown": {
+   "duration": 1.73,
+   "speaker": "FLASH",
+   "text": "Man, I lost a weapon.",
+   "voice": "pilot7"
+  },
+  "pilot7/plt7_weaponsout": {
+   "duration": 2.53,
+   "speaker": "FLASH",
+   "text": "No weapons left. Guess that's it for me.",
+   "voice": "pilot7"
+  },
+  "pilot8/plt8_acknowledgea": {
+   "duration": 0.71,
+   "speaker": "GHOST",
+   "text": "Aye aye",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_acknowledgeb": {
+   "duration": 0.71,
+   "speaker": "GHOST",
+   "text": "Roger that.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_acknowledgec": {
+   "duration": 0.78,
+   "speaker": "GHOST",
+   "text": "Affirmative",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_activeprobe": {
+   "duration": 2.23,
+   "speaker": "GHOST",
+   "text": "Active probe shows a shutdown 'Mech.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_airstrikeattack": {
+   "duration": 0.78,
+   "speaker": "GHOST",
+   "text": "Incoming!",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_ammoout": {
+   "duration": 2.2,
+   "speaker": "GHOST",
+   "text": "Ammo depleted. Awaiting orders.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_armorholea": {
+   "duration": 2.39,
+   "speaker": "GHOST",
+   "text": "Got an armor blow through. Compensating.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_armorholeb": {
+   "duration": 1.29,
+   "speaker": "GHOST",
+   "text": "Took a heavy hit there.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_buildingdead": {
+   "duration": 0.93,
+   "speaker": "GHOST",
+   "text": "No more building.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_calledshot": {
+   "duration": 1.36,
+   "speaker": "GHOST",
+   "text": "Looking for the shot.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_callsigna": {
+   "duration": 0.94,
+   "speaker": "GHOST",
+   "text": "Ghost reporting.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_callsignb": {
+   "duration": 1.07,
+   "speaker": "GHOST",
+   "text": "This is Ghost.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_cannotcapture": {
+   "duration": 2.11,
+   "speaker": "GHOST",
+   "text": "Cannot capture. Enemy too close.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_capturebuilding": {
+   "duration": 1.29,
+   "speaker": "GHOST",
+   "text": "building secure",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_capturedvehicle": {
+   "duration": 1.08,
+   "speaker": "GHOST",
+   "text": "Vehicle secured.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_capturevehicle": {
+   "duration": 0.98,
+   "speaker": "GHOST",
+   "text": "Vehicle secured.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_ejecting": {
+   "duration": 0.8,
+   "speaker": "GHOST",
+   "text": "Ejecting!",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_guard": {
+   "duration": 1.53,
+   "speaker": "GHOST",
+   "text": "Aye aye, I'm on guard.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_hittingmines": {
+   "duration": 1.53,
+   "speaker": "GHOST",
+   "text": "Looks like I'm in a minefield.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_illegalorder": {
+   "duration": 1.52,
+   "speaker": "GHOST",
+   "text": "Can't follow that order, sir.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_mechcrippled": {
+   "duration": 1.65,
+   "speaker": "GHOST",
+   "text": "Reporting, 'Mech Limping.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_mechdeada": {
+   "duration": 2.4,
+   "speaker": "GHOST",
+   "text": "Reporting enemy forces reduced.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_mechdeadb": {
+   "duration": 1.74,
+   "speaker": "GHOST",
+   "text": "Enemy 'Mech destroyed.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_mechsalvageablea": {
+   "duration": 1.3,
+   "speaker": "GHOST",
+   "text": "Looks like salvage.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_mechsalvageableb": {
+   "duration": 1.86,
+   "speaker": "GHOST",
+   "text": "Reporting new salvage.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_moveblocked": {
+   "duration": 2.11,
+   "speaker": "GHOST",
+   "text": "No can do. My path is blocked.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_objectdead": {
+   "duration": 1.59,
+   "speaker": "GHOST",
+   "text": "Target eliminated.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_pilothurt": {
+   "duration": 2.25,
+   "speaker": "GHOST",
+   "text": "I took a hit, but I'm five by five.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_refitcomplete": {
+   "duration": 1.09,
+   "speaker": "GHOST",
+   "text": "All fixed up.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_refitnotcomplete": {
+   "duration": 2.52,
+   "speaker": "GHOST",
+   "text": "Partial repair will attempt to compensate.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_sensorcontacta": {
+   "duration": 1.52,
+   "speaker": "GHOST",
+   "text": "sensors show a bogey",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_sensorcontactb": {
+   "duration": 1.76,
+   "speaker": "GHOST",
+   "text": "I have something on sensors.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_targetacknowledgea": {
+   "duration": 0.93,
+   "speaker": "GHOST",
+   "text": "Target locked.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_targetacknowledgeb": {
+   "duration": 1.97,
+   "speaker": "GHOST",
+   "text": "Roger that. Confirming target.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_taunta": {
+   "duration": 1.4,
+   "speaker": "GHOST",
+   "text": "Nothing I can't handle.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_tauntb": {
+   "duration": 1.26,
+   "speaker": "GHOST",
+   "text": "Looking good!",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_tauntc": {
+   "duration": 1.96,
+   "speaker": "GHOST",
+   "text": "Alright, now for the fun part.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_underattacka": {
+   "duration": 1.0,
+   "speaker": "GHOST",
+   "text": "I'm under fire.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_underattackb": {
+   "duration": 1.46,
+   "speaker": "GHOST",
+   "text": "Reporting incoming fire.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_vehicledeada": {
+   "duration": 1.11,
+   "speaker": "GHOST",
+   "text": "Goodbye.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_vehicledeadb": {
+   "duration": 1.85,
+   "speaker": "GHOST",
+   "text": "Enemy vehicle destroyed.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_weaponsdown": {
+   "duration": 1.86,
+   "speaker": "GHOST",
+   "text": "I have lost a weapon system.",
+   "voice": "pilot8"
+  },
+  "pilot8/plt8_weaponsout": {
+   "duration": 2.96,
+   "speaker": "GHOST",
+   "text": "All weapons gone. Repeat, all weapons gone.",
+   "voice": "pilot8"
+  },
+  "pilot9/plt9_acknowledgea": {
+   "duration": 0.9,
+   "speaker": "HACKSAW",
+   "text": "No sweat.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_acknowledgeb": {
+   "duration": 0.78,
+   "speaker": "HACKSAW",
+   "text": "Roger",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_acknowledgec": {
+   "duration": 0.58,
+   "speaker": "HACKSAW",
+   "text": "Check.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_airstrikeattack": {
+   "duration": 1.06,
+   "speaker": "HACKSAW",
+   "text": "Airstrike!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_ammoout": {
+   "duration": 1.59,
+   "speaker": "HACKSAW",
+   "text": "Ammo's all gone boss!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_armorholea": {
+   "duration": 1.22,
+   "speaker": "HACKSAW",
+   "text": "This is bad!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_armorholeb": {
+   "duration": 1.79,
+   "speaker": "HACKSAW",
+   "text": "I can see light through my armor!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_buildingdead": {
+   "duration": 1.79,
+   "speaker": "HACKSAW",
+   "text": "Reporting a new pile of rubble.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_calledshot": {
+   "duration": 1.79,
+   "speaker": "HACKSAW",
+   "text": "Okay, I'm taking aim.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_callsigna": {
+   "duration": 1.07,
+   "speaker": "HACKSAW",
+   "text": "Hacksaw here.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_callsignb": {
+   "duration": 1.07,
+   "speaker": "HACKSAW",
+   "text": "This is Hacksaw.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_cannotcapture": {
+   "duration": 1.99,
+   "speaker": "HACKSAW",
+   "text": "Can't get it. Too many bad guys.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_capturebuilding": {
+   "duration": 1.76,
+   "speaker": "HACKSAW",
+   "text": "The building is mine!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_capturevehicle": {
+   "duration": 2.17,
+   "speaker": "HACKSAW",
+   "text": "Hey honey, we got a new car!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_ejecting": {
+   "duration": 1.16,
+   "speaker": "HACKSAW",
+   "text": "Ejecting!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_guard": {
+   "duration": 1.76,
+   "speaker": "HACKSAW",
+   "text": "10-4, on guard",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_hittingmines": {
+   "duration": 1.9,
+   "speaker": "HACKSAW",
+   "text": "Minefield, nobody move!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_illegalorder": {
+   "duration": 1.69,
+   "speaker": "HACKSAW",
+   "text": "What? I can't do that!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_mechcrippled": {
+   "duration": 2.15,
+   "speaker": "HACKSAW",
+   "text": "Oh boy, my 'Mech is limping.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_mechdeada": {
+   "duration": 1.77,
+   "speaker": "HACKSAW",
+   "text": "Mmm, that was pretty.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_mechdeadb": {
+   "duration": 1.23,
+   "speaker": "HACKSAW",
+   "text": "Oh boy!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_moveblocked": {
+   "duration": 1.97,
+   "speaker": "HACKSAW",
+   "text": "Hey! My path is blocked!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_objectdead": {
+   "duration": 1.74,
+   "speaker": "HACKSAW",
+   "text": "Target eliminated.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_pilothurt": {
+   "duration": 1.95,
+   "speaker": "HACKSAW",
+   "text": "Man, I'm getting knocked around!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_refitcomplete": {
+   "duration": 2.1,
+   "speaker": "HACKSAW",
+   "text": "All buffed and shiny boss!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_refitnotcomplete": {
+   "duration": 1.41,
+   "speaker": "HACKSAW",
+   "text": "Hey, you missed a spot!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_sensorcontacta": {
+   "duration": 1.93,
+   "speaker": "HACKSAW",
+   "text": "Hmm, I've got something on sensors.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_sensorcontactb": {
+   "duration": 1.47,
+   "speaker": "HACKSAW",
+   "text": "sensor contact",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_targetacknowledgea": {
+   "duration": 1.34,
+   "speaker": "HACKSAW",
+   "text": "It's as good as dead.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_targetacknowledgeb": {
+   "duration": 1.21,
+   "speaker": "HACKSAW",
+   "text": "Locking in target.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_taunta": {
+   "duration": 1.79,
+   "speaker": "HACKSAW",
+   "text": "We should get paid by the piece.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_tauntb": {
+   "duration": 1.6,
+   "speaker": "HACKSAW",
+   "text": "I love this job!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_tauntc": {
+   "duration": 1.39,
+   "speaker": "HACKSAW",
+   "text": "This could get ugly.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_underattacka": {
+   "duration": 1.13,
+   "speaker": "HACKSAW",
+   "text": "Hey, I'm under fire!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_underattackb": {
+   "duration": 1.34,
+   "speaker": "HACKSAW",
+   "text": "Looks like I'm the target.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_vehicledeada": {
+   "duration": 0.88,
+   "speaker": "HACKSAW",
+   "text": "See ya!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_vehicledeadb": {
+   "duration": 1.56,
+   "speaker": "HACKSAW",
+   "text": "Vehicle destroyed.",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_weaponsdown": {
+   "duration": 1.56,
+   "speaker": "HACKSAW",
+   "text": "They're blowing off my weapons!",
+   "voice": "pilot9"
+  },
+  "pilot9/plt9_weaponsout": {
+   "duration": 1.56,
+   "speaker": "HACKSAW",
+   "text": "I've got nothing to shoot with!",
+   "voice": "pilot9"
+  }
+ },
+ "vo": {
+  "mc2_01": {
+   "duration": 3.43,
+   "segments": [
+    [
+     0.0,
+     3.42,
+     "These guys are pretty well equipped for bandits."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "These guys are pretty well equipped for bandits."
+  },
+  "mc2_04_0": {
+   "duration": 4.91,
+   "segments": [
+    [
+     0.0,
+     4.9,
+     "Mercenary Commander, you are in violation of Liao territory. Turn back or be destroyed."
+    ]
+   ],
+   "speaker": "Liao Operator",
+   "text": "Mercenary Commander, you are in violation of Liao territory. Turn back or be destroyed."
+  },
+  "mc2_04_1": {
+   "duration": 5.24,
+   "segments": [
+    [
+     0.0,
+     5.22,
+     "We're tracking no bandits in our territory, Lieutenant. You may consider your mission successful."
+    ]
+   ],
+   "speaker": "Liao Operator",
+   "text": "We're tracking no bandits in our territory, Lieutenant. You may consider your mission successful."
+  },
+  "mc2_05_1": {
+   "duration": 16.4,
+   "segments": [
+    [
+     0.0,
+     4.0,
+     "Thanks for the rescue, Commander. Sounds like you messed them up pretty good down river."
+    ],
+    [
+     4.0,
+     8.0,
+     "One of their big shots, think his name was Vong, he seemed pretty scared of you."
+    ],
+    [
+     8.0,
+     12.0,
+     "Listen, I've had it with House Steiner and I could use a job."
+    ],
+    [
+     12.0,
+     16.0,
+     "I was a MechWarrior about 20 years ago and my callsign was Steel. Interested?"
+    ]
+   ],
+   "speaker": "Steel",
+   "text": "Thanks for the rescue, Commander. Sounds like you messed them up pretty good down river. One of their big shots, think his name was Vong, he seemed pretty scared of you. Listen, I've had it with House Steiner and I could use a job. I was a MechWarrior about 20 years ago and my callsign was Steel. Interested?"
+  },
+  "mc2_06": {
+   "duration": 2.33,
+   "segments": [
+    [
+     0.0,
+     2.32,
+     "Good job sir."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Good job sir."
+  },
+  "mc2_08_0": {
+   "duration": 11.88,
+   "segments": [
+    [
+     0.0,
+     4.0,
+     "Glad you could make it sir. I've discovered a second airstrip in the area."
+    ],
+    [
+     4.0,
+     9.0,
+     "We need to destroy both air traffic control towers to completely knock out the Bandit supply line."
+    ],
+    [
+     9.0,
+     12.0,
+     "Check your tac map for the location of the second tower."
+    ]
+   ],
+   "speaker": "",
+   "text": "Glad you could make it sir. I've discovered a second airstrip in the area. We need to destroy both air traffic control towers to completely knock out the Bandit supply line. Check your tac map for the location of the second tower."
+  },
+  "mc2_09_1": {
+   "duration": 17.16,
+   "segments": [
+    [
+     0.0,
+     3.44,
+     "Repeat, we are being overrun. We need immediate reinforcements.",
+     "Bandit Boss"
+    ],
+    [
+     4.08,
+     11.36,
+     "Unidentified broadcaster, this frequency is reserved for House Liao military traffic only. Do not attempt to use it again.",
+     "Liao Operator"
+    ],
+    [
+     11.92,
+     12.8,
+     "So be it.",
+     "Bandit Boss"
+    ],
+    [
+     13.2,
+     17.12,
+     "Mercenary, I know you're still out there. You're gonna find I'm not so easy to kill.",
+     "Bandit Boss"
+    ]
+   ],
+   "speaker": "",
+   "text": "Repeat, we are being overrun. We need immediate reinforcements. Unidentified broadcaster, this frequency is reserved for House Liao military traffic only. Do not attempt to use it again. So be it. Mercenary, I know you're still out there. You're gonna find I'm not so easy to kill."
+  },
+  "mc2_11_0": {
+   "duration": 8.64,
+   "segments": [
+    [
+     0.0,
+     8.62,
+     "Commander, the only way to get past that sensor net is to send a 'Mech equipped with ECM, like a Raven or a Men Shen."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Commander, the only way to get past that sensor net is to send a 'Mech equipped with ECM, like a Raven or a Men Shen."
+  },
+  "mc2_11_1": {
+   "duration": 7.42,
+   "segments": [
+    [
+     0.0,
+     7.4,
+     "Sir, it looks like you tripped the sensor net. I would expect some Davion 'Mechs to come your way. Stay frosty."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Sir, it looks like you tripped the sensor net. I would expect some Davion 'Mechs to come your way. Stay frosty."
+  },
+  "mc2_11_2": {
+   "duration": 5.47,
+   "segments": [
+    [
+     0.0,
+     5.44,
+     "Good work. Now you can salvage the Davion 'Mechs due north of this installation."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Good work. Now you can salvage the Davion 'Mechs due north of this installation."
+  },
+  "mc2_11_3": {
+   "duration": 8.94,
+   "segments": [
+    [
+     0.0,
+     8.92,
+     "Sir, without those Davion 'Mechs, your chances of taking those weapons facilities are slim to none. You'd better salvage them before proceeding."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Sir, without those Davion 'Mechs, your chances of taking those weapons facilities are slim to none. You'd better salvage them before proceeding."
+  },
+  "mc2_11_4": {
+   "duration": 6.77,
+   "segments": [
+    [
+     0.0,
+     6.76,
+     "Okay, you're in the right spot. Time to call for salvage craft and put our pilots in these 'Mechs."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Okay, you're in the right spot. Time to call for salvage craft and put our pilots in these 'Mechs."
+  },
+  "mc2_11_5": {
+   "duration": 6.75,
+   "segments": [
+    [
+     0.0,
+     6.74,
+     "Enemy sensor net neutralized. We shouldn't have any more surprises. For now."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Enemy sensor net neutralized. We shouldn't have any more surprises. For now."
+  },
+  "mc2_12_0": {
+   "duration": 7.1,
+   "segments": [
+    [
+     0.0,
+     7.1,
+     "Sir, we're getting reports that some of the convoy are fortifying the northern base. You'll have to assault them there."
+    ]
+   ],
+   "speaker": "Cash",
+   "text": "Sir, we're getting reports that some of the convoy are fortifying the northern base. You'll have to assault them there."
+  },
+  "mc2_12_1": {
+   "duration": 5.35,
+   "segments": [
+    [
+     0.0,
+     5.34,
+     "Commander, we believe that the enemy has reached the southern base. They must be eliminated."
+    ]
+   ],
+   "speaker": "Cash",
+   "text": "Commander, we believe that the enemy has reached the southern base. They must be eliminated."
+  },
+  "mc2_12_2": {
+   "duration": 7.67,
+   "segments": [
+    [
+     0.0,
+     7.64,
+     "One or more of the escorts have broken off from the main route, Commander. We think they're occupying one of the bases. You'll need to mop them up."
+    ]
+   ],
+   "speaker": "Cash",
+   "text": "One or more of the escorts have broken off from the main route, Commander. We think they're occupying one of the bases. You'll need to mop them up."
+  },
+  "mc2_12_3": {
+   "duration": 3.94,
+   "segments": [
+    [
+     0.0,
+     3.92,
+     "The convoy should be entering the area any minute."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "The convoy should be entering the area any minute."
+  },
+  "mc2_13_2": {
+   "duration": 7.57,
+   "segments": [
+    [
+     0.0,
+     2.8,
+     "Incoming message from Clan ejection pod, sir.",
+     "Tac Officer"
+    ],
+    [
+     3.2,
+     7.6,
+     "With this oath, we pledge to serve as your bondsman, and die at your command.",
+     "Clan Warrior"
+    ]
+   ],
+   "speaker": "",
+   "text": "Incoming message from Clan ejection pod, sir. With this oath, we pledge to serve as your bondsman, and die at your command."
+  },
+  "mc2_13_3": {
+   "duration": 6.25,
+   "segments": [
+    [
+     0.0,
+     6.24,
+     "Know this, mercenary. We are clan warriors. We are superior to your ragged band in every way."
+    ]
+   ],
+   "speaker": "Clan Warrior",
+   "text": "Know this, mercenary. We are clan warriors. We are superior to your ragged band in every way."
+  },
+  "mc2_14_0": {
+   "duration": 11.95,
+   "segments": [
+    [
+     0.0,
+     6.24,
+     "I'm uploading the locations of all orbital guns in this area along with several secondary objectives that may help you with your mission."
+    ],
+    [
+     6.24,
+     10.64,
+     "Now listen, one of the guns is a mobile orbital gun. It could be anywhere."
+    ],
+    [
+     10.64,
+     11.92,
+     "That's all I got."
+    ]
+   ],
+   "speaker": "",
+   "text": "I'm uploading the locations of all orbital guns in this area along with several secondary objectives that may help you with your mission. Now listen, one of the guns is a mobile orbital gun. It could be anywhere. That's all I got."
+  },
+  "mc2_15_0": {
+   "duration": 2.95,
+   "segments": [
+    [
+     0.0,
+     2.92,
+     "Sir, the Partisans have begun their attack."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Sir, the Partisans have begun their attack."
+  },
+  "mc2_15_2": {
+   "duration": 9.72,
+   "segments": [
+    [
+     0.0,
+     6.8,
+     "Steiner is looking for me, so I'll make this quick. The rear armor on the Legion tank is extremely weak, so get behind him if you can."
+    ],
+    [
+     6.8,
+     9.7,
+     "Watch your back, Commander. There's an aerospace spotter in the area."
+    ]
+   ],
+   "speaker": "",
+   "text": "Steiner is looking for me, so I'll make this quick. The rear armor on the Legion tank is extremely weak, so get behind him if you can. Watch your back, Commander. There's an aerospace spotter in the area."
+  },
+  "mc2_15_3": {
+   "duration": 8.76,
+   "segments": [
+    [
+     0.0,
+     8.76,
+     "Thank you Commander. We sent a demolition team to destroy the enemy's sensor control. Taking down their sensor grid should help your attack. I'll signal them to blow it."
+    ]
+   ],
+   "speaker": "Partisan",
+   "text": "Thank you Commander. We sent a demolition team to destroy the enemy's sensor control. Taking down their sensor grid should help your attack. I'll signal them to blow it."
+  },
+  "mc2_15_4": {
+   "duration": 4.83,
+   "segments": [
+    [
+     0.0,
+     4.8,
+     "They blew the sensor control, sir. The production facility is virtually blind."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "They blew the sensor control, sir. The production facility is virtually blind."
+  },
+  "mc2_15_5": {
+   "duration": 6.58,
+   "segments": [
+    [
+     0.0,
+     6.56,
+     "Welcome mercenary, a real opponent at last. You will make an excellent field test for my legion tanks."
+    ]
+   ],
+   "speaker": "Steiner Commander",
+   "text": "Welcome mercenary, a real opponent at last. You will make an excellent field test for my legion tanks."
+  },
+  "mc2_15_6": {
+   "duration": 5.88,
+   "segments": [
+    [
+     0.0,
+     5.86,
+     "Mercenary Commander, our attack on the complex has failed. We need assistance. We're dying out here."
+    ]
+   ],
+   "speaker": "Partisan",
+   "text": "Mercenary Commander, our attack on the complex has failed. We need assistance. We're dying out here."
+  },
+  "mc2_17_3": {
+   "duration": 8.36,
+   "segments": [
+    [
+     0.0,
+     4.4,
+     "Colonel Renard, give me more men. I will personally crush the mercenaries.",
+     "Jason Cho"
+    ],
+    [
+     4.4,
+     8.4,
+     "Very well, Lord Cho. I will leave this in your hands.",
+     "Colonel Renard"
+    ]
+   ],
+   "speaker": "",
+   "text": "Colonel Renard, give me more men. I will personally crush the mercenaries. Very well, Lord Cho. I will leave this in your hands."
+  },
+  "mc2_17_5": {
+   "duration": 1.7,
+   "segments": [],
+   "speaker": "Jason Cho",
+   "text": ""
+  },
+  "mc2_17_8": {
+   "duration": 2.1,
+   "segments": [
+    [
+     0.0,
+     2.0,
+     "Do nothing unless I give the order."
+    ]
+   ],
+   "speaker": "Jason Cho",
+   "text": "Do nothing unless I give the order."
+  },
+  "mc2_17_9": {
+   "duration": 3.92,
+   "segments": [
+    [
+     0.0,
+     2.64,
+     "We will keep an open channel for all parties."
+    ],
+    [
+     3.14,
+     3.9,
+     "Colonel Renard?"
+    ]
+   ],
+   "speaker": "Jason Cho",
+   "text": "We will keep an open channel for all parties. Colonel Renard?"
+  },
+  "mc2_17_a": {
+   "duration": 1.33,
+   "segments": [
+    [
+     0.0,
+     1.32,
+     "Good day, my lord."
+    ]
+   ],
+   "speaker": "Colonel Renard",
+   "text": "Good day, my lord."
+  },
+  "mc2_17_b": {
+   "duration": 1.78,
+   "segments": [
+    [
+     0.0,
+     2.0,
+     "You make an impressive display."
+    ]
+   ],
+   "speaker": "Jason Cho",
+   "text": "You make an impressive display."
+  },
+  "mc2_17_c": {
+   "duration": 5.52,
+   "segments": [
+    [
+     0.0,
+     3.2,
+     "Please view it as a show of respect, Lord Cho."
+    ],
+    [
+     3.2,
+     5.52,
+     "I see you brought your mercenaries."
+    ]
+   ],
+   "speaker": "Colonel Renard",
+   "text": "Please view it as a show of respect, Lord Cho. I see you brought your mercenaries."
+  },
+  "mc2_17_d": {
+   "duration": 2.07,
+   "segments": [
+    [
+     0.0,
+     2.0,
+     "Mandrissa Cho insisted."
+    ]
+   ],
+   "speaker": "Jason Cho",
+   "text": "Mandrissa Cho insisted."
+  },
+  "mc2_17_e": {
+   "duration": 5.33,
+   "segments": [
+    [
+     0.0,
+     5.32,
+     "Very well, I will make this quick. We have a mutual enemy. Major Kelly of House Davion."
+    ]
+   ],
+   "speaker": "Colonel Renard",
+   "text": "Very well, I will make this quick. We have a mutual enemy. Major Kelly of House Davion."
+  },
+  "mc2_17_f": {
+   "duration": 3.06,
+   "segments": [
+    [
+     0.0,
+     3.0,
+     "It is therefore in our interest to form an alliance."
+    ]
+   ],
+   "speaker": "Colonel Renard",
+   "text": "It is therefore in our interest to form an alliance."
+  },
+  "mc2_17_g": {
+   "duration": 1.31,
+   "segments": [
+    [
+     0.0,
+     1.28,
+     "I'm glad you agree."
+    ]
+   ],
+   "speaker": "",
+   "text": "I'm glad you agree."
+  },
+  "mc2_17_h": {
+   "duration": 5.95,
+   "segments": [
+    [
+     0.0,
+     5.92,
+     "However, your actions against House Steiner must have a cost. I'm sure you understand."
+    ]
+   ],
+   "speaker": "Colonel Renard",
+   "text": "However, your actions against House Steiner must have a cost. I'm sure you understand."
+  },
+  "mc2_17_i": {
+   "duration": 2.59,
+   "segments": [],
+   "speaker": "Jason Cho",
+   "text": "We expected as much. Name your price."
+  },
+  "mc2_17_j": {
+   "duration": 1.93,
+   "segments": [
+    [
+     0.0,
+     2.0,
+     "The mercenaries must die."
+    ]
+   ],
+   "speaker": "Colonel Renard",
+   "text": "The mercenaries must die."
+  },
+  "mc2_17_k": {
+   "duration": 3.89,
+   "segments": [],
+   "speaker": "Jason Cho",
+   "text": "Hahaha! That's all? Then the deal is done!"
+  },
+  "mc2_18_0": {
+   "duration": 10.72,
+   "segments": [
+    [
+     0.0,
+     10.7,
+     "We're too late, sir. Steiner and Liao have taken over the city. We'll need to take out whatever forces are stationed here and defeat any reinforcements."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "We're too late, sir. Steiner and Liao have taken over the city. We'll need to take out whatever forces are stationed here and defeat any reinforcements."
+  },
+  "mc2_18_1": {
+   "duration": 11.99,
+   "segments": [
+    [
+     0.0,
+     7.0,
+     "So far so good, Commander. You've taken out about half of the enemy, but you'll want to get any repairs done ASAP."
+    ],
+    [
+     7.0,
+     12.0,
+     "There's another enemy group heading your way and it looks like mostly heavy 'Mechs."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "So far so good, Commander. You've taken out about half of the enemy, but you'll want to get any repairs done ASAP. There's another enemy group heading your way and it looks like mostly heavy 'Mechs."
+  },
+  "mc2_19_0": {
+   "duration": 10.12,
+   "segments": [
+    [
+     0.0,
+     5.0,
+     "Good job, sir. You've eliminated about a third of the enemy in this region."
+    ],
+    [
+     5.0,
+     10.1,
+     "You can extract now, if you want, or keep going and earn some extra C-Bills."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Good job, sir. You've eliminated about a third of the enemy in this region. You can extract now, if you want, or keep going and earn some extra C-Bills."
+  },
+  "mc2_20_0": {
+   "duration": 6.12,
+   "segments": [
+    [
+     0.0,
+     6.12,
+     "Heads up, sir. It looks like Liao captured the Davion 'Mechs. We'll have to take them out."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Heads up, sir. It looks like Liao captured the Davion 'Mechs. We'll have to take them out."
+  },
+  "mc2_20_1": {
+   "duration": 9.19,
+   "segments": [
+    [
+     0.0,
+     6.5,
+     "About time y'all showed up. Name's Rooster. I've seen action on Port Arthur and Cermak, and I'm itching to shoot something."
+    ],
+    [
+     6.5,
+     9.2,
+     "What do you say? You got a place for ol' Rooster?"
+    ]
+   ],
+   "speaker": "Rooster",
+   "text": "About time y'all showed up. Name's Rooster. I've seen action on Port Arthur and Cermak, and I'm itching to shoot something. What do you say? You got a place for ol' Rooster?"
+  },
+  "mc2_20_2": {
+   "duration": 12.14,
+   "segments": [
+    [
+     0.0,
+     12.12,
+     "Sir, I've heard of this guy. He was in Zulu company of the first Davion guards and fought in every major campaign against the Smoke Jaguars. I'll offer him the standard contract with a healthy signing bonus."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Sir, I've heard of this guy. He was in Zulu company of the first Davion guards and fought in every major campaign against the Smoke Jaguars. I'll offer him the standard contract with a healthy signing bonus."
+  },
+  "mc2_22": {
+   "duration": 9.39,
+   "segments": [
+    [
+     0.0,
+     9.36,
+     "Attention mercenary! You have disgraced Lady Cho at every turn. We will not allow you to add her palace to your trophy case. Run while you can."
+    ]
+   ],
+   "speaker": "Palace Guard",
+   "text": "Attention mercenary! You have disgraced Lady Cho at every turn. We will not allow you to add her palace to your trophy case. Run while you can."
+  },
+  "mc2_23_1": {
+   "duration": 7.99,
+   "segments": [
+    [
+     0.0,
+     8.0,
+     "Thanks for clearing the area. Our team will hold back at the town while you make your way to the starport. We'll follow you in as soon as you engage those bastards."
+    ]
+   ],
+   "speaker": "",
+   "text": "Thanks for clearing the area. Our team will hold back at the town while you make your way to the starport. We'll follow you in as soon as you engage those bastards."
+  },
+  "mc2_23_2": {
+   "duration": 3.09,
+   "segments": [
+    [
+     0.0,
+     3.08,
+     "Looks like we're gonna have company soon. Check your tac map."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Looks like we're gonna have company soon. Check your tac map."
+  },
+  "mc2_23_3": {
+   "duration": 6.69,
+   "segments": [
+    [
+     0.0,
+     6.68,
+     "Uploading data now. Sir, the enemy has an elite group of scout 'Mechs in the area with orders to retake all control buildings."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Uploading data now. Sir, the enemy has an elite group of scout 'Mechs in the area with orders to retake all control buildings."
+  },
+  "mc2_23_4": {
+   "duration": 2.18,
+   "segments": [
+    [
+     0.0,
+     2.16,
+     "We're on our way to the starport now, Commander."
+    ]
+   ],
+   "speaker": "",
+   "text": "We're on our way to the starport now, Commander."
+  },
+  "mc2_23_5": {
+   "duration": 4.23,
+   "segments": [
+    [
+     0.0,
+     4.2,
+     "This is the Rebel Strike Team Leader. We're breaking free now and on our way to the starport."
+    ]
+   ],
+   "speaker": "Rebel Strike Team Leader",
+   "text": "This is the Rebel Strike Team Leader. We're breaking free now and on our way to the starport."
+  },
+  "mc2_24_3": {
+   "duration": 5.04,
+   "segments": [
+    [
+     0.0,
+     5.04,
+     "We've captured the eastern turret control. One of the Long Tom batteries belongs to us now."
+    ]
+   ],
+   "speaker": "",
+   "text": "We've captured the eastern turret control. One of the Long Tom batteries belongs to us now."
+  },
+  "mc2_24_4": {
+   "duration": 1.99,
+   "segments": [
+    [
+     0.0,
+     2.0,
+     "We've got the western turret control"
+    ]
+   ],
+   "speaker": "",
+   "text": "We've got the western turret control"
+  },
+  "mc2_24_5": {
+   "duration": 9.21,
+   "segments": [
+    [
+     0.0,
+     9.2,
+     "I'm on my way, mercenary. It's a shame that Major Kelly deserted you the way she deserted me. Still, I always knew it would come down to us."
+    ]
+   ],
+   "speaker": "Colonel Renard",
+   "text": "I'm on my way, mercenary. It's a shame that Major Kelly deserted you the way she deserted me. Still, I always knew it would come down to us."
+  },
+  "mc2_24_6": {
+   "duration": 5.32,
+   "segments": [
+    [
+     0.0,
+     5.3,
+     "I don't understand you mercenary. What's the point of earning money if you're not around to spend it?"
+    ]
+   ],
+   "speaker": "Colonel Renard",
+   "text": "I don't understand you mercenary. What's the point of earning money if you're not around to spend it?"
+  },
+  "mc2_24_7": {
+   "duration": 2.08,
+   "segments": [
+    [
+     0.0,
+     2.0,
+     "Where did you learn to fight? The periphery?"
+    ]
+   ],
+   "speaker": "Colonel Renard",
+   "text": "Where did you learn to fight? The periphery?"
+  },
+  "tut_1cii": {
+   "duration": 11.41,
+   "segments": [
+    [
+     0.0,
+     11.4,
+     "Here we go sir. Objective 1 is to investigate an abandoned airfield for bandits. The airfield is located at the number 1 on your tactical map at the lower left of the screen."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Here we go sir. Objective 1 is to investigate an abandoned airfield for bandits. The airfield is located at the number 1 on your tactical map at the lower left of the screen."
+  },
+  "tut_1e": {
+   "duration": 7.24,
+   "segments": [
+    [
+     0.0,
+     4.0,
+     "Good. Let's do a weapon test before we engage any hostiles."
+    ],
+    [
+     4.0,
+     7.0,
+     "Order all units to destroy that hangar over there."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Good. Let's do a weapon test before we engage any hostiles. Order all units to destroy that hangar over there."
+  },
+  "tut_1gi": {
+   "duration": 14.05,
+   "segments": [
+    [
+     0.0,
+     5.0,
+     "Nice work, Commander. We should repair our units before engaging more enemies."
+    ],
+    [
+     5.0,
+     8.0,
+     "Check your support tab and call in a repair truck."
+    ],
+    [
+     8.0,
+     14.0,
+     "Remember that support is limited by our resource points, or RPs, so don't waste them."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Nice work, Commander. We should repair our units before engaging more enemies. Check your support tab and call in a repair truck. Remember that support is limited by our resource points, or RPs, so don't waste them."
+  },
+  "tut_1h": {
+   "duration": 10.96,
+   "segments": [
+    [
+     0.0,
+     10.96,
+     "Sir, we've got more bandits on the other side of this forest. Even though our line of sight is blocked, we can still detect them using the sensors on our Razorback Scout 'Mech."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Sir, we've got more bandits on the other side of this forest. Even though our line of sight is blocked, we can still detect them using the sensors on our Razorback Scout 'Mech."
+  },
+  "tut_1hi": {
+   "duration": 12.58,
+   "segments": [
+    [
+     0.0,
+     4.0,
+     "Here's a good opportunity to salvage an enemy 'Mech, Commander."
+    ],
+    [
+     4.0,
+     9.0,
+     "Select the salvage craft from our support tab and target a disabled urban 'Mech."
+    ],
+    [
+     9.0,
+     12.56,
+     "One of our MechWarriors will fly in and take control of it."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Here's a good opportunity to salvage an enemy 'Mech, Commander. Select the salvage craft from our support tab and target a disabled urban 'Mech. One of our MechWarriors will fly in and take control of it."
+  },
+  "tut_3eii": {
+   "duration": 9.61,
+   "segments": [
+    [
+     0.0,
+     5.0,
+     "Our first objective is to capture that resource building north of our drop zone."
+    ],
+    [
+     5.0,
+     9.0,
+     "We can use the resource points it gives us to call in support pieces."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Our first objective is to capture that resource building north of our drop zone. We can use the resource points it gives us to call in support pieces."
+  },
+  "tut_3hi": {
+   "duration": 11.91,
+   "segments": [
+    [
+     0.0,
+     11.88,
+     "The best way to deal with bases is to capture the control buildings inside, such as turret controls and gate controls. This will force the gates and turrets to work for us instead of the enemy."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "The best way to deal with bases is to capture the control buildings inside, such as turret controls and gate controls. This will force the gates and turrets to work for us instead of the enemy."
+  },
+  "tut_3kii": {
+   "duration": 9.47,
+   "segments": [
+    [
+     0.0,
+     5.0,
+     "This base supports a sensor grid maintained by a sensor control building."
+    ],
+    [
+     5.0,
+     9.46,
+     "It will allow us to detect any enemies within range of these sensors."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "This base supports a sensor grid maintained by a sensor control building. It will allow us to detect any enemies within range of these sensors."
+  },
+  "tut_3kij": {
+   "duration": 8.7,
+   "segments": [
+    [
+     0.0,
+     3.0,
+     "Nice work in securing this area, Commander."
+    ],
+    [
+     3.0,
+     9.0,
+     "Before we hit the bandits to the north, we might want to scout around for more resource buildings."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Nice work in securing this area, Commander. Before we hit the bandits to the north, we might want to scout around for more resource buildings."
+  },
+  "tut_6a": {
+   "duration": 25.43,
+   "segments": [
+    [
+     0.0,
+     4.0,
+     "I've taken control of your console for tactical review, sir."
+    ],
+    [
+     4.0,
+     7.0,
+     "The convoy will be taking this road to the base."
+    ],
+    [
+     7.0,
+     12.0,
+     "We should take out this military checkpoint and ambush the convoy when they come through here."
+    ],
+    [
+     12.0,
+     15.0,
+     "Unfortunately, the enemy has set themselves up pretty well."
+    ],
+    [
+     15.0,
+     18.0,
+     "The turret controls are very well protected."
+    ],
+    [
+     18.0,
+     22.0,
+     "It'll be tough getting to them without being shot up in the process."
+    ],
+    [
+     22.0,
+     25.0,
+     "Instead, we can fire at those fuel tanks."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "I've taken control of your console for tactical review, sir. The convoy will be taking this road to the base. We should take out this military checkpoint and ambush the convoy when they come through here. Unfortunately, the enemy has set themselves up pretty well. The turret controls are very well protected. It'll be tough getting to them without being shot up in the process. Instead, we can fire at those fuel tanks."
+  },
+  "tut_6b": {
+   "duration": 9.4,
+   "segments": [
+    [
+     0.0,
+     6.5,
+     "Destroying a fuel tank will cause a large explosion, damaging everything within the blast radius."
+    ],
+    [
+     6.5,
+     9.38,
+     "We can also try shooting those turret generators."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Destroying a fuel tank will cause a large explosion, damaging everything within the blast radius. We can also try shooting those turret generators."
+  },
+  "tut_6c": {
+   "duration": 24.23,
+   "segments": [
+    [
+     0.0,
+     8.0,
+     "That convoy should be here any minute now. Our objective is to capture the HQ vehicle while destroying its guards."
+    ],
+    [
+     8.0,
+     13.0,
+     "Careful. If the HQ vehicle is destroyed, we fail the mission."
+    ],
+    [
+     13.0,
+     18.0,
+     "Also, enemy convoys often contain resource trucks. Don't blow them up."
+    ],
+    [
+     18.0,
+     24.0,
+     "Capturing them gives us resource points just like capturing a resource building, just not as much."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "That convoy should be here any minute now. Our objective is to capture the HQ vehicle while destroying its guards. Careful. If the HQ vehicle is destroyed, we fail the mission. Also, enemy convoys often contain resource trucks. Don't blow them up. Capturing them gives us resource points just like capturing a resource building, just not as much."
+  },
+  "tut_6d": {
+   "duration": 12.61,
+   "segments": [
+    [
+     0.0,
+     7.0,
+     "Commander, Steiner just informed me that there's a large bandit force heading our way. We need some support."
+    ],
+    [
+     7.0,
+     12.6,
+     "Capture any resource buildings in the area. We can use the RPs to call in fixed artillery."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Commander, Steiner just informed me that there's a large bandit force heading our way. We need some support. Capture any resource buildings in the area. We can use the RPs to call in fixed artillery."
+  },
+  "v6h": {
+   "duration": 22.33,
+   "segments": [
+    [
+     0.0,
+     5.6,
+     "Fine work, sir. Those hills overlooking the road are excellent ambush points."
+    ],
+    [
+     5.6,
+     11.4,
+     "Firing from high ground gives us a better chance of hitting an enemy's upper armor and cockpit."
+    ],
+    [
+     11.4,
+     15.8,
+     "Once you get your mix up on those hills, order them to hold position."
+    ],
+    [
+     15.8,
+     22.0,
+     "When holding position, pilots will not move unless given a direct order, firing from where they stand."
+    ]
+   ],
+   "speaker": "Tac Officer",
+   "text": "Fine work, sir. Those hills overlooking the road are excellent ambush points. Firing from high ground gives us a better chance of hitting an enemy's upper armor and cockpit. Once you get your mix up on those hills, order them to hold position. When holding position, pilots will not move unless given a direct order, firing from where they stand."
+  }
+ }
+}

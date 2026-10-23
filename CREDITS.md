@@ -95,6 +95,10 @@ MechCommander 2 Shared Source release, under its licence (`docs/MC2-SOURCE-EULA.
 a trademark of Microsoft Corporation; BattleTech and the 'Mech designs are trademarks of their
 respective owners. Not affiliated with or endorsed by any of them.
 
+The comms subtitles (`game/data/subtitles.json`) are transcripts of that release's own voice audio
+(mission voice-overs and pilot radio lines), made locally with OpenAI's Whisper (MIT licence) by
+`tools/convert/subtitles.py` and reviewed by hand. The original showed no subtitles.
+
 ### Generated art
 
 Other HD 'Mech, vehicle and building models are AI-generated derivatives of the Shared Source art

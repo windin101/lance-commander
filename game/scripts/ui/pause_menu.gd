@@ -3,7 +3,7 @@ extends CanvasLayer
 ## In-mission overlay. Esc pauses: Resume / Restart mission / Abort to briefing.
 ## When the mission ends the same panel offers Continue (to the debrief) and Replay;
 ## Enter continues. Framed in the HUD style, with the HUD scale setting (0.6-1.0, saved
-## to user://settings.cfg; the HUD rebuilds at the new size).
+## to user://settings.cfg; the HUD rebuilds at the new size) and comms subtitles on/off.
 
 var view: Node  # MissionView
 var panel: PanelContainer
@@ -13,6 +13,7 @@ var ended := false
 var scale_row: HBoxContainer
 var scale_slider: HSlider
 var scale_value: Label
+var subtitles_button: Button  # comms subtitles on/off (Subtitles, user://settings.cfg [comms])
 
 
 func _ready() -> void:
@@ -63,6 +64,23 @@ func _ready() -> void:
 	scale_row.add_child(scale_value)
 	scale_slider.value_changed.connect(_on_scale)
 	_on_scale(scale_slider.value, false)
+	var sub_row := HBoxContainer.new()
+	sub_row.add_theme_constant_override("separation", 10)
+	v.add_child(sub_row)
+	var subl := UiStyle.label("Subtitles", 15, UiStyle.HUD_DIM, true)
+	subl.add_theme_font_override("font", UiStyle.font("display600", 2))
+	subl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sub_row.add_child(subl)
+	subtitles_button = Button.new()
+	subtitles_button.toggle_mode = true
+	subtitles_button.focus_mode = Control.FOCUS_NONE
+	subtitles_button.custom_minimum_size.x = 72
+	subtitles_button.button_pressed = Subtitles.enabled()
+	subtitles_button.text = "ON" if subtitles_button.button_pressed else "OFF"
+	subtitles_button.toggled.connect(func(on: bool):
+		Subtitles.set_enabled(on)
+		subtitles_button.text = "ON" if on else "OFF")
+	sub_row.add_child(subtitles_button)
 	panel.visible = false
 
 
