@@ -571,13 +571,26 @@ drops (§2.3), for full-strength air strikes (§3.1), and for indirect fire
   A neutral or enemy bay must be captured first. The bot (autoplay) uses it.
 - **Artillery piece:** delivered like the repair truck (`data/vehicles/guardtower.json`, pilot
   `PMWGuardTower`). With no brain it fires at the nearest armed enemy in reach, on its own or a
-  team mate's sight. Suppression fire on a ground point is not implemented yet.
+  team mate's sight. **Suppression fire** (2026-10-24): the command panel's Suppression fire
+  button (the original's GUARDTOWER, shown with an immobile unit selected) then a right-click on
+  the ground sets `suppressionFire` and an attack point from where it stands (doGuardTower,
+  missiongui.cpp:5480-5508); it keeps shelling until the button is un-pressed, which clears it
+  on every immobile unit (controlGui.cpp:2205-2228), or a Stop (TACTICAL_ORDER_WAIT,
+  mover.cpp:3166-3168).
+- **Scout copter** (2000 RP, 2026-10-24): `ScoutCopter.fit` on the `scoutcopter` chassis, pilot
+  `PMWScout`, created shut down and powered up as the VTOL leaves. The copters (and the missions'
+  own Light/Medium/Heavy copters) are air movers: `[MechProfile] MoveType 1` (mech.cpp:675,
+  converted as `move_type` in `data/chassis/*.json`). They fly straight over anything
+  (mover.cpp:4260), set off no mines (mech.cpp:3739-3741), are immune to strikes in flight
+  (artlry.cpp:585-592), can't capture (warrior.cpp:7577) and don't count for "move all surviving
+  'Mechs" (Objective.cpp:993, 1017). LOSFactor 1.2. Its sensor is the chassis' Standard Sensors
+  (1 m, so visual only); the "range 350" in 3.8 is not in the converted data.
 - **Minelayer:** delivered the same way (`minelayer.json`, pilot `PMWMinelayer`). Select it,
   press the command panel's **Lay mines** button (the original's LAYMINES, controlGui.cpp:1110-1117)
   and right-click: its moves lay mines (`SimSupport.order_lay_mines`). M is the original's
   medium-range key again.
-- The support row now carries six tiles in the original's order, less the scout copter: air
-  strike, artillery piece, sensor probe, repair truck, minelayer, salvage craft.
+- The support row now carries the original's seven tiles in its order: air strike, artillery
+  piece, sensor probe, repair truck, scout copter, minelayer, salvage craft.
 
 ### 3.9 Artillery piece (8000 RP)
 

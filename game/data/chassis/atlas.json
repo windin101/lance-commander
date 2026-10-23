@@ -645,5 +645,7 @@
    },
    "armor_plates": 16
   }
- ]
+ ],
+ "move_type": 0,
+ "los_factor": 1.0
 }

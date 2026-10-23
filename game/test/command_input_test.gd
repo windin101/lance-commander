@@ -351,3 +351,26 @@ func test_lay_mines_needs_a_minelayer() -> void:
 	var input: CommandInput = view.input
 	input._set_selection([view.world.units[0]])
 	assert_bool(input.toggle_mode("lay_mines")).is_false()
+
+
+func test_suppression_button_sets_artillery_on_a_point() -> void:
+	var input: CommandInput = view.input
+	var sm: SimMission = view.sm
+	var w: SimWorld = view.world
+	sm.support.rp = 20000
+	assert_bool(sm.support.call_power("artillery_piece", w.units[0].position + Vector2(30, 0))).is_true()
+	for i in 60:
+		sm.step()
+		view._consume_events(false)
+	var gun: SimUnit = w.units.filter(func(u): return u is SimVehicle and u.model == "artillerypiece")[0]
+	input._set_selection([w.units[0]])
+	assert_bool(input.toggle_mode("suppress")).is_false()  # no artillery piece selected
+	input._set_selection([gun])
+	assert_bool(input.toggle_mode("suppress")).is_true()
+	var focus: Vector3 = input.camera.focus
+	input._command(input.camera.unproject_position(focus + Vector3(0, 0, -80)))
+	assert_int(gun.order).is_equal(SimWorld.Order.ATTACK_POINT)
+	assert_bool(gun.suppression).is_true()
+	input.toggle_mode("suppress")  # un-pressed: all suppression stops (controlGui.cpp:2205-2228)
+	assert_bool(gun.suppression).is_false()
+	assert_int(gun.order).is_equal(SimWorld.Order.HOLD)

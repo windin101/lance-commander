@@ -17,6 +17,7 @@ converter reports the count; the simulation applies the bonus.
 """
 
 import csv
+import os
 
 ROWS_PER_VARIANT = 97
 MAX_ITEMS = 72
@@ -126,3 +127,24 @@ def is_chassis_csv(path):
 def load(path, components_by_id):
     with open(path, encoding="cp1252", newline="") as fh:
         return parse(list(csv.reader(fh)), components_by_id)
+
+
+def mech_profiles(objects_dir):
+    """[MechProfile] of the mech object FITs, by profile (= chassis CSV) name, lower case:
+    MoveType (0 ground, 1 air: the copters, mech.cpp:675) and LOSFactor (default 1.0)."""
+    import fit
+    out = {}
+    for name in sorted(os.listdir(objects_dir)):
+        if not name.lower().endswith(".fit"):
+            continue
+        try:
+            f = fit.parse_file(os.path.join(objects_dir, name))
+        except Exception:
+            continue
+        if f.get("ObjectClass", {}).get("ObjectTypeNum") != 2:
+            continue
+        prof = f.get("MechProfile", {})
+        pname = str(prof.get("ProfileName", "")).lower()
+        if pname and pname not in out:
+            out[pname] = {"move_type": int(prof.get("MoveType", 0)), "los_factor": float(prof.get("LOSFactor", 1.0))}
+    return out

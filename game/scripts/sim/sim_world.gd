@@ -94,7 +94,7 @@ func unit_by_part(part_index: int) -> SimUnit:
 func order_move(m: SimUnit, goal: Vector2, run := true) -> bool:
 	if _after_landing(m, func(): order_move(m, goal, run)):
 		return true
-	var path := map.find_path(m.position, map.nearest_walkable(goal, m.hover), m.hover)
+	var path := map.find_path(m.position, map.nearest_walkable(goal, m.travel()), m.travel())
 	m.order = Order.MOVE
 	m.order_target = null
 	m.move_run = run
@@ -149,6 +149,7 @@ func order_hold(m: SimUnit) -> void:
 func order_stop(m: SimUnit) -> void:
 	order_hold(m)
 	m.current_target = null
+	m.suppression = false  # TACTICAL_ORDER_WAIT clears suppression fire (mover.cpp:3166-3168)
 
 
 ## Why a jump to goal would be refused, or "" if it can be made: jump jets (canJump), the
@@ -162,7 +163,7 @@ func jump_refusal(m: SimUnit, goal: Vector2) -> String:
 	if m.position.distance_to(goal) > m.jump_range():
 		return "out_of_range"
 	var c := map.cell_of(goal)
-	if not map.in_bounds(c) or not map.is_walkable(c, m.hover):
+	if not map.in_bounds(c) or not map.is_walkable(c, m.travel()):
 		return "impassable"
 	return ""
 
@@ -446,7 +447,7 @@ func _current_goal(m: SimUnit) -> Variant:
 			m.path = PackedVector2Array()
 			return null
 		if m.path.is_empty() or time >= m.repath_time:
-			m.path = map.find_path(m.position, map.nearest_walkable(m.attack_point, m.hover), m.hover)
+			m.path = map.find_path(m.position, map.nearest_walkable(m.attack_point, m.travel()), m.travel())
 			m.path_index = 0
 			m.repath_time = time + 2.0
 	if m.order == Order.ATTACK:
@@ -469,7 +470,7 @@ func _current_goal(m: SimUnit) -> Variant:
 					# that has one (the attack tactic repositions on NOT_LOCKED)
 					m.path = _sight_position_path(m, t)
 				else:
-					m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.hover), m.hover)
+					m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel())
 				if m.path.is_empty():
 					m.path = _firing_position_path(m, t)
 				m.path_index = 0
@@ -510,12 +511,12 @@ func _guard_goal(m: SimUnit) -> Variant:
 			m.path = PackedVector2Array()
 			return null
 		if m.path.is_empty() or time >= m.repath_time:
-			m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.hover), m.hover)
+			m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel())
 			m.path_index = 0
 			m.repath_time = time + 2.0
 	elif m.position.distance_to(anchor) > ARRIVE_M * 4.0:
 		if m.path.is_empty() or time >= m.repath_time:
-			m.path = map.find_path(m.position, map.nearest_walkable(anchor, m.hover), m.hover)
+			m.path = map.find_path(m.position, map.nearest_walkable(anchor, m.travel()), m.travel())
 			m.path_index = 0
 			m.repath_time = time + 2.0
 	else:
@@ -713,7 +714,7 @@ func attack_goal(m: SimUnit, t: SimUnit, somewhere_else := false) -> Vector2:
 			w -= absi(c - sc.x) + absi(r - sc.y)
 			if mates.has(cell):
 				w -= 100
-			if not map.is_walkable(cell, m.hover):
+			if not map.is_walkable(cell, m.travel()):
 				w -= 10000
 			wt[idx] = w
 	if somewhere_else:
@@ -732,7 +733,7 @@ func attack_goal(m: SimUnit, t: SimUnit, somewhere_else := false) -> Vector2:
 		if p.distance_to(t.position) <= visual_range(m) and map.line_of_sight(p, h, t.position, th, ext, 0.0, rules.max_tree_los):
 			return p
 	if cands.is_empty():
-		return map.nearest_walkable(t.position, m.hover)
+		return map.nearest_walkable(t.position, m.travel())
 	var b: int = cands[0]
 	return map.cell_center(tc + Vector2i(b % GOALMAP_DIM - half, b / GOALMAP_DIM - half))
 
@@ -753,7 +754,7 @@ func _attack_goal_path(m: SimUnit, t: SimUnit) -> void:
 	if map.cell_of(m.attack_goal) == map.cell_of(m.position):
 		m.path = PackedVector2Array()
 		return
-	m.path = map.find_path(m.position, m.attack_goal, m.hover)
+	m.path = map.find_path(m.position, m.attack_goal, m.travel())
 	if m.path.is_empty():
 		m.path = _firing_position_path(m, t)
 
@@ -782,7 +783,7 @@ func _sight_position_path(m: SimUnit, t: SimUnit) -> PackedVector2Array:
 		for k in 16:
 			var p: Vector2 = t.position + Vector2.from_angle(TAU * k / 16.0) * maxf(r, 20.0 + ext)
 			var c := map.cell_of(p)
-			if not map.in_bounds(c) or not map.is_walkable(c, m.hover):
+			if not map.in_bounds(c) or not map.is_walkable(c, m.travel()):
 				continue
 			if map.cell_of(p) == map.cell_of(m.position) or p.distance_to(m.position) < map.cell_m * 1.5:
 				continue  # where it stands already has no line of fire
@@ -790,11 +791,11 @@ func _sight_position_path(m: SimUnit, t: SimUnit) -> PackedVector2Array:
 				cands.append(p)
 	cands.sort_custom(func(a, b): return a.distance_to(m.position) < b.distance_to(m.position))
 	for p in cands.slice(0, 6):
-		var path := map.find_path(m.position, p, m.hover)
+		var path := map.find_path(m.position, p, m.travel())
 		if not path.is_empty():
 			return path
 	# no spot with a line of fire in reach: close in on the target itself
-	return map.find_path(m.position, map.nearest_walkable(t.position, m.hover), m.hover)
+	return map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel())
 
 
 ## A target with no path to its cell (an island past deep water, a walled pocket): walk
@@ -805,11 +806,11 @@ func _firing_position_path(m: SimUnit, t: SimUnit) -> PackedVector2Array:
 		var ring := []
 		for k in 16:
 			var p: Vector2 = t.position + Vector2.from_angle(TAU * k / 16.0) * reach * frac
-			if map.in_bounds(map.cell_of(p)) and map.is_walkable(map.cell_of(p), m.hover):
+			if map.in_bounds(map.cell_of(p)) and map.is_walkable(map.cell_of(p), m.travel()):
 				ring.append(p)
 		ring.sort_custom(func(a, b): return a.distance_to(m.position) < b.distance_to(m.position))
 		for p in ring:
-			var path := map.find_path(m.position, p, m.hover)
+			var path := map.find_path(m.position, p, m.travel())
 			if not path.is_empty():
 				return path
 	return PackedVector2Array()
@@ -1010,6 +1011,8 @@ func turret_fire(t: SimTurret, w: int, target: SimUnit) -> void:
 func _mine_check(m: SimUnit, dt: float) -> void:
 	if not m.exists or m.is_disabled() or m.order == Order.JUMP:
 		return
+	if m.flying and m.status != SimUnit.Status.SHUTDOWN:
+		return  # "Can't have those damned helicopters setting stuff off" (mech.cpp:3739-3741)
 	var c := map.cell_of(m.position)
 	if m is SimVehicle and m.mine_stock > 0:
 		if m.order != Order.MOVE:

@@ -175,7 +175,8 @@ func _cond_status(c: Dictionary, world: SimWorld) -> int:
 			return Status.UNDETERMINED
 		"MoveAllSurvivingMechsToArea":
 			for m in world.units:
-				if _player_force(m) and m is SimMech and not dead(m) and m.position.distance_to(c["center"]) > c["radius"]:
+				# air mechs (copters) don't count (Objective.cpp:993, 1017)
+				if _player_force(m) and m is SimMech and not m.flying and not dead(m) and m.position.distance_to(c["center"]) > c["radius"]:
 					return Status.UNDETERMINED
 			for m in world.units:
 				if m.is_mover() and m.exists and m.commander != 0 and not dead(m) and not m.hulk \

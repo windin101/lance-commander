@@ -147,10 +147,14 @@ def main():
 
     n = 0
     chassis_names = []
+    profiles = chassis.mech_profiles(objects)
     for name in sorted(os.listdir(objects)):
         path = os.path.join(objects, name)
         if name.lower().endswith(".csv") and chassis.is_chassis_csv(path):
             ch = chassis.load(path, by_id)
+            prof = profiles.get(os.path.splitext(name)[0].lower(), {})
+            ch["move_type"] = prof.get("move_type", 0)
+            ch["los_factor"] = prof.get("los_factor", 1.0)
             write(f"chassis/{os.path.splitext(name)[0].lower()}.json", ch)
             chassis_names.append(os.path.splitext(name)[0].lower())
             n += 1

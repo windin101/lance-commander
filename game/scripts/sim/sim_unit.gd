@@ -73,6 +73,7 @@ var turret_rate := 360.0  # torso or turret yaw rate, degrees per second (chassi
 var cruise := 0.0  # the speed carried from the last tick (vehicle acceleration)
 var max_accel := 0.0  # vehicles: speed change per second (VehicleDynamics MaxAccel); 0 = instant
 var hover := false  # hovercraft: may cross water
+var flying := false  # MOVETYPE_AIR (the copters): flies over anything, can't capture, no mines
 var speed := 0.0
 var prev_position := Vector2.ZERO
 var prev_facing := 0.0
@@ -226,3 +227,8 @@ func has_ecm() -> bool:
 		if items[i]["form"] == "ECM" and not items[i]["disabled"]:
 			return true
 	return false
+
+
+## The map's travel mode for this unit: SimMap.AIR when it flies, else whether it hovers.
+func travel() -> Variant:
+	return SimMap.AIR if flying else hover

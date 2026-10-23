@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T11:47:42+13:00",
+  "updated": "2026-10-24T11:53:38+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1698,6 +1698,19 @@
       "created": "2026-10-24T11:43:07+13:00",
       "updated": "2026-10-24T11:43:07+13:00",
       "note": "Done 2026-10-24 (uncommitted). F force fire (forceShot missiongui.cpp:3208) on any unit/building or a ground point (TACTICAL_ORDER_ATTACK_POINT, one volley, gvehicl.cpp:4838-4842); S/M/L range keys and buttons (ordered fire range 30/45/60 m, mover.cpp:5888-5918; attack goal drops the beyond-max penalty); Ctrl waypoints queued and run on release with markers (missiongui.cpp:842,1703-1722; warrior.cpp:1555-1708); DFA on jump landing (mech.cpp:819-925, tonnage/10+0.5 to its top, same to the jumper's legs; flag SimRules.dfa); LAYMINES as a palette button (M is medium range again). Command panel gained 5 buttons (12 in one row), icons in hud_kit.gd; mission_hud.gd mode list extended (one line). Tests: command_input_test.gd (force fire on ally and ground, range radio, waypoints, lay mines refused), sim_fidelity_test.gd (attack point volley/suppression, forced friendly target, DFA). Not added: aimed shots Numpad 2/5/8, power down/up, eject, energy-weapons-only."
+    },
+    {
+      "id": "I105",
+      "sev": "P2",
+      "title": "Support gaps from I96: suppression fire, on-screen lay mines, scout copter (and the missions' copters walk instead of fly)",
+      "detail": "Phase 8 step 5.",
+      "repro": null,
+      "owner": "sim",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T11:53:38+13:00",
+      "updated": "2026-10-24T11:53:38+13:00",
+      "note": "Done 2026-10-24 (uncommitted). Suppression fire: GUARDTOWER button + right-click ground (doGuardTower missiongui.cpp:5480-5508), cleared by un-pressing (controlGui.cpp:2205-2228) or Stop (mover.cpp:3166). Lay mines button (done in step 4). Scout copter delivery (2000 RP, scoutcopter chassis, PMWScout, shut down until the VTOL leaves). Air movers: chassis.mech_profiles converts [MechProfile] MoveType/LOSFactor to data/chassis/*.json; the copters (also the missions' Light/Medium/Heavy copters, previously walking) fly straight (SimMap.AIR), set off no mines, are strike-immune in flight, can't capture, don't count for extraction. Tests: support_test.gd (scout delivery/flight, strike immunity, no capture), command_input_test.gd (suppression button). Copter missions sweep (jobs 2): mc2_04 3/3, mc2_06 2/3, mc2_10 3/3 (formation sweep 3/3, 3/3, 3/3)."
     }
   ],
   "coverage": {
@@ -1804,16 +1817,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I38 fixed: urbanmech approved in review"
-    },
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I46 duplicate: superseded by I54"
-    },
     {
       "at": "2026-10-19T17:46:46+13:00",
       "who": "conductor",
@@ -2803,6 +2806,16 @@
       "at": "2026-10-24T11:47:42+13:00",
       "who": "conductor",
       "msg": "issue I21 updated: note \u2014 Lee 2026-10-24: keep mc2_14 as a stealth mission (no patrol thinning); the bot should avoid patrols."
+    },
+    {
+      "at": "2026-10-24T11:53:38+13:00",
+      "who": "sim",
+      "msg": "issue I105 P2: Support gaps from I96: suppression fire, on-screen lay mines, scout copter (and the missions' copters walk instead of fly)"
+    },
+    {
+      "at": "2026-10-24T11:53:38+13:00",
+      "who": "conductor",
+      "msg": "issue I105 fixed: Done 2026-10-24 (uncommitted). Suppression fire: GUARDTOWER button + right-click ground (doGuardTower missiongui.cpp:5480-5508), cleared by un-pressing (controlGui.cpp:2205-2228) or Stop (mover.cpp:3166). Lay mines button (done in step 4). Scout copter delivery (2000 RP, scoutcopter chassis, PMWScout, shut down until the VTOL leaves). Air movers: chassis.mech_profiles converts [MechProfile] MoveType/LOSFactor to data/chassis/*.json; the copters (also the missions' Light/Medium/Heavy copters, previously walking) fly straight (SimMap.AIR), set off no mines, are strike-immune in flight, can't capture, don't count for extraction. Tests: support_test.gd (scout delivery/flight, strike immunity, no capture), command_input_test.gd (suppression button). Copter missions sweep (jobs 2): mc2_04 3/3, mc2_06 2/3, mc2_10 3/3 (formation sweep 3/3, 3/3, 3/3)."
     }
   ],
   "choices": [

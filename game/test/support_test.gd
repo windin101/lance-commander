@@ -236,3 +236,40 @@ func test_a_mech_stays_powered_down_through_the_truck_repair() -> void:
 	assert_int(up_during).is_equal(0)
 	assert_int(m.status).is_equal(SimUnit.Status.NORMAL)  # powered back up when done
 	assert_bool(m.powered_down).is_false()
+
+
+# --- scout copter and air movers (3.8) --------------------------------------------------------
+
+func test_scout_copter_is_delivered_shut_down_and_flies() -> void:
+	sm.support.rp = 20000
+	var m: SimUnit = _lance()[0]
+	assert_bool(sm.support.call_power("scout_copter", m.position + Vector2(30, 0))).is_true()
+	assert_int(sm.support.rp).is_equal(18000)
+	_run(5.0)
+	var cop: Array = sm.world.units.filter(func(u): return u is SimMech and u.model == "scoutcopter")
+	assert_int(cop.size()).is_equal(1)
+	var c: SimMech = cop[0]
+	assert_bool(c.flying).is_true()
+	assert_int(c.status).is_equal(SimUnit.Status.SHUTDOWN)  # created shut down
+	_run(6.0)
+	assert_int(c.status).is_equal(SimUnit.Status.NORMAL)  # up as the VTOL leaves
+	assert_float(c.los_factor).is_equal(1.2)
+	# flies straight: a path is the goal itself, whatever lies between
+	var far := c.position + Vector2(600, 0)
+	assert_bool(sm.world.order_move(c, far)).is_true()
+	assert_int(c.path.size()).is_equal(1)
+
+
+func test_air_movers_ignore_strikes_and_cannot_capture() -> void:
+	sm.support.rp = 20000
+	var m: SimUnit = _lance()[0]
+	sm.support.call_power("scout_copter", m.position + Vector2(30, 0))
+	_run(11.0)
+	var c: SimMech = sm.world.units.filter(func(u): return u is SimMech and u.model == "scoutcopter")[0]
+	var before := _armour(c)
+	sm.support.call_power("air_strike", c.position)
+	_run(8.0)
+	assert_float(_armour(c)).is_equal(before)  # immune in flight (artlry.cpp:585-592)
+	var building: SimUnit = sm.world.units.filter(func(u): return u is SimStructure and sm.abl.can_capture(u, 0))[0]
+	sm.abl.player_order(c, "capture", building)
+	assert_int(int(c.brain.order.get("code", 0))).is_not_equal(SimAbl.TO_CAPTURE)

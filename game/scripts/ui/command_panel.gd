@@ -27,6 +27,7 @@ const COMMANDS := [
 	["long", "Long range", "L", "Attack from long range (60 m). Hold L and right-click, or toggle."],
 	["force_fire", "Force fire", "F", "Fire on whatever you right-click next: the ground, a building or your own unit."],
 	["lay_mines", "Lay mines", "", "Selected minelayers lay a mine in every cell they drive through on their next moves. Toggle."],
+	["suppress", "Suppression fire", "", "Selected artillery pieces keep shelling the ground point you right-click. Toggle off to stop."],
 ]
 ## Waypoints have no button: hold Ctrl while giving orders to queue them (the original's
 ## waypoint key, missiongui.cpp:842).
@@ -35,6 +36,7 @@ const SUPPORT_HELP := {
 	"sensor_probe": "Drop a sensor probe: reveals enemies around it for two minutes.",
 	"artillery_piece": "Deliver a Long Tom artillery piece. It shells enemies in reach, even out of its own sight when your units see them.",
 	"repair_truck": "Deliver a repair truck. Select it and right-click a damaged 'Mech.",
+	"scout_copter": "Deliver a scout copter: a fast, unarmed flier that sees over anything. It can't capture.",
 	"minelayer": "Deliver a minelayer. Select it, press Lay mines and right-click: it lays mines along the way.",
 	"salvage_craft": "Send a salvage craft to a disabled 'Mech to recover it.",
 }
@@ -42,7 +44,7 @@ const SUPPORT_HELP := {
 ## Tile titles: short, so six tiles fit the row (the original's tab shows icons); the rollover
 ## help gives the full name and cost.
 const TILE_LABELS := {"air_strike": "Air strike", "artillery_piece": "Artillery", "sensor_probe": "Probe",
-	"repair_truck": "Repair truck", "minelayer": "Mines", "salvage_craft": "Salvage"}
+	"repair_truck": "Repair", "scout_copter": "Scout", "minelayer": "Mines", "salvage_craft": "Salvage"}
 
 var kit: HudKit
 var icons := {}  # command id -> IconButton
@@ -149,7 +151,8 @@ func update_state(on: Dictionary, sup: SimSupport, armed_power: String, can_jump
 	for id in icons:
 		var b: IconButton = icons[id]
 		b.on = on.get(id, false)
-		b.disabled = (id == "jump" and not can_jump) or (id == "lay_mines" and not on.get("can_lay_mines", false))
+		b.disabled = (id == "jump" and not can_jump) or (id == "lay_mines" and not on.get("can_lay_mines", false)) \
+			or (id == "suppress" and not on.get("can_suppress", false))
 	if sup == null:
 		return
 	rp_label.text = thousands(sup.rp)
