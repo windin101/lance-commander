@@ -265,7 +265,8 @@ func player_order(u: SimUnit, kind: String, arg: Variant = null, opts: Dictionar
 	match kind:
 		"capture":
 			var t: SimUnit = arg
-			if not can_capture(t, u.team) or capture_blocker(t, u, false) != null:
+			# an air mover can't capture (warrior.cpp:7577)
+			if u.flying or not can_capture(t, u.team) or capture_blocker(t, u, false) != null:
 				world.events.append({"type": "capture_refused", "unit": u.id, "target": t.id})
 				return
 			o = {"code": TO_CAPTURE, "target": t, "goal": _capture_goal(u, t), "run": run, "origin": 0}
@@ -444,7 +445,7 @@ func _capture_goal(u: SimUnit, t: SimUnit) -> Vector2:
 		var ring := []
 		for k in 16:
 			var dir := Vector2.from_angle(TAU * k / 16.0)
-			var p := world.map.nearest_walkable(t.position + dir * r, u.hover, 3)
+			var p := world.map.nearest_walkable(t.position + dir * r, u.travel(), 3)
 			var c := world.map.cell_of(p)
 			# within reach with the walk's arrival slack to spare (ARRIVE_M), or the mech can stop
 			# just outside it (I85: 37 m from a 37 m reach)
@@ -454,7 +455,7 @@ func _capture_goal(u: SimUnit, t: SimUnit) -> Vector2:
 			ring.append(p)
 		ring.sort_custom(func(a, b): return a.distance_to(u.position) < b.distance_to(u.position))
 		for p in ring:
-			if world.map.cell_of(p) == world.map.cell_of(u.position) or world.map.find_path(u.position, p, u.hover).size() > 0:
+			if world.map.cell_of(p) == world.map.cell_of(u.position) or world.map.find_path(u.position, p, u.travel()).size() > 0:
 				return p
 	return _closest_reachable(u, t)
 
@@ -467,11 +468,11 @@ func _closest_reachable(u: SimUnit, t: SimUnit) -> Vector2:
 	for dy in range(-8, 9):
 		for dx in range(-8, 9):
 			var c := tc + Vector2i(dx, dy)
-			if m.in_bounds(c) and m.is_walkable(c, u.hover):
+			if m.in_bounds(c) and m.is_walkable(c, u.travel()):
 				cands.append(m.cell_center(c))
 	cands.sort_custom(func(a, b): return a.distance_to(t.position) < b.distance_to(t.position))
 	for p in cands.slice(0, 12):
-		if m.cell_of(p) == m.cell_of(u.position) or m.find_path(u.position, p, u.hover).size() > 0:
+		if m.cell_of(p) == m.cell_of(u.position) or m.find_path(u.position, p, u.travel()).size() > 0:
 			return p
 	return t.position
 

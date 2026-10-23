@@ -20,6 +20,7 @@ var force_paint: Array = []  # the replaced lance's paint, for the campaign forc
 var kills: Dictionary = {}  # killer unit id -> [weight class of each kill] (pilot experience, campaign-layer.md 8.2)
 var use_abl := true  # false: no AI brains at all (sim tests that need passive enemies)
 var pilots: Dictionary = {}  # profile -> warrior FIT (support deliveries' pilots)
+var chassis: Dictionary = {}  # chassis key -> chassis data (the scout copter delivery)
 static var remap_building_teams := true  # false: placements keep team 2+ (A/B probes)
 static var use_turrets := true  # false: map turrets stay scenery (tests that need a quiet map)
 
@@ -31,6 +32,7 @@ static func load_mission(data: Object, mission: String, seed_value: int = 1, run
 	var sm := SimMission.new()
 	sm.use_abl = run_abl
 	sm.pilots = data.pilots
+	sm.chassis = data.chassis
 	var fit: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/%s.json" % mission))
 	var map := SimMap.load_mission(mission)
 	map.forest_cost = float(data.gamesys["General"].get("ForestMoveCost", 50))

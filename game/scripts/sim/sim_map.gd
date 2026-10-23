@@ -11,6 +11,9 @@ extends RefCounted
 const CELLS_PER_VERTEX := 3
 const COST_CLEAR := 100.0  # Move.h:91
 const COST_BLOCKED := 10000.0
+## Pass as the `hover` argument for an air mover (MOVETYPE_AIR, move level 2: the copters): it
+## flies straight over anything on the map (mover.cpp:4260).
+const AIR := 2
 
 var name := ""
 var meta: Dictionary = {}
@@ -219,8 +222,10 @@ func move_cost(cell: Vector2i, hover: bool = false, travel_offmap: bool = false)
 	return cost
 
 
-func is_walkable(cell: Vector2i, hover: bool = false) -> bool:
-	return move_cost(cell, hover) < COST_BLOCKED
+func is_walkable(cell: Vector2i, hover = false) -> bool:
+	if hover is int and hover == AIR:
+		return in_bounds(cell) and cell_flag(cell, "offmap") == 0
+	return move_cost(cell, bool(hover)) < COST_BLOCKED
 
 
 # --- pathfinding ----------------------------------------------------------
@@ -250,7 +255,10 @@ func _build_grid(hover: bool, travel_offmap: bool = false) -> AStarGrid2D:
 
 ## Path of world positions (cell centres) from start to goal, empty if none.
 ## Ends exactly at the goal when the goal cell is reachable.
-func find_path(start: Vector2, goal: Vector2, hover: bool = false) -> PackedVector2Array:
+func find_path(start: Vector2, goal: Vector2, hover = false) -> PackedVector2Array:
+	if hover is int and hover == AIR:
+		return PackedVector2Array([goal]) if in_bounds(cell_of(goal)) else PackedVector2Array()
+	hover = bool(hover)
 	if _astar == null:
 		build_pathing()
 	if hover and _astar_hover == null:
@@ -288,7 +296,9 @@ func find_path(start: Vector2, goal: Vector2, hover: bool = false) -> PackedVect
 
 
 ## Nearest walkable cell centre to a position, searching outward ring by ring.
-func nearest_walkable(pos: Vector2, hover: bool = false, max_radius: int = 30) -> Vector2:
+func nearest_walkable(pos: Vector2, hover = false, max_radius: int = 30) -> Vector2:
+	if hover is int and hover == AIR:
+		return pos
 	var c := cell_of(pos)
 	if in_bounds(c) and is_walkable(c, hover):
 		return pos

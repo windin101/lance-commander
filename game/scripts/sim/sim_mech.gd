@@ -62,6 +62,8 @@ static func from_chassis(chassis: Dictionary, variant_index: int, rules: SimRule
 	m.walk_speed = m.run_speed * 0.52
 	m.max_torso_yaw = float(chassis.get("max_torso_yaw", 120))
 	m.turret_rate = float(chassis.get("torso_yaw_rate", 360))
+	m.flying = int(chassis.get("move_type", 0)) == 1  # [MechProfile] MoveType 1: the copters (mech.cpp:675)
+	m.los_factor = float(chassis.get("los_factor", 1.0))
 	for key in BODY_KEYS:
 		m.max_internal.append(float(chassis["max_internal"][key]))
 		m.internal.append(float(variant["internal"][key]))

@@ -56,6 +56,7 @@ var mode_bits := 0  # the toggled palette modes (curOrder)
 var fire_from_position := false  # ControlGui fireFromCurrentPos
 var range_mode := ""  # ControlGui setRange: "" (FIRERANGE_OPTIMAL) or short / medium / long (the range buttons)
 var force_fire := false  # the force-fire button: the next right-click is a forced shot
+var suppress := false  # the GUARDTOWER button (controlGui.cpp:2200-2228): artillery pieces shell a point
 var lay_mines := false  # the LAYMINES button (controlGui.cpp:1110-1117): a minelayer's moves lay mines
 var _queued: Array[SimUnit] = []  # units given waypoints since the waypoint key went down
 var _held := {}  # mode keys held down -> their mode
@@ -169,6 +170,8 @@ func mode_on(kind: String) -> bool:
 		return not selection.is_empty() and selection.all(func(m): return m.hold_position)
 	if kind == "lay_mines":
 		return lay_mines
+	if kind == "suppress":
+		return suppress
 	if kind == "force_fire":
 		return force_fire or _held.values().has(kind)
 	if kind in RANGES:
@@ -197,6 +200,20 @@ func toggle_mode(kind: String) -> bool:
 			range_mode = "" if range_mode == kind else kind  # the range buttons are a radio group
 		"force_fire":
 			force_fire = not force_fire
+		"suppress":
+			# un-pressing clears suppression on all the player's immobile units (controlGui.cpp:2205-2228)
+			if suppress:
+				suppress = false
+				for u in world.units:
+					if u.team == player_team and u.is_mover() and u.run_speed <= 0.0 and u.suppression:
+						u.suppression = false
+						if u.order == SimWorld.Order.ATTACK_POINT:
+							world.order_hold(u)
+				return true
+			if not selection.any(func(m): return m.is_mover() and m.run_speed <= 0.0 and m.num_weapons > 0):
+				world.events.append({"type": "order_refused", "order": "suppress", "why": "no_artillery"})
+				return false
+			suppress = true
 		"lay_mines":
 			if not lay_mines and not selection.any(func(m): return m is SimVehicle and m.mine_stock > 0):
 				world.events.append({"type": "order_refused", "order": "lay_mines", "why": "no_minelayer"})
@@ -449,6 +466,16 @@ func _command(screen: Vector2) -> void:
 			return
 	var run := mode_on("run")
 	var target := mech_at(screen)
+	if suppress:
+		# doGuardTower (missiongui.cpp:5480-5508): suppressionFire on the selected units and an attack
+		# point from where they stand (FIRERANGE_CURRENT, no pursue); the button stays pressed
+		var sp = ground_at(screen)
+		if sp == null:
+			return
+		for m in selection:
+			if m.is_mover() and m.run_speed <= 0.0 and m.num_weapons > 0:
+				_order(m, "attack_point", sp, {"pursue": false, "suppression": true})
+		return
 	if mode_on("force_fire"):
 		# forceShot (missiongui.cpp:3208-3240): attack whatever is under the cursor, a friend or a
 		# building included, else the ground point (TACTICAL_ORDER_ATTACK_POINT); firing from the

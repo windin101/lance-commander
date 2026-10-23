@@ -7,9 +7,8 @@ extends RefCounted
 ## Implemented: air strike (3.1), sensor probe (3.2), repair truck, minelayer and artillery piece
 ## via VTOL delivery (3.3, 3.4, 3.5, 3.9), salvage craft (3.6), repair bays (3.7), RP gains on
 ## capture (1), spotter strikes (5).
-## Not yet: the scout copter (an air "mech", no air movement in the sim) and the artillery
-## piece's suppression fire on a ground point (it fires at enemies in reach, LOS or a team
-## mate's, like any unit without a brain).
+## The artillery piece fires at enemies in reach (its own LOS or a team mate's) like any unit
+## without a brain, and shells a ground point on suppression fire (the GUARDTOWER button).
 ## Simplifications: no line-of-sight model, so an air strike is always the big one;
 ## the cost is charged when the target is placed rather than on the button press
 ## (same outcome: the original refunds a cancelled call); deliveries appear without
@@ -17,11 +16,11 @@ extends RefCounted
 
 ## controlGui.cpp:80-89 costs; the support tab's order (controlGui.cpp:92-115), less the scout.
 const COSTS := {"air_strike": 7000, "artillery_piece": 8000, "sensor_probe": 2000, "repair_truck": 6000,
-	"minelayer": 4000, "salvage_craft": 10000}
-const ORDER := ["air_strike", "artillery_piece", "sensor_probe", "repair_truck", "minelayer", "salvage_craft"]
+	"scout_copter": 2000, "minelayer": 4000, "salvage_craft": 10000}
+const ORDER := ["air_strike", "artillery_piece", "sensor_probe", "repair_truck", "scout_copter", "minelayer", "salvage_craft"]
 const LABELS := {"air_strike": "Air strike", "artillery_piece": "Artillery piece", "sensor_probe": "Sensor probe",
-	"repair_truck": "Repair truck", "minelayer": "Minelayer", "salvage_craft": "Salvage craft"}
-const DELIVERIES := ["repair_truck", "artillery_piece", "minelayer", "salvage_craft"]  # one VTOL / Karnov at a time (2)
+	"repair_truck": "Repair truck", "scout_copter": "Scout copter", "minelayer": "Minelayer", "salvage_craft": "Salvage craft"}
+const DELIVERIES := ["repair_truck", "artillery_piece", "scout_copter", "minelayer", "salvage_craft"]  # one VTOL / Karnov at a time (2)
 ## The delivered unit's vehicle file and pilot (controlGui.cpp:101-115: 182 PMWRepair, 120
 ## PMWMinelayer, 415 PMWGuardTower).
 const VEHICLE_OF := {"repair_truck": ["repairtruck", "pmwrepair"], "minelayer": ["minelayer", "pmwminelayer"],
@@ -90,6 +89,13 @@ func call_power(kind: String, target: Variant) -> bool:
 			pending.append({"kind": "strike", "at": target, "impact": t + STRIKE_DELAY, "team": sm.player_team})
 		"sensor_probe":
 			probes.append({"pos": target, "t0": t})
+		"scout_copter":
+			# PEGASUS_SCOUT (controlGui.cpp:86, 105): ScoutCopter.fit, an air "mech" on the
+			# scoutcopter chassis, pilot PMWScout; it arrives shut down and powers up when the VTOL
+			# leaves (support-powers.md 3.3, 3.8)
+			delivering = true
+			pending.append({"kind": "vtol", "mech": "scoutcopter", "pilot": "pmwscout",
+				"at": target, "spawn": t + VTOL_SPAWN, "done": t + VTOL_DONE, "unit": null})
 		"repair_truck", "minelayer", "artillery_piece":
 			delivering = true
 			pending.append({"kind": "vtol", "vehicle": VEHICLE_OF[kind][0], "pilot": VEHICLE_OF[kind][1],
@@ -133,7 +139,7 @@ func order_bay_repair(mech: SimUnit, bay: SimUnit) -> bool:
 		return false
 	cancel_bay_repair(mech)
 	bay.refit_buddy = mech
-	var goal := world.map.nearest_walkable(bay.position, mech.hover)
+	var goal := world.map.nearest_walkable(bay.position, mech.travel())
 	bay_repairs.append({"bay": bay, "mech": mech, "phase": "move", "next": 0.0, "goal": goal})
 	world.order_move(mech, goal, true)
 	return true
@@ -190,9 +196,15 @@ func step() -> void:
 					continue
 			"vtol":
 				if p["unit"] == null and t >= p["spawn"]:
-					p["unit"] = _spawn_vehicle(p["vehicle"], p["at"], String(p.get("pilot", "")))
+					if p.has("mech"):
+						p["unit"] = _spawn_mech(p["mech"], p["at"], String(p.get("pilot", "")))
+					else:
+						p["unit"] = _spawn_vehicle(p["vehicle"], p["at"], String(p.get("pilot", "")))
 				if t >= p["done"]:
 					delivering = false
+					if p["unit"] != null and p.has("mech") and (p["unit"] as SimUnit).status == SimUnit.Status.SHUTDOWN:
+						(p["unit"] as SimUnit).status = SimUnit.Status.NORMAL  # powered up as the VTOL leaves
+						(p["unit"] as SimUnit).powered_down = false
 					continue
 			"salvage":
 				if t >= p["done"]:
@@ -230,6 +242,8 @@ func _strike(at: Vector2) -> void:
 		var d := u.position.distance_to(at)
 		if d > STRIKE_REACH_M + extent:
 			continue
+		if u.flying and u.status != SimUnit.Status.SHUTDOWN:
+			continue  # an air mover in flight is immune (artlry.cpp:585-592)
 		var hits := STRIKE_MAJOR_HITS if d <= STRIKE_MAJOR_M else STRIKE_MINOR_HITS
 		for i in hits:
 			var loc: int
@@ -265,6 +279,29 @@ func _spotters() -> void:
 
 
 # --- deliveries (3.3) --------------------------------------------------------------------
+
+func _spawn_mech(chassis_key: String, at: Vector2, pilot_profile: String) -> SimUnit:
+	if not sm.chassis.has(chassis_key):
+		return null
+	var pilot_fit: Dictionary = sm.pilots.get(pilot_profile, {})
+	var pilot := SimPilot.from_fit(pilot_fit) if not pilot_fit.is_empty() else SimPilot.make(50, 50)
+	var m := SimMech.from_chassis(sm.chassis[chassis_key], 0, world.rules, pilot)
+	m.model = chassis_key
+	m.pilot_profile = pilot_profile
+	m.team = sm.player_team
+	m.commander = 0
+	m.is_player = true
+	m.position = at
+	m.part_id = _next_reinforcement_id
+	_next_reinforcement_id += 1
+	m.status = SimUnit.Status.SHUTDOWN  # an air unit is created shut down (missiongui.cpp:4141-4200)
+	m.powered_down = true
+	world.add_unit(m)
+	if sm.abl:
+		sm.abl.add_pilot(m, "pbrain")
+	world.events.append({"type": "unit_added", "unit": m.id})
+	return m
+
 
 func _spawn_vehicle(file: String, at: Vector2, pilot_profile: String = "") -> SimUnit:
 	var path := "res://data/vehicles/%s.json" % file
@@ -367,7 +404,7 @@ func _end_bay(r: Dictionary, walk_off: bool) -> void:
 	if walk_off and not mech.is_disabled():
 		# worldToTile, +1 row and +1 col, cell (2, 2) of that tile (tacordr.cpp:1601-1607)
 		var v := world.map.vertex_m
-		world.order_move(mech, world.map.nearest_walkable(bay.position + Vector2(v, -v), mech.hover), false)
+		world.order_move(mech, world.map.nearest_walkable(bay.position + Vector2(v, -v), mech.travel()), false)
 	if bay.refit_buddy == mech:
 		bay.refit_buddy = null
 	bay_repairs.erase(r)

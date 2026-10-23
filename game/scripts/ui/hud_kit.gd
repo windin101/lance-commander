@@ -185,6 +185,9 @@ const ICONS := {
 	# force fire: crosshair with a bar through it
 	"force_fire": ["circle", [Vector2(12, 3), Vector2(12, 21)], [Vector2(3, 12), Vector2(21, 12)],
 		[Vector2(5, 19), Vector2(19, 5)]],
+	# suppression fire: a shell's arc onto a cross on the ground
+	"suppress": ["c", Vector2(3, 20), Vector2(6, 4), Vector2(14, 4), Vector2(18, 16),
+		[Vector2(15, 19), Vector2(21, 19)], [Vector2(18, 16), Vector2(18, 22)]],
 	# lay mines: three mines on the ground line
 	"lay_mines": [[Vector2(3, 18), Vector2(21, 18)], [Vector2(5, 18), Vector2(5, 15), Vector2(8, 15), Vector2(8, 18)],
 		[Vector2(10, 18), Vector2(10, 15), Vector2(13, 15), Vector2(13, 18)],
