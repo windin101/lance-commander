@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_22
+ABL pilots: 72
+t= 193.9  LOST ShadowCat (disabled, armour 50%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 214.5  LOST Shootist (disabled, armour 21%, heat 9, ejected false, pilot 2.0 wounds, last hit by MenShen)
+t= 291.8  LOST MenShen (disabled, armour 28%, heat 0, ejected false, pilot 1.0 wounds, last hit by LaoHu)
+t= 367.8  LOST Catapult (disabled, armour 45%, heat 0, ejected false, pilot 2.0 wounds, last hit by Raven)
+t= 406.1  LOST Catapult (disabled, armour 4%, heat 0, ejected false, pilot 2.0 wounds, last hit by Raven)
+t= 515.2  LOST Highlander (disabled, armour 13%, heat 11, ejected false, pilot 2.0 wounds, last hit by MenShen)
+t= 543.8  LOST Jagermech (disabled, armour 17%, heat 0, ejected false, pilot 1.0 wounds, last hit by MenShen)
+t= 772.3  LOST ShadowCat (disabled, armour 18%, heat 0, ejected false, pilot 0.0 wounds, last hit by LaoHu)
+t= 800.3  LOST Bushwacker (disabled, armour 25%, heat 0, ejected false, pilot 1.0 wounds, last hit by LaoHu)
+seed 3 end t=1800 result=PLAYING  player alive 1  enemies alive 31
+damage to lance: 1786 from 37 attackers; hits by location (0 head .. 10 rear RT): { 1: 133, 2: 121, 6: 98, 4: 88, 3: 109, 7: 79, 5: 72, 0: 11, 8: 4, 9: 2, 10: 2 }
+       577  MenShen (mech)
+       324  Partisan (vehicle)
+       272  Raven (mech)
+       199  Starslayer (mech)
+       154  LaoHu (mech)
+        96  Catapult (mech)
+        86  Anubis (mech)
+        78  Swarmlrmc (vehicle)
+  obj 0 P: open  Destroy the Liao Elite Guard
+  obj 1 P: open  Destroy the Liao Palace
+  obj 2 P: gated  Move all surviving Mechs to Extraction Point
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 8, "mc2_22_EC1_LRM:start": 2, "mc2_22_EC2_Heavy_Shutdown:attack": 2, "mc2_22_EC2_Medium_Shutdown:attack": 4, "mc2_22_EC2_Light_Shutdown:attack": 4, "mc2_22_EC3_Boss:start": 1, "mc2_22_EC3_Guards:start": 4, "mc2_22_EC1_Mech_center_1:attack": 1, "mc2_22_EC1_Mech_center_2:attack": 1, "mc2_22_EC1_Mech_left:start": 3, "mc2_22_EC1_Mech_right:attack": 2, "pbrain:attack": 1, "mc2_22_EC1_Veh_Left:attack": 2, "mc2_22_EC1_VEH_right:attack": 2, "mc2_22_EC2_ForestShutDown_West:start": 3, "mc2_22_EC2_ForestShutDown_EAST:start": 3, "mc2_22_EC2_Forest_Spotters:start": 2, "mc2_22_EC2_Light_Patrol_WEST:attack": 3, "mc2_22_EC2_Light_Patrol_east:attack": 3, "mc2_22_EC3_Guard2:start": 2, "mc2_22_EC2_ForestE_Patrol:attack": 5, "mc2_22_EC2_ForesW_Patrol:start": 3, "mc2_22_EC2_swarm:noweapons": 1, "mc2_22_EC2_swarm:attack": 2, "mc2_22_EC4_Ambush_lrm:gotopalace": 4, "mc2_22_EC4_Ambush:gotopalace": 2, "mc2_22_EC4_Spotter:start": 2, "pbrain:": 1 }
+enemy pilots that moved >20 m: 53 / 73
+
+--- stderr ---
+WARNING: 995 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

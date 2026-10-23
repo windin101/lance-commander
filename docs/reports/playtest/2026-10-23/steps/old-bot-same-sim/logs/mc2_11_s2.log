@@ -1,0 +1,53 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_11
+ABL pilots: 39
+t=   0.1  capture target Jagermech destroyed by ?
+t=   0.1  capture target ShadowCat destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Jagermech destroyed by ?
+t= 421.3  LOST Raven (disabled, armour 27%, heat 0, ejected false, pilot 1.0 wounds, last hit by Enfield)
+t= 625.7  objective done: a - Capture RP Buildings at Davion Installation
+t= 629.8  objective done: 1 - Capture Davion Weapons Facility
+t= 673.6  objective done: b - Salvage Davion 'Mechs at salvage yard
+t= 792.1  objective done: 2 - Capture Steiner Weapons Facility
+t= 969.8  objective done: 3 - Capture Steiner HQ Building
+seed 2 end t=1800 result=PLAYING  player alive 8  enemies alive 3
+damage to lance: 337 from 24 attackers; hits by location (0 head .. 10 rear RT): { 4: 21, 2: 19, 1: 10, 10: 2, 6: 10, 3: 12, 5: 16, 0: 3, 7: 16, 9: 5, 8: 4 }
+       101  Enfield (mech)
+        70  Drillson (vehicle)
+        37  Zeus (mech)
+        28  Jagermech (mech)
+        24  Wolfhound (mech)
+        24  Centipede (vehicle)
+        14  Shootist (mech)
+        13  Highlander (mech)
+        10  Hollander (mech)
+         9  Bushwacker (mech)
+  obj 0 s: done  a - Capture RP Buildings at Davion Installation
+  obj 1 s: done  b - Salvage Davion 'Mechs at salvage yard
+  obj 2 P: done  1 - Capture Davion Weapons Facility
+  obj 3 P: done  2 - Capture Steiner Weapons Facility
+  obj 4 P: done  3 - Capture Steiner HQ Building
+  obj 5 P: open  4 - Extract at Steiner Drop Ship Pad
+  obj 6 s hidden: open  hidden objective for sensor towers
+  obj 7 s hidden: open  hidden objective for sensor control
+  obj 8 s hidden: done  bool 01
+  obj 9 s hidden: done  bool 02
+  obj 10 s hidden: done  bool 03
+  obj 11 s hidden: done  bool 04
+  obj 12 s hidden: done  bool 05
+  obj 13 s hidden: done  bool 06
+  obj 14 s hidden: done  Hidden Trigger for Salvage VO
+  obj 15 s hidden: done  Start of mission wav file
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 4, "mc2_11_EC1_grp4:start": 2, "mc2_11_EC1_Grp2:attack": 2, "pbrain:start": 5, "mc2_11_EC2_grp1:attack2": 1, "mc2_11_EC2_grp2:attack": 1, "mc2_11_EC3_grp2:attack": 2, "mc2_11_EC3_grp3:attack": 1, "mc2_11_EC2_grp4:amok": 1, "mc2_11_EC2_grp3:attack": 1, "mc2_11_dred:attack": 9, "mc2_11_dred:start": 1, "mc2_11_ec4_grp4:amok": 1, "mc2_11_ec1_grp1:attack": 2, "mc2_11_EC3_grp1:attack": 2, "mc2_11_EC1_Grp3:attack": 2, "mc2_11_EC1_grpwav:attack": 1, "mc2_11_dred_lrm:attack": 1, "pbrain:": 5 }
+enemy pilots that moved >20 m: 33 / 44
+
+--- stderr ---
+WARNING: 726 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,39 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_17
+ABL pilots: 61
+t=   3.0  objective done: Escort Jason Cho to Rendezvous Location
+t=  34.7  LOST Werewolf (disabled, armour 28%, heat 0, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t=  38.6  LOST Werewolf (disabled, armour 15%, heat 0, ejected false, pilot 2.0 wounds, last hit by Zeus)
+t=  56.2  LOST Werewolf (destroyed, armour 28%, heat 0, ejected false, pilot 1.0 wounds, last hit by Hollander)
+t=  81.1  LOST Hunchback (destroyed, armour 32%, heat 0, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t= 128.7  LOST Catapult (disabled, armour 19%, heat 0, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t= 159.9  LOST Madcat (disabled, armour 12%, heat 17, ejected false, pilot 3.0 wounds, last hit by Highlander)
+t= 175.4  LOST Catapult (disabled, armour 30%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hollander)
+t= 178.4  LOST Zeus (disabled, armour 67%, heat 33, ejected false, pilot 1.0 wounds, last hit by Highlander)
+t= 183.5  MISSION LOST
+seed 2 end t=183 result=LOST  player alive 16  enemies alive 31
+damage to lance: 792 from 12 attackers; hits by location (0 head .. 10 rear RT): { 2: 22, 4: 21, 5: 31, 1: 32, 3: 31, 7: 21, 6: 15, 0: 4, 10: 3, 8: 3, 9: 3 }
+       460  Highlander (mech)
+       124  Zeus (mech)
+        90  Hollander (mech)
+        57  Bushwacker (mech)
+        48  Werewolf (mech)
+        14  Atlas (mech)
+  obj 0 P: done  Escort Jason Cho to Rendezvous Location
+  obj 1 P: open  Kill all Enemy Forces
+  obj 2 s: open  Sec: Take Control of Steiner Base
+  obj 3 s hidden: open  Hidden Triggered Used to Activate Liao Son
+  obj 4 s hidden: open  Hidden Trigger to Kill Liao Son
+  obj 5 s hidden: open  Hidden Object To trigger Liao Reinforce Gp 2
+  obj 6 s hidden: open  Hidden Trigger to kill Liao Son's Troop
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 5, "mc2_17_EC1_Cen_Mech_1:start": 1, "mc2_17_EC1_Cen_Mech_0:attack": 1, "mc2_17_EC1_Cen_Mech_2:attack": 2, "mc2_17_EC1_Flk_Mech_M2:baseassault": 2, "mc2_17_EC1_Flk_Mech_M1:baseassault": 3, "mc2_17_a1_Copter_2a:start": 6, "mc2_17_a2_Liao_Mech_1:start": 1, "mc2_17_a2_Liao_Mech_1b:start": 1, "mc2_17_a2_Liao_Mech_1a:start": 1, "mc2_17_a2_Liao_Mech_2:start": 1, "mc2_17_a2_Liao_Mech_2a:start": 1, "mc2_17_a2_Liao_Mech_4a:start": 1, "mc2_17_a2_Liao_Mech_4b:start": 1, "mc2_17_a2_Liao_Mech_4:start": 1, "mc2_17_a3_Liao_Mech_1:start": 5, "mc2_17_a3_Liao_Mech_2:start": 4, "mc2_17_EC1_Stein_Guard_1:guardhill": 1, "mc2_17_EC1_Stein_Guard_2:guardhill": 1, "mc2_17_CamDum_son:runsaways": 1, "mc2_17_EC1_Steiner_Boss:baseassault": 1, "mc2_17_a1_LiaoSon:start": 1, "mc2_17_rebel_LRM_1d:start": 1, "mc2_17_rebel_LRM_1c:start": 1, "mc2_17_rebel_LRM_1b:start": 1, "mc2_17_rebel_LRM_1a:start": 1, "mc2_17_rebel_FuelTruck_1:start": 1, "mc2_17_rebel_FuelTruck_3:start": 1, "mc2_17_rebel_FuelTruck_2:start": 1, "mc2_17_rebel_FuelTruck_4:start": 1, "mc2_17_rebel_Part_1a:start": 1, "mc2_17_rebel_Part_1b:start": 1, "mc2_17_rebel_Hover_Drill_1:start": 2, "mc2_17_rebel_Hover_Cent_1:start": 2, "mc2_17_rebel_Hover_Cent_2:start": 2, "mc2_17_CamDum_Stien:start": 3 }
+enemy pilots that moved >20 m: 17 / 61
+
+--- stderr ---
+WARNING: 456 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

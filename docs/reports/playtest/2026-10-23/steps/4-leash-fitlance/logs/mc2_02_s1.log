@@ -1,0 +1,44 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_02
+force: fit 4 units 170 t of 170 t, RP 6000: Razorback Prime(pmp_bubba), Razorback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)
+ABL pilots: 46
+t=   7.3  objective done: 1. Capture Resource Building
+t=  15.5  SUPPORT air_strike (422, -30) rp_left=9000
+t= 144.1  objective done: 2. Destroy All Bandits at Base Gemini South
+t= 151.2  objective done: 3. Capture Steiner Sensor Control
+t= 246.4  PULLBACK Werewolf at 27%
+t= 249.5  SUPPORT repair_truck (-480, 256) rp_left=3000
+t= 251.5  LOST Werewolf (destroyed, armour 8%, heat 0, ejected false, pilot 1.0 wounds, last hit by Armoredcar)
+t= 275.8  LOST Werewolf (disabled, armour 25%, heat 0, ejected false, pilot 1.0 wounds, last hit by Partisan)
+t= 295.3  objective done: 4. Destroy All Bandits at Base Gemini North
+t= 295.3  objective done: Destroy All Bandit Forces Occupying Base Gemini
+t= 307.4  objective done: 5. Capture Steiner Headquarters
+t= 312.4  MISSION WON
+seed 1 end t=312 result=WON  player alive 3  enemies alive 13
+damage to lance: 248 from 18 attackers; hits by location (0 head .. 10 rear RT): { 7: 11, 6: 9, 2: 15, 5: 15, 1: 18, 0: 3, 4: 7, 3: 17, 9: 2, 8: 2, 10: 1 }
+damage by lance: 576; kills 24
+        63  Lrmcarrier (vehicle)
+        54  Urbanmech (mech)
+        52  Partisan (vehicle)
+        42  Flea (mech)
+        21  Armoredcar (vehicle)
+        16  Centipede (vehicle)
+  obj 0 P: done  1. Capture Resource Building
+  obj 1 P: done  2. Destroy All Bandits at Base Gemini South
+  obj 2 P: done  3. Capture Steiner Sensor Control
+  obj 3 P: done  4. Destroy All Bandits at Base Gemini North
+  obj 4 P: done  5. Capture Steiner Headquarters
+  obj 5 P: done  Destroy All Bandit Forces Occupying Base Gemini
+  obj 6 s hidden: done  Hidden Trigger for Calling in Base Assault Team
+  obj 7 s hidden: done  SUPER HIDDEN OBJECTIVE TO TRIGGER A VO
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 4, "mc2_02_BaseDef_Out_Mech_1:attack": 1, "mc2_02_BaseDef_Mech_1:attack": 1, "mc2_02_BaseDef_Pat_veh_1:attack": 1, "mc2_02_BaseDef_veh_1:attack": 4, "mc2_02_Airport_Veh_1:start": 1, "mc2_02_Airport_Veh_1:attack": 1, "mc2_02_Cargo_2:start": 1, "mc2_02_BaseDef_LRM:attack": 1, "mc2_02_NBase_veh_2:attack": 1, "mc2_02_NBaseG_PD:attack": 3, "mc2_02_NBaseG_v1:attack": 2, "mc2_02_NBase_veh_1:attack": 2, "mc2_02_NBasePat_veh_1:attack": 1, "mc2_02_LakePat_veh_1:start": 3, "mc2_02_LakeRP_veh_1:start": 2, "mc2_02_NBasePat_1:attack": 1, "mc2_02_NBase_REIN_1:start": 3, "mc2_02_RPGuard_veh_1:start": 1, "mc2_02_RPGuard_veh_1:attack": 1, "mc2_02_Cargo_5:start": 1, "mc2_02_Cargo_4:start": 1, "mc2_02_NBase_REIN_m1:start": 1, "mc2_02_CampGuard_APC:start": 1, "mc2_02_CampGuard_MecH:attack": 1, "mc2_02_CampGuard_1:start": 4, "mc2_02_CampGuard_1:attack": 2 }
+enemy pilots that moved >20 m: 29 / 46
+
+--- stderr ---
+WARNING: 468 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

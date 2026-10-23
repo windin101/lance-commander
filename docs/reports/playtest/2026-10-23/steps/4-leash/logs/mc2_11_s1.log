@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_11
+force: campaign 2 units 160 t of 160 t, RP 0: Highlander Prime(pmwsteel), Shootist Prime(pmwclaymore)
+ABL pilots: 37
+t=   0.1  capture target Jagermech destroyed by ?
+t=   0.1  capture target ShadowCat destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Jagermech destroyed by ?
+t= 560.2  LOST Shootist (disabled, armour 26%, heat 4, ejected false, pilot 1.0 wounds, last hit by Hollander)
+t= 592.1  objective done: 3 - Capture Steiner HQ Building
+t= 729.0  LOST Highlander (disabled, armour 10%, heat 8, ejected false, pilot 2.0 wounds, last hit by Werewolf)
+t= 734.0  MISSION LOST
+seed 1 end t=734 result=LOST  player alive 0  enemies alive 17
+damage to lance: 472 from 13 attackers; hits by location (0 head .. 10 rear RT): { 1: 32, 5: 20, 7: 19, 3: 19, 2: 16, 4: 18, 6: 21, 9: 6, 8: 1, 10: 6, 0: 3 }
+damage by lance: 1216; kills 13
+       171  Zeus (mech)
+        80  Drillson (vehicle)
+        74  Jagermech (mech)
+        60  Wolfhound (mech)
+        50  Hollander (mech)
+        37  Werewolf (mech)
+  obj 0 s: open  a - Capture RP Buildings at Davion Installation
+  obj 1 s: open  b - Salvage Davion 'Mechs at salvage yard
+  obj 2 P: open  1 - Capture Davion Weapons Facility
+  obj 3 P: open  2 - Capture Steiner Weapons Facility
+  obj 4 P: done  3 - Capture Steiner HQ Building
+  obj 5 P: gated  4 - Extract at Steiner Drop Ship Pad
+  obj 6 s hidden: open  hidden objective for sensor towers
+  obj 7 s hidden: open  hidden objective for sensor control
+  obj 8 s hidden: open  bool 01
+  obj 9 s hidden: open  bool 02
+  obj 10 s hidden: open  bool 03
+  obj 11 s hidden: open  bool 04
+  obj 12 s hidden: open  bool 05
+  obj 13 s hidden: done  bool 06
+  obj 14 s hidden: open  Hidden Trigger for Salvage VO
+  obj 15 s hidden: done  Start of mission wav file
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_11_EC1_grp4:start": 2, "mc2_11_EC1_Grp2:attack": 2, "mc2_11_dred:start": 10, "mc2_11_EC2_grp1:attack2": 1, "mc2_11_EC2_grp2:attack": 1, "mc2_11_EC3_grp2:start": 2, "mc2_11_EC3_grp3:start": 1, "mc2_11_EC2_grp4:start": 1, "mc2_11_EC2_grp3:attack": 1, "mc2_11_dred:attack": 4, "mc2_11_ec4_grp4:start": 1, "mc2_11_ec1_grp1:attack": 2, "mc2_11_EC3_grp1:start": 2, "mc2_11_EC1_Grp3:attack": 2, "mc2_11_EC1_grpwav:attack": 1, "mc2_11_dred_lrm:start": 1, "DredAttack01:start": 1, "PBrain:": 2 }
+enemy pilots that moved >20 m: 12 / 37
+
+--- stderr ---
+WARNING: 708 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

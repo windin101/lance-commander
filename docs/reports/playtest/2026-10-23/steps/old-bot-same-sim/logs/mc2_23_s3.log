@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_23
+ABL pilots: 88
+t= 235.1  objective done: b. Clear Out Patrols Around Town to Free Rebels
+t= 249.7  LOST Centipede (destroyed, armour 40%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 253.1  LOST Centipede (destroyed, armour 60%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 253.2  LOST Vedette (destroyed, armour 61%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 258.2  LOST Vedette (destroyed, armour 53%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 261.9  LOST Vedette (destroyed, armour 61%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 265.2  LOST Lrmcarrier (destroyed, armour 78%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 270.7  LOST Lrmcarrier (destroyed, armour 52%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 278.8  LOST Madcat (disabled, armour 39%, heat 20, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 284.0  LOST Werewolf (destroyed, armour 37%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 326.7  LOST Catapult (disabled, armour 23%, heat 0, ejected false, pilot 2.0 wounds, last hit by Partisan)
+t= 331.7  MISSION LOST
+seed 3 end t=332 result=LOST  player alive 2  enemies alive 60
+damage to lance: 412 from 14 attackers; hits by location (0 head .. 10 rear RT): { 7: 29, 3: 25, 6: 14, 2: 16, 1: 33, 4: 14, 5: 13, 0: 2 }
+       180  Partisan (vehicle)
+        88  Hunchback (mech)
+        49  Storm (vehicle)
+        40  Werewolf (mech)
+        24  Lrmcarrier (vehicle)
+        20  Heavy Copter (mech)
+        12  Attack Copter (mech)
+  obj 0 P: open  1. Clear Out Steiner Forces at Starport
+  obj 1 P: inactive (flag 0)  2. Eliminate Steiner Reinforcements
+  obj 2 s: open  a. Capture Sensor Control
+  obj 3 s: done  b. Clear Out Patrols Around Town to Free Rebels
+  obj 4 s: open  c. Destroy Steiner Dropships
+  obj 5 s: open  d. Capture Steiner Mobile HQ Vehicle
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 3, "mc2_23_Starport_Mechs_South2:start": 2, "mc2_23_EC1_Razors:attack": 3, "mc2_23_EC1_razor1:attack": 1, "mc2_23_EC1_LRms:attack": 5, "mc2_23_EC2_Bridge_Guards:start": 2, "mc2_23_Base1_Mechs:start": 2, "mc2_23_EC2_razor_recap_sens:start": 2, "mc2_23_EC2_Water_Guards:start": 2, "mc2_23_Lakeside_patrol2:start": 2, "mc2_23_Lakeside_patrol1:start": 2, "mc2_23_Town_chopper1:attack": 1, "mc2_23_Town_chopper2:attack": 1, "mc2_23_Town_chopper3:attack": 1, "mc2_23_Westside_patrol1:start": 1, "mc2_23_Westside_patrol2:start": 2, "mc2_23_Westside_patrol1:attack": 1, "mc2_23_Southside_patrol1:start": 2, "mc2_23_Southside_patrol2:attack": 2, "mc2_23_Southside_patrol1:attack": 1, "mc2_23_Southbase_BushG:start": 1, "mc2_23_Southbase_Cnv_grd:start": 1, "mc2_23_Southbase_chopper2:start": 1, "mc2_23_Southbase_chopper1:start": 1, "mc2_23_Southbase_CNV:start": 2, "mc2_23_Starport_Mechs_North2:start": 1, "mc2_23_Starport_Mechs_North1:start": 1, "mc2_23_Starport_Mechs_South1:start": 1, "mc2_23_Starport_LRMs:start": 9, "mc2_23_Starport_Mechs_East2:start": 1, "mc2_23_Starport_Mechs_East1:start": 2, "mc2_23_dropship_ambush_east:start": 2, "mc2_23_dropship_ambush_north:start": 2, "mc2_23_dropship_ambush_south:start": 2, "mc2_23_Rif1_Mechs_Jump:start": 3, "mc2_23_Rif2_Mechs_Town:start": 3, "mc2_23_Rif3_Mechs_Starport:start": 4, "mc2_23_Resource_Trucks:start": 4, "mc2_23_Reb_vehs:attack": 3, "mc2_23_Reb_vehs3:attack": 2, "mc2_23_Reb_vehs2:attack": 2, "mc2_23_Reb_vehs3:townpatrol": 1, "mc2_23_Reb_vehs2:townpatrol": 1 }
+enemy pilots that moved >20 m: 39 / 88
+
+--- stderr ---
+WARNING: 735 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

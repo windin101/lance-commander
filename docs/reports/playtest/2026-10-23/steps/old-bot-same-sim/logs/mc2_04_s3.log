@@ -1,0 +1,37 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_04
+ABL pilots: 73
+t=  77.1  objective done: 1 - Move to Bandit Convoy's Last Known Location
+t= 294.0  objective done: 2 - Destroy Bandit Supply Convoy
+t= 450.1  objective done: 3 - Capture Weapon's Facility
+t= 498.8  LOST Werewolf (destroyed, armour 26%, heat 0, ejected false, pilot 0.0 wounds, last hit by Attack Copter)
+t= 585.3  objective done: 4 - Extract all surviving mechs
+t= 590.3  MISSION WON
+seed 3 end t=590 result=WON  player alive 4  enemies alive 15
+damage to lance: 226 from 23 attackers; hits by location (0 head .. 10 rear RT): { 3: 9, 6: 11, 1: 7, 5: 3, 7: 9, 4: 10, 2: 10 }
+        78  Attack Copter (mech)
+        48  Anubis (mech)
+        28  Centipede (vehicle)
+        21  Flea (mech)
+        20  Urbanmech (mech)
+        18  Lrmcarrier (vehicle)
+         6  ShaYu (mech)
+         5  Poweredarmor (vehicle)
+         2  Harasser (vehicle)
+  obj 0 P: done  1 - Move to Bandit Convoy's Last Known Location
+  obj 1 P: done  2 - Destroy Bandit Supply Convoy
+  obj 2 P: done  3 - Capture Weapon's Facility
+  obj 3 P: done  4 - Extract all surviving mechs
+  obj 4 s hidden: done  Hidden Trigger to popup last 2 Objectives
+  obj 5 s hidden: open  2nd Hidden Trigger to popup last 2 Objectives
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 5, "mc2_04_E2_haras:attack": 2, "mc2_04_E2_shayus:attack": 1, "mc2_04_E3_haras:start": 5, "mc2_04_E3_anubis:start": 1, "mc2_04_E3_shayus:start": 1, "mc2_04_E3_LRMs:start": 2, "mc2_04_E2_cents:attack": 4, "mc2_04_E4_anubis2:attack": 2, "mc2_04_E4_cents:start": 1, "mc2_04_E1_G1_cents:group0attacks": 4, "mc2_04_E1_G1_LRMs:attack": 2, "mc2_04_E1_G2_fires:attack": 1, "mc2_04_E1_G2_LRMs:start": 1, "mc2_04_E1_G2_cents:attack": 2, "mc2_04_E1_G3_LRMs:attack": 2, "mc2_04_E1_G3_LRMs:start": 1, "mc2_04_E1_G3_fires1:attack": 1, "mc2_04_E1_G3_fires3:start": 1, "mc2_04_E1_G3_cents:start": 1, "mc2_04_E1_Convoy1:base1patrol": 1, "mc2_04_E1_Convoy6:base1patrol": 1, "mc2_04_E1_Convoy5:base1patrol": 1, "mc2_04_E1_G3_urbies:attack": 2, "mc2_04_E2_shayus2:attack": 1, "mc2_04_E1_G3_fires2:attack": 1, "mc2_04_E4_anubis:attack": 1, "mc2_04_E4_scout_copters2:attack": 1, "mc2_04_E4_scout_copters1:attack": 1, "mc2_04_E4_attck_copters1:attack": 1, "mc2_04_E4_attck_copters2:attack": 1, "mc2_04_E4_attck_copters3:attack": 1, "mc2_04_E4_attck_copters4:attack": 1, "mc2_04_E3_cents:start": 2, "mc2_04_E4_parmor:attack": 6, "mc2_04_E1_G3_infantry:attack": 7, "mc2_04_E1_Convoy2:base1patrol": 1, "mc2_04_E1_Convoy4:base1patrol": 1, "mc2_04_E1_Convoy3:base1patrol": 1, "mc2_04_E1_Convoy7:base1patrol": 1 }
+enemy pilots that moved >20 m: 47 / 73
+
+--- stderr ---
+WARNING: 471 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,62 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_10
+force: campaign 4 units 280 t of 280 t, RP 6000: Zeus Prime(pmwsteel), Zeus Prime(pmwclaymore), Shootist Prime(pmwworm), Starslayer Prime(pmwmeat)
+ABL pilots: 47
+t=  24.2  ALLY LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  26.6  ALLY LOST Cargotruck (destroyed, armour 80%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  29.0  ALLY LOST Cargotruck (destroyed, armour 80%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  37.6  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Hunter)
+t=  37.8  ALLY LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  42.3  ALLY LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t=  64.3  ALLY LOST s_admin_wing (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  78.0  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t=  83.7  ALLY LOST s_admin_entry (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 114.8  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 120.3  ALLY LOST s_admin_core (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 143.8  ALLY LOST s_admin_entry (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 162.0  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 164.5  ALLY LOST s_admin_core (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 180.5  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 219.8  ALLY LOST s_admin_entry (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 225.3  ALLY LOST s_admin_wing (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 256.2  ALLY LOST LookoutTower (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 276.7  ALLY LOST LookoutTower (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 279.2  ALLY LOST WaterTower (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 283.0  LOST Starslayer (disabled, armour 44%, heat 0, ejected false, pilot 1.0 wounds, last hit by Centipede)
+t= 286.3  ALLY LOST LiquidStorage (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 298.0  ALLY LOST TransformerStation (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 300.7  ALLY LOST RelayStation (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 323.1  objective done: Destroy all Gulag Defenders
+t= 473.3  objective done: Destroy Steiner Reinforcements
+t= 492.8  LOST Zeus (disabled, armour 45%, heat 36, ejected false, pilot 0.0 wounds, last hit by Atlas)
+t= 537.8  objective done: Destroy All Airfield Defenders
+t= 577.9  objective done: Move All Surviving Mechs to Extraction Point
+t= 582.9  MISSION WON
+seed 1 end t=583 result=WON  player alive 15  enemies alive 1
+damage to lance: 318 from 17 attackers; hits by location (0 head .. 10 rear RT): { 3: 13, 1: 12, 5: 7, 6: 10, 4: 8, 7: 6, 2: 6, 8: 3, 9: 2, 0: 1, 10: 1 }
+damage by lance: 1424; kills 27
+        90  Hollander (mech)
+        84  Centipede (vehicle)
+        56  Hunchback (mech)
+        48  Zeus (mech)
+        16  Atlas (mech)
+        12  Attack Copter (mech)
+         6  Lrmcarrier (vehicle)
+         6  Hunter (vehicle)
+  obj 0 P: done  Destroy all Gulag Defenders
+  obj 1 P: done  Destroy Steiner Reinforcements
+  obj 2 P: done  Destroy All Airfield Defenders
+  obj 3 P: done  Move All Surviving Mechs to Extraction Point
+  obj 4 s: open  Sec:  Capture Steiner Headquarters
+  obj 5 s hidden: open  Protect the Convoy
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_10_EC1_Grp1:start": 1, "mc2_10_EC1_Grp3a:attack": 1, "mc2_10_EC1_Grp3:attack": 1, "mc2_10_EC1_Grp4:attack1": 2, "mc2_10_EC2_Grp4:start": 1, "mc2_10_EC2_Grp1:attack": 4, "mc2_10_EC2_Grp2:start": 2, "mc2_10_EC2_Grp3:attack": 1, "mc2_10_EC4_Grp1:attack": 3, "mc2_10_EC4_Grp2:attack": 4, "mc2_10_EC5_Grp1:attack": 7, "mc2_10_EC2_Pd:starttheattack": 1, "mc2_10_EC3_Conv2:togulag": 4, "mc2_10_EC3_Conv1:togulag": 4, "DredAttack01:noweapons": 3, "mc2_10_EC3_Conv3:togulag": 4, "PBrain:": 4 }
+enemy pilots that moved >20 m: 39 / 47
+
+--- stderr ---
+WARNING: 374 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

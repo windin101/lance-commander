@@ -3,6 +3,10 @@
 
     python3 -I tools/playtest_sweep.py [--missions mc2_01,mc2_02] [--seeds 1,2,3] [--jobs 4]
                                        [--max-seconds 1800] [--out docs/reports/playtest/<date>]
+                                       [--bot-args "--fit-lance"]
+
+The whole sweep holds the shared Godot locks (swarm/locks/godot, as `swarm lock godot` takes
+it, and the repo's .godot.lock), so it never runs beside an import or another agent's Godot.
 
 Each run is `godot --headless -s res://tools/autoplay.gd -- <seed> <max> --mission=<m> --damage`
 (about 17 s wall). Raw logs go to <out>/logs/<mission>_s<seed>.log; the parsed results to
@@ -10,12 +14,14 @@ Each run is `godot --headless -s res://tools/autoplay.gd -- <seed> <max> --missi
 
   mission, seed, result (WON|LOST|PLAYING|ERROR), t_end, player_alive, enemies_alive,
   objectives [{index, primary, state, title}], losses [{t, unit, armour, last_hit_by}],
-  damage_total, top_attackers [{damage, attacker}], abl_errors, abl_missing, wall_s
+  damage_total, top_attackers [{damage, attacker}], abl_errors, abl_missing, wall_s,
+  force (what the bot deployed), support [{t, kind, target}]
 
 and a summary table to stdout. The sweep never edits the game; it is a read-only probe.
 """
 
 import argparse
+import fcntl
 import json
 import re
 import subprocess
@@ -33,14 +39,16 @@ R_END = re.compile(r"^seed (\d+) end t=(\d+) result=(\w+)\s+player alive (\d+)\s
 R_LOST = re.compile(r"^t=\s*([\d.]+)\s+LOST (.+?) \(.*?armour (\d+)%.*?last hit by (.+?)\)$")
 R_OBJ = re.compile(r"^\s+obj (\d+) ([Ps])( hidden)?: (.+?)  (.*)$")
 R_DMG = re.compile(r"^damage to lance: (\d+) from (\d+) attackers")
+R_DEALT = re.compile(r"^damage by lance: (\d+); kills (\d+)")
 R_ATT = re.compile(r"^\s{4}\s*(\d+)\s{2}(.+)$")
 R_OBJDONE = re.compile(r"^t=\s*([\d.]+)\s+objective done: (.+)$")
+R_SUPPORT = re.compile(r"^t=\s*([\d.]+)\s+SUPPORT (\S+) (.*)$")
 
 
 def parse(text: str) -> dict:
     r = {"result": "ERROR", "t_end": None, "player_alive": None, "enemies_alive": None, "objectives": [],
          "objective_times": [], "losses": [], "damage_total": None, "attackers": None, "top_attackers": [],
-         "abl_errors": None, "abl_missing": None}
+         "abl_errors": None, "abl_missing": None, "force": None, "support": [], "damage_dealt": None, "kills": None}
     in_att = False
     for line in text.splitlines():
         if m := R_END.match(line):
@@ -49,6 +57,13 @@ def parse(text: str) -> dict:
             r["losses"].append({"t": float(m[1]), "unit": m[2], "armour": int(m[3]), "last_hit_by": m[4]})
         elif m := R_OBJDONE.match(line):
             r["objective_times"].append({"t": float(m[1]), "title": m[2].strip()})
+        elif m := R_SUPPORT.match(line):
+            r["support"].append({"t": float(m[1]), "kind": m[2], "target": m[3].strip()})
+        elif line.startswith("force:"):
+            r["force"] = line.split(":", 1)[1].strip()
+        elif m := R_DEALT.match(line):
+            r.update(damage_dealt=int(m[1]), kills=int(m[2]))
+            continue  # the attacker table follows
         elif m := R_DMG.match(line):
             r.update(damage_total=int(m[1]), attackers=int(m[2]))
             in_att = True
@@ -66,11 +81,11 @@ def parse(text: str) -> dict:
     return r
 
 
-def run_one(mission: str, seed: int, max_s: int, logdir: Path) -> dict:
+def run_one(mission: str, seed: int, max_s: int, logdir: Path, extra: list, script: str) -> dict:
     t0 = time.time()
     try:
-        p = subprocess.run([GODOT, "--headless", "--path", str(GAME), "-s", "res://tools/autoplay.gd", "--",
-                            str(seed), str(max_s), f"--mission={mission}", "--damage"],
+        p = subprocess.run([GODOT, "--headless", "--path", str(GAME), "-s", script, "--",
+                            str(seed), str(max_s), f"--mission={mission}", "--damage", *extra],
                            capture_output=True, text=True, timeout=1200)
         out = p.stdout + ("\n--- stderr ---\n" + p.stderr if p.stderr.strip() else "")
     except subprocess.TimeoutExpired as e:
@@ -86,10 +101,32 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--missions", help="comma list (default: every game/data/missions/mc2_NN.json)")
     ap.add_argument("--seeds", default="1,2,3")
-    ap.add_argument("--jobs", type=int, default=4)
+    ap.add_argument("--jobs", type=int, default=3)
     ap.add_argument("--max-seconds", type=int, default=1800)
     ap.add_argument("--out", default=str(ROOT / "docs" / "reports" / "playtest" / date.today().isoformat()))
+    ap.add_argument("--reparse", action="store_true", help="rebuild <out>/results.json from its logs (no Godot)")
+    ap.add_argument("--script", default="res://tools/autoplay.gd", help="bot script (A/B against an older bot)")
+    ap.add_argument("--bot-args", default="", help="extra autoplay arguments, space separated")
     a = ap.parse_args()
+    extra = a.bot_args.split()
+    if a.reparse:
+        out = Path(a.out)
+        old = {(r["mission"], r["seed"]): r for r in json.loads((out / "results.json").read_text())}
+        results = []
+        for (mission, seed), r in sorted(old.items()):
+            rec = parse((out / "logs" / f"{mission}_s{seed}.log").read_text())
+            rec.update(mission=mission, seed=seed, wall_s=r.get("wall_s"))
+            results.append(rec)
+        (out / "results.json").write_text(json.dumps(results, indent=1) + "\n")
+        print(f"reparsed {len(results)} runs -> {out / 'results.json'}")
+        return 0
+    locks = []
+    for path in (ROOT / "swarm" / "locks" / "godot", ROOT / ".godot.lock"):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        f = open(path, "w")
+        print(f"waiting for {path.relative_to(ROOT)} ...", flush=True)
+        fcntl.flock(f, fcntl.LOCK_EX)  # released when the process exits
+        locks.append(f)
     missions = a.missions.split(",") if a.missions else sorted(
         p.stem for p in (GAME / "data" / "missions").glob("mc2_??.json"))
     seeds = [int(s) for s in a.seeds.split(",")]
@@ -99,9 +136,16 @@ def main() -> int:
     print(f"{len(jobs)} runs ({len(missions)} missions x {len(seeds)} seeds), {a.jobs} at a time", flush=True)
     t0 = time.time()
     with ThreadPoolExecutor(a.jobs) as ex:
-        results = list(ex.map(lambda j: run_one(j[0], j[1], a.max_seconds, out / "logs"), jobs))
+        results = list(ex.map(lambda j: run_one(j[0], j[1], a.max_seconds, out / "logs", extra, a.script), jobs))
     results.sort(key=lambda r: (r["mission"], r["seed"]))
     (out / "results.json").write_text(json.dumps(results, indent=1) + "\n")
+    git = lambda *c: subprocess.run(["git", *c], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    import hashlib
+    (out / "meta.json").write_text(json.dumps({  # what was measured: other agents change the sim meanwhile
+        "commit": git("rev-parse", "--short", "HEAD"), "dirty": git("status", "--short", "game/scripts", "game/data", "game/tools").splitlines(),
+        "scripts_diff_sha1": hashlib.sha1(git("diff", "HEAD", "--", "game/scripts").encode()).hexdigest()[:10],
+        "bot_sha1": hashlib.sha1((GAME / a.script.removeprefix("res://")).read_bytes()).hexdigest()[:10],
+        "seeds": seeds, "max_seconds": a.max_seconds, "bot_args": extra, "jobs": a.jobs}, indent=1) + "\n")
     print(f"done in {time.time() - t0:.0f} s -> {out / 'results.json'}\n")
     print(f"{'mission':8} " + " ".join(f"s{s:<6}" for s in seeds) + " won")
     by = {}

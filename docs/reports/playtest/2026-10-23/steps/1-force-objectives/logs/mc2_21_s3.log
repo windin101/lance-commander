@@ -1,0 +1,42 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_21
+force: campaign 4 units 200 t of 200 t, RP 23000: Atlas Prime(pmwrooster), Sha Yu Prime(pmwmother), Razorback Prime(pmwghost), Razorback Prime(pmwscooter)
+ABL pilots: 39
+t=  12.4  SUPPORT air_strike (-883, -559) rp_left=16000
+t=  21.5  SUPPORT salvage_craft Werewolf rp_left=6000
+t=  34.5  LOST Werewolf (disabled, armour 36%, heat 4, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t= 311.5  LOST ShaYu (disabled, armour 33%, heat 0, ejected false, pilot 0.0 wounds, last hit by Atlas)
+t= 318.8  LOST Werewolf (disabled, armour 35%, heat 0, ejected false, pilot 0.0 wounds, last hit by Monsoon)
+t= 328.8  LOST Werewolf (disabled, armour 21%, heat 0, ejected false, pilot 0.0 wounds, last hit by Atlas)
+t= 405.0  LOST Atlas (disabled, armour 20%, heat 0, ejected false, pilot 3.0 wounds, last hit by Partisan)
+t= 405.0  objective done: 1 - Move all units to Extraction Point
+t= 410.0  MISSION LOST
+seed 3 end t=410 result=LOST  player alive 0  enemies alive 23
+damage to lance: 568 from 13 attackers; hits by location (0 head .. 10 rear RT): { 5: 26, 1: 44, 6: 16, 2: 33, 4: 25, 3: 28, 7: 31, 0: 3 }
+       180  Partisan (vehicle)
+       164  Atlas (mech)
+        77  Storm (vehicle)
+        52  Werewolf (mech)
+        52  Shootist (mech)
+        32  Monsoon (vehicle)
+        12  Vedette (vehicle)
+  obj 0 P: done  1 - Move all units to Extraction Point
+  obj 1 s: open  a - Destroy Ammo Dump ALPHA
+  obj 2 s: open  b - Destroy Ammo Dump BETA
+  obj 3 s: open  c - Destroy Power Generator ALPHA
+  obj 4 s: open  d - Destroy Power Generator BETA
+  obj 5 s: open  a. Capture the Weapons Facility
+  obj 6 s: open  f. Destroy Industrial Complex
+  obj 7 s hidden: done  hidden trigger area 4 PG ALPHA
+  obj 8 s hidden: done  hidden trigger area 4 PG BETA
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_21_BETA_PG01:start1": 1, "mc2_21_BETA_PG01:attack": 6, "mc2_21_BETA_PG01:start": 1, "pbrain:attack": 1, "mc2_21_ALPHA_AD01:start": 2, "mc2_21_ALPHA_AD02:start": 2, "mc2_21_dred:start": 2, "mc2_21_dred:attack": 3, "mc2_21_dred_p:attack": 1, "mc2_21_dred_p:start": 3, "mc2_21_Patrol_EVill:start": 2, "mc2_21_Patrol_SDumpB:start": 2, "mc2_21_Patrol_BwtDumps:start": 2, "mc2_21_Patrol_NVil:start": 3, "mc2_21_Patrol_BhBase:start": 3, "mc2_21_Patrol_Extrat:start": 1, "PBrain:": 4, "pbrain:": 1 }
+enemy pilots that moved >20 m: 26 / 40
+
+--- stderr ---
+WARNING: 596 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,44 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_06
+force: campaign 5 units 260 t of 260 t, RP 25000: Highlander Prime(pmwsteel), Zeus Prime(pmwmeat), Razorback Prime(pmwworm), Razorback Prime(pmwpalerider), Razorback Prime(pmwtwitch)
+ABL pilots: 49
+t=  30.5  SUPPORT sensor_probe (-276, 137) rp_left=23000
+t= 125.5  SUPPORT air_strike (175, 1217) rp_left=16000
+t= 137.9  SUPPORT air_strike (183, 1178) rp_left=9000
+t= 150.3  SUPPORT air_strike (-21, 1250) rp_left=2000
+t= 345.7  PULLBACK Werewolf at 28%
+t= 375.7  PULLBACK Werewolf at 24%
+t= 392.0  LOST Werewolf (destroyed, armour 44%, heat 0, ejected false, pilot 1.0 wounds, last hit by ShaYu)
+t= 394.5  LOST Werewolf (destroyed, armour 18%, heat 0, ejected false, pilot 1.0 wounds, last hit by Storm)
+t= 447.2  LOST Zeus (destroyed, armour 18%, heat 0, ejected false, pilot 0.0 wounds, last hit by Catapult)
+t= 507.0  LOST Highlander (disabled, armour 9%, heat 1, ejected false, pilot 2.0 wounds, last hit by Starslayer)
+t= 537.8  LOST Werewolf (destroyed, armour 6%, heat 0, ejected false, pilot 2.0 wounds, last hit by Storm)
+t= 542.8  MISSION LOST
+seed 1 end t=543 result=LOST  player alive 0  enemies alive 7
+damage to lance: 876 from 37 attackers; hits by location (0 head .. 10 rear RT): { 1: 40, 6: 27, 5: 25, 4: 28, 3: 26, 2: 31, 7: 20, 0: 6, 10: 7, 8: 6, 9: 5 }
+       280  Storm (vehicle)
+       146  ShaYu (mech)
+       139  Starslayer (mech)
+       120  Lrmcarrier (vehicle)
+        70  Catapult (mech)
+        66  Attack Copter (mech)
+        40  Drillson (vehicle)
+        12  Hetzer (vehicle)
+         4  Centipede (vehicle)
+  obj 0 P: open  1. Protect the Base Headquarters
+  obj 1 P: open  2. Destroy all attacking Liao forces.
+  obj 2 s: open  a - Capture Steiner Sensor Control.
+  obj 3 s: open  b - Capture the Turret Control at Road Checkpoin
+  obj 4 s hidden: done  Hidden OBJ to Trigger Wave 2
+  obj 5 s hidden: done  Hidden Objective to Trigger Wave3
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_06_wv1_Guard2:spawnin": 2, "mc2_06_wv1_Guard2:attack": 2, "mc2_06_wv1_2a_lrm:attack": 2, "mc2_06_wv1_2a:attack": 3, "mc2_06_wv1_2a_lrm:spawnin": 1, "mc2_06_wv1_1a:attack": 4, "mc2_06_wv1_Guard:attack": 4, "mc2_06_wv2_3a:attack": 1, "mc2_06_wv2_Guard2:base1escort": 1, "mc2_06_wv2_Guard2:baseassault": 1, "mc2_06_wv2_2a:spawn": 2, "mc2_06_wv2_2a:attack": 2, "mc2_06_wv2_3a:spawn": 4, "mc2_06_wv3_2a:attack": 4, "mc2_06_wv3_Guard:spawnin": 3, "mc2_06_wv3_1a:baseassault": 1, "mc2_06_wv3_1a:spawn": 2, "mc2_06_wv3_1a:attackhq": 1, "mc2_06_wv1_2b:attack": 1, "mc2_06_out_Guard:attack": 3, "PBrain:": 5 }
+enemy pilots that moved >20 m: 48 / 49
+
+--- stderr ---
+WARNING: 586 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

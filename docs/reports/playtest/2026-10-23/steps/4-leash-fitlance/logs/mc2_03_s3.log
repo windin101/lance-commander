@@ -1,0 +1,24 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_03
+force: fit 4 units 190 t of 190 t, RP 16000: Bushwacker Prime(pmp_bubba), Razorback Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)
+ABL pilots: 38
+t=  46.9  SUPPORT air_strike (-98, -1250) rp_left=9000
+seed 3 end t=1800 result=PLAYING  player alive 4  enemies alive 29
+damage to lance: 0 from 0 attackers; hits by location (0 head .. 10 rear RT): {  }
+damage by lance: 19; kills 2
+  obj 0 P: open  1. Destroy Turret Generators at Checkpoint
+  obj 1 P: open  2. Destroy Enemies at Checkpoint
+  obj 2 P: open  3. Capture HQ Vehicle
+  obj 3 P: inactive (flag 0)  4. Capture Weapon Facility
+  obj 4 P: inactive (flag 1)  5. Defeat Bandit Counterattack
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 4, "mc2_03_dred:start": 2, "mc2_03_turretguard2:start": 1, "mc2_03_dred1:start": 1, "mc2_03_turretguard:start": 2, "mc2_03_dred2:start": 1, "mc2_03_CNVhq:start": 1, "mc2_03_Cnv_grd_01:start": 2, "mc2_03_Cnv_grd_02:start": 1, "mc2_03_CNV:start": 1, "mc2_03_CNV_RT:start": 1, "mc2_03_CNV_FT:start": 1, "mc2_03_Cnv_grd_02:attack": 1, "mc2_03_patrol_01:start": 1, "mc2_03_BaseG_Shutdown:start": 2, "mc2_03_weapfacgrd:start": 1, "mc2_03_patrol_02:start": 1, "mc2_03_patrol_03:start": 1, "mc2_03_patrol_04:start": 1, "mc2_03_Reinf_G1_2:start": 2, "mc2_03_Reinf_G1_1:start": 2, "mc2_03_Reinf_G2_1:start": 2, "mc2_03_Reinf_G2_2:start": 2, "mc2_03_Reinf_G1_3:start": 2, "mc2_03_powered_armor:start": 1, "mc2_03_RP_trucks:start": 1 }
+enemy pilots that moved >20 m: 10 / 38
+
+--- stderr ---
+WARNING: 406 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

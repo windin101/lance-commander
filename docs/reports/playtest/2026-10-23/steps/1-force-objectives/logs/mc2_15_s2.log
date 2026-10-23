@@ -1,0 +1,60 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_15
+force: campaign 6 units 320 t of 320 t, RP 6000: Atlas Prime(pmwsteel), Atlas Prime(pmwclaymore), Razorback Prime(pmwworm), Razorback Prime(pmwmeat), Razorback Prime(pmwpalerider), Razorback Prime(pmwtwitch)
+ABL pilots: 83
+t=  12.2  LOST Centipede (destroyed, armour 70%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t=  15.0  LOST Monsoon (destroyed, armour 80%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t=  16.3  LOST Harasser (destroyed, armour 64%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  20.5  LOST Monsoon (destroyed, armour 71%, heat 0, ejected false, pilot 0.0 wounds, last hit by Shootist)
+t=  22.5  LOST Centipede (destroyed, armour 47%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  23.5  LOST Harasser (destroyed, armour 79%, heat 0, ejected false, pilot 0.0 wounds, last hit by Shootist)
+t=  29.0  LOST Harasser (destroyed, armour 61%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  31.7  LOST Vedette (destroyed, armour 90%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  33.8  LOST Centipede (destroyed, armour 70%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t=  39.0  LOST Attack Copter (destroyed, armour 58%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  44.5  LOST Monsoon (destroyed, armour 50%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  44.8  LOST Vedette (destroyed, armour 65%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t=  49.0  LOST Attack Copter (destroyed, armour 59%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  50.1  LOST Centipede (destroyed, armour 60%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t=  55.9  LOST Hunter (destroyed, armour 67%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  61.5  LOST Hunter (destroyed, armour 55%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  62.6  LOST Hunter (destroyed, armour 67%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t= 100.7  PULLBACK Werewolf at 29%
+t= 103.8  SUPPORT repair_truck (492, -476) rp_left=0
+t= 270.8  LOST Werewolf (destroyed, armour 30%, heat 1, ejected false, pilot 1.0 wounds, last hit by Legion)
+t= 285.9  LOST Werewolf (destroyed, armour 23%, heat 0, ejected false, pilot 4.0 wounds, last hit by Werewolf)
+t= 297.2  LOST Werewolf (disabled, armour 22%, heat 0, ejected false, pilot 1.0 wounds, last hit by Legion)
+t= 311.7  LOST Werewolf (destroyed, armour 32%, heat 0, ejected false, pilot 0.0 wounds, last hit by Legion)
+t= 396.7  PULLBACK Atlas at 23%
+t= 426.5  LOST Repairtruck (disabled, armour 100%, heat 0, ejected false, pilot 0.0 wounds, last hit by -)
+t= 528.2  objective done: 1. Destroy all Legion Tanks
+t= 544.2  objective done: 2. Destroy the Three Industrial Complexes
+t= 601.7  objective done: 3. Move All Surviving Mech to Extraction Zone
+t= 606.7  MISSION WON
+seed 2 end t=607 result=WON  player alive 4  enemies alive 29
+damage to lance: 1192 from 25 attackers; hits by location (0 head .. 10 rear RT): { 5: 29, 6: 39, 1: 32, 7: 33, 4: 22, 2: 44, 3: 35, 0: 8, 8: 2, 10: 1, 9: 2 }
+       734  Legion (vehicle)
+       158  Werewolf (mech)
+       105  Storm (vehicle)
+        67  Highlander (mech)
+        57  Bushwacker (mech)
+        54  Hunchback (mech)
+        18  Vedette (vehicle)
+  obj 0 P: done  1. Destroy all Legion Tanks
+  obj 1 P: done  2. Destroy the Three Industrial Complexes
+  obj 2 P: done  3. Move All Surviving Mech to Extraction Zone
+  obj 3 s: open  a. Destroy Relay Stations' Power Generator
+  obj 4 s: open  b. Destroy the Two Medium Factories
+  obj 5 s: open  c. Rendezvous with the Liao Operative near the M
+  obj 6 s hidden: open  Super secret Hidden Objective
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_15_E4_ref_Sdpot_Mech1:attack": 2, "mc2_15_E4_Legion_SD:attack": 5, "mc2_15_E2_TCD_Mech1a:start": 1, "mc2_15_E2_TCD_Mech1b:start": 1, "mc2_15_E2_TCD_Mech1c:start": 1, "mc2_15_E2_TCD_Mech2:start": 1, "mc2_15_E2_TCD_Mech2a:start": 1, "mc2_15_E2_MB_Mech1:attack": 1, "mc2_15_E2_MB_Mech2:start": 1, "mc2_15_E2_MB_Mech3:start": 1, "mc2_15_E2_Com_Mech1:start": 1, "mc2_15_E2_Com_Veh:start": 2, "mc2_15_E2_Est_LRM:start": 5, "mc2_15_E2_WestPatrol_veh1:start": 2, "mc2_15_E2_Est_mech1:start": 1, "mc2_15_E2_Est_LRM:attack": 1, "mc2_15_E2_MB_Veh1:start": 1, "mc2_15_E2_MB_Veh1a:start": 1, "mc2_15_E2_MB_veh2:start": 1, "mc2_15_E3_Veh2b:attack": 1, "mc2_15_E3_Veh2a:attack": 1, "mc2_15_E3_Veh2c:attack": 1, "mc2_15_E3_Veh1a:attack": 1, "mc2_15_E3_Veh1ba:attack2": 1, "mc2_15_E3_mech1:attack": 1, "mc2_15_E3_Veh1b:attack2": 2, "mc2_15_E4_Legion_P4:attack": 1, "mc2_15_E4_ref_Sdpot_Mech2:attack": 1, "mc2_15_E4_ref_TCBASE_Mech1:attack": 1, "mc2_15_E4_ref_TCBASE_Mech2:attack": 2, "mc2_15_E4_Legion_P3:attack": 1, "mc2_15_E4_Legion_P2:attack": 1, "mc2_15_E4_Legion_P1:attack": 1, "mc2_15_E2_Pd_Guard_Mech2:start": 1, "mc2_15_E2_Est_Patrol_Mech1:start": 2, "mc2_15_E2_Pd_Guard_Mech1:attack": 1, "mc2_15_EB_East_Pat:attack": 2, "mc2_15_E1_Vill_Spotter:start": 1, "mc2_15_E1_Vill_LRM_2:start": 2, "mc2_15_E1_Vill_LRM_1:start": 2, "mc2_15_E4_Cent:attack": 1, "mc2_15_EA_Reb_Veh2:attack": 7, "mc2_15_EA_Reb_VehHQ:start": 2, "mc2_15_EA_Reb_Veh1:attack": 10, "PBrain:": 6 }
+enemy pilots that moved >20 m: 63 / 83
+
+--- stderr ---
+WARNING: 607 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

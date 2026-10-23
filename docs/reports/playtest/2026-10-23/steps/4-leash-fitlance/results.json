@@ -1,0 +1,7934 @@
+[
+ {
+  "result": "WON",
+  "t_end": 262,
+  "player_alive": 2,
+  "enemies_alive": 0,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "6. Move All 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Popup Move to Large Island O"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective for Starslayer to Powerup"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for VO when Starslayer Lance Dies"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 18.4,
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "t": 22.0,
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "t": 84.7,
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "t": 101.9,
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "t": 161.5,
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "t": 257.2,
+    "title": "6. Move All 'Mechs to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 205.2,
+    "unit": "Werewolf",
+    "armour": 10,
+    "last_hit_by": "Harasser"
+   }
+  ],
+  "damage_total": 198,
+  "attackers": 16,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 140 t of 190 t, RP 22000: Razorback Prime(pmwflash), Bushwacker Prime(pmwhacksaw), Bushwacker Prime(pmwlongshot)",
+  "support": [
+   {
+    "t": 21.5,
+    "kind": "air_strike",
+    "target": "(806, 73) rp_left=15000"
+   },
+   {
+    "t": 106.9,
+    "kind": "air_strike",
+    "target": "(-99, 602) rp_left=8000"
+   }
+  ],
+  "damage_dealt": 468,
+  "kills": 22,
+  "mission": "mc2_01",
+  "seed": 1,
+  "wall_s": 3.9
+ },
+ {
+  "result": "WON",
+  "t_end": 309,
+  "player_alive": 3,
+  "enemies_alive": 0,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "6. Move All 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Popup Move to Large Island O"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective for Starslayer to Powerup"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for VO when Starslayer Lance Dies"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 18.4,
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "t": 22.0,
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "t": 83.6,
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "t": 99.9,
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "t": 174.6,
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "t": 303.5,
+    "title": "6. Move All 'Mechs to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 246.3,
+    "unit": "Werewolf",
+    "armour": 27,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 229,
+  "attackers": 13,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 140 t of 190 t, RP 22000: Razorback Prime(pmwflash), Bushwacker Prime(pmwhacksaw), Bushwacker Prime(pmwlongshot)",
+  "support": [
+   {
+    "t": 21.5,
+    "kind": "air_strike",
+    "target": "(806, 73) rp_left=15000"
+   },
+   {
+    "t": 103.8,
+    "kind": "air_strike",
+    "target": "(-146, 602) rp_left=8000"
+   },
+   {
+    "t": 175.1,
+    "kind": "repair_truck",
+    "target": "(58, 596) rp_left=2000"
+   }
+  ],
+  "damage_dealt": 503,
+  "kills": 22,
+  "mission": "mc2_01",
+  "seed": 2,
+  "wall_s": 4.4
+ },
+ {
+  "result": "WON",
+  "t_end": 296,
+  "player_alive": 1,
+  "enemies_alive": 0,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "6. Move All 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Popup Move to Large Island O"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective for Starslayer to Powerup"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for VO when Starslayer Lance Dies"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 18.4,
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "t": 22.0,
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "t": 103.4,
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "t": 123.3,
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "t": 178.8,
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "t": 290.6,
+    "title": "6. Move All 'Mechs to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 76.1,
+    "unit": "Werewolf",
+    "armour": 64,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 205.2,
+    "unit": "Werewolf",
+    "armour": 58,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 246.8,
+    "unit": "Bushwacker",
+    "armour": 35,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 235,
+  "attackers": 15,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 140 t of 190 t, RP 22000: Razorback Prime(pmwflash), Bushwacker Prime(pmwhacksaw), Bushwacker Prime(pmwlongshot)",
+  "support": [
+   {
+    "t": 21.5,
+    "kind": "air_strike",
+    "target": "(806, 73) rp_left=15000"
+   },
+   {
+    "t": 79.0,
+    "kind": "salvage_craft",
+    "target": "Werewolf rp_left=5000"
+   }
+  ],
+  "damage_dealt": 525,
+  "kills": 22,
+  "mission": "mc2_01",
+  "seed": 3,
+  "wall_s": 4.2
+ },
+ {
+  "result": "WON",
+  "t_end": 312,
+  "player_alive": 3,
+  "enemies_alive": 13,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Calling in Base Assault Team"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "SUPER HIDDEN OBJECTIVE TO TRIGGER A VO"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 7.3,
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "t": 144.1,
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "t": 151.2,
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "t": 295.3,
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "t": 295.3,
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "t": 307.4,
+    "title": "5. Capture Steiner Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 251.5,
+    "unit": "Werewolf",
+    "armour": 8,
+    "last_hit_by": "Armoredcar"
+   },
+   {
+    "t": 275.8,
+    "unit": "Werewolf",
+    "armour": 25,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 248,
+  "attackers": 18,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 170 t of 170 t, RP 6000: Razorback Prime(pmp_bubba), Razorback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 15.5,
+    "kind": "air_strike",
+    "target": "(422, -30) rp_left=9000"
+   },
+   {
+    "t": 249.5,
+    "kind": "repair_truck",
+    "target": "(-480, 256) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 576,
+  "kills": 24,
+  "mission": "mc2_02",
+  "seed": 1,
+  "wall_s": 7.6
+ },
+ {
+  "result": "WON",
+  "t_end": 376,
+  "player_alive": 2,
+  "enemies_alive": 12,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Calling in Base Assault Team"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "SUPER HIDDEN OBJECTIVE TO TRIGGER A VO"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 7.3,
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "t": 175.5,
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "t": 187.0,
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "t": 363.5,
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "t": 363.5,
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "t": 370.6,
+    "title": "5. Capture Steiner Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 253.1,
+    "unit": "Werewolf",
+    "armour": 29,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 276.1,
+    "unit": "Werewolf",
+    "armour": 42,
+    "last_hit_by": "Centipede"
+   }
+  ],
+  "damage_total": 194,
+  "attackers": 11,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 170 t of 170 t, RP 6000: Razorback Prime(pmp_bubba), Razorback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 15.5,
+    "kind": "air_strike",
+    "target": "(422, -30) rp_left=9000"
+   }
+  ],
+  "damage_dealt": 568,
+  "kills": 25,
+  "mission": "mc2_02",
+  "seed": 2,
+  "wall_s": 8.3
+ },
+ {
+  "result": "WON",
+  "t_end": 373,
+  "player_alive": 4,
+  "enemies_alive": 13,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Calling in Base Assault Team"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "SUPER HIDDEN OBJECTIVE TO TRIGGER A VO"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 7.3,
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "t": 182.2,
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "t": 204.7,
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "t": 350.0,
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "t": 350.0,
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "t": 368.0,
+    "title": "5. Capture Steiner Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 297.8,
+    "unit": "Werewolf",
+    "armour": 32,
+    "last_hit_by": "Flea"
+   }
+  ],
+  "damage_total": 270,
+  "attackers": 20,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 170 t of 170 t, RP 6000: Razorback Prime(pmp_bubba), Razorback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 15.5,
+    "kind": "air_strike",
+    "target": "(422, -30) rp_left=9000"
+   },
+   {
+    "t": 184.4,
+    "kind": "repair_truck",
+    "target": "(-138, -355) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 593,
+  "kills": 24,
+  "mission": "mc2_02",
+  "seed": 3,
+  "wall_s": 7.1
+ },
+ {
+  "result": "WON",
+  "t_end": 545,
+  "player_alive": 4,
+  "enemies_alive": 4,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 74.9,
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "t": 190.7,
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "t": 195.3,
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "t": 345.7,
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "t": 539.8,
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "losses": [
+   {
+    "t": 160.0,
+    "unit": "Werewolf",
+    "armour": 35,
+    "last_hit_by": "Urbanmech"
+   }
+  ],
+  "damage_total": 219,
+  "attackers": 18,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 190 t of 190 t, RP 16000: Bushwacker Prime(pmp_bubba), Razorback Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 46.9,
+    "kind": "air_strike",
+    "target": "(-98, -1250) rp_left=9000"
+   },
+   {
+    "t": 542.1,
+    "kind": "repair_truck",
+    "target": "(-1097, 52) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1256,
+  "kills": 27,
+  "mission": "mc2_03",
+  "seed": 1,
+  "wall_s": 11.6
+ },
+ {
+  "result": "WON",
+  "t_end": 527,
+  "player_alive": 4,
+  "enemies_alive": 4,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 78.2,
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "t": 211.0,
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "t": 215.0,
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "t": 347.2,
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "t": 521.6,
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "losses": [
+   {
+    "t": 195.5,
+    "unit": "Werewolf",
+    "armour": 33,
+    "last_hit_by": "Flea"
+   }
+  ],
+  "damage_total": 170,
+  "attackers": 18,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 190 t of 190 t, RP 16000: Bushwacker Prime(pmp_bubba), Razorback Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 46.9,
+    "kind": "air_strike",
+    "target": "(-98, -1250) rp_left=9000"
+   }
+  ],
+  "damage_dealt": 1248,
+  "kills": 27,
+  "mission": "mc2_03",
+  "seed": 2,
+  "wall_s": 10.8
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 4,
+  "enemies_alive": 29,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 0)",
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 1)",
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "objective_times": [],
+  "losses": [],
+  "damage_total": 0,
+  "attackers": 0,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 190 t of 190 t, RP 16000: Bushwacker Prime(pmp_bubba), Razorback Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 46.9,
+    "kind": "air_strike",
+    "target": "(-98, -1250) rp_left=9000"
+   }
+  ],
+  "damage_dealt": 19,
+  "kills": 2,
+  "mission": "mc2_03",
+  "seed": 3,
+  "wall_s": 37.0
+ },
+ {
+  "result": "WON",
+  "t_end": 514,
+  "player_alive": 5,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4 - Extract all surviving mechs"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger to popup last 2 Objectives"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "2nd Hidden Trigger to popup last 2 Objectives"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 116.6,
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "t": 333.8,
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "t": 478.6,
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "t": 509.0,
+    "title": "4 - Extract all surviving mechs"
+   }
+  ],
+  "losses": [
+   {
+    "t": 81.5,
+    "unit": "Werewolf",
+    "armour": 16,
+    "last_hit_by": "Centipede"
+   }
+  ],
+  "damage_total": 312,
+  "attackers": 25,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 200 t of 205 t, RP 16000: Bushwacker Prime(pmp_bubba), Hollander Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Razorback Prime(pmp_bubba), Razorback Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 6.2,
+    "kind": "air_strike",
+    "target": "(755, -252) rp_left=9000"
+   },
+   {
+    "t": 79.0,
+    "kind": "repair_truck",
+    "target": "(757, -102) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1072,
+  "kills": 48,
+  "mission": "mc2_04",
+  "seed": 1,
+  "wall_s": 12.9
+ },
+ {
+  "result": "WON",
+  "t_end": 549,
+  "player_alive": 5,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4 - Extract all surviving mechs"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger to popup last 2 Objectives"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "2nd Hidden Trigger to popup last 2 Objectives"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 112.3,
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "t": 348.8,
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "t": 515.1,
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "t": 543.8,
+    "title": "4 - Extract all surviving mechs"
+   }
+  ],
+  "losses": [
+   {
+    "t": 48.2,
+    "unit": "Werewolf",
+    "armour": 51,
+    "last_hit_by": "Lrmcarrier"
+   }
+  ],
+  "damage_total": 226,
+  "attackers": 27,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 200 t of 205 t, RP 16000: Bushwacker Prime(pmp_bubba), Hollander Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Razorback Prime(pmp_bubba), Razorback Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 6.2,
+    "kind": "air_strike",
+    "target": "(755, -252) rp_left=9000"
+   },
+   {
+    "t": 172.0,
+    "kind": "repair_truck",
+    "target": "(240, 376) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1202,
+  "kills": 48,
+  "mission": "mc2_04",
+  "seed": 2,
+  "wall_s": 14.1
+ },
+ {
+  "result": "WON",
+  "t_end": 507,
+  "player_alive": 6,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4 - Extract all surviving mechs"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger to popup last 2 Objectives"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "2nd Hidden Trigger to popup last 2 Objectives"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 106.0,
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "t": 330.5,
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "t": 473.0,
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "t": 502.1,
+    "title": "4 - Extract all surviving mechs"
+   }
+  ],
+  "losses": [],
+  "damage_total": 274,
+  "attackers": 33,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 200 t of 205 t, RP 16000: Bushwacker Prime(pmp_bubba), Hollander Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Razorback Prime(pmp_bubba), Razorback Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 6.2,
+    "kind": "air_strike",
+    "target": "(755, -252) rp_left=9000"
+   },
+   {
+    "t": 82.1,
+    "kind": "repair_truck",
+    "target": "(787, -38) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1200,
+  "kills": 49,
+  "mission": "mc2_04",
+  "seed": 3,
+  "wall_s": 13.7
+ },
+ {
+  "result": "WON",
+  "t_end": 610,
+  "player_alive": 3,
+  "enemies_alive": 7,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Move to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Resource Trucks"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 23.8,
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "t": 168.0,
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "t": 346.7,
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "t": 508.8,
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "t": 604.6,
+    "title": "5. Move to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 99.2,
+    "unit": "Werewolf",
+    "armour": 51,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 239,
+  "attackers": 23,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 215 t of 220 t, RP 7000: Razorback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Zeus Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 1212,
+  "kills": 34,
+  "mission": "mc2_05",
+  "seed": 1,
+  "wall_s": 13.2
+ },
+ {
+  "result": "WON",
+  "t_end": 607,
+  "player_alive": 3,
+  "enemies_alive": 7,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Move to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Resource Trucks"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 23.8,
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "t": 156.1,
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "t": 345.7,
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "t": 504.6,
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "t": 601.7,
+    "title": "5. Move to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 102.0,
+    "unit": "Werewolf",
+    "armour": 33,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 202,
+  "attackers": 21,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 215 t of 220 t, RP 7000: Razorback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Zeus Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 1202,
+  "kills": 34,
+  "mission": "mc2_05",
+  "seed": 2,
+  "wall_s": 13.3
+ },
+ {
+  "result": "WON",
+  "t_end": 670,
+  "player_alive": 4,
+  "enemies_alive": 7,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Move to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Resource Trucks"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 23.8,
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "t": 181.8,
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "t": 348.4,
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "t": 539.3,
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "t": 664.8,
+    "title": "5. Move to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 246.7,
+    "unit": "Werewolf",
+    "armour": 29,
+    "last_hit_by": "Lrmcarrier"
+   }
+  ],
+  "damage_total": 269,
+  "attackers": 25,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 215 t of 220 t, RP 7000: Razorback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Zeus Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 513.7,
+    "kind": "repair_truck",
+    "target": "(-977, -491) rp_left=1000"
+   }
+  ],
+  "damage_dealt": 1302,
+  "kills": 34,
+  "mission": "mc2_05",
+  "seed": 3,
+  "wall_s": 14.4
+ },
+ {
+  "result": "WON",
+  "t_end": 782,
+  "player_alive": 3,
+  "enemies_alive": 0,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Protect the Base Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy all attacking Liao forces."
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Capture Steiner Sensor Control."
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Capture the Turret Control at Road Checkpoin"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden OBJ to Trigger Wave 2"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Trigger Wave3"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 776.9,
+    "title": "1. Protect the Base Headquarters"
+   },
+   {
+    "t": 776.9,
+    "title": "2. Destroy all attacking Liao forces."
+   }
+  ],
+  "losses": [
+   {
+    "t": 200.2,
+    "unit": "ShaYu",
+    "armour": 25,
+    "last_hit_by": "ShaYu"
+   },
+   {
+    "t": 435.4,
+    "unit": "Hollander",
+    "armour": 36,
+    "last_hit_by": "Attack Copter"
+   },
+   {
+    "t": 505.0,
+    "unit": "Werewolf",
+    "armour": 27,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 731.5,
+    "unit": "Bushwacker",
+    "armour": 21,
+    "last_hit_by": "Storm"
+   }
+  ],
+  "damage_total": 800,
+  "attackers": 31,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 260 t of 260 t, RP 25000: Bushwacker Prime(pmp_bubba), Highlander Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Razorback Prime(pmp_bubba), Hollander Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 30.5,
+    "kind": "sensor_probe",
+    "target": "(-246, 106) rp_left=23000"
+   },
+   {
+    "t": 119.3,
+    "kind": "air_strike",
+    "target": "(201, 1250) rp_left=16000"
+   },
+   {
+    "t": 128.6,
+    "kind": "salvage_craft",
+    "target": "ShaYu rp_left=6000"
+   },
+   {
+    "t": 456.7,
+    "kind": "repair_truck",
+    "target": "(-863, 1203) rp_left=0"
+   }
+  ],
+  "damage_dealt": 2176,
+  "kills": 41,
+  "mission": "mc2_06",
+  "seed": 1,
+  "wall_s": 19.2
+ },
+ {
+  "result": "LOST",
+  "t_end": 992,
+  "player_alive": 0,
+  "enemies_alive": 7,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Protect the Base Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all attacking Liao forces."
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Capture Steiner Sensor Control."
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Capture the Turret Control at Road Checkpoin"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden OBJ to Trigger Wave 2"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Trigger Wave3"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 154.2,
+    "unit": "Werewolf",
+    "armour": 33,
+    "last_hit_by": "ShaYu"
+   },
+   {
+    "t": 784.3,
+    "unit": "Highlander",
+    "armour": 26,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 812.5,
+    "unit": "Repairtruck",
+    "armour": 100,
+    "last_hit_by": "Attack Copter"
+   },
+   {
+    "t": 827.5,
+    "unit": "Hollander",
+    "armour": 32,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 840.5,
+    "unit": "Hunchback",
+    "armour": 14,
+    "last_hit_by": "ShaYu"
+   },
+   {
+    "t": 986.8,
+    "unit": "Bushwacker",
+    "armour": 31,
+    "last_hit_by": "Storm"
+   }
+  ],
+  "damage_total": 1210,
+  "attackers": 34,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 260 t of 260 t, RP 25000: Bushwacker Prime(pmp_bubba), Highlander Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Razorback Prime(pmp_bubba), Hollander Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 30.5,
+    "kind": "sensor_probe",
+    "target": "(-246, 106) rp_left=23000"
+   },
+   {
+    "t": 131.7,
+    "kind": "air_strike",
+    "target": "(175, 1153) rp_left=16000"
+   },
+   {
+    "t": 144.1,
+    "kind": "air_strike",
+    "target": "(-21, 1250) rp_left=9000"
+   },
+   {
+    "t": 390.7,
+    "kind": "repair_truck",
+    "target": "(451, 1152) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1808,
+  "kills": 35,
+  "mission": "mc2_06",
+  "seed": 2,
+  "wall_s": 22.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 746,
+  "player_alive": 0,
+  "enemies_alive": 7,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Protect the Base Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all attacking Liao forces."
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Capture Steiner Sensor Control."
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Capture the Turret Control at Road Checkpoin"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden OBJ to Trigger Wave 2"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Trigger Wave3"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 146.1,
+    "unit": "Werewolf",
+    "armour": 39,
+    "last_hit_by": "ShaYu"
+   },
+   {
+    "t": 473.1,
+    "unit": "Hollander",
+    "armour": 52,
+    "last_hit_by": "Attack Copter"
+   },
+   {
+    "t": 565.7,
+    "unit": "Bushwacker",
+    "armour": 30,
+    "last_hit_by": "ShaYu"
+   },
+   {
+    "t": 665.8,
+    "unit": "Hunchback",
+    "armour": 11,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 713.8,
+    "unit": "Repairtruck",
+    "armour": 68,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 741.0,
+    "unit": "Highlander",
+    "armour": 9,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 940,
+  "attackers": 36,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 260 t of 260 t, RP 25000: Bushwacker Prime(pmp_bubba), Highlander Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Razorback Prime(pmp_bubba), Hollander Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 30.5,
+    "kind": "sensor_probe",
+    "target": "(-246, 106) rp_left=23000"
+   },
+   {
+    "t": 128.6,
+    "kind": "air_strike",
+    "target": "(218, 1226) rp_left=16000"
+   },
+   {
+    "t": 141.0,
+    "kind": "air_strike",
+    "target": "(-21, 1250) rp_left=9000"
+   },
+   {
+    "t": 336.7,
+    "kind": "repair_truck",
+    "target": "(413, 1154) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1599,
+  "kills": 34,
+  "mission": "mc2_06",
+  "seed": 3,
+  "wall_s": 17.9
+ },
+ {
+  "result": "LOST",
+  "t_end": 543,
+  "player_alive": 0,
+  "enemies_alive": 31,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Liao Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy Processing Plant"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "3. Extract All Surviving 'Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy All Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 421.6,
+    "title": "1. Capture Liao Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 110.8,
+    "unit": "Werewolf",
+    "armour": 18,
+    "last_hit_by": "Vedette"
+   },
+   {
+    "t": 221.4,
+    "unit": "Bushwacker",
+    "armour": 50,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 537.6,
+    "unit": "Bushwacker",
+    "armour": 20,
+    "last_hit_by": "Catapult"
+   }
+  ],
+  "damage_total": 359,
+  "attackers": 17,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 140 t of 200 t, RP 6000: Bushwacker Prime(pmp_bubba), Razorback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 612,
+  "kills": 21,
+  "mission": "mc2_07",
+  "seed": 1,
+  "wall_s": 10.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 351,
+  "player_alive": 1,
+  "enemies_alive": 43,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Capture Liao Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy Processing Plant"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "3. Extract All Surviving 'Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy All Enemy Units"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 109.1,
+    "unit": "Werewolf",
+    "armour": 21,
+    "last_hit_by": "Vedette"
+   },
+   {
+    "t": 225.3,
+    "unit": "Bushwacker",
+    "armour": 22,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 320.5,
+    "unit": "Bushwacker",
+    "armour": 39,
+    "last_hit_by": "MenShen"
+   }
+  ],
+  "damage_total": 362,
+  "attackers": 14,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 140 t of 200 t, RP 6000: Bushwacker Prime(pmp_bubba), Razorback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 221.6,
+    "kind": "repair_truck",
+    "target": "(247, 255) rp_left=0"
+   }
+  ],
+  "damage_dealt": 405,
+  "kills": 9,
+  "mission": "mc2_07",
+  "seed": 2,
+  "wall_s": 6.8
+ },
+ {
+  "result": "LOST",
+  "t_end": 486,
+  "player_alive": 0,
+  "enemies_alive": 31,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Liao Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy Processing Plant"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "3. Extract All Surviving 'Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy All Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 355.7,
+    "title": "1. Capture Liao Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 97.5,
+    "unit": "Werewolf",
+    "armour": 26,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 316.3,
+    "unit": "Bushwacker",
+    "armour": 39,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 481.2,
+    "unit": "Bushwacker",
+    "armour": 59,
+    "last_hit_by": "Catapult"
+   }
+  ],
+  "damage_total": 265,
+  "attackers": 13,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 140 t of 200 t, RP 6000: Bushwacker Prime(pmp_bubba), Razorback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 629,
+  "kills": 21,
+  "mission": "mc2_07",
+  "seed": 3,
+  "wall_s": 9.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 755,
+  "player_alive": 1,
+  "enemies_alive": 35,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Destroy Air Traffic Control Tower"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Link up with Atlas"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3 - Destroy Air Traffic Control Tower BETA"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "4 - Evacuate all 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 570.4,
+    "title": "2 - Link up with Atlas"
+   }
+  ],
+  "losses": [
+   {
+    "t": 175.7,
+    "unit": "Werewolf",
+    "armour": 22,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 324.8,
+    "unit": "Hollander",
+    "armour": 21,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 750.0,
+    "unit": "Highlander",
+    "armour": 21,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 456,
+  "attackers": 24,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 155 t of 160 t, RP 0: Highlander Prime(pmp_bubba), Hollander Prime(pmp_bubba), Razorback Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 1048,
+  "kills": 31,
+  "mission": "mc2_08",
+  "seed": 1,
+  "wall_s": 22.4
+ },
+ {
+  "result": "LOST",
+  "t_end": 758,
+  "player_alive": 1,
+  "enemies_alive": 32,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Destroy Air Traffic Control Tower"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Link up with Atlas"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3 - Destroy Air Traffic Control Tower BETA"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "4 - Evacuate all 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 577.4,
+    "title": "2 - Link up with Atlas"
+   }
+  ],
+  "losses": [
+   {
+    "t": 72.2,
+    "unit": "Werewolf",
+    "armour": 30,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 129.1,
+    "unit": "Hollander",
+    "armour": 42,
+    "last_hit_by": "Hetzer"
+   },
+   {
+    "t": 753.1,
+    "unit": "Highlander",
+    "armour": 17,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 454,
+  "attackers": 25,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 155 t of 160 t, RP 0: Highlander Prime(pmp_bubba), Hollander Prime(pmp_bubba), Razorback Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 992,
+  "kills": 34,
+  "mission": "mc2_08",
+  "seed": 2,
+  "wall_s": 24.5
+ },
+ {
+  "result": "LOST",
+  "t_end": 785,
+  "player_alive": 1,
+  "enemies_alive": 33,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Destroy Air Traffic Control Tower"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Link up with Atlas"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3 - Destroy Air Traffic Control Tower BETA"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "4 - Evacuate all 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 511.1,
+    "title": "2 - Link up with Atlas"
+   }
+  ],
+  "losses": [
+   {
+    "t": 270.9,
+    "unit": "Hollander",
+    "armour": 20,
+    "last_hit_by": "Hunter"
+   },
+   {
+    "t": 722.7,
+    "unit": "Highlander",
+    "armour": 29,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 779.9,
+    "unit": "Werewolf",
+    "armour": 28,
+    "last_hit_by": "Hunter"
+   }
+  ],
+  "damage_total": 418,
+  "attackers": 21,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 155 t of 160 t, RP 0: Highlander Prime(pmp_bubba), Hollander Prime(pmp_bubba), Razorback Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 922,
+  "kills": 33,
+  "mission": "mc2_08",
+  "seed": 3,
+  "wall_s": 24.0
+ },
+ {
+  "result": "LOST",
+  "t_end": 709,
+  "player_alive": 0,
+  "enemies_alive": 25,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Capture Weapons Facility"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3 - Destroy Bandit HQ in Downed Spacecraft Nosec"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Eliminate Bandit Leader at Bandit HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 15)",
+    "title": "Move all Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Destroy 12 Enemy Units"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Trigger to signal ambush at Nosecone"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger for Extraction"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 215.5,
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   },
+   {
+    "t": 426.8,
+    "title": "Eliminate Bandit Leader at Bandit HQ"
+   }
+  ],
+  "losses": [
+   {
+    "t": 130.2,
+    "unit": "Flea",
+    "armour": 46,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 261.8,
+    "unit": "Werewolf",
+    "armour": 20,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 349.5,
+    "unit": "Flea",
+    "armour": 15,
+    "last_hit_by": "Swarmlrmc"
+   },
+   {
+    "t": 419.0,
+    "unit": "Hunchback",
+    "armour": 15,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 607.8,
+    "unit": "Zeus",
+    "armour": 13,
+    "last_hit_by": "Flea"
+   },
+   {
+    "t": 703.7,
+    "unit": "Bushwacker",
+    "armour": 23,
+    "last_hit_by": "Hunter"
+   }
+  ],
+  "damage_total": 678,
+  "attackers": 32,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 215 t of 300 t, RP 30000: Razorback Prime(pmp_bubba), Zeus Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 48.5,
+    "kind": "air_strike",
+    "target": "(-245, -311) rp_left=23000"
+   },
+   {
+    "t": 63.5,
+    "kind": "salvage_craft",
+    "target": "Flea rp_left=13000"
+   },
+   {
+    "t": 75.9,
+    "kind": "salvage_craft",
+    "target": "Flea rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1960,
+  "kills": 31,
+  "mission": "mc2_09",
+  "seed": 1,
+  "wall_s": 29.3
+ },
+ {
+  "result": "LOST",
+  "t_end": 434,
+  "player_alive": 0,
+  "enemies_alive": 31,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Capture Weapons Facility"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3 - Destroy Bandit HQ in Downed Spacecraft Nosec"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Eliminate Bandit Leader at Bandit HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 15)",
+    "title": "Move all Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Destroy 12 Enemy Units"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Trigger to signal ambush at Nosecone"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger for Extraction"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 211.7,
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   }
+  ],
+  "losses": [
+   {
+    "t": 278.3,
+    "unit": "Bushwacker",
+    "armour": 38,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 280.8,
+    "unit": "Flea",
+    "armour": 34,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 332.1,
+    "unit": "Hunchback",
+    "armour": 17,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 336.5,
+    "unit": "Urbanmech",
+    "armour": 38,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 421.5,
+    "unit": "Zeus",
+    "armour": 23,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 428.8,
+    "unit": "Werewolf",
+    "armour": 18,
+    "last_hit_by": "LaoHu"
+   }
+  ],
+  "damage_total": 644,
+  "attackers": 22,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 215 t of 300 t, RP 30000: Razorback Prime(pmp_bubba), Zeus Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 30.5,
+    "kind": "salvage_craft",
+    "target": "Urbanmech rp_left=20000"
+   },
+   {
+    "t": 51.5,
+    "kind": "air_strike",
+    "target": "(-81, -508) rp_left=13000"
+   },
+   {
+    "t": 94.5,
+    "kind": "salvage_craft",
+    "target": "Flea rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1484,
+  "kills": 24,
+  "mission": "mc2_09",
+  "seed": 2,
+  "wall_s": 18.3
+ },
+ {
+  "result": "LOST",
+  "t_end": 395,
+  "player_alive": 0,
+  "enemies_alive": 34,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Capture Weapons Facility"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3 - Destroy Bandit HQ in Downed Spacecraft Nosec"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Eliminate Bandit Leader at Bandit HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 15)",
+    "title": "Move all Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Destroy 12 Enemy Units"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Trigger to signal ambush at Nosecone"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger for Extraction"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 215.6,
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   }
+  ],
+  "losses": [
+   {
+    "t": 59.7,
+    "unit": "Werewolf",
+    "armour": 32,
+    "last_hit_by": "Flea"
+   },
+   {
+    "t": 152.5,
+    "unit": "Werewolf",
+    "armour": 23,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 161.9,
+    "unit": "Flea",
+    "armour": 42,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 293.3,
+    "unit": "Bushwacker",
+    "armour": 20,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 352.5,
+    "unit": "Hunchback",
+    "armour": 7,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 390.2,
+    "unit": "Zeus",
+    "armour": 27,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 698,
+  "attackers": 24,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 215 t of 300 t, RP 30000: Razorback Prime(pmp_bubba), Zeus Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 39.5,
+    "kind": "air_strike",
+    "target": "(-135, -351) rp_left=23000"
+   },
+   {
+    "t": 60.5,
+    "kind": "salvage_craft",
+    "target": "Werewolf rp_left=13000"
+   },
+   {
+    "t": 79.0,
+    "kind": "salvage_craft",
+    "target": "Flea rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1184,
+  "kills": 22,
+  "mission": "mc2_09",
+  "seed": 3,
+  "wall_s": 17.5
+ },
+ {
+  "result": "WON",
+  "t_end": 624,
+  "player_alive": 17,
+  "enemies_alive": 1,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy All Airfield Defenders"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec:  Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Protect the Convoy"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 286.1,
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "t": 468.1,
+    "title": "Destroy Steiner Reinforcements"
+   },
+   {
+    "t": 569.8,
+    "title": "Destroy All Airfield Defenders"
+   },
+   {
+    "t": 618.7,
+    "title": "Move All Surviving Mechs to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 407.6,
+    "unit": "Raven",
+    "armour": 31,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 497.3,
+    "unit": "Raven",
+    "armour": 42,
+    "last_hit_by": "Centipede"
+   }
+  ],
+  "damage_total": 422,
+  "attackers": 24,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 290 t of 280 t, RP 6000: Zeus Prime(pmp_bubba), Highlander Prime(pmp_bubba), Raven Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Raven Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 288.7,
+    "kind": "repair_truck",
+    "target": "(-384, 441) rp_left=0"
+   }
+  ],
+  "damage_dealt": 1632,
+  "kills": 27,
+  "mission": "mc2_10",
+  "seed": 1,
+  "wall_s": 13.6
+ },
+ {
+  "result": "WON",
+  "t_end": 625,
+  "player_alive": 18,
+  "enemies_alive": 1,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy All Airfield Defenders"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec:  Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Protect the Convoy"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 297.9,
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "t": 504.8,
+    "title": "Destroy Steiner Reinforcements"
+   },
+   {
+    "t": 575.3,
+    "title": "Destroy All Airfield Defenders"
+   },
+   {
+    "t": 619.5,
+    "title": "Move All Surviving Mechs to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 433.0,
+    "unit": "Raven",
+    "armour": 55,
+    "last_hit_by": "Hunchback"
+   }
+  ],
+  "damage_total": 328,
+  "attackers": 23,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 290 t of 280 t, RP 6000: Zeus Prime(pmp_bubba), Highlander Prime(pmp_bubba), Raven Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Raven Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 300.7,
+    "kind": "repair_truck",
+    "target": "(-352, 433) rp_left=0"
+   }
+  ],
+  "damage_dealt": 1602,
+  "kills": 27,
+  "mission": "mc2_10",
+  "seed": 2,
+  "wall_s": 13.9
+ },
+ {
+  "result": "LOST",
+  "t_end": 582,
+  "player_alive": 14,
+  "enemies_alive": 8,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy All Airfield Defenders"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 3)",
+    "title": "Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec:  Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "gated",
+    "title": "Protect the Convoy"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 267.8,
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "t": 482.8,
+    "title": "Destroy Steiner Reinforcements"
+   }
+  ],
+  "losses": [
+   {
+    "t": 344.5,
+    "unit": "Raven",
+    "armour": 33,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 348.8,
+    "unit": "Hunchback",
+    "armour": 65,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 375.5,
+    "unit": "Raven",
+    "armour": 18,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 513.5,
+    "unit": "Zeus",
+    "armour": 64,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 576.5,
+    "unit": "Highlander",
+    "armour": 10,
+    "last_hit_by": "Atlas"
+   }
+  ],
+  "damage_total": 636,
+  "attackers": 22,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 290 t of 280 t, RP 6000: Zeus Prime(pmp_bubba), Highlander Prime(pmp_bubba), Raven Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Raven Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 1270,
+  "kills": 20,
+  "mission": "mc2_10",
+  "seed": 3,
+  "wall_s": 12.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 757,
+  "player_alive": 0,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Capture RP Buildings at Davion Installation"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Salvage Davion 'Mechs at salvage yard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Capture Davion Weapons Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2 - Capture Steiner Weapons Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Steiner HQ Building"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "4 - Extract at Steiner Drop Ship Pad"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor towers"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor control"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 01"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 02"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 03"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 04"
+   },
+   {
+    "index": 12,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 05"
+   },
+   {
+    "index": 13,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 06"
+   },
+   {
+    "index": 14,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger for Salvage VO"
+   },
+   {
+    "index": 15,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Start of mission wav file"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 537.1,
+    "title": "3 - Capture Steiner HQ Building"
+   }
+  ],
+  "losses": [
+   {
+    "t": 397.7,
+    "unit": "ShaYu",
+    "armour": 41,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 424.3,
+    "unit": "Raven",
+    "armour": 66,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 685.6,
+    "unit": "ShaYu",
+    "armour": 21,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 751.9,
+    "unit": "Catapult",
+    "armour": 23,
+    "last_hit_by": "Zeus"
+   }
+  ],
+  "damage_total": 448,
+  "attackers": 14,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 180 t of 160 t, RP 0: Sha Yu Prime(pmp_bubba), Sha Yu Prime(pmp_bubba), Raven Prime(pmp_bubba), Catapult Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 1278,
+  "kills": 13,
+  "mission": "mc2_11",
+  "seed": 1,
+  "wall_s": 22.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 971,
+  "player_alive": 0,
+  "enemies_alive": 15,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Capture RP Buildings at Davion Installation"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Salvage Davion 'Mechs at salvage yard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Capture Davion Weapons Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2 - Capture Steiner Weapons Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Steiner HQ Building"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "4 - Extract at Steiner Drop Ship Pad"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor towers"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor control"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 01"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 02"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 03"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 04"
+   },
+   {
+    "index": 12,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 05"
+   },
+   {
+    "index": 13,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 06"
+   },
+   {
+    "index": 14,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger for Salvage VO"
+   },
+   {
+    "index": 15,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Start of mission wav file"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 790.9,
+    "title": "3 - Capture Steiner HQ Building"
+   }
+  ],
+  "losses": [
+   {
+    "t": 524.3,
+    "unit": "ShaYu",
+    "armour": 42,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 710.1,
+    "unit": "ShaYu",
+    "armour": 31,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 917.9,
+    "unit": "Raven",
+    "armour": 9,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 966.0,
+    "unit": "Catapult",
+    "armour": 19,
+    "last_hit_by": "Werewolf"
+   }
+  ],
+  "damage_total": 487,
+  "attackers": 14,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 180 t of 160 t, RP 0: Sha Yu Prime(pmp_bubba), Sha Yu Prime(pmp_bubba), Raven Prime(pmp_bubba), Catapult Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 1862,
+  "kills": 15,
+  "mission": "mc2_11",
+  "seed": 2,
+  "wall_s": 31.5
+ },
+ {
+  "result": "LOST",
+  "t_end": 1098,
+  "player_alive": 0,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Capture RP Buildings at Davion Installation"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Salvage Davion 'Mechs at salvage yard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Capture Davion Weapons Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2 - Capture Steiner Weapons Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3 - Capture Steiner HQ Building"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "4 - Extract at Steiner Drop Ship Pad"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor towers"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor control"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 01"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 02"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 03"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 04"
+   },
+   {
+    "index": 12,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "bool 05"
+   },
+   {
+    "index": 13,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 06"
+   },
+   {
+    "index": 14,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger for Salvage VO"
+   },
+   {
+    "index": 15,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Start of mission wav file"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 493.9,
+    "unit": "Raven",
+    "armour": 32,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 578.7,
+    "unit": "Catapult",
+    "armour": 21,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 637.6,
+    "unit": "ShaYu",
+    "armour": 7,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 1092.5,
+    "unit": "ShaYu",
+    "armour": 18,
+    "last_hit_by": "Bushwacker"
+   }
+  ],
+  "damage_total": 532,
+  "attackers": 11,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 180 t of 160 t, RP 0: Sha Yu Prime(pmp_bubba), Sha Yu Prime(pmp_bubba), Raven Prime(pmp_bubba), Catapult Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 1470,
+  "kills": 13,
+  "mission": "mc2_11",
+  "seed": 3,
+  "wall_s": 38.1
+ },
+ {
+  "result": "LOST",
+  "t_end": 588,
+  "player_alive": 0,
+  "enemies_alive": 60,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Intercept and destroy all lead Convoy element"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Intercept and destroy all units in second Con"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Intercept and destroy all units in third Conv"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Intercept and destroy all rearguard Convoy el"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move all surviving 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 470.0,
+    "title": "1. Intercept and destroy all lead Convoy elements"
+   }
+  ],
+  "losses": [
+   {
+    "t": 100.8,
+    "unit": "Werewolf",
+    "armour": 27,
+    "last_hit_by": "Uller"
+   },
+   {
+    "t": 540.1,
+    "unit": "Starslayer",
+    "armour": 18,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 556.8,
+    "unit": "Catapult",
+    "armour": 46,
+    "last_hit_by": "Enfield"
+   },
+   {
+    "t": 582.8,
+    "unit": "Bushwacker",
+    "armour": 15,
+    "last_hit_by": "Vedette"
+   }
+  ],
+  "damage_total": 529,
+  "attackers": 24,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 200 t of 210 t, RP 0: Starslayer Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Catapult Prime(pmp_bubba), Razorback Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 1066,
+  "kills": 21,
+  "mission": "mc2_12",
+  "seed": 1,
+  "wall_s": 28.8
+ },
+ {
+  "result": "LOST",
+  "t_end": 601,
+  "player_alive": 0,
+  "enemies_alive": 61,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Intercept and destroy all lead Convoy element"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Intercept and destroy all units in second Con"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Intercept and destroy all units in third Conv"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Intercept and destroy all rearguard Convoy el"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move all surviving 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 533.8,
+    "title": "1. Intercept and destroy all lead Convoy elements"
+   }
+  ],
+  "losses": [
+   {
+    "t": 64.6,
+    "unit": "Werewolf",
+    "armour": 69,
+    "last_hit_by": "Uller"
+   },
+   {
+    "t": 183.7,
+    "unit": "Starslayer",
+    "armour": 57,
+    "last_hit_by": "Hetzer"
+   },
+   {
+    "t": 587.3,
+    "unit": "Bushwacker",
+    "armour": 6,
+    "last_hit_by": "Enfield"
+   },
+   {
+    "t": 596.3,
+    "unit": "Catapult",
+    "armour": 49,
+    "last_hit_by": "Enfield"
+   }
+  ],
+  "damage_total": 412,
+  "attackers": 22,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 200 t of 210 t, RP 0: Starslayer Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Catapult Prime(pmp_bubba), Razorback Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 991,
+  "kills": 20,
+  "mission": "mc2_12",
+  "seed": 2,
+  "wall_s": 28.0
+ },
+ {
+  "result": "LOST",
+  "t_end": 647,
+  "player_alive": 0,
+  "enemies_alive": 56,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Intercept and destroy all lead Convoy element"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Intercept and destroy all units in second Con"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Intercept and destroy all units in third Conv"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Intercept and destroy all rearguard Convoy el"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move all surviving 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 504.4,
+    "title": "1. Intercept and destroy all lead Convoy elements"
+   }
+  ],
+  "losses": [
+   {
+    "t": 79.3,
+    "unit": "Werewolf",
+    "armour": 38,
+    "last_hit_by": "Uller"
+   },
+   {
+    "t": 428.5,
+    "unit": "Starslayer",
+    "armour": 20,
+    "last_hit_by": "Jagermech"
+   },
+   {
+    "t": 624.3,
+    "unit": "Bushwacker",
+    "armour": 4,
+    "last_hit_by": "Enfield"
+   },
+   {
+    "t": 641.8,
+    "unit": "Catapult",
+    "armour": 62,
+    "last_hit_by": "Enfield"
+   }
+  ],
+  "damage_total": 484,
+  "attackers": 25,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 200 t of 210 t, RP 0: Starslayer Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Catapult Prime(pmp_bubba), Razorback Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 1022,
+  "kills": 25,
+  "mission": "mc2_12",
+  "seed": 3,
+  "wall_s": 29.1
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 5,
+  "enemies_alive": 42,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Both HPG Station"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #1"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #2"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #3"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Davion Dropship"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all Surviving 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Super Secret Hidden OBJ to track if you kill the"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 143.2,
+    "title": "Destroy Davion Dropship"
+   }
+  ],
+  "losses": [],
+  "damage_total": 132,
+  "attackers": 2,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 260 t of 230 t, RP 0: Men Shen Prime(pmp_bubba), Catapult Prime(pmp_bubba), Starslayer Prime(pmp_bubba), Starslayer Prime(pmp_bubba), Sha Yu Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 614,
+  "kills": 2,
+  "mission": "mc2_13",
+  "seed": 1,
+  "wall_s": 81.4
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 5,
+  "enemies_alive": 42,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Both HPG Station"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #1"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #2"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #3"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Davion Dropship"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all Surviving 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Super Secret Hidden OBJ to track if you kill the"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 114.3,
+    "title": "Destroy Davion Dropship"
+   }
+  ],
+  "losses": [],
+  "damage_total": 94,
+  "attackers": 2,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 260 t of 230 t, RP 0: Men Shen Prime(pmp_bubba), Catapult Prime(pmp_bubba), Starslayer Prime(pmp_bubba), Starslayer Prime(pmp_bubba), Sha Yu Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 482,
+  "kills": 2,
+  "mission": "mc2_13",
+  "seed": 2,
+  "wall_s": 82.4
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 5,
+  "enemies_alive": 42,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Both HPG Station"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #1"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #2"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #3"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Davion Dropship"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all Surviving 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Super Secret Hidden OBJ to track if you kill the"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 124.3,
+    "title": "Destroy Davion Dropship"
+   }
+  ],
+  "losses": [],
+  "damage_total": 99,
+  "attackers": 2,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 260 t of 230 t, RP 0: Men Shen Prime(pmp_bubba), Catapult Prime(pmp_bubba), Starslayer Prime(pmp_bubba), Starslayer Prime(pmp_bubba), Sha Yu Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 541,
+  "kills": 2,
+  "mission": "mc2_13",
+  "seed": 3,
+  "wall_s": 82.1
+ },
+ {
+  "result": "LOST",
+  "t_end": 615,
+  "player_alive": 0,
+  "enemies_alive": 18,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Orbital Gun Alpha"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Orbital Gun Beta"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Orbital Gun Gamma"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Mobile Orbital Gun Omega"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move to the Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Airport Sensor Control"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Fuel Supplies at Resupply Depot"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Communications Array"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy all Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 66.9,
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "t": 288.3,
+    "title": "Destroy Orbital Gun Alpha"
+   },
+   {
+    "t": 424.8,
+    "title": "Destroy Mobile Orbital Gun Omega"
+   },
+   {
+    "t": 535.7,
+    "title": "Destroy Orbital Gun Gamma"
+   }
+  ],
+  "losses": [
+   {
+    "t": 609.8,
+    "unit": "Thor",
+    "armour": 28,
+    "last_hit_by": "Monsoon"
+   }
+  ],
+  "damage_total": 178,
+  "attackers": 12,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 1 units 70 t of 75 t, RP 0: Thor Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 770,
+  "kills": 17,
+  "mission": "mc2_14",
+  "seed": 1,
+  "wall_s": 19.4
+ },
+ {
+  "result": "LOST",
+  "t_end": 732,
+  "player_alive": 0,
+  "enemies_alive": 16,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Orbital Gun Alpha"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Orbital Gun Beta"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Orbital Gun Gamma"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Mobile Orbital Gun Omega"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move to the Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Airport Sensor Control"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Fuel Supplies at Resupply Depot"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Communications Array"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy all Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 60.9,
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "t": 255.0,
+    "title": "Destroy Orbital Gun Alpha"
+   },
+   {
+    "t": 434.3,
+    "title": "Destroy Mobile Orbital Gun Omega"
+   },
+   {
+    "t": 561.5,
+    "title": "Destroy Orbital Gun Gamma"
+   }
+  ],
+  "losses": [
+   {
+    "t": 726.5,
+    "unit": "Thor",
+    "armour": 20,
+    "last_hit_by": "Hollander"
+   }
+  ],
+  "damage_total": 188,
+  "attackers": 11,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 1 units 70 t of 75 t, RP 0: Thor Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 833,
+  "kills": 19,
+  "mission": "mc2_14",
+  "seed": 2,
+  "wall_s": 23.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 740,
+  "player_alive": 0,
+  "enemies_alive": 18,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Orbital Gun Alpha"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Orbital Gun Beta"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Orbital Gun Gamma"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Mobile Orbital Gun Omega"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move to the Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Airport Sensor Control"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Fuel Supplies at Resupply Depot"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Communications Array"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy all Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 94.6,
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "t": 274.0,
+    "title": "Destroy Orbital Gun Alpha"
+   },
+   {
+    "t": 400.3,
+    "title": "Destroy Mobile Orbital Gun Omega"
+   },
+   {
+    "t": 525.2,
+    "title": "Destroy Orbital Gun Gamma"
+   }
+  ],
+  "losses": [
+   {
+    "t": 735.2,
+    "unit": "Thor",
+    "armour": 14,
+    "last_hit_by": "Hetzer"
+   }
+  ],
+  "damage_total": 235,
+  "attackers": 14,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 1 units 70 t of 75 t, RP 0: Thor Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 907,
+  "kills": 17,
+  "mission": "mc2_14",
+  "seed": 3,
+  "wall_s": 21.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 486,
+  "player_alive": 2,
+  "enemies_alive": 34,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Destroy all Legion Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy the Three Industrial Complexes"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "3. Move All Surviving Mech to Extraction Zone"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy Relay Stations' Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy the Two Medium Factories"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Rendezvous with the Liao Operative near the M"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Super secret Hidden Objective"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 314.8,
+    "unit": "ShadowCat",
+    "armour": 70,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 342.8,
+    "unit": "ShadowCat",
+    "armour": 42,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 384.0,
+    "unit": "Catapult",
+    "armour": 30,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 430.2,
+    "unit": "Catapult",
+    "armour": 24,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 481.0,
+    "unit": "Zeus",
+    "armour": 29,
+    "last_hit_by": "Legion"
+   }
+  ],
+  "damage_total": 696,
+  "attackers": 18,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 300 t of 320 t, RP 6000: Zeus Prime(pmp_bubba), Catapult Prime(pmp_bubba), Catapult Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 1998,
+  "kills": 23,
+  "mission": "mc2_15",
+  "seed": 1,
+  "wall_s": 17.2
+ },
+ {
+  "result": "LOST",
+  "t_end": 487,
+  "player_alive": 3,
+  "enemies_alive": 38,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Destroy all Legion Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy the Three Industrial Complexes"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "3. Move All Surviving Mech to Extraction Zone"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy Relay Stations' Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy the Two Medium Factories"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Rendezvous with the Liao Operative near the M"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Super secret Hidden Objective"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 59.6,
+    "unit": "ShadowCat",
+    "armour": 57,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 109.0,
+    "unit": "ShadowCat",
+    "armour": 43,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 421.2,
+    "unit": "Catapult",
+    "armour": 21,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 436.8,
+    "unit": "Catapult",
+    "armour": 23,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 456.7,
+    "unit": "Zeus",
+    "armour": 27,
+    "last_hit_by": "Werewolf"
+   }
+  ],
+  "damage_total": 890,
+  "attackers": 19,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 300 t of 320 t, RP 6000: Zeus Prime(pmp_bubba), Catapult Prime(pmp_bubba), Catapult Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 215.4,
+    "kind": "repair_truck",
+    "target": "(589, -244) rp_left=0"
+   }
+  ],
+  "damage_dealt": 1464,
+  "kills": 17,
+  "mission": "mc2_15",
+  "seed": 2,
+  "wall_s": 20.6
+ },
+ {
+  "result": "WON",
+  "t_end": 553,
+  "player_alive": 5,
+  "enemies_alive": 30,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy all Legion Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy the Three Industrial Complexes"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Move All Surviving Mech to Extraction Zone"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy Relay Stations' Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy the Two Medium Factories"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Rendezvous with the Liao Operative near the M"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Super secret Hidden Objective"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 491.5,
+    "title": "1. Destroy all Legion Tanks"
+   },
+   {
+    "t": 504.8,
+    "title": "2. Destroy the Three Industrial Complexes"
+   },
+   {
+    "t": 547.8,
+    "title": "3. Move All Surviving Mech to Extraction Zone"
+   }
+  ],
+  "losses": [
+   {
+    "t": 362.3,
+    "unit": "ShadowCat",
+    "armour": 35,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 439.4,
+    "unit": "Catapult",
+    "armour": 28,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 490.0,
+    "unit": "Catapult",
+    "armour": 23,
+    "last_hit_by": "Legion"
+   }
+  ],
+  "damage_total": 618,
+  "attackers": 18,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 300 t of 320 t, RP 6000: Zeus Prime(pmp_bubba), Catapult Prime(pmp_bubba), Catapult Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 125.5,
+    "kind": "repair_truck",
+    "target": "(533, -175) rp_left=0"
+   }
+  ],
+  "damage_dealt": 2134,
+  "kills": 26,
+  "mission": "mc2_15",
+  "seed": 3,
+  "wall_s": 21.2
+ },
+ {
+  "result": "LOST",
+  "t_end": 376,
+  "player_alive": 0,
+  "enemies_alive": 35,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Sensor Control"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy All Base Defenders"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy All Reinforcements"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Capture Davion Base HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture All Main Base Davion Turret Controls"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Capture All Main Base Davion Gate Controls"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 38.8,
+    "title": "1. Capture Sensor Control"
+   }
+  ],
+  "losses": [
+   {
+    "t": 226.3,
+    "unit": "Shootist",
+    "armour": 28,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 238.9,
+    "unit": "Madcat",
+    "armour": 23,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 296.9,
+    "unit": "MenShen",
+    "armour": 14,
+    "last_hit_by": "Wolfhound"
+   },
+   {
+    "t": 357.3,
+    "unit": "Hollander",
+    "armour": 16,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 365.0,
+    "unit": "Bushwacker",
+    "armour": 19,
+    "last_hit_by": "Wolfhound"
+   },
+   {
+    "t": 370.8,
+    "unit": "Repairtruck",
+    "armour": 48,
+    "last_hit_by": "Madcat"
+   }
+  ],
+  "damage_total": 857,
+  "attackers": 12,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 290 t of 320 t, RP 16000: Bushwacker Prime(pmp_bubba), Hollander Prime(pmp_bubba), Shootist Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Men Shen Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 6.2,
+    "kind": "air_strike",
+    "target": "(-858, -632) rp_left=9000"
+   },
+   {
+    "t": 288.7,
+    "kind": "repair_truck",
+    "target": "(116, -937) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 776,
+  "kills": 11,
+  "mission": "mc2_16",
+  "seed": 1,
+  "wall_s": 10.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 597,
+  "player_alive": 0,
+  "enemies_alive": 25,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Sensor Control"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy All Base Defenders"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy All Reinforcements"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Capture Davion Base HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture All Main Base Davion Turret Controls"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Capture All Main Base Davion Gate Controls"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 32.8,
+    "title": "1. Capture Sensor Control"
+   }
+  ],
+  "losses": [
+   {
+    "t": 231.7,
+    "unit": "Shootist",
+    "armour": 19,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 242.0,
+    "unit": "Hollander",
+    "armour": 29,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 486.7,
+    "unit": "MenShen",
+    "armour": 35,
+    "last_hit_by": "Vulture"
+   },
+   {
+    "t": 504.5,
+    "unit": "Madcat",
+    "armour": 29,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 592.3,
+    "unit": "Bushwacker",
+    "armour": 29,
+    "last_hit_by": "ShadowCat"
+   }
+  ],
+  "damage_total": 750,
+  "attackers": 15,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 290 t of 320 t, RP 16000: Bushwacker Prime(pmp_bubba), Hollander Prime(pmp_bubba), Shootist Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Men Shen Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 6.2,
+    "kind": "air_strike",
+    "target": "(-858, -632) rp_left=9000"
+   }
+  ],
+  "damage_dealt": 1165,
+  "kills": 21,
+  "mission": "mc2_16",
+  "seed": 2,
+  "wall_s": 17.1
+ },
+ {
+  "result": "WON",
+  "t_end": 808,
+  "player_alive": 5,
+  "enemies_alive": 1,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Sensor Control"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy All Base Defenders"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Destroy All Reinforcements"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Davion Base HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture All Main Base Davion Turret Controls"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Capture All Main Base Davion Gate Controls"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 29.9,
+    "title": "1. Capture Sensor Control"
+   },
+   {
+    "t": 764.3,
+    "title": "2. Destroy All Base Defenders"
+   },
+   {
+    "t": 771.8,
+    "title": "3. Destroy All Reinforcements"
+   },
+   {
+    "t": 778.1,
+    "title": "4. Capture Davion Base HQ"
+   },
+   {
+    "t": 802.7,
+    "title": "5. Move All Surviving Mechs to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 219.0,
+    "unit": "Shootist",
+    "armour": 29,
+    "last_hit_by": "Madcat"
+   }
+  ],
+  "damage_total": 698,
+  "attackers": 30,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 290 t of 320 t, RP 16000: Bushwacker Prime(pmp_bubba), Hollander Prime(pmp_bubba), Shootist Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Men Shen Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 6.2,
+    "kind": "air_strike",
+    "target": "(-858, -632) rp_left=9000"
+   },
+   {
+    "t": 285.7,
+    "kind": "repair_truck",
+    "target": "(568, -860) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1976,
+  "kills": 45,
+  "mission": "mc2_16",
+  "seed": 3,
+  "wall_s": 22.0
+ },
+ {
+  "result": "LOST",
+  "t_end": 192,
+  "player_alive": 19,
+  "enemies_alive": 36,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Escort Jason Cho to Rendezvous Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Kill all Enemy Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec: Take Control of Steiner Base"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Triggered Used to Activate Liao Son"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to Kill Liao Son"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To trigger Liao Reinforce Gp 2"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to kill Liao Son's Troop"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 3.0,
+    "title": "Escort Jason Cho to Rendezvous Location"
+   }
+  ],
+  "losses": [
+   {
+    "t": 113.1,
+    "unit": "Zeus",
+    "armour": 30,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 125.3,
+    "unit": "Hunchback",
+    "armour": 47,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 155.0,
+    "unit": "Catapult",
+    "armour": 7,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 168.2,
+    "unit": "Madcat",
+    "armour": 29,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 186.6,
+    "unit": "Catapult",
+    "armour": 21,
+    "last_hit_by": "Highlander"
+   }
+  ],
+  "damage_total": 853,
+  "attackers": 11,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 335 t of 350 t, RP 0: Mad Cat Prime(pmp_bubba), Catapult Prime(pmp_bubba), Catapult Prime(pmp_bubba), Zeus Prime(pmp_bubba), Hunchback Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 477,
+  "kills": 1,
+  "mission": "mc2_17",
+  "seed": 1,
+  "wall_s": 5.5
+ },
+ {
+  "result": "LOST",
+  "t_end": 191,
+  "player_alive": 19,
+  "enemies_alive": 34,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Escort Jason Cho to Rendezvous Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Kill all Enemy Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec: Take Control of Steiner Base"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Triggered Used to Activate Liao Son"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to Kill Liao Son"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To trigger Liao Reinforce Gp 2"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to kill Liao Son's Troop"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 3.0,
+    "title": "Escort Jason Cho to Rendezvous Location"
+   }
+  ],
+  "losses": [
+   {
+    "t": 124.4,
+    "unit": "Zeus",
+    "armour": 13,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 143.4,
+    "unit": "Hunchback",
+    "armour": 48,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 146.0,
+    "unit": "Catapult",
+    "armour": 16,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 182.7,
+    "unit": "Madcat",
+    "armour": 27,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 185.9,
+    "unit": "Catapult",
+    "armour": 28,
+    "last_hit_by": "Highlander"
+   }
+  ],
+  "damage_total": 892,
+  "attackers": 11,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 335 t of 350 t, RP 0: Mad Cat Prime(pmp_bubba), Catapult Prime(pmp_bubba), Catapult Prime(pmp_bubba), Zeus Prime(pmp_bubba), Hunchback Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 610,
+  "kills": 3,
+  "mission": "mc2_17",
+  "seed": 2,
+  "wall_s": 5.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 232,
+  "player_alive": 19,
+  "enemies_alive": 34,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Escort Jason Cho to Rendezvous Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Kill all Enemy Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec: Take Control of Steiner Base"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Triggered Used to Activate Liao Son"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to Kill Liao Son"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To trigger Liao Reinforce Gp 2"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to kill Liao Son's Troop"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 3.0,
+    "title": "Escort Jason Cho to Rendezvous Location"
+   }
+  ],
+  "losses": [
+   {
+    "t": 125.3,
+    "unit": "Zeus",
+    "armour": 13,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 142.4,
+    "unit": "Catapult",
+    "armour": 15,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 167.0,
+    "unit": "Hunchback",
+    "armour": 17,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 211.1,
+    "unit": "Catapult",
+    "armour": 16,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 227.1,
+    "unit": "Madcat",
+    "armour": 20,
+    "last_hit_by": "Bushwacker"
+   }
+  ],
+  "damage_total": 1053,
+  "attackers": 11,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 335 t of 350 t, RP 0: Mad Cat Prime(pmp_bubba), Catapult Prime(pmp_bubba), Catapult Prime(pmp_bubba), Zeus Prime(pmp_bubba), Hunchback Prime(pmp_bubba)",
+  "support": [],
+  "damage_dealt": 742,
+  "kills": 3,
+  "mission": "mc2_17",
+  "seed": 3,
+  "wall_s": 6.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 730,
+  "player_alive": 1,
+  "enemies_alive": 39,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Defend City from Liao and Steiner Forces"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all Liao/Steiner Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Recapture Davion Headquarters"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Recapture the City's Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Recapture Davion Sensor Control"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To kill group 1"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group2"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group 3"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective To Kill Group 4"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Trigger Group Sneaky"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective that Triggers Objectives to app"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective when the player kills 25 enemie"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 295.5,
+    "unit": "Anubis",
+    "armour": 11,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 324.2,
+    "unit": "Vulture",
+    "armour": 33,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 481.3,
+    "unit": "Bushwacker",
+    "armour": 64,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 526.7,
+    "unit": "Thor",
+    "armour": 15,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 699.8,
+    "unit": "Madcat",
+    "armour": 13,
+    "last_hit_by": "Attack Copter"
+   }
+  ],
+  "damage_total": 837,
+  "attackers": 24,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 290 t of 320 t, RP 16000: Thor Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Anubis Prime(pmp_bubba), Vulture Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 26.0,
+    "kind": "air_strike",
+    "target": "(-754, -781) rp_left=9000"
+   },
+   {
+    "t": 587.2,
+    "kind": "repair_truck",
+    "target": "(-175, 571) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 2033,
+  "kills": 28,
+  "mission": "mc2_18",
+  "seed": 1,
+  "wall_s": 43.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 517,
+  "player_alive": 1,
+  "enemies_alive": 45,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Defend City from Liao and Steiner Forces"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all Liao/Steiner Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Recapture Davion Headquarters"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Recapture the City's Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Recapture Davion Sensor Control"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To kill group 1"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group2"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group 3"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective To Kill Group 4"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Trigger Group Sneaky"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective that Triggers Objectives to app"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective when the player kills 25 enemie"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 302.6,
+    "unit": "Anubis",
+    "armour": 26,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 418.3,
+    "unit": "Vulture",
+    "armour": 20,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 438.3,
+    "unit": "Bushwacker",
+    "armour": 19,
+    "last_hit_by": "-"
+   },
+   {
+    "t": 458.0,
+    "unit": "Thor",
+    "armour": 34,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 486.2,
+    "unit": "Madcat",
+    "armour": 17,
+    "last_hit_by": "Highlander"
+   }
+  ],
+  "damage_total": 384,
+  "attackers": 13,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 290 t of 320 t, RP 16000: Thor Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Anubis Prime(pmp_bubba), Vulture Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 26.0,
+    "kind": "air_strike",
+    "target": "(-754, -781) rp_left=9000"
+   },
+   {
+    "t": 410.2,
+    "kind": "repair_truck",
+    "target": "(41, 365) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1470,
+  "kills": 22,
+  "mission": "mc2_18",
+  "seed": 2,
+  "wall_s": 35.5
+ },
+ {
+  "result": "LOST",
+  "t_end": 661,
+  "player_alive": 1,
+  "enemies_alive": 39,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Defend City from Liao and Steiner Forces"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all Liao/Steiner Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Recapture Davion Headquarters"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Recapture the City's Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Recapture Davion Sensor Control"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To kill group 1"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group2"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group 3"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective To Kill Group 4"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Trigger Group Sneaky"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective that Triggers Objectives to app"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective when the player kills 25 enemie"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 270.7,
+    "unit": "Anubis",
+    "armour": 30,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 462.2,
+    "unit": "Bushwacker",
+    "armour": 25,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 497.4,
+    "unit": "Vulture",
+    "armour": 14,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 526.6,
+    "unit": "Madcat",
+    "armour": 27,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 630.4,
+    "unit": "Thor",
+    "armour": 15,
+    "last_hit_by": "Hollander"
+   }
+  ],
+  "damage_total": 739,
+  "attackers": 27,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 290 t of 320 t, RP 16000: Thor Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Anubis Prime(pmp_bubba), Vulture Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 26.0,
+    "kind": "air_strike",
+    "target": "(-754, -781) rp_left=9000"
+   },
+   {
+    "t": 560.2,
+    "kind": "repair_truck",
+    "target": "(-175, 571) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1777,
+  "kills": 27,
+  "mission": "mc2_18",
+  "seed": 3,
+  "wall_s": 42.2
+ },
+ {
+  "result": "LOST",
+  "t_end": 269,
+  "player_alive": 0,
+  "enemies_alive": 65,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Destroy 1/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "2. Move All Surviving Mech to Extraction Point"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy 2/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy  All Enemy Forces in the Sector"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Captrue Liao Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Destroy All 3 Power Generators at the Liao Ba"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "e. Destroy Both Industrial Complex at Liao Indus"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy All 5 Slayer Bombers at  Liao Airstri"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "g. Capture Weapon Facility"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 187.6,
+    "unit": "Werewolf",
+    "armour": 18,
+    "last_hit_by": "Vedette"
+   },
+   {
+    "t": 200.0,
+    "unit": "Shootist",
+    "armour": 11,
+    "last_hit_by": "Vedette"
+   },
+   {
+    "t": 210.1,
+    "unit": "Catapult",
+    "armour": 65,
+    "last_hit_by": "-"
+   },
+   {
+    "t": 220.2,
+    "unit": "Madcat",
+    "armour": 29,
+    "last_hit_by": "Raven"
+   },
+   {
+    "t": 246.0,
+    "unit": "Madcat",
+    "armour": 23,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 263.8,
+    "unit": "Zeus",
+    "armour": 28,
+    "last_hit_by": "Lrmcarrier"
+   }
+  ],
+  "damage_total": 460,
+  "attackers": 17,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 325 t of 330 t, RP 12000: Mad Cat Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Catapult Prime(pmp_bubba), Razorback Prime(pmp_bubba), Zeus Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 51.5,
+    "kind": "salvage_craft",
+    "target": "Shootist rp_left=2000"
+   }
+  ],
+  "damage_dealt": 1260,
+  "kills": 16,
+  "mission": "mc2_19",
+  "seed": 1,
+  "wall_s": 14.8
+ },
+ {
+  "result": "LOST",
+  "t_end": 385,
+  "player_alive": 0,
+  "enemies_alive": 60,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Destroy 1/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "2. Move All Surviving Mech to Extraction Point"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy 2/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy  All Enemy Forces in the Sector"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Captrue Liao Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Destroy All 3 Power Generators at the Liao Ba"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "e. Destroy Both Industrial Complex at Liao Indus"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy All 5 Slayer Bombers at  Liao Airstri"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "g. Capture Weapon Facility"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 44.2,
+    "unit": "Werewolf",
+    "armour": 56,
+    "last_hit_by": "Hetzer"
+   },
+   {
+    "t": 223.9,
+    "unit": "Shootist",
+    "armour": 14,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 290.6,
+    "unit": "Madcat",
+    "armour": 32,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 348.4,
+    "unit": "Zeus",
+    "armour": 12,
+    "last_hit_by": "Raven"
+   },
+   {
+    "t": 367.4,
+    "unit": "Madcat",
+    "armour": 13,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 379.7,
+    "unit": "Catapult",
+    "armour": 9,
+    "last_hit_by": "Hollander"
+   }
+  ],
+  "damage_total": 680,
+  "attackers": 21,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 325 t of 330 t, RP 12000: Mad Cat Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Catapult Prime(pmp_bubba), Razorback Prime(pmp_bubba), Zeus Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 51.5,
+    "kind": "salvage_craft",
+    "target": "Shootist rp_left=2000"
+   }
+  ],
+  "damage_dealt": 1936,
+  "kills": 22,
+  "mission": "mc2_19",
+  "seed": 2,
+  "wall_s": 18.3
+ },
+ {
+  "result": "LOST",
+  "t_end": 213,
+  "player_alive": 0,
+  "enemies_alive": 70,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Destroy 1/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "2. Move All Surviving Mech to Extraction Point"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy 2/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy  All Enemy Forces in the Sector"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Captrue Liao Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Destroy All 3 Power Generators at the Liao Ba"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "e. Destroy Both Industrial Complex at Liao Indus"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy All 5 Slayer Bombers at  Liao Airstri"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "g. Capture Weapon Facility"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 47.5,
+    "unit": "Werewolf",
+    "armour": 43,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 140.7,
+    "unit": "Madcat",
+    "armour": 40,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 176.5,
+    "unit": "Shootist",
+    "armour": 24,
+    "last_hit_by": "Aero Spotter"
+   },
+   {
+    "t": 203.6,
+    "unit": "Madcat",
+    "armour": 11,
+    "last_hit_by": "Vedette"
+   },
+   {
+    "t": 206.4,
+    "unit": "Catapult",
+    "armour": 40,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 208.0,
+    "unit": "Zeus",
+    "armour": 26,
+    "last_hit_by": "Aero Spotter"
+   }
+  ],
+  "damage_total": 369,
+  "attackers": 14,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 325 t of 330 t, RP 12000: Mad Cat Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Catapult Prime(pmp_bubba), Razorback Prime(pmp_bubba), Zeus Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 54.5,
+    "kind": "salvage_craft",
+    "target": "Shootist rp_left=2000"
+   }
+  ],
+  "damage_dealt": 957,
+  "kills": 13,
+  "mission": "mc2_19",
+  "seed": 3,
+  "wall_s": 12.1
+ },
+ {
+  "result": "LOST",
+  "t_end": 395,
+  "player_alive": 0,
+  "enemies_alive": 50,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Goto Davion Dropship"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Rescue Drop Ship Crew at Prison"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy Orbital Turret"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Destroy Mobile Orbital Gun#1"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "5. Destroy Moblie Orbital Gun #2"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "6. Go To Davion Dropship for Extraction"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy All Enemy Forces"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 278.5,
+    "title": "1. Goto Davion Dropship"
+   }
+  ],
+  "losses": [
+   {
+    "t": 88.6,
+    "unit": "Madcat",
+    "armour": 31,
+    "last_hit_by": "Attack Copter"
+   },
+   {
+    "t": 90.0,
+    "unit": "MenShen",
+    "armour": 28,
+    "last_hit_by": "Anubis"
+   },
+   {
+    "t": 333.2,
+    "unit": "Madcat",
+    "armour": 9,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 343.8,
+    "unit": "Zeus",
+    "armour": 23,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 380.3,
+    "unit": "Zeus",
+    "armour": 13,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 390.2,
+    "unit": "Madcat",
+    "armour": 8,
+    "last_hit_by": "Harasser"
+   }
+  ],
+  "damage_total": 1082,
+  "attackers": 27,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 365 t of 320 t, RP 12000: Men Shen Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Zeus Prime(pmp_bubba), Zeus Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 91.4,
+    "kind": "salvage_craft",
+    "target": "Madcat rp_left=2000"
+   }
+  ],
+  "damage_dealt": 1967,
+  "kills": 24,
+  "mission": "mc2_20",
+  "seed": 1,
+  "wall_s": 14.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 195,
+  "player_alive": 0,
+  "enemies_alive": 67,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Goto Davion Dropship"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Rescue Drop Ship Crew at Prison"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy Orbital Turret"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Destroy Mobile Orbital Gun#1"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "5. Destroy Moblie Orbital Gun #2"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 1)",
+    "title": "6. Go To Davion Dropship for Extraction"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy All Enemy Forces"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 79.9,
+    "unit": "Madcat",
+    "armour": 26,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 83.7,
+    "unit": "MenShen",
+    "armour": 24,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 92.0,
+    "unit": "Anubis",
+    "armour": 22,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 137.5,
+    "unit": "Zeus",
+    "armour": 24,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 173.7,
+    "unit": "Madcat",
+    "armour": 29,
+    "last_hit_by": "Attack Copter"
+   },
+   {
+    "t": 189.8,
+    "unit": "Zeus",
+    "armour": 15,
+    "last_hit_by": "Centipede"
+   }
+  ],
+  "damage_total": 947,
+  "attackers": 15,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 365 t of 320 t, RP 12000: Men Shen Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Zeus Prime(pmp_bubba), Zeus Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 60.5,
+    "kind": "salvage_craft",
+    "target": "Anubis rp_left=2000"
+   }
+  ],
+  "damage_dealt": 660,
+  "kills": 7,
+  "mission": "mc2_20",
+  "seed": 2,
+  "wall_s": 6.5
+ },
+ {
+  "result": "LOST",
+  "t_end": 676,
+  "player_alive": 0,
+  "enemies_alive": 51,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Goto Davion Dropship"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Rescue Drop Ship Crew at Prison"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy Orbital Turret"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Destroy Mobile Orbital Gun#1"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "5. Destroy Moblie Orbital Gun #2"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "6. Go To Davion Dropship for Extraction"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy All Enemy Forces"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 288.4,
+    "title": "1. Goto Davion Dropship"
+   }
+  ],
+  "losses": [
+   {
+    "t": 80.2,
+    "unit": "Madcat",
+    "armour": 25,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 128.4,
+    "unit": "MenShen",
+    "armour": 9,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 276.3,
+    "unit": "Anubis",
+    "armour": 11,
+    "last_hit_by": "ShaYu"
+   },
+   {
+    "t": 484.8,
+    "unit": "Zeus",
+    "armour": 28,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 502.9,
+    "unit": "Madcat",
+    "armour": 16,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 671.3,
+    "unit": "Zeus",
+    "armour": 7,
+    "last_hit_by": "Vulture"
+   }
+  ],
+  "damage_total": 1074,
+  "attackers": 26,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 5 units 365 t of 320 t, RP 12000: Men Shen Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Zeus Prime(pmp_bubba), Zeus Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 75.9,
+    "kind": "salvage_craft",
+    "target": "Anubis rp_left=2000"
+   }
+  ],
+  "damage_dealt": 1868,
+  "kills": 23,
+  "mission": "mc2_20",
+  "seed": 3,
+  "wall_s": 25.0
+ },
+ {
+  "result": "WON",
+  "t_end": 303,
+  "player_alive": 5,
+  "enemies_alive": 19,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move all units to Extraction Point"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Destroy Ammo Dump ALPHA"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Destroy Ammo Dump BETA"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c - Destroy Power Generator ALPHA"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d - Destroy Power Generator BETA"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture the Weapons Facility"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy Industrial Complex"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden trigger area 4 PG ALPHA"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden trigger area 4 PG BETA"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 297.9,
+    "title": "1 - Move all units to Extraction Point"
+   }
+  ],
+  "losses": [],
+  "damage_total": 107,
+  "attackers": 10,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 190 t of 200 t, RP 23000: Bushwacker Prime(pmp_bubba), Anubis Prime(pmp_bubba), Anubis Prime(pmp_bubba), Mad Cat Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 12.4,
+    "kind": "air_strike",
+    "target": "(-883, -559) rp_left=16000"
+   },
+   {
+    "t": 24.5,
+    "kind": "air_strike",
+    "target": "(-883, -542) rp_left=9000"
+   },
+   {
+    "t": 282.7,
+    "kind": "repair_truck",
+    "target": "(-248, 924) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 817,
+  "kills": 14,
+  "mission": "mc2_21",
+  "seed": 1,
+  "wall_s": 8.3
+ },
+ {
+  "result": "WON",
+  "t_end": 417,
+  "player_alive": 5,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move all units to Extraction Point"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Destroy Ammo Dump ALPHA"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Destroy Ammo Dump BETA"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c - Destroy Power Generator ALPHA"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d - Destroy Power Generator BETA"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture the Weapons Facility"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy Industrial Complex"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden trigger area 4 PG ALPHA"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "hidden trigger area 4 PG BETA"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 412.1,
+    "title": "1 - Move all units to Extraction Point"
+   }
+  ],
+  "losses": [],
+  "damage_total": 237,
+  "attackers": 13,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 190 t of 200 t, RP 23000: Bushwacker Prime(pmp_bubba), Anubis Prime(pmp_bubba), Anubis Prime(pmp_bubba), Mad Cat Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 12.4,
+    "kind": "air_strike",
+    "target": "(-883, -559) rp_left=16000"
+   },
+   {
+    "t": 24.5,
+    "kind": "air_strike",
+    "target": "(-849, -542) rp_left=9000"
+   },
+   {
+    "t": 106.9,
+    "kind": "repair_truck",
+    "target": "(-917, -439) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 1286,
+  "kills": 17,
+  "mission": "mc2_21",
+  "seed": 2,
+  "wall_s": 10.6
+ },
+ {
+  "result": "WON",
+  "t_end": 434,
+  "player_alive": 2,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move all units to Extraction Point"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Destroy Ammo Dump ALPHA"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Destroy Ammo Dump BETA"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c - Destroy Power Generator ALPHA"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d - Destroy Power Generator BETA"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture the Weapons Facility"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy Industrial Complex"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden trigger area 4 PG ALPHA"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "hidden trigger area 4 PG BETA"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 429.1,
+    "title": "1 - Move all units to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 126.0,
+    "unit": "Anubis",
+    "armour": 66,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 195.9,
+    "unit": "Anubis",
+    "armour": 25,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 202,
+  "attackers": 12,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 4 units 190 t of 200 t, RP 23000: Bushwacker Prime(pmp_bubba), Anubis Prime(pmp_bubba), Anubis Prime(pmp_bubba), Mad Cat Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 12.4,
+    "kind": "air_strike",
+    "target": "(-883, -559) rp_left=16000"
+   },
+   {
+    "t": 24.5,
+    "kind": "air_strike",
+    "target": "(-849, -542) rp_left=9000"
+   }
+  ],
+  "damage_dealt": 1320,
+  "kills": 17,
+  "mission": "mc2_21",
+  "seed": 3,
+  "wall_s": 11.2
+ },
+ {
+  "result": "LOST",
+  "t_end": 640,
+  "player_alive": 1,
+  "enemies_alive": 33,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Elite Guard"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Palace"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all surviving Mechs to Extraction Point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 215.8,
+    "unit": "Shootist",
+    "armour": 29,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 527.0,
+    "unit": "ShadowCat",
+    "armour": 46,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 538.3,
+    "unit": "ShadowCat",
+    "armour": 26,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 552.7,
+    "unit": "Catapult",
+    "armour": 44,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 556.7,
+    "unit": "Bushwacker",
+    "armour": 11,
+    "last_hit_by": "Anubis"
+   },
+   {
+    "t": 564.9,
+    "unit": "Catapult",
+    "armour": 54,
+    "last_hit_by": "Swarmlrmc"
+   },
+   {
+    "t": 586.0,
+    "unit": "Highlander",
+    "armour": 10,
+    "last_hit_by": "Anubis"
+   },
+   {
+    "t": 609.5,
+    "unit": "Jagermech",
+    "armour": 23,
+    "last_hit_by": "LaoHu"
+   }
+  ],
+  "damage_total": 1654,
+  "attackers": 41,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 8 units 500 t of 380 t, RP 16000: Highlander Prime(pmp_bubba), Catapult Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Jagermech Prime(pmp_bubba), Shootist Prime(pmp_bubba), Catapult Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 27.5,
+    "kind": "air_strike",
+    "target": "(-815, -1088) rp_left=9000"
+   },
+   {
+    "t": 110.0,
+    "kind": "repair_truck",
+    "target": "(-889, -1022) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 2799,
+  "kills": 31,
+  "mission": "mc2_22",
+  "seed": 1,
+  "wall_s": 31.1
+ },
+ {
+  "result": "LOST",
+  "t_end": 466,
+  "player_alive": 0,
+  "enemies_alive": 39,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Elite Guard"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Palace"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all surviving Mechs to Extraction Point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 211.7,
+    "unit": "ShadowCat",
+    "armour": 21,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 232.5,
+    "unit": "Shootist",
+    "armour": 22,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 243.8,
+    "unit": "Catapult",
+    "armour": 30,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 344.4,
+    "unit": "ShadowCat",
+    "armour": 38,
+    "last_hit_by": "Raven"
+   },
+   {
+    "t": 379.8,
+    "unit": "Bushwacker",
+    "armour": 14,
+    "last_hit_by": "Raven"
+   },
+   {
+    "t": 414.8,
+    "unit": "Catapult",
+    "armour": 19,
+    "last_hit_by": "Raven"
+   },
+   {
+    "t": 428.0,
+    "unit": "Highlander",
+    "armour": 18,
+    "last_hit_by": "Anubis"
+   },
+   {
+    "t": 457.0,
+    "unit": "Jagermech",
+    "armour": 10,
+    "last_hit_by": "Raven"
+   },
+   {
+    "t": 460.6,
+    "unit": "Repairtruck",
+    "armour": 80,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 1444,
+  "attackers": 34,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 8 units 500 t of 380 t, RP 16000: Highlander Prime(pmp_bubba), Catapult Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Jagermech Prime(pmp_bubba), Shootist Prime(pmp_bubba), Catapult Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 33.5,
+    "kind": "air_strike",
+    "target": "(-853, -1130) rp_left=9000"
+   },
+   {
+    "t": 393.7,
+    "kind": "repair_truck",
+    "target": "(74, -456) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 2680,
+  "kills": 25,
+  "mission": "mc2_22",
+  "seed": 2,
+  "wall_s": 19.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 436,
+  "player_alive": 1,
+  "enemies_alive": 42,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Elite Guard"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Palace"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all surviving Mechs to Extraction Point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 177.3,
+    "unit": "ShadowCat",
+    "armour": 33,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 203.9,
+    "unit": "Shootist",
+    "armour": 22,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 262.3,
+    "unit": "ShadowCat",
+    "armour": 14,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 307.8,
+    "unit": "Catapult",
+    "armour": 25,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 343.5,
+    "unit": "Catapult",
+    "armour": 24,
+    "last_hit_by": "Anubis"
+   },
+   {
+    "t": 366.5,
+    "unit": "Bushwacker",
+    "armour": 27,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 394.3,
+    "unit": "Highlander",
+    "armour": 15,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 405.8,
+    "unit": "Jagermech",
+    "armour": 16,
+    "last_hit_by": "Raven"
+   }
+  ],
+  "damage_total": 1296,
+  "attackers": 33,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 8 units 500 t of 380 t, RP 16000: Highlander Prime(pmp_bubba), Catapult Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba), Shadow Cat Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Jagermech Prime(pmp_bubba), Shootist Prime(pmp_bubba), Catapult Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 36.5,
+    "kind": "air_strike",
+    "target": "(-851, -1131) rp_left=9000"
+   },
+   {
+    "t": 399.7,
+    "kind": "repair_truck",
+    "target": "(-81, -486) rp_left=3000"
+   }
+  ],
+  "damage_dealt": 2206,
+  "kills": 22,
+  "mission": "mc2_22",
+  "seed": 3,
+  "wall_s": 18.9
+ },
+ {
+  "result": "LOST",
+  "t_end": 539,
+  "player_alive": 10,
+  "enemies_alive": 58,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Clear Out Steiner Forces at Starport"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 0)",
+    "title": "2. Eliminate Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Destroy Steiner Dropships"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Capture Steiner Mobile HQ Vehicle"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 259.8,
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   }
+  ],
+  "losses": [
+   {
+    "t": 78.0,
+    "unit": "Werewolf",
+    "armour": 31,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 323.3,
+    "unit": "Madcat",
+    "armour": 21,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 508.9,
+    "unit": "Catapult",
+    "armour": 15,
+    "last_hit_by": "Heavy Copter"
+   }
+  ],
+  "damage_total": 642,
+  "attackers": 20,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 170 t of 300 t, RP 36000: Mad Cat Prime(pmp_bubba), Razorback Prime(pmp_bubba), Catapult Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 12.4,
+    "kind": "air_strike",
+    "target": "(-772, 969) rp_left=29000"
+   },
+   {
+    "t": 30.5,
+    "kind": "air_strike",
+    "target": "(-884, 1251) rp_left=22000"
+   },
+   {
+    "t": 66.6,
+    "kind": "air_strike",
+    "target": "(-923, 1028) rp_left=15000"
+   },
+   {
+    "t": 79.0,
+    "kind": "air_strike",
+    "target": "(-883, 994) rp_left=8000"
+   },
+   {
+    "t": 417.7,
+    "kind": "repair_truck",
+    "target": "(-320, -414) rp_left=2000"
+   }
+  ],
+  "damage_dealt": 802,
+  "kills": 17,
+  "mission": "mc2_23",
+  "seed": 1,
+  "wall_s": 21.3
+ },
+ {
+  "result": "LOST",
+  "t_end": 413,
+  "player_alive": 5,
+  "enemies_alive": 58,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Clear Out Steiner Forces at Starport"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 0)",
+    "title": "2. Eliminate Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Destroy Steiner Dropships"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Capture Steiner Mobile HQ Vehicle"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 231.6,
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   }
+  ],
+  "losses": [
+   {
+    "t": 84.7,
+    "unit": "Werewolf",
+    "armour": 28,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 209.0,
+    "unit": "Werewolf",
+    "armour": 21,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 284.7,
+    "unit": "Madcat",
+    "armour": 32,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 407.5,
+    "unit": "Catapult",
+    "armour": 21,
+    "last_hit_by": "Bushwacker"
+   }
+  ],
+  "damage_total": 503,
+  "attackers": 17,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 170 t of 300 t, RP 36000: Mad Cat Prime(pmp_bubba), Razorback Prime(pmp_bubba), Catapult Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 12.4,
+    "kind": "air_strike",
+    "target": "(-772, 969) rp_left=29000"
+   },
+   {
+    "t": 30.5,
+    "kind": "air_strike",
+    "target": "(-884, 1251) rp_left=22000"
+   },
+   {
+    "t": 42.5,
+    "kind": "air_strike",
+    "target": "(-984, 1232) rp_left=15000"
+   },
+   {
+    "t": 51.5,
+    "kind": "salvage_craft",
+    "target": "Werewolf rp_left=5000"
+   }
+  ],
+  "damage_dealt": 786,
+  "kills": 17,
+  "mission": "mc2_23",
+  "seed": 2,
+  "wall_s": 15.8
+ },
+ {
+  "result": "LOST",
+  "t_end": 480,
+  "player_alive": 3,
+  "enemies_alive": 49,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Clear Out Steiner Forces at Starport"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 0)",
+    "title": "2. Eliminate Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Destroy Steiner Dropships"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Capture Steiner Mobile HQ Vehicle"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 198.9,
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   }
+  ],
+  "losses": [
+   {
+    "t": 222.3,
+    "unit": "Werewolf",
+    "armour": 49,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 225.6,
+    "unit": "Werewolf",
+    "armour": 16,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 232.1,
+    "unit": "Werewolf",
+    "armour": 53,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 387.4,
+    "unit": "Catapult",
+    "armour": 50,
+    "last_hit_by": "Heavy Copter"
+   },
+   {
+    "t": 474.9,
+    "unit": "Madcat",
+    "armour": 38,
+    "last_hit_by": "Zeus"
+   }
+  ],
+  "damage_total": 406,
+  "attackers": 21,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 3 units 170 t of 300 t, RP 36000: Mad Cat Prime(pmp_bubba), Razorback Prime(pmp_bubba), Catapult Prime(pmp_bubba)",
+  "support": [
+   {
+    "t": 12.4,
+    "kind": "air_strike",
+    "target": "(-772, 969) rp_left=29000"
+   },
+   {
+    "t": 30.5,
+    "kind": "air_strike",
+    "target": "(-884, 1251) rp_left=22000"
+   },
+   {
+    "t": 42.5,
+    "kind": "salvage_craft",
+    "target": "Werewolf rp_left=12000"
+   },
+   {
+    "t": 54.5,
+    "kind": "salvage_craft",
+    "target": "Werewolf rp_left=2000"
+   }
+  ],
+  "damage_dealt": 1080,
+  "kills": 25,
+  "mission": "mc2_23",
+  "seed": 3,
+  "wall_s": 19.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 468,
+  "player_alive": 0,
+  "enemies_alive": 24,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Steiner High Command"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Eliminate Renard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag F1)",
+    "title": "Extract All Surviving Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Area Trigger to Popup Renard Obj"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Destroying Fuel Trucks"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective for Triggering Extract"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 117.4,
+    "unit": "Uller",
+    "armour": 12,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 121.2,
+    "unit": "Bushwacker",
+    "armour": 22,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 152.2,
+    "unit": "BloodAsp",
+    "armour": 16,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 433.7,
+    "unit": "Madcat",
+    "armour": 37,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 435.8,
+    "unit": "Madcat",
+    "armour": 12,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 451.6,
+    "unit": "BloodAsp",
+    "armour": 44,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 463.2,
+    "unit": "Madcat",
+    "armour": 41,
+    "last_hit_by": "Legion"
+   }
+  ],
+  "damage_total": 1170,
+  "attackers": 26,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 6 units 435 t of 450 t, RP 10000: Mad Cat Prime(pmp_dagger), Mad Cat Prime(pmp_creep), Mad Cat Prime(pmp_claymore), Uller Prime(pmp_worm), Blood Asp Prime(pmp_rooster), Blood Asp Prime(pmp_scooter)",
+  "support": [
+   {
+    "t": 100.7,
+    "kind": "salvage_craft",
+    "target": "Bushwacker rp_left=0"
+   }
+  ],
+  "damage_dealt": 2639,
+  "kills": 28,
+  "mission": "mc2_24",
+  "seed": 1,
+  "wall_s": 21.8
+ },
+ {
+  "result": "LOST",
+  "t_end": 467,
+  "player_alive": 0,
+  "enemies_alive": 24,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Steiner High Command"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Eliminate Renard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag F1)",
+    "title": "Extract All Surviving Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Area Trigger to Popup Renard Obj"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Destroying Fuel Trucks"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective for Triggering Extract"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 105.4,
+    "unit": "Uller",
+    "armour": 26,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 420.5,
+    "unit": "BloodAsp",
+    "armour": 22,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 428.3,
+    "unit": "Madcat",
+    "armour": 28,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 434.8,
+    "unit": "BloodAsp",
+    "armour": 38,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 449.3,
+    "unit": "Madcat",
+    "armour": 14,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 457.5,
+    "unit": "Madcat",
+    "armour": 35,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 461.8,
+    "unit": "Bushwacker",
+    "armour": 10,
+    "last_hit_by": "Hunchback"
+   }
+  ],
+  "damage_total": 1236,
+  "attackers": 25,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 6 units 435 t of 450 t, RP 10000: Mad Cat Prime(pmp_dagger), Mad Cat Prime(pmp_creep), Mad Cat Prime(pmp_claymore), Uller Prime(pmp_worm), Blood Asp Prime(pmp_rooster), Blood Asp Prime(pmp_scooter)",
+  "support": [
+   {
+    "t": 69.7,
+    "kind": "salvage_craft",
+    "target": "Bushwacker rp_left=0"
+   }
+  ],
+  "damage_dealt": 2928,
+  "kills": 30,
+  "mission": "mc2_24",
+  "seed": 2,
+  "wall_s": 22.8
+ },
+ {
+  "result": "LOST",
+  "t_end": 441,
+  "player_alive": 0,
+  "enemies_alive": 32,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Steiner High Command"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 0)",
+    "title": "Eliminate Renard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag F1)",
+    "title": "Extract All Surviving Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Area Trigger to Popup Renard Obj"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Destroying Fuel Trucks"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective for Triggering Extract"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 86.4,
+    "unit": "Uller",
+    "armour": 40,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 168.8,
+    "unit": "Bushwacker",
+    "armour": 18,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 275.2,
+    "unit": "BloodAsp",
+    "armour": 28,
+    "last_hit_by": "Jagermech"
+   },
+   {
+    "t": 288.4,
+    "unit": "Madcat",
+    "armour": 14,
+    "last_hit_by": "Jagermech"
+   },
+   {
+    "t": 392.3,
+    "unit": "Madcat",
+    "armour": 24,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 415.2,
+    "unit": "BloodAsp",
+    "armour": 17,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 436.4,
+    "unit": "Madcat",
+    "armour": 19,
+    "last_hit_by": "Zeus"
+   }
+  ],
+  "damage_total": 1330,
+  "attackers": 25,
+  "top_attackers": [],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": "fit 6 units 435 t of 450 t, RP 10000: Mad Cat Prime(pmp_dagger), Mad Cat Prime(pmp_creep), Mad Cat Prime(pmp_claymore), Uller Prime(pmp_worm), Blood Asp Prime(pmp_rooster), Blood Asp Prime(pmp_scooter)",
+  "support": [
+   {
+    "t": 106.9,
+    "kind": "salvage_craft",
+    "target": "Bushwacker rp_left=0"
+   }
+  ],
+  "damage_dealt": 2344,
+  "kills": 22,
+  "mission": "mc2_24",
+  "seed": 3,
+  "wall_s": 20.3
+ }
+]

@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_08
+ABL pilots: 70
+t= 281.5  LOST Werewolf (disabled, armour 22%, heat 3, ejected false, pilot 0.0 wounds, last hit by Flea)
+t= 586.7  LOST Highlander (disabled, armour 11%, heat 2, ejected false, pilot 4.0 wounds, last hit by Starslayer)
+t= 633.1  LOST Hollander (disabled, armour 13%, heat 0, ejected false, pilot 0.0 wounds, last hit by Starslayer)
+t= 638.1  MISSION LOST
+seed 2 end t=638 result=LOST  player alive 1  enemies alive 36
+damage to lance: 520 from 25 attackers; hits by location (0 head .. 10 rear RT): { 1: 35, 2: 39, 7: 24, 3: 29, 4: 24, 6: 33, 5: 26, 0: 5, 10: 3, 8: 3 }
+       194  Starslayer (mech)
+       110  Harasser (vehicle)
+        78  Flea (mech)
+        72  Hunter (vehicle)
+        66  Urbanmech (mech)
+  obj 0 P: open  1 - Destroy Air Traffic Control Tower
+  obj 1 P: open  2 - Link up with Atlas
+  obj 2 P: inactive (flag 1)  3 - Destroy Air Traffic Control Tower BETA
+  obj 3 P: inactive (flag 1)  4 - Evacuate all 'Mechs to extraction point
+abl errors: []
+abl natives missing: []
+brain end states: { "pBrain:": 4, "mc2_08anubis1:start": 1, "mc2_08_dred:attack": 9, "mc2_08beetle4:start": 1, "mc2_08beetle9:start": 1, "mc2_08beetle5:start": 1, "mc2_08beetle8:start": 1, "mc2_08beetle6:start": 1, "mc2_08beetle7:start": 1, "mc2_08_dred:start": 16, "mc2_08beetle3:attack": 1, "mc2_08beetle2:attack": 1, "mc2_08urbanmech2:attack": 1, "mc2_08urbanmech3:attack": 1, "mc2_08beetle1:attack": 1, "mc2_08urbanmech1:attack": 3, "mc2_08addenemies1:attack": 2, "mc2_08_ec1_grp1:attack": 2, "mc2_08pathptrl2:attack": 1, "mc2_08pathptrl5:attack": 1, "mc2_08smairport1:start": 1, "mc2_08Cliffptrl1:attack": 1, "mc2_08cliffptrl1:attack": 1, "mc2_08pathptrl4:attack": 1, "mc2_08pathptrl1:attack": 1, "mc2_08pathptrl3:attack": 1, "mc2_08pathptrl6:attack": 2, "mc2_08pathptrl7:noweapons": 2, "mc2_08_lrm_brain:start": 7, "mc2_08_lrm_brain:attack": 3 }
+enemy pilots that moved >20 m: 44 / 70
+
+--- stderr ---
+WARNING: 567 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

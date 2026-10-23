@@ -1,0 +1,48 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_18
+force: fit 5 units 290 t of 320 t, RP 16000: Thor Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Bushwacker Prime(pmp_bubba), Anubis Prime(pmp_bubba), Vulture Prime(pmp_bubba)
+ABL pilots: 72
+t=  26.0  SUPPORT air_strike (-754, -781) rp_left=9000
+t= 270.7  LOST Anubis (destroyed, armour 30%, heat 0, ejected false, pilot 1.0 wounds, last hit by Harasser)
+t= 462.2  LOST Bushwacker (destroyed, armour 25%, heat 0, ejected false, pilot 3.0 wounds, last hit by Partisan)
+t= 497.4  LOST Vulture (disabled, armour 14%, heat 0, ejected false, pilot 1.0 wounds, last hit by Drillson)
+t= 526.6  LOST Madcat (disabled, armour 27%, heat 0, ejected false, pilot 1.0 wounds, last hit by Drillson)
+t= 560.2  SUPPORT repair_truck (-175, 571) rp_left=3000
+t= 630.4  LOST Thor (disabled, armour 15%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hollander)
+t= 661.0  harness: no armed lance unit left since t=631 (only support vehicles); scored LOST (I13)
+seed 3 end t=661 result=LOST  player alive 1  enemies alive 39
+damage to lance: 739 from 27 attackers; hits by location (0 head .. 10 rear RT): { 5: 32, 4: 33, 1: 46, 2: 38, 3: 29, 7: 35, 6: 28, 0: 5 }
+damage by lance: 1777; kills 27
+       186  Drillson (vehicle)
+        97  Highlander (mech)
+        84  ShaYu (mech)
+        81  Catapult (mech)
+        69  Lrmcarrier (vehicle)
+        50  Starslayer (mech)
+        40  Partisan (vehicle)
+        40  Hollander (mech)
+        30  Vedette (vehicle)
+        16  Werewolf (mech)
+  obj 0 P: open  1. Defend City from Liao and Steiner Forces
+  obj 1 P: open  2. Destroy all Liao/Steiner Forces
+  obj 2 s: open  a. Recapture Davion Headquarters
+  obj 3 s: open  b. Recapture the City's Power Generator
+  obj 4 s: open  c. Recapture Davion Sensor Control
+  obj 5 s hidden: open  Hidden Object To kill group 1
+  obj 6 s hidden: open  Hidden Objective to Kill Group2
+  obj 7 s hidden: open  Hidden Objective to Kill Group 3
+  obj 8 s hidden: open  Hidden Objective To Kill Group 4
+  obj 9 s hidden: open  Hidden Objective to Trigger Group Sneaky
+  obj 10 s hidden: done  Hidden Objective that Triggers Objectives to app
+  obj 11 s hidden: done  Hidden Objective when the player kills 25 enemie
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 5, "mc2_18_Grp1_Mechs:attack": 3, "mc2_18_Grp1_Mechs:baseassault": 1, "mc2_18_Grp1_Veh:baseassault": 2, "mc2_18_Grp2_Mechs:start": 4, "mc2_18_Grp3_Mechs:start": 6, "mc2_18_Grp2_Veh:start": 4, "mc2_18_Grp4_Mechs:start": 5, "mc2_18_sneaky_mech:start": 4, "mc2_18_Gpatrol_Veh:attack": 2, "mc2_18_guard_Veh:attack": 1, "mc2_18_guard_Veh:start": 2, "mc2_18_Grp0_Veh:look4play": 4, "mc2_18_Grp0_Veh:attack": 1, "mc2_18_guard_PD_mech:attack": 4, "mc2_18_patrol_1:attack": 1, "mc2_18_guard_Low:attack": 2, "mc2_18_guard_High:attack": 4, "mc2_18_Gpatrol_Mechs:attack": 2, "mc2_18_guard_LOW:attack": 7, "mc2_18_guard_HIGH:start": 2, "mc2_18_patrol_lake2:start": 2, "mc2_18_patrol_lake:attack": 1, "mc2_18_patrol_4:attack": 1, "mc2_18_guard_HIGH:attack": 1, "mc2_18_patrol_2:attack": 1 }
+enemy pilots that moved >20 m: 38 / 72
+
+--- stderr ---
+WARNING: 875 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

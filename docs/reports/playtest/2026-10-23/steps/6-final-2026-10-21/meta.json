@@ -1,0 +1,20 @@
+{
+ "commit": "b3c9790",
+ "dirty": [
+  "M game/tools/autoplay.gd",
+  "?? game/tools/autoplay_baseline.gd",
+  "?? game/tools/autoplay_baseline.gd.uid",
+  "?? game/tools/autoplay_run.gd",
+  "?? game/tools/autoplay_run.gd.uid"
+ ],
+ "scripts_diff_sha1": "da39a3ee5e",
+ "bot_sha1": "b2fce7c260",
+ "seeds": [
+  1,
+  2,
+  3
+ ],
+ "max_seconds": 1800,
+ "bot_args": [],
+ "jobs": 3
+}

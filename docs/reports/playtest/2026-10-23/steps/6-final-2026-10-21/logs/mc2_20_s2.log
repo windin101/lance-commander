@@ -1,0 +1,54 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_20
+force: campaign 5 units 320 t of 320 t, RP 12000: Mad Cat Prime(pmwscooter), Mad Cat Prime(pmwvenom), Shootist Prime(pmwbubba), Catapult Prime(pmwwicked), Wolfhound Prime(pmwsteel)
+ABL pilots: 79
+t=  48.5  SUPPORT salvage_craft Zeus rp_left=2000
+t= 155.2  objective done: 1. Goto Davion Dropship
+t= 168.9  SUPPORT repair_truck (-83, 181) rp_left=0
+t= 195.8  LOST Wolfhound (destroyed, armour 25%, heat 0, ejected false, pilot 3.0 wounds, last hit by Harasser)
+t= 204.4  LOST Madcat (disabled, armour 40%, heat 0, ejected false, pilot 2.0 wounds, last hit by Harasser)
+t= 318.7  SUPPORT air_strike (175, 1046) rp_left=1000
+t= 367.2  LOST Shootist (disabled, armour 28%, heat 0, ejected false, pilot 3.0 wounds, last hit by Drillson)
+t= 509.8  objective done: 4. Destroy Mobile Orbital Gun#1
+t= 522.7  SUPPORT salvage_craft Shootist rp_left=3000
+t= 546.6  LOST Repairtruck (disabled, armour 100%, heat 0, ejected false, pilot 0.0 wounds, last hit by -)
+t= 546.7  SUPPORT repair_truck (164, 788) rp_left=1000
+t= 564.8  objective done: 2. Rescue Drop Ship Crew at Prison
+t= 681.7  PULLBACK Madcat at 27%
+t= 698.7  LOST Madcat (disabled, armour 9%, heat 0, ejected false, pilot 4.0 wounds, last hit by MenShen)
+t= 813.3  LOST Catapult (disabled, armour 19%, heat 0, ejected false, pilot 1.0 wounds, last hit by Zeus)
+t= 827.9  LOST Zeus (disabled, armour 31%, heat 7, ejected false, pilot 1.0 wounds, last hit by Storm)
+t= 843.8  LOST Shootist (disabled, armour 52%, heat 0, ejected false, pilot 1.0 wounds, last hit by Zeus)
+t= 848.6  LOST Repairtruck (destroyed, armour 73%, heat 0, ejected false, pilot 0.0 wounds, last hit by Zeus)
+t= 853.6  MISSION LOST
+seed 2 end t=854 result=LOST  player alive 0  enemies alive 20
+damage to lance: 1748 from 47 attackers; hits by location (0 head .. 10 rear RT): { 4: 49, 5: 58, 7: 66, 1: 97, 6: 50, 3: 65, 2: 63, 8: 5, 0: 18, 10: 4, 9: 3 }
+damage by lance: 3913; kills 51
+       300  Hollander (mech)
+       271  Zeus (mech)
+       148  MenShen (mech)
+       143  Highlander (mech)
+       132  Drillson (vehicle)
+       104  Harasser (vehicle)
+        96  Vedette (vehicle)
+        81  Madcat (mech)
+        77  Anubis (mech)
+        66  Monsoon (vehicle)
+  obj 0 P: done  1. Goto Davion Dropship
+  obj 1 P: done  2. Rescue Drop Ship Crew at Prison
+  obj 2 P: open  3. Destroy Orbital Turret
+  obj 3 P: done  4. Destroy Mobile Orbital Gun#1
+  obj 4 P: open  5. Destroy Moblie Orbital Gun #2
+  obj 5 P: gated  6. Go To Davion Dropship for Extraction
+  obj 6 s: open  a. Destroy All Enemy Forces
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_20_Base_PD2:start": 2, "mc2_20_MOG_PD:noweapons": 1, "mc2_20_s1Sth_Patrol_M2:attack": 2, "mc2_20_s1Sth_Patrol_M1:start": 3, "mc2_20_Prision_guard:attack": 4, "mc2_20_Prision_PD:attack": 2, "mc2_20_Prision_Patrol_M1:attack": 5, "mc2_20_s1WST_Patrol_M1:attack": 5, "pbrain:attack": 1, "mc2_20_MogM_Mog:start": 1, "mc2_20_MogM_escort_M1:escorting": 2, "mc2_20_MogM_escort_V1:escorting": 4, "mc2_20_MOG_REIN:attack": 5, "mc2_20_MOG_guard:attack": 2, "mc2_20_Base_Rein_V1:baseassault": 3, "mc2_20_Base_Patrol_M1:attack": 5, "mc2_20_Base_Rein_M1:baseassault": 1, "mc2_20_Base_PD:baseassault": 1, "mc2_20_base_Patrol_v1:attack": 1, "mc2_20_Base_guard:start": 3, "mc2_20_Turret1_guard:attack": 2, "mc2_20_Dship_PD:attack": 5, "mc2_20_Dship_Patrol_V1:attack": 5, "mc2_20_MOG_guard_V1:attack": 9, "PBrain:": 4, "pbrain:": 3 }
+enemy pilots that moved >20 m: 67 / 81
+
+--- stderr ---
+WARNING: 597 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

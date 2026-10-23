@@ -1,0 +1,22 @@
+{
+ "commit": "b5738b2",
+ "dirty": [
+  "M game/scripts/dev/dev_tools.gd",
+  " M game/tools/autoplay.gd",
+  "?? game/data/weapon_fx.json",
+  "?? game/tools/autoplay_baseline.gd",
+  "?? game/tools/autoplay_baseline.gd.uid",
+  "?? game/tools/autoplay_run.gd",
+  "?? game/tools/autoplay_run.gd.uid"
+ ],
+ "scripts_diff_sha1": "5ecf437b95",
+ "bot_sha1": "220dc6c8a6",
+ "seeds": [
+  1,
+  2,
+  3
+ ],
+ "max_seconds": 1800,
+ "bot_args": [],
+ "jobs": 3
+}

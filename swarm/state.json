@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-21T18:46:54+13:00",
+  "updated": "2026-10-23T14:13:47+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1397,8 +1397,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-20T19:10:06+13:00",
-      "updated": "2026-10-20T19:10:06+13:00",
-      "note": null
+      "updated": "2026-10-23T14:13:47+13:00",
+      "note": "Bot now drives to MoveAnyUnitToArea markers (mc2_08 '2 - Link up with Atlas' done on all 3 seeds) and clears every non-ally mover within 256 m of the extraction point before moving in (mc2_09 3/3, mc2_11 s1 extracted). docs/reports/playtest/2026-10-23/README.md"
     },
     {
       "id": "I82",
@@ -1583,11 +1583,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:55:50+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 3: 1 approved, 3 issues"
-    },
     {
       "at": "2026-10-19T16:55:50+13:00",
       "who": "game-art",
@@ -2582,6 +2577,11 @@
       "at": "2026-10-21T18:46:54+13:00",
       "who": "game-art",
       "msg": "issue I87 P3: Weapon effects, explosions and damage visuals pass"
+    },
+    {
+      "at": "2026-10-23T14:13:47+13:00",
+      "who": "conductor",
+      "msg": "issue I81 updated: note \u2014 Bot now drives to MoveAnyUnitToArea markers (mc2_08 '2 - Link up with Atlas' done on all 3 seeds) and clears every non-ally mover within 256 m of the extraction point before moving in (mc2_09 3/3, mc2_11 s1 extracted). docs/reports/playtest/2026-10-23/README.md"
     }
   ],
   "choices": [

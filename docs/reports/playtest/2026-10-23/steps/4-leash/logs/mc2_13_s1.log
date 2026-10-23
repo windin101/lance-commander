@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_13
+force: campaign 4 units 230 t of 230 t, RP 0: Shootist Prime(pmwsteel), Catapult Prime(pmwclaymore), Men Shen Prime(pmwworm), Sha Yu Prime(pmwmeat)
+ABL pilots: 48
+t=  67.3  LOST ShaYu (disabled, armour 26%, heat 0, ejected false, pilot 0.0 wounds, last hit by Thor)
+t= 167.1  objective done: Destroy Davion Dropship
+seed 1 end t=1800 result=PLAYING  player alive 3  enemies alive 42
+damage to lance: 256 from 2 attackers; hits by location (0 head .. 10 rear RT): { 6: 9, 7: 15, 5: 7, 1: 16, 3: 18, 2: 18, 4: 8, 0: 4 }
+damage by lance: 610; kills 2
+       174  Ryoken (mech)
+        82  Thor (mech)
+  obj 0 P: open  Destroy Both HPG Station
+  obj 1 P: open  Capture Weapons Facility #1
+  obj 2 P: open  Capture Weapons Facility #2
+  obj 3 P: open  Capture Weapons Facility #3
+  obj 4 P: done  Destroy Davion Dropship
+  obj 5 P: gated  Move all Surviving 'Mechs to Extraction Point
+  obj 6 s hidden: done  Super Secret Hidden OBJ to track if you kill the
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_13_Enfield_S:start": 1, "mc2_13_WFac2_Veh_1:start": 1, "mc2_13_WFac2_Veh_2:start": 1, "mc2_13_Enfield_N:start": 1, "mc2_13_WFac1_PWARM:start": 5, "mc2_13_WFac1_PWARM_1:start": 16, "mc2_13_PowerGen_Mech_1:start": 2, "mc2_13_SpacePort_Clan_Thor:attack": 1, "mc2_13_SpacePort_Clan_1:attack": 1, "mc2_13_Enfield_TC:start": 1, "mc2_13_OutPatl_Grp1_Lead:start": 1, "mc2_13_OutPatl_Grp1_Escort:escortinglead": 2, "mc2_13_MISC_Storms:start": 5, "mc2_13_Crat_W_Patrol:start": 2, "mc2_13_Crat_N_Patrol:start": 2, "mc2_13_Crat_E_Patrol:start": 2, "PBrain:": 4 }
+enemy pilots that moved >20 m: 17 / 48
+
+--- stderr ---
+WARNING: 499 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

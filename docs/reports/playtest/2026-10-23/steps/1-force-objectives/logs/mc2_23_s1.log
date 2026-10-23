@@ -1,0 +1,57 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_23
+force: campaign 5 units 300 t of 300 t, RP 36000: Atlas Prime(pmwrooster), Atlas Prime(pmwmother), Sha Yu Prime(pmwghost), Razorback Prime(pmwscooter), Razorback Prime(pmwbubba)
+ABL pilots: 90
+t=   6.2  SUPPORT air_strike (-772, 969) rp_left=29000
+t=  33.5  SUPPORT air_strike (-1000, 1254) rp_left=22000
+t=  36.5  SUPPORT salvage_craft Werewolf rp_left=12000
+t=  44.6  LOST ShaYu (disabled, armour 37%, heat 3, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  48.5  SUPPORT salvage_craft ShaYu rp_left=12000
+t=  85.2  SUPPORT salvage_craft Werewolf rp_left=2000
+t= 184.3  LOST ShaYu (destroyed, armour 24%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 187.8  LOST Werewolf (disabled, armour 21%, heat 1, ejected false, pilot 0.0 wounds, last hit by Heavy Copter)
+t= 211.4  objective done: b. Clear Out Patrols Around Town to Free Rebels
+t= 260.3  LOST Centipede (destroyed, armour 60%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 266.5  LOST Vedette (destroyed, armour 78%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 272.0  LOST Lrmcarrier (destroyed, armour 74%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 286.9  LOST Centipede (destroyed, armour 67%, heat 0, ejected false, pilot 0.0 wounds, last hit by Swarmlrmc)
+t= 290.3  LOST Werewolf (destroyed, armour 21%, heat 0, ejected false, pilot 3.0 wounds, last hit by Lrmcarrier)
+t= 295.3  LOST Lrmcarrier (destroyed, armour 67%, heat 0, ejected false, pilot 0.0 wounds, last hit by Swarmlrmc)
+t= 297.7  LOST Werewolf (destroyed, armour 23%, heat 0, ejected false, pilot 1.0 wounds, last hit by Hollander)
+t= 302.3  LOST Centipede (destroyed, armour 80%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 315.0  LOST Vedette (destroyed, armour 64%, heat 0, ejected false, pilot 0.0 wounds, last hit by Swarmlrmc)
+t= 319.8  LOST Vedette (destroyed, armour 71%, heat 0, ejected false, pilot 0.0 wounds, last hit by Monsoon)
+t= 325.8  LOST Lrmcarrier (destroyed, armour 70%, heat 0, ejected false, pilot 0.0 wounds, last hit by Monsoon)
+t= 456.7  PULLBACK Atlas at 30%
+t= 463.4  LOST Atlas (disabled, armour 15%, heat 0, ejected false, pilot 1.0 wounds, last hit by Bushwacker)
+t= 475.2  LOST Atlas (disabled, armour 6%, heat 7, ejected false, pilot 1.0 wounds, last hit by Lrmcarrier)
+t= 480.2  MISSION LOST
+seed 1 end t=480 result=LOST  player alive 0  enemies alive 51
+damage to lance: 1046 from 29 attackers; hits by location (0 head .. 10 rear RT): { 2: 43, 5: 39, 3: 45, 6: 33, 4: 38, 1: 51, 7: 26, 0: 6, 8: 6, 9: 6, 10: 8 }
+       273  Lrmcarrier (vehicle)
+       240  Hollander (mech)
+       119  Zeus (mech)
+       117  Werewolf (mech)
+        82  Atlas (mech)
+        73  Hunchback (mech)
+        70  Storm (vehicle)
+        34  Heavy Copter (mech)
+        21  Bushwacker (mech)
+        18  Attack Copter (mech)
+  obj 0 P: open  1. Clear Out Steiner Forces at Starport
+  obj 1 P: inactive (flag 0)  2. Eliminate Steiner Reinforcements
+  obj 2 s: open  a. Capture Sensor Control
+  obj 3 s: done  b. Clear Out Patrols Around Town to Free Rebels
+  obj 4 s: open  c. Destroy Steiner Dropships
+  obj 5 s: open  d. Capture Steiner Mobile HQ Vehicle
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_23_Starport_Mechs_South2:attackrear": 2, "mc2_23_EC1_Razors:attack": 3, "pbrain:attack": 1, "mc2_23_EC1_LRms:attack": 5, "mc2_23_EC2_Bridge_Guards:start": 2, "mc2_23_Base1_Mechs:start": 2, "mc2_23_EC2_razor_recap_sens:runawaybybridge": 2, "mc2_23_EC2_Water_Guards:start": 2, "mc2_23_Lakeside_patrol2:start": 2, "mc2_23_Lakeside_patrol1:attack": 2, "mc2_23_Town_chopper1:attack": 1, "mc2_23_Town_chopper2:attack": 1, "mc2_23_Town_chopper3:attack": 1, "mc2_23_Westside_patrol1:start": 2, "mc2_23_Westside_patrol2:start": 2, "mc2_23_Southside_patrol1:start": 3, "mc2_23_Southside_patrol2:attack": 2, "mc2_23_Southbase_BushG:start": 1, "mc2_23_Southbase_Cnv_grd:start": 1, "mc2_23_Southbase_chopper2:start": 1, "mc2_23_Southbase_chopper1:start": 1, "mc2_23_Southbase_CNV:start": 2, "mc2_23_Starport_Mechs_North2:attack": 1, "mc2_23_Starport_Mechs_North1:start": 1, "mc2_23_Starport_Mechs_South1:southpatroltostarport": 1, "mc2_23_Starport_LRMs:attack": 6, "mc2_23_Starport_LRMs:start": 3, "mc2_23_Starport_Mechs_East2:start": 1, "mc2_23_Starport_Mechs_East1:start": 2, "mc2_23_dropship_ambush_east:start": 2, "mc2_23_dropship_ambush_north:start": 2, "mc2_23_dropship_ambush_south:start": 2, "mc2_23_Rif1_Mechs_Jump:start": 3, "mc2_23_Rif2_Mechs_Town:start": 3, "mc2_23_Rif3_Mechs_Starport:start": 4, "mc2_23_Resource_Trucks:start": 4, "mc2_23_Reb_vehs:attack": 3, "mc2_23_Reb_vehs3:attack": 3, "mc2_23_Reb_vehs2:attack": 3, "PBrain:": 4, "pbrain:": 3 }
+enemy pilots that moved >20 m: 48 / 92
+
+--- stderr ---
+WARNING: 747 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

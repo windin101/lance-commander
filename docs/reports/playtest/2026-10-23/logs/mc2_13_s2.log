@@ -1,0 +1,45 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_13
+force: campaign 4 units 230 t of 230 t, RP 0: Shootist Prime(pmwsteel), Catapult Prime(pmwclaymore), Men Shen Prime(pmwworm), Sha Yu Prime(pmwmeat)
+ABL pilots: 48
+t= 371.8  objective done: Destroy Both HPG Station
+t= 411.4  objective done: Capture Weapons Facility #1
+t= 525.7  PULLBACK MenShen at 29%
+t= 585.7  PULLBACK MenShen at 17%
+t= 702.8  objective done: Capture Weapons Facility #2
+t= 972.7  PULLBACK MenShen at 17%
+t= 990.7  FALLBACK 2 threats (dps 15 vs 6, health 43%) to (108, -948)
+t=1006.4  LOST Shootist (disabled, armour 17%, heat 0, ejected false, pilot 0.0 wounds, last hit by Ryoken)
+t=1015.0  LOST Catapult (disabled, armour 18%, heat 0, ejected false, pilot 1.0 wounds, last hit by Thor)
+t=1021.2  LOST ShaYu (disabled, armour 19%, heat 0, ejected false, pilot 1.0 wounds, last hit by Thor)
+t=1032.8  LOST MenShen (destroyed, armour 8%, heat 0, ejected false, pilot 0.0 wounds, last hit by Thor)
+t=1037.9  MISSION LOST
+seed 2 end t=1038 result=LOST  player alive 0  enemies alive 4
+damage to lance: 772 from 25 attackers; hits by location (0 head .. 10 rear RT): { 4: 40, 5: 33, 3: 29, 2: 28, 6: 49, 1: 32, 7: 31, 0: 2, 10: 7, 9: 7, 8: 8 }
+damage by lance: 2082; kills 40
+       238  Enfield (mech)
+       163  Thor (mech)
+       152  Uller (mech)
+        84  Jagermech (mech)
+        50  Poweredarmor (vehicle)
+        42  Storm (vehicle)
+        32  Wolfhound (mech)
+        12  Ryoken (mech)
+  obj 0 P: done  Destroy Both HPG Station
+  obj 1 P: done  Capture Weapons Facility #1
+  obj 2 P: done  Capture Weapons Facility #2
+  obj 3 P: open  Capture Weapons Facility #3
+  obj 4 P: open  Destroy Davion Dropship
+  obj 5 P: gated  Move all Surviving 'Mechs to Extraction Point
+  obj 6 s hidden: open  Super Secret Hidden OBJ to track if you kill the
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_13_Enfield_S:attack": 1, "mc2_13_WFac2_Veh_1:attack": 1, "mc2_13_WFac2_Veh_2:attack": 1, "mc2_13_Enfield_N:attack": 1, "mc2_13_WFac1_PWARM:attack": 5, "mc2_13_WFac1_PWARM_1:attack": 16, "mc2_13_PowerGen_Mech_1:attack": 2, "mc2_13_SpacePort_Clan_Thor:gopatroling": 1, "mc2_13_SpacePort_Clan_1:start": 1, "mc2_13_Enfield_TC:attack": 1, "mc2_13_OutPatl_Grp1_Lead:attack": 1, "mc2_13_OutPatl_Grp1_Escort:attack": 2, "mc2_13_MISC_Storms:attack": 5, "mc2_13_Crat_W_Patrol:start": 2, "mc2_13_Crat_N_Patrol:attack": 2, "mc2_13_Crat_E_Patrol:attack": 2, "PBrain:": 4 }
+enemy pilots that moved >20 m: 48 / 48
+
+--- stderr ---
+WARNING: 499 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
