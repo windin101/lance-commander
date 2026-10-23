@@ -15,7 +15,7 @@ const MECH_LAB := "res://scenes/mech_lab.tscn"
 const SALVAGE := "res://scenes/salvage.tscn"
 
 var save_path := "user://campaign.json"
-var missions: Array[Dictionary] = []  # {name, group, tune, pre_video}
+var missions: Array[Dictionary] = []  # {name, group, tune, pre_video, video}
 var current := ""  # mission being briefed / played
 var completed: Dictionary = {}  # mission -> last report (won)
 var last_report: Dictionary = {}
@@ -41,7 +41,9 @@ func load_campaign(path := "res://data/campaign.json") -> void:
 			var mis: Dictionary = c.get("Group%dMission%d" % [g, m], {})
 			if mis.has("FileName"):
 				missions.append({"name": String(mis["FileName"]).to_lower(), "group": g,
-					"tune": int(grp.get("Tune", -1)), "pre_video": String(grp.get("PreVideo", "")).get_basename().to_lower()})
+					"tune": int(grp.get("Tune", -1)), "pre_video": String(grp.get("PreVideo", "")).get_basename().to_lower(),
+					# the operation map's small briefing video (VideoOverride wins, 2.1)
+					"video": String(mis.get("VideoOverride", grp.get("Video", ""))).get_basename().to_lower()})
 	if current == "" and not missions.is_empty():
 		current = missions[0]["name"]
 

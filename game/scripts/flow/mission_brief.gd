@@ -7,11 +7,26 @@ var mission := ""
 var title := ""
 var summary := ""  # MissionSettings Blurb2: one line
 var blurb := ""  # MissionSettings Blurb: the full briefing, incl. "Tactical Officer Notes"
-var objectives: Array[Dictionary] = []  # {index, title, primary, hidden, marker: Vector2 (m) or null}
+## {index, title, description, primary, hidden, marker: Vector2 (m) or null, reward (C-Bills on
+## success, the objective's ResourcePoints, campaign-layer.md 9), model, model_type,
+## model_paint [red, green, blue] ARGB as the mission parts give them}
+var objectives: Array[Dictionary] = []
 var lance: Array[Dictionary] = []  # {chassis, variant, tonnage, pilot, callsign}
 var map_half_m := 0.0
 var map_image := ""  # res:// path of the mission's colour map
 var available := false
+var drop_zone = null  # Vector2 (m): the first player part, where the original puts the drop-zone marker
+var drop_limit := 300.0  # MissionSettings DropWeightLimit (default 300, 3.1)
+var support_rp := 0  # MissionSettings ResourcePoints: the in-mission support budget
+var support: Array[String] = []  # support powers enabled by the mission's *EnabledDefault flags
+var rain_chance := 0  # Weather ChanceOfRain (%)
+var rain_level := 0.0  # Weather StartingRainLevel
+var time_limit := -1.0  # MissionSettings TimeLimit (s), -1 none
+
+const SUPPORT_FLAGS := [["AirStrikesEnabledDefault", "Air strike", true], ["ArtilleryPieceEnabledDefault", "Artillery", false],
+	["MineLayersEnabledDefault", "Mine layer", true], ["ScoutCoptersEnabledDefault", "Scout 'Copter", true],
+	["SensorProbesEnabledDefault", "Sensor probe", true], ["RepairVehicleEnabledDefault", "Repair truck", true],
+	["SalvageCraftEnabledDefault", "Recovery team", true]]
 
 const WU := 0.2
 
@@ -40,12 +55,27 @@ static func load_mission(data: Object, mission_name: String) -> MissionBrief:
 		if o.get("DisplayMarker", false):
 			marker = Vector2(float(o.get("MarkerX", 0.0)), float(o.get("MarkerY", 0.0))) * WU
 		b.objectives.append({"index": i, "title": _text(data, o, "Title").strip_edges(),
-			"primary": int(o.get("Priority", 1)) == 1, "hidden": bool(o.get("HiddenTrigger", false)), "marker": marker})
+			"description": _text(data, o, "Description").strip_edges(),
+			"primary": int(o.get("Priority", 1)) == 1, "hidden": bool(o.get("HiddenTrigger", false)), "marker": marker,
+			"reward": int(o.get("ResourcePoints", 0)), "model": String(o.get("ObjectiveModel", "")).strip_edges(),
+			"model_type": int(o.get("ModelType", 0)),
+			"model_paint": [int(o.get("HighlightColor", -1)), int(o.get("HighlightColor2", -1)), int(o.get("BaseColor", -1))]})
+	b.drop_limit = float(ms.get("DropWeightLimit", 300.0))
+	b.support_rp = int(ms.get("ResourcePoints", 0))
+	b.time_limit = float(ms.get("TimeLimit", -1.0))
+	for f in SUPPORT_FLAGS:
+		if bool(ms.get(f[0], f[2])):
+			b.support.append(f[1])
+	var weather: Dictionary = fit.get("Weather", {})
+	b.rain_chance = int(weather.get("ChanceOfRain", 0))
+	b.rain_level = float(weather.get("StartingRainLevel", 0.0))
 	var parts := int(fit.get("Parts", {}).get("NumParts", 0))
 	for i in range(1, parts + 1):
 		var p: Dictionary = fit.get("Part%d" % i, {})
 		if not p.get("PlayerPart", false):
 			continue
+		if b.drop_zone == null:
+			b.drop_zone = Vector2(float(p.get("PositionX", 0.0)), float(p.get("PositionY", 0.0))) * WU
 		var key := String(p.get("CSVFile", "")).to_lower()
 		var ch: Dictionary = data.chassis.get(key, {})
 		var variant := int(p.get("VariantNumber", 0))
@@ -73,6 +103,15 @@ static func _text(data: Object, block: Dictionary, key: String) -> String:
 		if s != "":
 			return UiStyle.clean(s)
 	return UiStyle.clean(String(block.get(key, "")))
+
+
+## "Clear", or rain as the mission starts / may turn to.
+func weather() -> String:
+	if rain_level > 0.0:
+		return "Rain"
+	if rain_chance > 0:
+		return "Clear, %d%% chance of rain" % rain_chance
+	return "Clear"
 
 
 func visible_objectives() -> Array[Dictionary]:

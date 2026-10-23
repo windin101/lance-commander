@@ -34,6 +34,15 @@ func show_mech(chassis: String, paint: Array, yaw_deg := -28.0) -> void:
 	studio.frame(_aspect())
 
 
+## Any mission model by kind: "mech" (as show_mech), "vehicle" or "object" (the same
+## HD-first order the mission view uses). Returns false when there is no model.
+func show_model(kind: String, name: String, paint: Array, yaw_deg := -28.0) -> bool:
+	studio.yaw = yaw_deg
+	var ok := studio.show_kind(kind, name, paint)
+	studio.frame(_aspect())
+	return ok
+
+
 func _process(delta: float) -> void:
 	if spin != 0.0 and not _dragging:
 		studio.yaw += spin * delta
@@ -118,21 +127,34 @@ class Studio:
 		cam.current = true
 
 	func show(chassis: String, paint: Array) -> void:
+		show_kind("mech", chassis, paint)
+
+	func clear() -> void:
 		if model:
 			pivot.remove_child(model)
 			model.queue_free()
 			model = null
-		var path := "res://assets/mechs/%s_hd.glb" % chassis
-		var paint_name := chassis + "_hd"
-		if not ResourceLoader.exists(path):
-			path = "res://assets/mechs/%s.glb" % chassis
-			paint_name = chassis
-		if not ResourceLoader.exists(path):
-			return
+
+	func show_kind(kind: String, name: String, paint: Array) -> bool:
+		clear()
+		var folder: String = {"mech": "mechs", "vehicle": "vehicles"}.get(kind, "objects")
+		var tries: Array = [["_hd", "_hd"], ["", ""]]
+		if kind == "object":
+			tries = [["_cad", ""], ["_hdtex", ""], ["_hd", ""], ["", ""]]
+		var path := ""
+		var paint_name := name
+		for t in tries:
+			var p := "res://assets/%s/%s%s.glb" % [folder, name, t[0]]
+			if ResourceLoader.exists(p):
+				path = p
+				paint_name = name + t[1]
+				break
+		if path == "":
+			return false
 		model = (load(path) as PackedScene).instantiate()
 		pivot.add_child(model)
-		if paint.size() == 3:
-			MechPaint.apply(model, paint_name, MechPaint.argb(int(paint[0])), MechPaint.argb(int(paint[1])), MechPaint.argb(int(paint[2])))
+		if paint.size() == 3 and kind != "object":
+			MechPaint.apply(model, paint_name, MechPaint.argb(int(paint[0])), MechPaint.argb(int(paint[1])), MechPaint.argb(int(paint[2])), folder)
 		var player: AnimationPlayer = model.find_child("AnimationPlayer", true, false)
 		if player and player.has_animation("Idle"):
 			player.get_animation("Idle").loop_mode = Animation.LOOP_LINEAR
@@ -142,6 +164,7 @@ class Studio:
 		shadow.scale = Vector3(r, 1, r)
 		shadow.position = Vector3(aabb.get_center().x, 0.02, aabb.get_center().z)
 		apply_yaw()
+		return true
 
 	func apply_yaw() -> void:
 		pivot.rotation_degrees.y = yaw
@@ -155,7 +178,8 @@ class Studio:
 		var need_w := w / fill / maxf(0.2, aspect)
 		var span := maxf(need_h, need_w)
 		var dist := span * 0.5 / tan(half_v) + w * 0.5
-		var centre := Vector3(0, aabb.position.y + h * 0.5, 0)
+		var c := aabb.get_center().rotated(Vector3.UP, deg_to_rad(yaw))  # off-centre models (buildings)
+		var centre := Vector3(c.x, aabb.position.y + h * 0.5, c.z)
 		var lift := deg_to_rad(9.0)
 		cam.transform = Transform3D(Basis(), centre + Vector3(0, sin(lift), cos(lift)) * dist).looking_at(centre, Vector3.UP)
 
@@ -176,11 +200,19 @@ class Studio:
 				var p: Vector3 = xf * sk.get_bone_global_pose(b).origin
 				lo = lo.min(p)
 				hi = hi.max(p)
-		if lo.x == INF:
+		if lo.x == INF:  # unskinned (buildings, most vehicles): meshes through their transforms
 			for mi in root.find_children("*", "MeshInstance3D", true, false):
-				var b: AABB = (mi as MeshInstance3D).get_aabb()
+				var mxf := Transform3D.IDENTITY
+				var mn: Node = mi
+				while mn and mn != root:
+					if mn is Node3D:
+						mxf = (mn as Node3D).transform * mxf
+					mn = mn.get_parent()
+				var b: AABB = mxf * (mi as MeshInstance3D).get_aabb()
 				lo = lo.min(b.position)
 				hi = hi.max(b.end)
+			if lo.x != INF:
+				return AABB(Vector3(lo.x, minf(lo.y, 0.0), lo.z), Vector3(hi.x - lo.x, hi.y - minf(lo.y, 0.0), hi.z - lo.z))
 		if lo.x == INF:
 			return AABB(Vector3(-3, 0, -2), Vector3(6, 8, 4))
 		var h := hi.y * 1.12
