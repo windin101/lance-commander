@@ -6,7 +6,9 @@ game/assets/retail/ (gitignored) and must never be committed or distributed.
 Disc image: an Alcohol .mdf (raw 2352-byte Mode 1 sectors) is unwrapped to a
 plain ISO by keeping bytes 16..2064 of each sector. Mission comms clips
 (V1A.BIK etc., 128x72) carry their audio in DATA/SOUND/<name>.WAV; it is
-muxed in here. Cinematics carry their own Bink audio.
+muxed in here. Cinematics carry their own Bink audio. Operation briefing videos (campaign.fit
+Group Video / VideoOverride: NODE_xx, CHOICE_x, STANDIN) play in the briefing's video slot
+and carry their own audio, if any.
 """
 
 import os
@@ -52,14 +54,15 @@ def to_theora(src, dst, audio=None, scale_width=None):
     return dst
 
 
-def convert(root, mdf, comms, cinematics):
+def convert(root, mdf, comms, cinematics, briefings=()):
     """Returns {name: res path} for converted videos, or {} when no disc image."""
     if not mdf or not os.path.exists(mdf) or not shutil.which("ffmpeg") or not shutil.which("7z"):
         return {}
     original = os.path.join(root, "original")
     iso = mdf_to_iso(mdf, os.path.join(original, "MC2.iso"))
     disc = os.path.join(original, "disc")
-    names = [f"DATA/MOVIES/{n.upper()}.BIK" for n in comms + cinematics] + [f"DATA/SOUND/{n.upper()}.WAV" for n in comms]
+    names = [f"DATA/MOVIES/{n.upper()}.BIK" for n in list(comms) + list(cinematics) + list(briefings)] \
+        + [f"DATA/SOUND/{n.upper()}.WAV" for n in comms]
     extract(iso, disc, names)
     out_dir = os.path.join(root, "game", "assets", "retail", "video")
     out = {}
@@ -73,4 +76,21 @@ def convert(root, mdf, comms, cinematics):
         src = os.path.join(disc, "DATA", "MOVIES", n.upper() + ".BIK")
         to_theora(src, os.path.join(out_dir, n.lower() + ".ogv"), scale_width=1280)
         out[n.lower()] = f"res://assets/retail/video/{n.lower()}.ogv"
+    for n in briefings:
+        src = os.path.join(disc, "DATA", "MOVIES", n.upper() + ".BIK")
+        if not os.path.exists(src):
+            continue
+        to_theora(src, os.path.join(out_dir, n.lower() + ".ogv"), scale_width=640)
+        out[n.lower()] = f"res://assets/retail/video/{n.lower()}.ogv"
     return out
+
+
+def briefing_videos(campaign):
+    """The operation map's briefing video names in a parsed campaign.fit (Video, VideoOverride)."""
+    names = set()
+    for block in campaign.values():
+        if isinstance(block, dict):
+            for key in ("Video", "VideoOverride"):
+                if block.get(key):
+                    names.add(os.path.splitext(str(block[key]))[0].upper())
+    return sorted(names)

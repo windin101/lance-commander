@@ -1,7 +1,8 @@
 class_name Minimap
 extends Control
 ## Tactical map: colour map with water tinted by depth, units as dots (player
-## green, enemy red, structures grey), objective markers, and the camera's view.
+## green, allies blue, enemy contacts red, structures grey) with the original's sensor
+## rings, objective markers, and the camera's view.
 ## Left-click/drag pans the camera; right-click moves the selection there.
 ## Drawn in the HUD's tac-map style (approved mock-up): faint cyan grid, the camera
 ## footprint as a light wedge, amber objective markers, N in the corner. The frame and
@@ -85,6 +86,56 @@ func _process(_delta: float) -> void:
 	queue_redraw()
 
 
+## Allied (player team, another commander) blip and ring colour; the original used blue.
+const ALLY := Color(0.36, 0.6, 1.0)
+
+
+## An enemy mover the player's team has as a contact, not shut down and without ECM: the
+## only enemies the original's tac map draws (GameTacMap::render, gameTacMap.cpp:385-395).
+func _enemy_shown(u: SimUnit) -> bool:
+	return u.exists and u.status != SimUnit.Status.SHUTDOWN and not u.has_ecm() and world.is_contact(player_team, u)
+
+
+## The sensor ring of one unit (GameTacMap::drawSensor, gameTacMap.cpp:465-509): a circle of
+## the sensor range plus six cells' "fudge", scaled to the map.
+func sensor_ring_px(range_m: float) -> float:
+	if range_m <= 1.0:
+		return 0.0
+	return (range_m + map.cell_m * 6.0) / (2.0 * map.half_m) * size.x
+
+
+## Every sensor ring the original draws: the home commander's movers (green, on the GUI, not
+## shut down), allies (blue), enemy contacts (red), and sensor towers by owner.
+func rings() -> Array:
+	var out := []  # [map point, radius px, colour]
+	for u in world.units:
+		var col := Color(0, 0, 0, 0)
+		var r := 0.0
+		if u.is_mover():
+			if not u.exists or u.is_disabled() or u.status == SimUnit.Status.SHUTDOWN:
+				continue
+			if u.team == player_team:
+				if u.commander == 0 and not u.on_gui:
+					continue
+				col = UiStyle.HUD_OK if u.commander == 0 else ALLY
+			elif _enemy_shown(u):
+				col = UiStyle.HUD_CRIT
+			else:
+				continue
+			r = sensor_ring_px(u.sensor_range())
+		elif u is SimStructure and (u as SimStructure).sensor_works():
+			col = UiStyle.HUD_OK if u.team == player_team else UiStyle.HUD_CRIT
+			r = sensor_ring_px((u as SimStructure).tower_sensor_m)
+		if r > 0.0:
+			out.append([world_to_map(u.position), r, col])
+	return out
+
+
+func _draw_sensor_rings() -> void:
+	for ring in rings():
+		draw_arc(ring[0], ring[1], 0.0, TAU, maxi(24, int(ring[1])), Color(ring[2], 0.55), 1.0, true)
+
+
 func _draw() -> void:
 	draw_rect(Rect2(Vector2.ZERO, size), Color(0.027, 0.063, 0.09))
 	if _tex:
@@ -95,6 +146,7 @@ func _draw() -> void:
 		draw_line(Vector2(t.x, 0), Vector2(t.x, size.y), grid, 1.0)
 		draw_line(Vector2(0, t.y), Vector2(size.x, t.y), grid, 1.0)
 	var dot := maxf(2.0, size.x / 62.0)
+	_draw_sensor_rings()
 	for u in world.units:
 		if u is SimTurret:
 			# map turrets (I94): a small triangle in the owner's colour; dim once its control is lost
@@ -125,8 +177,8 @@ func _draw() -> void:
 		elif u.team == player_team and not u.on_gui:
 			continue  # off the GUI (gameTacMap.cpp:370)
 		elif u.team == player_team:
-			draw_circle(p, dot, UiStyle.HUD_OK)
-		else:
+			draw_circle(p, dot, UiStyle.HUD_OK if u.commander == 0 else ALLY)
+		elif _enemy_shown(u):
 			draw_circle(p, dot * (1.0 if u is SimMech else 0.75), UiStyle.HUD_CRIT)
 	if objectives:
 		var blink := 0.5 + 0.5 * sin(Time.get_ticks_msec() / 200.0)

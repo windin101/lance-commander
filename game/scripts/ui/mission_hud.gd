@@ -14,7 +14,8 @@ extends CanvasLayer
 ## plus the end-of-mission banner and the drag-select box. Sizes are in the base unit
 ## UiStyle.hud_unit (viewport height / 1080 x the player's HUD scale); the HUD rebuilds
 ## itself when that changes.
-## Dev args (after --): --select=<unit id>[,<id>...] selects units at start, --comms=<unit id> shows
+## Dev args (after --): --tag shows the enemy tag on the first named enemy (camera on it),
+## --select=<unit id>[,<id>...] selects units at start, --comms=<unit id> shows
 ## that unit's pilot talking (screenshots of the expanded card, systems monitor and comms).
 
 const MAX_MESSAGES := 6
@@ -60,6 +61,11 @@ var help_text: Label
 var systems: SystemsMonitor
 var comms: CommsWindow
 var banner: Label
+var enemy_tag: PanelContainer  # name, force and condition of the enemy under the mouse
+var _enemy_name: Label
+var _enemy_force: Label
+var _enemy_state: Label
+var tag_unit: SimUnit  # the unit the tag shows (tests read it)
 var box: ColorRect
 var support_buttons: Dictionary = {}  # power -> CommandPanel.SupportTile
 var rp_label: Label
@@ -83,7 +89,7 @@ func setup(mission_view: Node) -> void:
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(box)
 	_build()
-	if _args.has("select") or _args.has("comms"):
+	if _args.has("select") or _args.has("comms") or _args.has("tag"):
 		_dev_args.call_deferred()
 
 
@@ -123,7 +129,71 @@ func _build() -> void:
 	banner.visible = false
 	root.add_child(banner)
 	_place(banner, Vector2(0.5, 0.42), Vector2i(0, 0))
+	_build_enemy_tag()
 	_layout()
+
+
+## The enemy tag: a small framed label by the cursor while it is over an enemy unit (its name,
+## its force from ForceNames when the colours are mapped, and its armour).
+func _build_enemy_tag() -> void:
+	enemy_tag = PanelContainer.new()
+	var s := StyleBoxFlat.new()
+	s.bg_color = UiStyle.HUD_PANEL
+	s.border_color = UiStyle.HUD_CRIT
+	s.set_border_width_all(1)
+	s.content_margin_left = kit.em(0.6)
+	s.content_margin_right = kit.em(0.6)
+	s.content_margin_top = kit.em(0.3)
+	s.content_margin_bottom = kit.em(0.35)
+	enemy_tag.add_theme_stylebox_override("panel", s)
+	enemy_tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	enemy_tag.visible = false
+	var v := kit.vbox(0.1)
+	enemy_tag.add_child(v)
+	_enemy_name = kit.label("", "display600", 1.0, UiStyle.HUD_INK, true, 0.06)
+	v.add_child(_enemy_name)
+	_enemy_force = kit.label("", "display500", 0.85, UiStyle.HUD_CRIT, true, 0.1)
+	v.add_child(_enemy_force)
+	_enemy_state = kit.label("", "mono", 0.85, UiStyle.HUD_DIM)
+	v.add_child(_enemy_state)
+	root.add_child(enemy_tag)
+
+
+## Show the tag for u (an enemy) at screen point at, or hide it (u null).
+func show_enemy_tag(u: SimUnit, at := Vector2.ZERO) -> void:
+	tag_unit = u
+	if enemy_tag == null:
+		return
+	enemy_tag.visible = u != null
+	if u == null:
+		return
+	_enemy_name.text = u.name
+	var force := ForceNames.of_unit(u)
+	_enemy_force.text = force
+	_enemy_force.visible = force != ""
+	var cur := 0.0
+	var top := 0.0
+	for i in u.armor.size():
+		cur += u.armor[i]
+		top += u.max_armor[i]
+	_enemy_state.text = ("%s · armour %d%%" % ["Disabled" if u.is_disabled() else "Hostile", roundi(100.0 * cur / top)]) if top > 0.0 \
+		else ("Disabled" if u.is_disabled() else "Hostile")
+	enemy_tag.size = enemy_tag.get_combined_minimum_size()
+	enemy_tag.position = at + Vector2(kit.em(1.4), kit.em(1.0))
+
+
+func _update_enemy_tag() -> void:
+	var vp := get_viewport()
+	if vp == null or view.input == null or view.input.camera == null:
+		return
+	var at := vp.get_mouse_position()
+	if _dev_tag and view.views.has(_dev_tag.id):
+		var p: Vector3 = view.views[_dev_tag.id].aim_point()
+		if not view.input.camera.is_position_behind(p):
+			show_enemy_tag(_dev_tag, view.input.camera.unproject_position(p))
+		return
+	var u: SimUnit = view.input.mech_at(at)
+	show_enemy_tag(u if u != null and u.team != view.sm.player_team and u.exists else null, at)
 
 
 ## Keep c at an anchor point of the viewport, growing the given way from it (re-fitted to
@@ -388,6 +458,16 @@ func _dev_args() -> void:
 		var id := int(_args["comms"])
 		if id >= 0 and id < view.world.units.size():
 			pilot_says(view.world.units[id], "Airfield in sight. Picking up a 'Mech on the apron, looks like a Starslayer.", 600.0)
+	if _args.has("tag"):  # dev: --tag centres the camera on the first named enemy and shows its tag
+		for u in view.world.units:
+			if u.team != view.sm.player_team and u.is_mover() and not u.is_disabled() and ForceNames.of_unit(u) != "":
+				_dev_tag = u
+				if view.camera is RtsCamera:
+					(view.camera as RtsCamera).follow(u)
+				break
+
+
+var _dev_tag: SimUnit = null
 
 
 func message(text: String) -> void:
@@ -499,6 +579,7 @@ func _process(_delta: float) -> void:
 	systems.show_unit(first)
 	comms.set_voice(view.audio != null and view.audio.voice != null and view.audio.voice.playing)
 	_update_banner()
+	_update_enemy_tag()
 	_layout()
 
 

@@ -8,7 +8,7 @@ extends Control
 ##            (C-Bills on success); the lance going in
 ##   centre   the tactical map: terrain, drop zone, numbered objective markers, legend
 ##   right    the target view (the objective's model, as the original's briefing camera;
-##            the operation's briefing video plays there first when converted), the
+##            the operation's briefing video plays there the first time, then on Play), the
 ##            briefing text with the Tactical Officer's notes, and intel (support powers
 ##            enabled, weather, time limit)
 ##   bottom   New campaign, Previous mission; Mech Bay (missions with logistics) and Launch
@@ -17,6 +17,9 @@ extends Control
 ## Dev: --sample-campaign fills the campaign with mission 2's lance; --mission=mc2_NN.
 
 const CYCLE_S := 3.0
+## The campaign's planet. No mission file names a location; the original's own texts put the
+## whole campaign on Carver V (strings 45317, 45320-45322, and the mc2_12 / mc2_17 briefings).
+const LOCATION := "Carver V"
 
 var brief: MissionBrief
 var kit: BayKit
@@ -28,6 +31,10 @@ var map: BriefingMap
 var target: MechStage
 var target_label: Label
 var video: VideoStreamPlayer
+var video_box: AspectRatioContainer
+var video_button: Button
+var _video_black: ColorRect
+static var _videos_seen := {}  # operation videos already auto-played this session
 var numbered: Array = []  # [[number, objective]], primaries first
 var selected := -1  # number of the selected objective
 var user_picked := false
@@ -91,7 +98,7 @@ func _top_bar(mission: String) -> void:
 	var title := kit.vbox(0.15)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var idx := Flow.index_of(mission)
-	title.add_child(kit.label("Mission briefing · operation %d · mission %d of %d" % [int(Flow.info(mission).get("group", 0)) + 1,
+	title.add_child(kit.label("Mission briefing · %s · operation %d · mission %d of %d" % [LOCATION, int(Flow.info(mission).get("group", 0)) + 1,
 		idx + 1, Flow.missions.size()], "display500", 0.9, UiStyle.HUD_DIM, true, 0.1))
 	title.add_child(kit.label(brief.title, "display700", 1.7, UiStyle.HUD_INK, true, 0.1))
 	th.add_child(title)
@@ -292,14 +299,36 @@ func _briefing_panel() -> void:
 	target_label = kit.label("", "display600", 0.85, UiStyle.HUD_EDGE, true, 0.12)
 	target_label.position = Vector2(kit.em(0.9), kit.em(0.5))
 	slot.add_child(target_label)
+	# the operation's briefing video (256 px square in the original), letterboxed in the slot
+	video_box = AspectRatioContainer.new()
+	video_box.set_anchors_preset(Control.PRESET_FULL_RECT)
+	video_box.ratio = 1.0
+	video_box.visible = false
+	video_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var black := ColorRect.new()
+	black.color = Color(0, 0, 0, 0.85)
+	black.set_anchors_preset(Control.PRESET_FULL_RECT)
+	black.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	slot.add_child(black)
+	black.visible = false
+	_video_black = black
 	video = VideoStreamPlayer.new()
-	video.set_anchors_preset(Control.PRESET_FULL_RECT)
 	video.expand = true
-	video.visible = false
-	video.finished.connect(func():
-		video.visible = false
-		target.visible = true)
-	slot.add_child(video)
+	video.finished.connect(stop_video)
+	video_box.add_child(video)
+	slot.add_child(video_box)
+	video_button = kit.button("Play video", func(): stop_video() if video_playing() else play_video())
+	video_button.add_theme_font_size_override("font_size", kit.px(0.8))
+	video_button.anchor_left = 1.0
+	video_button.anchor_right = 1.0
+	video_button.anchor_top = 1.0
+	video_button.anchor_bottom = 1.0
+	video_button.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	video_button.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	video_button.offset_right = -kit.em(0.5)
+	video_button.offset_bottom = -kit.em(0.5)
+	video_button.visible = false
+	slot.add_child(video_button)
 	p["body"].add_child(kit.rule())
 	# the text
 	var tm := kit.margin(1.0, 0.7, 0.6, 0.5)
@@ -336,6 +365,10 @@ func _briefing_panel() -> void:
 		im.add_child(g)
 		var rows := [["Drop weight", "%d t" % int(brief.drop_limit)], ["Support budget", "%s RP" % BayKit.money(brief.support_rp)],
 			["Support", ", ".join(brief.support) if not brief.support.is_empty() else "none"], ["Weather", brief.weather()]]
+		for side in [["opposing", "Opposing forces"], ["allied", "Allied forces"]]:
+			var names: Array = brief.forces[side[0]].keys()
+			if not names.is_empty():
+				rows.append([side[1], ", ".join(names)])
 		if brief.time_limit > 0.0:
 			rows.append(["Time limit", "%d min" % roundi(brief.time_limit / 60.0)])
 		for r in rows:
@@ -459,6 +492,9 @@ func _process(delta: float) -> void:
 		select_objective(selected % numbered.size() + 1)
 
 
+## The operation's briefing video (campaign.fit Video / VideoOverride), as the original's
+## operation map played it: on its own the first time the operation is shown, afterwards on
+## the Play button (campaign-layer.md 2.1). The music dips while it talks.
 func _start_video(name: String) -> void:
 	if name == "" or not FileAccess.file_exists("res://data/videos.json"):
 		return
@@ -467,9 +503,38 @@ func _start_video(name: String) -> void:
 	if path == "" or not ResourceLoader.exists(path):
 		return
 	video.stream = load(path)
-	video.visible = true
+	video_button.visible = true
+	if not _videos_seen.has(name) and not OS.get_cmdline_user_args().has("--no-video"):
+		_videos_seen[name] = true
+		play_video()
+
+
+func video_playing() -> bool:
+	return video_box.visible
+
+
+func play_video() -> void:
+	if video.stream == null:
+		return
+	video_box.visible = true
+	_video_black.visible = true
 	target.visible = false
+	target_label.visible = false
+	video_button.text = "STOP VIDEO"
 	video.play()
+	if music:
+		music.volume_db = -22.0
+
+
+func stop_video() -> void:
+	video.stop()
+	video_box.visible = false
+	_video_black.visible = false
+	target.visible = true
+	target_label.visible = true
+	video_button.text = "PLAY VIDEO"
+	if music:
+		music.volume_db = -8.0
 
 
 func _unhandled_input(event: InputEvent) -> void:
