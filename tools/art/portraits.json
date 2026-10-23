@@ -1,0 +1,470 @@
+{
+ "_about": "Pilot portraits (issue I84). Qwen-Image t2i from deterministic feature words, seed crc32(profile) + reseed. Gender and apparent age read from the original pilot photos (MCUI_High2.tga, PictureIndex) and the voice sets (pilotAudio), never their likeness; ethnicity, hair and build are chosen fresh. tools/art/portraits.py renders them.",
+ "model": "qwen_image_fp8_e4m3fn.safetensors",
+ "size": [
+  1248,
+  1472
+ ],
+ "output": [
+  660,
+  920
+ ],
+ "sampling": {
+  "steps": 30,
+  "cfg": 2.5,
+  "sampler": "euler",
+  "scheduler": "simple",
+  "shift": 3.1
+ },
+ "prompt": "Character portrait for a gritty science-fiction military strategy game, realistic digital painting with fine visible brushwork, in the style of modern AAA game character art. A {age} {ethnicity} {gender}, a veteran mercenary pilot, {build} build, {face}, {hair}, {expression}. Wearing a worn dark olive-grey padded flight suit with a high padded ribbed collar zipped to the throat, matte fabric, plain unmarked fabric, no helmet, no equipment on the head or neck. Tight head-and-shoulders portrait: the face is centred horizontally in the upper-middle of the frame with a little empty backdrop above the hair, the frame cut at the upper chest. Shoulders turned slightly to the left in three-quarter view, eyes looking at the viewer, 85mm portrait lens, soft neutral key light from the upper left, faint cool blue-grey rim light on the right side of the face, plain dark slate-blue studio backdrop with a soft gradient, muted desaturated colour grade, sharp focus on the eyes.",
+ "negative": "text, letters, words, numbers, caption, logo, emblem, badge with text, flag, watermark, signature, frame, border, hands, fingers, arms raised, helmet on head, headphones, sunglasses, goggles, cigarette, weapon, second person, cartoon, anime, comic, cel shading, 3d render, plastic skin, airbrushed, oversaturated, busy background, scenery, cockpit, bokeh lights, cropped head, deformed eyes, cross-eyed, glowing lights, neon, LED strips, glowing trim, emissive, tubes, hoses, robot, cyborg, mechanical parts, prosthetic arm, armour plates, metal collar, headset, earpiece, microphone, wide shot, waist-up, torso",
+ "pilots": {
+  "pmwbubba": {
+   "gender": "man",
+   "age": "late-twenties",
+   "ethnicity": "white American",
+   "build": "heavily overweight, big belly, broad",
+   "face": "very round fleshy face with a double chin and ruddy cheeks",
+   "hair": "short buzzed sandy-blond hair",
+   "expression": "easy good-natured half grin"
+  },
+  "pmwchopper": {
+   "gender": "man",
+   "age": "forty-five year old",
+   "ethnicity": "Samoan",
+   "build": "huge, burly",
+   "face": "broad face with a thick black beard flecked with grey",
+   "hair": "long black hair tied back in a knot",
+   "expression": "steady, unimpressed look"
+  },
+  "pmwclaymore": {
+   "gender": "man",
+   "age": "thirty-five year old",
+   "ethnicity": "Scottish",
+   "build": "broad-shouldered, solid",
+   "face": "heavy square jaw with a short copper-red beard",
+   "hair": "short neat copper-red hair",
+   "expression": "stern, dutiful look",
+   "negative_extra": "blood, cuts, scratches, wounds, scars, bruises, blemishes"
+  },
+  "pmwcobra": {
+   "gender": "man",
+   "age": "thirty-two year old",
+   "ethnicity": "Mexican",
+   "build": "lean, wiry",
+   "face": "narrow face with high cheekbones and a thin pencil moustache",
+   "hair": "slicked-back black hair",
+   "expression": "narrowed, calculating eyes and a faint cold smile"
+  },
+  "pmwcreep": {
+   "gender": "man",
+   "age": "twenty-eight year old",
+   "ethnicity": "pale Eastern European",
+   "build": "thin, gaunt",
+   "face": "pale waxy skin, hollow cheeks and heavy-lidded eyes",
+   "hair": "lank shoulder-length greasy dark hair",
+   "expression": "unsettling sideways half smile",
+   "negative_extra": "blood, cuts, scratches, wounds, scars, bruises, blemishes"
+  },
+  "pmwdagger": {
+   "gender": "woman",
+   "age": "thirty year old",
+   "ethnicity": "Persian",
+   "build": "lean, athletic",
+   "face": "sharp angular features and dark thick eyebrows",
+   "hair": "black hair pulled back in a tight braid",
+   "expression": "intense, focused stare"
+  },
+  "pmwflash": {
+   "gender": "woman",
+   "age": "twenty-five year old",
+   "ethnicity": "Black",
+   "build": "athletic",
+   "face": "bright eyes and high cheekbones",
+   "hair": "very short natural hair with shaved sides",
+   "expression": "confident cocky grin"
+  },
+  "pmwghost": {
+   "gender": "woman",
+   "age": "thirty-four year old",
+   "ethnicity": "Norwegian",
+   "build": "slim, tall",
+   "face": "very pale skin and pale grey eyes",
+   "hair": "short cropped platinum-white hair",
+   "expression": "calm, unreadable expression"
+  },
+  "pmwhacksaw": {
+   "gender": "man",
+   "age": "forty-two year old",
+   "ethnicity": "white",
+   "build": "muscular, thick-necked",
+   "face": "hard stern face with deep lines from nose to mouth, heavy brow and deep-set grey eyes",
+   "hair": "completely bald, smooth shaved scalp",
+   "expression": "grim, hard look",
+   "negative_extra": "blood, cuts, scratches, wounds, scars, bruises, blemishes, hair on the head"
+  },
+  "pmwhammer": {
+   "gender": "man",
+   "age": "thirty year old",
+   "ethnicity": "Korean",
+   "build": "stocky, powerful",
+   "face": "broad face and a strong jaw",
+   "hair": "short black flat-top haircut",
+   "expression": "determined, jaw set"
+  },
+  "pmwjinx": {
+   "gender": "woman",
+   "age": "twenty-six year old",
+   "ethnicity": "Irish",
+   "build": "slight",
+   "face": "freckled face and green eyes",
+   "hair": "curly auburn hair tied up messily",
+   "expression": "wry, mischievous smirk"
+  },
+  "pmwlongshot": {
+   "gender": "woman",
+   "age": "thirty-three year old",
+   "ethnicity": "Native American",
+   "build": "lean",
+   "face": "calm face with fine squint lines",
+   "hair": "long straight black hair in a low ponytail",
+   "expression": "patient, focused gaze"
+  },
+  "pmwmeat": {
+   "gender": "man",
+   "age": "thirty-six year old",
+   "ethnicity": "Turkish",
+   "build": "enormous, heavily muscled and fat, thick bull neck, very wide shoulders",
+   "face": "heavy brow and a thick black stubble beard",
+   "hair": "completely bald, smooth shaved scalp",
+   "expression": "deadpan, blank stare",
+   "negative_extra": "hair on the head"
+  },
+  "pmwmother": {
+   "gender": "man",
+   "age": "fifty-two year old",
+   "ethnicity": "Indian",
+   "build": "heavyset, soft",
+   "face": "kind, lined face with a thick grey moustache",
+   "hair": "short greying hair",
+   "expression": "warm but watchful, protective look"
+  },
+  "pmwnuke": {
+   "gender": "man",
+   "age": "thirty year old",
+   "ethnicity": "white Australian",
+   "build": "wiry, muscular",
+   "face": "freckled sunburnt face with heavy blond stubble",
+   "hair": "tall spiky bleached-blond mohawk with shaved sides",
+   "expression": "wild, eager eyes and a reckless grin",
+   "negative_extra": "blood, cuts, scratches, wounds, scars, torn fabric"
+  },
+  "pmwpalerider": {
+   "gender": "man",
+   "age": "forty-four year old",
+   "ethnicity": "very pale white",
+   "build": "tall, gaunt",
+   "face": "hollow cheeks and deep-set eyes",
+   "hair": "long black hair streaked with grey",
+   "expression": "cold, distant stare"
+  },
+  "pmwpayback": {
+   "gender": "man",
+   "age": "forty year old",
+   "ethnicity": "Nigerian",
+   "build": "big, muscular",
+   "face": "deep frown lines and a short boxed black beard",
+   "hair": "clean-shaven head",
+   "expression": "grim, vengeful look",
+   "negative_extra": "blood, cuts, scratches, wounds, scars, torn fabric"
+  },
+  "pmwpsycho": {
+   "gender": "man",
+   "age": "twenty-eight year old",
+   "ethnicity": "white",
+   "build": "wiry",
+   "face": "gaunt angular face with hollow cheeks, dark stubble, thin lips and intense pale-blue eyes",
+   "hair": "messy shoulder-length bleached-blond hair with dark roots",
+   "expression": "unblinking stare and a thin unsettling smile",
+   "negative_extra": "blood, cuts, scratches, wounds, friendly, cheerful, laughing"
+  },
+  "pmwrooster": {
+   "gender": "man",
+   "age": "fifty-five year old",
+   "ethnicity": "white Southern American",
+   "build": "rangy, weathered",
+   "face": "sun-creased face with grey stubble",
+   "hair": "swept-up reddish-grey hair like a crest",
+   "expression": "squinting, wry veteran's smile"
+  },
+  "pmwscooter": {
+   "gender": "man",
+   "age": "twenty year old",
+   "ethnicity": "mixed-race",
+   "build": "slight, youthful",
+   "face": "boyish freckled face",
+   "hair": "short curly brown hair",
+   "expression": "eager, earnest look"
+  },
+  "pmwshadow": {
+   "gender": "woman",
+   "age": "thirty-one year old",
+   "ethnicity": "Vietnamese",
+   "build": "slim, compact",
+   "face": "fine features",
+   "hair": "black hair in a tight low bun",
+   "expression": "quiet, watchful narrowed eyes"
+  },
+  "pmwsteel": {
+   "gender": "man",
+   "age": "fifty-five year old",
+   "ethnicity": "Black",
+   "build": "solid, broad",
+   "face": "weathered face with a short grey beard",
+   "hair": "close-cropped grey hair",
+   "expression": "stoic, steady gaze"
+  },
+  "pmwtwitch": {
+   "gender": "man",
+   "age": "twenty-four year old",
+   "ethnicity": "Puerto Rican",
+   "build": "thin, jittery",
+   "face": "narrow face with a faint nervous tic at one eye",
+   "hair": "short dark curly hair",
+   "expression": "tense, darting sideways glance"
+  },
+  "pmwvenom": {
+   "gender": "woman",
+   "age": "thirty-two year old",
+   "ethnicity": "Ukrainian",
+   "build": "slim",
+   "face": "sharp cheekbones and icy blue eyes",
+   "hair": "jet-black chin-length bob",
+   "expression": "cold, thin smile"
+  },
+  "pmwwicked": {
+   "gender": "woman",
+   "age": "twenty-nine year old",
+   "ethnicity": "Latina",
+   "build": "athletic",
+   "face": "sharp arched eyebrows and a small silver nose stud",
+   "hair": "dark hair with a shaved undercut on one side",
+   "expression": "sly, wicked smirk",
+   "negative_extra": "blood, cuts, scratches, wounds, scars"
+  },
+  "pmwworm": {
+   "gender": "man",
+   "age": "thirty-four year old",
+   "ethnicity": "pale English",
+   "build": "small, narrow-shouldered",
+   "face": "small round face with a weak chin, a wispy thin moustache and round wire-rimmed glasses",
+   "hair": "thin combed-over mousy brown hair",
+   "expression": "ingratiating, sly nervous smile"
+  }
+ },
+ "reseed": {
+  "pmwbubba": 1000,
+  "pmwclaymore": 1000,
+  "pmwcreep": 1000,
+  "pmwhacksaw": 2000,
+  "pmwjinx": 1000,
+  "pmwmeat": 1000,
+  "pmwnuke": 1000,
+  "pmwpayback": 1000,
+  "pmwpsycho": 1000,
+  "pmwwicked": 1000,
+  "pmwworm": 1000
+ },
+ "crop": {
+  "pmwbubba_s2886364547": [
+   98,
+   0,
+   1056
+  ],
+  "pmwbubba_s2886365547": [
+   154,
+   0,
+   968
+  ],
+  "pmwchopper_s3266211705": [
+   0,
+   0,
+   1056
+  ],
+  "pmwclaymore_s2859479083": [
+   192,
+   0,
+   1056
+  ],
+  "pmwclaymore_s2859480083": [
+   13,
+   0,
+   1056
+  ],
+  "pmwcobra_s3826049433": [
+   0,
+   0,
+   1056
+  ],
+  "pmwcreep_s738450490": [
+   60,
+   0,
+   1056
+  ],
+  "pmwcreep_s738451490": [
+   0,
+   0,
+   1056
+  ],
+  "pmwdagger_s240386792": [
+   0,
+   0,
+   1056
+  ],
+  "pmwflash_s1557722811": [
+   0,
+   0,
+   1056
+  ],
+  "pmwghost_s4031068441": [
+   149,
+   0,
+   1056
+  ],
+  "pmwhacksaw_s3004094470": [
+   192,
+   0,
+   1056
+  ],
+  "pmwhacksaw_s3004095470": [
+   0,
+   0,
+   1056
+  ],
+  "pmwhacksaw_s3004096470": [
+   0,
+   0,
+   1056
+  ],
+  "pmwhammer_s465348385": [
+   192,
+   0,
+   1056
+  ],
+  "pmwjinx_s950106081": [
+   192,
+   0,
+   1056
+  ],
+  "pmwjinx_s950107081": [
+   192,
+   0,
+   1056
+  ],
+  "pmwlongshot_s1282136555": [
+   156,
+   0,
+   1056
+  ],
+  "pmwmeat_s574809816": [
+   12,
+   0,
+   1056
+  ],
+  "pmwmeat_s574810816": [
+   192,
+   0,
+   1056
+  ],
+  "pmwmother_s3751498253": [
+   39,
+   0,
+   1056
+  ],
+  "pmwnuke_s3163431486": [
+   0,
+   0,
+   1056
+  ],
+  "pmwnuke_s3163432486": [
+   50,
+   0,
+   1056
+  ],
+  "pmwpalerider_s82067173": [
+   0,
+   0,
+   1056
+  ],
+  "pmwpayback_s2314372053": [
+   0,
+   0,
+   1056
+  ],
+  "pmwpayback_s2314373053": [
+   192,
+   0,
+   1056
+  ],
+  "pmwpsycho_s3981712483": [
+   0,
+   0,
+   1056
+  ],
+  "pmwpsycho_s3981713483": [
+   0,
+   0,
+   1056
+  ],
+  "pmwrooster_s197054345": [
+   30,
+   0,
+   1056
+  ],
+  "pmwscooter_s3234131041": [
+   14,
+   0,
+   1056
+  ],
+  "pmwshadow_s2956963642": [
+   24,
+   0,
+   1020
+  ],
+  "pmwsteel_s2106148907": [
+   0,
+   0,
+   1056
+  ],
+  "pmwtwitch_s3081066167": [
+   192,
+   0,
+   1056
+  ],
+  "pmwvenom_s3698442332": [
+   16,
+   0,
+   1056
+  ],
+  "pmwwicked_s3385516670": [
+   18,
+   0,
+   1056
+  ],
+  "pmwwicked_s3385517670": [
+   23,
+   0,
+   972
+  ],
+  "pmwworm_s368393639": [
+   86,
+   0,
+   1056
+  ],
+  "pmwworm_s368394639": [
+   10,
+   0,
+   1056
+  ]
+ }
+}
