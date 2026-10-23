@@ -61,3 +61,36 @@ func test_market_selection_affordability_and_destination() -> void:
 	assert_str(bay.buy_note.text).contains("Not enough C-Bills")
 	bay._close_market()
 	assert_bool(bay._roster_panel.visible).is_true()
+
+
+func test_personnel_screen_resume_and_assignment() -> void:
+	MechBay.dev_history(Flow.campaign)
+	var bay: MechBay = auto_free(load("res://scenes/mech_bay.tscn").instantiate())
+	add_child(bay)
+	bay._open_pilots()
+	assert_str(bay.mode).is_equal("pilots")
+	assert_bool(bay._pilot_panel.visible and bay._resume_panel.visible and not bay._roster_panel.visible).is_true()
+	assert_bool(bay.stage.visible).is_false()
+	assert_str(bay.pilot).is_equal("pmwhacksaw")  # assigned pilots first, by slot
+	assert_str(bay._resume_title.text).is_equal("Hacksaw")
+	assert_bool(bay.unassign_button.disabled).is_false()
+	assert_str(MechBay.bio("pmwhacksaw")).is_not_empty()
+	# An available pilot: Assign opens the 'Mech list; picking the reserve Werewolf deploys it.
+	bay.select_pilot("pmwcobra")
+	assert_bool(bay.unassign_button.disabled).is_true()
+	assert_bool(bay.assign_button.disabled).is_false()
+	var wolf: Dictionary = bay.camp.mechs[3]
+	assert_bool(bay.assign_selected(wolf)).is_true()
+	assert_str(String(wolf["pilot"])).is_equal("pmwcobra")
+	assert_int(int(wolf["slot"])).is_equal(4)
+	# From the hangar's Assign pilot: the résumé offers that 'Mech and returns to the hangar.
+	bay._close_personnel()
+	bay._select(int(bay.camp.mechs[0]["id"]))
+	bay._open_assign()
+	assert_int(bay.assign_to).is_equal(int(bay.camp.mechs[0]["id"]))
+	assert_str(bay.assign_note.text).contains("Already in this")
+	bay.select_pilot("pmwchopper")
+	assert_str(bay.assign_button.text).contains("BUSHWACKER")
+	bay._assign_pressed()
+	assert_str(String(bay.camp.mechs[0]["pilot"])).is_equal("pmwchopper")
+	assert_str(bay.mode).is_equal("hangar")

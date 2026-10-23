@@ -56,7 +56,7 @@ func test_buy_sell_and_win() -> void:
 	assert_int(camp.c_bills).is_equal(80000 - cost + 5000)
 	assert_int(camp.deployed().size()).is_equal(1)
 	assert_float(camp.pilots["pmwflash"]["gunnery"]).is_greater(float(GameData.pilots["pmwflash"]["Skills"]["Gunnery"]))
-	assert_int(camp.pilots["pmwflash"]["kills"]).is_equal(2)
+	assert_int(int(camp.pilots["pmwflash"]["kills"])).is_equal(2)
 
 
 func test_force_replaces_the_missions_lance() -> void:
@@ -188,3 +188,53 @@ func test_market_buys_into_the_lance_when_it_fits() -> void:
 	assert_str(camp.buy_problem("werewolf", 0)).contains("Not enough C-Bills")
 	assert_dict(camp.buy_for("werewolf", 0, "mc2_02")).is_empty()
 	assert_int(camp.c_bills).is_equal(100)
+
+
+# --- personnel: mission log, assignment ------------------------------------------------------
+
+func test_mission_log_records_wins_and_losses_and_saves() -> void:
+	var report := {"mission": "mc2_02", "title": "Reacquisition: Base Gemini", "won": true, "payout": 0, "survivors": [],
+		"pilots": [{"profile": "pmwflash", "kills": ["heavy", "medium", "light", "vehicle"], "dead": false, "mech": "Bushwacker", "variant": "Bushwacker Prime"}]}
+	camp.apply_win(report)
+	camp.log_mission({"mission": "mc2_03", "title": "x", "won": false, "pilots": [{"profile": "pmwflash", "kills": [], "dead": false, "mech": "Werewolf"}]})
+	var log: Array = camp.pilots["pmwflash"]["log"]
+	assert_int(log.size()).is_equal(2)
+	assert_dict(log[0]).is_equal({"mission": "mc2_02", "title": "Reacquisition: Base Gemini", "won": true, "kills": 4, "mech_kills": 3,
+		"mech": "Bushwacker", "variant": "Bushwacker Prime", "dead": false})
+	assert_bool(log[1]["won"]).is_false()
+	var c2 := Campaign.create(GameData)
+	c2.from_dict(JSON.parse_string(JSON.stringify(camp.to_dict())))
+	assert_array(c2.pilots["pmwflash"]["log"]).is_equal(log)
+	assert_int(int(c2.pilots["pmwflash"]["missions"])).is_equal(1)
+
+
+func test_old_saves_load_with_empty_mission_logs() -> void:
+	camp.pilots["pmwflash"]["log"].append({"mission": "stale"})
+	camp.from_dict({"c_bills": 100, "pilots": {"pmwflash": {"name": "Flash", "gunnery": 47.0, "piloting": 56.0, "kills": 2,
+		"missions": 2, "dead": false}}})
+	assert_array(camp.pilots["pmwflash"]["log"]).is_empty()
+	assert_int(int(camp.pilots["pmwflash"]["kills"])).is_equal(2)
+	assert_array(camp.pilots["pmwhacksaw"]["log"]).is_empty()
+
+
+func test_assign_pilot_moves_and_deploys() -> void:
+	MechBay.dev_sample(camp)  # Hacksaw 1, Longshot 2, Flash 3 (urbanmech), werewolf reserve
+	var bush: Dictionary = camp.mechs[0]
+	var wolf: Dictionary = camp.mechs[3]
+	assert_str(camp.pilot_status("pmwhacksaw", "mc2_02")).is_equal("assigned")
+	assert_str(camp.pilot_status("pmwcobra", "mc2_02")).is_equal("available")
+	assert_str(camp.pilot_status("pmwsteel", "mc2_02")).is_equal("unavailable")  # not on mission 2's list
+	# Hacksaw moves to the reserve Werewolf: it deploys (30 t fits the 170 t), the Bushwacker is left empty.
+	assert_bool(camp.assign_pilot("pmwhacksaw", wolf, "mc2_02")).is_true()
+	assert_int(int(wolf["slot"])).is_equal(4)
+	assert_str(String(bush["pilot"])).is_empty()
+	assert_bool(camp.assign_pilot("pmwsteel", bush, "mc2_02")).is_false()
+	camp.unassign_pilot("pmwhacksaw")
+	assert_str(camp.pilot_status("pmwhacksaw", "mc2_02")).is_equal("available")
+	camp.pilots["pmwcobra"]["dead"] = true
+	assert_str(camp.pilot_status("pmwcobra", "mc2_02")).is_equal("kia")
+	assert_bool(camp.assign_pilot("pmwcobra", bush, "mc2_02")).is_false()
+	var g := camp.hire_skills("pmwflash")
+	assert_float(g["sensors"]).is_equal(43.0)
+	assert_array(Campaign.next_rank({"gunnery": 45.0, "piloting": 54.0})).is_equal(["Regular", 50.0])
+	assert_array(Campaign.next_rank({"gunnery": 80.0, "piloting": 80.0})).is_equal(["", 0.0])
