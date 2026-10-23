@@ -111,6 +111,10 @@ func _ready() -> void:
 	audio = AudioDirector.new()
 	audio.name = "Audio"
 	add_child(audio)
+	audio.setup_radio(GameData.pilots)  # the player's pilots speak on events (PilotRadio)
+	audio.radio_line.connect(func(u: SimUnit, stem: String) -> void:
+		if hud:
+			hud.radio_line(u, stem))
 	var bcfg_path := "res://data/brains/%s.json" % mission
 	var script_cfg: Dictionary = {}
 	if FileAccess.file_exists(bcfg_path):
@@ -213,6 +217,7 @@ func _process(delta: float) -> void:
 		objects_view.set_turret_yaw(t.object_index, t.turret_yaw, t.facing)
 	_consume_events(true)
 	if audio:
+		audio.radio_poll(world)
 		audio.tick(world.time)
 		if sm.abl == null:  # otherwise the mission script picks the music (playDigitalMusic)
 			audio.update_music(sm.objectives.result, world.time)
@@ -368,6 +373,7 @@ func _structure_point(u: SimUnit, up: float) -> Variant:
 
 
 func _audio_event(e: Dictionary) -> void:
+	audio.radio_event(e, world)
 	match e["type"]:
 		"shot":
 			var shooter: SimUnit = world.units[e["from"]]

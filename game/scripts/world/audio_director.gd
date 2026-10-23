@@ -3,7 +3,8 @@ extends Node
 ## Mission audio from data/audio.json: positional SFX (weapon fire, hits,
 ## explosions, footsteps), music following the original mission script's
 ## selection (Missions/mc2_01.abl l.279-433, sndconst.abi), voice-overs from the
-## mission's brain config, and Betty announcements. Voice ducks the music.
+## mission's brain config, Betty announcements, and the player's pilots on the radio (PilotRadio: which
+## events make them speak and how the original throttled them). Voice and radio duck the music.
 
 const POOL := 24
 const COMBAT_HOLD := 10.0  # seconds without combat before music returns to ambient
@@ -27,6 +28,13 @@ var _cache := {}
 var _recent := {}  # stream path -> last play time (ms), throttles volleys
 var _voice_queue: Array = []
 var _scheduled: Array = []  # [time, vo name]
+var radio_player: AudioStreamPlayer
+var radio: PilotRadio  # set by setup_radio (a mission); null in bare scenes
+var _radio_parts: Array = []  # fragments left of the line playing: [[stem, path]]
+var _radio_line: Dictionary = {}
+
+## A pilot's line has started (the message part, after any callsign): unit and stem ("underattacka").
+signal radio_line(unit: SimUnit, stem: String)
 
 
 func _ready() -> void:
@@ -55,6 +63,70 @@ func _ready() -> void:
 	betty = AudioStreamPlayer.new()
 	betty.bus = "Voice"
 	add_child(betty)
+	radio_player = AudioStreamPlayer.new()
+	radio_player.bus = "Voice"
+	add_child(radio_player)
+
+
+## Start the pilots' radio for a mission (GameData.pilots maps each profile to its voice).
+func setup_radio(pilot_profiles: Dictionary) -> void:
+	radio = PilotRadio.new(manifest, pilot_profiles)
+
+
+## Feed the radio one sim event and, once per tick, its poll (see PilotRadio).
+func radio_event(e: Dictionary, world: SimWorld) -> void:
+	if radio:
+		radio.on_event(e, world, world.time, int(round(world.time / SimWorld.TICK)))
+
+
+func radio_poll(world: SimWorld) -> void:
+	if radio == null:
+		return
+	radio.poll(world, world.time, int(round(world.time / SimWorld.TICK)))
+	_radio_update()
+
+
+func _radio_update() -> void:
+	if radio == null:
+		return
+	if not _radio_line.is_empty() and radio.current.is_empty():
+		radio_player.stop()  # a priority-0 line (eject, death) cut this one off
+		_radio_line = {}
+		_radio_parts = []
+	# Polled, not driven by the player's finished signal (it did not fire reliably in play): when the
+	# fragment has ended, play the next one, or close the line and start the next queued line.
+	if radio_player.playing:
+		return
+	if not _radio_parts.is_empty():
+		_radio_play_next()
+		return
+	if not _radio_line.is_empty():
+		_radio_line = {}
+		radio.finished()
+		if not voice.playing:
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), -9.0)
+	var e := radio.next()
+	if e.is_empty():
+		return
+	_radio_line = e
+	_radio_parts = (e["lines"] as Array).duplicate()
+	_radio_play_next()
+
+
+func _radio_play_next() -> void:
+	while not _radio_parts.is_empty():
+		var part: Array = _radio_parts.pop_front()
+		var s := _stream(String(part[1]))
+		if s == null:
+			continue
+		if s is AudioStreamOggVorbis:
+			(s as AudioStreamOggVorbis).loop = false
+		radio_player.stream = s
+		radio_player.play()
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), -18.0)
+		if _radio_parts.is_empty():  # the message itself (a callsign goes first)
+			radio_line.emit(_radio_line["unit"], String(part[0]))
+		return
 
 
 func _stream(path: String) -> AudioStream:
@@ -129,7 +201,7 @@ func _play_voice(path: String) -> void:
 func _on_voice_finished() -> void:
 	if not _voice_queue.is_empty():
 		_play_voice(_voice_queue.pop_front())
-	else:
+	elif not radio_player.playing:
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), -9.0)
 
 

@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T11:59:37+13:00",
+  "updated": "2026-10-24T12:54:35+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1724,6 +1724,58 @@
       "created": "2026-10-24T11:59:37+13:00",
       "updated": "2026-10-24T11:59:37+13:00",
       "note": "Tests: command_input_test aimed/power/eject, sim_fidelity aimed shots + 3-chunk Long Tom; full suite passes."
+    },
+    {
+      "id": "I107",
+      "sev": "P2",
+      "title": "Black/green speckle squares on the terrain",
+      "detail": "Grid-aligned solid 8x8 render-pixel squares (green, yellow, black) over the ground on ~1-15% of frames in every fx-range clip recorded on 2026-10-23 (14:26-15:53, boot -1), all code variants incl. idle with no effects. NOT reproducible on 2026-10-24 (boot 0) with the same commits and the same command (e4e3c04 fx_range idle/laser, 882597e mission_view, HEAD probe 15 s/70 s/3 min movie + 6 min real-time on mc2_02): 0 squares in ~21k frames scanned. So the trigger is outside the game code (machine/GPU-driver state of that boot); cause unproven. Tools: game/tools/speckle_probe.tscn (camera flight + --off layer switches) and tools/dev/speckle_scan.py (validated: flags 13% of v3np/idle.avi).",
+      "repro": "godot --path game res://tools/speckle_probe.tscn -- --mission=mc2_02 --no-hud --seconds=60 --every=4 --out=DIR; python3 -I tools/dev/speckle_scan.py DIR 8. When it recurs: rerun with --off=... per layer in the same session, and note uptime/what else uses GPU 03:00.0",
+      "owner": null,
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-24T12:29:18+13:00",
+      "updated": "2026-10-24T12:29:18+13:00",
+      "note": null
+    },
+    {
+      "id": "I108",
+      "sev": "P3",
+      "title": "Explosion debris reads as cubes up close",
+      "detail": "effects_view.gd drew debris particles with a unit BoxMesh and flat albedo.",
+      "repro": "godot --path game res://tools/debris_still.tscn -- --out=/tmp/d.png",
+      "owner": null,
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T12:29:19+13:00",
+      "updated": "2026-10-24T12:29:23+13:00",
+      "note": "EffectsView.shard_mesh(): 6 flat-shaded irregular shard variants in one mesh, picked per particle in fx_debris.gdshader (others collapse); metal/soot facets, scorched end, hot glow. Caps unchanged; mc2_10 battle GPU mean 1.20 ms box vs 1.21 ms shards. Test effects_test.gd test_debris_is_shards_not_boxes."
+    },
+    {
+      "id": "I109",
+      "sev": "P2",
+      "title": "Pilots never speak on the radio",
+      "detail": "The original's pilots speak on events (radio.cpp, warrior.cpp radioMessage, gamesound.cpp queue); the remake played none.",
+      "repro": "mc2_02 --demo: no pilot voice lines",
+      "owner": null,
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T12:54:34+13:00",
+      "updated": "2026-10-24T12:54:34+13:00",
+      "note": "audio.py converts Sound/Pilots/Pilot1-26 (1064 ogg, 12 MB) + radio.csv into audio.json pilots/radio; PilotRadio ports radioMessage throttles, style roll, callsign prefix, 8-deep priority queue; AudioDirector plays and emits radio_line -> MissionHud.radio_line. Tests: pilot_radio_test.gd (5), test_convert PilotRadioReferenceTests."
+    },
+    {
+      "id": "I110",
+      "sev": "P3",
+      "title": "ABL playSpeech is a no-op (pilot radio)",
+      "detail": "SimAbl registers playSpeech as a stub, so script-driven radio lines (pbrain.abl: RADIO_MOVE_BLOCKED x5, RADIO_UNDER_AIRSTRIKE) never reach PilotRadio. Needs a sim event (e.g. {type: radio, unit, message}) from the sim owner; PilotRadio.say(unit, name) is ready to take it.",
+      "repro": "grep playSpeech game/scripts/sim/sim_abl.gd",
+      "owner": "sim",
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-24T12:54:35+13:00",
+      "updated": "2026-10-24T12:54:35+13:00",
+      "note": null
     }
   ],
   "coverage": {
@@ -1830,36 +1882,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "run wf_5f12b3e2-5f9 (phase-7-hd-review) ok: 9 agents, 480660 tokens"
-    },
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "decided C28: Redo repros are computed by tools/art/hd_redo.py from the seed history, not written by review agents; it also keeps one open redo issue per mech and closes approved ones \u2014 three reviews in a row the critic found repros that would rerun a failed seed, plus duplicate and unclosed issues; it is a calculation from history, so it belongs in code"
-    },
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "decided C29: Batch 4: the 8 redos from hd_redo.py on GPU0 now (atlas re-rendered with --subject-px 560 for the head crop) \u2014 GPU0 idle; repros now come from the seed history"
-    },
-    {
-      "at": "2026-10-19T18:04:31+13:00",
-      "who": "conductor",
-      "msg": "batch 4 done 18:03: 8/8 redos OK (17 min); review launched in 2 groups"
-    },
-    {
-      "at": "2026-10-19T18:06:08+13:00",
-      "who": "game-art",
-      "msg": "issue I55 P2: HD atlas: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T18:06:08+13:00",
-      "who": "game-art",
-      "msg": "issue I56 P2: HD madcat: reseed_mesh"
-    },
     {
       "at": "2026-10-19T18:06:09+13:00",
       "who": "game-art",
@@ -2829,6 +2851,36 @@
       "at": "2026-10-24T11:59:37+13:00",
       "who": "conductor",
       "msg": "issue I106 fixed: Tests: command_input_test aimed/power/eject, sim_fidelity aimed shots + 3-chunk Long Tom; full suite passes."
+    },
+    {
+      "at": "2026-10-24T12:29:18+13:00",
+      "who": "agent",
+      "msg": "issue I107 P2: Black/green speckle squares on the terrain"
+    },
+    {
+      "at": "2026-10-24T12:29:19+13:00",
+      "who": "agent",
+      "msg": "issue I108 P3: Explosion debris reads as cubes up close"
+    },
+    {
+      "at": "2026-10-24T12:29:23+13:00",
+      "who": "conductor",
+      "msg": "issue I108 fixed: EffectsView.shard_mesh(): 6 flat-shaded irregular shard variants in one mesh, picked per particle in fx_debris.gdshader (others collapse); metal/soot facets, scorched end, hot glow. Caps unchanged; mc2_10 battle GPU mean 1.20 ms box vs 1.21 ms shards. Test effects_test.gd test_debris_is_shards_not_boxes."
+    },
+    {
+      "at": "2026-10-24T12:54:34+13:00",
+      "who": "agent",
+      "msg": "issue I109 P2: Pilots never speak on the radio"
+    },
+    {
+      "at": "2026-10-24T12:54:34+13:00",
+      "who": "conductor",
+      "msg": "issue I109 fixed: audio.py converts Sound/Pilots/Pilot1-26 (1064 ogg, 12 MB) + radio.csv into audio.json pilots/radio; PilotRadio ports radioMessage throttles, style roll, callsign prefix, 8-deep priority queue; AudioDirector plays and emits radio_line -> MissionHud.radio_line. Tests: pilot_radio_test.gd (5), test_convert PilotRadioReferenceTests."
+    },
+    {
+      "at": "2026-10-24T12:54:35+13:00",
+      "who": "sim",
+      "msg": "issue I110 P3: ABL playSpeech is a no-op (pilot radio)"
     }
   ],
   "choices": [

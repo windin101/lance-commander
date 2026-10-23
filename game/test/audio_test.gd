@@ -17,6 +17,13 @@ func test_manifest_streams_load() -> void:
 			assert_bool(has_sound).override_failure_message("no fire sound for %s" % u.items[w]["component"]["name"]).is_true()
 
 
+func test_flamer_has_its_own_fire_sound() -> void:
+	# Effects.csv row 0 says 3 in its first cell; the converter once keyed by it and the
+	# flamer (effect id 3, component 155) lost its sound.
+	var m: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/audio.json"))
+	assert_str(String(m["weapons"].get("155", ""))).ends_with("sfx_flamer_fire.ogg")
+
+
 func test_music_selection_follows_mission_script() -> void:
 	var R := SimObjectives.Result
 	assert_int(AudioDirector.choose_tune(R.PLAYING, false, false)).is_equal(AudioDirector.TUNE_START)
