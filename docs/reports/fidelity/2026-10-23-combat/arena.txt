@@ -1,0 +1,96 @@
+ARENA partisan:4 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule off, 40 runs
+  lance: hit rate 0.58 (3196 shots), 574 dmg/min, mean heat level at fire 15.0
+  enemy: hit rate 0.55 (2672 shots), 214 dmg/min
+  mean fight 20 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA partisan:4 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule off, 40 runs
+  lance: hit rate 0.75 (2766 shots), 736 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.54 (2208 shots), 194 dmg/min
+  mean fight 17 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA partisan:4 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule on, 40 runs
+  lance: hit rate 0.58 (3146 shots), 580 dmg/min, mean heat level at fire 15.0
+  enemy: hit rate 0.56 (320 shots), 27 dmg/min
+  mean fight 19 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA partisan:4 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule on, 40 runs
+  lance: hit rate 0.75 (2818 shots), 731 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.53 (320 shots), 29 dmg/min
+  mean fight 17 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA tankk:4 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule off, 40 runs
+  lance: hit rate 0.63 (5741 shots), 573 dmg/min, mean heat level at fire 13.3
+  enemy: hit rate 0.53 (1198 shots), 244 dmg/min
+  mean fight 39 s; lance wins 40/40; lance alive 3.95/4; enemy alive 0.00; first lance loss at 22 s (2 runs)
+ARENA tankk:4 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule off, 40 runs
+  lance: hit rate 0.74 (5054 shots), 674 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.53 (1002 shots), 239 dmg/min
+  mean fight 33 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA tankk:4 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule on, 40 runs
+  lance: hit rate 0.63 (5724 shots), 583 dmg/min, mean heat level at fire 13.2
+  enemy: hit rate 0.56 (320 shots), 70 dmg/min
+  mean fight 38 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA tankk:4 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule on, 40 runs
+  lance: hit rate 0.75 (5086 shots), 680 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.53 (320 shots), 76 dmg/min
+  mean fight 33 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA partisan:4,lrmcarrier:2,catapult:2 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule off, pursue true, 40 runs
+  lance: hit rate 0.66 (8678 shots), 623 dmg/min, mean heat level at fire 12.0
+  enemy: hit rate 0.48 (7691 shots), 264 dmg/min
+  mean fight 56 s; lance wins 40/40; lance alive 3.92/4; enemy alive 0.00; first lance loss at 36 s (3 runs)
+ARENA partisan:4,lrmcarrier:2,catapult:2 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule off, pursue true, 40 runs
+  lance: hit rate 0.74 (8418 shots), 680 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.54 (7112 shots), 287 dmg/min
+  mean fight 54 s; lance wins 40/40; lance alive 3.88/4; enemy alive 0.00; first lance loss at 51 s (5 runs)
+ARENA partisan:4,lrmcarrier:2,catapult:2 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule on, pursue true, 40 runs
+  lance: hit rate 0.66 (8827 shots), 617 dmg/min, mean heat level at fire 11.9
+  enemy: hit rate 0.46 (5673 shots), 204 dmg/min
+  mean fight 57 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA partisan:4,lrmcarrier:2,catapult:2 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule on, pursue true, 40 runs
+  lance: hit rate 0.75 (8332 shots), 682 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.55 (5260 shots), 233 dmg/min
+  mean fight 54 s; lance wins 40/40; lance alive 3.92/4; enemy alive 0.00; first lance loss at 39 s (3 runs)
+ARENA partisan:10 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule off, pursue true, 40 runs
+  lance: hit rate 0.65 (7083 shots), 609 dmg/min, mean heat level at fire 12.2
+  enemy: hit rate 0.54 (13588 shots), 476 dmg/min
+  mean fight 46 s; lance wins 40/40; lance alive 3.30/4; enemy alive 0.00; first lance loss at 33 s (24 runs)
+ARENA partisan:10 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule off, pursue true, 40 runs
+  lance: hit rate 0.74 (7062 shots), 693 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.55 (12888 shots), 477 dmg/min
+  mean fight 44 s; lance wins 40/40; lance alive 3.45/4; enemy alive 0.00; first lance loss at 34 s (21 runs)
+ARENA partisan:10 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule on, pursue true, 40 runs
+  lance: hit rate 0.64 (7260 shots), 643 dmg/min, mean heat level at fire 12.7
+  enemy: hit rate 0.54 (800 shots), 30 dmg/min
+  mean fight 43 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA partisan:10 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule on, pursue true, 40 runs
+  lance: hit rate 0.74 (7189 shots), 727 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.54 (800 shots), 31 dmg/min
+  mean fight 42 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA partisan:10,lrmcarrier:2,catapult:2 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule off, pursue true, 40 runs
+  lance: hit rate 0.66 (6906 shots), 441 dmg/min, mean heat level at fire 11.4
+  enemy: hit rate 0.53 (29027 shots), 758 dmg/min
+  mean fight 67 s; lance wins 2/40; lance alive 0.12/4; enemy alive 7.80; first lance loss at 18 s (40 runs)
+ARENA partisan:10,lrmcarrier:2,catapult:2 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule off, pursue true, 40 runs
+  lance: hit rate 0.75 (6604 shots), 479 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.55 (26929 shots), 771 dmg/min
+  mean fight 64 s; lance wins 4/40; lance alive 0.23/4; enemy alive 7.33; first lance loss at 17 s (40 runs)
+ARENA partisan:10,lrmcarrier:2,catapult:2 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule on, pursue true, 40 runs
+  lance: hit rate 0.67 (12944 shots), 639 dmg/min, mean heat level at fire 11.2
+  enemy: hit rate 0.48 (8783 shots), 222 dmg/min
+  mean fight 81 s; lance wins 40/40; lance alive 3.75/4; enemy alive 0.00; first lance loss at 61 s (9 runs)
+ARENA partisan:10,lrmcarrier:2,catapult:2 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule on, pursue true, 40 runs
+  lance: hit rate 0.74 (12417 shots), 681 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.55 (8449 shots), 256 dmg/min
+  mean fight 79 s; lance wins 40/40; lance alive 3.60/4; enemy alive 0.00; first lance loss at 65 s (14 runs)
+ARENA tankk:9 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule off, pursue true, 40 runs
+  lance: hit rate 0.66 (9913 shots), 404 dmg/min, mean heat level at fire 10.9
+  enemy: hit rate 0.53 (6044 shots), 454 dmg/min
+  mean fight 104 s; lance wins 19/40; lance alive 0.78/4; enemy alive 1.32; first lance loss at 27 s (40 runs)
+ARENA tankk:9 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule off, pursue true, 40 runs
+  lance: hit rate 0.74 (9798 shots), 452 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.55 (5528 shots), 444 dmg/min
+  mean fight 100 s; lance wins 26/40; lance alive 1.05/4; enemy alive 0.93; first lance loss at 27 s (40 runs)
+ARENA tankk:9 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat on, node rule on, pursue true, 40 runs
+  lance: hit rate 0.68 (12636 shots), 618 dmg/min, mean heat level at fire 11.2
+  enemy: hit rate 0.53 (720 shots), 69 dmg/min
+  mean fight 83 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
+ARENA tankk:9 vs lance(madcat x2, shootist, catapult; gunnery 75) at 150 m, heat off, node rule on, pursue true, 40 runs
+  lance: hit rate 0.74 (11719 shots), 672 dmg/min, mean heat level at fire 0.0
+  enemy: hit rate 0.54 (720 shots), 76 dmg/min
+  mean fight 77 s; lance wins 40/40; lance alive 4.00/4; enemy alive 0.00; first lance loss at - s (0 runs)
