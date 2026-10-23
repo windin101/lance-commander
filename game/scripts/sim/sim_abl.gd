@@ -434,7 +434,9 @@ func _capture_goal(u: SimUnit, t: SimUnit) -> Vector2:
 			var dir := Vector2.from_angle(TAU * k / 16.0)
 			var p := world.map.nearest_walkable(t.position + dir * r, u.hover, 3)
 			var c := world.map.cell_of(p)
-			if tried.has(c) or p.distance_to(t.position) > CAPTURE_M + extent:
+			# within reach with the walk's arrival slack to spare (ARRIVE_M), or the mech can stop
+			# just outside it (I85: 37 m from a 37 m reach)
+			if tried.has(c) or p.distance_to(t.position) > CAPTURE_M + extent - SimWorld.ARRIVE_M - 1.0:
 				continue
 			tried[c] = true
 			ring.append(p)
@@ -442,6 +444,23 @@ func _capture_goal(u: SimUnit, t: SimUnit) -> Vector2:
 		for p in ring:
 			if world.map.cell_of(p) == world.map.cell_of(u.position) or world.map.find_path(u.position, p, u.hover).size() > 0:
 				return p
+	return _closest_reachable(u, t)
+
+
+## The reachable cell nearest the target (the walk ends as close as the footprint allows).
+func _closest_reachable(u: SimUnit, t: SimUnit) -> Vector2:
+	var m := world.map
+	var tc := m.cell_of(t.position)
+	var cands := []
+	for dy in range(-8, 9):
+		for dx in range(-8, 9):
+			var c := tc + Vector2i(dx, dy)
+			if m.in_bounds(c) and m.is_walkable(c, u.hover):
+				cands.append(m.cell_center(c))
+	cands.sort_custom(func(a, b): return a.distance_to(t.position) < b.distance_to(t.position))
+	for p in cands.slice(0, 12):
+		if m.cell_of(p) == m.cell_of(u.position) or m.find_path(u.position, p, u.hover).size() > 0:
+			return p
 	return t.position
 
 
@@ -468,6 +487,14 @@ func _capture_step(p: Pilot, u: SimUnit, o: Dictionary) -> bool:
 	if t.is_mover() and (t.position.distance_to(o["goal"]) > 15.0 or u.order == SimWorld.Order.HOLD):
 		o["goal"] = t.position  # follow a moving target (a convoy vehicle)
 		world.order_move(u, o["goal"])
+	elif not t.is_mover() and u.order == SimWorld.Order.HOLD:
+		# The walk ended outside reach: as the original re-issues its move to the object every
+		# time the order runs while not within 30 m (tacordr.cpp:1782-1795), walk on, now to the
+		# reachable cell nearest the building (I85).
+		var g := _closest_reachable(u, t)
+		if g.distance_to(o["goal"]) > 1.0:
+			o["goal"] = g
+			world.order_move(u, g, bool(o.get("run", true)))
 	return false
 
 

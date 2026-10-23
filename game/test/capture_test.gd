@@ -69,3 +69,25 @@ func test_captured_vehicle_becomes_a_hulk() -> void:
 	assert_bool(v.hulk).is_true()
 	assert_bool(v.awake).is_false()
 	assert_bool(sm.abl.can_capture(v, 0)).is_false()
+
+
+func test_a_capture_walk_ends_inside_reach_of_a_big_building() -> void:
+	# I85: mc2_13's Weapons Facility #3, whose footprint keeps a mech 30+ m from its centre
+	var q := SimMission.load_mission(GameData, "mc2_13", 1)
+	var fac := q.structure_near(Vector2(-2240.0, -5354.666504))
+	var m: SimUnit = q.world.units.filter(func(u): return u is SimMech and u.team == q.player_team)[0]
+	for u in q.world.units:
+		if u.is_mover() and u.team != q.player_team:
+			u.exists = false
+	for dir in [Vector2(0, 1), Vector2(1, 0), Vector2(0, -1), Vector2(-1, 0)]:
+		fac.team = -1
+		m.position = q.world.map.nearest_walkable(fac.position + dir * 150.0)
+		q.world.order_hold(m)
+		q.abl.player_order(m, "capture", fac, {"run": true})
+		var goal: Vector2 = m.brain.order["goal"]
+		assert_float(goal.distance_to(fac.position)).is_less_equal(SimAbl.CAPTURE_M + fac.extent_m - SimWorld.ARRIVE_M)
+		var t0 := q.world.time
+		while q.world.time - t0 < 40.0 and fac.team != q.player_team:
+			q.step()
+			q.world.events.clear()
+		assert_int(fac.team).is_equal(q.player_team)

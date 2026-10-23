@@ -300,7 +300,10 @@ func _repair_step(r: Dictionary) -> void:
 			if truck.distance_to(mech.position) <= REFIT_RANGE_M:
 				world.order_hold(truck)
 				world.order_hold(mech)
+				# orderPowerDown (tacordr.cpp:1471): an ordered shutdown, so heat doesn't restart it (I100)
+				r["was_powered_down"] = mech.powered_down
 				mech.status = SimUnit.Status.SHUTDOWN
+				mech.powered_down = true
 				r["phase"] = "power_down"
 				r["next"] = t + REFIT_POWERDOWN
 			elif truck.order == SimWorld.Order.HOLD or truck.position.distance_to(mech.position) > REFIT_RANGE_M * 3.0 and truck.path.is_empty():
@@ -372,8 +375,9 @@ func _end_bay(r: Dictionary, walk_off: bool) -> void:
 
 func _end_repair(r: Dictionary) -> void:
 	var mech: SimUnit = r["mech"]
-	if mech.status == SimUnit.Status.SHUTDOWN and not mech.powered_down:
-		mech.status = SimUnit.Status.NORMAL
+	if r.has("was_powered_down") and mech.status == SimUnit.Status.SHUTDOWN and not r["was_powered_down"]:
+		mech.powered_down = false
+		mech.status = SimUnit.Status.NORMAL  # powered back up (tacordr.cpp:1500-1520)
 	repairs.erase(r)
 
 

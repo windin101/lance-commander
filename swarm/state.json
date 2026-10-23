@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T07:39:01+13:00",
+  "updated": "2026-10-24T09:14:34+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -498,10 +498,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_17 --damage --targets --cues",
       "owner": "sim",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-23T19:06:15+13:00",
-      "note": "Fidelity 2026-10-23 (F6) done: SimWorld._pick_target now fires an engaged brain only at its last target (current_target), dropped beyond attackRadius 275 m (warrior.cpp:3493,3532-3538); no fire-at-will fallback for units with a brain (flag SimRules.brain_target_only). sim_cinematic_test.gd passes. Still open for the remaining parts of this issue, if any (autoplay counting commander-2 dummies)."
+      "updated": "2026-10-24T09:08:18+13:00",
+      "note": "Fixed in b3c9790 (pbrain targets only via FireAtWill/orders/return fire; forceMovieEnd a query) and a1cb491 F6 (engaged brains fire only at their target)."
     },
     {
       "id": "I13",
@@ -1356,10 +1356,10 @@
       "repro": null,
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "duplicate",
       "created": "2026-10-20T12:32:29+13:00",
-      "updated": "2026-10-20T12:32:29+13:00",
-      "note": null
+      "updated": "2026-10-24T09:08:18+13:00",
+      "note": "Folded into I98 (HD articulation and texture rework)."
     },
     {
       "id": "I79",
@@ -1395,10 +1395,10 @@
       "repro": "python3 -I tools/playtest_sweep.py --missions mc2_08,mc2_11",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-20T19:10:06+13:00",
-      "updated": "2026-10-23T14:13:47+13:00",
-      "note": "Bot now drives to MoveAnyUnitToArea markers (mc2_08 '2 - Link up with Atlas' done on all 3 seeds) and clears every non-ally mover within 256 m of the extraction point before moving in (mc2_09 3/3, mc2_11 s1 extracted). docs/reports/playtest/2026-10-23/README.md"
+      "updated": "2026-10-24T09:08:18+13:00",
+      "note": "Bot drives to MoveAnyUnitToArea markers and clears extraction (882597e)."
     },
     {
       "id": "I82",
@@ -1421,10 +1421,10 @@
       "repro": null,
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-20T21:14:49+13:00",
-      "updated": "2026-10-20T21:14:49+13:00",
-      "note": null
+      "updated": "2026-10-24T09:08:18+13:00",
+      "note": "Superseded by the player paint scheme (84471a7): player units use the PaintScheme setting (default grey/red), as the original used prefs colours."
     },
     {
       "id": "I84",
@@ -1436,8 +1436,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-20T21:14:49+13:00",
-      "updated": "2026-10-20T21:14:49+13:00",
-      "note": null
+      "updated": "2026-10-24T09:08:18+13:00",
+      "note": "Portraits done (bee39f2). Remaining: comms subtitles/speaker data, tac map sensor ring and planet name."
     },
     {
       "id": "I85",
@@ -1447,10 +1447,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 400 --mission=mc2_13 --trace  (look for 'CAPTURE stalled x1: Shootist at 37 m from WeaponsFacility'; the bot now works around it on the 3rd stall)",
       "owner": "sim",
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-21T18:00:26+13:00",
-      "updated": "2026-10-21T18:00:26+13:00",
-      "note": null
+      "updated": "2026-10-24T09:14:34+13:00",
+      "note": "Fixed 2026-10-24 (uncommitted). The approach ring (_capture_goal) admitted points up to the full reach (30 m + extent) but the walk stops within ARRIVE_M (3 m) of its goal, so a mech could end at 37-40 m from a 37 m reach and stand there with TO_CAPTURE. Goals now keep ARRIVE_M + 1 m in hand, and a walk that ends outside reach walks on to the reachable cell nearest the building, as the original re-issues orderMoveToObject each time the capture order runs outside 30 m (tacordr.cpp:1782-1795). Test: capture_test.gd test_a_capture_walk_ends_inside_reach_of_a_big_building (mc2_13 Weapons Facility #3 from 4 sides)."
     },
     {
       "id": "I86",
@@ -1642,10 +1642,10 @@
       "repro": null,
       "owner": "sim",
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-23T20:14:43+13:00",
-      "updated": "2026-10-23T20:14:43+13:00",
-      "note": null
+      "updated": "2026-10-24T09:14:34+13:00",
+      "note": "Fixed 2026-10-24 (uncommitted). SimSupport._repair_step marks the truck's power-down as an ordered shutdown (powered_down, orderPowerDown tacordr.cpp:1471) like the bay; _end_repair powers the mech back up unless it was already ordered down. Test: support_test.gd test_a_mech_stays_powered_down_through_the_truck_repair."
     },
     {
       "id": "I101",
@@ -1672,6 +1672,19 @@
       "created": "2026-10-24T07:39:01+13:00",
       "updated": "2026-10-24T07:39:01+13:00",
       "note": "Fixed 2026-10-24 (uncommitted). SimWorld.group_move_goals ports calcMoveGoals (keeping the original's nCol=curRow neighbour quirk); CommandInput uses it for group moves. SimWorld.attack_goal/_attack_goal_path port calcMoveGoal for attacks (fire-range ring +500, beyond max/inside min -500, -1 per cell from the attacker, -100 on mates' goals, impassable -10000, first of the 60 best with LOS; re-pick when the target moves 2 cells or on arrival without LOF); flag SimRules.attack_goals. Probe, flat ground, 4 mechs attacking 1 of 3 Bushwackers 400 m off: min spacing 1.6 m (one file) -> 8.5 m side by side on the ring, LOS 4/4; group move 0.3 m -> 22.5 m (mc2_01 ground 0.0 -> 9.5 m). Damage still lands mostly on the nearest mech because the probe's enemies fire at the nearest unit. Tests in sim_fidelity_test.gd. Quick sweep, 9 combat-heavy missions: 17/27 runs won vs 16/27 in 2026-10-23-turrets."
+    },
+    {
+      "id": "I103",
+      "sev": "P2",
+      "title": "Flamers have no firing sound",
+      "detail": "tools/convert/audio.py keyed Objects/Effects.csv by its first cell; row 0 (No Weapon Here) says 3 there and setdefault let it shadow the flamer's effect id 3 (object 0), so component 155 got no sound. The id is the row index (as tools/art/weapon_fx_original.py reads it).",
+      "repro": "python3 -c: json.load(open('game/data/audio.json'))['weapons'].get('155') is None",
+      "owner": null,
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T09:12:22+13:00",
+      "updated": "2026-10-24T09:12:26+13:00",
+      "note": "audio.py effect_objects() keys by row index; audio-only reconvert adds weapons[155]=sfx_flamer_fire.ogg (only audio.json + the new ogg change); tests in test_convert.py + audio_test.gd"
     }
   ],
   "coverage": {
@@ -1778,51 +1791,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T17:43:46+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 3: 2 approved, 1 issues"
-    },
-    {
-      "at": "2026-10-19T17:46:45+13:00",
-      "who": "conductor",
-      "msg": "issue I39 duplicate: superseded by I49"
-    },
-    {
-      "at": "2026-10-19T17:46:45+13:00",
-      "who": "conductor",
-      "msg": "issue I49 updated: repro, note \u2014 repro planned by hd_redo.py: concept seeds tried [7, 8, 9, 10, 12] -> 13; cropped, re-render with more margin"
-    },
-    {
-      "at": "2026-10-19T17:46:45+13:00",
-      "who": "conductor",
-      "msg": "issue I40 fixed: cyclops approved in review"
-    },
-    {
-      "at": "2026-10-19T17:46:45+13:00",
-      "who": "conductor",
-      "msg": "issue I41 fixed: enfield approved in review"
-    },
-    {
-      "at": "2026-10-19T17:46:45+13:00",
-      "who": "conductor",
-      "msg": "issue I36 duplicate: superseded by I48"
-    },
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I48 updated: repro, note \u2014 repro planned by hd_redo.py: mesh seeds tried [1234, 4242] -> 777"
-    },
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I37 fixed: hunchback approved in review"
-    },
-    {
-      "at": "2026-10-19T17:46:46+13:00",
-      "who": "conductor",
-      "msg": "issue I42 duplicate: superseded by I50"
-    },
     {
       "at": "2026-10-19T17:46:46+13:00",
       "who": "conductor",
@@ -2777,6 +2745,51 @@
       "at": "2026-10-24T07:39:01+13:00",
       "who": "conductor",
       "msg": "issue I102 fixed: Fixed 2026-10-24 (uncommitted). SimWorld.group_move_goals ports calcMoveGoals (keeping the original's nCol=curRow neighbour quirk); CommandInput uses it for group moves. SimWorld.attack_goal/_attack_goal_path port calcMoveGoal for attacks (fire-range ring +500, beyond max/inside min -500, -1 per cell from the attacker, -100 on mates' goals, impassable -10000, first of the 60 best with LOS; re-pick when the target moves 2 cells or on arrival without LOF); flag SimRules.attack_goals. Probe, flat ground, 4 mechs attacking 1 of 3 Bushwackers 400 m off: min spacing 1.6 m (one file) -> 8.5 m side by side on the ring, LOS 4/4; group move 0.3 m -> 22.5 m (mc2_01 ground 0.0 -> 9.5 m). Damage still lands mostly on the nearest mech because the probe's enemies fire at the nearest unit. Tests in sim_fidelity_test.gd. Quick sweep, 9 combat-heavy missions: 17/27 runs won vs 16/27 in 2026-10-23-turrets."
+    },
+    {
+      "at": "2026-10-24T09:08:18+13:00",
+      "who": "conductor",
+      "msg": "issue I12 fixed: Fixed in b3c9790 (pbrain targets only via FireAtWill/orders/return fire; forceMovieEnd a query) and a1cb491 F6 (engaged brains fire only at their target)."
+    },
+    {
+      "at": "2026-10-24T09:08:18+13:00",
+      "who": "conductor",
+      "msg": "issue I81 fixed: Bot drives to MoveAnyUnitToArea markers and clears extraction (882597e)."
+    },
+    {
+      "at": "2026-10-24T09:08:18+13:00",
+      "who": "conductor",
+      "msg": "issue I83 fixed: Superseded by the player paint scheme (84471a7): player units use the PaintScheme setting (default grey/red), as the original used prefs colours."
+    },
+    {
+      "at": "2026-10-24T09:08:18+13:00",
+      "who": "conductor",
+      "msg": "issue I78 duplicate: Folded into I98 (HD articulation and texture rework)."
+    },
+    {
+      "at": "2026-10-24T09:08:18+13:00",
+      "who": "conductor",
+      "msg": "issue I84 updated: note \u2014 Portraits done (bee39f2). Remaining: comms subtitles/speaker data, tac map sensor ring and planet name."
+    },
+    {
+      "at": "2026-10-24T09:12:22+13:00",
+      "who": "agent",
+      "msg": "issue I103 P2: Flamers have no firing sound"
+    },
+    {
+      "at": "2026-10-24T09:12:26+13:00",
+      "who": "conductor",
+      "msg": "issue I103 fixed: audio.py effect_objects() keys by row index; audio-only reconvert adds weapons[155]=sfx_flamer_fire.ogg (only audio.json + the new ogg change); tests in test_convert.py + audio_test.gd"
+    },
+    {
+      "at": "2026-10-24T09:14:34+13:00",
+      "who": "conductor",
+      "msg": "issue I85 fixed: Fixed 2026-10-24 (uncommitted). The approach ring (_capture_goal) admitted points up to the full reach (30 m + extent) but the walk stops within ARRIVE_M (3 m) of its goal, so a mech could end at 37-40 m from a 37 m reach and stand there with TO_CAPTURE. Goals now keep ARRIVE_M + 1 m in hand, and a walk that ends outside reach walks on to the reachable cell nearest the building, as the original re-issues orderMoveToObject each time the capture order runs outside 30 m (tacordr.cpp:1782-1795). Test: capture_test.gd test_a_capture_walk_ends_inside_reach_of_a_big_building (mc2_13 Weapons Facility #3 from 4 sides)."
+    },
+    {
+      "at": "2026-10-24T09:14:34+13:00",
+      "who": "conductor",
+      "msg": "issue I100 fixed: Fixed 2026-10-24 (uncommitted). SimSupport._repair_step marks the truck's power-down as an ordered shutdown (powered_down, orderPowerDown tacordr.cpp:1471) like the bay; _end_repair powers the mech back up unless it was already ordered down. Test: support_test.gd test_a_mech_stays_powered_down_through_the_truck_repair."
     }
   ],
   "choices": [

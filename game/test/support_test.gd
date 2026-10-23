@@ -208,3 +208,31 @@ func test_minelayer_lays_mines_that_heavy_units_set_off() -> void:
 	assert_int(w.map.mine_at(cell)).is_equal(2)
 	assert_float(before - after).is_equal_approx(12.0, 0.01)
 
+
+
+func test_a_mech_stays_powered_down_through_the_truck_repair() -> void:
+	# I100: the heat restart (H7) used to power it straight back up
+	sm.support.rp = 20000
+	var m: SimMech = _lance()[0]
+	for i in m.armor.size():
+		m.armor[i] = m.max_armor[i] * 0.3
+	sm.support.call_power("repair_truck", m.position + Vector2(30, 0))
+	_run(5.0)
+	var truck: SimUnit = sm.world.units.filter(func(u): return u.refit_pool > 0.0 and u.team == 0)[0]
+	sm.support.order_repair(truck, m)
+	var shut := 0
+	var up_during := 0
+	for i in 300:
+		sm.step()
+		sm.world.events.clear()
+		if sm.support.repairs.any(func(r): return r["mech"] == m and r["phase"] == "refit"):
+			if m.status == SimUnit.Status.SHUTDOWN:
+				shut += 1
+			else:
+				up_during += 1
+		if sm.support.repairs.is_empty() and shut > 0:
+			break
+	assert_int(shut).is_greater(0)
+	assert_int(up_during).is_equal(0)
+	assert_int(m.status).is_equal(SimUnit.Status.NORMAL)  # powered back up when done
+	assert_bool(m.powered_down).is_false()
