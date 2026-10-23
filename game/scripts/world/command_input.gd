@@ -456,17 +456,16 @@ func _command(screen: Vector2) -> void:
 			_order(m, "jump", g)
 		_used_mode()
 		return
-	# Spread a group around the click so they don't queue on one cell.
+	# One goal cell each around the click (MoverGroup::calcMoveGoals, missiongui.cpp:2473-2496),
+	# handed out in selection order.
 	var n := selection.size()
+	var goals: Array = world.group_move_goals(g, n, selection.all(func(m): return m.hover))
 	for i in n:
-		var offset := Vector2.ZERO
-		if n > 1:
-			var a := TAU * i / n
-			offset = Vector2(cos(a), sin(a)) * 14.0
+		var at: Vector2 = goals[i] if i < goals.size() else g
 		if mode_on("lay_mines") and support and selection[i] is SimVehicle and selection[i].mine_stock > 0:
-			support.order_lay_mines(selection[i], g + offset, run)  # MOVE_MODE_MINELAYING
+			support.order_lay_mines(selection[i], at, run)  # MOVE_MODE_MINELAYING
 			continue
-		_order(selection[i], "move", g + offset, {"run": run})
+		_order(selection[i], "move", at, {"run": run})
 	_used_mode()
 
 

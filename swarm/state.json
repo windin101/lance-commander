@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-23T21:19:56+13:00",
+  "updated": "2026-10-24T07:39:01+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1659,6 +1659,19 @@
       "created": "2026-10-23T21:19:40+13:00",
       "updated": "2026-10-23T21:19:40+13:00",
       "note": "Fixed 2026-10-23 (uncommitted): find_path blocked-start walk-out, sight repositioning; mc2_04 0/3 -> 2/3 (sweep 2026-10-23-turrets)."
+    },
+    {
+      "id": "I102",
+      "sev": "P1",
+      "title": "Group orders form a single file: followers stack behind the lead, only it fires and it takes all the fire",
+      "detail": "Lee, real play. Cause: group move goals were a 14 m ring in CommandInput with no per-unit goal cells, and an attack order sent every attacker along the same path to the target, stopping at the first point in reach (since I91 also needing LOS), so they queued in one file at different ranges. Original: MoverGroup::calcMoveGoals (group.cpp:401-526) gives each unit its own goal cell; Mover::calcMoveGoal (mover.cpp:4364-4900) puts each attacker on a cell of its fire-range ring (optimal range, mover.cpp:5826-5884) with LOS, -100 on mates' goals. Friendly units do not block LOS in either game. Probe: game/tools/formation_probe.gd.",
+      "repro": "godot --headless --path game -s res://tools/formation_probe.gd -- [--map]",
+      "owner": "sim",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T07:39:01+13:00",
+      "updated": "2026-10-24T07:39:01+13:00",
+      "note": "Fixed 2026-10-24 (uncommitted). SimWorld.group_move_goals ports calcMoveGoals (keeping the original's nCol=curRow neighbour quirk); CommandInput uses it for group moves. SimWorld.attack_goal/_attack_goal_path port calcMoveGoal for attacks (fire-range ring +500, beyond max/inside min -500, -1 per cell from the attacker, -100 on mates' goals, impassable -10000, first of the 60 best with LOS; re-pick when the target moves 2 cells or on arrival without LOF); flag SimRules.attack_goals. Probe, flat ground, 4 mechs attacking 1 of 3 Bushwackers 400 m off: min spacing 1.6 m (one file) -> 8.5 m side by side on the ring, LOS 4/4; group move 0.3 m -> 22.5 m (mc2_01 ground 0.0 -> 9.5 m). Damage still lands mostly on the nearest mech because the probe's enemies fire at the nearest unit. Tests in sim_fidelity_test.gd. Quick sweep, 9 combat-heavy missions: 17/27 runs won vs 16/27 in 2026-10-23-turrets."
     }
   ],
   "coverage": {
@@ -1765,16 +1778,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T17:43:42+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 1: 2 approved, 2 issues"
-    },
-    {
-      "at": "2026-10-19T17:43:46+13:00",
-      "who": "game-art",
-      "msg": "issue I54 P2: HD vulture: reseed_mesh"
-    },
     {
       "at": "2026-10-19T17:43:46+13:00",
       "who": "game-art",
@@ -2764,6 +2767,16 @@
       "at": "2026-10-23T21:19:56+13:00",
       "who": "conductor",
       "msg": "issue I99 updated: note \u2014 2026-10-23 (uncommitted): bot spots enemy turret forts (300 m), captures their control or destroys control/generator, counts covering turrets in fall-back, drops a Long Tom at forts from outside their reach and sets idle guns on turrets, stall watch (150 s without damage -> leave threats 2 min), reachable repair trucks only. Harness: an immobile Long Tom no longer holds a dead lance's mission open (the mc2_03/09 'stalls'). Sweep 2026-10-23-turrets: 24/72 runs (fidelity 14, pre-fidelity 28), 8 missions 2/3+ (5, 9), 1 run at the cap (17). Still weak: mc2_03, 07, 09 (turret forts, Swarm LRM carriers) and most of mc2_11 on."
+    },
+    {
+      "at": "2026-10-24T07:39:01+13:00",
+      "who": "sim",
+      "msg": "issue I102 P1: Group orders form a single file: followers stack behind the lead, only it fires and it takes all the fire"
+    },
+    {
+      "at": "2026-10-24T07:39:01+13:00",
+      "who": "conductor",
+      "msg": "issue I102 fixed: Fixed 2026-10-24 (uncommitted). SimWorld.group_move_goals ports calcMoveGoals (keeping the original's nCol=curRow neighbour quirk); CommandInput uses it for group moves. SimWorld.attack_goal/_attack_goal_path port calcMoveGoal for attacks (fire-range ring +500, beyond max/inside min -500, -1 per cell from the attacker, -100 on mates' goals, impassable -10000, first of the 60 best with LOS; re-pick when the target moves 2 cells or on arrival without LOF); flag SimRules.attack_goals. Probe, flat ground, 4 mechs attacking 1 of 3 Bushwackers 400 m off: min spacing 1.6 m (one file) -> 8.5 m side by side on the ring, LOS 4/4; group move 0.3 m -> 22.5 m (mc2_01 ground 0.0 -> 9.5 m). Damage still lands mostly on the nearest mech because the probe's enemies fire at the nearest unit. Tests in sim_fidelity_test.gd. Quick sweep, 9 combat-heavy missions: 17/27 runs won vs 16/27 in 2026-10-23-turrets."
     }
   ],
   "choices": [

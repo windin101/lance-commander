@@ -132,6 +132,39 @@ mover in the radius takes the damage at an artillery-style hit location; buildin
 radius plus their extent take it whole; turrets only within their little extent
 (carnage.cpp:343-436). Damage is applied as one chunk. Flag `area_effect_weapons`.
 
+## Group moves and attack positions (2026-10-24)
+
+**Group move** (`MoverGroup::calcMoveGoals`, group.cpp:401-526; called from
+missiongui.cpp:2473-2496): each selected unit gets its own goal cell. A uniform-cost flood over
+the passable cells of a 61 x 61 window, outward from the clicked cell; a cell is taken if no
+taken goal has marked it as a neighbour, and each taken goal marks its 8 neighbours. The first
+goal is the click, the next ones about two cells (17 m) out. **Quirk kept:** the neighbour
+marking uses `nCol = curRow + dc` (group.cpp:483), so only goals on the window's diagonal mark
+the right cells and later goals can be adjacent. `SimWorld.group_move_goals`; CommandInput
+hands the goals out in selection order.
+
+**Attack position** (`Mover::calcMoveGoal`, mover.cpp:4364-4900, through
+`MechWarrior::calcMovePath`, warrior.cpp:2735-2860). A pursuing attacker walks to a goal cell
+and fires from it (and on the way), rather than stopping at the first point in reach. On a
+61 x 61 cell map round the target, cells score:
+- +500 on the ring at the pilot's fire range: FIRERANGE_OPTIMAL (the player's default,
+  mover.cpp:2219), the optimal range of `calcOptimalRange` (mover.cpp:5826-5884): the gamesys
+  `OptimalRangePoints` point (20/45/100/100/160 m) covered by the most damage per second, ties by
+  `OptimalRangeTieTable`; 32 bearings (`initOptimalCells(32)`);
+- −500 beyond the longest weapon's reach and inside the shortest weapon's minimum;
+- +100 in the 3 x 3 round the target for a non-player order;
+- −1 per cell (Manhattan) from the attacker, −100 on a group mate's goal (mover.cpp:4612-4630);
+- −10000 where it can't stand, and on its own cell when it must move somewhere else.
+
+The 60 best cells are tried in order and the first with a line of sight to the target wins
+(mover.cpp:4805-4830). A new goal is picked when the target has moved two cells, or on arrival
+without a line of fire, at most every 2 s. So a lance ordered onto one target fans out side by
+side on the fire ring, about a cell apart, instead of queueing in one file. Not ported:
+`calcBestGoalFromTarget` (when no candidate sees the target, the best-scoring cell is used),
+area-connectivity weights (the path search decides), path locks (units may overlap in passing).
+Friendly units never block a line of sight, here or in the original (Team::lineOfSight reads
+terrain and cell heights only). Flag `attack_goals`.
+
 ## Who an engaged AI shoots (F6, I12)
 
 `combatDecisionTree` (warrior.cpp:3472-3540) fires only at the pilot's last target, the one its
