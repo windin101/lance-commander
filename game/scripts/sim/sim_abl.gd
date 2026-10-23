@@ -9,8 +9,9 @@ extends RefCounted
 ## the natives take or return are metres. Objects are addressed by ABL part ID (1).
 ##
 ## Simplifications against the original, each noted where it applies:
-## - Contacts: a team's contacts are the hostile movers within SENSOR_M of any of its
-##   awake movers. There is no separate visual/sensor model yet.
+## - Contacts: SimWorld.is_contact (visual line of sight within 225 m, fitted sensors, sensor
+##   towers; I90) plus the player's sensor probes. Contact quality (sensor 1-4 vs visual) and
+##   ECM fields that shrink enemy sensors are not modelled.
 ## - Tactical orders run directly on SimWorld orders (no goal planner, 2.1).
 ## - Presentation natives (music, voice, video, camera, movie mode) emit world
 ##   events of type "abl_*" for the view; their return values follow the spec.
@@ -18,7 +19,6 @@ extends RefCounted
 const BRAIN_PERIOD := 2.25
 const BRAIN_STAGGER := 0.2
 const WU := 0.2  # metres per world unit
-const SENSOR_M := 500.0
 const MAX_TRIGGERS := 15
 
 # PILOT_EVENT_*
@@ -97,6 +97,7 @@ class Pilot:
 	var order := {"code": TO_NONE}
 	var debug: Array = ["", "", "", "", ""]
 	var pending: Array = []  # alarm codes raised since the handlers last ran
+	var move_run := false  # moveOrders.run: the pace of the last move order (walk by default)
 	var alarm := -1  # the alarm whose handler is running (getAlarmTriggers)
 
 	func think(_world: SimWorld, u: SimUnit) -> void:
@@ -255,6 +256,8 @@ func run_alarm_handlers() -> void:
 func player_order(u: SimUnit, kind: String, arg: Variant = null, opts: Dictionary = {}) -> void:
 	if not (u.brain is Pilot):
 		return
+	if sm.support:
+		sm.support.cancel_bay_repair(u)  # a new order breaks a repair-bay pairing (tacordr.cpp:1537)
 	var p: Pilot = u.brain
 	var run: bool = opts.get("run", false)
 	var o: Dictionary
@@ -346,10 +349,19 @@ func _order_done(p: Pilot, u: SimUnit, o: Dictionary) -> bool:
 func _issue(p: Pilot, o: Dictionary) -> void:
 	var u := p.unit
 	p.order = o
-	# Only a player order honours walk vs run: the brains' own moves still all run (their
-	# ABL speed flag is not ported yet; I82 left it alone to keep the AI's pace).
+	# Walk or run (I92): a move order sets the pilot's moveRun from its RUN flag (coreMoveTo /
+	# orderMoveToPoint, warrior.cpp:5314, 5974; corebrain.abx:235-237 adds RUN only when CoreRun is
+	# set), and an order without one (coreAttack ignores RUN, warrior.cpp:5574) moves at the last
+	# move's pace. A player order is walk unless Run is on (I82).
 	var player := int(o.get("origin", 2)) == 0
-	var run: bool = o.get("run", true) if player else true
+	var run: bool
+	if player or not world.rules.brain_walk:
+		run = o.get("run", true) if player else true
+	elif o.has("run"):
+		run = bool(o["run"])
+		p.move_run = run
+	else:
+		run = p.move_run
 	match int(o["code"]):
 		TO_MOVETO_POINT, TO_MOVETO_OBJECT, TO_CAPTURE:
 			world.order_move(u, o["goal"], run)
@@ -468,6 +480,15 @@ func capture(by: SimUnit, t: SimUnit) -> void:
 	t.team = by.team
 	if t is SimStructure:
 		t.commander = by.commander
+		# Building::setTeamId hands the new team up to its parent (a turret control's generator),
+		# so capturing a child captures its control (bldng.cpp:972-979)
+		var up: SimStructure = t.parent
+		var hops := 0
+		while up != null and up.team != by.team and hops < 8:
+			up.team = by.team
+			up.commander = by.commander
+			up = up.parent
+			hops += 1
 	else:
 		t.hulk = true
 		t.awake = false
@@ -546,13 +567,10 @@ func _armed(u: SimUnit) -> bool:
 func is_contact(team: int, m: SimUnit) -> bool:
 	if not m.is_mover() or not m.exists or m.team == team:
 		return false
-	if sm.support and sm.support.probe_covers(team, m.position):
-		return true  # sensor probe (support-powers.md 3.2)
-	for f in world.units:
-		if f.team == team and f.is_mover() and f.exists and f.awake and not f.is_disabled() \
-				and f.position.distance_to(m.position) <= SENSOR_M:
-			return true
-	return false
+	if sm.support and sm.support.probe_covers(team, m.position) and not m.is_disabled() \
+			and m.status != SimUnit.Status.SHUTDOWN and not m.has_ecm():
+		return true  # sensor probe: a team sensor with no LOS (support-powers.md 3.2)
+	return world.is_contact(team, m)
 
 
 func meets(viewer: SimUnit, m: SimUnit, criteria: int) -> bool:
@@ -599,7 +617,7 @@ func scan(p: Pilot) -> SimUnit:
 				var best_b := INF
 				var pick: SimUnit = null
 				for s in world.units:
-					if s is SimStructure and s.exists and not s.is_destroyed() and s.team != me.team and s.team >= 0:
+					if s is SimStructure and not (s is SimTurret) and s.exists and not s.is_destroyed() and s.team != me.team and s.team >= 0:
 						var d := me.position.distance_to(s.position)
 						if d < best_b:
 							best_b = d
@@ -607,6 +625,28 @@ func scan(p: Pilot) -> SimUnit:
 				if pick and best_b < radius:
 					p.last_scan = pick
 					return pick
+			5, 6:
+				# TURRET: the closest turret not on a friendly team; out of p2 the scan stops (quirk).
+				# TURRET_CONTROL: the closest capturable, non-friendly control building, any range
+				# (abl-natives.md 2.6; warrior.cpp:690).
+				var best_t := INF
+				var pick_t: SimUnit = null
+				for s in world.units:
+					if not (s is SimStructure) or not s.exists or s.is_destroyed() or s.team == me.team:
+						continue
+					if type == 5 and not (s is SimTurret and s.team >= 0):
+						continue
+					if type == 6 and not (s.control and can_capture(s, me.team)):
+						continue
+					var d := me.position.distance_to(s.position)
+					if d < best_t:
+						best_t = d
+						pick_t = s
+				if pick_t and (type == 6 or best_t < radius):
+					p.last_scan = pick_t
+					return pick_t
+				if pick_t and type == 5:
+					break
 			4:
 				var t: SimUnit = p.order.get("target") if int(p.order["code"]) == TO_ATTACK_OBJECT else null
 				if t and t.is_disabled() and not p.order.get("obliterate", false):

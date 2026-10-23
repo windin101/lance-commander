@@ -1,0 +1,35 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_14
+force: campaign 1 units 75 t of 75 t, RP 0: Lao Hu Prime(pmwsteel)
+ABL pilots: 36
+t=  62.6  CAPTURED LaoHu MeetHall
+t=  62.6  objective done: Contact the Liao Operative
+t= 120.0  LOST LaoHu (disabled, armour 54%, heat 11, ejected false, pilot 1.0 wounds, last hit by MediumAutoCannonTurret)
+t= 125.1  MISSION LOST
+seed 2 end t=125 result=LOST  player alive 0  enemies alive 33
+damage to lance: 95 from 4 attackers; hits by location (0 head .. 10 rear RT): { 1: 7, 3: 2, 7: 2, 6: 3, 4: 3, 2: 1, 0: 1, 5: 2 }
+damage by lance: 124; kills 2
+        72  MediumAutoCannonTurret (vehicle)
+        17  Werewolf (mech)
+         6  Vedette (vehicle)
+  obj 0 P: done  Contact the Liao Operative
+  obj 1 P: open  Destroy Orbital Gun Alpha
+  obj 2 P: open  Destroy Orbital Gun Beta
+  obj 3 P: open  Destroy Orbital Gun Gamma
+  obj 4 P: open  Destroy Mobile Orbital Gun Omega
+  obj 5 P: gated  Move to the Extraction Point
+  obj 6 s: open  Capture Airport Sensor Control
+  obj 7 s: open  Destroy Fuel Supplies at Resupply Depot
+  obj 8 s: open  Capture Communications Array
+  obj 9 s: open  Destroy all Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_14_patrol8:start": 1, "mc2_14_patrol1:start": 1, "mc2_14_patrol2:attack": 1, "mc2_14_patrol2:start": 1, "mc2_14_static1:attack": 1, "mc2_14_patrol3:start": 1, "mc2_14_patrol4:start": 2, "mc2_14_static1:start": 9, "mc2_14_patrol5:start": 2, "mc2_14_patrol6:start": 1, "mc2_14_patrol7:start": 1, "mc2_14_patrol15:start": 2, "mc2_14_patrol16:start": 2, "mc2_14_patrol9:start": 1, "mc2_14_MOG_patrol:start": 1, "mc2_14_patrol10:start": 2, "mc2_14_patrol11:start": 2, "mc2_14_patrol12:start": 2, "mc2_14_patrol13:start": 1, "mc2_14_patrol14:start": 1, "PBrain:": 1 }
+enemy pilots that moved >20 m: 26 / 36
+
+--- stderr ---
+WARNING: 913 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

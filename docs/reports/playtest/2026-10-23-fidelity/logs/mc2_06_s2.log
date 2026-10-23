@@ -1,0 +1,55 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_06
+force: campaign 4 units 255 t of 260 t, RP 25000: Zeus Prime(pmwsteel), Shootist Prime(pmwmeat), Shootist Prime(pmwworm), Hollander Prime(pmwpalerider)
+ABL pilots: 48
+t=  29.7  CAPTURED Hollander OrdnanceTruckProp
+t=  31.8  CAPTURED Hollander OrdnanceTruckProp
+t=  33.5  SUPPORT sensor_probe (-164, 109) rp_left=31000
+t= 131.7  SUPPORT repair_truck (153, 680) rp_left=25000
+t= 153.2  REPAIR_DONE Hollander 
+t= 157.3  CAPTURED Hollander OrdnanceTruckProp
+t= 161.4  CAPTURED Shootist OrdnanceTruckProp
+t= 162.8  CAPTURED Shootist S_TurretControl
+t= 162.8  objective done: b - Capture the Turret Control at Road Checkpoint.
+t= 168.9  SUPPORT air_strike (175, 1153) rp_left=26000
+t= 172.0  SUPPORT artillery_piece (228, 853) rp_left=18000
+t= 181.3  SUPPORT air_strike (-21, 1250) rp_left=11000
+t= 184.4  SUPPORT artillery_piece (228, 1018) rp_left=3000
+t= 197.8  REPAIR_DONE Hollander 
+t= 225.9  LOST Hollander (disabled, armour 32%, heat 0, ejected false, pilot 3.0 wounds, last hit by Catapult)
+t= 337.4  REPAIR_DONE Shootist 
+t= 429.8  REPAIR_DONE Shootist 
+t= 540.5  REPAIR_DONE Zeus 
+t= 563.0  LOST Shootist (destroyed, armour 21%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 603.3  LOST Zeus (disabled, armour 45%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 603.5  LOST Shootist (disabled, armour 51%, heat 2, ejected false, pilot 1.0 wounds, last hit by Storm)
+seed 2 end t=1800 result=PLAYING  player alive 3  enemies alive 6
+damage to lance: 854 from 37 attackers; hits by location (0 head .. 10 rear RT): { 1: 37, 6: 20, 4: 30, 0: 4, 3: 18, 5: 35, 7: 27, 2: 27, 9: 2, 8: 2 }
+damage by lance: 1366; kills 32
+       217  Storm (vehicle)
+       142  ShaYu (mech)
+       108  Lrmcarrier (vehicle)
+       106  Catapult (mech)
+        87  LRMTurret (vehicle)
+        78  Attack Copter (mech)
+        56  Starslayer (mech)
+        42  MediumAutoCannonTurret (vehicle)
+        12  Hetzer (vehicle)
+         6  Vedette (vehicle)
+  obj 0 P: open  1. Protect the Base Headquarters
+  obj 1 P: open  2. Destroy all attacking Liao forces.
+  obj 2 s: open  a - Capture Steiner Sensor Control.
+  obj 3 s: done  b - Capture the Turret Control at Road Checkpoin
+  obj 4 s hidden: done  Hidden OBJ to Trigger Wave 2
+  obj 5 s hidden: done  Hidden Objective to Trigger Wave3
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_06_wv1_Guard2:spawnin": 4, "mc2_06_wv1_2a_lrm:attack": 3, "mc2_06_wv1_2a:attack": 3, "mc2_06_wv1_1a:attack": 4, "mc2_06_wv1_Guard:attack": 4, "mc2_06_wv2_3a:spawn": 5, "mc2_06_wv2_Guard2:baseassault": 2, "mc2_06_wv2_2a:spawn": 1, "mc2_06_wv2_2a:attack": 3, "mc2_06_wv3_2a:attack": 1, "mc2_06_wv3_2a:start": 3, "mc2_06_wv3_Guard:spawnin": 2, "mc2_06_wv3_Guard:base1escort": 1, "mc2_06_wv3_1a:attackhq": 1, "mc2_06_wv3_1a:spawn": 3, "mc2_06_wv1_2b:attack": 1, "mc2_06_out_Guard:attack": 3, "PBrain:": 4 }
+enemy pilots that moved >20 m: 47 / 48
+
+--- stderr ---
+WARNING: 626 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

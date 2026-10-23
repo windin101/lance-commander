@@ -41,5 +41,9 @@
  ],
  "num_other": 4,
  "num_weapons": 3,
- "num_ammo": 3
+ "num_ammo": 3,
+ "weapon_nodes": 2,
+ "los_factor": 1.0,
+ "mine_layer": 0,
+ "mine_sweeper": false
 }

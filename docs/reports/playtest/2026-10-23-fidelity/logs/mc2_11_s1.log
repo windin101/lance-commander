@@ -1,0 +1,54 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_11
+force: campaign 3 units 160 t of 160 t, RP 0: Men Shen Prime(pmwsteel), Men Shen Prime(pmwclaymore), Starslayer Prime(pmwworm)
+ABL pilots: 38
+t=   0.1  capture target Jagermech destroyed by ?
+t=   0.1  capture target ShadowCat destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Jagermech destroyed by ?
+t= 312.8  CAPTURED MenShen OrdnanceTruckProp
+t= 347.9  CAPTURED MenShen DavionTurretControl.fit
+t= 453.7  PULLBACK Starslayer at 26%
+t= 468.7  PULLBACK Starslayer at 26%
+t= 519.9  LOST MenShen (destroyed, armour 22%, heat 0, ejected false, pilot 1.0 wounds, last hit by MediumAutoCannonTurret)
+t= 525.0  LOST Starslayer (disabled, armour 12%, heat 0, ejected false, pilot 3.0 wounds, last hit by MediumAutoCannonTurret)
+t= 525.3  LOST MenShen (destroyed, armour 23%, heat 0, ejected false, pilot 1.0 wounds, last hit by MediumAutoCannonTurret)
+t= 530.3  MISSION LOST
+seed 1 end t=530 result=LOST  player alive 0  enemies alive 20
+damage to lance: 576 from 17 attackers; hits by location (0 head .. 10 rear RT): { 5: 15, 6: 25, 4: 19, 2: 37, 1: 21, 3: 23, 7: 13, 8: 2, 0: 5 }
+damage by lance: 922; kills 10
+       336  MediumAutoCannonTurret (vehicle)
+       138  Jagermech (mech)
+        30  Wolfhound (mech)
+        28  Enfield (mech)
+        24  LRMTurret (vehicle)
+        16  Drillson (vehicle)
+         4  Centipede (vehicle)
+  obj 0 s: open  a - Capture RP Buildings at Davion Installation
+  obj 1 s: open  b - Salvage Davion 'Mechs at salvage yard
+  obj 2 P: open  1 - Capture Davion Weapons Facility
+  obj 3 P: open  2 - Capture Steiner Weapons Facility
+  obj 4 P: open  3 - Capture Steiner HQ Building
+  obj 5 P: gated  4 - Extract at Steiner Drop Ship Pad
+  obj 6 s hidden: open  hidden objective for sensor towers
+  obj 7 s hidden: open  hidden objective for sensor control
+  obj 8 s hidden: open  bool 01
+  obj 9 s hidden: open  bool 02
+  obj 10 s hidden: open  bool 03
+  obj 11 s hidden: open  bool 04
+  obj 12 s hidden: open  bool 05
+  obj 13 s hidden: done  bool 06
+  obj 14 s hidden: open  Hidden Trigger for Salvage VO
+  obj 15 s hidden: done  Start of mission wav file
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_11_EC1_grp4:attack": 2, "mc2_11_EC1_Grp2:attack": 2, "mc2_11_dred:start": 14, "mc2_11_EC2_grp1:attack2": 1, "mc2_11_EC2_grp2:attack": 1, "mc2_11_EC3_grp2:start": 2, "mc2_11_EC3_grp3:start": 1, "mc2_11_EC2_grp4:amok": 1, "mc2_11_EC2_grp3:attack": 1, "mc2_11_ec4_grp4:start": 1, "mc2_11_ec1_grp1:attack": 2, "mc2_11_EC3_grp1:start": 2, "mc2_11_EC1_Grp3:start": 2, "mc2_11_EC1_grpwav:attack": 1, "mc2_11_dred_lrm:start": 1, "DredAttack01:start": 1, "PBrain:": 3 }
+enemy pilots that moved >20 m: 13 / 38
+
+--- stderr ---
+WARNING: 776 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

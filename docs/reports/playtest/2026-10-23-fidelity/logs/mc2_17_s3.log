@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_17
+force: campaign 6 units 350 t of 350 t, RP 0: Shootist Prime(pmwsteel), Shootist Prime(pmwclaymore), Catapult Prime(pmwworm), Men Shen Prime(pmwmeat), Men Shen Prime(pmwpalerider), Raven Prime(pmwtwitch)
+ABL pilots: 62
+t=   3.0  objective done: Escort Jason Cho to Rendezvous Location
+t= 102.1  LOST Raven (destroyed, armour 21%, heat 0, ejected false, pilot 0.0 wounds, last hit by Zeus)
+t= 123.4  PULLBACK Shootist at 28%
+t= 127.4  LOST Shootist (disabled, armour 14%, heat 0, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t= 149.1  LOST Shootist (disabled, armour 36%, heat 0, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t= 191.6  PULLBACK MenShen at 29%
+t= 193.9  LOST MenShen (destroyed, armour 18%, heat 0, ejected false, pilot 1.0 wounds, last hit by Werewolf)
+t= 225.7  PULLBACK Catapult at 29%
+t= 252.8  LOST Catapult (destroyed, armour 10%, heat 0, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t= 281.1  LOST MenShen (disabled, armour 15%, heat 0, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t= 286.1  MISSION LOST
+seed 3 end t=286 result=LOST  player alive 19  enemies alive 31
+damage to lance: 1168 from 11 attackers; hits by location (0 head .. 10 rear RT): { 7: 39, 5: 43, 3: 46, 4: 41, 2: 40, 6: 26, 1: 49, 0: 3, 10: 3, 8: 6, 9: 1 }
+damage by lance: 882; kills 6
+       682  Highlander (mech)
+       213  Zeus (mech)
+       109  Bushwacker (mech)
+       100  Hollander (mech)
+        64  Werewolf (mech)
+  obj 0 P: done  Escort Jason Cho to Rendezvous Location
+  obj 1 P: open  Kill all Enemy Forces
+  obj 2 s: open  Sec: Take Control of Steiner Base
+  obj 3 s hidden: open  Hidden Triggered Used to Activate Liao Son
+  obj 4 s hidden: open  Hidden Trigger to Kill Liao Son
+  obj 5 s hidden: open  Hidden Object To trigger Liao Reinforce Gp 2
+  obj 6 s hidden: open  Hidden Trigger to kill Liao Son's Troop
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_17_EC1_Cen_Mech_1:attack": 1, "mc2_17_EC1_Cen_Mech_0:attack": 1, "mc2_17_EC1_Cen_Mech_2:attack": 2, "mc2_17_EC1_Flk_Mech_M2:baseassault": 1, "mc2_17_EC1_Flk_Mech_M1:baseassault": 2, "mc2_17_EC1_Flk_Mech_M1:attack": 1, "mc2_17_EC1_Flk_Mech_M2:attack": 1, "mc2_17_a1_Copter_2a:start": 6, "mc2_17_a2_Liao_Mech_1:start": 1, "mc2_17_a2_Liao_Mech_1b:start": 1, "mc2_17_a2_Liao_Mech_1a:start": 1, "mc2_17_a2_Liao_Mech_2:start": 1, "mc2_17_a2_Liao_Mech_2a:start": 1, "mc2_17_a2_Liao_Mech_4a:start": 1, "mc2_17_a2_Liao_Mech_4b:start": 1, "mc2_17_a2_Liao_Mech_4:start": 1, "mc2_17_a3_Liao_Mech_1:start": 5, "mc2_17_a3_Liao_Mech_2:start": 4, "mc2_17_EC1_Stein_Guard_1:guardhill": 1, "mc2_17_EC1_Stein_Guard_2:guardhill": 1, "mc2_17_CamDum_son:runsaways": 1, "mc2_17_EC1_Steiner_Boss:baseassault": 1, "mc2_17_a1_LiaoSon:start": 1, "mc2_17_rebel_LRM_1d:start": 1, "mc2_17_rebel_LRM_1c:start": 1, "mc2_17_rebel_LRM_1b:start": 1, "mc2_17_rebel_LRM_1a:start": 1, "mc2_17_rebel_FuelTruck_1:start": 1, "mc2_17_rebel_FuelTruck_3:start": 1, "mc2_17_rebel_FuelTruck_2:start": 1, "mc2_17_rebel_FuelTruck_4:start": 1, "mc2_17_rebel_Part_1a:start": 1, "mc2_17_rebel_Part_1b:start": 1, "mc2_17_rebel_Hover_Drill_1:start": 2, "mc2_17_rebel_Hover_Cent_1:start": 2, "mc2_17_rebel_Hover_Cent_2:start": 2, "mc2_17_CamDum_Stien:start": 3, "PBrain:": 6 }
+enemy pilots that moved >20 m: 18 / 62
+
+--- stderr ---
+WARNING: 469 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

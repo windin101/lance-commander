@@ -96,7 +96,16 @@ func _draw() -> void:
 		draw_line(Vector2(0, t.y), Vector2(size.x, t.y), grid, 1.0)
 	var dot := maxf(2.0, size.x / 62.0)
 	for u in world.units:
-		if u is SimStructure:
+		if u is SimTurret:
+			# map turrets (I94): a small triangle in the owner's colour; dim once its control is lost
+			if not u.is_destroyed():
+				var tp := world_to_map(u.position)
+				var col: Color = UiStyle.HUD_OK if u.team == player_team else (UiStyle.HUD_CRIT if u.team >= 0 else UiStyle.HUD_INK)
+				if not u.active:
+					col = Color(col, 0.35)
+				draw_colored_polygon(PackedVector2Array([tp + Vector2(0, -dot * 0.8), tp + Vector2(dot * 0.7, dot * 0.5),
+					tp + Vector2(-dot * 0.7, dot * 0.5)]), col)
+		elif u is SimStructure:
 			if not u.is_destroyed() and u.damage_level < 100000.0:
 				draw_rect(Rect2(world_to_map(u.position) - Vector2(dot, dot) * 0.5, Vector2(dot, dot)), Color(UiStyle.HUD_INK, 0.6))
 	if view_polygon.size() == 4:

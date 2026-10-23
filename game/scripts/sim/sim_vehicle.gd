@@ -15,6 +15,20 @@ var max_internal: Array[float] = []
 var explosion_damage := 0.0
 var explosion_radius_m := 0.0
 var path_locks := true
+## Weapon nodes (Weapon_01..04) the appearance's shape has, -1 when unknown (not converted).
+## GVAppearance numbers them after the 2 smoke nodes (Gvactor.cpp:291-321) and drops the ones the
+## shape lacks at the first update (getLowestWeaponNode -> getWeaponNodePosition marks them -2,
+## Gvactor.cpp:466-474, mover.cpp:3454-3466).
+var mine_stock := 0  # MineLayer: mines left to lay (gvehicl.cpp:344, 4445); 0 = not a minelayer
+var mine_sweeper := false
+var laying_mines := false  # MOVE_MODE_MINELAYING (support-powers.md 3.5)
+var mine_cell := Vector2i(-1, -1)  # cellRowToMine / cellColToMine: the last cell mined
+var mine_dwell := 0.0  # timeInCurrent
+var weapon_nodes := -1
+var node_used: Array[int] = []  # nodeUsed per node
+var node_ready: Array[float] = []  # when nodeRecycle reaches 0 again
+const NODE_RECYCLE := 0.25  # BASE_NODE_RECYCLE_TIME (Gvactor.cpp:424)
+const SMOKE_NODES := 2  # MAX_SMOKE_NODES (Gvactor.cpp:90)
 
 
 func _init() -> void:
@@ -52,6 +66,10 @@ static func from_data(v: Dictionary, rules: SimRules, vehicle_pilot: SimPilot) -
 	u.explosion_radius_m = float(v.get("explosion_radius", 0)) * 0.2
 	u.refit_pool = float(v.get("refit_points", 0.0))
 	u.resource_points = int(v.get("resource_points", 0))
+	u.set_weapon_nodes(int(v.get("weapon_nodes", -1)))
+	u.los_factor = float(v.get("los_factor", 1.0))
+	u.mine_stock = int(v.get("mine_layer", 0))
+	u.mine_sweeper = bool(v.get("mine_sweeper", false))
 	for key in SECTION_KEYS:
 		u.max_armor.append(float(v["armor"][key]))
 		u.armor.append(float(v["armor"][key]))
@@ -72,6 +90,45 @@ static func from_data(v: Dictionary, rules: SimRules, vehicle_pilot: SimPilot) -
 			u.num_other += 1
 		u.items.append(item)
 	return u
+
+
+func set_weapon_nodes(n: int) -> void:
+	weapon_nodes = n
+	node_used.clear()
+	node_ready.clear()
+	for i in maxi(n, 0):
+		node_used.append(0)
+		node_ready.append(0.0)
+
+
+## GVAppearance::getWeaponNode: the least-used existing node (the first on a tie), numbered as
+## the original does (smoke nodes first, so 2-5), or -1 with none. Every vehicle node is
+## MECH3D_WEAPONTYPE_ANY (Gvactor.cpp:320), so the weapon's form doesn't matter.
+func pick_weapon_node() -> int:
+	var best := -1
+	var least := 999999999
+	for i in node_used.size():
+		if node_used[i] < least:
+			least = node_used[i]
+			best = i + SMOKE_NODES
+	return best
+
+
+## The single-player gate in GroundVehicle::fireWeapon (gvehicl.cpp:4601-4618): no node, a node
+## above 3 or a node still recycling means no shot (return 3), with no recycle or ammo spent, so
+## the weapon tries again (and picks the same node) next time.
+func weapon_node_allows(node: int, now: float) -> bool:
+	if node < 0 or node > 3:
+		return false
+	return node_ready[node - SMOKE_NODES] <= now + 0.0001
+
+
+## setWeaponNodeUsed (Gvactor.cpp:427-435).
+func use_weapon_node(node: int, now: float) -> void:
+	var i := node - SMOKE_NODES
+	if i >= 0 and i < node_used.size():
+		node_used[i] += 1
+		node_ready[i] = now + NODE_RECYCLE
 
 
 ## GroundVehicle::calcHitLocation (gvehicl.cpp:4037): turret on (d100+d100)/2 >= 70,

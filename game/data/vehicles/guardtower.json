@@ -1,0 +1,45 @@
+{
+ "name": "ArtilleryPiece",
+ "appearance": "artillerypiece",
+ "chassis": 0,
+ "hover": false,
+ "path_locks": true,
+ "tonnage": 40.0,
+ "battle_rating": 25,
+ "explosion_damage": 5.0,
+ "explosion_radius": 50.0,
+ "refit_points": 0.0,
+ "resource_points": 0,
+ "los_factor": 1.2,
+ "mine_layer": 0,
+ "mine_sweeper": false,
+ "max_velocity": 0.0,
+ "max_turret_yaw": 360.0,
+ "max_turret_yaw_rate": 720.0,
+ "armor": {
+  "front": 30.0,
+  "left": 22.0,
+  "right": 22.0,
+  "rear": 22.0,
+  "turret": 22.0
+ },
+ "internal": {
+  "front": 1.0,
+  "left": 1.0,
+  "right": 1.0,
+  "rear": 1.0,
+  "turret": 1.0
+ },
+ "items": [
+  1,
+  6,
+  35,
+  36,
+  160,
+  227
+ ],
+ "num_other": 4,
+ "num_weapons": 1,
+ "num_ammo": 1,
+ "weapon_nodes": 1
+}

@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_12
+force: campaign 4 units 205 t of 210 t, RP 0: Men Shen Prime(pmwsteel), Men Shen Prime(pmwclaymore), Men Shen Prime(pmwworm), Sha Yu Prime(pmwmeat)
+ABL pilots: 85
+t= 148.2  capture target Wolfhound destroyed by MenShen
+t= 197.6  capture target Wolfhound destroyed by MenShen
+t= 253.1  LOST ShaYu (destroyed, armour 19%, heat 0, ejected false, pilot 1.0 wounds, last hit by Poweredarmor)
+t= 300.9  objective done: 1. Intercept and destroy all lead Convoy elements
+t= 360.0  capture target Enfield destroyed by MenShen
+t= 398.7  capture target Enfield destroyed by MenShen
+t= 411.7  PULLBACK MenShen at 23%
+t= 419.1  LOST MenShen (disabled, armour 12%, heat 0, ejected false, pilot 1.0 wounds, last hit by Enfield)
+t= 439.2  capture target Enfield destroyed by MenShen
+t= 505.6  capture target Enfield destroyed by MenShen
+t= 656.4  objective done: 2. Intercept and destroy all units in second Convoy group
+t= 699.7  PULLBACK MenShen at 29%
+t= 730.2  LOST MenShen (destroyed, armour 13%, heat 1, ejected false, pilot 2.0 wounds, last hit by Jagermech)
+t= 742.3  capture target Jagermech destroyed by MenShen
+t= 753.7  FALLBACK 6 threats (dps 19 vs 4, health 58%) to (690, -276)
+t= 771.3  LOST MenShen (destroyed, armour 20%, heat 0, ejected false, pilot 1.0 wounds, last hit by Jagermech)
+t= 776.3  MISSION LOST
+seed 2 end t=776 result=LOST  player alive 0  enemies alive 39
+damage to lance: 767 from 25 attackers; hits by location (0 head .. 10 rear RT): { 4: 34, 5: 42, 1: 44, 3: 54, 2: 32, 7: 41, 6: 24, 0: 5, 9: 1, 8: 2 }
+damage by lance: 1839; kills 42
+       260  Enfield (mech)
+       242  Jagermech (mech)
+       126  Vedette (vehicle)
+        52  Uller (mech)
+        48  Harasser (vehicle)
+        18  Wolfhound (mech)
+         9  Poweredarmor (vehicle)
+         6  Attack Copter (mech)
+         6  Partisan (vehicle)
+  obj 0 P: done  1. Intercept and destroy all lead Convoy element
+  obj 1 P: done  2. Intercept and destroy all units in second Con
+  obj 2 P: open  3. Intercept and destroy all units in third Conv
+  obj 3 P: open  4. Intercept and destroy all rearguard Convoy el
+  obj 4 P: gated  5. Move all surviving 'Mechs to extraction point
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_12_Base2_Hunts:start": 4, "mc2_12_Base2_Haras:start": 2, "mc2_12_Base1_Mechs:start": 2, "mc2_12_Base1_Vehs:start": 3, "mc2_12_CvA_Mechs:base1escort": 2, "mc2_12_CvA_Vehs2:base1escort": 3, "mc2_12_CvA_Vehs:attack": 5, "mc2_12_CvA_NCV_T1:base1patrol": 1, "mc2_12_CvA_NCV_T2:base1patrol": 1, "mc2_12_CvA_NCV_AC.abl:base1patrol": 1, "mc2_12_CvB_Mechs:attack": 2, "mc2_12_CvB_Mechs2:base2escort": 2, "mc2_12_CvB_Vehs2:base2escort": 2, "mc2_12_CvB_Vehs3:base2escort": 1, "mc2_12_CvB_Vehs:attack": 2, "mc2_12_CvB_NCV_FT:base2patrol": 1, "mc2_12_CvB_NCV_CT1:base2patrol": 1, "mc2_12_CvB_NCV2_CT2:base2patrol": 1, "mc2_12_CvB_NCV2_CT3:base2patrol": 1, "mc2_12_CvC_Mechs:base1escort": 2, "mc2_12_CvC_Mechs2:base1escort": 2, "mc2_12_CvC_Vehs2:base1escort": 2, "mc2_12_CvC_Vehs3:base1escort": 1, "mc2_12_CvC_NCV2_FT:base1patrol": 1, "mc2_12_CvC_NCV2_CT1:base1patrol": 1, "mc2_12_CvC_NCV2_CT2:base1patrol": 1, "mc2_12_CvC_NCV_JP1:base1patrol": 1, "mc2_12_CvC_NCV_JP2:base1patrol": 1, "mc2_12_CvC_NCV_TT:base1patrol": 1, "mc2_12_CvD_Mechs:base2escort": 1, "mc2_12_CvD_Vehs2:base2escort": 2, "mc2_12_CvD_Vehs3:base2escort": 1, "mc2_12_CvD_Vehs:base2patrol": 1, "mc2_12_CvD_NCV2_TT1:base2patrol": 1, "mc2_12_CvD_NCV2_TT2:base2patrol": 1, "mc2_12_CvD_NCV_AC:base2patrol": 1, "mc2_12_CvD_NCV_CT1:base2patrol": 1, "mc2_12_CvD_NCV_CT2:base2patrol": 1, "mc2_12_River_Cents:riverdefend": 3, "mc2_12_River_Mons:riverdefend": 2, "mc2_12_Hill_Mechs:attack": 2, "mc2_12_Island_Mech:start": 1, "mc2_12_Base1_Vehs:attack": 13, "PBrain:": 4 }
+enemy pilots that moved >20 m: 76 / 85
+
+--- stderr ---
+WARNING: 878 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

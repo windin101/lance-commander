@@ -1,0 +1,68 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_05
+force: campaign 4 units 215 t of 220 t, RP 7000: Shootist Prime(pmwmeat), Bushwacker Prime(pmwworm), Bushwacker Prime(pmwpalerider), Hollander Prime(pmwtwitch)
+ABL pilots: 45
+t= 155.5  CAPTURED Bushwacker LiaoSpotlightControl.fit
+t= 160.3  objective done: 1. Destroy Fuel Tanks
+t= 177.2  CAPTURED Bushwacker WeaponsFacility
+t= 177.2  objective done: 2. Capture Weapons Facility
+t= 255.7  SUPPORT repair_truck (-82, 65) rp_left=1000
+t= 273.5  REPAIR_DONE Hollander 
+t= 279.8  CAPTURED Bushwacker LiaoSpotlightControl.fit
+t= 283.8  REPAIR_DONE Bushwacker 
+t= 296.7  LOST Bushwacker (disabled, armour 42%, heat 0, ejected false, pilot 0.0 wounds, last hit by MediumAutoCannonTurret)
+t= 302.4  LOST Repairtruck (destroyed, armour 70%, heat 0, ejected false, pilot 0.0 wounds, last hit by MediumAutoCannonTurret)
+t= 330.1  CAPTURED Bushwacker LiaoTurretControl.fit
+t= 406.4  CAPTURED Shootist RepairBay
+t= 406.4  objective done: 3. Capture Repair Bay
+t= 408.7  BAY Bushwacker -> RepairBay (67 m)
+t= 423.2  REPAIR_DONE Bushwacker RepairBay
+t= 498.7  BAY Hollander -> RepairBay (480 m)
+t= 531.3  REPAIR_DONE Hollander RepairBay
+t= 534.1  CAPTURED Shootist Ordnancetruck
+t= 536.1  CAPTURED Shootist Ordnancetruck
+t= 536.1  objective done: a. Capture Resource Trucks
+t= 597.7  SUPPORT repair_truck (-655, 101) rp_left=3000
+t= 597.7  BAY Hollander -> RepairBay (459 m)
+t= 600.7  BAY Hollander -> RepairBay (403 m)
+t= 606.7  BAY Hollander -> RepairBay (340 m)
+t= 613.8  REPAIR_DONE Hollander 
+t= 622.5  LOST Repairtruck (destroyed, armour 75%, heat 0, ejected false, pilot 0.0 wounds, last hit by LRMTurret)
+t= 627.6  REPAIR_DONE Hollander RepairBay
+t= 639.1  CAPTURED Bushwacker LiaoTurretControl.fit
+t= 750.2  LOST Bushwacker (disabled, armour 21%, heat 0, ejected false, pilot 1.0 wounds, last hit by SRMTurret)
+t= 765.7  PULLBACK Hollander at 28%
+t= 768.3  LOST Hollander (disabled, armour 16%, heat 0, ejected false, pilot 3.0 wounds, last hit by SRMTurret)
+t= 861.7  FALLBACK 4 threats (dps 6 vs 4, health 48%) to (-800, -97)
+t= 885.8  LOST Shootist (disabled, armour 18%, heat 0, ejected false, pilot 2.0 wounds, last hit by Centipede)
+t= 890.8  MISSION LOST
+seed 3 end t=891 result=LOST  player alive 2  enemies alive 8
+damage to lance: 977 from 35 attackers; hits by location (0 head .. 10 rear RT): { 2: 29, 6: 32, 5: 31, 7: 28, 0: 9, 1: 37, 4: 32, 3: 51, 8: 4, 10: 3, 9: 4 }
+damage by lance: 1272; kills 33
+       288  MediumAutoCannonTurret (vehicle)
+       136  SRMTurret (vehicle)
+       124  ShaYu (mech)
+       120  LRMTurret (vehicle)
+       119  Storm (vehicle)
+        70  Anubis (mech)
+        64  Centipede (vehicle)
+        48  Lrmcarrier (vehicle)
+         6  Vedette (vehicle)
+         2  Partisan (vehicle)
+  obj 0 P: done  1. Destroy Fuel Tanks
+  obj 1 P: done  2. Capture Weapons Facility
+  obj 2 P: done  3. Capture Repair Bay
+  obj 3 P: open  4. Capture Prison Complex
+  obj 4 P: gated  5. Move to Extraction Point
+  obj 5 s: done  a. Capture Resource Trucks
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_05_EC3_fireant1:attack": 1, "mc2_05_EC1_ved1:attack": 1, "mc2_05_EC1_ved2:attack": 1, "mc2_05_EC1_LRMs:attack": 4, "mc2_05_EC3_storm1:start": 2, "mc2_05_EC3_LRMs:attack": 2, "mc2_05_EC3_shayu1:attack": 1, "mc2_05_EC3_shayu2:start": 1, "mc2_05_EC1_anubis1:attack": 1, "mc2_05_EC1_anubis2:attack": 1, "mc2_05_EC2_storm1:attack": 1, "mc2_05_EC4_shayu1:attack": 1, "mc2_05_EC1_storm1:attack": 1, "mc2_05_EC3_LRMs:start": 3, "mc2_05_EC4_shayu2:attack": 1, "mc2_05_EC4_LRMs:attack": 2, "mc2_05_EC2_anubis1:attack": 1, "mc2_05_EC2_storm2:attack": 1, "mc2_05_EC2_LRMs:attack": 3, "mc2_05_EC2_ved1:attack": 1, "mc2_05_EC1_cents1:attack": 2, "mc2_05_EC1_cents2:attack": 1, "mc2_05_EC2_cents2:attack": 1, "mc2_05_EC2_cents1:attack": 1, "mc2_05_RP_trucks:start": 2, "mc2_05_EC3_anubis1:start": 1, "DredAttack01:noweapons": 1, "mc2_05_EC1_part1:attack": 1, "mc2_05_EC1_partG:attack": 1, "PBrain:": 4 }
+enemy pilots that moved >20 m: 36 / 45
+
+--- stderr ---
+WARNING: 504 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

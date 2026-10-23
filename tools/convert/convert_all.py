@@ -170,6 +170,10 @@ def main():
         except Exception as e:  # keep going: one broken mission must not stop the rest
             failed[m] = f"{type(e).__name__}: {e}"
     report.append(f"missions converted: {len(CAMPAIGN_MISSIONS) - len(failed)} of {len(CAMPAIGN_MISSIONS)}; failed: {failed}")
+    support = vehicles.convert_support(data, os.path.join(OUT, "vehicles"), os.path.join(ASSETS, "vehicles"))
+    report.append(f"support vehicles: {support}")
+    import los_heights
+    write("los_heights.json", los_heights.table(data, OUT, ASSETS))
 
     tgl = os.path.join(data, "TGL")
     os.makedirs(os.path.join(ASSETS, "mechs"), exist_ok=True)

@@ -43,7 +43,8 @@ func test_starslayer_starts_powered_down() -> void:
 func test_guard_intercepts_intruder() -> void:
 	var guard: SimUnit = _by_brain("mc2_01_Pat1_1")[0]
 	var player: SimUnit = _by_brain("PBrain")[0]
-	player.position = sm.world.map.nearest_walkable(guard.position + Vector2(0, -250))
+	# inside the guard's sight: contacts are visual within 225 m plus fitted sensors (I90)
+	player.position = sm.world.map.nearest_walkable(guard.position + Vector2(0, -180))
 	_run(5.0)
 	assert_str(guard.brain.inst.state).is_equal("attack")
 	assert_object(guard.current_target).is_same(player)

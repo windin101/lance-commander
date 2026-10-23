@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_12
+force: campaign 4 units 205 t of 210 t, RP 0: Men Shen Prime(pmwsteel), Men Shen Prime(pmwclaymore), Men Shen Prime(pmwworm), Sha Yu Prime(pmwmeat)
+ABL pilots: 85
+t= 146.2  LOST ShaYu (disabled, armour 21%, heat 0, ejected false, pilot 2.0 wounds, last hit by Hetzer)
+t= 150.4  capture target Wolfhound destroyed by MenShen
+t= 169.8  capture target Wolfhound destroyed by MenShen
+t= 207.9  objective done: 1. Intercept and destroy all lead Convoy elements
+t= 288.7  PULLBACK MenShen at 27%
+t= 295.3  LOST MenShen (destroyed, armour 13%, heat 0, ejected false, pilot 2.0 wounds, last hit by Enfield)
+t= 333.7  LOST MenShen (destroyed, armour 24%, heat 0, ejected false, pilot 1.0 wounds, last hit by Vedette)
+t= 360.7  FALLBACK 8 threats (dps 17 vs 4, health 56%) to (1097, 687)
+t= 399.3  LOST MenShen (destroyed, armour 9%, heat 0, ejected false, pilot 1.0 wounds, last hit by Enfield)
+t= 404.3  MISSION LOST
+seed 3 end t=404 result=LOST  player alive 0  enemies alive 65
+damage to lance: 716 from 17 attackers; hits by location (0 head .. 10 rear RT): { 5: 28, 1: 34, 6: 26, 2: 33, 3: 27, 7: 24, 4: 21, 0: 6, 10: 1, 9: 1, 8: 1 }
+damage by lance: 985; kills 16
+       470  Enfield (mech)
+       102  Vedette (vehicle)
+        44  Wolfhound (mech)
+        40  Harasser (vehicle)
+        38  Uller (mech)
+        12  Hetzer (vehicle)
+         6  Attack Copter (mech)
+         4  Partisan (vehicle)
+  obj 0 P: done  1. Intercept and destroy all lead Convoy element
+  obj 1 P: open  2. Intercept and destroy all units in second Con
+  obj 2 P: open  3. Intercept and destroy all units in third Conv
+  obj 3 P: open  4. Intercept and destroy all rearguard Convoy el
+  obj 4 P: gated  5. Move all surviving 'Mechs to extraction point
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_12_Base2_Hunts:start": 4, "mc2_12_Base2_Haras:start": 2, "mc2_12_Base1_Mechs:start": 2, "mc2_12_Base1_Vehs:start": 16, "mc2_12_CvA_Mechs:base1escort": 2, "mc2_12_CvA_Vehs2:base1escort": 3, "mc2_12_CvA_Vehs:attack": 5, "mc2_12_CvA_NCV_T1:base1patrol": 1, "mc2_12_CvA_NCV_T2:base1patrol": 1, "mc2_12_CvA_NCV_AC.abl:base1patrol": 1, "mc2_12_CvB_Mechs:base2escort": 2, "mc2_12_CvB_Mechs2:base2escort": 2, "mc2_12_CvB_Vehs2:base2escort": 2, "mc2_12_CvB_Vehs3:base2escort": 1, "mc2_12_CvB_Vehs:attack": 1, "mc2_12_CvB_Vehs:base2escort": 1, "mc2_12_CvB_NCV_FT:base2patrol": 1, "mc2_12_CvB_NCV_CT1:base2patrol": 1, "mc2_12_CvB_NCV2_CT2:base2patrol": 1, "mc2_12_CvB_NCV2_CT3:base2patrol": 1, "mc2_12_CvC_Mechs:start": 2, "mc2_12_CvC_Mechs2:start": 2, "mc2_12_CvC_Vehs2:start": 2, "mc2_12_CvC_Vehs3:start": 1, "mc2_12_CvC_NCV2_FT:start": 1, "mc2_12_CvC_NCV2_CT1:start": 1, "mc2_12_CvC_NCV2_CT2:start": 1, "mc2_12_CvC_NCV_JP1:start": 1, "mc2_12_CvC_NCV_JP2:start": 1, "mc2_12_CvC_NCV_TT:start": 1, "mc2_12_CvD_Mechs:start": 1, "mc2_12_CvD_Vehs2:start": 2, "mc2_12_CvD_Vehs3:start": 1, "mc2_12_CvD_Vehs:start": 1, "mc2_12_CvD_NCV2_TT1:start": 1, "mc2_12_CvD_NCV2_TT2:start": 1, "mc2_12_CvD_NCV_AC:start": 1, "mc2_12_CvD_NCV_CT1:start": 1, "mc2_12_CvD_NCV_CT2:start": 1, "mc2_12_River_Cents:start": 3, "mc2_12_River_Mons:start": 2, "mc2_12_Hill_Mechs:attack": 2, "mc2_12_Island_Mech:start": 1, "PBrain:": 4 }
+enemy pilots that moved >20 m: 35 / 85
+
+--- stderr ---
+WARNING: 878 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

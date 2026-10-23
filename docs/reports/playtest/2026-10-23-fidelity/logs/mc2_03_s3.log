@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_03
+force: campaign 3 units 190 t of 190 t, RP 16000: Shootist Prime(pmwmeat), Shootist Prime(pmwworm), Hunchback Prime(pmwpalerider)
+ABL pilots: 37
+t=  71.2  SUPPORT artillery_piece (-344, -594) rp_left=8000
+t= 116.4  LOST Hunchback (destroyed, armour 45%, heat 4, ejected false, pilot 0.0 wounds, last hit by MediumAutoCannonTurret)
+t= 172.3  objective done: 2. Destroy Enemies at Checkpoint
+t= 173.5  SUPPORT repair_truck (-318, -132) rp_left=2000
+t= 199.4  REPAIR_DONE Shootist 
+t= 209.7  CAPTURED Shootist OrdnanceTruckProp
+t= 210.8  CAPTURED Shootist OrdnanceTruckProp
+t= 213.8  SUPPORT salvage_craft Flea rp_left=0
+t= 215.0  objective done: 1. Destroy Turret Generators at Checkpoint
+t= 218.2  REPAIR_DONE Shootist 
+t= 234.7  REPAIR_DONE Shootist 
+t= 244.9  REPAIR_DONE Flea 
+t= 279.8  capture target Mobilehq destroyed by Artillery Piece
+t= 284.7  MISSION LOST
+seed 3 end t=285 result=LOST  player alive 5  enemies alive 23
+damage to lance: 434 from 13 attackers; hits by location (0 head .. 10 rear RT): { 7: 13, 3: 12, 1: 21, 2: 17, 6: 8, 5: 10, 4: 14, 8: 1 }
+damage by lance: 502; kills 11
+       360  MediumAutoCannonTurret (vehicle)
+        44  Flea (mech)
+        18  Vedette (vehicle)
+        12  Harasser (vehicle)
+  obj 0 P: done  1. Destroy Turret Generators at Checkpoint
+  obj 1 P: done  2. Destroy Enemies at Checkpoint
+  obj 2 P: FAILED  3. Capture HQ Vehicle
+  obj 3 P: inactive (flag 0)  4. Capture Weapon Facility
+  obj 4 P: inactive (flag 1)  5. Defeat Bandit Counterattack
+abl errors: []
+abl natives missing: []
+brain end states: { "pbrain:attack": 1, "mc2_03_turretguard2:attack": 1, "mc2_03_dred1:attack": 1, "mc2_03_turretguard:attack": 2, "mc2_03_dred:attack": 1, "mc2_03_dred2:attack": 1, "mc2_03_CNVhq:base1patrol": 1, "mc2_03_Cnv_grd_01:base1escort": 2, "mc2_03_Cnv_grd_02:base1escort": 2, "mc2_03_CNV:base1patrol": 1, "mc2_03_CNV_RT:base1patrol": 1, "mc2_03_CNV_FT:base1patrol": 1, "mc2_03_patrol_01:start": 1, "mc2_03_BaseG_Shutdown:start": 2, "mc2_03_weapfacgrd:start": 1, "mc2_03_patrol_02:start": 1, "mc2_03_patrol_03:start": 1, "mc2_03_patrol_04:start": 1, "mc2_03_Reinf_G1_2:start": 2, "mc2_03_Reinf_G1_1:start": 2, "mc2_03_Reinf_G2_1:start": 2, "mc2_03_Reinf_G2_2:start": 2, "mc2_03_Reinf_G1_3:start": 2, "mc2_03_powered_armor:start": 1, "mc2_03_RP_trucks:start": 1, "PBrain:": 3, "pbrain:": 1 }
+enemy pilots that moved >20 m: 22 / 38
+
+--- stderr ---
+WARNING: 420 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

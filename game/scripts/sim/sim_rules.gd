@@ -31,8 +31,46 @@ var fix_enemy_difficulty := true
 var fix_range_specialists := true
 var fix_actuator_check := true
 
+# Sight (I90, I91): the original's contact and line-of-sight model. Off gives the old
+# placeholders (contacts: any team mover within 500 m; weapons fire without LOS).
+var original_contacts := true
+var line_of_sight := true
+var max_tree_los := 6  # gamesys General MaxTreeLOSBlock
+## Indirect-fire weapons fire on a team mate's LOS (gamesys IndirectFireWeaponComponentIndex,
+## warrior.cpp:3402-3410): LRM5, Swarm LRM5, LRM (130) and the Long Tom.
+var indirect_fire_ids: Array = [120, 123, 130, 160]
+## Area-effect weapons do their damage by an explosion at the target, hit or miss
+## (weaponbolt.cpp:762-794): master id -> [AreaEffectDamage, AreaEffectRadius in metres] from the
+## weapon's bolt FIT (longtom.fit 15 / 187 wu, swarmLRM.fit 3 / 120 wu). The ids are gamesys
+## AreaEffectWeaponComponentIndex.
+var area_effect_weapons := true
+var area_effect := {160: [15.0, 187.0 * 0.2], 123: [3.0, 120.0 * 0.2]}
+## Mines (gamesys [Mine]; mech.cpp:3731-3778, gvehicl.cpp:1355-1420, 3605-3637).
+var mine := {"damage": 12.0, "splash_damage": 0.0, "splash_range": 15.0, "wait_time": 0.5, "min_tonnage": 35.0}
+## Refit (gamesys Mover:General RefitRange / RefitTime / RefitAmount; support-powers.md 3.4, 3.7).
+var refit := {"range": 30.0, "time": 1.0, "amount": 30.0, "power_down": 3.0}
+var default_attack_radius := 275.0  # gamesys Warrior DefaultAttackRadius (warrior.cpp:290, 905)
+## F6 / I12: an engaged AI unit fires only at its brain's target (combatDecisionTree,
+## warrior.cpp:3493, 3532-3538). Off restores the port's old fire-at-will fallback.
+var brain_target_only := true
+## I92: brain moves walk unless the script asks to run (corebrain.abx:235-237); an attack
+## approaches at the pilot's last move speed (warrior.cpp:5574, 5314). Off: every brain move runs.
+var brain_walk := true
+
+# Original behaviour kept on purpose (combat-rules.md "Kept original rules").
+## O1 (I88, Lee 2026-10-23: copy the original): a vehicle fires only from weapon nodes 2-3
+## (Weapon_01/02) and always picks its least-used node, so a shape with Weapon_03/04 (Partisan,
+## Legion) stops firing after two shots (gvehicl.cpp:4601-4618, Gvactor.cpp:578-660).
+var vehicle_weapon_nodes := true
+## O2 (I97): the single-player UnlimitedAmmo preference, TRUE by default (logmain.cpp:53,
+## 404-406): every ammo pool is UNLIMITED_SHOTS (mover.cpp:5784-5788). SimWorld.add_unit copies
+## it onto each unit.
+var unlimited_ammo := true
+
 # Heat (combat-rules.md H1-H8).
 var heat_enabled := true
+## H9 (I89, Lee 2026-10-23: soften heat): the share of heat.csv fire_mod taken off the to-hit.
+var heat_fire_mod_factor := 0.5
 var heat_table: Array = []  # 31 rows from heat.csv
 var heat := {
 	"dissipation_rate": 0.3,  # fraction of capacity shed per second (tuned 2026-10-18, combat-rules.md)
@@ -81,6 +119,25 @@ static func from_data(data: Object) -> SimRules:
 	if mh.has("BodyStateHeat"):
 		r.heat["body_state_heat"] = mh["BodyStateHeat"]
 	r.heat_table = data.heat_table
+	var gen: Dictionary = g.get("General", {})
+	r.max_tree_los = int(gen.get("MaxTreeLOSBlock", 6))
+	var mg: Dictionary = g.get("Mover:General", {})
+	if mg.has("IndirectFireWeaponComponentIndex"):
+		r.indirect_fire_ids = _ints(mg["IndirectFireWeaponComponentIndex"]).filter(func(v): return v >= 0)
+	if mg.has("AreaEffectWeaponComponentIndex"):
+		var ids := _ints(mg["AreaEffectWeaponComponentIndex"]).filter(func(v): return v >= 0)
+		for k in r.area_effect.keys():
+			if not (k in ids):
+				r.area_effect.erase(k)
+	r.refit["range"] = float(mg.get("RefitRange", 30.0))
+	r.refit["time"] = float(mg.get("RefitTime", 1.0))
+	r.refit["amount"] = float(mg.get("RefitAmount", 30.0))
+	var mn: Dictionary = g.get("Mine", {})
+	r.mine["damage"] = float(mn.get("BaseDamage", 12.0))
+	r.mine["splash_damage"] = float(mn.get("SplashDamage", 0.0))
+	r.mine["splash_range"] = float(mn.get("SplashRange", 15.0))
+	r.mine["wait_time"] = float(mn.get("MineWaitTime", 0.5))
+	r.default_attack_radius = float(g.get("Warrior", {}).get("DefaultAttackRadius", 275.0))
 	return r
 
 

@@ -278,13 +278,16 @@ func _refresh() -> void:
 	for al in _ammo_labels:
 		var shots := 0
 		var unlimited := false
+		var energy := false
 		for inv in al[1]:
 			var s := unit.weapon_shots(inv)
 			if s < 0:
 				unlimited = true
+				energy = not unit.uses_ammo(inv)
 			else:
 				shots = s  # one ammo pool per type
-		al[0].text = "—" if unlimited else str(shots)
+		# no ammo (energy weapons) "—"; an ammo weapon with unlimited ammo (O2) "∞"
+		al[0].text = ("—" if energy else "∞") if unlimited else str(shots)
 	for k in buttons:
 		var b: Button = buttons[k]
 		if b.toggle_mode:

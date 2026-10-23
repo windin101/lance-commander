@@ -25,9 +25,16 @@ const COMMANDS := [
 const SUPPORT_HELP := {
 	"air_strike": "Call an air strike on a point. It lands seven seconds later.",
 	"sensor_probe": "Drop a sensor probe: reveals enemies around it for two minutes.",
+	"artillery_piece": "Deliver a Long Tom artillery piece. It shells enemies in reach, even out of its own sight when your units see them.",
 	"repair_truck": "Deliver a repair truck. Select it and right-click a damaged 'Mech.",
+	"minelayer": "Deliver a minelayer. Select it, hold M and right-click: it lays mines along the way.",
 	"salvage_craft": "Send a salvage craft to a disabled 'Mech to recover it.",
 }
+
+## Tile titles: short, so six tiles fit the row (the original's tab shows icons); the rollover
+## help gives the full name and cost.
+const TILE_LABELS := {"air_strike": "Air strike", "artillery_piece": "Artillery", "sensor_probe": "Probe",
+	"repair_truck": "Repair truck", "minelayer": "Mines", "salvage_craft": "Salvage"}
 
 var kit: HudKit
 var icons := {}  # command id -> IconButton
@@ -72,7 +79,7 @@ func _init(hud_kit: HudKit, with_support: bool) -> void:
 	var srow := kit.hbox(0.45)
 	sm.add_child(srow)
 	for kind in SimSupport.ORDER:
-		var t := SupportTile.new(kit, SimSupport.LABELS[kind], SimSupport.COSTS[kind])
+		var t := SupportTile.new(kit, TILE_LABELS.get(kind, SimSupport.LABELS[kind]), SimSupport.COSTS[kind])
 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		t.clicked.connect(func(): support.emit(kind))
 		t.mouse_entered.connect(func(): _hover(kind))
@@ -87,7 +94,7 @@ func _init(hud_kit: HudKit, with_support: bool) -> void:
 	rs.set_content_margin_all(kit.em(0.3))
 	rp.add_theme_stylebox_override("panel", rs)
 	rp.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	rp.size_flags_stretch_ratio = 1.25
+	rp.size_flags_stretch_ratio = 1.0
 	rp.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var rv := VBoxContainer.new()
 	rv.add_theme_constant_override("separation", 0)
@@ -95,6 +102,8 @@ func _init(hud_kit: HudKit, with_support: bool) -> void:
 	rp.add_child(rv)
 	var cap := kit.label("RESOURCE POINTS", "display500", 0.8, UiStyle.HUD_DIM, false, 0.14)
 	cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	cap.autowrap_mode = TextServer.AUTOWRAP_WORD  # two lines, so six tiles fit beside it
+	cap.custom_minimum_size.x = kit.em(4.6)
 	rv.add_child(cap)
 	rp_label = kit.label("0", "mono", 1.5, UiStyle.HUD_EDGE)
 	rp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -217,12 +226,12 @@ class SupportTile:
 		mouse_filter = Control.MOUSE_FILTER_STOP
 		_style()
 		var v := VBoxContainer.new()
-		v.add_theme_constant_override("separation", roundi(kit.em(0.25)))
+		v.add_theme_constant_override("separation", roundi(kit.em(0.15)))
 		v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(v)
-		var t := kit.label(title, "display500", 0.85, UiStyle.HUD_INK, true, 0.08)
+		var t := kit.label(title, "display500", 0.8, UiStyle.HUD_INK, true, 0.06)
 		t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		t.custom_minimum_size.x = kit.em(4.5)
+		t.custom_minimum_size.x = kit.em(2.9)  # six tiles share the row (support tab, controlGui.cpp:80-115)
 		v.add_child(t)
 		v.add_child(kit.label(CommandPanel.thousands(cost), "mono", 0.9, UiStyle.HUD_DIM))
 

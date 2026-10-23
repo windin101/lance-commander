@@ -19,6 +19,8 @@ var player_invulnerable := false  # ABL setInvulnerable (tutorials)
 var force_paint: Array = []  # the replaced lance's paint, for the campaign force
 var kills: Dictionary = {}  # killer unit id -> [weight class of each kill] (pilot experience, campaign-layer.md 8.2)
 var use_abl := true  # false: no AI brains at all (sim tests that need passive enemies)
+var pilots: Dictionary = {}  # profile -> warrior FIT (support deliveries' pilots)
+static var use_turrets := true  # false: map turrets stay scenery (tests that need a quiet map)
 
 
 ## force: the campaign's chosen mechs ([{chassis, variant, pilot, gunnery, piloting, loadout?}],
@@ -27,6 +29,7 @@ var use_abl := true  # false: no AI brains at all (sim tests that need passive e
 static func load_mission(data: Object, mission: String, seed_value: int = 1, run_abl := true, force: Array = []) -> SimMission:
 	var sm := SimMission.new()
 	sm.use_abl = run_abl
+	sm.pilots = data.pilots
 	var fit: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/missions/%s.json" % mission))
 	var map := SimMap.load_mission(mission)
 	map.forest_cost = float(data.gamesys["General"].get("ForestMoveCost", 50))
@@ -196,26 +199,58 @@ func _add_structures(mission: String) -> void:
 	if not FileAccess.file_exists(path):
 		return
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+	var by_cell := {}  # map cell -> building (findByCellPosition, objmgr.cpp:2125)
+	var linked: Array = []  # [child, parent cell]
 	for index in data["objects"].size():
 		var o: Dictionary = data["objects"][index]
 		var t: Dictionary = data["types"].get(str(int(o["type"])), {})
-		if int(t.get("class", -1)) != 1 or (float(t.get("damage_level", 0)) <= 0.0 and not t.get("capturable", false)):
+		var cls := int(t.get("class", -1))
+		var s: SimStructure
+		if cls == 21 and use_turrets and t.has("turret"):
+			s = SimTurret.from_type(t, world.rules)  # turret.cpp (I94)
+			s.turret_yaw = float(o["rotation"])
+			if int(o.get("damage", 0)) & 0x0f:
+				s.status = SimUnit.Status.DESTROYED  # placed destroyed (objmgr.cpp:1105, 1131)
+		elif cls != 1 or (float(t.get("damage_level", 0)) <= 0.0 and not t.get("capturable", false) \
+				and not o.has("parent") and float(t.get("sensor_range", -1.0)) <= 0.0):
 			continue
-		var s := SimStructure.new()
+		else:
+			s = SimStructure.new()
+			s.name = String(t.get("name", "building"))
+			s.model = String(t.get("appearance", ""))
+			s.damage_level = float(t["damage_level"]) if float(t["damage_level"]) > 0.0 else INF  # no DmgLevel: can't be destroyed
+			s.extent_m = float(t.get("extent_radius", 0.0)) * WORLD_UNIT_M
+			s.capturable = bool(t.get("capturable", false))
+			s.resource_points = int(t.get("resource_points", 0))
+			s.tower_sensor_m = float(t.get("sensor_range", -1.0))
+			s.can_refit = bool(t.get("can_refit", false))
+			s.mech_bay = bool(t.get("mech_bay", false))
 		s.object_type = int(o["type"])
 		s.object_index = index
-		s.name = String(t.get("name", "building"))
-		s.model = String(t.get("appearance", ""))
-		s.damage_level = float(t["damage_level"]) if float(t["damage_level"]) > 0.0 else INF  # no DmgLevel: can't be destroyed
-		s.extent_m = float(t.get("extent_radius", 0.0)) * WORLD_UNIT_M
-		s.team = int(o.get("team", t.get("building_team", -1)))  # the placement's team (mc2_06's own HQ is team 0)
-		s.capturable = bool(t.get("capturable", false))
-		s.resource_points = int(t.get("resource_points", 0))
+		# the placement's team (mc2_06's own HQ is team 0); allies (2) join the player's team and
+		# any higher team the enemy's (Building::setTeamId, bldng.cpp:930-937; turret.cpp:366-381)
+		var team := int(o.get("team", t.get("building_team", -1)))
+		s.team = 0 if team == 2 else (1 if team > 2 else team)
 		s.position = Vector2(float(o["x"]), float(o["y"])) * WORLD_UNIT_M
 		s.facing = float(o["rotation"])
 		var cell := world.map.cell_of(s.position)
 		s.part_id = 4096 + cell.y * 720 + cell.x  # abl-natives.md 1.5
 		world.add_unit(s)
+		if cls == 1 and not by_cell.has(cell):
+			by_cell[cell] = s
+		if o.has("parent"):
+			linked.append([s, Vector2i(int(o["parent"][1]), int(o["parent"][0]))])
+	# Link children to their control buildings: a turret's parent becomes a capturable control
+	# building (objmgr.cpp:970-991; turret.cpp:551-556); a sensor tower follows its sensor control.
+	for pair in linked:
+		var child: SimStructure = pair[0]
+		var parent: SimStructure = by_cell.get(pair[1])
+		if parent == null or parent == child:
+			continue
+		child.parent = parent
+		if child is SimTurret:
+			parent.control = true
+			parent.capturable = true
 
 
 func structure_near(pos_world_units: Vector2, radius_m: float = 10.0) -> SimStructure:

@@ -97,3 +97,114 @@ func test_sensor_probe_reveals_far_enemies() -> void:
 	assert_object(far).is_not_null()
 	sm.support.call_power("sensor_probe", far.position)
 	assert_bool(sm.abl.is_contact(0, far)).is_true()
+
+
+# --- repair bays (3.7, I95) ------------------------------------------------------------------
+
+func _quiet_mission(mission: String) -> SimMission:
+	SimMission.use_turrets = false
+	var q := SimMission.load_mission(GameData, mission, 1, false)
+	SimMission.use_turrets = true
+	for u in q.world.units:
+		if u.is_mover() and u.team != q.player_team:
+			u.exists = false  # nobody to interfere
+	return q
+
+
+func test_a_friendly_repair_bay_repairs_a_mech_and_burns_its_own_points() -> void:
+	var q := _quiet_mission("mc2_13")
+	var bays := q.world.units.filter(func(u): return u is SimStructure and u.can_refit and u.mech_bay)
+	assert_int(bays.size()).is_equal(2)
+	var bay: SimStructure = bays[0]
+	var m: SimMech = q.world.units.filter(func(u): return u is SimMech and u.team == q.player_team)[0]
+	m.position = q.world.map.nearest_walkable(bay.position + Vector2(60, 0))
+	for i in m.armor.size():
+		m.armor[i] = m.max_armor[i] - 4.0
+	assert_bool(q.support.order_bay_repair(m, bay)).is_false()  # not ours yet: capture it first
+	bay.team = q.player_team
+	assert_bool(q.support.order_bay_repair(m, bay)).is_true()
+	var other: SimMech = q.world.units.filter(func(u): return u is SimMech and u.team == q.player_team)[1]
+	other.armor[0] -= 3.0
+	assert_bool(q.support.order_bay_repair(other, bay)).is_false()  # one at a time
+	var shut := false
+	for i in 900:
+		q.step()
+		q.world.events.clear()
+		shut = shut or m.status == SimUnit.Status.SHUTDOWN
+		if q.support.bay_repairs.is_empty():
+			break
+	assert_bool(shut).is_true()  # powered down on the bay
+	assert_bool(SimSupport.needs_refit(m)).is_false()
+	assert_int(m.status).is_equal(SimUnit.Status.NORMAL)
+	assert_float(bay.damage).is_equal_approx(4.0 * m.armor.size(), 1.0)  # the points used are the bay's damage
+	assert_object(bay.refit_buddy).is_null()
+
+
+# --- artillery piece, minelayer, mines (3.5, 3.9, I96) ---------------------------------------
+
+func test_artillery_piece_and_minelayer_are_delivered() -> void:
+	sm.support.rp = 20000
+	var m: SimUnit = _lance()[0]
+	assert_bool(sm.support.call_power("artillery_piece", m.position + Vector2(40, 0))).is_true()
+	assert_int(sm.support.rp).is_equal(12000)
+	_run(11.0)
+	var guns := sm.world.units.filter(func(u): return u is SimVehicle and u.model == "artillerypiece")
+	assert_int(guns.size()).is_equal(1)
+	assert_int(guns[0].team).is_equal(sm.player_team)
+	assert_float(guns[0].run_speed).is_equal(0.0)  # immobile
+	assert_float(guns[0].los_factor).is_equal(1.2)
+	assert_bool(sm.support.call_power("minelayer", m.position + Vector2(-40, 0))).is_true()
+	_run(11.0)
+	var layers := sm.world.units.filter(func(u): return u is SimVehicle and u.mine_stock > 0)
+	assert_int(layers.size()).is_equal(1)
+	assert_int(layers[0].mine_stock).is_equal(160)
+
+
+func test_minelayer_lays_mines_that_heavy_units_set_off() -> void:
+	var q := _quiet_mission("mc2_02")
+	var w := q.world
+	var ml := SimVehicle.from_data(JSON.parse_string(FileAccess.get_file_as_string("res://data/vehicles/minelayer.json")), w.rules, SimPilot.make(50, 50))
+	ml.team = q.player_team
+	var lance := w.units.filter(func(u): return u is SimMech and u.team == q.player_team)
+	ml.position = w.map.nearest_walkable(lance[0].position + Vector2(0, 40))
+	w.add_unit(ml)
+	var goal := w.map.nearest_walkable(ml.position + Vector2(80, 0))
+	assert_bool(q.support.order_lay_mines(ml, goal)).is_true()
+	var laid := 0
+	for i in 200:
+		q.step()
+		for e in w.events:
+			if e["type"] == "mine_laid":
+				laid += 1
+		w.events.clear()
+	assert_int(laid).is_greater(3)
+	assert_int(ml.mine_stock).is_equal(160 - laid)
+	assert_float(ml.armor[SimVehicle.Section.TURRET]).is_equal(160.0 - laid)
+	# a heavy mech steps on one: 12 damage, the mine is spent; a light one doesn't set it off
+	var cell := Vector2i(-1, -1)
+	for c in w.map.mines.size():
+		if w.map.mines[c] == 1:
+			cell = Vector2i(c % w.map.cells_per_side, c / w.map.cells_per_side)
+			break
+	var heavy := SimFixture.mech("atlas", w.rules)
+	heavy.team = q.player_team
+	heavy.awake = false
+	w.add_unit(heavy)
+	var light := SimFixture.mech("raven", w.rules)
+	light.team = 1
+	w.add_unit(light)
+	light.position = w.map.cell_center(cell)
+	w.step()
+	assert_int(w.map.mine_at(cell)).is_equal(1)  # 35 t: too light
+	light.position = Vector2(9999, 9999)
+	var before := 0.0
+	for a in heavy.armor + heavy.internal:
+		before += a
+	heavy.position = w.map.cell_center(cell)
+	w.step()
+	var after := 0.0
+	for a in heavy.armor + heavy.internal:
+		after += a
+	assert_int(w.map.mine_at(cell)).is_equal(2)
+	assert_float(before - after).is_equal_approx(12.0, 0.01)
+

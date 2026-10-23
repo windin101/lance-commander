@@ -1,0 +1,60 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_23
+force: campaign 5 units 300 t of 300 t, RP 36000: Mad Cat Prime(pmwrooster), Shootist Prime(pmwmother), Catapult Prime(pmwghost), Vulture Prime(pmwscooter), Razorback Prime(pmwbubba)
+ABL pilots: 90
+t=  12.4  SUPPORT air_strike (-772, 969) rp_left=29000
+t=  15.5  SUPPORT artillery_piece (-1032, 1033) rp_left=21000
+t=  24.5  SUPPORT air_strike (-724, 1233) rp_left=14000
+t=  33.5  SUPPORT salvage_craft Werewolf rp_left=4000
+t= 165.3  objective done: b. Clear Out Patrols Around Town to Free Rebels
+t= 263.3  LOST Werewolf (disabled, armour 25%, heat 0, ejected false, pilot 1.0 wounds, last hit by Lrmcarrier)
+t= 273.0  ALLY LOST Vedette (destroyed, armour 84%, heat 0, ejected false, pilot 0.0 wounds, last hit by Swarmlrmc)
+t= 279.8  ALLY LOST Centipede (destroyed, armour 68%, heat 0, ejected false, pilot 0.0 wounds, last hit by Monsoon)
+t= 282.5  ALLY LOST Centipede (destroyed, armour 60%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 342.1  LOST Werewolf (destroyed, armour 45%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hollander)
+t= 479.4  objective done: 1. Clear Out Steiner Forces at Starport
+t= 593.2  CAPTURED Vulture RepairBay
+t= 594.7  BAY Madcat -> RepairBay (40 m)
+t= 612.3  REPAIR_DONE Madcat RepairBay
+t= 612.8  CAPTURED Catapult RepairBay
+t= 704.5  LOST Shootist (destroyed, armour 19%, heat 0, ejected false, pilot 2.0 wounds, last hit by Hollander)
+t= 711.5  LOST Vulture (disabled, armour 58%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hollander)
+t= 719.5  LOST Catapult (disabled, armour 40%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hollander)
+t= 732.7  FALLBACK 5 threats (dps 22 vs 9, health 49%) to (145, -1045)
+t= 733.3  LOST Madcat (disabled, armour 24%, heat 0, ejected false, pilot 1.0 wounds, last hit by Hollander)
+t= 745.9  ALLY LOST Lrmcarrier (destroyed, armour 81%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 754.6  ALLY LOST Vedette (destroyed, armour 55%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 761.7  ALLY LOST Vedette (destroyed, armour 56%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 765.1  ALLY LOST Lrmcarrier (destroyed, armour 74%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 771.6  ALLY LOST Centipede (destroyed, armour 60%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 855.7  ALLY LOST Lrmcarrier (destroyed, armour 81%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+seed 1 end t=1800 result=PLAYING  player alive 1  enemies alive 21
+damage to lance: 918 from 30 attackers; hits by location (0 head .. 10 rear RT): { 1: 46, 7: 21, 6: 26, 3: 35, 5: 32, 4: 28, 2: 30, 0: 5, 8: 3 }
+damage by lance: 3637; kills 47
+       207  Lrmcarrier (vehicle)
+       198  MediumAutoCannonTurret (vehicle)
+       120  Highlander (mech)
+       110  Zeus (mech)
+       101  Bushwacker (mech)
+        90  Hollander (mech)
+        28  Storm (vehicle)
+        22  Hunchback (mech)
+        21  Atlas (mech)
+         6  Heavy Copter (mech)
+  obj 0 P: done  1. Clear Out Steiner Forces at Starport
+  obj 1 P: open  2. Eliminate Steiner Reinforcements
+  obj 2 s: open  a. Capture Sensor Control
+  obj 3 s: done  b. Clear Out Patrols Around Town to Free Rebels
+  obj 4 s: open  c. Destroy Steiner Dropships
+  obj 5 s: open  d. Capture Steiner Mobile HQ Vehicle
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_23_Starport_Mechs_South2:southpatroltostarport": 1, "mc2_23_EC1_Razors:attack": 2, "pbrain:attack": 1, "mc2_23_EC1_razor1:attack": 1, "mc2_23_EC1_LRms:attack": 5, "mc2_23_EC2_Bridge_Guards:start": 2, "mc2_23_Base1_Mechs:start": 2, "mc2_23_EC2_razor_recap_sens:attack": 1, "mc2_23_EC2_razor_recap_sens:runawaybybridge": 1, "mc2_23_EC2_Water_Guards:attack": 2, "mc2_23_Lakeside_patrol2:attack": 2, "mc2_23_Lakeside_patrol1:attack": 2, "mc2_23_Town_chopper1:attack": 1, "mc2_23_Town_chopper2:attack": 1, "mc2_23_Town_chopper3:attack": 1, "mc2_23_Westside_patrol1:starportpatrol": 2, "mc2_23_Westside_patrol2:attack": 1, "mc2_23_Westside_patrol2:starportpatrol": 1, "mc2_23_Southside_patrol1:attack": 3, "mc2_23_Southside_patrol2:attack": 2, "mc2_23_Southbase_BushG:attack": 1, "mc2_23_Southbase_Cnv_grd:base1escort": 1, "mc2_23_Southbase_chopper2:attack": 1, "mc2_23_Southbase_chopper1:attack": 1, "mc2_23_Southbase_CNV:start": 2, "mc2_23_Starport_Mechs_North2:attack": 1, "mc2_23_Starport_Mechs_North1:attack": 1, "mc2_23_Starport_Mechs_South1:attackrear": 1, "mc2_23_Starport_LRMs:attack": 9, "mc2_23_Starport_Mechs_East2:attack": 1, "mc2_23_Starport_Mechs_East1:attack": 2, "mc2_23_dropship_ambush_east:attack": 2, "mc2_23_dropship_ambush_north:start": 2, "mc2_23_dropship_ambush_south:attack": 2, "mc2_23_Rif1_Mechs_Jump:starportpatrol": 3, "mc2_23_Rif2_Mechs_Town:starportpatrol": 3, "mc2_23_Rif3_Mechs_Starport:starportpatrol": 4, "mc2_23_Starport_Mechs_South2:start": 1, "mc2_23_Resource_Trucks:start": 4, "mc2_23_Reb_vehs:attack": 3, "mc2_23_Reb_vehs3:attack": 3, "mc2_23_Reb_vehs2:attack": 3, "PBrain:": 5, "pbrain:": 1 }
+enemy pilots that moved >20 m: 62 / 91
+
+--- stderr ---
+WARNING: 764 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

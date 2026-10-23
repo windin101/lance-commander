@@ -12,7 +12,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "28": {
    "file": "LiaoLookout.fit",
@@ -26,7 +30,11 @@
    "building_team": 0,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": 1.0,
+   "lookout_range": 500.0
   },
   "30": {
    "file": "LiaoMechWarriorBarracks.fit",
@@ -40,7 +48,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "32": {
    "file": "LiaoPowerGenerator.fit",
@@ -54,7 +66,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "33": {
    "file": "LiaoRepairBay.fit",
@@ -68,7 +84,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": true,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": true,
+   "mech_bay": true,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "68": {
    "file": "LiaoSpotlight.fit",
@@ -82,7 +102,28 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0,
+   "turret": {
+    "damage_level": 7,
+    "weapons": [
+     -1,
+     -1,
+     -1,
+     -1
+    ],
+    "pilot_skill": 80,
+    "attack_radius": 500.0,
+    "yaw_rate": 30.0,
+    "los_factor": 1.0,
+    "little_extent": 35,
+    "explosion_damage": 0.0,
+    "explosion_radius": 0.0,
+    "tonnage": 20
+   }
   },
   "72": {
    "file": "LiaoTurretGenerator.fit",
@@ -96,7 +137,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "111": {
    "file": "DavionVehicleHanger.fit",
@@ -110,7 +155,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "170": {
    "file": "LRMTurret.fit",
@@ -124,7 +173,28 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0,
+   "turret": {
+    "damage_level": 25,
+    "weapons": [
+     120,
+     120,
+     120,
+     120
+    ],
+    "pilot_skill": 50,
+    "attack_radius": 1500.0,
+    "yaw_rate": 20.0,
+    "los_factor": 1.0,
+    "little_extent": 35,
+    "explosion_damage": 0.0,
+    "explosion_radius": 0.0,
+    "tonnage": 20
+   }
   },
   "172": {
    "file": "LongTomTurret.fit",
@@ -138,7 +208,28 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0,
+   "turret": {
+    "damage_level": 30,
+    "weapons": [
+     160,
+     -1,
+     -1,
+     -1
+    ],
+    "pilot_skill": 50,
+    "attack_radius": 1500.0,
+    "yaw_rate": 10.0,
+    "los_factor": 1.0,
+    "little_extent": 35,
+    "explosion_damage": 0.0,
+    "explosion_radius": 0.0,
+    "tonnage": 20
+   }
   },
   "185": {
    "file": "LargeFuelTank.fit",
@@ -152,7 +243,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "202": {
    "file": "SteinerHeavyWall.fit",
@@ -166,7 +261,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "203": {
    "file": "SteinerHeavyGate.fit",
@@ -180,7 +279,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "204": {
    "file": "SteinerMediumWall.fit",
@@ -194,7 +297,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "205": {
    "file": "SteinerMediumGate.fit",
@@ -208,7 +315,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "206": {
    "file": "SteinerLightWall.fit",
@@ -222,7 +333,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "207": {
    "file": "SteinerLightGate.fit",
@@ -236,7 +351,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "210": {
    "file": "PineTree.fit",
@@ -250,7 +369,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "212": {
    "file": "SteinerSpotlightControl.fit",
@@ -264,7 +387,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": true,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "213": {
    "file": "SteinerGateControl.fit",
@@ -278,7 +405,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": true,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "214": {
    "file": "SteinerTurretControl.fit",
@@ -292,7 +423,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": true,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": 1.0,
+   "lookout_range": 1016.0
   },
   "227": {
    "file": "htent.fit",
@@ -306,7 +441,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "229": {
    "file": "hqtent.fit",
@@ -320,7 +459,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "244": {
    "file": "HeavyIndustrial.fit",
@@ -334,7 +477,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "245": {
    "file": "PurificationPlant.fit",
@@ -348,7 +495,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "260": {
    "file": "GeodesicDome.fit",
@@ -362,7 +513,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "268": {
    "file": "Crates.fit",
@@ -376,7 +531,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "270": {
    "file": "Dumpster.fit",
@@ -390,7 +549,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "275": {
    "file": "outhouse.fit",
@@ -404,7 +567,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "283": {
    "file": "WoodenCrates.fit",
@@ -418,7 +585,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "289": {
    "file": "extractionMarker.fit",
@@ -432,7 +603,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "299": {
    "file": "IndustrialPlant.fit",
@@ -446,7 +621,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "302": {
    "file": "Oak1.FIT",
@@ -460,7 +639,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "303": {
    "file": "Oak2.fit",
@@ -474,7 +657,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "304": {
    "file": "Oak3.fit",
@@ -488,7 +675,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "305": {
    "file": "Oak1_dead.fit",
@@ -502,7 +693,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "306": {
    "file": "Oak2_dead.fit",
@@ -516,7 +711,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "307": {
    "file": "Oak3_dead.fit",
@@ -530,7 +729,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "311": {
    "file": "Maple1.fit",
@@ -544,7 +747,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "312": {
    "file": "Maple2.fit",
@@ -558,7 +765,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "313": {
    "file": "Maple3.fit",
@@ -572,7 +783,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "314": {
    "file": "Maple1Dead.fit",
@@ -586,7 +801,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "315": {
    "file": "Maple2Dead.fit",
@@ -600,7 +819,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "316": {
    "file": "Maple3Dead.fit",
@@ -614,7 +837,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "323": {
    "file": "ProcessingPlant.fit",
@@ -628,7 +855,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "324": {
    "file": "FactoryLg.fit",
@@ -642,7 +873,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "325": {
    "file": "FactoryMd.fit",
@@ -656,7 +891,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "329": {
    "file": "cornerpipe.fit",
@@ -670,7 +909,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "333": {
    "file": "liquidstorage.fit",
@@ -684,7 +927,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "334": {
    "file": "pipetank.fit",
@@ -698,7 +945,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "337": {
    "file": "Quonsetclean.fit",
@@ -712,7 +963,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "352": {
    "file": "PineTree2.fit",
@@ -726,7 +981,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "353": {
    "file": "PineTree3.fit",
@@ -740,7 +999,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "354": {
    "file": "PineDead1.fit",
@@ -754,7 +1017,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "356": {
    "file": "PineDead3.fit",
@@ -768,7 +1035,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "357": {
    "file": "rpbuilding.fit",
@@ -782,7 +1053,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": true,
-   "resource_points": 10000
+   "resource_points": 10000,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "394": {
    "file": "SteinerHeavyPost.fit",
@@ -796,7 +1071,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "401": {
    "file": "2CivLiving.fit",
@@ -810,7 +1089,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "403": {
    "file": "2StoryCivLiving.fit",
@@ -824,7 +1107,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "404": {
    "file": "CivStorageA.fit",
@@ -838,7 +1125,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "405": {
    "file": "CivStorageB.fit",
@@ -852,7 +1143,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "408": {
    "file": "WoodenFence.fit",
@@ -866,7 +1161,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "420": {
    "file": "CargoTruckProp.fit",
@@ -880,7 +1179,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "422": {
    "file": "ForkliftProp.fit",
@@ -894,7 +1197,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "424": {
    "file": "JeepProp.fit",
@@ -908,7 +1215,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "427": {
    "file": "TruckProp.fit",
@@ -922,7 +1233,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "429": {
    "file": "GreenHouse.fit",
@@ -936,7 +1251,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "431": {
    "file": "IndustrialComplex.fit",
@@ -950,7 +1269,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "432": {
    "file": "RelayStation.fit",
@@ -964,7 +1287,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "440": {
    "file": "WireFence.fit",
@@ -978,7 +1305,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "441": {
    "file": "WireFenceDiag.fit",
@@ -992,7 +1323,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "442": {
    "file": "RazorWireFence.fit",
@@ -1006,7 +1341,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "444": {
    "file": "Hazmat.fit",
@@ -1020,7 +1359,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "504": {
    "file": "rocktc1.fit",
@@ -1034,7 +1377,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "509": {
    "file": "rocktf3.fit",
@@ -1048,7 +1395,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "531": {
    "file": "TC1_1.fit",
@@ -1062,7 +1413,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "532": {
    "file": "TC1_2.fit",
@@ -1076,7 +1431,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "533": {
    "file": "TC1_3.fit",
@@ -1090,7 +1449,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "534": {
    "file": "TC1_4.fit",
@@ -1104,7 +1467,11 @@
    "building_team": -1,
    "impassable": 0,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "544": {
    "file": "GenericMilitary.fit",
@@ -1118,7 +1485,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "546": {
    "file": "Portable.fit",
@@ -1132,7 +1503,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "558": {
    "file": "Gantry.fit",
@@ -1146,7 +1521,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "559": {
    "file": "Hangar.fit",
@@ -1160,7 +1539,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "594": {
    "file": "s_adminquarter.fit",
@@ -1174,7 +1557,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "595": {
    "file": "s_gov1.fit",
@@ -1188,7 +1575,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "596": {
    "file": "s_gov2.fit",
@@ -1202,7 +1593,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "597": {
    "file": "s_govresidence.fit",
@@ -1216,7 +1611,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "598": {
    "file": "s_main.fit",
@@ -1230,7 +1629,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "599": {
    "file": "s_main_leftwing.fit",
@@ -1244,7 +1647,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "600": {
    "file": "s_main_rightwing.fit",
@@ -1258,7 +1665,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "601": {
    "file": "s_main_stairs.fit",
@@ -1272,7 +1683,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "602": {
    "file": "s_promenade.fit",
@@ -1286,7 +1701,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "603": {
    "file": "s_quetragon.fit",
@@ -1300,7 +1719,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "610": {
    "file": "slayerP.fit",
@@ -1314,7 +1737,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "612": {
    "file": "City2StoryA.fit",
@@ -1328,7 +1755,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "614": {
    "file": "City2StoryB.fit",
@@ -1342,7 +1773,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "615": {
    "file": "City2StoryC.fit",
@@ -1356,7 +1791,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "616": {
    "file": "City4StoryA.fit",
@@ -1370,7 +1809,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "617": {
    "file": "City4StoryB.fit",
@@ -1384,7 +1827,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "618": {
    "file": "City4StoryC.fit",
@@ -1398,7 +1845,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "619": {
    "file": "City6StoryA.fit",
@@ -1412,7 +1863,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "621": {
    "file": "City6StoryC.fit",
@@ -1426,7 +1881,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "622": {
    "file": "City8StoryA.fit",
@@ -1440,7 +1899,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "623": {
    "file": "City8StoryB.fit",
@@ -1454,7 +1917,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   },
   "628": {
    "file": "SteinerDropship.fit",
@@ -1468,7 +1935,11 @@
    "building_team": -1,
    "impassable": 1,
    "capturable": false,
-   "resource_points": 0
+   "resource_points": 0,
+   "can_refit": false,
+   "mech_bay": false,
+   "sensor_range": -1.0,
+   "lookout_range": 0.0
   }
  },
  "objects": [
@@ -1668,7 +2139,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    214,
+    142
+   ]
   },
   {
    "type": 172,
@@ -1677,7 +2152,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    214,
+    142
+   ]
   },
   {
    "type": 172,
@@ -1686,7 +2165,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    214,
+    142
+   ]
   },
   {
    "type": 172,
@@ -1695,7 +2178,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    214,
+    142
+   ]
   },
   {
    "type": 172,
@@ -1704,7 +2191,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    169,
+    235
+   ]
   },
   {
    "type": 172,
@@ -1713,7 +2204,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    169,
+    235
+   ]
   },
   {
    "type": 172,
@@ -1722,7 +2217,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    169,
+    235
+   ]
   },
   {
    "type": 172,
@@ -1731,7 +2230,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    169,
+    235
+   ]
   },
   {
    "type": 214,
@@ -1740,7 +2243,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    181,
+    145
+   ]
   },
   {
    "type": 28,
@@ -1749,7 +2256,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    169,
+    235
+   ]
   },
   {
    "type": 28,
@@ -1758,7 +2269,11 @@
    "z": 288.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    214,
+    142
+   ]
   },
   {
    "type": 207,
@@ -1767,7 +2282,11 @@
    "z": 500.0,
    "rotation": 90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    116,
+    175
+   ]
   },
   {
    "type": 207,
@@ -1776,7 +2295,11 @@
    "z": 500.0,
    "rotation": -180.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    116,
+    175
+   ]
   },
   {
    "type": 207,
@@ -1785,7 +2308,11 @@
    "z": 500.0,
    "rotation": -180.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    116,
+    175
+   ]
   },
   {
    "type": 206,
@@ -2226,7 +2753,11 @@
    "z": 500.0,
    "rotation": -90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    146,
+    181
+   ]
   },
   {
    "type": 203,
@@ -2235,7 +2766,11 @@
    "z": 347.059,
    "rotation": -90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    146,
+    181
+   ]
   },
   {
    "type": 202,
@@ -3063,7 +3598,11 @@
    "z": 376.471,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    144,
+    227
+   ]
   },
   {
    "type": 172,
@@ -3072,7 +3611,11 @@
    "z": 458.824,
    "rotation": -90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    55,
+    92
+   ]
   },
   {
    "type": 172,
@@ -3081,7 +3624,11 @@
    "z": 458.824,
    "rotation": -90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    55,
+    92
+   ]
   },
   {
    "type": 172,
@@ -3090,7 +3637,11 @@
    "z": 458.824,
    "rotation": -90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    55,
+    92
+   ]
   },
   {
    "type": 172,
@@ -3099,7 +3650,11 @@
    "z": 458.824,
    "rotation": -90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    55,
+    92
+   ]
   },
   {
    "type": 172,
@@ -3108,7 +3663,11 @@
    "z": 376.471,
    "rotation": -90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    95,
+    93
+   ]
   },
   {
    "type": 172,
@@ -3117,7 +3676,11 @@
    "z": 376.471,
    "rotation": -90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    95,
+    93
+   ]
   },
   {
    "type": 172,
@@ -3126,7 +3689,11 @@
    "z": 376.471,
    "rotation": -90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    95,
+    93
+   ]
   },
   {
    "type": 172,
@@ -3135,7 +3702,11 @@
    "z": 376.471,
    "rotation": -90.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    95,
+    93
+   ]
   },
   {
    "type": 28,
@@ -3144,7 +3715,11 @@
    "z": 376.471,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    95,
+    93
+   ]
   },
   {
    "type": 28,
@@ -3153,7 +3728,11 @@
    "z": 458.824,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    55,
+    92
+   ]
   },
   {
    "type": 214,
@@ -3162,7 +3741,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    52,
+    114
+   ]
   },
   {
    "type": 214,
@@ -3171,7 +3754,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    83,
+    106
+   ]
   },
   {
    "type": 202,
@@ -3342,7 +3929,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    77,
+    121
+   ]
   },
   {
    "type": 205,
@@ -3351,7 +3942,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    77,
+    121
+   ]
   },
   {
    "type": 202,
@@ -4476,7 +5071,11 @@
    "z": 338.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    145,
+    175
+   ]
   },
   {
    "type": 170,
@@ -4485,7 +5084,11 @@
    "z": 338.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    145,
+    175
+   ]
   },
   {
    "type": 170,
@@ -4494,7 +5097,11 @@
    "z": 338.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    145,
+    175
+   ]
   },
   {
    "type": 170,
@@ -4503,7 +5110,11 @@
    "z": 329.412,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    145,
+    175
+   ]
   },
   {
    "type": 170,
@@ -4512,7 +5123,11 @@
    "z": 338.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    145,
+    175
+   ]
   },
   {
    "type": 170,
@@ -4521,7 +5136,11 @@
    "z": 338.235,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    145,
+    175
+   ]
   },
   {
    "type": 214,
@@ -4530,7 +5149,11 @@
    "z": 500.0,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    141,
+    175
+   ]
   },
   {
    "type": 170,
@@ -4539,7 +5162,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    70,
+    121
+   ]
   },
   {
    "type": 170,
@@ -4548,7 +5175,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    70,
+    121
+   ]
   },
   {
    "type": 170,
@@ -4557,7 +5188,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    70,
+    121
+   ]
   },
   {
    "type": 170,
@@ -4566,7 +5201,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    70,
+    121
+   ]
   },
   {
    "type": 170,
@@ -4575,7 +5214,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    70,
+    121
+   ]
   },
   {
    "type": 170,
@@ -4584,7 +5227,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    70,
+    121
+   ]
   },
   {
    "type": 214,
@@ -4593,7 +5240,11 @@
    "z": 547.059,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    65,
+    125
+   ]
   },
   {
    "type": 311,
@@ -6762,7 +7413,11 @@
    "z": 326.471,
    "rotation": 0.0,
    "damage": 0,
-   "team": 1
+   "team": 1,
+   "parent": [
+    142,
+    181
+   ]
   },
   {
    "type": 68,

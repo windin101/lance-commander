@@ -92,6 +92,9 @@ func test_specialties() -> void:
 func test_heat_fire_penalty() -> void:
 	var d := SimFixture.duel(r)
 	d[0].heat = d[0].heat_capacity * 10.0 / 30.0 + 0.01  # level 10: fire_mod 23
+	# H9: half the penalty by default
+	assert_float(SimCombat.attack_chance(r, d[0], SimFixture.item(d[0], ER_LASER), d[1])).is_equal(48.5)
+	r.heat_fire_mod_factor = 1.0
 	assert_float(SimCombat.attack_chance(r, d[0], SimFixture.item(d[0], ER_LASER), d[1])).is_equal(37.0)
 	r.heat_enabled = false
 	assert_float(SimCombat.attack_chance(r, d[0], SimFixture.item(d[0], ER_LASER), d[1])).is_equal(60.0)

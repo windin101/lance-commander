@@ -45,8 +45,8 @@ metres). Angles are degrees. Facing 0 is north (+y) and increases clockwise.
    - arm ×0.15
    - leg ×0.20
    - torso ×1
-8. **Heat:** subtract the heat table's `fire_mod` at the shooter's heat level.
-   This is new (H3).
+8. **Heat:** subtract the heat table's `fire_mod` at the shooter's heat level,
+   times `heat_fire_mod_factor` (0.5). This is new (H3, softened by H9).
 9. **Clamp:** 5–95.
 
 The original has no attacker or target movement modifier: the `modifiers` and
@@ -69,6 +69,113 @@ but unused here.
   roll below.
 - **Ammo pools** are per ammo-type master id (`calcAmmoTotals`). A shot draws
   from the first non-empty bin (`reduceAmmo`).
+
+## Line of sight and contacts (I90, I91; 2026-10-23)
+
+**Sight** (`GameObject::lineOfSight`, gameobj.cpp:1846-1990; `Team::lineOfSight`,
+team.cpp:1071-1260; `SimWorld.line_of_sight`, `SimMap.line_of_sight`):
+- **Visual range:** 225 m (`VisualRangeTable` is 9 at every altitude, × 25 m), +20% for a
+  Scout pilot, × the type's `LOSFactor` (the artillery piece 1.2).
+- **Sight points:** a mover sights from its lowest weapon node's height above the ground
+  (mover.cpp:3442-3498), a turret from its first weapon node (turret.cpp:1235), a building
+  from half its height. The heights are the shapes' bind-pose node heights
+  (`tools/convert/los_heights.py` → `data/los_heights.json`); pop-up turrets, whose guns sit
+  below ground in the bind pose, use the 15 wu (3 m) fallback.
+- **The walk:** from the centre of the shooter's cell to the centre of the target's cell, in
+  steps of 1/1.5 cell. The sight line is compared with the terrain plus each cell's local
+  (object) height, 4 m per step of the map's height bits. A step under a non-forest top blocks
+  at once. A step under a forest cell's top counts a tree, and `MaxTreeLOSBlock` (6) steps
+  block, which is about 4 forest cells. The walk ends early, visible, once it is within the
+  target's extent plus half a cell. Movers have no extent here (their appearance radius is not
+  converted). For a building the original passes its appearance radius; the port uses the
+  building's footprint instead (the raised cells joined to its own, out to 40 m,
+  `SimWorld.sight_radius`), or the walk would stop on the building's own roof.
+- **Cost:** each viewer/target pair is cached for 0.5 s (`SIGHT_PERIOD`); the original
+  recomputes every frame.
+
+**Contacts** (`SensorSystem::calcContactStatus`, Contact.cpp:257-350; `SimWorld.is_contact`).
+A team's contact is a mover that is not disabled and that one of its working sensors finds:
+- **Visual:** line of sight within visual range from a team mover. The viewer needs a working
+  sensor component; vehicles carry Vehicle Sensors (range 0), so they are visual only.
+- **Sensor:** within a team mover's fitted sensor range (compbas.csv: Standard 1 m, Extended
+  400, Advanced 550, Cyclops 800), or a team sensor tower's (`SensorRange`, e.g. 550 m). A
+  tower's sensor fails when its control building is destroyed (bldng.cpp:878-885), and towers
+  take their control's team, so capturing a sensor control gives its towers.
+- A target that is **shut down** or carries a working **ECM** suite has no sensor signature:
+  only visual contact finds it.
+- Sensor probes (support-powers.md 3.2) add sensor contacts.
+- Not modelled: contact quality (sensor 1-4 vs visual), ECM fields shrinking enemy sensors
+  (`ecmEffect`), lookout towers.
+- `SimRules.original_contacts = false` restores the old placeholder (any team mover within
+  500 m).
+
+**Fire** (`calcWeaponsStatus`, warrior.cpp:3396-3414): a weapon fires only with line of sight
+to the target. Indirect-fire weapons (gamesys `IndirectFireWeaponComponentIndex`: LRM5, Swarm
+LRM5, LRM, Long Tom) may also fire when any team mover that is not disabled or shut down sees
+the target (`Team::teamLineOfSight`, team.cpp:762-810). `SimRules.line_of_sight = false`
+turns it off. A pursuing attacker in range but without a line of fire keeps closing
+(`SimWorld._can_fire_on`); the original's attack tactic moves on a NOT_LOCKED weapon status.
+A target that changes sides (a captured turret or building) is dropped.
+
+**Area-effect weapons** (weaponbolt.cpp:762-794; gamesys `AreaEffectWeaponComponentIndex`):
+the Long Tom and the Swarm LRM do their damage by an explosion at the target, hit or miss, with
+their bolt's `AreaEffectDamage` / `AreaEffectRadius` (Long Tom 15 in 187 wu = 37 m; Swarm LRM 3
+in 120 wu = 24 m). A miss explodes 25 wu (5 m) off the target (gvehicl.cpp:4883-4892). Every
+mover in the radius takes the damage at an artillery-style hit location; buildings within the
+radius plus their extent take it whole; turrets only within their little extent
+(carnage.cpp:343-436). Damage is applied as one chunk. Flag `area_effect_weapons`.
+
+## Who an engaged AI shoots (F6, I12)
+
+`combatDecisionTree` (warrior.cpp:3472-3540) fires only at the pilot's last target, the one its
+brain (or the player) last attacked, and drops it beyond the pilot's `attackRadius` (gamesys
+`DefaultAttackRadius`, 275 m) unless a combat order is running. A unit with a brain therefore
+has no fire-at-will fallback. Units without a brain (support deliveries) still fire at the
+nearest armed enemy in reach. Flag `brain_target_only`.
+
+## Brain move speed (I92)
+
+A brain's move order runs only when its script asks (`corePatrol` adds `TACORDER_PARAM_RUN`
+when `CoreRun` is set, corebrain.abx:235-237); it sets the pilot's `moveRun`
+(warrior.cpp:5314, 5974). An attack order carries no speed (`coreAttack` ignores RUN,
+warrior.cpp:5574), so the unit approaches at its last move's pace. Units walk by default.
+Flag `brain_walk`.
+
+## Turrets (I94; turret.cpp)
+
+Map turrets (object class 21) are `SimTurret` structures:
+- **Data** from the type FIT's `[TurretData]` (TurretType::init, turret.cpp:129-235): up to
+  four weapons, `PilotSkill`, `AttackRadius` (world units; it replaces the extent radius,
+  turret.cpp:2142), `MaxTurretYawRate`, `DmgLevel`, `LittleExtent`.
+- **Target:** the closest enemy mech or vehicle that is not disabled, inside the attack radius
+  (TurretType::handleCollision, turret.cpp:238-316). No contact is needed. The target is
+  dropped when it leaves the radius or is disabled. The port looks for a new target every
+  0.5 s rather than every frame (cost: up to 78 turrets per map).
+- **Aim:** the gun turns at the yaw rate and is ready within ±10° (turret.cpp:684-708,
+  960-970). The pop-up gesture must open first: one second for every type (its frames are not
+  converted).
+- **Fire** (Turret::fireWeapon, turret.cpp:1352-1600): line of sight from the turret, or a team
+  mate's for an indirect-fire weapon; otherwise no shot and no recycle. To-hit is the type's
+  pilot skill, +50 against a target that stands still, minus the target pilot's chassis
+  specialty (floor 5). No difficulty scaling, no range tolerance and no upper clamp. A hit does
+  the weapon's damage. Area-effect weapons blast as above.
+- **Damage:** shots at a turret always hit (a non-mover); it is destroyed at `DmgLevel`.
+- **Control building:** a turret's placement names its parent cell (objmgr.cpp:970-991). The
+  parent becomes a capturable control building, whatever its type says. The turret takes the
+  control's team while the control stands (turret.cpp:636-646), so capturing the control turns
+  its turrets. When the control is destroyed, disabled or asleep, the turret powers down for
+  good (turret.cpp:617-633).
+- Teams: placements of team 2 (allies) join team 0 and higher teams team 1 (turret.cpp:366-381,
+  bldng.cpp:930-937); buildings follow the same rule.
+
+## Mines (I96; mech.cpp:3731-3778, gvehicl.cpp:1355-1420)
+
+A mech or vehicle **over 35 t** entering a cell with a laid mine sets it off: 12 damage
+(gamesys `[Mine] BaseDamage`), for a mech in the bottom section from a random side. The mine is
+spent. Jumping mechs, minelayers and mine sweepers don't set mines off; there is no team check.
+The maps' own mines (mc2_07, 11, 15, 22) come from the cell mine bits. A blast in a mined cell
+sets the mine off (weaponbolt.cpp:826). *(This corrects support-powers.md 3.5, which found no
+mech trigger: `BattleMech::mineCheck` has one.)*
 
 ## Hit location (`BattleMech::calcHitLocation`, mech.cpp:6609)
 
@@ -222,6 +329,16 @@ Lance Commander turns heat on, built from the original's own data:
   (default 15). This avoids the original's flicker at the threshold.
 - **H8. Speed** is multiplied by `1 − move_mod/200`; at level 30 that's 10%
   speed. The original's column is unitless, so this scale is our choice.
+- **H9. Softened to-hit penalty** (I89, Lee's call on 2026-10-23). Heat stays on
+  for every mech on both sides, but only half of `fire_mod` comes off the
+  to-hit: `SimRules.heat_fire_mod_factor = 0.5` (8.5 at level 8, 22.5 at 16,
+  28.5 at 20). Why: vehicles have no heat, so the full penalty taxed the
+  player's all-mech lance hardest. The 2026-10-23 fidelity check measured the
+  lance at 62-78% hits with the full penalty and 75-87% with heat off, and
+  mc2_19 went from 0/3 to 2/3 wins with heat off
+  (`docs/reports/fidelity/2026-10-23-combat.md` F2). The other options were to
+  tax vehicles too, or to turn heat off. 1.0 restores the full penalty and 0.0
+  removes it.
 
 All heat numbers live in `SimRules.heat`, so they can be tuned without code
 changes. `SimRules.heat_enabled = false` gives the original no-heat
@@ -274,3 +391,14 @@ trade overheating risk for burst damage (Phase 7 HUD).
 | H* | Heat compiled out | Heat on (above) | `heat_enabled` |
 | C4 | The player brain's fire-at-will picks targets by action rating and skips a zero rating; our auto-fire takes the nearest enemy in reach, which killed mc2_03's mobile HQ directly and through exploding fuel trucks in its convoy | The player's auto-fire skips unarmed units (trucks, transports, mobile HQs); an explicit attack order still engages them. AI units take an unarmed target when nothing armed is in reach (their brains scan any enemy mover), so lone support vehicles cannot stall a mission (I31) | none (SimWorld._pick_target) |
 | C5 | An attack order on a target with no path to its cell stands still | The attacker walks to a reachable cell within weapon range (e.g. across deep water) | none (SimWorld._firing_position_path) |
+
+## Kept original rules
+
+These are the original's behaviour, including its bugs, copied on purpose. Each
+sits behind a `SimRules` flag that is on by default, so the remake's "fixed"
+version is one switch away.
+
+| ID | Original | Flag (default on) |
+|---|---|---|
+| O1 | **Vehicle weapon nodes** (I88, F1; Lee chose to copy the original on 2026-10-23). `GroundVehicle::fireWeapon` asks the appearance for the least-used weapon node (`GVAppearance::getWeaponNode`, Gvactor.cpp:578-660; ties go to the first). Nodes are numbered after the 2 smoke nodes, so Weapon_01-04 are 2-5. In single player it refuses the shot when the node is above 3 or still recycling (0.25 s, `BASE_NODE_RECYCLE_TIME`), with no recycle or ammo spent (gvehicl.cpp:4601-4618). Nodes the shape lacks are dropped when the unit is first updated (Gvactor.cpp:466-474, mover.cpp:3454-3466). Effects: a 1- or 2-node vehicle fires at most 1 or 2 weapons per 0.25 s. A 3- or 4-node shape gets stuck on Weapon_03 for good once Weapon_01 and 02 have fired once each, so the Partisan and the Legion (TankK), the only 4-node shapes, fire two shots per mission. Node counts come from each appearance's ASE (`weapon_nodes` in `data/vehicles/*.json`, `tools/convert/vehicles.py`). | `vehicle_weapon_nodes` |
+| O2 | **Unlimited ammo** (I97). The single-player preference `UnlimitedAmmo` defaults to TRUE (logmain.cpp:53, 404-406). `calcAmmoTotals` then makes every pool `UNLIMITED_SHOTS` (mover.cpp:5784-5788), and no shot is deducted. Every unit on every side has it. The HUD shows ∞ for ammo weapons, as the original's info window drops the count (InfoWindow.cpp:658-662). With the flag off, bins run dry as described under "Firing". | `unlimited_ammo` |

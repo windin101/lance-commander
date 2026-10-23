@@ -66,6 +66,8 @@ func _ready() -> void:
 	for m in world.units:
 		if m.is_mover():
 			_add_view(m)
+		elif m is SimTurret:
+			_turrets.append(m)
 
 	camera = RtsCamera.new()
 	camera.name = "Camera"
@@ -161,6 +163,9 @@ func _ready() -> void:
 		v.sync(1.0)
 
 
+var _turrets: Array[SimTurret] = []  # map turrets: their guns turn in the view
+
+
 func _process(delta: float) -> void:
 	_update_haze()
 	_acc += delta
@@ -176,6 +181,8 @@ func _process(delta: float) -> void:
 	var alpha := _acc / SimWorld.TICK
 	for v in views.values():
 		v.sync(alpha)
+	for t in _turrets:
+		objects_view.set_turret_yaw(t.object_index, t.turret_yaw, t.facing)
 	_consume_events(true)
 	if audio:
 		audio.tick(world.time)
@@ -232,9 +239,19 @@ func _consume_events(show: bool) -> void:
 			_audio_event(e)
 		match e["type"]:
 			"shot":
-				if not (views.has(e["from"]) and views.has(e["to"])):
+				# movers have views; turrets and buildings are drawn by ObjectsView
+				if not ((views.has(e["from"]) or world.units[e["from"]] is SimStructure) \
+						and (views.has(e["to"]) or world.units[e["to"]] is SimStructure)):
 					continue
 				_shot_effect(e)
+			"blast", "mine":
+				# an area-effect shell (Long Tom, Swarm LRM) or a mine going off
+				var p: Vector2 = e["at"]
+				var big: bool = e["type"] == "mine" or float(e.get("radius", 0.0)) >= 30.0
+				if big:
+					effects.burst("strike_blast", TerrainView.to_3d(p, world.map.height_at(p) + 1.0))
+				if decals:
+					decals.crater(p, 10.0 if big else 6.0, true)
 			"strike_impact":
 				var p: Vector2 = e["at"]
 				effects.burst("strike_blast", TerrainView.to_3d(p, world.map.height_at(p) + 1.0))
@@ -311,9 +328,11 @@ func _structure_point(u: SimUnit, up: float) -> Variant:
 func _audio_event(e: Dictionary) -> void:
 	match e["type"]:
 		"shot":
-			if views.has(e["from"]):
-				var shooter: SimUnit = world.units[e["from"]]
-				audio.weapon_fire(int(shooter.items[e["weapon"]]["master_id"]), views[e["from"]].global_position)
+			var shooter: SimUnit = world.units[e["from"]]
+			if views.has(e["from"]) or shooter is SimTurret:
+				var at: Vector3 = views[e["from"]].global_position if views.has(e["from"]) \
+					else TerrainView.to_3d(shooter.position, world.map.height_at(shooter.position) + 4.0)
+				audio.weapon_fire(int(shooter.items[e["weapon"]]["master_id"]), at)
 				if shooter.team == sm.player_team or world.units[e["to"]].team == sm.player_team:
 					audio.last_combat_time = world.time
 		"impact":
