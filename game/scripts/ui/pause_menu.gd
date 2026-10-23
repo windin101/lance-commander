@@ -88,12 +88,29 @@ func open_pause() -> void:
 	title.text = "PAUSED"
 	title.add_theme_color_override("font_color", UiStyle.HUD_INK)
 	scale_row.visible = true
-	_set_buttons([["Resume", close], ["Restart mission", _restart], ["Abort to briefing", _abort]])
+	_set_buttons([["Resume", close], ["Paint scheme", _toggle_paint], ["Restart mission", _restart], ["Abort to briefing", _abort]])
 	panel.visible = true
 	get_tree().paused = true
 
 
+var _paint: PaintPanel
+
+
+## The player's paint scheme, live on the player's units (PaintPanel; saved to user://settings.cfg [paint]).
+func _toggle_paint() -> void:
+	if _paint:
+		_paint.queue_free()
+		_paint = null
+		return
+	_paint = PaintPanel.new(BayKit.new(UiStyle.hud_unit(1080.0, 1.0) * 0.85))
+	_paint.changed.connect(func(_s): if view and view.has_method("repaint_player"): view.repaint_player())
+	panel.get_child(0).add_child(_paint)
+
+
 func close() -> void:
+	if _paint:
+		_paint.queue_free()
+		_paint = null
 	panel.visible = false
 	get_tree().paused = false
 

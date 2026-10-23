@@ -77,6 +77,73 @@ def joint_axes(glb):
     return out
 
 
+def square_pelvis(cap, xf):
+    """Make every leg joint's parent and child agree on the pivot in the rest pose (v2.1). stl_rig gives both legs
+    the mean bone lengths and keeps the skeleton's hips, so a yawed or uneven sculpt pelvis lands its sockets up to
+    half a metre from the thighs' (Bushwacker: 497 mm). Here the pelvis part turns about the waist's vertical axis
+    until the hip sockets lie square across the body, the skeleton's hips move to those sockets, each leg keeps its
+    own bone lengths, and the root (and its keys) moves so the mean ankle height is unchanged. The waist housing is a
+    drum about that same vertical axis, so the pelvis' turn against the torso is hidden by it."""
+    og, ob, names, J, KEYS, legs, shift = cap["og"], cap["ob"], cap["names"], cap["J"], cap["KEYS"], cap["legs"], np.asarray(cap["shift"], float)
+    W = R.world_matrices(og)
+    torso_c = S.sc(W[names["joint_torso"]][:3, 3]) - shift            # waist pivot, sculpt frame
+    d = np.asarray(J["l"]["hip"], float) - np.asarray(J["r"]["hip"], float)
+    th = np.arctan2(d[1], d[0])
+    Rz = np.array([[np.cos(-th), -np.sin(-th), 0], [np.sin(-th), np.cos(-th), 0], [0, 0, 1]])
+    def pel(p):
+        return Rz @ (np.asarray(p, float) - torso_c) + torso_c + shift
+    old_ankle = np.mean([S.sc(W[names[legs[s][-1]]][:3, 3])[2] for s in "lr"])
+    def set_world(jn, world_mm):
+        """Rest translation of joint jn so its world position is world_mm (game mm, Z up)."""
+        i = names[jn]
+        par = next(k for k, n in enumerate(og["nodes"]) if i in n.get("children", []))
+        Wp = R.world_matrices(og)[par]
+        loc = np.linalg.inv(Wp) @ np.r_[S.gl(world_mm)[0], 1.0]
+        og["nodes"][i]["translation"] = loc[:3].tolist()
+    for s in "lr":
+        set_world(legs[s][0], pel(J[s]["hip"]))
+        for k in range(1, len(KEYS)):   # each leg's own bone lengths, along the skeleton's own bone directions
+            jn = legs[s][k]
+            t = np.array(og["nodes"][names[jn]]["translation"], float)
+            ln = np.linalg.norm(np.asarray(J[s][KEYS[k]], float) - np.asarray(J[s][KEYS[k - 1]], float)) / 1000.0
+            og["nodes"][names[jn]]["translation"] = (t / np.linalg.norm(t) * ln).tolist()
+    W = R.world_matrices(og)
+    drop = np.mean([S.sc(W[names[legs[s][-1]]][:3, 3])[2] for s in "lr"]) - old_ankle
+    if abs(drop) > 0.5:
+        og["nodes"][names["joint_root"]]["translation"][1] -= drop / 1000
+        for an in og["animations"]:
+            for ch in an["channels"]:
+                if ch["target"]["path"] == "translation" and og["nodes"][ch["target"]["node"]]["name"] == "joint_root":
+                    si = an["samplers"][ch["sampler"]]["output"]
+                    acc = og["accessors"][si]; view = og["bufferViews"][acc["bufferView"]]
+                    vals = R.read_accessor(og, ob, si).astype(np.float32).copy(); vals[:, 1] -= drop / 1000
+                    off = view.get("byteOffset", 0) + acc.get("byteOffset", 0)
+                    ob[off:off + vals.nbytes] = vals.tobytes()
+    W = R.world_matrices(og)
+    tgt = {s: {kk: S.sc(W[names[legs[s][i]]][:3, 3]) for i, kk in enumerate(KEYS)} for s in "lr"}
+    cap["tgt"] = tgt
+    out = dict(xf)
+    for s in "lr":
+        nodes_ = [S.part_under(og, names, jn) for jn in legs[s][:-1]] + [S.part_under(og, names, legs[s][-1], f"joint_{s}foot")]
+        for k, node in enumerate(nodes_):
+            if node is None:
+                continue
+            M = np.eye(4)
+            if k < len(KEYS) - 1:
+                a0, a1 = np.asarray(J[s][KEYS[k]], float), np.asarray(J[s][KEYS[k + 1]], float)
+                b0, b1 = tgt[s][KEYS[k]], tgt[s][KEYS[k + 1]]
+                Rm = S.rot_between(a1 - a0, b1 - b0); M[:3, :3] = Rm; M[:3, 3] = b0 - Rm @ a0
+            else:
+                M[:3, 3] = tgt[s]["ankle"] - np.asarray(J[s]["ankle"], float)
+            out[int(node)] = M
+    hip_part = S.part_under(og, names, "joint_hip")
+    if hip_part is not None:
+        M = np.eye(4); M[:3, :3] = Rz; M[:3, 3] = torso_c + shift - Rz @ torso_c
+        out[int(hip_part)] = M
+    print(f"  pelvis squared: turned {np.degrees(-th):.1f} deg about the waist; root {-drop:+.0f} mm; each leg on its own bone lengths")
+    return out
+
+
 # ---------------------------------------------------------------------------------------------------------- fit
 def stage_fit(a, work):
     cap = {}
@@ -93,9 +160,6 @@ def stage_fit(a, work):
         sys.argv = argv
         S.write = orig_write
     over = cap["over"]
-    for k in ("turn", "yaw", "twist", "base_cut"):
-        if over.get(k):
-            raise SystemExit(f"hd_v2 fit: J.json '{k}' is not supported yet (the raw sculpt must map to stl_rig's frame by scale and offset)")
     T, nt = cap["T"], len(cap["T"])
     owner = np.asarray(cap["owner"])[:nt]
     og, ob, names = cap["og"], cap["ob"], cap["names"]
@@ -112,6 +176,8 @@ def stage_fit(a, work):
         elif x:
             M = np.eye(4); M[:3, 3] = x[2] - x[1]
         xf[int(node)] = M
+    if over.get("v2", {}).get("square_pelvis", True) and "joint_hip" in names and "joint_torso" in names:
+        xf = square_pelvis(cap, xf)
     # pivots: every skinned part's joint, in the sculpt frame (legs: the sculpt's own joint points)
     W2 = R.world_matrices(og)
     parent = {c: i for i, n in enumerate(og["nodes"]) for c in n.get("children", [])}
@@ -143,6 +209,7 @@ def stage_fit(a, work):
     np.savez_compressed(work / "fit.npz", T=T, owner=owner, H=cap["H"])
     (work / "fit.json").write_text(json.dumps({
         "mech": a.mech, "stl": a.stl, "joints": a.joints, "H": float(cap["H"]), "nt": int(nt),
+        "k": float(cap["k"]), "cut": (float(cap["cut"]) if cap.get("cut") else None), "over": json.loads(json.dumps(over, default=float)),
         "xform": {str(k): v.tolist() for k, v in xf.items()}, "pivots": {str(k): v for k, v in piv.items()},
         "node_names": [n.get("name", "") for n in og["nodes"]], "parent": {str(k): v for k, v in parent.items()},
         "axes": axes,
@@ -150,6 +217,48 @@ def stage_fit(a, work):
                  for s in "lr"}, "keys": list(KEYS),
     }, indent=1))
     print(f"fit: {nt} stl_rig tris, {len(xf)} parts -> {work}")
+
+
+def stage_fitglb(a, work):
+    """An already rigged HD model (the five Hunyuan mechs: hd_rig.py's rigid skin on the original skeleton) as the
+    source: its rest-pose triangles and each one's joint become the sculpt and its labels, with no re-pose. Then the
+    same segment, bake, paint and install stages as a printed sculpt. --stl is the _hd.glb."""
+    import pose_test as PT
+    g, b, Pv, Jv, Wv, I, joints, ibm = PT.load_skinned(a.stl)
+    dom = Jv[np.arange(len(Jv)), Wv.argmax(1)]
+    T = np.c_[Pv[:, 0], -Pv[:, 2], Pv[:, 1]][I] * 1000.0                      # (nf, 3, 3) mm Z up
+    owner = np.array(joints)[dom[I[:, 0]]]
+    og, ob = R.load_glb(str(ROOT / f"game/assets/{a.folder}/{a.mech}.glb"))   # the original: skeleton and animations
+    names = [n.get("name", "") for n in og["nodes"]]
+    hd_names = [n.get("name", "") for n in g["nodes"]]
+    owner = np.array([names.index(hd_names[o]) for o in owner])               # same node names in both files
+    parent = {c: i for i, n in enumerate(og["nodes"]) for c in n.get("children", [])}
+    W = R.world_matrices(og)
+    piv = {}
+    for node in set(owner.tolist()):
+        jn = node if names[node].startswith("joint_") else parent.get(node)
+        while jn is not None and not names[jn].startswith("joint_"):
+            jn = parent.get(jn)
+        if jn is None:
+            continue
+        pw = S.sc(W[jn][:3, 3])
+        piv[int(node)] = {"joint": names[jn], "joint_index": int(jn), "sculpt": pw.tolist(), "game": pw.tolist()}
+    legs = {}
+    for s_ in "lr":
+        chain = [f"joint_{s_}uleg", f"joint_{s_}lleg", f"joint_{s_}ankle"]
+        if all(c in names for c in chain):
+            legs[s_] = {"joints": chain, "points": dict(zip(("hip", "knee", "ankle"), [S.sc(W[names.index(c)][:3, 3]).tolist() for c in chain]))}
+    for n in og["nodes"]:
+        n.pop("mesh", None)
+    R.GlbWriter(og, ob).write(str(work / "skel.glb"))
+    axes = joint_axes(work / "skel.glb")
+    np.savez_compressed(work / "fit.npz", T=T, owner=owner, H=float(T[..., 2].max()))
+    (work / "fit.json").write_text(json.dumps({
+        "mech": a.mech, "stl": a.stl, "joints": a.joints, "kind": "glb", "H": float(T[..., 2].max()), "nt": int(len(T)),
+        "xform": {str(k): np.eye(4).tolist() for k in set(owner.tolist())}, "pivots": {str(k): v for k, v in piv.items()},
+        "node_names": names, "parent": {str(k): v for k, v in parent.items()}, "legs": legs, "keys": ["hip", "knee", "ankle"],
+        "axes": axes, "over": {}}, indent=1))
+    print(f"fitglb: {len(T)} tris from {Path(a.stl).name}, {len(piv)} parts -> {work}")
 
 
 def stage_fitveh(a, work):
@@ -223,18 +332,48 @@ def face_adjacency(F):
     return fid[i], fid[i + 1], Es[i, 0], Es[i, 1]
 
 
-def raw_in_fit_frame(stl, T_fit):
-    """The raw sculpt's faces in stl_rig's frame (bounding-box match: stl_rig only scales, re-centres and splits)."""
+def raw_in_fit_frame(stl, T_fit, fitinfo=None):
+    """The raw sculpt's faces in stl_rig's frame: its own transform chain replayed (turn, base cut, scale to the
+    original's height, re-centring, x_shift, yaw about the pivot, the upper-body twist), all of which stl_rig applies
+    before it splits any triangle, so the result matches its frame exactly."""
+    over = (fitinfo or {}).get("over", {})
     raw = S.load_stl(stl)
+    if over.get("turn"):
+        raw = raw * np.array([-1.0, -1.0, 1.0])
     raw[..., 2] -= raw[..., 2].min()
-    a, b = raw.reshape(-1, 3), T_fit.reshape(-1, 3)
-    k = np.ptp(b[:, 2]) / np.ptp(a[:, 2])
-    off = b.min(0) - a.min(0) * k
-    off[:2] = (b[:, :2].min(0) + b[:, :2].max(0)) / 2 - (a[:, :2].min(0) + a[:, :2].max(0)) / 2 * k
-    out = raw * k + off
-    err = np.abs(out.reshape(-1, 3).min(0) - b.min(0)).max() + np.abs(out.reshape(-1, 3).max(0) - b.max(0)).max()
+    cut = (fitinfo or {}).get("cut")
+    if cut:
+        raw = raw[raw.mean(1)[:, 2] > cut]
+        raw[..., 2] -= raw[..., 2].min()
+    k = (fitinfo or {}).get("k")
+    if k is None:   # older fit.json: scale from the heights
+        k = np.ptp(T_fit[..., 2]) / np.ptp(raw[..., 2])
+    raw = raw * k
+    flat = raw.reshape(-1, 3)
+    raw[..., :2] -= (flat[:, :2].min(0) + flat[:, :2].max(0)) / 2
+    raw[..., 0] += over.get("x_shift", 0.0)
+    if over.get("yaw") or over.get("twist"):
+        pv = np.array(over.get("pivot", [0.0, 0.0]), float)
+        def rz(P_, deg):
+            c_, s_ = np.cos(np.radians(deg)), np.sin(np.radians(deg)); Q = P_.copy()
+            x_, y_ = P_[..., 0] - pv[0], P_[..., 1] - pv[1]
+            Q[..., 0], Q[..., 1] = pv[0] + x_ * c_ - y_ * s_, pv[1] + x_ * s_ + y_ * c_
+            return Q
+        raw = rz(raw, float(over.get("yaw", 0.0)))
+        raw[..., :2] -= pv; pv = np.zeros(2)
+        tw = over.get("twist")
+        if tw:
+            Cz = raw.mean(1); sel = Cz[:, 2] > tw["z"]
+            inbox = lambda b_: (Cz[:, 0] > b_[0]) & (Cz[:, 0] < b_[1]) & (Cz[:, 1] > b_[2]) & (Cz[:, 1] < b_[3]) & (Cz[:, 2] > b_[4]) & (Cz[:, 2] < b_[5])
+            for b_ in tw.get("add", []):
+                sel |= inbox(b_)
+            for b_ in tw.get("keep", []):
+                sel &= ~inbox(b_)
+            raw[sel] = rz(raw[sel], float(tw["deg"]))
+    a_, b_ = raw.reshape(-1, 3), T_fit.reshape(-1, 3)
+    err = np.abs(a_.min(0) - b_.min(0)).max() + np.abs(a_.max(0) - b_.max(0)).max()
     assert err < 5.0, f"raw sculpt does not map onto the fit frame ({err:.1f} mm)"
-    return out
+    return raw
 
 
 def graph_cut(nf, src_w, snk_w, ea, eb, ew, hard_src, hard_snk):
@@ -439,6 +578,133 @@ def actuator_mesh(kind, c, ax, r, ln, sides=40):
     return Vl, Fl
 
 
+def clip_implicit(Vp, Fp, f):
+    """Split every triangle the surface f = 0 crosses into pieces on either side, conformingly (one new vertex per
+    crossed edge, found by bisection), keeping winding. f: (n, 3) -> (n,), negative inside."""
+    s_ = f(Vp) >= 0
+    E = np.concatenate([Fp[:, [0, 1]], Fp[:, [1, 2]], Fp[:, [2, 0]]])
+    cr = s_[E[:, 0]] != s_[E[:, 1]]
+    if not cr.any():
+        return Vp, Fp
+    uk = np.unique(np.sort(E[cr], 1), axis=0)
+    a, b = Vp[uk[:, 0]], Vp[uk[:, 1]]
+    sa = s_[uk[:, 0]]
+    lo, hi = np.zeros(len(uk)), np.ones(len(uk))
+    for _ in range(24):
+        mid = (lo + hi) / 2
+        same = (f(a + (b - a) * mid[:, None]) >= 0) == sa
+        lo, hi = np.where(same, mid, lo), np.where(same, hi, mid)
+    newv = a + (b - a) * ((lo + hi) / 2)[:, None]
+    key = {(int(x), int(y)): len(Vp) + i for i, (x, y) in enumerate(uk)}
+    Vn = np.r_[Vp, newv]
+    fs = s_[Fp]
+    mixed = fs.any(1) & ~fs.all(1)
+    X = Fp[mixed]; S = fs[mixed]
+    lone = np.where(S.sum(1) == 1, S.argmax(1), (~S).argmax(1))
+    r = np.arange(len(X))
+    A, B_, C_ = X[r, lone], X[r, (lone + 1) % 3], X[r, (lone + 2) % 3]
+    eid = lambda u, w: np.array([key[(min(int(p), int(q)), max(int(p), int(q)))] for p, q in zip(u, w)], int)
+    ab, ac = eid(A, B_), eid(A, C_)
+    new = np.concatenate([np.stack([A, ab, ac], 1), np.stack([ab, B_, C_], 1), np.stack([ab, C_, ac], 1)])
+    return Vn, np.r_[Fp[~mixed], new]
+
+
+def earclip(P2):
+    """Triangulate a simple polygon (n, 2), either winding. Returns (m, 3) indices. Falls back to a fan for a loop
+    that self-intersects (no ear found)."""
+    n = len(P2)
+    idx = list(range(n))
+    area = 0.5 * np.sum(P2[:, 0] * np.roll(P2[:, 1], -1) - np.roll(P2[:, 0], -1) * P2[:, 1])
+    sgn = 1.0 if area > 0 else -1.0
+    tris = []
+    def cross(o, a, b):
+        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+    guard = 0
+    while len(idx) > 3 and guard < 4 * n:
+        guard += 1
+        found = False
+        for k in range(len(idx)):
+            i0, i1, i2 = idx[k - 1], idx[k], idx[(k + 1) % len(idx)]
+            a, b, c = P2[i0], P2[i1], P2[i2]
+            if sgn * cross(a, b, c) <= 1e-9:
+                continue
+            ok = True
+            for j in idx:
+                if j in (i0, i1, i2):
+                    continue
+                p = P2[j]
+                if sgn * cross(a, b, p) > 0 and sgn * cross(b, c, p) > 0 and sgn * cross(c, a, p) > 0:
+                    ok = False
+                    break
+            if ok:
+                tris.append((i0, i1, i2)); idx.pop(k); found = True
+                break
+        if not found:
+            break
+    if len(idx) == 3:
+        tris.append(tuple(idx))
+    elif len(idx) > 3:
+        tris += [(idx[0], idx[k], idx[k + 1]) for k in range(1, len(idx) - 1)]
+    return np.array(tris, int).reshape(-1, 3)
+
+
+def simple_polygon(P2):
+    """True if the closed polyline P2 (n, 2) has no two non-adjacent edges crossing (checked on a subsample)."""
+    n = len(P2)
+    idx = np.arange(0, n, max(1, n // 120))
+    Q = P2[idx]; m = len(Q)
+    a, b = Q, np.roll(Q, -1, 0)
+    def orient(p, q, r):
+        return np.sign((q[..., 0] - p[..., 0]) * (r[..., 1] - p[..., 1]) - (q[..., 1] - p[..., 1]) * (r[..., 0] - p[..., 0]))
+    for i in range(m):
+        j = np.arange(i + 2, m - (1 if i == 0 else 0))
+        if not len(j):
+            continue
+        o1 = orient(a[i], b[i], a[j]); o2 = orient(a[i], b[i], b[j])
+        o3 = orient(a[j], b[j], a[i][None]); o4 = orient(a[j], b[j], b[i][None])
+        if ((o1 * o2 < 0) & (o3 * o4 < 0)).any():
+            return False
+    return True
+
+
+def cap_loops(Vp, Fp, skip, max_dev=0.08):
+    """Close every open boundary loop of a part (Vp, Fp) with a cap ear-clipped on the loop's best-fit plane, wound
+    to face out of the part. skip(points) -> True for loops that a housing already covers. Returns cap faces."""
+    loops = boundary_loops(Fp, np.ones(len(Fp), bool))
+    caps = []
+    for lp in loops:
+        if len(lp) < 3:
+            continue
+        Lp = Vp[lp]
+        if skip(Lp):
+            continue
+        c = Lp.mean(0)
+        u_, s_, vt = np.linalg.svd(Lp - c, full_matrices=False)
+        e1, e2, nrm = vt[0], vt[1], vt[2]
+        rad = np.linalg.norm(Lp - c, axis=1).mean()
+        # only a nearly flat loop gets a cap: ear-clipping a jagged, folded seam loop gives spikes that stand out of
+        # the shell and read as shards in motion; an unclosed loop shows the shader's dark interior instead
+        if s_[2] / np.sqrt(len(Lp)) > max_dev * rad:
+            continue
+        P2 = np.c_[(Lp - c) @ e1, (Lp - c) @ e2]
+        if not simple_polygon(P2):
+            continue
+        tri = earclip(P2)
+        if not len(tri):
+            continue
+        t3 = np.asarray(lp)[tri]
+        # boundary_loops follows the part's face winding: a cap that continues the surface is wound against it
+        fn = np.cross(Vp[t3[:, 1]] - Vp[t3[:, 0]], Vp[t3[:, 2]] - Vp[t3[:, 0]]).sum(0)
+        e0 = Fp[np.isin(Fp, lp).any(1)]
+        part_n = np.cross(Vp[e0[:, 1]] - Vp[e0[:, 0]], Vp[e0[:, 2]] - Vp[e0[:, 0]]).sum(0)
+        out_dir = c - Vp[np.unique(e0)].mean(0) if np.linalg.norm(part_n) < 1e-9 else -part_n
+        t3 = t3 if fn @ (c - Vp.mean(0)) >= 0 or True else t3
+        if fn @ (c - Vp[np.unique(Fp)].mean(0)) < 0:
+            t3 = t3[:, [0, 2, 1]]
+        caps.append(t3)
+    return np.concatenate(caps) if caps else np.zeros((0, 3), int)
+
+
 def stage_segment(a, work):
     fit = json.loads((work / "fit.json").read_text())
     fz = np.load(work / "fit.npz")
@@ -450,7 +716,7 @@ def stage_segment(a, work):
     over = json.loads(Path(fit["joints"]).read_text()) if fit.get("joints") and Path(fit["joints"]).exists() else {}
     v2 = over.get("v2", {})
 
-    raw = raw_in_fit_frame(fit["stl"], T_fit)
+    raw = T_fit.copy() if fit.get("kind") == "glb" else raw_in_fit_frame(fit["stl"], T_fit, fit)
     V, F = weld(raw)
     nf = len(F)
     C = V[F].mean(1)
@@ -617,128 +883,143 @@ def stage_segment(a, work):
                 lab[fs] = np.bincount(lab[nb_]).argmax()
     print("\n".join(report))
 
-    # ---- actuators: at each joint the limb's cross-section through the pivot is enclosed by a ball (multi-axis
-    # joints) or a drum about the joint's dominant axis (hinges: knees, the launcher; share >= hinge_share). The
-    # sculpt inside it is dropped, so any rotation shows actuator, never the cut. Sizes from the section, clamped.
+    # ---- housings (v2.1, 2026-10-23). A seam stays closed under a joint's rotation only if it lies on a surface the
+    # rotation maps onto itself: a sphere about the pivot (ball joints) or a cylinder about the hinge axis (hinges,
+    # the waist's twist). So, in the game's rest frame (where every part already sits re-posed and the animations
+    # turn about the skeleton's own pivots), each joint gets a housing that holds the whole seam between its two
+    # parts: both parts are clipped exactly onto the housing's surface and what lies inside is dropped. Seam
+    # placement per kit: the pair is also tried with the faces near the pivot split by the plane through it, at
+    # three reaches, and the labelling that needs the smallest housing wins.
+    np.savez_compressed(work / "labels.npz", V=V, F=F, lab=lab)   # sculpt-frame labels before the housings (debugging)
     axes = fit.get("axes", {})
-    actuators, act_geo = [], []
-    drop = np.zeros(nf, bool)
     jcfg = v2.get("joints", {})
+    hinge_share = float(v2.get("hinge_share", 0.9))
+    r_cap = float(v2.get("r_cap", 0.065)) * H
+    r_min = float(v2.get("r_min", 0.025)) * H
+    game_of = {}
+    def gpos(node, vid):
+        if node not in game_of:
+            Mx = xform.get(node, np.eye(4)); game_of[node] = V @ Mx[:3, :3].T + Mx[:3, 3]
+        return game_of[node][vid]
+    def housing_for(pp, node, kind_, c, ax, lab_):
+        sel = ((lab_[fa] == pp) & (lab_[fb] == node)) | ((lab_[fa] == node) & (lab_[fb] == pp))
+        vs = np.unique(np.r_[va[sel], vb[sel]])
+        if not len(vs):
+            return None
+        pts = np.r_[gpos(pp, vs), gpos(node, vs)]
+        rel = pts - c
+        if kind_ == "ball":
+            return float(np.percentile(np.linalg.norm(rel, axis=1), 99) * 1.03 + 0.004 * H), 0.0
+        al = rel @ ax
+        pe = np.linalg.norm(rel - al[:, None] * ax, axis=1)
+        return float(np.percentile(pe, 99) * 1.03 + 0.004 * H), float(2 * np.percentile(np.abs(al), 99) * 1.03 + 0.01 * H)
+    plan = []
     for pp, node in sorted(joint_pairs, key=lambda c_: jdepth(c_[1])):
         jname = piv[node]["joint"]
         cfg = jcfg.get(jname, {})
-        if cfg.get("skip"):
+        if cfg.get("skip") or not (lab == node).any() or not (lab == pp).any():
             continue
-        p0 = np.asarray(cfg.get("centre", piv[node]["sculpt"]), float)
-        M = xform[node]
+        c_game = np.asarray(cfg.get("centre_game", piv[node]["game"]), float)
+        p0 = np.asarray(piv[node]["sculpt"], float)
         ax_info = axes.get(jname, {"axis": [1, 0, 0], "share": 0.0})
-        ax = M[:3, :3].T @ np.asarray(ax_info["axis"], float); ax /= np.linalg.norm(ax)
-        if "axis" in cfg:   # config: the joint's working axis (sculpt frame), where falls and get-ups blur the measured one
-            ax = np.asarray(cfg["axis"], float); ax /= np.linalg.norm(ax)
-        kind_ = cfg.get("type", "hinge" if ax_info["share"] >= float(v2.get("hinge_share", 0.9)) else "ball")
-        child = (lab == node)
-        if not child.any():
+        ax = np.asarray(cfg.get("axis", ax_info["axis"]), float); ax /= np.linalg.norm(ax)   # game frame
+        kind_ = cfg.get("type", "hinge" if ax_info["share"] >= hinge_share else "ball")
+        nrm = C[lab == node].mean(0) - p0; nrm /= np.linalg.norm(nrm) + 1e-12   # sculpt frame, toward the child
+        best = None
+        for reach in [None] + [float(x) * H for x in cfg.get("reaches", v2.get("reaches", [0.05, 0.08, 0.11]))]:
+            lab_t = lab.copy()
+            if reach is not None:
+                m_ = ((lab == node) | (lab == pp)) & (np.linalg.norm(C - p0, axis=1) < reach)
+                lab_t[m_] = np.where((C[m_] - p0) @ nrm > 0, node, pp)
+            h = housing_for(pp, node, kind_, c_game, ax, lab_t)
+            if h is None:
+                continue
+            size = h[0] if kind_ == "ball" else h[0] + 0.25 * h[1]
+            if best is None or size < best[0]:
+                best = (size, h, reach, lab_t)
+        if best is None:
             continue
-        nrm = C[child].mean(0) - p0
-        nrm /= np.linalg.norm(nrm) + 1e-12
-        if "normal" in cfg:
-            nrm = np.asarray(cfg["normal"], float); nrm /= np.linalg.norm(nrm)
-        both = ((lab == node) | (lab == pp)) & (np.linalg.norm(C - p0, axis=1) < float(cfg.get("search", 0.12)) * H)
-        # section of those faces by the plane through the pivot
-        Tq = V[F[both]]
-        dq = (Tq - p0) @ nrm
-        Q = []
-        for i0, i1 in ((0, 1), (1, 2), (2, 0)):
-            cr = (dq[:, i0] * dq[:, i1]) < 0
-            tq = dq[cr, i0] / (dq[cr, i0] - dq[cr, i1])
-            Q.append(Tq[cr, i0] + (Tq[cr, i1] - Tq[cr, i0]) * tq[:, None])
-        Q = np.concatenate(Q) if Q else np.zeros((0, 3))
-        if len(Q) < 6:
-            print(f"  {jname}: no section through the pivot, no actuator")
-            continue
-        if not cfg.get("force") and not inside_test(p0[None], V[F])[0]:
-            print(f"  {jname}: pivot outside the shell, no actuator")   # a ball there would hang in the air
-            continue
-        rel = Q - p0
-        along = rel @ ax
-        perp = np.linalg.norm(rel - along[:, None] * ax, axis=1)
-        pct = float(cfg.get("percentile", v2.get("percentile", 65)))
-        lo_, hi_ = float(v2.get("r_min", 0.025)) * H, float(cfg.get("r_max", v2.get("r_max", 0.055) * H))
-        # the limb's outline around the pivot: in 24 directions in the section plane, the nearest section point
-        e1 = np.cross(nrm, ax if abs(nrm @ ax) < 0.95 else [0.0, 0.0, 1.0]); e1 /= np.linalg.norm(e1)
-        e2 = np.cross(nrm, e1)
-        th = np.arctan2(rel @ e2, rel @ e1)
-        sec = ((th + np.pi) / (2 * np.pi) * 24).astype(int) % 24
-        dist3 = np.linalg.norm(rel, axis=1)
-        nearest = np.array([dist3[sec == k_].min() if (sec == k_).any() else np.nan for k_ in range(24)])
-        idx_near = np.array([np.flatnonzero(sec == k_)[dist3[sec == k_].argmin()] for k_ in range(24) if (sec == k_).any()])
-        rel, along, perp = rel[idx_near], along[idx_near], perp[idx_near]
+        _, (R_, L_), reach, lab = best
+        R_ = float(cfg.get("radius", max(R_, r_min)))
+        L_ = float(cfg.get("length", max(L_, 0.8 * R_) if kind_ != "ball" else 0.0))
+        if R_ > r_cap:
+            print(f"  {jname}: the seam reaches {R_:.0f} mm from the pivot; housing {r_cap:.0f} mm, the rest is capped as a contact")
+            R_ = r_cap
+        plan.append((pp, node, jname, kind_, c_game, ax, R_, L_, reach))
+    # final labels may have moved since an earlier joint was sized: size every housing again on them
+    plan2 = []
+    for pp, node, jn, k_, c_, ax, R_, L_, reach in plan:
+        cfg = jcfg.get(jn, {})
+        h = housing_for(pp, node, k_, c_, ax, lab)
+        if h and "radius" not in cfg:
+            R_ = max(h[0], r_min)
+            L_ = float(cfg.get("length", max(h[1], 0.8 * R_))) if k_ != "ball" else 0.0
+        R_ = min(R_, r_cap)
+        if k_ != "ball":
+            L_ = min(L_, float(cfg.get("max_length", v2.get("max_length", 2.4))) * R_)
+        plan2.append((pp, node, jn, k_, c_, ax, R_, L_, reach))
+    plan = plan2
+
+    def implicit(kind_, c_, ax, R_, L_):
         if kind_ == "ball":
-            r = float(np.clip(np.percentile(np.linalg.norm(rel, axis=1), pct) * 1.03, lo_, hi_))
-            ln = 0.0
-        else:
-            r = float(np.clip(np.percentile(perp, pct) * 1.03, lo_, hi_))
-            ln = float(max(2 * np.percentile(np.abs(along), 80), 0.6 * r))
-        r = float(cfg.get("radius", r)); ln = float(cfg.get("length", ln))
-        # an actuator may show at the joint, but not stand out of the body: shrink it until at most `protrude` of
-        # its surface lies outside the rest-pose shell
-        maxout = float(cfg.get("protrude", v2.get("protrude", 0.2)))
-        for _ in range(14):
-            Vt, _ = actuator_mesh(kind_, p0, ax, r, ln, sides=16) if kind_ != "ball" else (icosphere(r, 2)[0] + p0, None)
-            Vt = Vt[::max(1, len(Vt) // 300)]
-            if 1 - inside_test(Vt, V[F]).mean() <= maxout:
-                break
-            r *= 0.9; ln *= 0.95
-        if r < lo_ * 0.6:
-            print(f"  {jname}: actuator would stand out of the body at any size, none")
-            continue
-        if kind_ == "ball":
-            inside = np.linalg.norm(C - p0, axis=1) < r * 0.97
-        else:
-            rc = C - p0
-            al_c = rc @ ax
-            pe_c = np.linalg.norm(rc - al_c[:, None] * ax, axis=1)
-            inside = (pe_c < r * 0.97) & (np.abs(al_c) < ln / 2 * 0.97)
-        drop |= inside & ((lab == node) | (lab == pp) | bool(cfg.get("drop_any", False)))
-        if cfg.get("relabel"):   # config: next to the actuator the plane through the pivot splits the pair, so the seam
-            # meets the actuator instead of running off across the armour (a twist joint's waist)
-            band = float(cfg.get("relabel_band", 0.6)) * max(r, ln / 2)
-            rc = C - p0
-            near_ = ((lab == node) | (lab == pp)) & ~inside & (np.abs(rc @ nrm) < band) & \
-                    (np.linalg.norm(rc - (rc @ ax)[:, None] * ax, axis=1) < float(cfg.get("relabel_radius", 1.8)) * r)
-            lab[near_] = np.where((rc[near_] @ nrm) > 0, node, pp)
-            print(f"  {jname}: {int(near_.sum())} faces beside the actuator split by the pivot plane")
-        actuators.append({"node": jname, "part": names[node], "parent": names[pp], "kind": kind_, "radius_mm": r,
-                          "length_mm": ln, "centre_sculpt": p0.tolist(), "axis_sculpt": ax.tolist(),
-                          "share": ax_info.get("share", 0.0)})
-        act_geo.append((node, kind_, p0, ax, r, ln))
-        print(f"  {jname}: {kind_} r {r:.0f} mm" + (f" length {ln:.0f} mm" if kind_ != "ball" else "") +
-              f", {int((inside & ((lab == node) | (lab == pp))).sum())} faces inside dropped")
-    keepf = ~drop
+            return lambda X: np.linalg.norm(X - c_, axis=1) - R_
+        def f(X):
+            rel = X - c_; al = rel @ ax
+            return np.maximum(np.linalg.norm(rel - al[:, None] * ax, axis=1) - R_, np.abs(al) - L_ / 2)
+        return f
+
     out_P, out_F, out_part, out_kind = [], [], [], []
-    nv = 0
-    for node in sorted(set(lab[keepf].tolist())):
-        m = (lab == node) & keepf
+    actuators, nv = [], 0
+    parts_done = {}
+    depth_of = {n_: (jdepth(n_) if n_ in piv else 0) for n_ in set(lab.tolist())}
+    for node in sorted(set(lab.tolist()), key=lambda n_: depth_of[n_]):   # parents first: a child trims against them
+        m = lab == node
         used = np.unique(F[m].ravel())
-        remap = -np.ones(len(V), int); remap[used] = np.arange(len(used)) + nv
-        out_P.append(V[used]); out_F.append(remap[F[m]]); out_part.append(np.full(m.sum(), node)); out_kind.append(np.zeros(m.sum(), int))
-        nv += len(used)
-    for node, kind_, p0, ax, r, ln in act_geo:
-        Vs, Fs = actuator_mesh(kind_, p0, ax, r * 0.985, ln)
+        remap = -np.ones(len(V), int); remap[used] = np.arange(len(used))
+        Vp, Fp = gpos(node, used), remap[F[m]]
+        for pp, ch, jn, k_, c_, ax, R_, L_, reach in plan:
+            if node in (pp, ch):
+                f = implicit(k_, c_, ax, R_, L_)
+                Vp, Fp = clip_implicit(Vp, Fp, f)
+                keep = f(Vp[Fp].mean(1)) >= 0
+                Fp = Fp[keep]
+        # running clearance (v2.1): a moving part keeps none of its faces within `clearance` of a part it moves
+        # against (its joint partners and the parts the print fused it to), so outside the housings two parts
+        # never touch and nothing can lift off; the trimmed edges are capped below
+        clr = float(v2.get("clearance", 0.0)) * H
+        if clr > 0:
+            movers = [pp for pp, ch, *_ in plan if ch == node] + [a_ for a_, b_ in cuts if b_ == node and (a_, b_) not in joint_pairs]
+            for other in movers:
+                if other not in parts_done:
+                    continue
+                oV, oF = parts_done[other]
+                tree_o = cKDTree(np.r_[oV, oV[oF].mean(1)])
+                cen = Vp[Fp].mean(1)
+                near_o = tree_o.query(cen, distance_upper_bound=clr)[0] < clr
+                if near_o.any():
+                    Fp = Fp[~near_o]
+        parts_done[node] = (Vp, Fp)
+        # every other open loop (contacts the print fused: a plate pressed on a thigh, an arm on a hip) gets a cap,
+        # so parts that move apart show closed surfaces, not holes
+        mine = [(implicit(k_, c_, ax, R_, L_)) for pp, ch, jn, k_, c_, ax, R_, L_, reach in plan if node in (pp, ch)]
+        on_housing = lambda Q: any(np.abs(f(Q)).max() < 0.004 * H for f in mine)   # wholly on a housing: it covers
+        capf = cap_loops(Vp, Fp, on_housing) if v2.get("caps", True) else np.zeros((0, 3), int)
+        Fall = np.r_[Fp, capf]
+        used2 = np.unique(Fall.ravel())
+        remap2 = -np.ones(len(Vp), int); remap2[used2] = np.arange(len(used2))
+        out_P.append(Vp[used2]); out_F.append(remap2[Fall] + nv); nv += len(used2)
+        out_part.append(np.full(len(Fall), node)); out_kind.append(np.r_[np.zeros(len(Fp), int), np.ones(len(capf), int)])
+    for pp, ch, jn, k_, c_, ax, R_, L_, reach in plan:
+        Vs, Fs = actuator_mesh(k_, c_, ax, R_ * 0.985, L_ * 0.985 if L_ else 0.0)
         out_P.append(Vs); out_F.append(Fs + nv); nv += len(Vs)
-        out_part.append(np.full(len(Fs), node)); out_kind.append(np.full(len(Fs), 3))
-    P = np.concatenate(out_P); Fo = np.concatenate(out_F); part = np.concatenate(out_part); kind = np.concatenate(out_kind)
-    # re-pose rigidly into the rest pose (game mm, Z up)
-    vpart = np.zeros(len(P), int); vpart[Fo.ravel()] = np.repeat(part, 3)
-    Pr = P.copy()
-    for node, M in xform.items():
-        sel = vpart == node
-        Pr[sel] = P[sel] @ M[:3, :3].T + M[:3, 3]
-    for act in actuators:
-        node = next(k for k, v in piv.items() if names[k] == act["part"])
-        M = xform[node]
-        act["centre_game"] = (M[:3, :3] @ np.asarray(act["centre_sculpt"]) + M[:3, 3]).tolist()
-        act["axis_game"] = (M[:3, :3] @ np.asarray(act["axis_sculpt"])).tolist()
+        out_part.append(np.full(len(Fs), ch)); out_kind.append(np.full(len(Fs), 3))
+        actuators.append({"node": jn, "part": names[ch], "parent": names[pp], "kind": k_, "radius_mm": R_,
+                          "length_mm": L_, "centre_game": c_.tolist(), "axis_game": ax.tolist(),
+                          "seam_reach_mm": reach})
+        print(f"  {jn}: {k_} housing r {R_:.0f} mm" + (f" x {L_:.0f} mm" if k_ != "ball" else "") +
+              (f", seam split by the pivot plane within {reach:.0f} mm" if reach else ""))
+    Pr = np.concatenate(out_P); Fo = np.concatenate(out_F); part = np.concatenate(out_part); kind = np.concatenate(out_kind)
+    P = Pr
     # normals: smooth across edges up to 35 degrees within a part, hard elsewhere (per-corner)
     N = corner_normals(Pr, Fo, part, float(v2.get("smooth_deg", 35.0)))
     np.savez_compressed(work / "rest.npz", P=Pr, F=Fo, part=part, kind=kind, N=N, P_sculpt=P)
@@ -844,7 +1125,7 @@ def stamp_text(text, w_m, h_m, ppm=400):
             font = ImageFont.truetype(str(fp), int(H_ * 0.9))
     font = font or ImageFont.load_default()
     bb = d.textbbox((0, 0), text, font=font)
-    d.text(((W_ - (bb[2] - bb[0])) / 2 - bb[0], (H_ - (bb[3] - bb[1])) / 2 - bb[1]), text, fill=255, font=font)
+    d.text((W_ - (bb[2] - bb[0]) - 0.04 * W_ - bb[0], (H_ - (bb[3] - bb[1])) / 2 - bb[1]), text, fill=255, font=font)
     return np.asarray(im, float) / 255.0
 
 
@@ -889,7 +1170,7 @@ def stage_paint(a, work):
         q = pos[ys[m], xs[m]]
         # mechs: the sculpt's part is mapped onto the original part's bounds (proportions differ);
         # rigid units are already fitted onto the original (stl_hd), so their texels look up directly
-        qn = q if fit.get("kind") == "rigid" else lo_o + (q - lo_v) / np.maximum(hi_v - lo_v, 1) * (hi_o - lo_o)
+        qn = q if fit.get("kind") in ("rigid", "glb") else lo_o + (q - lo_v) / np.maximum(hi_v - lo_v, 1) * (hi_o - lo_o)
         _, k = cKDTree(spts_mm[sm]).query(qn)
         tz[ys[m], xs[m]] = szone[sm][k]
     # 2. per face, then per panel: area-weighted majority, so zone edges follow the sculpt's own panel lines
@@ -923,8 +1204,8 @@ def stage_paint(a, work):
     mask = np.zeros((res, res, 4), np.uint8)
     mask[..., 0] = np.where(zt == 1, 255, 0)
     mask[..., 1] = np.where(zt == 2, 255, 0)
-    mask[..., 2] = np.where(zt == 3, 255, np.where(zt == 4, 110, np.where(zt == 5, 60, 0)))
-    mask[..., 3] = np.where(zt == 5, 255, 0)
+    mask[..., 2] = np.where(zt == 3, 255, np.where(zt == 4, 110, 0))
+    mask[..., 3] = 0
     # 3. decals: a unit number on the biggest flat panels facing out of the torso sides and the shins' fronts
     decal = np.zeros((res, res))
     parea = np.zeros(pid.max() + 1)
@@ -953,8 +1234,16 @@ def stage_paint(a, work):
         n_ = pnrm[k]
         up = np.array([0, 0, 1.0]) - n_[2] * n_; up /= np.linalg.norm(up) + 1e-12
         rt = np.cross(up, n_)
-        hm = sp.get("h", 0.4); wm = hm * 0.62 * len(sp["text"])
+        hm = sp.get("h", 0.4); wm = hm * 0.62 * len(sp["text"]) + (0.75 * hm if v2.get("insignia", True) else 0.0)
         img = stamp_text(sp["text"], wm, hm)
+        if v2.get("insignia", True):   # a generic shield crest left of the number (insignia schemes show it)
+            sh = np.zeros_like(img); h_, w_ = sh.shape
+            from PIL import Image as _I, ImageDraw as _D
+            im_ = _I.new("L", (w_, h_), 0); d_ = _D.Draw(im_)
+            s0 = h_ * 0.8; x0 = 0.02 * w_; y0 = 0.1 * h_
+            d_.polygon([(x0, y0), (x0 + s0 * 0.7, y0), (x0 + s0 * 0.7, y0 + s0 * 0.55), (x0 + s0 * 0.35, y0 + s0),
+                        (x0, y0 + s0 * 0.55)], fill=128)
+            img = np.maximum(img, np.asarray(im_, float) / 255.0)
         sel = cover & np.isin(fid, fs)
         q = pos[sel] - c
         u_ = (q @ rt) / 1000.0 / wm + 0.5
@@ -964,6 +1253,131 @@ def stage_paint(a, work):
         val[inb] = img[(v_[inb] * img.shape[0]).astype(int), (u_[inb] * img.shape[1]).astype(int)]
         dv = decal[sel]; decal[sel] = np.maximum(dv, val)
         print(f"  decal '{sp['text']}' on {sp['part']} panel {k} ({parea[k] / 1e6:.2f} m2)")
+    # 3b. scheme data (v2.1): body regions, inset piping, a leg stripe, a limb band, camouflage noise, soot, glass
+    Hm = float(P[:, 2].max())                    # height, mm
+    sc_ = Hm / 9000.0                            # sizes below are for a 9 m mech
+    REG = {"body": 0, "head": 1, "arms": 2, "upper_legs": 3, "lower_legs": 4, "feet": 5, "weapons": 6, "plates": 7}
+    def region_of(nm):
+        n_ = nm.lower()
+        if any(w in n_ for w in ("gun", "launcher", "missile", "lrmpod", "weapon")):
+            return REG["weapons"]
+        if "uarm" in n_ or "larm" in n_ or "hand" in n_:
+            return REG["arms"]
+        if "uleg" in n_:
+            return REG["upper_legs"]
+        if "lleg" in n_ or "mleg" in n_ or "shin" in n_:
+            return REG["lower_legs"]
+        if "foot" in n_ or "ankle" in n_:
+            return REG["feet"]
+        return REG["body"]
+    reg_f = np.array([region_of(names[pn]) for pn in part])
+    sk, sb = R.load_glb(str(work / "skel.glb"))
+    Wsk = R.world_matrices(sk)
+    node_mm = {n.get("name", ""): S.sc(Wsk[i][:3, 3]) for i, n in enumerate(sk["nodes"])}
+    Cf = P[F].mean(1)
+    cockpit = node_mm.get("cockpit")
+    if cockpit is not None and fit.get("kind") != "rigid":
+        head_m = (reg_f == REG["body"]) & (np.linalg.norm(Cf - cockpit, axis=1) < 0.12 * Hm) & (Cf[:, 2] > cockpit[2] - 0.05 * Hm)
+        reg_f[head_m] = REG["head"]
+    # outer plates: big panels on the limbs (and the torso's shoulders) that face away from their part's middle
+    pid_area = np.zeros(pid.max() + 1); np.add.at(pid_area, pid, farea)
+    pc = np.zeros((pid.max() + 1, 3)); np.add.at(pc, pid, Cf * farea[:, None]); pc /= np.maximum(pid_area, 1e-9)[:, None]
+    part_c = {pn: Cf[part == pn].mean(0) for pn in np.unique(part)}
+    big = pid_area[pid] > 0.25e6 * sc_ ** 2
+    outward = np.array([(pnrm[pid[f_]] @ (pc[pid[f_]] - part_c[part[f_]])) for f_ in range(len(F))]) > 0
+    limb = np.isin(reg_f, [REG["arms"], REG["upper_legs"], REG["lower_legs"]])
+    shoulder = (reg_f == REG["body"]) & (np.abs(Cf[:, 0]) > 0.22 * np.ptp(P[:, 0])) & (Cf[:, 2] > 0.55 * Hm) & (np.abs(fn[:, 0]) > 0.5)
+    plate = (big & outward & limb) | (big & shoulder)
+    if fit.get("kind") != "rigid":
+        reg_f[plate & (kind == 0)] = REG["plates"]
+    reg_f[kind == 3] = REG["weapons"]            # housings: steel in every scheme
+    # texel lookups at the zones resolution
+    zr = int(v2.get("zones_px", res // 2))
+    st_ = res // zr
+    ys2, xs2 = np.mgrid[st_ // 2:res:st_, st_ // 2:res:st_]
+    cov2 = cover[ys2, xs2]
+    f2 = np.maximum(fid[ys2, xs2], 0)
+    p2 = pos[ys2, xs2]
+    zones = np.zeros((zr, zr, 4), np.uint8)
+    zones[..., 0] = (reg_f[f2] * 16 + 8).astype(np.uint8)
+    # piping: a band 12 to 35 mm in from the edge of every big panel
+    edge_pts = []
+    pidF = pid
+    fa_, fb_, va_, vb_ = face_adjacency(np.unique(np.round(P, 1), axis=0, return_inverse=True)[1].ravel()[F])
+    keyP = np.unique(np.round(P, 1), axis=0, return_inverse=True)
+    Vk = keyP[0]
+    diffp = pidF[fa_] != pidF[fb_]
+    for a_, b_ in zip(Vk[va_[diffp]], Vk[vb_[diffp]]):
+        n_ = max(2, int(np.linalg.norm(b_ - a_) / (8 * sc_)))
+        edge_pts.append(a_ + (b_ - a_) * np.linspace(0, 1, n_)[:, None])
+    edge_pts = np.concatenate(edge_pts) if edge_pts else np.zeros((1, 3))
+    de = cKDTree(edge_pts).query(p2.reshape(-1, 3))[0].reshape(zr, zr)
+    bigp = (pid_area[pid[f2]] > 0.2e6 * sc_ ** 2) & np.isin(reg_f[f2], [REG["body"], REG["arms"], REG["upper_legs"], REG["lower_legs"], REG["plates"], REG["head"]])
+    pip = np.clip(1 - np.abs(de - 23 * sc_) / (11 * sc_), 0, 1) * bigp
+    zones[..., 1] = (pip * 255).astype(np.uint8)
+    # leg stripe: a vertical line down the middle of each big leg panel; limb band: a horizontal band across arm and
+    # thigh panels, a third of the way up
+    legs_ = np.isin(reg_f[f2], [REG["upper_legs"], REG["lower_legs"], REG["plates"]]) & (pid_area[pid[f2]] > 0.3e6 * sc_ ** 2)
+    nP = pnrm[pid[f2]]
+    lat = np.cross(nP, [0, 0, 1.0]); lat /= np.linalg.norm(lat, axis=-1, keepdims=True) + 1e-9
+    rel_ = p2 - pc[pid[f2]]
+    stripe = np.clip(1 - np.abs((rel_ * lat).sum(-1)) / (45 * sc_), 0, 1) ** 0.5 * legs_ * (np.abs(nP[..., 2]) < 0.7)
+    zones[..., 2] = ((stripe > 0.25) * 255).astype(np.uint8)
+    armsb = np.isin(reg_f[f2], [REG["arms"], REG["upper_legs"], REG["plates"]]) & (pid_area[pid[f2]] > 0.3e6 * sc_ ** 2)
+    hgt = np.zeros(pid.max() + 1); np.maximum.at(hgt, pid, Cf[:, 2] - pc[pid][:, 2])
+    band = (np.abs(rel_[..., 2] - 0.33 * hgt[pid[f2]]) < 55 * sc_) & armsb & (np.abs(nP[..., 2]) < 0.6)
+    zones[..., 3] = (band * 255).astype(np.uint8)
+    zones = dilate(zones, cov2)
+    # camouflage noise: three octaves of 3D noise at the rest-pose position, so a pattern sits still on a moving part
+    cr = int(v2.get("camo_px", 512)); st3 = res // cr
+    ys3, xs3 = np.mgrid[st3 // 2:res:st3, st3 // 2:res:st3]
+    p3 = pos[ys3, xs3].reshape(-1, 3)
+    rng = np.random.default_rng(1234)
+    camo = np.zeros((cr * cr, 4))
+    for ch, scale in enumerate((0.17 * Hm, 0.09 * Hm, 0.045 * Hm)):
+        acc = np.zeros(len(p3))
+        for _ in range(14):
+            d_ = rng.normal(size=3); d_ /= np.linalg.norm(d_)
+            acc += np.sin(p3 @ d_ * (2 * np.pi / scale) * rng.uniform(0.7, 1.4) + rng.uniform(0, 2 * np.pi))
+        camo[:, ch] = 0.5 + 0.5 * np.tanh(acc / np.sqrt(14) * 1.1)
+    camo[:, 3] = 1.0
+    camo = dilate((camo.reshape(cr, cr, 4) * 255).astype(np.uint8), cover[ys3, xs3])
+    # soot around muzzles, jump jets and smoke vents
+    vents = np.array([v_ for k_, v_ in node_mm.items() if k_.lower().startswith(("weapon_", "jumpjet", "smoke_"))])
+    soot = np.zeros((zr, zr))
+    if len(vents):
+        dv = cKDTree(vents).query(p2.reshape(-1, 3))[0].reshape(zr, zr)
+        soot = np.clip(1 - dv / (0.07 * Hm), 0, 1) ** 1.5
+    # glass and lights: the panels at the cockpit node that face forward are the canopy; faces at a spotlight are lights
+    gl_code = np.zeros(len(F), np.uint8)
+    fwd = np.array([0, -1.0, 0])          # model forward (+Z glTF) in this frame
+    if cockpit is not None and fit.get("kind") != "rigid":
+        # canopy: small forward-facing panels at the cockpit node, the forward-most first, at most ~0.5 m2 in all
+        cand = [k_ for k_ in np.unique(pid[(np.linalg.norm(Cf - cockpit, axis=1) < 0.06 * Hm) & (kind == 0)])
+                if pnrm[k_] @ fwd > 0.6 and 0.01e6 * sc_ ** 2 < pid_area[k_] < 0.3e6 * sc_ ** 2]
+        cand = sorted(cand, key=lambda k_: pc[k_] @ fwd, reverse=True)
+        picked, tot = [], 0.0
+        for k_ in cand[:int(v2.get("canopy_panels", 3))]:
+            if tot + pid_area[k_] > 0.5e6 * sc_ ** 2:
+                break
+            picked.append(k_); tot += pid_area[k_]
+        cand = picked
+        for k_ in v2.get("canopy_extra", []):
+            cand.append(k_)
+        gl_code[np.isin(pid, cand)] = 255
+    for k_, v_ in node_mm.items():
+        if k_.lower().startswith("spot_") or k_.lower().startswith("light"):
+            gl_code[(np.linalg.norm(Cf - v_, axis=1) < 0.025 * Hm) & (kind == 0)] = 100
+    for rule in v2.get("lenses", []):   # config: [{"min": [..], "max": [..]}] faces that are sensor lenses (green)
+        m_ = (Cf >= rule["min"]).all(1) & (Cf <= rule["max"]).all(1)
+        gl_code[m_] = 190
+    zone_f[gl_code > 0] = 5
+    print(f"paint: regions " + ", ".join(f"{k_} {np.mean(reg_f == v_):.2f}" for k_, v_ in REG.items()) +
+          f"; canopy {int((gl_code == 255).sum())} faces, lights {int((gl_code == 100).sum())}")
+    gtex = np.where(cover, gl_code[np.maximum(fid, 0)], 0)
+    mask[..., 3] = gtex
+    for c_ in (0, 1, 2):
+        mask[..., c_][gtex > 0] = 0        # glass is never team paint, camo or metal
     # 4. curvature from the bevelled normal map: divergence of its tangent-plane tilt (convex edges > 0.5)
     nb = np.asarray(Image.open(work / "bake_normal.png").convert("RGB"), float) / 127.5 - 1.0
     if (work / "bake_normal_true.png").exists():   # sculpt = game mesh: keep only the bevel's rounding
@@ -978,16 +1392,24 @@ def stage_paint(a, work):
     div = np.gradient(nx, axis=1) + np.gradient(ny, axis=0)
     inner = cover & np.roll(cover, 1, 0) & np.roll(cover, -1, 0) & np.roll(cover, 1, 1) & np.roll(cover, -1, 1)
     div = np.where(inner, div, 0.0)
-    div = gaussian_filter(div, 0.8)
-    curv = np.clip(0.5 + div * float(v2.get("curv_gain", 6.0)), 0, 1)
+    div = gaussian_filter(div, 1.6)   # the bevel bake is noisy: unsmoothed, every texel reads as an edge (speckle)
+    curv = np.clip(0.5 + div * float(v2.get("curv_gain", 10.0)), 0, 1)
     ao = np.asarray(Image.open(work / "bake_ao.png").convert("L"), float) / 255.0
-    detail = np.zeros((res, res, 4), np.uint8)
-    detail[..., 0] = (ao * 255).astype(np.uint8)
-    detail[..., 1] = (curv * 255).astype(np.uint8)
-    detail[..., 2] = (np.clip(decal, 0, 1) * 255).astype(np.uint8)
-    detail[..., 3] = 255
+    ao = np.where(cover, gaussian_filter(ao * cover, 1.4) / np.maximum(gaussian_filter(cover.astype(float), 1.4), 1e-3), ao)  # bake noise
+    from scipy.ndimage import zoom as _zoom
+    def down(a_):   # area-average to the zones resolution (detail is 1024 for a 2048 atlas: the 16 MB budget)
+        k_ = res // zr
+        return a_.reshape(zr, k_, zr, k_).mean((1, 3))
+    covd = down(cover.astype(float))
+    detail = np.zeros((zr, zr, 4), np.uint8)
+    detail[..., 0] = (np.clip(down(ao * cover) / np.maximum(covd, 1e-6), 0, 1) * 255).astype(np.uint8)
+    detail[..., 1] = (np.clip(down(curv * cover) / np.maximum(covd, 1e-6), 0, 1) * 255).astype(np.uint8)
+    detail[..., 2] = (np.clip(down(np.clip(decal, 0, 1)), 0, 1) * 255).astype(np.uint8)
+    detail[..., 3] = (soot * 255).astype(np.uint8)
     mask = dilate(mask, cover)
-    detail = dilate(detail, cover)
+    detail = dilate(detail, covd > 0.25)
+    Image.fromarray(zones, "RGBA").save(work / "zones.png", optimize=True)
+    Image.fromarray(camo, "RGBA").save(work / "camo.png", optimize=True)
     nmap = dilate(nmap_img, cover)
     Image.fromarray(mask, "RGBA").save(work / "mask.png", optimize=True)
     Image.fromarray(detail, "RGBA").save(work / "detail.png", optimize=True)
@@ -1028,6 +1450,31 @@ def build_glb(work, out_glb, uv_corner=None, textures=None, folder="mechs"):
     inv = inv.ravel()
     pos, nrm, uv, own = pos[first], nrm[first], uv[first], own[first]
     tris = inv.reshape(-1, 3)
+    kind_v = np.zeros(len(pos), int)
+    kind_v[tris.ravel()] = np.repeat(kind, 3)
+    # optional soft band (v2 config "soft_band", a fraction of the height): where the print fused two moving parts,
+    # vertices within the band of the other part blend toward it (50/50 at the seam), so a contact can't lift off
+    fitc = json.loads((work / "fit.json").read_text())
+    overc = json.loads(Path(fitc["joints"]).read_text()) if fitc.get("joints") and Path(fitc["joints"]).exists() else {}
+    band = float(overc.get("v2", {}).get("soft_band", 0.0)) * float(pos[:, 1].max())
+    w2_node = np.full(len(pos), -1); w2 = np.zeros(len(pos))
+    if band > 0:
+        names_ = [n.get("name", "") for n in g["nodes"]]
+        pairs = [tuple(p_) for p_ in rest.get("joint_pairs", []) + rest.get("contacts", [])]
+        for pa_, ch_ in pairs:
+            if pa_ not in names_ or ch_ not in names_:
+                continue
+            A_, B_ = names_.index(pa_), names_.index(ch_)
+            for X_, Y_ in ((A_, B_), (B_, A_)):
+                mx = (own == X_) & (kind_v != 3); my = (own == Y_) & (kind_v != 3)
+                if not mx.any() or not my.any():
+                    continue
+                d_ = cKDTree(pos[my]).query(pos[mx], distance_upper_bound=band)[0]
+                wv = np.where(np.isfinite(d_), 0.5 * (1 - np.minimum(d_, band) / band), 0.0)
+                ix = np.flatnonzero(mx)
+                better = wv > w2[ix]
+                w2[ix[better]] = wv[better]; w2_node[ix[better]] = Y_
+        print(f"  soft band {band * 1000:.0f} mm: {int((w2 > 0).sum())} vertices blended")
     # every original part node stays a joint even if it owns no triangles now (the launcher merged into the
     # torso): MechStage frames a model by its bones, and a missing top bone crops the lab's view
     fitj = json.loads((work / "fit.json").read_text())
@@ -1038,12 +1485,21 @@ def build_glb(work, out_glb, uv_corner=None, textures=None, folder="mechs"):
     w = R.GlbWriter(g, b)
     g["meshes"] = []
     g["materials"] = []
+    # rest-pose position as a vertex colour (0..1 over the bounds, extent in the rig sidecar): the shader samples its
+    # weathering noise there, in metres, so it is coherent across UV islands and stays put on a moving part
+    lo_p, ext_p = pos.min(0), np.maximum(np.ptp(pos, 0), 1e-6)
+    colr = np.c_[(pos - lo_p) / ext_p, np.ones(len(pos))]
     attrs = {"POSITION": w.accessor(pos.astype(np.float32), "VEC3", target=34962, minmax=True),
+             "COLOR_0": w.accessor(colr.astype(np.float32), "VEC4", target=34962),
              "NORMAL": w.accessor(nrm.astype(np.float32), "VEC3", target=34962),
              "TEXCOORD_0": w.accessor(uv.astype(np.float32), "VEC2", target=34962),
-             "JOINTS_0": w.accessor(np.c_[[slot[o] for o in own], np.zeros((len(own), 3))].astype(np.uint16), "VEC4", comp=5123, target=34962),
-             "WEIGHTS_0": w.accessor(np.c_[np.ones(len(own)), np.zeros((len(own), 3))].astype(np.float32), "VEC4", target=34962)}
+             "JOINTS_0": w.accessor(np.c_[[slot[o] for o in own], [slot.get(int(o2), 0) if o2 >= 0 else 0 for o2 in w2_node],
+                                          np.zeros((len(own), 2))].astype(np.uint16), "VEC4", comp=5123, target=34962),
+             "WEIGHTS_0": w.accessor(np.c_[1.0 - w2, w2, np.zeros((len(own), 2))].astype(np.float32), "VEC4", target=34962)}
     ind = w.accessor(tris.reshape(-1).astype(np.uint32), "SCALAR", comp=5125, target=34963)
+    if not textures:   # the skeleton file still carries the original's texture: not part of a v2 model
+        for k_ in ("images", "textures", "samplers"):
+            g.pop(k_, None)
     mat = {"name": "hd_v2", "pbrMetallicRoughness": {"baseColorFactor": [0.5, 0.5, 0.5, 1], "metallicFactor": 0.4, "roughnessFactor": 0.6},
            "doubleSided": True}
     if textures:
@@ -1085,10 +1541,12 @@ def build_glb(work, out_glb, uv_corner=None, textures=None, folder="mechs"):
         acts.append({"node": a_["part"], "joint": a_["node"], "kind": a_["kind"], "radius": a_["radius_mm"] / 1000.0,
                      "length": a_.get("length_mm", 0.0) / 1000.0, "axis": (axl / np.linalg.norm(axl)).tolist(),
                      "centre": (np.linalg.inv(worlds[node]) @ c)[:3].tolist()})
-    n0 = int((kind == 0).sum())
+    n0 = int((kind == 0).sum()); n1 = n0 + int((kind == 1).sum())
     rig = {"model": out_glb.name, "made_by": "tools/art/hd_v2.py", "actuators": acts, "filler_faces": [[n0, nf]],
+           "cap_faces": [[n0, n1]],
            "joint_pairs": rest.get("joint_pairs", []), "contacts": rest.get("contacts", []),
-           "parts": {names[n]: int((part == n).sum()) for n in joints}, "tris": int(nf)}
+           "parts": {names[n]: int((part == n).sum()) for n in joints}, "tris": int(nf),
+           "rest_min": lo_p.tolist(), "rest_extent": ext_p.tolist()}
     out_glb.with_suffix(".rig.json").write_text(json.dumps(rig, indent=1))
     print(f"write: {out_glb} ({nf} tris, {len(pos)} verts, {len(joints)} parts)")
 
@@ -1183,7 +1641,7 @@ def stage_install(a, work):
     rig["texture_px"] = int(np.load(work / "bake_cover.npy").shape[0])
     shutil.copy2(glb, dst / f"{a.mech}.glb")
     (dst / f"{a.mech}.rig.json").write_text(json.dumps(rig, indent=1) + "\n")
-    for k in ("mask", "detail", "normal"):
+    for k in ("mask", "detail", "normal", "zones", "camo"):
         shutil.copy2(work / f"{k}.png", dst / f"{a.mech}_{k}.png")
         imp = dst / f"{a.mech}_{k}.png.import"
         if not imp.exists():

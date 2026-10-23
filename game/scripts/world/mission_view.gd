@@ -207,6 +207,13 @@ func report() -> Dictionary:
 	return MissionReport.from_sim(sm, title, GameData)
 
 
+## Repaint the player's units with the player's scheme (the pause menu's paint panel).
+func repaint_player() -> void:
+	for v in views.values():
+		if v.mech.is_player and v.model:
+			v._paint(v.model)
+
+
 func _add_view(m: SimUnit) -> void:
 	var v := MechView.new()
 	add_child(v)

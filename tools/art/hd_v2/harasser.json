@@ -1,0 +1,49 @@
+{
+ "yaw": 90,
+ "mount": [
+  {
+   "comp": [
+    5,
+    3,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ],
+   "node": "weapon_01",
+   "lift": -0.3
+  },
+  {
+   "comp": [
+    2,
+    4,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+   ],
+   "node": "weapon_02",
+   "lift": -0.3
+  }
+ ],
+ "v2": {},
+ "_from": "original/hd/harasser/provenance.json joints (the v1 fit), copied by hd_v2_rollout.py"
+}

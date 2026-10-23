@@ -28,7 +28,7 @@ func _aspect() -> float:
 	return size.x / maxf(1.0, size.y)
 
 
-func show_mech(chassis: String, paint: Array, yaw_deg := -28.0) -> void:
+func show_mech(chassis: String, paint, yaw_deg := -28.0) -> void:
 	studio.yaw = yaw_deg
 	studio.show(chassis, paint)
 	studio.frame(_aspect())
@@ -36,7 +36,7 @@ func show_mech(chassis: String, paint: Array, yaw_deg := -28.0) -> void:
 
 ## Any mission model by kind: "mech" (as show_mech), "vehicle" or "object" (the same
 ## HD-first order the mission view uses). Returns false when there is no model.
-func show_model(kind: String, name: String, paint: Array, yaw_deg := -28.0) -> bool:
+func show_model(kind: String, name: String, paint, yaw_deg := -28.0) -> bool:
 	studio.yaw = yaw_deg
 	var ok := studio.show_kind(kind, name, paint)
 	studio.frame(_aspect())
@@ -126,7 +126,7 @@ class Studio:
 		root.add_child(cam)
 		cam.current = true
 
-	func show(chassis: String, paint: Array) -> void:
+	func show(chassis: String, paint) -> void:
 		show_kind("mech", chassis, paint)
 
 	func clear() -> void:
@@ -135,12 +135,12 @@ class Studio:
 			model.queue_free()
 			model = null
 
-	func show_kind(kind: String, name: String, paint: Array) -> bool:
+	func show_kind(kind: String, name: String, paint) -> bool:
 		clear()
 		var folder: String = {"mech": "mechs", "vehicle": "vehicles"}.get(kind, "objects")
 		var tries: Array = [["_hd", "_hd"], ["", ""]]
 		if kind == "object":
-			tries = [["_cad", ""], ["_hdtex", ""], ["_hd", ""], ["", ""]]
+			tries = [["_cad", ""], ["_hd", ""], ["_hdtex", ""], ["", ""]]  # as ObjectsView
 		var path := ArtV2.model_path(folder, name)  # HD rework, dev switch
 		var paint_name := name + "_v2" if path != "" else name
 		for t in (tries if path == "" else []):
@@ -155,8 +155,11 @@ class Studio:
 		pivot.add_child(model)
 		if kind == "object" and path.begins_with("res://assets/v2/"):
 			ArtV2.dress_object(model, name)
-		if paint.size() == 3 and kind != "object":
-			MechPaint.apply(model, paint_name, MechPaint.argb(int(paint[0])), MechPaint.argb(int(paint[1])), MechPaint.argb(int(paint[2])), folder)
+		# paint: a scheme (Dictionary, e.g. PaintScheme.player()) or a mission triple [hl1, hl2, base]
+		if kind != "object" and paint is Dictionary and not (paint as Dictionary).is_empty():
+			MechPaint.apply_scheme(model, paint_name, paint, folder)
+		elif kind != "object" and paint is Array and (paint as Array).size() == 3:
+			MechPaint.apply_scheme(model, paint_name, PaintScheme.for_triple(paint), folder)
 		var player: AnimationPlayer = model.find_child("AnimationPlayer", true, false)
 		if player and player.has_animation("Idle"):
 			player.get_animation("Idle").loop_mode = Animation.LOOP_LINEAR
@@ -232,7 +235,7 @@ class Thumbs:
 	var _studio: Studio
 	var px := 192
 
-	func request(chassis: String, paint: Array, cb: Callable) -> void:
+	func request(chassis: String, paint, cb: Callable) -> void:
 		var key := "%s|%s" % [chassis, str(paint)]
 		if cache.has(key):
 			cb.call(cache[key])

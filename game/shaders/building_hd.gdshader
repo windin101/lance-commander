@@ -42,11 +42,13 @@ void fragment() {
 	col = mix(col, vec3(0.88, 0.9, 0.93), sm);
 	col = mix(col, vec3(0.05, 0.045, 0.04), scorch * 0.85);
 	if (is_glass > 0.5) {
-		ALBEDO = vec3(0.03, 0.04, 0.05);
+		// blue-tinted glazing: dark interior, glossy, a sky-blue fresnel edge so a window reads at distance
+		float fres = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), 4.0);
+		ALBEDO = vec3(0.03, 0.07, 0.12);
 		METALLIC = 0.0;
-		ROUGHNESS = 0.08 + 0.2 * g.b;
-		SPECULAR = 0.7;
-		EMISSION = vec3(0.9, 0.6, 0.3) * 0.05 * (0.6 + 0.4 * g.r);
+		ROUGHNESS = 0.04 + 0.12 * g.b + dm * 0.3;
+		SPECULAR = 0.9;
+		EMISSION = (vec3(0.02, 0.05, 0.09) + vec3(0.25, 0.45, 0.7) * fres * 0.6 + vec3(0.9, 0.6, 0.3) * 0.03 * g.r) * (1.0 - scorch);
 	} else {
 		ALBEDO = col;
 		METALLIC = metallic * (1.0 - dm);

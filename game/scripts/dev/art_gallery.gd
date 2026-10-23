@@ -75,9 +75,15 @@ func _run() -> void:
 		if path.begins_with("res://assets/v2/objects/"):
 			ArtV2.dress_object(model, path.get_file().get_basename())
 		var paint: Array = item.get("paint", [])
+		if item.has("scheme"):  # "player" (optionally with "pattern"), a faction scheme name ("steiner", "liao"...)
+			var sch := PaintScheme.player() if String(item["scheme"]) == "player" else PaintScheme.named(String(item["scheme"]))
+			if item.has("pattern"):
+				sch["pattern"] = String(item["pattern"])
+			MechPaint.apply_scheme(model, String(item.get("paint_name", "")), sch, String(item.get("folder", "mechs")))
+			paint = []
 		if paint.size() == 3:
-			MechPaint.apply(model, String(item.get("paint_name", "")), MechPaint.argb(int(paint[0])), MechPaint.argb(int(paint[1])),
-				MechPaint.argb(int(paint[2])), String(item.get("folder", "mechs")))
+			MechPaint.apply_scheme(model, String(item.get("paint_name", "")), PaintScheme.for_triple(paint),
+				String(item.get("folder", "mechs")))
 		var player: AnimationPlayer = model.find_child("AnimationPlayer", true, false)
 		_studio.aabb = MechStage.Studio._bounds(model)
 		if String(item.get("folder", "mechs")) != "mechs":

@@ -58,7 +58,7 @@
  "_why": {
   "x_shift": "v2 2026-10-23: the bbox centre sits 300 mm off the pelvis (the right gun reaches further out); hips/knees/ankles get x pinned, stl_rig averaged the hanging left gun into the left hip (x 2283)",
   "v2.seed_boxes": "the waist block below the torso twist (joint_torso, z 5.46 m in the sculpt frame) belongs to the pelvis",
-  "v2.joints.joint_torso": "the torso twists about the vertical: a waist drum about that axis, sized to the waist, with the hip/torso seam split by the pivot plane beside it"
+  "v2.joints.joint_torso": "the torso pitches as well as twists in the walk: a ball about the waist pivot keeps the seam closed under both"
  },
  "v2": {
   "seed_boxes": {
@@ -76,15 +76,7 @@
   "seed_k": 60,
   "joints": {
    "joint_torso": {
-    "type": "hinge",
-    "axis": [
-     0,
-     0,
-     1
-    ],
-    "r_max": 1100,
-    "protrude": 0.45,
-    "relabel": true
+    "type": "ball"
    }
   }
  }

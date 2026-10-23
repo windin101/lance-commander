@@ -92,9 +92,10 @@ func _asset_path(suffix: String) -> String:
 
 
 func _paint(root: Node, paint_name: String = "") -> void:
-	if mech.paint.size() == 3:
-		MechPaint.apply(root, paint_name if paint_name != "" else _paint_name, MechPaint.argb(mech.paint[0]), MechPaint.argb(mech.paint[1]),
-			MechPaint.argb(mech.paint[2]), "mechs" if mech is SimMech else "vehicles")
+	# the player's scheme on the player's units, faction schemes for Steiner and Liao, else the mission's colours
+	if mech.paint.size() == 3 or mech.is_player:
+		MechPaint.apply_scheme(root, paint_name if paint_name != "" else _paint_name, PaintScheme.for_unit(mech),
+			"mechs" if mech is SimMech else "vehicles")
 
 
 func set_selected(v: bool) -> void:

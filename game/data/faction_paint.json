@@ -1,0 +1,585 @@
+{
+ "_doc": "tools/art/faction_paint.py (generated): faction schemes and mission colour triples -> faction",
+ "schemes": {
+  "player_default": {
+   "base": "#9a9a9a",
+   "hl1": "#d02e11",
+   "hl2": "#4a4a4c",
+   "regions": {
+    "body": "base",
+    "head": "base",
+    "arms": "base",
+    "upper_legs": "base",
+    "lower_legs": "base",
+    "feet": "base",
+    "weapons": "steel",
+    "plates": "base"
+   },
+   "piping": "hl1",
+   "stripe": null,
+   "band": "hl1",
+   "decal": "#e8e4dc",
+   "insignia": false,
+   "pattern": "plain"
+  },
+  "davion": {
+   "display_name": "Davion Regiment",
+   "base": "#4b3d23",
+   "hl1": "#c2ac69",
+   "hl2": "#242a1f",
+   "regions": {
+    "body": "base",
+    "head": "base",
+    "arms": "base",
+    "upper_legs": "base",
+    "lower_legs": "base",
+    "feet": "base",
+    "weapons": "steel",
+    "plates": "base"
+   },
+   "piping": null,
+   "stripe": null,
+   "band": null,
+   "decal": "#c2ac69",
+   "insignia": true,
+   "insignia_shape": "star",
+   "pattern": "thorin"
+  },
+  "steiner": {
+   "display_name": "Steiner Guards",
+   "base": "#d0ccbe",
+   "hl1": "#d06020",
+   "hl2": "#2a4a8a",
+   "regions": {
+    "body": "base",
+    "head": "base",
+    "arms": "base",
+    "upper_legs": "hl2",
+    "lower_legs": "hl2",
+    "feet": "hl2",
+    "weapons": "steel",
+    "plates": "base"
+   },
+   "piping": "#b8bcc2",
+   "stripe": null,
+   "band": "hl1",
+   "decal": "#2a4a8a",
+   "insignia": true,
+   "insignia_shape": "shield",
+   "pattern": "plain"
+  },
+  "steiner_boss": {
+   "display_name": "Steiner Guards",
+   "base": "#d0ccbe",
+   "hl1": "#d06020",
+   "hl2": "#2a4a8a",
+   "regions": {
+    "body": "base",
+    "head": "base",
+    "arms": "base",
+    "upper_legs": "hl2",
+    "lower_legs": "hl2",
+    "feet": "hl2",
+    "weapons": "steel",
+    "plates": "base"
+   },
+   "piping": "hl1",
+   "stripe": "hl1",
+   "band": "hl1",
+   "decal": "#d06020",
+   "insignia": true,
+   "insignia_shape": "shield",
+   "pattern": "plain"
+  },
+  "liao": {
+   "display_name": "Liao Armored Cavalry",
+   "base": "#003914",
+   "hl1": "#ffffff",
+   "hl2": "#003914",
+   "regions": {
+    "body": "base",
+    "head": "base",
+    "arms": "base",
+    "upper_legs": "base",
+    "lower_legs": "base",
+    "feet": "base",
+    "weapons": "steel",
+    "plates": "base"
+   },
+   "piping": null,
+   "stripe": "hl1",
+   "band": "hl1",
+   "decal": "#ffffff",
+   "insignia": true,
+   "insignia_shape": "chevron",
+   "pattern": "plain"
+  },
+  "liao_son": {
+   "display_name": "Liao Armored Cavalry",
+   "base": "#003914",
+   "hl1": "#ffffff",
+   "hl2": "#003914",
+   "regions": {
+    "body": "base",
+    "head": "base",
+    "arms": "base",
+    "upper_legs": "base",
+    "lower_legs": "base",
+    "feet": "base",
+    "weapons": "steel",
+    "plates": "base"
+   },
+   "piping": "#c8a050",
+   "stripe": "hl1",
+   "band": "hl1",
+   "decal": "#c8a050",
+   "insignia": true,
+   "insignia_shape": "chevron",
+   "pattern": "plain"
+  },
+  "bandits": {
+   "display_name": "Bandit Legion",
+   "base": "#c9a77a",
+   "hl1": "#9a5a2a",
+   "hl2": "#5f6a46",
+   "regions": {
+    "body": "base",
+    "head": "base",
+    "arms": "base",
+    "upper_legs": "base",
+    "lower_legs": "base",
+    "feet": "base",
+    "weapons": "steel",
+    "plates": "base"
+   },
+   "piping": null,
+   "stripe": null,
+   "band": null,
+   "decal": "#3a2a1a",
+   "insignia": false,
+   "pattern": "arkab"
+  }
+ },
+ "triples": {
+  "#004080|#96a7af|#96a7af": {
+   "faction": "steiner",
+   "scheme": "steiner",
+   "evidence": "verified",
+   "note": "mc2_17 brains (EC1 ... Steiner)",
+   "missions": [
+    "mc2_14",
+    "mc2_15",
+    "mc2_17",
+    "mc2_18",
+    "mc2_19",
+    "mc2_20",
+    "mc2_23"
+   ]
+  },
+  "#ffffff|#9d3226|#000040": {
+   "faction": "steiner",
+   "scheme": "steiner_boss",
+   "evidence": "verified",
+   "note": "mc2_17_EC1_Steiner_Boss",
+   "missions": [
+    "mc2_17",
+    "mc2_24"
+   ]
+  },
+  "#96a7af|#435987|#435987": {
+   "faction": "steiner",
+   "scheme": "steiner",
+   "evidence": "inferred",
+   "note": "mc2_10 and mc2_23 (Steiner missions), mc2_19, mc2_20",
+   "missions": [
+    "mc2_10",
+    "mc2_19",
+    "mc2_20",
+    "mc2_23"
+   ]
+  },
+  "#96a7af|#435987|#435978": {
+   "faction": "steiner",
+   "scheme": "steiner",
+   "evidence": "inferred",
+   "note": "mc2_10, the triple above with a one-digit slip",
+   "missions": [
+    "mc2_10"
+   ]
+  },
+  "#ffffff|#435987|#435987": {
+   "faction": "steiner",
+   "scheme": "steiner",
+   "evidence": "inferred",
+   "note": "mc2_24 (Steiner mission)",
+   "missions": [
+    "mc2_24"
+   ]
+  },
+  "#004080|#a7af96|#96a7af": {
+   "faction": "steiner",
+   "scheme": "steiner",
+   "evidence": "inferred",
+   "note": "mc2_20 prison guards, the Steiner triple with highlights reordered",
+   "missions": [
+    "mc2_20"
+   ]
+  },
+  "#809267|#f4c28a|#de701f": {
+   "faction": "liao",
+   "scheme": "liao",
+   "evidence": "verified",
+   "note": "mc2_17 brains (a2_Liao_Mech_1 ...)",
+   "missions": [
+    "mc2_05",
+    "mc2_07",
+    "mc2_17",
+    "mc2_20",
+    "mc2_22"
+   ]
+  },
+  "#008040|#f4e9d7|#f4e9d7": {
+   "faction": "liao",
+   "scheme": "liao_son",
+   "evidence": "verified",
+   "note": "mc2_17 Liao son",
+   "missions": [
+    "mc2_07",
+    "mc2_17",
+    "mc2_22"
+   ]
+  },
+  "#809267|#de701f|#f4c28a": {
+   "faction": "liao",
+   "scheme": "liao",
+   "evidence": "inferred",
+   "note": "mc2_07 (a Liao mission), the Liao triple with highlights swapped",
+   "missions": [
+    "mc2_07"
+   ]
+  },
+  "#7d624f|#deb154|#deb154": {
+   "faction": "davion",
+   "scheme": "davion",
+   "evidence": "inferred",
+   "note": "mc2_12, mc2_16, mc2_20: only in missions whose briefings name Davion",
+   "missions": [
+    "mc2_12",
+    "mc2_16",
+    "mc2_20"
+   ]
+  },
+  "#c5a783|#ece2c6|#4e4844": {
+   "faction": "davion",
+   "scheme": "davion",
+   "evidence": "inferred",
+   "note": "mc2_13 and mc2_16 (Davion missions)",
+   "missions": [
+    "mc2_13",
+    "mc2_16"
+   ]
+  },
+  "#c5a783|#ece2c6|#808080": {
+   "faction": "davion",
+   "scheme": "davion",
+   "evidence": "inferred",
+   "note": "mc2_13, the triple above",
+   "missions": [
+    "mc2_13"
+   ]
+  },
+  "#c5a783|#feca32|#feca32": {
+   "faction": "davion",
+   "scheme": "davion",
+   "evidence": "inferred",
+   "note": "mc2_13 (Davion) power armour",
+   "missions": [
+    "mc2_13"
+   ]
+  },
+  "#a98150|#d2b576|#4e4844": {
+   "faction": "davion",
+   "scheme": "davion",
+   "evidence": "inferred",
+   "note": "mc2_11 and mc2_20 (Davion missions)",
+   "missions": [
+    "mc2_11",
+    "mc2_20"
+   ]
+  },
+  "#b02828|#ddbb50|#000000": {
+   "faction": "bandits",
+   "scheme": "bandits",
+   "evidence": "inferred",
+   "note": "mc2_01-04, mc2_09: bandit missions",
+   "missions": [
+    "mc2_01",
+    "mc2_02",
+    "mc2_03",
+    "mc2_04",
+    "mc2_09"
+   ]
+  },
+  "#e25638|#d2b576|#623100": {
+   "faction": "bandits",
+   "scheme": "bandits",
+   "evidence": "inferred",
+   "note": "mc2_01, mc2_02, mc2_08: bandit missions",
+   "missions": [
+    "mc2_01",
+    "mc2_02",
+    "mc2_08"
+   ]
+  },
+  "#e25638|#d2b576|#d2b576": {
+   "faction": "bandits",
+   "scheme": "bandits",
+   "evidence": "inferred",
+   "note": "mc2_01, mc2_02, mc2_04 (bandit camp guards, infantry ambush)",
+   "missions": [
+    "mc2_01",
+    "mc2_02",
+    "mc2_04"
+   ]
+  },
+  "#e25638|#d2d576|#623100": {
+   "faction": "bandits",
+   "scheme": "bandits",
+   "evidence": "inferred",
+   "note": "mc2_05, mc2_08, the first bandit triple with a one-digit slip",
+   "missions": [
+    "mc2_05",
+    "mc2_08"
+   ]
+  },
+  "#b02828|#4e4844|#4e4844": {
+   "faction": "bandits",
+   "scheme": "bandits",
+   "evidence": "inferred",
+   "note": "mc2_03, mc2_09: bandit base guards",
+   "missions": [
+    "mc2_03",
+    "mc2_09"
+   ]
+  },
+  "#809267|#ddbb50|#ff8040": {
+   "faction": "bandits",
+   "scheme": "bandits",
+   "evidence": "inferred",
+   "note": "mc2_04 (a bandit mission): harassers, centipedes, LRM carriers",
+   "missions": [
+    "mc2_04"
+   ]
+  }
+ },
+ "unassigned": [
+  {
+   "triple": "#626934|#e08e52|#b02828",
+   "units": 138,
+   "missions": [
+    "mc2_06",
+    "mc2_18",
+    "mc2_19",
+    "mc2_20"
+   ]
+  },
+  {
+   "triple": "#004080|#feca32|#feca32",
+   "units": 102,
+   "missions": [
+    "mc2_11",
+    "mc2_14",
+    "mc2_15",
+    "mc2_21",
+    "mc2_23",
+    "mc2_24"
+   ]
+  },
+  {
+   "triple": "#ffffff|#c0c0c0|#808080",
+   "units": 18,
+   "missions": [
+    "mc2_03",
+    "mc2_04",
+    "mc2_09",
+    "mc2_21",
+    "mc2_22",
+    "mc2_24"
+   ]
+  },
+  {
+   "triple": "#809267|#000000|#000000",
+   "units": 16,
+   "missions": [
+    "mc2_07"
+   ]
+  },
+  {
+   "triple": "#ff8000|#ffffff|#ffffff",
+   "units": 16,
+   "missions": [
+    "mc2_23",
+    "mc2_24"
+   ]
+  },
+  {
+   "triple": "#b7371c|#ff8000|#400000",
+   "units": 9,
+   "missions": [
+    "mc2_03",
+    "mc2_07"
+   ]
+  },
+  {
+   "triple": "#495043|#9a3f3f|#e08e52",
+   "units": 8,
+   "missions": [
+    "mc2_20",
+    "mc2_22"
+   ]
+  },
+  {
+   "triple": "#feca32|#feca32|#feca32",
+   "units": 8,
+   "missions": [
+    "mc2_24"
+   ]
+  },
+  {
+   "triple": "#0080c0|#c0c0c0|#808080",
+   "units": 5,
+   "missions": [
+    "mc2_02",
+    "mc2_15"
+   ]
+  },
+  {
+   "triple": "#495043|#9a3f3f|#0e8e52",
+   "units": 5,
+   "missions": [
+    "mc2_08",
+    "mc2_19",
+    "mc2_20"
+   ]
+  },
+  {
+   "triple": "#626934|#e08e52|#e08e52",
+   "units": 5,
+   "missions": [
+    "mc2_20"
+   ]
+  },
+  {
+   "triple": "#f4c28a|#008040|#f4c28a",
+   "units": 4,
+   "missions": [
+    "mc2_07"
+   ]
+  },
+  {
+   "triple": "#deb154|#c0c0c0|#808080",
+   "units": 4,
+   "missions": [
+    "mc2_12"
+   ]
+  },
+  {
+   "triple": "#ffffff|#000040|#000040",
+   "units": 4,
+   "missions": [
+    "mc2_24"
+   ]
+  },
+  {
+   "triple": "#feca32|#000040|#000040",
+   "units": 4,
+   "missions": [
+    "mc2_24"
+   ]
+  },
+  {
+   "triple": "#004080|#ffff00|#808080",
+   "units": 4,
+   "missions": [
+    "mc2_24"
+   ]
+  },
+  {
+   "triple": "#954d3e|#000000|#000000",
+   "units": 2,
+   "missions": [
+    "mc2_07"
+   ]
+  },
+  {
+   "triple": "#afa5a0|#fe3221|#f2ca32",
+   "units": 2,
+   "missions": [
+    "mc2_13"
+   ]
+  },
+  {
+   "triple": "#393533|#20769f|#20769f",
+   "units": 2,
+   "missions": [
+    "mc2_23"
+   ]
+  },
+  {
+   "triple": "#435987|#ffffff|#435987",
+   "units": 2,
+   "missions": [
+    "mc2_24"
+   ]
+  },
+  {
+   "triple": "#ffff00|#ffff00|#ffff00",
+   "units": 1,
+   "missions": [
+    "mc2_02"
+   ]
+  },
+  {
+   "triple": "#008000|#ffff00|#ffff00",
+   "units": 1,
+   "missions": [
+    "mc2_02"
+   ]
+  },
+  {
+   "triple": "#0000ff|#ff80ff|#ff80ff",
+   "units": 1,
+   "missions": [
+    "mc2_02"
+   ]
+  },
+  {
+   "triple": "#746c6c|#6b6375|#2e7061",
+   "units": 1,
+   "missions": [
+    "mc2_14"
+   ]
+  },
+  {
+   "triple": "#008000|#ffffff|#ffffff",
+   "units": 1,
+   "missions": [
+    "mc2_16"
+   ]
+  },
+  {
+   "triple": "#062934|#e08e52|#b02828",
+   "units": 1,
+   "missions": [
+    "mc2_18"
+   ]
+  },
+  {
+   "triple": "#96a7af|#c0c0c0|#808080",
+   "units": 1,
+   "missions": [
+    "mc2_23"
+   ]
+  }
+ ]
+}
