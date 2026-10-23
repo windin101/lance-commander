@@ -18,8 +18,10 @@ Fillers are faces that exist only to hide seams: the sidecar's "filler_faces" ra
 Reported per part: hole (seam vertex to anything that covers it, caps included: a hole you can see into), sep
 (separation: to the partner's own surface or a housing only, so a capped plate lifting off its partner counts) and
 pen (new interpenetration outside the housings). The gate is on the locomotion animations (Idle, Walk, Run and their
-transitions, limps, hits, jump): exit status 1 if any part's hole or sep p95 is over --max-gap (metres) or its pen
-p95 over --max-pen. Falls and get-ups are reported, not gated.
+transitions, limps, hits, jump): exit status 1 if any part's hole p95 is over --max-gap (metres) or its pen p95 over
+--max-pen. Separation is reported, not gated (Lee, 2026-10-24: a fused print's plates slide by r x angle and only
+re-modelling would stop that; the gate is no holes, limited new penetration and a visual walk check). Falls and
+get-ups are reported, not gated.
 Locomotion animations (Idle, Walk, Run, transitions, limps) are reported apart from the falls and get-ups.
 """
 import argparse
@@ -350,7 +352,7 @@ def main():
     for n, r in sorted(res.items(), key=lambda x: -x[1].get("loco_sep_p95", 0)):
         # the gate: locomotion animations (falls and get-ups are reported, not gated): no holes, no plate lifting off
         # its partner by more than --max-gap, no new interpenetration outside the housings deeper than --max-pen
-        bad = r.get("loco_gap_p95", 0) > a.max_gap or r.get("loco_sep_p95", 0) > a.max_gap or r["loco_pen_p95"] > a.max_pen
+        bad = r.get("loco_gap_p95", 0) > a.max_gap or r["loco_pen_p95"] > a.max_pen   # separation is reported, not gated (Lee 2026-10-24)
         if bad:
             fail.append(n)
         print(f"  {n:18s} {r.get('gap_p95', 0):8.3f} {r.get('sep_p95', 0):8.3f} {r.get('loco_sep_p95', 0):7.3f} {r.get('loco_joint_sep_p95', 0):7.3f} {r['pen_p95']:8.3f} "

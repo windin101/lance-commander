@@ -41,15 +41,15 @@ SCHEMES = {
     "davion": {"display_name": "Davion Regiment", "base": "#4b3d23", "hl1": "#c2ac69", "hl2": "#242a1f",
                "regions": PLAIN, "piping": None, "stripe": None, "band": None, "decal": "#c2ac69", "insignia": True,
                "insignia_shape": "star", "pattern": "thorin"},
-    # Steiner: follows ref/ucc/la_lyran_guards_color_palette_REPAINTED_BY_JUSTIN_KASE-1.png: off-white upper body and
-    # plates, blue lower body and legs, silver piping, small orange accents
+    # Steiner: follows ref/ucc/la_lyran_guards_color_palette_REPAINTED_BY_JUSTIN_KASE-1.png: blue the dominant armour
+    # (torso, arms, legs), off-white outer plates and head, silver piping, small orange accents (Lee 2026-10-24)
     "steiner": {"display_name": "Steiner Guards", "base": "#d0ccbe", "hl1": "#d06020", "hl2": "#2a4a8a",
-                "regions": dict(PLAIN, upper_legs="hl2", lower_legs="hl2", feet="hl2"), "piping": "#b8bcc2",
+                "regions": dict(PLAIN, body="hl2", arms="hl2", upper_legs="hl2", lower_legs="hl2", feet="hl2"), "piping": "#b8bcc2",
                 "stripe": None, "band": "hl1", "decal": "#2a4a8a", "insignia": True, "insignia_shape": "shield",
                 "pattern": "plain"},
     # a Steiner commander: the same with orange piping and orange numbers, to stand out
     "steiner_boss": {"display_name": "Steiner Guards", "base": "#d0ccbe", "hl1": "#d06020", "hl2": "#2a4a8a",
-                     "regions": dict(PLAIN, upper_legs="hl2", lower_legs="hl2", feet="hl2"), "piping": "hl1",
+                     "regions": dict(PLAIN, body="hl2", arms="hl2", upper_legs="hl2", lower_legs="hl2", feet="hl2"), "piping": "hl1",
                      "stripe": "hl1", "band": "hl1", "decal": "#d06020", "insignia": True, "insignia_shape": "shield",
                      "pattern": "plain"},
     # Liao: follows ref/ucc/mccarrons_armored_cavalry_4th_color_palette.png: dark green #003914 with bold white
@@ -89,6 +89,10 @@ TRIPLES = {
     "#e25638|#d2d576|#623100": ("bandits", "bandits", "inferred", "mc2_05, mc2_08, the first bandit triple with a one-digit slip"),
     "#b02828|#4e4844|#4e4844": ("bandits", "bandits", "inferred", "mc2_03, mc2_09: bandit base guards"),
     "#809267|#ddbb50|#ff8040": ("bandits", "bandits", "inferred", "mc2_04 (a bandit mission): harassers, centipedes, LRM carriers"),
+    # the two largest unassigned triples (2026-10-24, medium confidence: unit mix and mission briefings, no brain names)
+    "#626934|#e08e52|#b02828": ("liao", "liao", "inferred-medium", "mc2_06 and mc2_18-20: fields Sha Yu (a Liao 'Mech by the Mechlopedia) with Liao vehicle waves; mc2_06 and mc2_19 briefings name Liao"),
+    "#626934|#e08e52|#e08e52": ("liao", "liao", "inferred-medium", "mc2_20, the triple above with one highlight"),
+    "#004080|#feca32|#feca32": ("steiner", "steiner", "inferred-medium", "blue and gold on Zeus (a Steiner 'Mech), Werewolf, Legion, Bushwacker; mc2_23 and mc2_24 are Steiner missions"),
 }
 # rebels and every other triple keep the mission's own colours (Lee, 2026-10-23)
 

@@ -5,13 +5,13 @@
   {
    "node": "bw_torso",
    "joint": "joint_torso",
-   "kind": "ball",
-   "radius": 0.5688995026543617,
-   "length": 0.0,
+   "kind": "hinge",
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
    "axis": [
-    -0.39232491027748606,
-    0.9190795079387571,
-    0.037067814378712864
+    0.0,
+    1.0,
+    0.0
    ],
    "centre": [
     0.0,
@@ -22,9 +22,9 @@
   {
    "node": "bw_luarm",
    "joint": "joint_luarm",
-   "kind": "ball",
-   "radius": 0.5688995026543617,
-   "length": 0.0,
+   "kind": "hinge",
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
    "axis": [
     -0.9770172610548603,
     -0.21313098762164484,
@@ -39,9 +39,9 @@
   {
    "node": "bw_ruleg",
    "joint": "joint_ruleg",
-   "kind": "ball",
-   "radius": 0.5688995026543617,
-   "length": 0.0,
+   "kind": "hinge",
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
    "axis": [
     -0.999394730991304,
     0.013606430642106105,
@@ -56,9 +56,9 @@
   {
    "node": "bw_luleg",
    "joint": "joint_luleg",
-   "kind": "ball",
-   "radius": 0.5688995026543617,
-   "length": 0.0,
+   "kind": "hinge",
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
    "axis": [
     -0.9954713650423528,
     -0.08635774652379245,
@@ -74,8 +74,8 @@
    "node": "bw_rlleg",
    "joint": "joint_rlleg",
    "kind": "hinge",
-   "radius": 0.5688995026543617,
-   "length": 1.365358806370468,
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
    "axis": [
     -1.0,
     -2.042197024456205e-09,
@@ -90,9 +90,9 @@
   {
    "node": "bw_lgun",
    "joint": "joint_lgun",
-   "kind": "ball",
-   "radius": 0.5688995026543617,
-   "length": 0.0,
+   "kind": "hinge",
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
    "axis": [
     -0.19143736998784244,
     -0.9652845953575866,
@@ -108,8 +108,8 @@
    "node": "bw_llleg",
    "joint": "joint_llleg",
    "kind": "hinge",
-   "radius": 0.5688995026543617,
-   "length": 1.365358806370468,
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
    "axis": [
     -1.0,
     7.699028463774374e-10,
@@ -124,9 +124,9 @@
   {
    "node": "bw_lfoot",
    "joint": "joint_lankle",
-   "kind": "ball",
-   "radius": 0.5688995026543617,
-   "length": 0.0,
+   "kind": "hinge",
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
    "axis": [
     -0.8836119930988354,
     0.23333987727415811,
@@ -141,9 +141,9 @@
   {
    "node": "bw_rfoot",
    "joint": "joint_rankle",
-   "kind": "ball",
-   "radius": 0.5688995026543617,
-   "length": 0.0,
+   "kind": "hinge",
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
    "axis": [
     -0.9079976148885475,
     0.3717280282229053,
@@ -158,14 +158,14 @@
  ],
  "filler_faces": [
   [
-   47441,
-   59624
+   51682,
+   69560
   ]
  ],
  "cap_faces": [
   [
-   47441,
-   47464
+   51682,
+   55160
   ]
  ],
  "joint_pairs": [
@@ -213,15 +213,7 @@
  "contacts": [
   [
    "bw_torso",
-   "bw_luleg"
-  ],
-  [
-   "bw_torso",
    "bw_ruleg"
-  ],
-  [
-   "bw_torso",
-   "bw_rlleg"
   ],
   [
    "bw_torso",
@@ -229,21 +221,21 @@
   ]
  ],
  "parts": {
-  "bw_lfoot": 3631,
-  "bw_llleg": 4806,
-  "bw_luleg": 2261,
-  "bw_rfoot": 3743,
-  "bw_rlleg": 4254,
-  "bw_ruleg": 2178,
-  "bw_hip": 2014,
-  "bw_torso": 24492,
+  "bw_lfoot": 4684,
+  "bw_llleg": 5232,
+  "bw_luleg": 3826,
+  "bw_rfoot": 4498,
+  "bw_rlleg": 5318,
+  "bw_ruleg": 3533,
+  "bw_hip": 3331,
+  "bw_torso": 25138,
   "joint_lmlauncher": 0,
-  "bw_lgun": 3841,
-  "bw_luarm": 2074,
-  "bw_rgun": 6330,
+  "bw_lgun": 4294,
+  "bw_luarm": 3274,
+  "bw_rgun": 6432,
   "bw_ruarm": 0
  },
- "tris": 59624,
+ "tris": 69560,
  "rest_min": [
   -2.8277033,
   -0.05940001434685439,

@@ -58,7 +58,9 @@
  "_why": {
   "x_shift": "v2 2026-10-23: the bbox centre sits 300 mm off the pelvis (the right gun reaches further out); hips/knees/ankles get x pinned, stl_rig averaged the hanging left gun into the left hip (x 2283)",
   "v2.seed_boxes": "the waist block below the torso twist (joint_torso, z 5.46 m in the sculpt frame) belongs to the pelvis",
-  "v2.joints.joint_torso": "the torso pitches as well as twists in the walk: a ball about the waist pivot keeps the seam closed under both"
+  "v2.joints.joint_torso": "the waist twists about the vertical: a recessed collar drum about that axis (Lee 2026-10-24: drums and collars, not balls)",
+  "v2.canopy": "hand-marked 2026-10-24: the forward-up slope of the hump at the cockpit node",
+  "v2.joints.force": "right knee and hip pivots sit just outside the re-posed shell: a housing there anyway, or the knee has none"
  },
  "v2": {
   "seed_boxes": {
@@ -76,8 +78,51 @@
   "seed_k": 60,
   "joints": {
    "joint_torso": {
-    "type": "ball"
+    "type": "hinge",
+    "axis": [
+     0,
+     0,
+     1
+    ]
+   },
+   "joint_rlleg": {
+    "force": true
+   },
+   "joint_ruleg": {
+    "force": true
    }
-  }
+  },
+  "motion_weight": 15,
+  "canopy": {
+   "centre": [
+    0,
+    -1008,
+    6264
+   ],
+   "radius": 900,
+   "normal": [
+    0,
+    -0.7,
+    0.7
+   ],
+   "min_dot": 0.75,
+   "max_area_m2": 0.35
+  },
+  "lights": [
+   {
+    "centre": [
+     -5,
+     -2657,
+     5308
+    ],
+    "radius": 350,
+    "normal": [
+     0,
+     -1,
+     0
+    ],
+    "code": 100
+   }
+  ]
  }
 }

@@ -428,6 +428,52 @@ def mincut_sink_side(nn, s_cap, t_cap, ea, eb, ecap):
     return ~reach[:nn]
 
 
+def alpha_expansion_metric(U, ea, eb, Dpair, lab, sweeps=3):
+    """Alpha-expansion with a per-edge metric: Dpair (ne, L, L), the cost of edge k having labels (a, b)."""
+    lab = lab.copy(); L = U.shape[1]; r = np.arange(len(ea))
+    def energy(l_):
+        return U[np.arange(len(l_)), l_].sum() + Dpair[r, l_[ea], l_[eb]].sum()
+    e0 = energy(lab)
+    for _ in range(sweeps):
+        changed = False
+        for al in range(L):
+            lp, lq = lab[ea], lab[eb]
+            A = Dpair[r, lp, lq]; B = Dpair[r, lp, al]; C = Dpair[r, al, lq]; D = np.zeros_like(A)
+            d0 = U[np.arange(len(lab)), lab].copy(); d1 = U[:, al].copy()
+            np.add.at(d1, ea, np.maximum(C - A, 0)); np.add.at(d0, ea, np.maximum(A - C, 0))
+            np.add.at(d1, eb, np.maximum(D - C, 0)); np.add.at(d0, eb, np.maximum(C - D, 0))
+            pair = np.maximum(B + C - A - D, 0)
+            x = mincut_sink_side(len(lab), d1, d0, ea, eb, pair) & (lab != al)
+            if x.any():
+                new = lab.copy(); new[x] = al
+                e1 = energy(new)
+                if e1 < e0 - 1e-9:
+                    lab, e0, changed = new, e1, True
+        if not changed:
+            break
+    return lab
+
+
+def part_motion(work, nodes, xform, samples=6):
+    """For each part node: the list of 4x4 maps (game mm, Z up) from the sculpt frame to each sampled locomotion pose
+    (Idle, Walk, Run): pose(t) @ inv(rest) @ xform(node), from the fitted skeleton."""
+    import pose_test as PT
+    g, b = R.load_glb(str(work / "skel.glb"))
+    an = PT.Animator(g, b)
+    W0 = an.world()
+    Zu = np.array([[1, 0, 0, 0], [0, 0, -1, 0], [0, 1, 0, 0], [0, 0, 0, 1.0]])   # mm Z-up -> m Y-up (rotation part)
+    S_ = np.diag([1e-3, 1e-3, 1e-3, 1.0]); Si = np.diag([1e3, 1e3, 1e3, 1.0])
+    to_gl, from_gl = Zu @ S_, Si @ np.linalg.inv(Zu)
+    poses = [(a_, t_) for a_ in ("Idle", "Walk", "Run") if a_ in an.anims
+             for t_ in np.linspace(0, an.anims[a_][1], samples, endpoint=False)]
+    Ws = [an.world(a_, t_) for a_, t_ in poses]
+    out = {}
+    for n in nodes:
+        X = xform.get(n, np.eye(4))
+        out[n] = np.stack([from_gl @ W[n] @ np.linalg.inv(W0[n]) @ to_gl @ X for W in Ws])
+    return out
+
+
 def alpha_expansion(U, ea, eb, w, lab, sweeps=3):
     """Potts multi-label graph cut. U (nf, L) unary costs, edges (ea, eb) with weights w, lab initial labels
     (indices into U's columns). Returns the labels."""
@@ -529,8 +575,14 @@ def actuator_mesh(kind, c, ax, r, ln, sides=40):
     """Ball: an icosphere. Drum: a cylinder about ax with chamfered rims, a recessed hub and six bolt heads on each
     face, so a knee reads as a machined actuator. Triangles wound outward, (V, F)."""
     if kind == "ball":
+        # a machined ball, not a toy sphere: flattened along the joint axis, with a collar band round its equator and
+        # a flat face at each pole, small and mostly inside the adjoining plates
+        ax = ax / np.linalg.norm(ax)
         Vs, Fs = icosphere(r, 3)
-        return Vs + c, Fs
+        al = Vs @ ax
+        Vs = Vs - np.outer(al, ax) + np.outer(np.clip(al * 0.8, -0.62 * r, 0.62 * r), ax)
+        Vc, Fc = actuator_mesh("hinge", np.zeros(3), ax, r * 1.04, 0.32 * r, sides=sides)
+        return np.r_[Vs, Vc] + c, np.r_[Fs, Fc + len(Vs)]
     ax = ax / np.linalg.norm(ax)
     u = np.cross(ax, [0, 0, 1.0] if abs(ax[2]) < 0.9 else [1.0, 0, 0]); u /= np.linalg.norm(u)
     v = np.cross(ax, u)
@@ -684,10 +736,18 @@ def cap_loops(Vp, Fp, skip, max_dev=0.08):
         rad = np.linalg.norm(Lp - c, axis=1).mean()
         # only a nearly flat loop gets a cap: ear-clipping a jagged, folded seam loop gives spikes that stand out of
         # the shell and read as shards in motion; an unclosed loop shows the shader's dark interior instead
-        if s_[2] / np.sqrt(len(Lp)) > max_dev * rad:
-            continue
         P2 = np.c_[(Lp - c) @ e1, (Lp - c) @ e2]
-        if not simple_polygon(P2):
+        if s_[2] / np.sqrt(len(Lp)) > max_dev * rad or not simple_polygon(P2):
+            # folded or non-planar loop: a cone to an apex inside the part (toward the part's middle), no projection
+            inward = Vp[np.unique(Fp)].mean(0) - c
+            inward /= np.linalg.norm(inward) + 1e-9
+            apex = c + inward * 0.12 * rad
+            Vp = np.r_[Vp, apex[None]]
+            ia = len(Vp) - 1
+            t3 = np.array([[lp[i], lp[(i + 1) % len(lp)], ia] for i in range(len(lp))])
+            # the loop follows the part's winding: the cap runs the other way
+            t3 = t3[:, [1, 0, 2]]
+            caps.append(t3)
             continue
         tri = earclip(P2)
         if not len(tri):
@@ -702,7 +762,7 @@ def cap_loops(Vp, Fp, skip, max_dev=0.08):
         if fn @ (c - Vp[np.unique(Fp)].mean(0)) < 0:
             t3 = t3[:, [0, 2, 1]]
         caps.append(t3)
-    return np.concatenate(caps) if caps else np.zeros((0, 3), int)
+    return (np.concatenate(caps) if caps else np.zeros((0, 3), int)), Vp
 
 
 def stage_segment(a, work):
@@ -799,6 +859,43 @@ def stage_segment(a, work):
     lab2 = ids[li]
     print(f"  alpha-expansion refine: {int((lab2 != newlab).sum())} faces changed")
     lab = lab2
+    # motion-aware seams (v2.2, 2026-10-24): a seam between parts a and b costs the edge's length times how far the
+    # two parts carry that point apart over the locomotion poses (and at rest: a re-pose mismatch). A metric, so the
+    # alpha-expansion puts the seams where the parts barely move against each other: next to the pivots, around the
+    # plates the print fused across a joint. The geodesic data term keeps the parts where they were otherwise.
+    if v2.get("motion_seams", True) and fit.get("kind") != "rigid":
+        ids = np.array(sorted(set(lab.tolist())))
+        mot = part_motion(work, [int(n) for n in ids], xform)
+        mid = (V[va] + V[vb]) / 2
+        Q = {}
+        for i, n in enumerate(ids):
+            Q[i] = np.einsum("tij,ej->tei", mot[int(n)][:, :3, :3], mid) + mot[int(n)][:, None, :3, 3]   # (T, ne, 3)
+        Dp = np.zeros((len(mid), len(ids), len(ids)), np.float32)
+        for i in range(len(ids)):
+            for j in range(i + 1, len(ids)):
+                d = np.linalg.norm(Q[i] - Q[j], axis=2)
+                d = np.percentile(d, 90, axis=0)
+                Dp[:, i, j] = Dp[:, j, i] = d
+        lam = float(v2.get("motion_weight", 1.0))
+        Dp *= (lam * elen / np.median(elen) / (0.01 * H))[:, None, None] * np.exp(-0.7 * crease)[:, None, None]
+        li = np.searchsorted(ids, lab)
+        Um = U.copy() if U.shape[1] == len(ids) else np.zeros((nf, len(ids)))
+        # anchor every part: its seed faces (bone and core seeds) can't change label, or a part whose neighbours move
+        # with it in the sampled poses (a thigh between hip and shin) is swallowed whole and its bone drives nothing
+        for i, n in enumerate(ids):
+            sm_ = seed == n
+            Um[sm_] += 1e4
+            Um[sm_, i] = 0.0
+        li2 = alpha_expansion_metric(Um, fa, fb, Dp, li, sweeps=2)
+        print(f"  motion seams: {int((li2 != li).sum())} faces changed part; part sizes " +
+              ", ".join(f"{names[n]} {int((li2 == i).sum())}" for i, n in enumerate(ids)))
+        lab = ids[li2]
+    for rule in v2.get("assign", []):   # per-kit plate splits by hand: {"part": name, "min": [x,y,z], "max": [...]}
+        m_ = (C >= rule["min"]).all(1) & (C <= rule["max"]).all(1)       # sculpt frame (labels.npz), optional "from"
+        if "from" in rule:
+            m_ &= lab == names.index(rule["from"])
+        lab[m_] = names.index(rule["part"])
+        print(f"  assign: {int(m_.sum())} faces -> {rule['part']}")
     # cuts: every pair of parts that share edges; the child is the deeper joint in the skeleton (siblings: the higher pivot)
     def jdepth(node):
         d, q = 0, piv[node]["joint_index"]
@@ -893,9 +990,9 @@ def stage_segment(a, work):
     np.savez_compressed(work / "labels.npz", V=V, F=F, lab=lab)   # sculpt-frame labels before the housings (debugging)
     axes = fit.get("axes", {})
     jcfg = v2.get("joints", {})
-    hinge_share = float(v2.get("hinge_share", 0.9))
-    r_cap = float(v2.get("r_cap", 0.065)) * H
-    r_min = float(v2.get("r_min", 0.025)) * H
+    hinge_share = float(v2.get("hinge_share", 0.5))   # drums unless the joint is really a ball
+    r_cap = float(v2.get("r_cap", 0.032)) * H   # small: caps close the seams, the housing only shows the joint
+    r_min = float(v2.get("r_min", 0.018)) * H
     game_of = {}
     def gpos(node, vid):
         if node not in game_of:
@@ -918,6 +1015,7 @@ def stage_segment(a, work):
         jname = piv[node]["joint"]
         cfg = jcfg.get(jname, {})
         if cfg.get("skip") or not (lab == node).any() or not (lab == pp).any():
+            print(f"  {jname}: no {'child' if not (lab == node).any() else 'parent'} faces, no housing")
             continue
         c_game = np.asarray(cfg.get("centre_game", piv[node]["game"]), float)
         p0 = np.asarray(piv[node]["sculpt"], float)
@@ -938,6 +1036,7 @@ def stage_segment(a, work):
             if best is None or size < best[0]:
                 best = (size, h, reach, lab_t)
         if best is None:
+            print(f"  {jname}: {names[pp]} and {names[node]} share no seam, no housing")
             continue
         _, (R_, L_), reach, lab = best
         R_ = float(cfg.get("radius", max(R_, r_min)))
@@ -956,7 +1055,7 @@ def stage_segment(a, work):
             L_ = float(cfg.get("length", max(h[1], 0.8 * R_))) if k_ != "ball" else 0.0
         R_ = min(R_, r_cap)
         if k_ != "ball":
-            L_ = min(L_, float(cfg.get("max_length", v2.get("max_length", 2.4))) * R_)
+            L_ = min(L_, float(cfg.get("max_length", v2.get("max_length", 1.6))) * R_)
         plan2.append((pp, node, jn, k_, c_, ax, R_, L_, reach))
     plan = plan2
 
@@ -1003,7 +1102,9 @@ def stage_segment(a, work):
         # so parts that move apart show closed surfaces, not holes
         mine = [(implicit(k_, c_, ax, R_, L_)) for pp, ch, jn, k_, c_, ax, R_, L_, reach in plan if node in (pp, ch)]
         on_housing = lambda Q: any(np.abs(f(Q)).max() < 0.004 * H for f in mine)   # wholly on a housing: it covers
-        capf = cap_loops(Vp, Fp, on_housing) if v2.get("caps", True) else np.zeros((0, 3), int)
+        capf = np.zeros((0, 3), int)
+        if v2.get("caps", True):
+            capf, Vp = cap_loops(Vp, Fp, on_housing)
         Fall = np.r_[Fp, capf]
         used2 = np.unique(Fall.ravel())
         remap2 = -np.ones(len(Vp), int); remap2[used2] = np.arange(len(used2))
@@ -1021,7 +1122,11 @@ def stage_segment(a, work):
     Pr = np.concatenate(out_P); Fo = np.concatenate(out_F); part = np.concatenate(out_part); kind = np.concatenate(out_kind)
     P = Pr
     # normals: smooth across edges up to 35 degrees within a part, hard elsewhere (per-corner)
-    N = corner_normals(Pr, Fo, part, float(v2.get("smooth_deg", 35.0)))
+    N = corner_normals(Pr, Fo, part * 4 + np.minimum(kind, 3), float(v2.get("smooth_deg", 35.0)))   # caps smooth apart
+    capm = kind == 1                      # cone caps: flat shading, or the fan's smoothed normals draw a star
+    fnc = np.cross(Pr[Fo[capm, 1]] - Pr[Fo[capm, 0]], Pr[Fo[capm, 2]] - Pr[Fo[capm, 0]])
+    fnc /= np.linalg.norm(fnc, axis=1, keepdims=True) + 1e-12
+    N[capm] = fnc[:, None, :]
     np.savez_compressed(work / "rest.npz", P=Pr, F=Fo, part=part, kind=kind, N=N, P_sculpt=P)
     (work / "rest.json").write_text(json.dumps({"actuators": actuators, "joint_pairs": [[names[p_], names[c_]] for p_, c_ in sorted(joint_pairs)],
                                                 "contacts": [[names[p_], names[c_]] for p_, c_ in cuts if (p_, c_) not in joint_pairs], "parts": sorted(set(part.tolist())),
@@ -1185,6 +1290,7 @@ def stage_paint(a, work):
     zone_f[pz[pid].sum(1) == 0] = 0
     # rules: actuators bare steel; soles dark
     zone_f[kind == 3] = 4   # actuators: dark gunmetal (bright steel balls read as chrome toys)
+    zone_f[kind == 1] = 4   # caps on cut seams: the same dark, matte metal (no edge chips on their fan)
     fn = np.cross(P[F[:, 1]] - P[F[:, 0]], P[F[:, 2]] - P[F[:, 0]])
     fn /= np.linalg.norm(fn, axis=1, keepdims=True) + 1e-12
     cz = P[F].mean(1)[:, 2]
@@ -1368,6 +1474,20 @@ def stage_paint(a, work):
     for k_, v_ in node_mm.items():
         if k_.lower().startswith("spot_") or k_.lower().startswith("light"):
             gl_code[(np.linalg.norm(Cf - v_, axis=1) < 0.025 * Hm) & (kind == 0)] = 100
+    cr_ = v2.get("canopy")   # hand-marked canopy: faces near a point facing a direction, in panels under max_area
+    if cr_:
+        dn = np.asarray(cr_.get("normal", [0, -0.7, 0.7]), float); dn /= np.linalg.norm(dn)
+        m_ = (np.linalg.norm(Cf - np.asarray(cr_["centre"], float), axis=1) < float(cr_.get("radius", 900))) & \
+             (fn @ dn > float(cr_.get("min_dot", 0.75))) & (kind == 0)
+        m_ &= pid_area[pid] < float(cr_.get("max_area_m2", 0.35)) * 1e6
+        gl_code[gl_code == 255] = 0
+        gl_code[m_] = 255
+    for lt in v2.get("lights", []):   # {"centre": [..], "radius": mm, "code": 100 light | 190 lens, "normal"?: [..]}
+        m_ = (np.linalg.norm(Cf - np.asarray(lt["centre"], float), axis=1) < float(lt.get("radius", 250))) & (kind == 0)
+        if "normal" in lt:
+            dn = np.asarray(lt["normal"], float); dn /= np.linalg.norm(dn)
+            m_ &= fn @ dn > float(lt.get("min_dot", 0.6))
+        gl_code[m_] = int(lt.get("code", 100))
     for rule in v2.get("lenses", []):   # config: [{"min": [..], "max": [..]}] faces that are sensor lenses (green)
         m_ = (Cf >= rule["min"]).all(1) & (Cf <= rule["max"]).all(1)
         gl_code[m_] = 190

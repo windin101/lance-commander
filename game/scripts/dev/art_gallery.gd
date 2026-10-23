@@ -76,7 +76,9 @@ func _run() -> void:
 			ArtV2.dress_object(model, path.get_file().get_basename())
 		var paint: Array = item.get("paint", [])
 		if item.has("scheme"):  # "player" (optionally with "pattern"), a faction scheme name ("steiner", "liao"...)
-			var sch := PaintScheme.player() if String(item["scheme"]) == "player" else PaintScheme.named(String(item["scheme"]))
+			# "player" is the default player scheme (reviews must not depend on what the tester saved); "player_saved" the saved one
+			var nm := String(item["scheme"])
+			var sch := PaintScheme.player() if nm == "player_saved" else PaintScheme.named("player_default" if nm == "player" else nm)
 			if item.has("pattern"):
 				sch["pattern"] = String(item["pattern"])
 			MechPaint.apply_scheme(model, String(item.get("paint_name", "")), sch, String(item.get("folder", "mechs")))

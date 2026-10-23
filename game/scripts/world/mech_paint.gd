@@ -145,6 +145,8 @@ static func apply_v2(root: Node, name: String, red: Color, green: Color, blue: C
 				mat.set_shader_parameter("%s_tex" % k, load(p))
 				if k == "zones":
 					mat.set_shader_parameter("zones_id_tex", load(p))
+				if k == "mask":
+					mat.set_shader_parameter("mask_id_tex", load(p))
 		_set_scheme(mat, scheme, red, green, blue)
 		mat.set_shader_parameter("grunge_tex", load("res://assets/v2/shared/grunge.png"))
 		mat.set_shader_parameter("base_colour", _paint_colour(blue))
