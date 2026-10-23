@@ -348,7 +348,12 @@ func _current_goal(m: SimUnit) -> Variant:
 			m.path = PackedVector2Array()
 			return null
 		if m.path.is_empty() or time >= m.repath_time:
-			m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.hover), m.hover)
+			if m.distance_to(t.position) <= attack_range(m):
+				# in reach without a line of fire (behind a building or a crest): walk to a spot
+				# that has one (the attack tactic repositions on NOT_LOCKED)
+				m.path = _sight_position_path(m, t)
+			else:
+				m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.hover), m.hover)
 			if m.path.is_empty():
 				m.path = _firing_position_path(m, t)
 			m.path_index = 0
@@ -418,6 +423,33 @@ func _can_fire_on(m: SimUnit, t: SimUnit) -> bool:
 		if int(m.items[w]["master_id"]) in rules.indirect_fire_ids:
 			return team_line_of_sight(m.team, t)
 	return false
+
+
+## The nearest reachable cell within weapon reach of t that can see it (SimMap.line_of_sight
+## from this unit's sight height), on rings of 16 bearings; empty if none.
+func _sight_position_path(m: SimUnit, t: SimUnit) -> PackedVector2Array:
+	var reach := attack_range(m)
+	var h := los_height(m)
+	var th := los_height(t)
+	var ext := sight_radius(t) if t is SimStructure else 0.0
+	var cands := []
+	for r in [reach * 0.35, reach * 0.6, reach * 0.85]:
+		for k in 16:
+			var p: Vector2 = t.position + Vector2.from_angle(TAU * k / 16.0) * maxf(r, 20.0 + ext)
+			var c := map.cell_of(p)
+			if not map.in_bounds(c) or not map.is_walkable(c, m.hover):
+				continue
+			if map.cell_of(p) == map.cell_of(m.position) or p.distance_to(m.position) < map.cell_m * 1.5:
+				continue  # where it stands already has no line of fire
+			if map.line_of_sight(p, h, t.position, th, ext, 0.0, rules.max_tree_los):
+				cands.append(p)
+	cands.sort_custom(func(a, b): return a.distance_to(m.position) < b.distance_to(m.position))
+	for p in cands.slice(0, 6):
+		var path := map.find_path(m.position, p, m.hover)
+		if not path.is_empty():
+			return path
+	# no spot with a line of fire in reach: close in on the target itself
+	return map.find_path(m.position, map.nearest_walkable(t.position, m.hover), m.hover)
 
 
 ## A target with no path to its cell (an island past deep water, a walled pocket): walk

@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_19
+force: campaign 6 units 330 t of 330 t, RP 12000: Shootist Prime(pmwscooter), Catapult Prime(pmwvenom), Vulture Prime(pmwbubba), Vulture Prime(pmwwicked), Shadow Cat Prime(pmwsteel), Razorback Prime(pmwclaymore)
+ABL pilots: 88
+t=  51.5  SUPPORT salvage_craft Shootist rp_left=2000
+t= 122.2  CAPTURED Werewolf LiaoTurretControl.fit
+t= 165.1  LOST Shootist (disabled, armour 27%, heat 0, ejected false, pilot 0.0 wounds, last hit by Vedette)
+t= 170.4  LOST Werewolf (destroyed, armour 33%, heat 0, ejected false, pilot 0.0 wounds, last hit by Aero Spotter)
+t= 180.5  LOST Vulture (destroyed, armour 39%, heat 6, ejected false, pilot 0.0 wounds, last hit by Aero Spotter)
+t= 202.6  LOST Vulture (destroyed, armour 12%, heat 0, ejected false, pilot 1.0 wounds, last hit by MenShen)
+t= 230.9  PULLBACK ShadowCat at 28%
+t= 232.9  LOST Shootist (destroyed, armour 53%, heat 0, ejected false, pilot 0.0 wounds, last hit by Aero Spotter)
+t= 232.9  LOST ShadowCat (destroyed, armour 21%, heat 0, ejected false, pilot 1.0 wounds, last hit by MenShen)
+t= 246.4  FALLBACK 3 threats (dps 10 vs 5, health 60%) to (662, -158)
+t= 263.0  LOST Catapult (destroyed, armour 14%, heat 0, ejected false, pilot 1.0 wounds, last hit by Aero Spotter)
+t= 267.9  MISSION LOST
+seed 2 end t=268 result=LOST  player alive 0  enemies alive 62
+damage to lance: 316 from 18 attackers; hits by location (0 head .. 10 rear RT): { 3: 17, 5: 11, 6: 13, 2: 11, 1: 13, 4: 17, 7: 11, 0: 2, 10: 1 }
+damage by lance: 1544; kills 20
+        87  MenShen (mech)
+        60  Shootist (mech)
+        48  Zeus (mech)
+        44  Aero Spotter (vehicle)
+        20  Hollander (mech)
+        18  Vedette (vehicle)
+        15  Raven (mech)
+         8  ShaYu (mech)
+         6  LRMTurret (vehicle)
+         6  Lrmcarrier (vehicle)
+  obj 0 P: open  1. Destroy 1/3 of All Enemy Forces in the Sector
+  obj 1 P: gated  2. Move All Surviving Mech to Extraction Point
+  obj 2 s: open  a. Destroy 2/3 of All Enemy Forces in the Sector
+  obj 3 s: open  b. Destroy  All Enemy Forces in the Sector
+  obj 4 s: open  c. Captrue Liao Headquarters
+  obj 5 s: open  d. Destroy All 3 Power Generators at the Liao Ba
+  obj 6 s: open  e. Destroy Both Industrial Complex at Liao Indus
+  obj 7 s: open  f. Destroy All 5 Slayer Bombers at  Liao Airstri
+  obj 8 s: open  g. Capture Weapon Facility
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_19_MOG:start": 1, "mc2_19_HQ_PD:start": 4, "mc2_19_Power_Patrol_M1:start": 3, "mc2_19_Power_PD:start": 2, "mc2_19_Power_guard:start": 3, "mc2_19_Power_Patrol_V1:start": 1, "pbrain:attack": 1, "mc2_19_Ind_PD:attack": 1, "mc2_19_IND_Patrol_V1:attack": 2, "mc2_19_IND_Patrol_V2:attack": 1, "mc2_19_IND_guard:attack": 2, "mc2_19_IND_Patrol_M1:attack": 2, "mc2_19_Port_guard:start": 1, "mc2_19_Port_guard:attack": 3, "mc2_19_Port_Patrol_V1:attack": 2, "mc2_19_Port_guard_Mech:attack": 2, "mc2_19_Port_Patrol_M1:attack": 1, "mc2_19_Port_Patrol_M2:attack": 3, "mc2_19_Port_Patrol_M2:baseassault": 1, "mc2_19_Hanger_guard:start": 3, "mc2_19_Hanger_Patrol_V1:baseassault": 1, "mc2_19_Hanger_Patrol_M1:baseassault": 3, "mc2_19_Hanger_Rein_V1:start": 3, "mc2_19_Hanger_Rein_M1:start": 1, "mc2_19_Hanger_guard_LRM:start": 2, "mc2_19_MOG_guard:start": 2, "mc2_19_MOG_Patrol_M1:start": 1, "mc2_19_MOG_guard2:start": 1, "mc2_19_MainA_Patrol_M1:start": 4, "mc2_19_TENT_PD:start": 3, "mc2_19_TENT_Patrol_M1:start": 2, "mc2_19_MainA_guard:start": 2, "mc2_19_MainA_Patrol_V2:start": 2, "mc2_19_MainA_Patrol_V3:start": 1, "mc2_19_HQ_guard_Ved:start": 2, "mc2_19_AMMO_guard:start": 2, "mc2_19_AMMO_Patrol_V1:start": 1, "mc2_19_MainL_Patrol_M2:start": 2, "mc2_19_MainL_Patrol_M1:start": 2, "mc2_19_MainL_Patrol_V1:start": 2, "mc2_19_HQ_Patrol_V1:start": 1, "mc2_19_HQ_guard:start": 2, "mc2_19_MainA_Patrol_V1:start": 1, "PBrain:": 6, "pbrain:": 1 }
+enemy pilots that moved >20 m: 49 / 89
+
+--- stderr ---
+WARNING: 813 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,68 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_09
+force: campaign 5 units 300 t of 300 t, RP 30000: Shootist Prime(pmwsteel), Shootist Prime(pmwclaymore), Bushwacker Prime(pmwworm), Bushwacker Prime(pmwmeat), Hunchback Prime(pmwpalerider)
+ABL pilots: 64
+t=  21.5  SUPPORT artillery_piece (255, -657) rp_left=22000
+t=  33.5  SUPPORT artillery_piece (196, -560) rp_left=14000
+t=  43.0  LOST Hunchback (disabled, armour 92%, heat 0, ejected false, pilot 0.0 wounds, last hit by MediumAutoCannonTurret)
+t=  44.4  LOST Shootist (disabled, armour 92%, heat 0, ejected false, pilot 0.0 wounds, last hit by SRMTurret)
+t=  45.5  SUPPORT salvage_craft Shootist rp_left=4000
+t=  76.0  LOST Shootist (disabled, armour 36%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hunter)
+t= 111.9  CAPTURED Bushwacker OrdnanceTruckProp
+t= 113.1  SUPPORT repair_truck (-5, -469) rp_left=2000
+t= 125.6  CAPTURED Shootist BTurretControl.fit
+t= 133.5  REPAIR_DONE Bushwacker 
+t= 146.9  REPAIR_DONE Bushwacker 
+t= 189.4  REPAIR_DONE Shootist 
+t= 210.1  REPAIR_DONE Bushwacker 
+t= 212.7  CAPTURED Bushwacker OrdnanceTruckProp
+t= 378.7  REPAIR_DONE Bushwacker 
+t= 403.7  CAPTURED Bushwacker OrdnanceTruckProp
+t= 405.7  SUPPORT salvage_craft Urbanmech rp_left=0
+t= 407.4  CAPTURED Bushwacker WeaponsFacility
+t= 407.4  objective done: 1 - Capture Weapons Facility
+t= 443.0  REPAIR_DONE Urbanmech 
+t= 594.1  REPAIR_DONE Bushwacker 
+t= 632.6  objective done: 2 - Destroy Fuel Tanks at Refinery
+t= 638.7  REPAIR_DONE Shootist 
+t= 692.5  REPAIR_DONE Bushwacker 
+t= 692.6  LOST Repairtruck (disabled, armour 100%, heat 0, ejected false, pilot 0.0 wounds, last hit by -)
+t= 696.7  PULLBACK Bushwacker at 28%
+t= 698.9  LOST Bushwacker (disabled, armour 19%, heat 0, ejected false, pilot 1.0 wounds, last hit by Swarmlrmc)
+t= 702.7  LOST Bushwacker (disabled, armour 21%, heat 0, ejected false, pilot 0.0 wounds, last hit by Starslayer)
+t= 707.5  LOST Urbanmech (destroyed, armour 31%, heat 0, ejected false, pilot 0.0 wounds, last hit by LaoHu)
+t= 714.7  FALLBACK 4 threats (dps 21 vs 5, health 57%) to (705, 1)
+t= 723.7  LOST Shootist (disabled, armour 16%, heat 0, ejected false, pilot 2.0 wounds, last hit by Starslayer)
+t= 754.0  harness: no armed lance unit left since t=724 (only support vehicles); scored LOST (I13)
+seed 2 end t=754 result=LOST  player alive 2  enemies alive 22
+damage to lance: 1278 from 46 attackers; hits by location (0 head .. 10 rear RT): { 1: 67, 4: 44, 7: 56, 5: 55, 6: 40, 3: 57, 2: 49, 8: 12, 0: 3, 10: 3, 9: 3 }
+damage by lance: 1872; kills 34
+       194  Starslayer (mech)
+       192  LRMTurret (vehicle)
+       165  Artillery Piece (vehicle)
+       126  MediumAutoCannonTurret (vehicle)
+       111  Swarmlrmc (vehicle)
+        87  Flea (mech)
+        83  LaoHu (mech)
+        81  Lrmcarrier (vehicle)
+        78  SRMTurret (vehicle)
+        66  Urbanmech (mech)
+  obj 0 P: done  1 - Capture Weapons Facility
+  obj 1 P: done  2 - Destroy Fuel Tanks at Refinery
+  obj 2 P: open  3 - Destroy Bandit HQ in Downed Spacecraft Nosec
+  obj 3 P: open  Eliminate Bandit Leader at Bandit HQ
+  obj 4 P: inactive (flag 15)  Move all Surviving Mechs to Extraction Point
+  obj 5 s hidden: done  Destroy 12 Enemy Units
+  obj 6 s hidden: open  Trigger to signal ambush at Nosecone
+  obj 7 s hidden: open  Hidden Trigger for Extraction
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_09_EC1_Grp1_Cent1:attack": 1, "mc2_09_EC1_Grp1_Ved:attack": 2, "mc2_09_EC1_Grp2_Urb:attack": 2, "mc2_09_EC1_Grp2_LRM:start": 2, "mc2_09_EC1_Grp3_Fire1:attack": 1, "mc2_09_EC1_Grp3_Fire2:attack": 2, "mc2_09_EC2_Grp2_Ved1:attack": 1, "mc2_09_EC2_Grp2_Ved2:attack": 1, "mc2_09_EC3_Grp4_Heli:attack": 2, "mc2_09_EC3_Grp1_Hetz:attack": 1, "mc2_09_EC3_Grp1_Cent:attack": 1, "mc2_09_EC4_Grp1_Hetz:attack": 2, "mc2_09_EC4_Grp1_Hetz:start": 1, "mc2_09_EC4_Grp2_Urb:start": 2, "mc2_09_EC5_Grp1_Cat:hqrun": 1, "mc2_09_EC5_Grp2_Star1:hqrun": 1, "mc2_09_EC5_Grp2_Star2:hqrun": 1, "mc2_09_EC3_Grp3_Fire:attack": 2, "mc2_09_EC3_Grp3_Urb:attack": 1, "mc2_09_EC3_Grp2_Fire:attack": 2, "mc2_09_EC3_Grp5_LRM:attack": 2, "mc2_09_EC1_Grp1_Urb1:attack": 1, "mc2_09_EC4_Grp3_Urb1:attack": 1, "mc2_09_EC4_Grp3_Urb2:start": 1, "mc2_09_EC6_Grp2_NWPat_lrm:start": 2, "mc2_09_EC6_Grp2_NWPat:start": 2, "mc2_09_EC6_Grp1_NEPat:start": 2, "mc2_09_EC4_Grp3_Fire:start": 1, "mc2_09_EC6_Grp4_Vehs:start": 5, "mc2_09_EC6_Grp5_DeadVehs:start": 3, "mc2_09_EC3_Grp4_Mechs:attack": 3, "pbrain:attack": 1, "mc2_09_EC2_Grp1_Fire:attack": 2, "mc2_09_EC2_Grp2_Fire:attack": 3, "mc2_09_EC6_Grp1_NEPat_lrm:start": 1, "PBrain:": 4, "pbrain:": 3 }
+enemy pilots that moved >20 m: 52 / 66
+
+--- stderr ---
+WARNING: 890 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

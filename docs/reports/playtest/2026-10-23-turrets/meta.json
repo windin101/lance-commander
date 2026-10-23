@@ -1,0 +1,30 @@
+{
+ "commit": "a1cb491",
+ "dirty": [
+  "M game/scripts/sim/sim_abl.gd",
+  " M game/scripts/sim/sim_map.gd",
+  " M game/scripts/sim/sim_mission.gd",
+  " M game/scripts/sim/sim_world.gd",
+  " M game/scripts/ui/mech_stage.gd",
+  " M game/scripts/world/mech_paint.gd",
+  " M game/scripts/world/mech_view.gd",
+  " M game/scripts/world/mission_view.gd",
+  " M game/scripts/world/objects_view.gd",
+  " M game/tools/autoplay.gd",
+  "?? game/data/unit_weather.json",
+  "?? game/scripts/dev/art_gallery.gd",
+  "?? game/scripts/dev/art_gallery.gd.uid",
+  "?? game/scripts/world/art_v2.gd",
+  "?? game/scripts/world/art_v2.gd.uid"
+ ],
+ "scripts_diff_sha1": "2541280506",
+ "bot_sha1": "735d9a85c3",
+ "seeds": [
+  1,
+  2,
+  3
+ ],
+ "max_seconds": 1800,
+ "bot_args": [],
+ "jobs": 3
+}

@@ -1,0 +1,61 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_11
+force: campaign 3 units 160 t of 160 t, RP 0: Men Shen Prime(pmwsteel), Men Shen Prime(pmwclaymore), Starslayer Prime(pmwworm)
+ABL pilots: 38
+t=   0.1  capture target Jagermech destroyed by ?
+t=   0.1  capture target ShadowCat destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Jagermech destroyed by ?
+t= 312.7  CAPTURED MenShen OrdnanceTruckProp
+t= 342.3  CAPTURED MenShen DavionTurretControl.fit
+t= 478.5  CAPTURED MenShen DavionTurretControl.fit
+t= 488.5  CAPTURED MenShen DavionTurretControl.fit
+t= 509.7  LOST MenShen (disabled, armour 24%, heat 0, ejected false, pilot 0.0 wounds, last hit by MediumAutoCannonTurret)
+t= 522.7  FALLBACK 3 threats (dps 17 vs 9, health 56%) to (337, 306)
+t= 574.3  CAPTURED Starslayer DavionTurretControl.fit
+t= 582.7  PULLBACK Starslayer at 26%
+t= 588.7  FALLBACK 4 threats (dps 19 vs 4, health 58%) to (634, 410)
+t= 603.7  PULLBACK Starslayer at 26%
+t= 605.1  CAPTURED MenShen DavionTurretControl.fit
+t= 648.7  FALLBACK 4 threats (dps 14 vs 3, health 37%) to (633, 395)
+t= 661.7  LOST MenShen (disabled, armour 16%, heat 0, ejected false, pilot 0.0 wounds, last hit by Enfield)
+t= 708.7  FALLBACK 4 threats (dps 14 vs 1, health 16%) to (601, 379)
+t= 727.0  LOST Starslayer (destroyed, armour 5%, heat 0, ejected false, pilot 3.0 wounds, last hit by Enfield)
+t= 732.0  MISSION LOST
+seed 1 end t=732 result=LOST  player alive 0  enemies alive 17
+damage to lance: 562 from 19 attackers; hits by location (0 head .. 10 rear RT): { 5: 15, 6: 29, 4: 16, 1: 24, 2: 16, 3: 28, 9: 3, 8: 2, 10: 3, 0: 3, 7: 18 }
+damage by lance: 1344; kills 14
+       276  MediumAutoCannonTurret (vehicle)
+       118  Jagermech (mech)
+       103  Enfield (mech)
+        34  Wolfhound (mech)
+        27  LRMTurret (vehicle)
+         4  Centipede (vehicle)
+  obj 0 s: open  a - Capture RP Buildings at Davion Installation
+  obj 1 s: open  b - Salvage Davion 'Mechs at salvage yard
+  obj 2 P: open  1 - Capture Davion Weapons Facility
+  obj 3 P: open  2 - Capture Steiner Weapons Facility
+  obj 4 P: open  3 - Capture Steiner HQ Building
+  obj 5 P: gated  4 - Extract at Steiner Drop Ship Pad
+  obj 6 s hidden: open  hidden objective for sensor towers
+  obj 7 s hidden: open  hidden objective for sensor control
+  obj 8 s hidden: open  bool 01
+  obj 9 s hidden: open  bool 02
+  obj 10 s hidden: open  bool 03
+  obj 11 s hidden: open  bool 04
+  obj 12 s hidden: open  bool 05
+  obj 13 s hidden: done  bool 06
+  obj 14 s hidden: open  Hidden Trigger for Salvage VO
+  obj 15 s hidden: done  Start of mission wav file
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_11_EC1_grp4:attack": 2, "mc2_11_EC1_Grp2:attack": 2, "mc2_11_dred:start": 14, "mc2_11_EC2_grp1:attack2": 1, "mc2_11_EC2_grp2:attack": 1, "mc2_11_EC3_grp2:start": 2, "mc2_11_EC3_grp3:attack": 1, "mc2_11_EC2_grp4:amok": 1, "mc2_11_EC2_grp3:attack": 1, "mc2_11_ec4_grp4:start": 1, "mc2_11_ec1_grp1:attack": 2, "mc2_11_EC3_grp1:attack": 1, "mc2_11_EC3_grp1:start": 1, "mc2_11_EC1_Grp3:start": 2, "mc2_11_EC1_grpwav:attack": 1, "mc2_11_dred_lrm:start": 1, "DredAttack01:start": 1, "PBrain:": 3 }
+enemy pilots that moved >20 m: 18 / 38
+
+--- stderr ---
+WARNING: 776 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

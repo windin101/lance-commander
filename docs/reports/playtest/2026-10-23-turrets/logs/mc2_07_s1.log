@@ -1,0 +1,45 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_07
+force: campaign 3 units 200 t of 200 t, RP 6000: Zeus Prime(pmwsteel), Shootist Prime(pmwmeat), Hunchback Prime(pmwworm)
+ABL pilots: 55
+t= 209.7  LOST Hunchback (disabled, armour 29%, heat 0, ejected false, pilot 3.0 wounds, last hit by MenShen)
+t= 212.3  SUPPORT repair_truck (422, 405) rp_left=0
+t= 237.1  REPAIR_DONE Shootist 
+t= 237.2  CAPTURED Zeus LiaoTurretControl.fit
+t= 252.4  REPAIR_DONE Zeus 
+t= 256.5  CAPTURED Zeus LiaoTurretControl.fit
+t= 259.5  CAPTURED Shootist RepairBay
+t= 279.3  CAPTURED Zeus LiaoHQ.fit
+t= 279.3  objective done: 1. Capture Liao Headquarters
+t= 411.7  PULLBACK Shootist at 27%
+t= 412.2  LOST Shootist (disabled, armour 14%, heat 0, ejected false, pilot 3.0 wounds, last hit by LargePulseCannonTurret)
+t= 477.7  FALLBACK 8 threats (dps 11 vs 4, health 55%) to (-204, 657)
+t= 494.3  LOST Repairtruck (destroyed, armour 60%, heat 0, ejected false, pilot 0.0 wounds, last hit by LargePulseCannonTurret)
+t= 521.5  LOST Zeus (disabled, armour 25%, heat 0, ejected false, pilot 1.0 wounds, last hit by Catapult)
+t= 526.5  MISSION LOST
+seed 1 end t=527 result=LOST  player alive 0  enemies alive 23
+damage to lance: 756 from 17 attackers; hits by location (0 head .. 10 rear RT): { 2: 42, 5: 40, 6: 38, 4: 47, 3: 43, 1: 31, 7: 31, 10: 5, 9: 5, 8: 1, 0: 10 }
+damage by lance: 1008; kills 29
+       228  LargePulseCannonTurret (vehicle)
+       174  Catapult (mech)
+       127  MenShen (mech)
+        84  SRMTurret (vehicle)
+        78  Vedette (vehicle)
+        33  Lrmcarrier (vehicle)
+        28  Storm (vehicle)
+         4  Centipede (vehicle)
+  obj 0 P: done  1. Capture Liao Headquarters
+  obj 1 P: open  2. Destroy Processing Plant
+  obj 2 P: gated  3. Extract All Surviving 'Mechs
+  obj 3 s: open  Destroy All Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_07_E3_LRMs:attack": 2, "mc2_07_E3_Mix_Pat:attack": 2, "mc2_07_E2_NCV1_FTs:start": 2, "mc2_07_E2_NCV1_TT1:start": 2, "mc2_07_E2_NCV1_TT2:start": 1, "mc2_07_E2_NCV1_TT3:start": 1, "mc2_07_E2_LRM:attack": 1, "mc2_07_E2_NCV1_CT1:start": 2, "mc2_07_E2_NCV1_CT2:start": 1, "mc2_07_E2_NCV1_ET1:start": 1, "mc2_07_E2_Storm:attack": 1, "mc2_07_E3_Cent1:attack": 1, "mc2_07_E1_Ved1:start": 1, "mc2_07_E1_Ved2:start": 1, "mc2_07_E3_Mix_Guards:attack": 7, "mc2_07_E2_Cata:start": 1, "mc2_07_E3_Menshen1:attack": 1, "mc2_07_E3_Ved1:attack": 1, "mc2_07_E2_Lao:start": 1, "mc2_07_E2_infantry1:start": 6, "mc2_07_E2_infantry2:building_retreat": 7, "mc2_07_E2_infantry:start": 1, "mc2_07_E2_infantry1:attack": 2, "mc2_07_E1_Fire:start": 1, "mc2_07_E1_infantry3:start": 2, "mc2_07_E3_Menshen2:attack": 1, "mc2_07_E1_NCV1_Minelayer1:start": 1, "mc2_07_E1_NCV1_Minelayer2:start": 1, "PBrain:": 3 }
+enemy pilots that moved >20 m: 38 / 55
+
+--- stderr ---
+WARNING: 458 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

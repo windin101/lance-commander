@@ -115,7 +115,14 @@ LRM5, LRM, Long Tom) may also fire when any team mover that is not disabled or s
 the target (`Team::teamLineOfSight`, team.cpp:762-810). `SimRules.line_of_sight = false`
 turns it off. A pursuing attacker in range but without a line of fire keeps closing
 (`SimWorld._can_fire_on`); the original's attack tactic moves on a NOT_LOCKED weapon status.
-A target that changes sides (a captured turret or building) is dropped.
+A target that changes sides (a captured turret or building) is dropped. An attacker already
+in reach but without a line of fire walks to the nearest reachable spot in reach that has one
+(`SimWorld._sight_position_path`), else closes on the target.
+
+**Units placed on blocked cells** (mc2_04's facility Anubis sits inside the weapons facility's
+impassable footprint) walk out to the nearest open cell first (`SimMap.find_path`). Grid A*
+refuses a solid start, which froze such units and, with line of sight on, left attackers
+unable to see or reach them (fixed 2026-10-23).
 
 **Area-effect weapons** (weaponbolt.cpp:762-794; gamesys `AreaEffectWeaponComponentIndex`):
 the Long Tom and the Swarm LRM do their damage by an explosion at the target, hit or miss, with

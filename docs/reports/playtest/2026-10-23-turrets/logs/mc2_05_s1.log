@@ -1,0 +1,68 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_05
+force: campaign 4 units 215 t of 220 t, RP 7000: Shootist Prime(pmwmeat), Bushwacker Prime(pmwworm), Bushwacker Prime(pmwpalerider), Hollander Prime(pmwtwitch)
+ABL pilots: 45
+t= 153.5  CAPTURED Bushwacker LiaoSpotlightControl.fit
+t= 162.0  objective done: 1. Destroy Fuel Tanks
+t= 176.1  CAPTURED Bushwacker WeaponsFacility
+t= 176.1  objective done: 2. Capture Weapons Facility
+t= 243.3  SUPPORT repair_truck (-15, 58) rp_left=1000
+t= 258.3  CAPTURED Bushwacker LiaoTurretControl.fit
+t= 258.8  CAPTURED Bushwacker LiaoSpotlightControl.fit
+t= 264.0  REPAIR_DONE Shootist 
+t= 298.3  REPAIR_DONE Hollander 
+t= 304.0  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 320.8  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 341.8  REPAIR_DONE Hollander 
+t= 377.7  REPAIR_DONE Bushwacker 
+t= 416.9  REPAIR_DONE Hollander 
+t= 421.6  CAPTURED Bushwacker LiaoTurretControl.fit
+t= 446.6  CAPTURED Bushwacker RepairBay
+t= 446.6  objective done: 3. Capture Repair Bay
+t= 528.5  REPAIR_DONE Bushwacker 
+t= 543.8  REPAIR_DONE Shootist 
+t= 545.8  CAPTURED Hollander Ordnancetruck
+t= 546.8  CAPTURED Hollander Ordnancetruck
+t= 546.8  objective done: a. Capture Resource Trucks
+t= 551.7  REPAIR_DONE Bushwacker 
+t= 654.7  SUPPORT artillery_piece (-1027, -266) rp_left=1000
+t= 786.7  BAY Bushwacker -> RepairBay (855 m)
+t= 839.3  REPAIR_DONE Bushwacker RepairBay
+t= 904.0  REPAIR_DONE Bushwacker 
+t= 905.5  CAPTURED Hollander LiaoTurretControl.fit
+t= 910.1  CAPTURED Hollander LiaoSpotlightControl.fit
+t= 920.8  CAPTURED Bushwacker Prison
+t= 920.8  objective done: 4. Capture Prison Complex
+t= 931.3  REPAIR_DONE Hollander 
+t= 967.4  objective done: 5. Move to Extraction Point
+t= 972.4  MISSION WON
+seed 1 end t=972 result=WON  player alive 8  enemies alive 2
+damage to lance: 624 from 38 attackers; hits by location (0 head .. 10 rear RT): { 2: 23, 0: 14, 7: 24, 3: 27, 5: 24, 4: 22, 6: 21, 1: 27, 8: 5, 10: 9, 9: 3 }
+damage by lance: 1348; kills 37
+       144  SRMTurret (vehicle)
+        84  LRMTurret (vehicle)
+        82  ShaYu (mech)
+        78  MediumAutoCannonTurret (vehicle)
+        75  Anubis (mech)
+        69  Lrmcarrier (vehicle)
+        42  Storm (vehicle)
+        24  Centipede (vehicle)
+        18  Vedette (vehicle)
+         4  Flea (mech)
+  obj 0 P: done  1. Destroy Fuel Tanks
+  obj 1 P: done  2. Capture Weapons Facility
+  obj 2 P: done  3. Capture Repair Bay
+  obj 3 P: done  4. Capture Prison Complex
+  obj 4 P: done  5. Move to Extraction Point
+  obj 5 s: done  a. Capture Resource Trucks
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_05_EC3_fireant1:attack": 1, "mc2_05_EC1_ved1:attack": 1, "mc2_05_EC1_ved2:attack": 1, "mc2_05_EC1_LRMs:attack": 4, "mc2_05_EC3_storm1:attack": 2, "mc2_05_EC3_LRMs:attack": 5, "mc2_05_EC3_shayu1:attack": 1, "mc2_05_EC3_shayu2:attack": 1, "mc2_05_EC1_anubis1:attack": 1, "mc2_05_EC1_anubis2:attack": 1, "mc2_05_EC2_storm1:attack": 1, "mc2_05_EC4_shayu1:attack": 1, "mc2_05_EC1_storm1:attack": 1, "mc2_05_EC4_shayu2:attack": 1, "mc2_05_EC4_LRMs:attack": 2, "mc2_05_EC2_anubis1:attack": 1, "mc2_05_EC2_storm2:attack": 1, "mc2_05_EC2_LRMs:attack": 3, "mc2_05_EC2_ved1:attack": 1, "mc2_05_EC1_cents1:attack": 2, "mc2_05_EC1_cents2:attack1": 1, "mc2_05_EC2_cents2:attack": 1, "mc2_05_EC2_cents1:attack": 1, "mc2_05_RP_trucks:start": 2, "mc2_05_EC3_anubis1:attack": 1, "DredAttack01:noweapons": 1, "mc2_05_EC1_part1:attack": 1, "mc2_05_EC1_partG:attack": 1, "PBrain:": 4 }
+enemy pilots that moved >20 m: 39 / 45
+
+--- stderr ---
+WARNING: 504 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -27,7 +27,17 @@ func _init() -> void:
 		if a.begins_with("--mission="):
 			mission = a.split("=")[1]
 	var force: Array = [] if "--fit-lance" in args else _player_force(data, mission)
+	# A/B probes of the fidelity rules: --no-turrets, --no-remap, --rule=<SimRules field>=<value>
+	SimMission.use_turrets = not ("--no-turrets" in args)
+	SimMission.remap_building_teams = not ("--no-remap" in args)
 	var sm := SimMission.load_mission(data, mission, seed_value, true, force)
+	for a in args:
+		if a.begins_with("--rule="):
+			var kv := a.substr(7).split("=")
+			var cur = sm.world.rules.get(kv[0])
+			var val: Variant = (kv[1] == "true") if cur is bool else float(kv[1])
+			sm.world.rules.set(kv[0], val)
+			print("RULE %s = %s" % [kv[0], val])
 	print("mission %s" % mission)
 	print("force: %s" % _force_text(sm, force))
 	print("ABL pilots: %d" % (sm.abl.pilots.size() if sm.abl else 0))
@@ -127,7 +137,12 @@ var _dealt := 0.0  # damage the lance dealt to enemies
 var _goal := {}  # unit id -> the move goal the bot last gave it
 var _cap_stall := {}  # unit id -> checks it stood still on a capture order
 var _cap_trace := -INF  # --trace: last capture report
+var _fight_trace := -INF  # --trace: last fight report
+var _lull_trace := -INF  # --trace: last repair-lull report
 var _side: SimUnit = null  # the capture on the way (RP building, turret control, bay) being worked
+var _ignore := {}  # unit id -> until when the stall watch leaves it alone
+var _stall_dealt := 0.0
+var _stall_since := 0.0
 var _stuck := {}  # unit id -> moves to the same goal that left it standing
 var _retreat := {}  # unit id -> true while it is pulled back to repair
 var _verbose := true
@@ -273,8 +288,9 @@ func _orders(sm: SimMission) -> void:
 	for m in lance:  # don't chase a runner (e.g. a hovercraft over water) across the map
 		if m.order == SimWorld.Order.ATTACK and m.order_target and m.distance_to(m.order_target.position) > ENGAGE_M * 1.5:
 			_order(sm, m, "stop", null)
-	var threats := w.units.filter(func(u): return _armed_enemy(u) \
+	var threats := w.units.filter(func(u): return _armed_enemy(u) and float(_ignore.get(u.id, -INF)) < w.time \
 		and lance.any(func(m): return m.distance_to(u.position) <= ENGAGE_M))
+	_stall_watch(sm, threats)
 	_use_support(sm, lance, centre, threats)
 	var task := _task(sm, lance, centre)
 	if _trace:
@@ -350,6 +366,12 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 	if not soft.is_empty():
 		soft.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
 		return {"kind": "attack", "target": soft[0]}
+	# Enemy turret forts on the way (I99): the walkthroughs take out the control or generator
+	# instead of the turrets, capturing a control where they can (docs/research/original-missions.md).
+	if sm.abl:
+		var fort := _fort_job(sm, lance, centre)
+		if not fort.is_empty():
+			return fort
 	# Resource Points: a player takes the RP buildings and ordnance trucks near the route
 	# (support-powers.md 1); support powers need them, and several missions start with 0 RP.
 	# Turret controls and repair bays near the route too: every walkthrough fights inside captured
@@ -531,6 +553,13 @@ func _fight(sm: SimMission, fighters: Array, threats: Array) -> void:
 	for m in free:
 		want[m] = ranked[0]
 	var mid := _centre(fighters)
+	if _trace and sm.world.time - _fight_trace >= 30.0:
+		_fight_trace = sm.world.time
+		for m in fighters:
+			var ot: SimUnit = m.order_target
+			print("t=%6.1f  FIGHT %s order %d target %s d %.0f los %s path %d at (%.0f,%.0f) spd %.1f" % [sm.world.time, m.name, m.order,
+				ot.name if ot else "-", m.distance_to(ot.position) if ot else -1.0, sm.world.line_of_sight(m, ot) if ot else false,
+				m.path.size(), m.position.x, m.position.y, m.speed])
 	for m in fighters:
 		var t: SimUnit = want[m]
 		# Leash: a mech that has chased off more than LEASH_M from the rest comes back unless its
@@ -605,7 +634,7 @@ func _capture(sm: SimMission, units: Array, centre: Vector2, t: SimUnit) -> void
 func _pull_back(sm: SimMission, m: SimUnit, lance: Array, centre: Vector2, threats: Array, task: Dictionary) -> bool:
 	var w := sm.world
 	var s: SimSupport = sm.support
-	var trucks := w.units.filter(func(u): return u.refit_pool > 0.0 and u.team == 0 and not u.is_disabled() and u.exists)
+	var trucks := _trucks(sm)
 	var can_repair := not trucks.is_empty() or (s != null and s.rp >= int(SimSupport.COSTS["repair_truck"])) \
 		or (s != null and s.delivering) or _bay_for(sm, m) != null
 	var h := _health(m)
@@ -642,6 +671,75 @@ func _pull_back(sm: SimMission, m: SimUnit, lance: Array, centre: Vector2, threa
 	if m.distance_to(away) > 40.0 and (m.order != SimWorld.Order.MOVE or m.path.is_empty()):
 		_order(sm, m, "move", w.map.nearest_walkable(away))
 	return true
+
+
+## Our repair trucks that the lance can reach on foot (a truck dropped on the far side of a wall
+## or water deadlocks a repair: neither it nor the mech can get to the other).
+func _trucks(sm: SimMission) -> Array:
+	var w := sm.world
+	var lance := _lance(w)
+	return w.units.filter(func(u): return u.refit_pool > 0.0 and u.team == 0 and not u.is_disabled() and u.exists \
+		and (lance.is_empty() or _path_ok(sm, lance[0], u)))
+
+
+## Active enemy turrets with guns (I99).
+func _enemy_turrets(w: SimWorld) -> Array:
+	return w.units.filter(func(u): return u is SimTurret and u.active and u.team != 0 and u.team >= 0 \
+		and not u.is_destroyed() and u.num_weapons > 0)
+
+
+## A turret's longest weapon reach, metres.
+func _turret_reach(w: SimWorld, t: SimTurret) -> float:
+	var r := 0.0
+	for i in t.num_weapons:
+		var wpn: Dictionary = t.items[i]["component"].get("weapon", {})
+		r = maxf(r, float(w.rules.weapon_ranges[w.rules.range_index(wpn.get("range", "short"))][1]))
+	return minf(r, t.attack_m)
+
+
+## Enemy turrets whose guns reach a point.
+func _covering(w: SimWorld, p: Vector2) -> Array:
+	return _enemy_turrets(w).filter(func(t): return t.position.distance_to(p) <= _turret_reach(w, t) + 15.0)
+
+
+## The turret fort nearest the lance (turrets within 300 m): capture its control if we can, else
+## destroy the control or generator it hangs on, else, for a turret with no control, shoot the
+## turret itself (structures are always hit).
+func _fort_job(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
+	var w := sm.world
+	var near := _enemy_turrets(w).filter(func(t): return t.position.distance_to(centre) <= 300.0)
+	if near.is_empty():
+		return {}
+	near.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
+	for t in near:
+		var par: SimStructure = t.parent
+		if par != null and par.exists and not par.is_destroyed():
+			if par.position.distance_to(centre) > 600.0 or not _path_ok(sm, lance[0], par):
+				continue
+			if sm.abl.can_capture(par, 0):
+				return {"kind": "capture", "target": par}
+			if par.team != 0:
+				return {"kind": "attack", "target": par}
+		elif par == null:
+			return {"kind": "attack", "target": t}
+	return {}
+
+
+## Stall watch: a fight with no damage dealt for 150 s (enemies the lance can't reach or see)
+## is dropped for 2 minutes, so the lance goes back to its objectives or extracts.
+func _stall_watch(sm: SimMission, threats: Array) -> void:
+	var w := sm.world
+	if threats.is_empty() or _dealt > _stall_dealt + 0.5:
+		_stall_dealt = _dealt
+		_stall_since = w.time
+		return
+	if w.time - _stall_since < 150.0:
+		return
+	for t in threats:
+		_ignore[t.id] = w.time + 120.0
+	if _verbose:
+		print("t=%6.1f  STALL no damage for %.0f s: leaving %d threats for 120 s" % [w.time, w.time - _stall_since, threats.size()])
+	_stall_since = w.time
 
 
 ## A friendly repair bay with points left within reach of the mech, free or already fixing it.
@@ -696,6 +794,8 @@ func _fall_back(sm: SimMission, units: Array, centre: Vector2, threats: Array, t
 	var theirs := 0.0
 	for t in threats:
 		theirs += _dps(t)
+	for t in _covering(w, centre):  # fighting inside a fort's arcs (I99)
+		theirs += _dps(t)
 	var ours := 0.0
 	var health := 0.0
 	for m in units:
@@ -737,7 +837,7 @@ func _repair_lull(sm: SimMission, units: Array, task: Dictionary) -> bool:
 				break
 	if at_bay:
 		return true
-	var trucks := w.units.filter(func(u): return u.refit_pool > 0.0 and u.team == 0 and not u.is_disabled() and u.exists)
+	var trucks := _trucks(sm)
 	var waiting := sm.support != null and sm.support.delivering and sm.support.pending.any(func(p): return p["kind"] == "vtol")
 	if trucks.is_empty() and not waiting:
 		return false
@@ -745,6 +845,21 @@ func _repair_lull(sm: SimMission, units: Array, task: Dictionary) -> bool:
 	if hurt.is_empty():
 		return false
 	var at: Vector2 = trucks[0].position if not trucks.is_empty() else _centre(units)
+	if _trace and w.time - _lull_trace >= 30.0:
+		_lull_trace = w.time
+		for r in sm.support.repairs:
+			print("t=%6.1f  LULL repair %s <- %s phase %s truck pool %.0f d %.0f truck order %d path %d; truck %s mech %s m->t path %d status %d" % [w.time, r["mech"].name,
+				r["truck"].name, r["phase"], r["truck"].refit_pool, r["truck"].distance_to(r["mech"].position), r["truck"].order, r["truck"].path.size(),
+				r["truck"].position, r["mech"].position, w.map.find_path(r["mech"].position, w.map.nearest_walkable(r["truck"].position)).size(), r["mech"].status])
+		if sm.support.repairs.is_empty():
+			print("t=%6.1f  LULL no repair running; hurt %s; trucks %d" % [w.time, hurt.map(func(m): return "%s %.0f%%" % [m.name, 100 * _health(m)]), trucks.size()])
+	for r in sm.support.repairs:
+		# the truck can't find a way to the mech (walls, water): the mech walks to the truck
+		var tr: SimUnit = r["truck"]
+		var rm: SimUnit = r["mech"]
+		if r["phase"] == "drive" and tr.path.is_empty() and tr.distance_to(rm.position) > 60.0 \
+				and (rm.order != SimWorld.Order.MOVE or rm.path.is_empty()):
+			_order(sm, rm, "move", w.map.nearest_walkable(tr.position, rm.hover))
 	for m in units:
 		if sm.support.repairs.any(func(r): return r["mech"] == m):
 			continue
@@ -818,7 +933,7 @@ func _use_support(sm: SimMission, lance: Array, centre: Vector2, threats: Array)
 	var w := sm.world
 	if s == null:
 		return
-	var trucks := w.units.filter(func(u): return u.refit_pool > 0.0 and u.team == 0 and not u.is_disabled() and u.exists)
+	var trucks := _trucks(sm)
 	for t in trucks:  # idle trucks: the most damaged mech that is out of the fight
 		if s.repairs.any(func(r): return r["truck"] == t):
 			continue
@@ -846,7 +961,10 @@ func _use_support(sm: SimMission, lance: Array, centre: Vector2, threats: Array)
 		var at := centre
 		if not threats.is_empty():
 			at = centre + (centre - _centre(threats)).normalized() * 120.0
-		if _support(sm, "repair_truck", w.map.nearest_walkable(at)):
+		var drop := w.map.nearest_walkable(at)
+		if w.map.find_path(hurt[0].position, drop, hurt[0].hover).is_empty():
+			drop = w.map.nearest_walkable(hurt[0].position)  # on the mech's side of any wall
+		if _support(sm, "repair_truck", drop):
 			return
 	var striking := s.pending.filter(func(p): return p["kind"] == "strike" and int(p.get("team", 0)) == sm.player_team)
 	if s.can_call("air_strike") and s.rp - int(SimSupport.COSTS["air_strike"]) >= reserve and threats.size() >= 2 \
@@ -871,8 +989,22 @@ func _use_support(sm: SimMission, lance: Array, centre: Vector2, threats: Array)
 			_last_strike = w.time
 			return
 	# Long Toms against bunched enemies (players drop 2-4 to break waves, research doc): a piece
-	# behind the lance when three or more armed enemies are near and RP covers a truck as well.
+	# behind the lance when three or more armed enemies are near and RP covers a truck as well;
+	# and against a turret fort, shelled from outside its guns' reach (I99).
 	var guns := w.units.filter(func(u): return u.team == 0 and u.model == "artillerypiece" and u.exists and not u.is_disabled())
+	var forts := _enemy_turrets(w).filter(func(t): return t.position.distance_to(centre) <= 260.0)
+	for g in guns:  # an idle gun shells the nearest turret it can reach (indirect fire on our sight)
+		if g.order != SimWorld.Order.ATTACK and threats.filter(func(e): return e.distance_to(g.position) <= 180.0).is_empty():
+			var tt := _enemy_turrets(w).filter(func(t): return t.position.distance_to(g.position) <= 175.0 and t.position.distance_to(g.position) > 65.0)
+			if not tt.is_empty():
+				tt.sort_custom(func(a, b): return a.position.distance_to(g.position) < b.position.distance_to(g.position))
+				w.order_attack(g, tt[0], false, false)
+	if s.can_call("artillery_piece") and guns.size() < 2 and forts.size() >= 2 and threats.is_empty() \
+			and s.rp - int(SimSupport.COSTS["artillery_piece"]) >= reserve:
+		var fc := _centre(forts)
+		var spot := fc + (centre - fc).normalized() * 160.0  # in Long Tom reach, out of most turret guns
+		if _covering(w, spot).is_empty() and _support(sm, "artillery_piece", w.map.nearest_walkable(spot)):
+			return
 	if s.can_call("artillery_piece") and guns.size() < 3 and threats.size() >= 3 \
 			and s.rp - int(SimSupport.COSTS["artillery_piece"]) >= reserve \
 			and not guns.any(func(g): return g.position.distance_to(centre) < 150.0):
@@ -901,8 +1033,9 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool)
 		# Harness rule (I13): with no armed unit of the lance left, only support vehicles keep the
 		# mission open (B6); a player has lost then. Stop and score it a loss after 30 s.
 		if int(w.time * 10.0) % 10 == 0:
+			# an immobile artillery piece can't finish anything either
 			if _lance(w).is_empty() and not w.units.any(func(u): return u.is_mover() and u.team == 0 and u.commander == 0 \
-					and u.is_disabled() == false and u.on_gui and u.num_weapons > 0):
+					and u.is_disabled() == false and u.on_gui and u.num_weapons > 0 and u.run_speed > 0.0):
 				if gone_since < 0.0:
 					gone_since = w.time
 				elif w.time - gone_since >= 30.0:

@@ -1,0 +1,62 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_16
+force: campaign 5 units 320 t of 320 t, RP 16000: Lao Hu Prime(pmwsteel), Lao Hu Prime(pmwclaymore), Shootist Prime(pmwworm), Catapult Prime(pmwmeat), Raven Prime(pmwpalerider)
+ABL pilots: 51
+t=   6.2  SUPPORT air_strike (-875, -610) rp_left=9000
+t=  33.2  CAPTURED LaoHu DavionSensorControl.fit
+t=  33.2  objective done: 1. Capture Sensor Control
+t=  56.3  CAPTURED LaoHu DavionTurretControl.fit
+t=  59.9  CAPTURED LaoHu RepairBay
+t= 108.3  CAPTURED Raven DavionTurretControl.fit
+t= 164.9  LOST Raven (disabled, armour 22%, heat 0, ejected false, pilot 1.0 wounds, last hit by Vulture)
+t= 211.3  objective done: 2. Destroy All Base Defenders
+t= 212.3  SUPPORT repair_truck (-658, 821) rp_left=3000
+t= 232.2  CAPTURED Catapult DavionTurretControl.fit
+t= 232.7  REPAIR_DONE LaoHu 
+t= 259.4  REPAIR_DONE LaoHu 
+t= 264.0  CAPTURED Catapult DavionTurretControl.fit
+t= 275.1  CAPTURED LaoHu DavionTurretControl.fit
+t= 275.1  objective done: a. Capture All Main Base Davion Turret Controls
+t= 284.0  CAPTURED LaoHu RepairBay
+t= 397.8  REPAIR_DONE Catapult 
+t= 405.5  LOST LaoHu (disabled, armour 51%, heat 0, ejected false, pilot 2.0 wounds, last hit by Vulture)
+t= 435.7  PULLBACK LaoHu at 26%
+t= 435.7  BAY LaoHu -> RepairBay (724 m)
+t= 436.3  LOST LaoHu (disabled, armour 16%, heat 0, ejected false, pilot 2.0 wounds, last hit by Wolfhound)
+t= 465.7  PULLBACK Shootist at 21%
+t= 465.7  BAY Shootist -> RepairBay (776 m)
+t= 465.8  LOST Shootist (destroyed, armour 15%, heat 0, ejected false, pilot 2.0 wounds, last hit by Madcat)
+t= 489.7  FALLBACK 9 threats (dps 24 vs 5, health 59%) to (-321, -25)
+t= 497.7  LOST Catapult (disabled, armour 23%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hunter)
+t= 528.0  harness: no armed lance unit left since t=498 (only support vehicles); scored LOST (I13)
+seed 3 end t=528 result=LOST  player alive 1  enemies alive 23
+damage to lance: 1066 from 34 attackers; hits by location (0 head .. 10 rear RT): { 2: 47, 4: 37, 7: 39, 5: 40, 6: 35, 1: 52, 10: 2, 3: 44, 0: 7, 8: 7, 9: 3 }
+damage by lance: 1208; kills 20
+       318  Madcat (mech)
+       161  Vulture (mech)
+       110  ShadowCat (mech)
+       102  MediumAutoCannonTurret (vehicle)
+        84  Lrmcarrier (vehicle)
+        54  Hunter (vehicle)
+        52  Harasser (vehicle)
+        51  Wolfhound (mech)
+        48  Centipede (vehicle)
+        38  Uller (mech)
+  obj 0 P: done  1. Capture Sensor Control
+  obj 1 P: done  2. Destroy All Base Defenders
+  obj 2 P: open  3. Destroy All Reinforcements
+  obj 3 P: open  4. Capture Davion Base HQ
+  obj 4 P: gated  5. Move All Surviving Mechs to Extraction Point
+  obj 5 s: done  a. Capture All Main Base Davion Turret Controls
+  obj 6 s: open  b. Capture All Main Base Davion Gate Controls
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_16_NorthPatrol:attack": 1, "mc2_16_SensorGuard:attack": 2, "mc2_16_SensorPatrol:attack": 2, "mc2_16_1stMain:attack": 1, "mc2_16_BaseGuard:attack": 8, "mc2_16_BasePatrol2:attack": 2, "mc2_16_1stMain_lrm:base1escort": 1, "mc2_16_1stMain:base1escort": 2, "mc2_16_BaseGuard_lrm:attack": 1, "mc2_16_2ndMain_part:base1escort": 1, "mc2_16_2ndMain2:base1patrol": 2, "mc2_16_2ndMain:attack": 1, "mc2_16_3rdMain:base1escort": 2, "mc2_16_3rdMain_lrm:base1escort": 1, "mc2_16_3rdMain:attack": 1, "mc2_16_BasePatrol3:attack": 1, "mc2_16_1stEast2:base1patrol": 2, "mc2_16_1stEast:base1escort": 3, "mc2_16_2ndEast:base1escort": 1, "mc2_16_2ndEast2:base1patrol": 3, "mc2_16_3rdEast:base1escort": 2, "mc2_16_3rdEast2:base1patrol": 1, "mc2_16_4thMain:base1escort": 2, "mc2_16_BaseGuard2:attack": 1, "mc2_16_BaseGuard3_lrm:attack": 2, "PBrain:": 5 }
+enemy pilots that moved >20 m: 48 / 51
+
+--- stderr ---
+WARNING: 491 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
