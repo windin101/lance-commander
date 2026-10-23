@@ -1,0 +1,43 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_19
+force: campaign 5 units 330 t of 330 t, RP 12000: Zeus Prime(pmwscooter), Mad Cat Prime(pmwvenom), Shootist Prime(pmwbubba), Catapult Prime(pmwwicked), Sha Yu Prime(pmwsteel)
+ABL pilots: 87
+t=  45.5  SUPPORT salvage_craft Shootist rp_left=2000
+t= 124.5  LOST ShaYu (disabled, armour 24%, heat 2, ejected false, pilot 0.0 wounds, last hit by Hunchback)
+t= 253.8  LOST Shootist (disabled, armour 15%, heat 0, ejected false, pilot 0.0 wounds, last hit by Raven)
+t= 264.1  LOST Shootist (disabled, armour 18%, heat 0, ejected false, pilot 1.0 wounds, last hit by Raven)
+t= 328.8  objective done: 1. Destroy 1/3 of All Enemy Forces in the Sector
+t= 430.6  objective done: 2. Move All Surviving Mech to Extraction Point
+t= 435.6  MISSION WON
+seed 2 end t=436 result=WON  player alive 3  enemies alive 55
+damage to lance: 557 from 20 attackers; hits by location (0 head .. 10 rear RT): { 4: 24, 7: 13, 3: 18, 5: 25, 1: 27, 2: 26, 6: 26, 0: 2 }
+       129  Catapult (mech)
+        90  MenShen (mech)
+        80  Hollander (mech)
+        59  Shootist (mech)
+        51  Lrmcarrier (vehicle)
+        43  Raven (mech)
+        41  Hunchback (mech)
+        30  Zeus (mech)
+        16  ShaYu (mech)
+        12  Aero Spotter (vehicle)
+  obj 0 P: done  1. Destroy 1/3 of All Enemy Forces in the Sector
+  obj 1 P: done  2. Move All Surviving Mech to Extraction Point
+  obj 2 s: open  a. Destroy 2/3 of All Enemy Forces in the Sector
+  obj 3 s: open  b. Destroy  All Enemy Forces in the Sector
+  obj 4 s: open  c. Captrue Liao Headquarters
+  obj 5 s: open  d. Destroy All 3 Power Generators at the Liao Ba
+  obj 6 s: open  e. Destroy Both Industrial Complex at Liao Indus
+  obj 7 s: open  f. Destroy All 5 Slayer Bombers at  Liao Airstri
+  obj 8 s: open  g. Capture Weapon Facility
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_19_MOG:start": 1, "mc2_19_HQ_PD:start": 4, "mc2_19_Power_Patrol_M1:start": 3, "mc2_19_Power_PD:start": 2, "mc2_19_Power_guard:start": 3, "mc2_19_Power_Patrol_V1:start": 1, "pbrain:attack": 1, "mc2_19_Ind_PD:attack": 1, "mc2_19_IND_Patrol_V1:start": 1, "mc2_19_IND_Patrol_V1:attack": 1, "mc2_19_IND_Patrol_V2:attack": 1, "mc2_19_IND_guard:attack": 2, "mc2_19_IND_Patrol_M1:attack": 2, "mc2_19_Port_guard:attack": 4, "mc2_19_Port_Patrol_V1:attack": 2, "mc2_19_Port_guard_Mech:attack": 2, "mc2_19_Port_Patrol_M1:attack": 1, "mc2_19_Port_Patrol_M2:attack": 4, "mc2_19_Hanger_guard:start": 3, "mc2_19_Hanger_Patrol_V1:baseassault": 1, "mc2_19_Hanger_Patrol_M1:baseassault": 3, "mc2_19_Hanger_Rein_V1:start": 3, "mc2_19_Hanger_Rein_M1:start": 1, "mc2_19_Hanger_guard_LRM:start": 2, "mc2_19_MOG_guard:attack": 2, "mc2_19_MOG_Patrol_M1:attack": 1, "mc2_19_MOG_guard2:attack": 1, "mc2_19_MainA_Patrol_M1:start": 4, "mc2_19_TENT_PD:start": 3, "mc2_19_TENT_Patrol_M1:start": 2, "mc2_19_MainA_guard:start": 2, "mc2_19_MainA_Patrol_V2:start": 2, "mc2_19_MainA_Patrol_V3:start": 1, "mc2_19_HQ_guard_Ved:start": 2, "mc2_19_AMMO_guard:start": 2, "mc2_19_AMMO_Patrol_V1:start": 1, "mc2_19_MainL_Patrol_M2:start": 2, "mc2_19_MainL_Patrol_M1:start": 2, "mc2_19_MainL_Patrol_V1:start": 2, "mc2_19_HQ_Patrol_V1:start": 1, "mc2_19_HQ_guard:start": 2, "mc2_19_MainA_Patrol_V1:start": 1, "PBrain:": 5, "pbrain:": 1 }
+enemy pilots that moved >20 m: 52 / 88
+
+--- stderr ---
+WARNING: 764 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

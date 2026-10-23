@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_13
+ABL pilots: 49
+t= 146.8  LOST ShaYu (disabled, armour 41%, heat 2, ejected false, pilot 0.0 wounds, last hit by Enfield)
+t= 255.7  objective done: Destroy Both HPG Station
+t= 386.8  objective done: Capture Weapons Facility #1
+t= 502.6  LOST MenShen (destroyed, armour 13%, heat 0, ejected false, pilot 3.0 wounds, last hit by Poweredarmor)
+t= 554.1  LOST Catapult (disabled, armour 1%, heat 0, ejected false, pilot 4.0 wounds, last hit by Uller)
+seed 2 end t=1800 result=PLAYING  player alive 2  enemies alive 7
+damage to lance: 558 from 26 attackers; hits by location (0 head .. 10 rear RT): { 1: 28, 3: 38, 4: 20, 5: 37, 2: 28, 6: 34, 7: 30, 0: 7, 10: 4, 8: 7, 9: 2 }
+       300  Poweredarmor (vehicle)
+        90  Uller (mech)
+        66  Enfield (mech)
+        44  Jagermech (mech)
+        35  Storm (vehicle)
+        22  Wolfhound (mech)
+  obj 0 P: done  Destroy Both HPG Station
+  obj 1 P: done  Capture Weapons Facility #1
+  obj 2 P: open  Capture Weapons Facility #2
+  obj 3 P: open  Capture Weapons Facility #3
+  obj 4 P: open  Destroy Davion Dropship
+  obj 5 P: gated  Move all Surviving 'Mechs to Extraction Point
+  obj 6 s hidden: open  Super Secret Hidden OBJ to track if you kill the
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 5, "mc2_13_Enfield_S:attack": 1, "mc2_13_WFac2_Veh_1:attack": 1, "mc2_13_WFac2_Veh_2:attack": 1, "mc2_13_Enfield_N:attack": 1, "mc2_13_WFac1_PWARM:attack": 5, "mc2_13_WFac1_PWARM_1:attack": 16, "mc2_13_PowerGen_Mech_1:attack": 2, "mc2_13_SpacePort_Clan_Thor:start": 1, "mc2_13_SpacePort_Clan_1:start": 1, "mc2_13_Enfield_TC:attack": 1, "mc2_13_OutPatl_Grp1_Lead:start": 1, "mc2_13_OutPatl_Grp1_Escort:escortinglead": 2, "mc2_13_MISC_Storms:attack": 5, "mc2_13_Crat_W_Patrol:start": 2, "mc2_13_Crat_N_Patrol:attack": 2, "mc2_13_Crat_E_Patrol:attack": 2 }
+enemy pilots that moved >20 m: 48 / 49
+
+--- stderr ---
+WARNING: 503 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

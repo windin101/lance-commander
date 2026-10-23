@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_13
+force: campaign 4 units 230 t of 230 t, RP 0: Shootist Prime(pmwsteel), Catapult Prime(pmwclaymore), Men Shen Prime(pmwworm), Sha Yu Prime(pmwmeat)
+ABL pilots: 48
+t= 192.8  LOST ShaYu (disabled, armour 23%, heat 0, ejected false, pilot 1.0 wounds, last hit by Poweredarmor)
+t= 312.0  objective done: Destroy Both HPG Station
+t= 410.4  LOST Shootist (disabled, armour 49%, heat 0, ejected false, pilot 0.0 wounds, last hit by Wolfhound)
+t= 464.8  objective done: Capture Weapons Facility #1
+t= 532.3  LOST MenShen (disabled, armour 15%, heat 0, ejected false, pilot 1.0 wounds, last hit by Poweredarmor)
+t= 574.8  LOST Catapult (disabled, armour 6%, heat 0, ejected false, pilot 4.0 wounds, last hit by Uller)
+t= 579.8  MISSION LOST
+seed 1 end t=580 result=LOST  player alive 0  enemies alive 15
+damage to lance: 638 from 34 attackers; hits by location (0 head .. 10 rear RT): { 1: 46, 5: 28, 7: 31, 4: 42, 6: 33, 2: 40, 3: 25, 10: 5, 0: 7, 8: 2, 9: 8 }
+damage by lance: 1548; kills 29
+       221  Poweredarmor (vehicle)
+       136  Uller (mech)
+        76  Enfield (mech)
+        76  Jagermech (mech)
+        72  Wolfhound (mech)
+        56  Storm (vehicle)
+  obj 0 P: done  Destroy Both HPG Station
+  obj 1 P: done  Capture Weapons Facility #1
+  obj 2 P: open  Capture Weapons Facility #2
+  obj 3 P: open  Capture Weapons Facility #3
+  obj 4 P: open  Destroy Davion Dropship
+  obj 5 P: gated  Move all Surviving 'Mechs to Extraction Point
+  obj 6 s hidden: open  Super Secret Hidden OBJ to track if you kill the
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_13_Enfield_S:attack": 1, "mc2_13_WFac2_Veh_1:attack": 1, "mc2_13_WFac2_Veh_2:attack": 1, "mc2_13_Enfield_N:attack": 1, "mc2_13_WFac1_PWARM:attack": 5, "mc2_13_WFac1_PWARM_1:attack": 9, "mc2_13_WFac1_PWARM_1:start": 7, "mc2_13_PowerGen_Mech_1:attack": 2, "mc2_13_SpacePort_Clan_Thor:start": 1, "mc2_13_SpacePort_Clan_1:start": 1, "mc2_13_Enfield_TC:attack": 1, "mc2_13_OutPatl_Grp1_Lead:start": 1, "mc2_13_OutPatl_Grp1_Escort:escortinglead": 2, "mc2_13_MISC_Storms:start": 1, "mc2_13_Crat_W_Patrol:attack": 2, "mc2_13_Crat_N_Patrol:start": 2, "mc2_13_Crat_E_Patrol:attack": 2, "mc2_13_MISC_Storms:attack": 4, "PBrain:": 4 }
+enemy pilots that moved >20 m: 47 / 48
+
+--- stderr ---
+WARNING: 499 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

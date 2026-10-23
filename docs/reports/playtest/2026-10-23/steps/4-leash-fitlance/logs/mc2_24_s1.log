@@ -1,0 +1,45 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_24
+force: fit 6 units 435 t of 450 t, RP 10000: Mad Cat Prime(pmp_dagger), Mad Cat Prime(pmp_creep), Mad Cat Prime(pmp_claymore), Uller Prime(pmp_worm), Blood Asp Prime(pmp_rooster), Blood Asp Prime(pmp_scooter)
+ABL pilots: 70
+t= 100.7  SUPPORT salvage_craft Bushwacker rp_left=0
+t= 100.7  PULLBACK Uller at 27%
+t= 117.4  LOST Uller (disabled, armour 12%, heat 0, ejected false, pilot 2.0 wounds, last hit by Bushwacker)
+t= 121.2  LOST Bushwacker (disabled, armour 22%, heat 0, ejected false, pilot 0.0 wounds, last hit by Bushwacker)
+t= 152.2  LOST BloodAsp (disabled, armour 16%, heat 0, ejected false, pilot 2.0 wounds, last hit by Hollander)
+t= 433.7  LOST Madcat (disabled, armour 37%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hunchback)
+t= 435.7  PULLBACK Madcat at 26%
+t= 435.8  LOST Madcat (disabled, armour 12%, heat 0, ejected false, pilot 1.0 wounds, last hit by Legion)
+t= 451.6  LOST BloodAsp (destroyed, armour 44%, heat 30, ejected false, pilot 1.0 wounds, last hit by Hunchback)
+t= 463.2  LOST Madcat (disabled, armour 41%, heat 17, ejected false, pilot 0.0 wounds, last hit by Legion)
+t= 468.2  MISSION LOST
+seed 1 end t=468 result=LOST  player alive 0  enemies alive 24
+damage to lance: 1170 from 26 attackers; hits by location (0 head .. 10 rear RT): { 2: 26, 6: 43, 1: 55, 7: 27, 3: 21, 5: 33, 0: 6, 4: 33, 8: 1, 10: 1 }
+damage by lance: 2639; kills 28
+       260  Legion (vehicle)
+       244  Bushwacker (mech)
+       200  Hollander (mech)
+       154  Highlander (mech)
+       117  Hunchback (mech)
+        93  Zeus (mech)
+        50  Urbanmech (mech)
+        42  Jagermech (mech)
+         6  Swarmlrmc (vehicle)
+         4  Poweredarmor (vehicle)
+  obj 0 P: open  Destroy Steiner High Command
+  obj 1 P: open  Eliminate Renard
+  obj 2 P: inactive (flag F1)  Extract All Surviving Mechs
+  obj 3 s hidden: done  Hidden Area Trigger to Popup Renard Obj
+  obj 4 s hidden: done  Hidden Trigger for Destroying Fuel Trucks
+  obj 5 s hidden: open  Hidden Objective for Triggering Extract
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 6, "mc2_24_EC3_FGate_highl:attack": 2, "mc2_24_EC6_North_Renards2:attack1": 2, "mc2_24_EC6_North_Renards:attack1": 1, "mc2_24_EC6_North_Renards3:attack1": 2, "mc2_24_EC1_East_G4S:attack": 1, "mc2_24_EC1_East_G3S:attack": 1, "mc2_24_EC2_West_legion:runtocenter": 5, "mc2_24_EC1_East_G2:attack": 2, "mc2_24_EC1_East_G1:attack": 2, "pbrain:attack": 1, "mc2_24_EC3_FGate_bushw1:attack": 1, "mc2_24_EC3_FGate_bushw2:attack": 2, "mc2_24_EC2_West_razors:start": 2, "mc2_24_EC2_West_razors2:start": 2, "mc2_24_EC4_West_Mechs4:attack": 1, "mc2_24_EC4_West_Mechs3:attack": 1, "mc2_24_EC4_West_Mechs1:runtocenter": 2, "mc2_24_EC4_West_Mechs2:runtocenter": 1, "mc2_24_EC5_North_power:attack": 4, "mc2_24_EC5_North_power:start": 4, "mc2_24_EC2_West_haras:start": 2, "mc2_24_EC3_FGate_haras:attack": 2, "mc2_24_EC4_West_Mechs2:attack": 1, "mc2_24_EC6_South_Mechs2:attack": 2, "mc2_24_EC6_South_Mechs:attack": 2, "mc2_24_EC2_West_hollands:start": 2, "mc2_24_EC2_West_bushws:start": 2, "mc2_24_Fuel_CNV:start": 5, "mc2_24_EC1_Reb_mech:attack": 1, "mc2_24_EC1_Reb_veds:attack": 3, "mc2_24_EC1_Reb_LRMs3S:attack": 3, "pbrain:": 1 }
+enemy pilots that moved >20 m: 57 / 71
+
+--- stderr ---
+WARNING: 886 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

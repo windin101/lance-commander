@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_05
+force: campaign 4 units 215 t of 220 t, RP 7000: Shootist Prime(pmwmeat), Bushwacker Prime(pmwworm), Bushwacker Prime(pmwpalerider), Hollander Prime(pmwtwitch)
+ABL pilots: 45
+t=  22.2  objective done: 1. Destroy Fuel Tanks
+t= 147.2  SUPPORT repair_truck (692, -531) rp_left=1000
+t= 174.9  objective done: 2. Capture Weapons Facility
+t= 459.8  objective done: a. Capture Resource Trucks
+t= 484.1  objective done: 3. Capture Repair Bay
+t= 585.7  SUPPORT air_strike (-1003, -412) rp_left=2000
+t= 665.1  objective done: 4. Capture Prison Complex
+t= 788.7  objective done: 5. Move to Extraction Point
+t= 793.7  MISSION WON
+seed 3 end t=794 result=WON  player alive 7  enemies alive 1
+damage to lance: 384 from 31 attackers; hits by location (0 head .. 10 rear RT): { 4: 18, 1: 18, 5: 18, 7: 18, 6: 9, 2: 14, 3: 20, 0: 5, 10: 2, 8: 1 }
+damage by lance: 1260; kills 35
+        82  Partisan (vehicle)
+        82  Anubis (mech)
+        75  Lrmcarrier (vehicle)
+        63  Storm (vehicle)
+        34  ShaYu (mech)
+        24  Centipede (vehicle)
+        18  Flea (mech)
+         6  Vedette (vehicle)
+  obj 0 P: done  1. Destroy Fuel Tanks
+  obj 1 P: done  2. Capture Weapons Facility
+  obj 2 P: done  3. Capture Repair Bay
+  obj 3 P: done  4. Capture Prison Complex
+  obj 4 P: done  5. Move to Extraction Point
+  obj 5 s: done  a. Capture Resource Trucks
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_05_EC3_fireant1:attack": 1, "mc2_05_EC1_ved1:attack": 1, "mc2_05_EC1_ved2:attack": 1, "mc2_05_EC1_LRMs:attack": 4, "mc2_05_EC3_storm1:attack": 2, "mc2_05_EC3_LRMs:attack": 5, "mc2_05_EC3_shayu1:attack": 1, "mc2_05_EC3_shayu2:attack": 1, "mc2_05_EC1_anubis1:attack": 1, "mc2_05_EC1_anubis2:attack": 1, "mc2_05_EC2_storm1:attack": 1, "mc2_05_EC4_shayu1:attack": 1, "mc2_05_EC1_storm1:attack": 1, "mc2_05_EC4_shayu2:attack": 1, "mc2_05_EC4_LRMs:attack": 2, "mc2_05_EC2_anubis1:attack": 1, "mc2_05_EC2_storm2:attack": 1, "mc2_05_EC2_LRMs:attack": 3, "mc2_05_EC2_ved1:attack": 1, "mc2_05_EC1_cents1:attack": 2, "mc2_05_EC1_cents2:attack": 1, "mc2_05_EC2_cents2:attack": 1, "mc2_05_EC2_cents1:attack": 1, "mc2_05_RP_trucks:start": 2, "mc2_05_EC3_anubis1:attack": 1, "DredAttack01:noweapons": 1, "mc2_05_EC1_part1:attack": 1, "mc2_05_EC1_partG:attack": 1, "PBrain:": 4 }
+enemy pilots that moved >20 m: 40 / 45
+
+--- stderr ---
+WARNING: 479 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

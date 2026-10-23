@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_09
+force: fit 4 units 215 t of 300 t, RP 30000: Razorback Prime(pmp_bubba), Zeus Prime(pmp_bubba), Hunchback Prime(pmp_bubba), Bushwacker Prime(pmp_bubba)
+ABL pilots: 63
+t=  48.5  SUPPORT air_strike (-245, -311) rp_left=23000
+t=  63.5  SUPPORT salvage_craft Flea rp_left=13000
+t=  75.9  SUPPORT salvage_craft Flea rp_left=3000
+t= 130.2  LOST Flea (disabled, armour 46%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 150.3  PULLBACK Flea at 24%
+t= 215.5  objective done: 2 - Destroy Fuel Tanks at Refinery
+t= 237.1  PULLBACK Flea at 21%
+t= 243.3  PULLBACK Werewolf at 27%
+t= 261.8  LOST Werewolf (destroyed, armour 20%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 349.5  LOST Flea (destroyed, armour 15%, heat 0, ejected false, pilot 0.0 wounds, last hit by Swarmlrmc)
+t= 366.7  PULLBACK Hunchback at 28%
+t= 419.0  LOST Hunchback (destroyed, armour 15%, heat 0, ejected false, pilot 2.0 wounds, last hit by LaoHu)
+t= 426.8  capture target LaoHu destroyed by Bushwacker
+t= 426.8  objective done: Eliminate Bandit Leader at Bandit HQ
+t= 607.8  LOST Zeus (disabled, armour 13%, heat 0, ejected false, pilot 2.0 wounds, last hit by Flea)
+t= 703.7  LOST Bushwacker (disabled, armour 23%, heat 0, ejected false, pilot 1.0 wounds, last hit by Hunter)
+t= 708.7  MISSION LOST
+seed 1 end t=709 result=LOST  player alive 0  enemies alive 25
+damage to lance: 678 from 32 attackers; hits by location (0 head .. 10 rear RT): { 5: 34, 2: 42, 7: 28, 6: 38, 1: 26, 3: 33, 4: 23, 9: 6, 0: 5, 10: 2 }
+damage by lance: 1960; kills 31
+       200  Partisan (vehicle)
+       166  LaoHu (mech)
+        79  Starslayer (mech)
+        63  Hunter (vehicle)
+        56  Flea (mech)
+        51  Urbanmech (mech)
+        27  Swarmlrmc (vehicle)
+        24  Hetzer (vehicle)
+        12  Lrmcarrier (vehicle)
+  obj 0 P: open  1 - Capture Weapons Facility
+  obj 1 P: done  2 - Destroy Fuel Tanks at Refinery
+  obj 2 P: open  3 - Destroy Bandit HQ in Downed Spacecraft Nosec
+  obj 3 P: done  Eliminate Bandit Leader at Bandit HQ
+  obj 4 P: inactive (flag 15)  Move all Surviving Mechs to Extraction Point
+  obj 5 s hidden: done  Destroy 12 Enemy Units
+  obj 6 s hidden: done  Trigger to signal ambush at Nosecone
+  obj 7 s hidden: open  Hidden Trigger for Extraction
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 4, "mc2_09_EC1_Grp1_Cent1:attack": 1, "mc2_09_EC1_Grp1_Ved:attack": 2, "mc2_09_EC1_Grp2_Urb:attack": 2, "mc2_09_EC1_Grp2_LRM:start": 2, "pbrain:attack": 2, "mc2_09_EC1_Grp3_Fire2:attack": 1, "mc2_09_EC2_Grp2_Ved1:attack": 1, "mc2_09_EC2_Grp2_Ved2:attack": 1, "mc2_09_EC3_Grp4_Heli:start": 2, "mc2_09_EC3_Grp1_Hetz:start": 1, "mc2_09_EC3_Grp1_Cent:start": 1, "mc2_09_EC4_Grp1_Hetz:attack": 3, "mc2_09_EC4_Grp2_Urb:attack": 2, "mc2_09_EC5_Grp1_Cat:attack": 1, "mc2_09_EC5_Grp2_Star1:attack": 1, "mc2_09_EC5_Grp2_Star2:attack": 1, "mc2_09_EC3_Grp3_Fire:start": 2, "mc2_09_EC3_Grp3_Urb:start": 1, "mc2_09_EC3_Grp2_Fire:start": 2, "mc2_09_EC3_Grp5_LRM:start": 2, "mc2_09_EC1_Grp1_Urb1:attack": 1, "mc2_09_EC4_Grp3_Urb1:attack": 1, "mc2_09_EC4_Grp3_Urb2:start": 1, "mc2_09_EC6_Grp2_NWPat_lrm:start": 2, "mc2_09_EC6_Grp2_NWPat:start": 2, "mc2_09_EC6_Grp1_NEPat:attack": 2, "mc2_09_EC4_Grp3_Fire:attack": 1, "mc2_09_EC6_Grp4_Vehs:attack": 2, "mc2_09_EC6_Grp4_Vehs:noseconedefend": 3, "mc2_09_EC6_Grp5_DeadVehs:start": 3, "mc2_09_EC3_Grp4_Mechs:start": 4, "mc2_09_EC2_Grp1_Fire:attack": 2, "mc2_09_EC2_Grp2_Fire:attack": 3, "mc2_09_EC6_Grp1_NEPat_lrm:attack": 1, "pbrain:": 2 }
+enemy pilots that moved >20 m: 51 / 65
+
+--- stderr ---
+WARNING: 852 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

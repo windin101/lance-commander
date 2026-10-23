@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_24
+ABL pilots: 70
+t=  79.2  LOST Madcat (disabled, armour 63%, heat 0, ejected false, pilot 1.0 wounds, last hit by Hollander)
+t= 135.6  LOST Uller (disabled, armour 74%, heat 5, ejected false, pilot 0.0 wounds, last hit by Bushwacker)
+t= 197.3  LOST BloodAsp (disabled, armour 30%, heat 0, ejected false, pilot 1.0 wounds, last hit by Bushwacker)
+t= 342.9  LOST Madcat (disabled, armour 39%, heat 19, ejected false, pilot 2.0 wounds, last hit by Jagermech)
+t= 488.3  LOST BloodAsp (destroyed, armour 24%, heat 0, ejected false, pilot 1.0 wounds, last hit by Zeus)
+t= 489.5  LOST Madcat (disabled, armour 37%, heat 12, ejected false, pilot 1.0 wounds, last hit by Hunchback)
+t= 494.5  MISSION LOST
+seed 3 end t=495 result=LOST  player alive 0  enemies alive 33
+damage to lance: 910 from 24 attackers; hits by location (0 head .. 10 rear RT): { 1: 57, 2: 26, 0: 6, 5: 28, 4: 33, 7: 20, 3: 23, 6: 20 }
+       290  Highlander (mech)
+       170  Legion (vehicle)
+       150  Bushwacker (mech)
+        73  Zeus (mech)
+        72  Jagermech (mech)
+        60  Hollander (mech)
+        58  Hunchback (mech)
+        30  Swarmlrmc (vehicle)
+         6  Urbanmech (mech)
+  obj 0 P: open  Destroy Steiner High Command
+  obj 1 P: inactive (flag 0)  Eliminate Renard
+  obj 2 P: inactive (flag F1)  Extract All Surviving Mechs
+  obj 3 s hidden: open  Hidden Area Trigger to Popup Renard Obj
+  obj 4 s hidden: done  Hidden Trigger for Destroying Fuel Trucks
+  obj 5 s hidden: open  Hidden Objective for Triggering Extract
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 6, "mc2_24_EC3_FGate_highl:attack": 2, "mc2_24_EC6_North_Renards2:start": 2, "mc2_24_EC6_North_Renards:start": 1, "mc2_24_EC6_North_Renards3:start": 2, "mc2_24_EC1_East_G4S:attack": 1, "mc2_24_EC1_East_G3S:attack": 1, "mc2_24_EC2_West_legion:runtocenter": 5, "mc2_24_EC1_East_G2:attack": 2, "mc2_24_EC1_East_G1:attack": 2, "mc2_24_EC3_FGate_bushw1:attack": 2, "mc2_24_EC3_FGate_bushw2:attack": 2, "mc2_24_EC2_West_razors:start": 2, "mc2_24_EC2_West_razors2:start": 2, "mc2_24_EC4_West_Mechs4:attack": 1, "mc2_24_EC4_West_Mechs3:attack": 1, "mc2_24_EC4_West_Mechs1:runtocenter": 2, "mc2_24_EC4_West_Mechs2:runtocenter": 2, "mc2_24_EC5_North_power:start": 8, "mc2_24_EC2_West_haras:start": 2, "mc2_24_EC3_FGate_haras:attack": 2, "mc2_24_EC6_South_Mechs2:attack": 2, "mc2_24_EC6_South_Mechs:attack": 2, "mc2_24_EC2_West_hollands:start": 2, "mc2_24_EC2_West_bushws:start": 2, "mc2_24_Fuel_CNV:start": 5, "mc2_24_EC1_Reb_mech:attack": 1, "mc2_24_EC1_Reb_veds:attack": 3, "mc2_24_EC1_Reb_LRMs3S:attack": 3 }
+enemy pilots that moved >20 m: 50 / 70
+
+--- stderr ---
+WARNING: 883 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

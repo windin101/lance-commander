@@ -1,0 +1,42 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_06
+force: campaign 4 units 255 t of 260 t, RP 25000: Zeus Prime(pmwsteel), Shootist Prime(pmwmeat), Shootist Prime(pmwworm), Hollander Prime(pmwpalerider)
+ABL pilots: 48
+t=  33.5  SUPPORT sensor_probe (-164, 109) rp_left=31000
+t= 150.3  SUPPORT air_strike (175, 1153) rp_left=32000
+t= 162.7  SUPPORT air_strike (-21, 1250) rp_left=25000
+t= 168.3  LOST Hollander (disabled, armour 65%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 168.9  SUPPORT salvage_craft Hollander rp_left=15000
+t= 175.1  SUPPORT air_strike (-21, 1250) rp_left=8000
+t= 262.9  LOST Hollander (destroyed, armour 30%, heat 0, ejected false, pilot 1.0 wounds, last hit by Lrmcarrier)
+t= 600.2  LOST Shootist (disabled, armour 32%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t= 654.6  LOST Zeus (disabled, armour 46%, heat 0, ejected false, pilot 1.0 wounds, last hit by Attack Copter)
+t= 703.1  LOST Shootist (disabled, armour 11%, heat 0, ejected false, pilot 1.0 wounds, last hit by ShaYu)
+t= 708.1  MISSION LOST
+seed 1 end t=708 result=LOST  player alive 0  enemies alive 12
+damage to lance: 662 from 26 attackers; hits by location (0 head .. 10 rear RT): { 1: 40, 6: 25, 7: 28, 3: 30, 2: 33, 5: 20, 4: 15, 8: 1, 0: 3 }
+damage by lance: 1072; kills 25
+       242  Starslayer (mech)
+       210  Lrmcarrier (vehicle)
+       120  Attack Copter (mech)
+        64  ShaYu (mech)
+        18  Catapult (mech)
+         6  Vedette (vehicle)
+         2  Drillson (vehicle)
+  obj 0 P: open  1. Protect the Base Headquarters
+  obj 1 P: open  2. Destroy all attacking Liao forces.
+  obj 2 s: open  a - Capture Steiner Sensor Control.
+  obj 3 s: open  b - Capture the Turret Control at Road Checkpoin
+  obj 4 s hidden: done  Hidden OBJ to Trigger Wave 2
+  obj 5 s hidden: done  Hidden Objective to Trigger Wave3
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_06_wv1_Guard2:spawnin": 4, "mc2_06_wv1_2a_lrm:spawnin": 3, "mc2_06_wv1_2a:attack": 2, "mc2_06_wv1_1a:attack": 4, "mc2_06_wv1_Guard:attack": 4, "mc2_06_wv2_3a:baseassault": 5, "mc2_06_wv2_Guard2:attack": 1, "mc2_06_wv2_Guard2:base1escort": 1, "mc2_06_wv2_2a:attack": 3, "mc2_06_wv2_2a:spawn": 1, "mc2_06_wv3_2a:attack": 1, "mc2_06_wv3_2a:start": 3, "mc2_06_wv3_Guard:spawnin": 1, "mc2_06_wv3_Guard:base1escort": 2, "mc2_06_wv3_1a:baseassault": 1, "mc2_06_wv3_1a:spawn": 3, "mc2_06_wv1_2b:spawnin": 1, "mc2_06_wv1_2a:spawnin": 1, "mc2_06_out_Guard:attack": 3, "PBrain:": 3, "pbrain:": 2 }
+enemy pilots that moved >20 m: 45 / 49
+
+--- stderr ---
+WARNING: 584 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

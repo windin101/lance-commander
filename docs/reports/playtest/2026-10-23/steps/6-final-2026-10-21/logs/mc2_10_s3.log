@@ -1,0 +1,57 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_10
+force: campaign 5 units 275 t of 280 t, RP 6000: Shootist Prime(pmwsteel), Bushwacker Prime(pmwclaymore), Bushwacker Prime(pmwworm), Bushwacker Prime(pmwmeat), Sha Yu Prime(pmwpalerider)
+ABL pilots: 48
+t=  24.2  ALLY LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  33.0  ALLY LOST Cargotruck (destroyed, armour 60%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  34.0  ALLY LOST Cargotruck (destroyed, armour 80%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  37.6  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Hunter)
+t=  43.8  ALLY LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  46.0  ALLY LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  67.5  ALLY LOST s_admin_wing (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t=  78.0  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t=  87.3  ALLY LOST s_admin_entry (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 114.8  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 124.0  ALLY LOST s_admin_core (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 146.3  ALLY LOST s_admin_entry (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 167.3  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 168.0  ALLY LOST s_admin_core (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 188.3  ALLY LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 232.0  ALLY LOST s_admin_wing (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 235.5  ALLY LOST s_admin_entry (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t= 255.5  LOST ShaYu (destroyed, armour 37%, heat 8, ejected false, pilot 0.0 wounds, last hit by Zeus)
+t= 304.0  objective done: Destroy all Gulag Defenders
+t= 545.6  objective done: Destroy Steiner Reinforcements
+t= 567.8  objective done: Destroy All Airfield Defenders
+t= 570.7  SUPPORT repair_truck (524, 1009) rp_left=0
+t= 658.3  objective done: Move All Surviving Mechs to Extraction Point
+t= 663.3  MISSION WON
+seed 3 end t=663 result=WON  player alive 18  enemies alive 1
+damage to lance: 527 from 20 attackers; hits by location (0 head .. 10 rear RT): { 4: 25, 1: 21, 5: 16, 7: 13, 3: 20, 6: 19, 2: 15, 10: 2, 9: 5, 8: 2, 0: 1 }
+damage by lance: 1598; kills 27
+       113  Zeus (mech)
+        80  Hollander (mech)
+        78  Hunchback (mech)
+        76  Heavy Copter (mech)
+        72  Centipede (vehicle)
+        70  Atlas (mech)
+        24  Attack Copter (mech)
+         8  Werewolf (mech)
+         6  Lrmcarrier (vehicle)
+  obj 0 P: done  Destroy all Gulag Defenders
+  obj 1 P: done  Destroy Steiner Reinforcements
+  obj 2 P: done  Destroy All Airfield Defenders
+  obj 3 P: done  Move All Surviving Mechs to Extraction Point
+  obj 4 s: open  Sec:  Capture Steiner Headquarters
+  obj 5 s hidden: open  Protect the Convoy
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_10_EC1_Grp1:start": 1, "mc2_10_EC1_Grp3a:attack": 1, "mc2_10_EC1_Grp3:attack": 1, "mc2_10_EC1_Grp4:attack1": 2, "mc2_10_EC2_Grp4:start": 1, "mc2_10_EC2_Grp1:attack": 4, "mc2_10_EC2_Grp2:start": 2, "mc2_10_EC2_Grp3:attack": 1, "mc2_10_EC4_Grp1:attack": 3, "mc2_10_EC4_Grp2:attack": 4, "mc2_10_EC5_Grp1:attack": 7, "mc2_10_EC2_Pd:attack": 1, "mc2_10_EC3_Conv2:togulag": 4, "mc2_10_EC3_Conv1:togulag": 4, "DredAttack01:noweapons": 3, "mc2_10_EC3_Conv3:togulag": 4, "PBrain:": 5 }
+enemy pilots that moved >20 m: 37 / 48
+
+--- stderr ---
+WARNING: 380 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

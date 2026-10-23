@@ -1,0 +1,45 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_20
+force: campaign 6 units 320 t of 320 t, RP 12000: Atlas Prime(pmwscooter), Atlas Prime(pmwvenom), Razorback Prime(pmwbubba), Razorback Prime(pmwwicked), Razorback Prime(pmwsteel), Razorback Prime(pmwclaymore)
+ABL pilots: 80
+t=  27.5  SUPPORT air_strike (-738, 11) rp_left=5000
+t=  46.1  LOST Werewolf (disabled, armour 34%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hollander)
+t=  55.8  LOST Werewolf (disabled, armour 64%, heat 0, ejected false, pilot 0.0 wounds, last hit by Zeus)
+t=  67.8  LOST Werewolf (destroyed, armour 58%, heat 5, ejected false, pilot 2.0 wounds, last hit by Hollander)
+t=  85.2  PULLBACK Werewolf at 26%
+t=  86.8  LOST Werewolf (destroyed, armour 14%, heat 0, ejected false, pilot 0.0 wounds, last hit by Zeus)
+t= 405.7  objective done: 1. Goto Davion Dropship
+t= 444.7  PULLBACK Atlas at 27%
+t= 453.9  LOST Atlas (disabled, armour 8%, heat 0, ejected false, pilot 1.0 wounds, last hit by Madcat)
+t= 483.5  LOST Atlas (disabled, armour 25%, heat 7, ejected false, pilot 2.0 wounds, last hit by Vulture)
+t= 488.5  MISSION LOST
+seed 3 end t=489 result=LOST  player alive 0  enemies alive 57
+damage to lance: 974 from 17 attackers; hits by location (0 head .. 10 rear RT): { 7: 36, 6: 22, 4: 27, 2: 24, 5: 35, 1: 45, 3: 24, 9: 11, 8: 11, 0: 5, 10: 7 }
+       206  Zeus (mech)
+       200  Hollander (mech)
+       156  Madcat (mech)
+       104  Vulture (mech)
+        92  Centipede (vehicle)
+        88  Harasser (vehicle)
+        48  Hunchback (mech)
+        36  Attack Copter (mech)
+        26  ShaYu (mech)
+        18  Drillson (vehicle)
+  obj 0 P: done  1. Goto Davion Dropship
+  obj 1 P: open  2. Rescue Drop Ship Crew at Prison
+  obj 2 P: open  3. Destroy Orbital Turret
+  obj 3 P: open  4. Destroy Mobile Orbital Gun#1
+  obj 4 P: open  5. Destroy Moblie Orbital Gun #2
+  obj 5 P: gated  6. Go To Davion Dropship for Extraction
+  obj 6 s: open  a. Destroy All Enemy Forces
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_20_Base_PD2:start": 2, "mc2_20_MOG_PD:noweapons": 1, "mc2_20_s1Sth_Patrol_M2:start": 2, "mc2_20_s1Sth_Patrol_M1:start": 3, "mc2_20_Prision_guard:attack": 1, "mc2_20_Prision_guard:start": 3, "mc2_20_Prision_PD:start": 2, "mc2_20_Prision_Patrol_M1:baseassault": 5, "mc2_20_s1WST_Patrol_M1:attack": 6, "mc2_20_MogM_Mog:start": 1, "mc2_20_MogM_escort_M1:escorting": 2, "mc2_20_MogM_escort_V1:escorting": 4, "mc2_20_MOG_REIN:start": 5, "mc2_20_MOG_guard:start": 2, "mc2_20_Base_Rein_V1:start": 3, "mc2_20_Base_Patrol_M1:start": 5, "mc2_20_Base_Rein_M1:start": 1, "mc2_20_Base_PD:start": 1, "mc2_20_base_Patrol_v1:start": 1, "mc2_20_Base_guard:start": 3, "mc2_20_Turret1_guard:start": 2, "mc2_20_Dship_PD:attack": 5, "mc2_20_Dship_Patrol_V1:attack": 5, "mc2_20_MOG_guard_V1:start": 9, "PBrain:": 6 }
+enemy pilots that moved >20 m: 45 / 80
+
+--- stderr ---
+WARNING: 592 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

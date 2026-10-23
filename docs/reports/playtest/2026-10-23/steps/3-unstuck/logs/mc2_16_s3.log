@@ -1,0 +1,43 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_16
+force: campaign 5 units 320 t of 320 t, RP 16000: Lao Hu Prime(pmwsteel), Lao Hu Prime(pmwclaymore), Shootist Prime(pmwworm), Catapult Prime(pmwmeat), Raven Prime(pmwpalerider)
+ABL pilots: 51
+t=   6.2  SUPPORT air_strike (-883, -627) rp_left=9000
+t=  32.1  objective done: 1. Capture Sensor Control
+t= 127.9  LOST Raven (disabled, armour 21%, heat 0, ejected false, pilot 0.0 wounds, last hit by Drillson)
+t= 206.8  objective done: 2. Destroy All Base Defenders
+t= 420.5  LOST Shootist (disabled, armour 23%, heat 0, ejected false, pilot 3.0 wounds, last hit by Vulture)
+t= 658.8  LOST Catapult (destroyed, armour 23%, heat 0, ejected false, pilot 1.0 wounds, last hit by Madcat)
+t= 671.0  LOST LaoHu (disabled, armour 35%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hunter)
+t= 691.5  LOST LaoHu (disabled, armour 12%, heat 10, ejected false, pilot 1.0 wounds, last hit by Wolfhound)
+t= 696.5  MISSION LOST
+seed 3 end t=697 result=LOST  player alive 0  enemies alive 14
+damage to lance: 884 from 28 attackers; hits by location (0 head .. 10 rear RT): { 2: 61, 1: 54, 4: 41, 3: 35, 6: 39, 5: 35, 7: 28, 8: 5, 10: 2, 0: 5 }
+       310  Madcat (mech)
+       135  ShadowCat (mech)
+       117  Vulture (mech)
+        64  Uller (mech)
+        45  Lrmcarrier (vehicle)
+        45  Hunter (vehicle)
+        40  Centipede (vehicle)
+        40  Wolfhound (mech)
+        36  Harasser (vehicle)
+        26  Jagermech (mech)
+  obj 0 P: done  1. Capture Sensor Control
+  obj 1 P: done  2. Destroy All Base Defenders
+  obj 2 P: open  3. Destroy All Reinforcements
+  obj 3 P: open  4. Capture Davion Base HQ
+  obj 4 P: gated  5. Move All Surviving Mechs to Extraction Point
+  obj 5 s: open  a. Capture All Main Base Davion Turret Controls
+  obj 6 s: open  b. Capture All Main Base Davion Gate Controls
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_16_NorthPatrol:attack": 1, "mc2_16_SensorGuard:attack": 2, "mc2_16_SensorPatrol:attack": 2, "mc2_16_1stMain:base1patrol": 3, "mc2_16_BaseGuard:attack": 8, "mc2_16_BasePatrol2:attack": 2, "mc2_16_1stMain_lrm:base1patrol": 1, "mc2_16_BaseGuard_lrm:attack": 1, "mc2_16_2ndMain_part:base1patrol": 1, "mc2_16_2ndMain2:base1patrol": 2, "mc2_16_2ndMain:base1patrol": 1, "mc2_16_3rdMain:base1patrol": 3, "mc2_16_3rdMain_lrm:base1patrol": 1, "mc2_16_BasePatrol3:attack": 1, "mc2_16_1stEast2:base1patrol": 2, "mc2_16_1stEast:attack": 3, "mc2_16_2ndEast:attack": 1, "mc2_16_2ndEast2:base1patrol": 3, "mc2_16_3rdEast:attack": 2, "mc2_16_3rdEast2:base1patrol": 1, "mc2_16_4thMain:base1patrol": 2, "mc2_16_BaseGuard2:attack": 1, "mc2_16_BaseGuard3_lrm:attack": 2, "PBrain:": 5 }
+enemy pilots that moved >20 m: 51 / 51
+
+--- stderr ---
+WARNING: 462 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_22
+force: campaign 7 units 380 t of 380 t, RP 16000: Atlas Prime(pmwrooster), Atlas Prime(pmwmother), Vulture Prime(pmwghost), Razorback Prime(pmwscooter), Razorback Prime(pmwbubba), Razorback Prime(pmwvenom), Razorback Prime(pmwwicked)
+ABL pilots: 71
+t=  15.5  SUPPORT air_strike (-713, -784) rp_left=9000
+t=  27.5  SUPPORT air_strike (-939, -846) rp_left=2000
+t=  29.3  LOST Werewolf (disabled, armour 38%, heat 6, ejected false, pilot 1.0 wounds, last hit by Starslayer)
+t=  38.7  LOST Werewolf (disabled, armour 51%, heat 1, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t=  48.5  PULLBACK Werewolf at 27%
+t=  50.9  LOST Werewolf (destroyed, armour 18%, heat 0, ejected false, pilot 1.0 wounds, last hit by Partisan)
+t=  62.9  LOST Werewolf (disabled, armour 55%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t=  85.3  LOST Vulture (disabled, armour 29%, heat 2, ejected false, pilot 3.0 wounds, last hit by Partisan)
+t= 150.3  PULLBACK Atlas at 28%
+t= 158.2  LOST Atlas (disabled, armour 9%, heat 0, ejected false, pilot 5.0 wounds, last hit by Partisan)
+t= 196.1  LOST Atlas (disabled, armour 23%, heat 0, ejected false, pilot 6.0 wounds, last hit by Partisan)
+t= 201.2  MISSION LOST
+seed 1 end t=201 result=LOST  player alive 0  enemies alive 57
+damage to lance: 1091 from 9 attackers; hits by location (0 head .. 10 rear RT): { 7: 76, 6: 62, 1: 71, 3: 78, 5: 60, 2: 73, 4: 50, 0: 16, 8: 9, 10: 6, 9: 8 }
+       854  Partisan (vehicle)
+        96  Catapult (mech)
+        96  MenShen (mech)
+        45  Starslayer (mech)
+  obj 0 P: open  Destroy the Liao Elite Guard
+  obj 1 P: open  Destroy the Liao Palace
+  obj 2 P: gated  Move all surviving Mechs to Extraction Point
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_22_EC1_LRM:start": 2, "mc2_22_EC2_Heavy_Shutdown:start": 2, "mc2_22_EC2_Medium_Shutdown:start": 4, "mc2_22_EC2_Light_Shutdown:start": 4, "mc2_22_EC3_Boss:start": 1, "mc2_22_EC3_Guards:start": 4, "mc2_22_EC1_Mech_center_1:attack": 1, "mc2_22_EC1_Mech_center_2:attack": 1, "mc2_22_EC1_Mech_left:start": 3, "mc2_22_EC1_Mech_right:attack": 3, "mc2_22_EC1_Veh_Left:start": 2, "mc2_22_EC1_VEH_right:attack": 2, "mc2_22_EC2_ForestShutDown_West:start": 3, "mc2_22_EC2_ForestShutDown_EAST:start": 3, "mc2_22_EC2_Forest_Spotters:start": 2, "mc2_22_EC2_Light_Patrol_WEST:start": 3, "mc2_22_EC2_Light_Patrol_east:start": 3, "mc2_22_EC3_Guard2:start": 2, "mc2_22_EC2_ForestE_Patrol:start": 5, "mc2_22_EC2_ForesW_Patrol:start": 3, "mc2_22_EC2_swarm:start": 3, "mc2_22_EC4_Ambush_lrm:start": 4, "mc2_22_EC4_Ambush:start": 2, "mc2_22_EC4_Spotter:start": 2, "PBrain:": 7 }
+enemy pilots that moved >20 m: 33 / 71
+
+--- stderr ---
+WARNING: 987 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

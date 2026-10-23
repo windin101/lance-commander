@@ -1,0 +1,49 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_10
+ABL pilots: 48
+t=  23.7  LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  36.6  LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Hunter)
+t=  39.5  LOST Cargotruck (destroyed, armour 80%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  46.0  LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t=  48.5  LOST s_barracks2 (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t=  66.5  LOST s_admin_wing (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Centipede)
+t=  94.4  LOST s_admin_entry (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Hunter)
+t= 201.7  LOST Raven (disabled, armour 46%, heat 5, ejected false, pilot 0.0 wounds, last hit by Hunchback)
+t= 221.0  LOST s_admin_core (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 257.5  LOST s_barracks (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Werewolf)
+t= 342.0  objective done: Destroy all Gulag Defenders
+t= 413.7  LOST Raven (destroyed, armour 49%, heat 0, ejected false, pilot 1.0 wounds, last hit by Hunchback)
+t= 525.5  LOST Zeus (disabled, armour 16%, heat 0, ejected false, pilot 3.0 wounds, last hit by Attack Copter)
+t= 563.7  objective done: Destroy Steiner Reinforcements
+t= 601.5  LOST Hunchback (destroyed, armour 59%, heat 0, ejected false, pilot 0.0 wounds, last hit by Atlas)
+t= 661.5  LOST Highlander (disabled, armour 16%, heat 13, ejected false, pilot 1.0 wounds, last hit by Atlas)
+t= 666.5  MISSION LOST
+seed 3 end t=667 result=LOST  player alive 14  enemies alive 8
+damage to lance: 724 from 22 attackers; hits by location (0 head .. 10 rear RT): { 2: 36, 4: 27, 6: 20, 1: 40, 5: 26, 3: 30, 7: 21, 10: 1, 0: 6 }
+       192  Hunchback (mech)
+       188  Atlas (mech)
+        96  Centipede (vehicle)
+        70  Hollander (mech)
+        56  Heavy Copter (mech)
+        42  Attack Copter (mech)
+        36  Zeus (mech)
+        33  Lrmcarrier (vehicle)
+         6  Hunter (vehicle)
+         5  Werewolf (mech)
+  obj 0 P: done  Destroy all Gulag Defenders
+  obj 1 P: done  Destroy Steiner Reinforcements
+  obj 2 P: open  Destroy All Airfield Defenders
+  obj 3 P: inactive (flag 3)  Move All Surviving Mechs to Extraction Point
+  obj 4 s: open  Sec:  Capture Steiner Headquarters
+  obj 5 s hidden: gated  Protect the Convoy
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 5, "mc2_10_EC1_Grp1:start": 1, "mc2_10_EC1_Grp3a:attack": 1, "mc2_10_EC1_Grp3:attack": 1, "mc2_10_EC1_Grp4:attack1": 2, "mc2_10_EC2_Grp4:attack": 1, "mc2_10_EC2_Grp1:start": 4, "mc2_10_EC2_Grp2:start": 2, "mc2_10_EC2_Grp3:attack": 1, "mc2_10_EC4_Grp1:attack": 3, "mc2_10_EC4_Grp2:attack": 2, "mc2_10_EC4_Grp2:start": 2, "mc2_10_EC5_Grp1:start": 7, "mc2_10_EC2_Pd:attack": 1, "mc2_10_EC3_Conv2:togulag": 4, "mc2_10_EC3_Conv1:togulag": 4, "DredAttack01:noweapons": 3, "mc2_10_EC3_Conv3:togulag": 4 }
+enemy pilots that moved >20 m: 37 / 48
+
+--- stderr ---
+WARNING: 378 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

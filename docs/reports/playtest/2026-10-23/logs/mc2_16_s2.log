@@ -1,0 +1,48 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_16
+force: campaign 5 units 320 t of 320 t, RP 16000: Lao Hu Prime(pmwsteel), Lao Hu Prime(pmwclaymore), Shootist Prime(pmwworm), Catapult Prime(pmwmeat), Raven Prime(pmwpalerider)
+ABL pilots: 51
+t=   6.2  SUPPORT air_strike (-883, -627) rp_left=9000
+t=  32.1  objective done: 1. Capture Sensor Control
+t= 156.5  SUPPORT repair_truck (-712, 659) rp_left=3000
+t= 212.5  LOST Raven (disabled, armour 21%, heat 0, ejected false, pilot 1.0 wounds, last hit by Uller)
+t= 228.0  objective done: 2. Destroy All Base Defenders
+t= 385.3  LOST LaoHu (disabled, armour 35%, heat 11, ejected false, pilot 1.0 wounds, last hit by Madcat)
+t= 496.1  LOST LaoHu (disabled, armour 32%, heat 0, ejected false, pilot 2.0 wounds, last hit by ShadowCat)
+t= 555.7  PULLBACK Catapult at 24%
+t= 566.5  LOST Catapult (disabled, armour 7%, heat 0, ejected false, pilot 0.0 wounds, last hit by Vulture)
+t= 597.7  FALLBACK 5 threats (dps 20 vs 5, health 57%) to (-620, -162)
+t= 608.9  LOST Shootist (disabled, armour 25%, heat 0, ejected false, pilot 0.0 wounds, last hit by Vulture)
+t= 613.5  LOST Repairtruck (destroyed, armour 57%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 618.5  MISSION LOST
+seed 2 end t=619 result=LOST  player alive 0  enemies alive 11
+damage to lance: 1038 from 33 attackers; hits by location (0 head .. 10 rear RT): { 7: 56, 6: 38, 2: 38, 4: 41, 0: 4, 5: 30, 3: 59, 1: 54, 8: 6, 9: 5, 10: 2 }
+damage by lance: 1749; kills 35
+       250  Vulture (mech)
+       162  Madcat (mech)
+       155  ShadowCat (mech)
+       110  Jagermech (mech)
+        72  Hetzer (vehicle)
+        60  Lrmcarrier (vehicle)
+        56  Storm (vehicle)
+        50  Uller (mech)
+        40  Harasser (vehicle)
+        26  Partisan (vehicle)
+  obj 0 P: done  1. Capture Sensor Control
+  obj 1 P: done  2. Destroy All Base Defenders
+  obj 2 P: open  3. Destroy All Reinforcements
+  obj 3 P: open  4. Capture Davion Base HQ
+  obj 4 P: gated  5. Move All Surviving Mechs to Extraction Point
+  obj 5 s: open  a. Capture All Main Base Davion Turret Controls
+  obj 6 s: open  b. Capture All Main Base Davion Gate Controls
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_16_NorthPatrol:attack": 1, "mc2_16_SensorGuard:attack": 2, "mc2_16_SensorPatrol:attack": 2, "mc2_16_1stMain:attack": 3, "mc2_16_BaseGuard:attack": 8, "mc2_16_BasePatrol2:attack": 2, "mc2_16_1stMain_lrm:attack": 1, "mc2_16_BaseGuard_lrm:attack": 1, "mc2_16_2ndMain_part:attack": 1, "mc2_16_2ndMain2:base1patrol": 2, "mc2_16_2ndMain:attack": 1, "mc2_16_3rdMain:attack": 3, "mc2_16_3rdMain_lrm:attack": 1, "mc2_16_BasePatrol3:attack": 1, "mc2_16_1stEast2:base1patrol": 2, "mc2_16_1stEast:attack": 1, "mc2_16_1stEast:base1escort": 2, "mc2_16_2ndEast:base1escort": 1, "mc2_16_2ndEast2:base1patrol": 3, "mc2_16_3rdEast:base1escort": 2, "mc2_16_3rdEast2:base1patrol": 1, "mc2_16_4thMain:attack": 2, "mc2_16_BaseGuard2:attack": 1, "mc2_16_BaseGuard3_lrm:attack": 2, "PBrain:": 5 }
+enemy pilots that moved >20 m: 51 / 51
+
+--- stderr ---
+WARNING: 464 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,53 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_18
+force: campaign 5 units 320 t of 320 t, RP 16000: Lao Hu Prime(pmwsteel), Lao Hu Prime(pmwclaymore), Shootist Prime(pmwworm), Catapult Prime(pmwmeat), Wolfhound Prime(pmwpalerider)
+ABL pilots: 72
+t=  62.0  SUPPORT salvage_craft Starslayer rp_left=6000
+t=  96.1  LOST Starslayer (disabled, armour 14%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 330.4  LOST LaoHu (disabled, armour 26%, heat 0, ejected false, pilot 1.0 wounds, last hit by Catapult)
+t= 432.2  LOST Wolfhound (disabled, armour 46%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 513.7  LOST LaoHu (disabled, armour 30%, heat 3, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t= 542.2  PULLBACK Catapult at 27%
+t= 545.2  SUPPORT repair_truck (-198, 622) rp_left=0
+t= 595.5  LOST Catapult (disabled, armour 53%, heat 0, ejected false, pilot 6.0 wounds, last hit by Drillson)
+t= 644.5  LOST Shootist (disabled, armour 7%, heat 0, ejected false, pilot 2.0 wounds, last hit by Drillson)
+t= 810.9  ALLY LOST City4StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 823.6  ALLY LOST City4StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 901.2  ALLY LOST SingleCivLivingA (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Attack Copter)
+t= 904.8  ALLY LOST 2CivLiving (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 907.0  ALLY LOST 2StoryCivLiving (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Attack Copter)
+seed 2 end t=1800 result=PLAYING  player alive 1  enemies alive 41
+damage to lance: 882 from 17 attackers; hits by location (0 head .. 10 rear RT): { 6: 48, 4: 57, 5: 31, 3: 37, 2: 36, 1: 57, 0: 11, 7: 35, 9: 10, 8: 11, 10: 5 }
+       297  Highlander (mech)
+       270  Drillson (vehicle)
+        87  Catapult (mech)
+        80  Starslayer (mech)
+        74  Partisan (vehicle)
+        30  Lrmcarrier (vehicle)
+        12  Shootist (mech)
+        12  Werewolf (mech)
+         8  Harasser (vehicle)
+         8  Aero Spotter (vehicle)
+  obj 0 P: open  1. Defend City from Liao and Steiner Forces
+  obj 1 P: open  2. Destroy all Liao/Steiner Forces
+  obj 2 s: open  a. Recapture Davion Headquarters
+  obj 3 s: open  b. Recapture the City's Power Generator
+  obj 4 s: open  c. Recapture Davion Sensor Control
+  obj 5 s hidden: open  Hidden Object To kill group 1
+  obj 6 s hidden: open  Hidden Objective to Kill Group2
+  obj 7 s hidden: open  Hidden Objective to Kill Group 3
+  obj 8 s hidden: open  Hidden Objective To Kill Group 4
+  obj 9 s hidden: open  Hidden Objective to Trigger Group Sneaky
+  obj 10 s hidden: done  Hidden Objective that Triggers Objectives to app
+  obj 11 s hidden: done  Hidden Objective when the player kills 25 enemie
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_18_Grp1_Mechs:look4play": 4, "mc2_18_Grp1_Veh:look4play": 2, "mc2_18_Grp2_Mechs:start": 4, "mc2_18_Grp3_Mechs:start": 6, "mc2_18_Grp2_Veh:start": 4, "mc2_18_Grp4_Mechs:start": 5, "mc2_18_sneaky_mech:start": 4, "mc2_18_Gpatrol_Veh:attack": 2, "mc2_18_guard_Veh:attack": 1, "mc2_18_guard_Veh:start": 2, "mc2_18_Grp0_Veh:look4play": 3, "mc2_18_Grp0_Veh:baseassault": 2, "mc2_18_guard_PD_mech:attack": 4, "mc2_18_patrol_1:attack": 1, "mc2_18_guard_Low:attack": 2, "mc2_18_guard_High:attack": 4, "pbrain:attack": 1, "mc2_18_Gpatrol_Mechs:attack": 1, "mc2_18_guard_LOW:start": 1, "mc2_18_guard_LOW:attack": 6, "mc2_18_guard_HIGH:start": 2, "mc2_18_patrol_lake2:start": 2, "mc2_18_patrol_lake:start": 1, "mc2_18_patrol_4:attack": 1, "mc2_18_guard_HIGH:attack": 1, "mc2_18_patrol_2:attack": 1, "PBrain:": 5, "pbrain:": 1 }
+enemy pilots that moved >20 m: 39 / 73
+
+--- stderr ---
+WARNING: 877 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

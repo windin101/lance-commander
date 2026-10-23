@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_19
+force: campaign 6 units 330 t of 330 t, RP 12000: Shootist Prime(pmwscooter), Catapult Prime(pmwvenom), Vulture Prime(pmwbubba), Vulture Prime(pmwwicked), Shadow Cat Prime(pmwsteel), Razorback Prime(pmwclaymore)
+ABL pilots: 88
+t=  39.5  SUPPORT salvage_craft Shootist rp_left=2000
+t=  53.0  LOST Werewolf (destroyed, armour 52%, heat 0, ejected false, pilot 0.0 wounds, last hit by Shootist)
+t= 204.4  LOST ShadowCat (destroyed, armour 57%, heat 0, ejected false, pilot 0.0 wounds, last hit by Shootist)
+t= 208.6  LOST Shootist (disabled, armour 21%, heat 0, ejected false, pilot 1.0 wounds, last hit by MenShen)
+t= 225.9  LOST Vulture (disabled, armour 46%, heat 29, ejected false, pilot 6.0 wounds, last hit by Hunchback)
+t= 228.9  LOST Shootist (destroyed, armour 27%, heat 0, ejected false, pilot 0.0 wounds, last hit by Aero Spotter)
+t= 266.5  LOST Vulture (disabled, armour 18%, heat 0, ejected false, pilot 0.0 wounds, last hit by MenShen)
+t= 345.7  SUPPORT repair_truck (1025, -539) rp_left=0
+t= 401.3  objective done: 1. Destroy 1/3 of All Enemy Forces in the Sector
+t= 582.7  SUPPORT salvage_craft MenShen rp_left=2000
+t= 660.0  LOST Catapult (disabled, armour 19%, heat 9, ejected false, pilot 0.0 wounds, last hit by Catapult)
+t= 666.4  LOST MenShen (destroyed, armour 24%, heat 2, ejected false, pilot 1.0 wounds, last hit by Catapult)
+t= 666.4  objective done: 2. Move All Surviving Mech to Extraction Point
+t= 671.4  MISSION WON
+seed 2 end t=671 result=WON  player alive 1  enemies alive 49
+damage to lance: 972 from 29 attackers; hits by location (0 head .. 10 rear RT): { 3: 31, 4: 35, 7: 35, 1: 50, 2: 35, 5: 24, 6: 29, 0: 3, 8: 5, 10: 4, 9: 3 }
+damage by lance: 2131; kills 32
+       259  Storm (vehicle)
+       158  Catapult (mech)
+       111  MenShen (mech)
+       111  Swarmlrmc (vehicle)
+        80  Shootist (mech)
+        50  Hollander (mech)
+        48  Anubis (mech)
+        46  Hunchback (mech)
+        33  Zeus (mech)
+        20  Aero Spotter (vehicle)
+  obj 0 P: done  1. Destroy 1/3 of All Enemy Forces in the Sector
+  obj 1 P: done  2. Move All Surviving Mech to Extraction Point
+  obj 2 s: open  a. Destroy 2/3 of All Enemy Forces in the Sector
+  obj 3 s: open  b. Destroy  All Enemy Forces in the Sector
+  obj 4 s: open  c. Captrue Liao Headquarters
+  obj 5 s: open  d. Destroy All 3 Power Generators at the Liao Ba
+  obj 6 s: open  e. Destroy Both Industrial Complex at Liao Indus
+  obj 7 s: open  f. Destroy All 5 Slayer Bombers at  Liao Airstri
+  obj 8 s: open  g. Capture Weapon Facility
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_19_MOG:start": 1, "mc2_19_HQ_PD:start": 4, "mc2_19_Power_Patrol_M1:start": 3, "mc2_19_Power_PD:start": 2, "mc2_19_Power_guard:start": 3, "mc2_19_Power_Patrol_V1:start": 1, "pbrain:attack": 2, "mc2_19_Ind_PD:attack": 1, "mc2_19_IND_Patrol_V1:attack": 2, "mc2_19_IND_Patrol_V2:attack": 1, "mc2_19_IND_guard:attack": 2, "mc2_19_IND_Patrol_M1:attack": 2, "mc2_19_Port_guard:attack": 4, "mc2_19_Port_Patrol_V1:attack": 2, "mc2_19_Port_guard_Mech:attack": 2, "mc2_19_Port_Patrol_M1:attack": 1, "mc2_19_Port_Patrol_M2:attack": 3, "mc2_19_Hanger_guard:attack": 3, "mc2_19_Hanger_Patrol_V1:baseassault": 1, "mc2_19_Hanger_Patrol_M1:baseassault": 3, "mc2_19_Hanger_Rein_V1:attack": 3, "mc2_19_Hanger_Rein_M1:attack": 1, "mc2_19_Hanger_guard_LRM:attack": 2, "mc2_19_MOG_guard:start": 2, "mc2_19_MOG_Patrol_M1:attack": 1, "mc2_19_MOG_guard2:attack": 1, "mc2_19_MainA_Patrol_M1:start": 4, "mc2_19_TENT_PD:start": 3, "mc2_19_TENT_Patrol_M1:start": 2, "mc2_19_MainA_guard:start": 2, "mc2_19_MainA_Patrol_V2:start": 2, "mc2_19_MainA_Patrol_V3:start": 1, "mc2_19_HQ_guard_Ved:start": 2, "mc2_19_AMMO_guard:start": 2, "mc2_19_AMMO_Patrol_V1:start": 1, "mc2_19_MainL_Patrol_M2:start": 2, "mc2_19_MainL_Patrol_M1:start": 2, "mc2_19_MainL_Patrol_V1:start": 2, "mc2_19_HQ_Patrol_V1:start": 1, "mc2_19_HQ_guard:start": 2, "mc2_19_MainA_Patrol_V1:start": 1, "PBrain:": 6, "pbrain:": 2 }
+enemy pilots that moved >20 m: 62 / 90
+
+--- stderr ---
+WARNING: 772 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

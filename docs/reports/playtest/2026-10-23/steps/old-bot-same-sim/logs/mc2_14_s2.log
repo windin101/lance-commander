@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_14
+ABL pilots: 36
+t=  60.9  objective done: Contact the Liao Operative
+t= 244.3  objective done: Destroy Orbital Gun Alpha
+t= 569.3  LOST Thor (disabled, armour 17%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hunchback)
+t= 574.3  MISSION LOST
+seed 2 end t=574 result=LOST  player alive 0  enemies alive 18
+damage to lance: 212 from 14 attackers; hits by location (0 head .. 10 rear RT): { 3: 12, 1: 8, 2: 11, 6: 7, 5: 6, 7: 6, 4: 8 }
+        48  Vedette (vehicle)
+        46  Hunchback (mech)
+        36  Werewolf (mech)
+        27  Hunter (vehicle)
+        21  Monsoon (vehicle)
+        20  Hollander (mech)
+        10  Harasser (vehicle)
+         3  Lrmcarrier (vehicle)
+  obj 0 P: done  Contact the Liao Operative
+  obj 1 P: done  Destroy Orbital Gun Alpha
+  obj 2 P: open  Destroy Orbital Gun Beta
+  obj 3 P: open  Destroy Orbital Gun Gamma
+  obj 4 P: open  Destroy Mobile Orbital Gun Omega
+  obj 5 P: gated  Move to the Extraction Point
+  obj 6 s: open  Capture Airport Sensor Control
+  obj 7 s: open  Destroy Fuel Supplies at Resupply Depot
+  obj 8 s: open  Capture Communications Array
+  obj 9 s: open  Destroy all Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 1, "mc2_14_patrol8:start": 1, "mc2_14_patrol1:attack": 1, "mc2_14_patrol2:attack": 2, "mc2_14_static1:attack": 5, "mc2_14_patrol3:attack": 1, "mc2_14_patrol4:attack": 2, "mc2_14_static1:start": 5, "mc2_14_patrol5:start": 2, "mc2_14_patrol6:attack": 1, "mc2_14_patrol7:attack": 1, "mc2_14_patrol15:start": 2, "mc2_14_patrol16:attack": 2, "mc2_14_patrol9:start": 1, "mc2_14_MOG_patrol:start": 1, "mc2_14_patrol10:start": 2, "mc2_14_patrol11:start": 2, "mc2_14_patrol12:attack": 2, "mc2_14_patrol13:start": 1, "mc2_14_patrol14:start": 1 }
+enemy pilots that moved >20 m: 30 / 36
+
+--- stderr ---
+WARNING: 849 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

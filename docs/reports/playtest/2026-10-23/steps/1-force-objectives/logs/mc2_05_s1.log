@@ -1,0 +1,48 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_05
+force: campaign 4 units 220 t of 220 t, RP 7000: Zeus Prime(pmwmeat), Zeus Prime(pmwworm), Razorback Prime(pmwpalerider), Razorback Prime(pmwtwitch)
+ABL pilots: 45
+t=  22.0  objective done: 1. Destroy Fuel Tanks
+t=  33.5  SUPPORT air_strike (584, -419) rp_left=0
+t=  65.1  LOST Werewolf (disabled, armour 69%, heat 0, ejected false, pilot 0.0 wounds, last hit by Vedette)
+t=  97.6  PULLBACK Werewolf at 24%
+t= 116.2  PULLBACK Werewolf at 23%
+t= 167.2  objective done: 2. Capture Weapons Facility
+t= 187.5  PULLBACK Werewolf at 23%
+t= 240.2  PULLBACK Werewolf at 23%
+t= 282.7  PULLBACK Werewolf at 23%
+t= 346.6  objective done: 3. Capture Repair Bay
+t= 360.7  PULLBACK Werewolf at 23%
+t= 366.7  PULLBACK Werewolf at 23%
+t= 420.7  PULLBACK Werewolf at 23%
+t= 441.7  PULLBACK Werewolf at 23%
+t= 521.0  objective done: 4. Capture Prison Complex
+t= 578.7  objective done: 5. Move to Extraction Point
+t= 583.7  MISSION WON
+seed 1 end t=584 result=WON  player alive 3  enemies alive 9
+damage to lance: 278 from 21 attackers; hits by location (0 head .. 10 rear RT): { 3: 9, 2: 17, 1: 13, 6: 9, 4: 8, 7: 12, 5: 13, 10: 2, 0: 3, 8: 1 }
+        75  Anubis (mech)
+        70  Partisan (vehicle)
+        35  Storm (vehicle)
+        33  Lrmcarrier (vehicle)
+        26  ShaYu (mech)
+        24  Vedette (vehicle)
+         8  Centipede (vehicle)
+         7  Flea (mech)
+  obj 0 P: done  1. Destroy Fuel Tanks
+  obj 1 P: done  2. Capture Weapons Facility
+  obj 2 P: done  3. Capture Repair Bay
+  obj 3 P: done  4. Capture Prison Complex
+  obj 4 P: done  5. Move to Extraction Point
+  obj 5 s: open  a. Capture Resource Trucks
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_05_EC3_fireant1:attack": 1, "mc2_05_EC1_ved1:attack": 1, "mc2_05_EC1_ved2:attack": 1, "mc2_05_EC1_LRMs:start": 2, "mc2_05_EC1_LRMs:attack": 2, "mc2_05_EC3_storm1:attack": 1, "mc2_05_EC3_LRMs:attack": 4, "mc2_05_EC3_shayu1:attack": 1, "mc2_05_EC3_shayu2:attack": 1, "mc2_05_EC1_anubis1:attack": 1, "mc2_05_EC1_anubis2:attack": 1, "mc2_05_EC2_storm1:attack": 1, "mc2_05_EC4_shayu1:start": 1, "mc2_05_EC1_storm1:attack": 1, "mc2_05_EC3_LRMs:attack1": 1, "mc2_05_EC3_storm1:attack1": 1, "mc2_05_EC4_shayu2:start": 1, "mc2_05_EC4_LRMs:start": 2, "mc2_05_EC2_anubis1:attack": 1, "mc2_05_EC2_storm2:attack": 1, "mc2_05_EC2_LRMs:attack": 3, "mc2_05_EC2_ved1:attack": 1, "mc2_05_EC1_cents1:attack": 2, "mc2_05_EC1_cents2:attack": 1, "mc2_05_EC2_cents2:attack": 1, "mc2_05_EC2_cents1:attack": 1, "mc2_05_RP_trucks:start": 2, "mc2_05_EC3_anubis1:attack": 1, "DredAttack01:noweapons": 1, "mc2_05_EC1_part1:attack": 1, "mc2_05_EC1_partG:attack": 1, "PBrain:": 4 }
+enemy pilots that moved >20 m: 35 / 45
+
+--- stderr ---
+WARNING: 477 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

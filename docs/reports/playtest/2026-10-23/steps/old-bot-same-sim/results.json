@@ -1,0 +1,10326 @@
+[
+ {
+  "result": "WON",
+  "t_end": 303,
+  "player_alive": 2,
+  "enemies_alive": 0,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "6. Move All 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Popup Move to Large Island O"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective for Starslayer to Powerup"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for VO when Starslayer Lance Dies"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 19.9,
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "t": 50.5,
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "t": 104.3,
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "t": 167.1,
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "t": 189.4,
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "t": 298.2,
+    "title": "6. Move All 'Mechs to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 225.7,
+    "unit": "Werewolf",
+    "armour": 30,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 166,
+  "attackers": 11,
+  "top_attackers": [
+   {
+    "damage": 93,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 65,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 2,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 2,
+    "attacker": "Harasser (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_01",
+  "seed": 1,
+  "wall_s": 6.3
+ },
+ {
+  "result": "WON",
+  "t_end": 336,
+  "player_alive": 2,
+  "enemies_alive": 0,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "6. Move All 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Popup Move to Large Island O"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective for Starslayer to Powerup"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for VO when Starslayer Lance Dies"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 19.9,
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "t": 46.2,
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "t": 104.0,
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "t": 122.8,
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "t": 222.0,
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "t": 330.7,
+    "title": "6. Move All 'Mechs to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 245.7,
+    "unit": "Werewolf",
+    "armour": 28,
+    "last_hit_by": "Lrmcarrier"
+   }
+  ],
+  "damage_total": 210,
+  "attackers": 13,
+  "top_attackers": [
+   {
+    "damage": 96,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 54,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 52,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Harasser (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_01",
+  "seed": 2,
+  "wall_s": 7.7
+ },
+ {
+  "result": "WON",
+  "t_end": 309,
+  "player_alive": 2,
+  "enemies_alive": 0,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "6. Move All 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Popup Move to Large Island O"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective for Starslayer to Powerup"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for VO when Starslayer Lance Dies"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 19.9,
+    "title": "1. Investigate Abandoned Airfield"
+   },
+   {
+    "t": 49.2,
+    "title": "2. Destroy Hangar"
+   },
+   {
+    "t": 119.8,
+    "title": "3. Destroy Bandit Patrol"
+   },
+   {
+    "t": 140.7,
+    "title": "4. Repair and Proceed to North Island"
+   },
+   {
+    "t": 192.2,
+    "title": "5. Locate and Destroy Bandits"
+   },
+   {
+    "t": 303.8,
+    "title": "6. Move All 'Mechs to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 169.8,
+    "unit": "Werewolf",
+    "armour": 29,
+    "last_hit_by": "Urbanmech"
+   }
+  ],
+  "damage_total": 200,
+  "attackers": 13,
+  "top_attackers": [
+   {
+    "damage": 102,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 50,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 32,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Centipede (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_01",
+  "seed": 3,
+  "wall_s": 7.0
+ },
+ {
+  "result": "WON",
+  "t_end": 359,
+  "player_alive": 2,
+  "enemies_alive": 14,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Calling in Base Assault Team"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "SUPER HIDDEN OBJECTIVE TO TRIGGER A VO"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 7.3,
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "t": 163.3,
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "t": 168.4,
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "t": 348.3,
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "t": 348.3,
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "t": 354.1,
+    "title": "5. Capture Steiner Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 262.0,
+    "unit": "Werewolf",
+    "armour": 26,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 295.5,
+    "unit": "Werewolf",
+    "armour": 29,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 218,
+  "attackers": 12,
+  "top_attackers": [
+   {
+    "damage": 96,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 60,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 8,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 3,
+    "attacker": "Armoredcar (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_02",
+  "seed": 1,
+  "wall_s": 15.6
+ },
+ {
+  "result": "WON",
+  "t_end": 416,
+  "player_alive": 2,
+  "enemies_alive": 14,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Calling in Base Assault Team"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "SUPER HIDDEN OBJECTIVE TO TRIGGER A VO"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 7.3,
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "t": 180.6,
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "t": 189.3,
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "t": 391.2,
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "t": 391.2,
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "t": 411.4,
+    "title": "5. Capture Steiner Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 275.7,
+    "unit": "Werewolf",
+    "armour": 25,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 294.3,
+    "unit": "Werewolf",
+    "armour": 46,
+    "last_hit_by": "Lrmcarrier"
+   }
+  ],
+  "damage_total": 201,
+  "attackers": 14,
+  "top_attackers": [
+   {
+    "damage": 90,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 46,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 32,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 7,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 2,
+    "attacker": "Armoredcar (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_02",
+  "seed": 2,
+  "wall_s": 16.7
+ },
+ {
+  "result": "WON",
+  "t_end": 325,
+  "player_alive": 3,
+  "enemies_alive": 14,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Calling in Base Assault Team"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "SUPER HIDDEN OBJECTIVE TO TRIGGER A VO"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 7.3,
+    "title": "1. Capture Resource Building"
+   },
+   {
+    "t": 153.3,
+    "title": "2. Destroy All Bandits at Base Gemini South"
+   },
+   {
+    "t": 160.4,
+    "title": "3. Capture Steiner Sensor Control"
+   },
+   {
+    "t": 314.8,
+    "title": "4. Destroy All Bandits at Base Gemini North"
+   },
+   {
+    "t": 314.8,
+    "title": "Destroy All Bandit Forces Occupying Base Gemini"
+   },
+   {
+    "t": 319.9,
+    "title": "5. Capture Steiner Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 280.1,
+    "unit": "Werewolf",
+    "armour": 15,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 187,
+  "attackers": 12,
+  "top_attackers": [
+   {
+    "damage": 88,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 69,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 17,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 3,
+    "attacker": "Armoredcar (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_02",
+  "seed": 3,
+  "wall_s": 16.2
+ },
+ {
+  "result": "WON",
+  "t_end": 586,
+  "player_alive": 3,
+  "enemies_alive": 5,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 127.9,
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "t": 130.3,
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "t": 209.2,
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "t": 385.8,
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "t": 580.8,
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "losses": [
+   {
+    "t": 316.3,
+    "unit": "Werewolf",
+    "armour": 22,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 562.5,
+    "unit": "Bushwacker",
+    "armour": 41,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 224,
+  "attackers": 24,
+  "top_attackers": [
+   {
+    "damage": 62,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 54,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 34,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 26,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Starslayer (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_03",
+  "seed": 1,
+  "wall_s": 20.8
+ },
+ {
+  "result": "WON",
+  "t_end": 599,
+  "player_alive": 4,
+  "enemies_alive": 5,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 126.1,
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "t": 127.3,
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "t": 214.3,
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "t": 418.5,
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "t": 594.3,
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "losses": [
+   {
+    "t": 339.6,
+    "unit": "Werewolf",
+    "armour": 28,
+    "last_hit_by": "Urbanmech"
+   }
+  ],
+  "damage_total": 154,
+  "attackers": 19,
+  "top_attackers": [
+   {
+    "damage": 78,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 2,
+    "attacker": "Harasser (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_03",
+  "seed": 2,
+  "wall_s": 20.7
+ },
+ {
+  "result": "WON",
+  "t_end": 537,
+  "player_alive": 5,
+  "enemies_alive": 5,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 128.5,
+    "title": "2. Destroy Enemies at Checkpoint"
+   },
+   {
+    "t": 131.5,
+    "title": "1. Destroy Turret Generators at Checkpoint"
+   },
+   {
+    "t": 196.4,
+    "title": "3. Capture HQ Vehicle"
+   },
+   {
+    "t": 389.5,
+    "title": "4. Capture Weapon Facility"
+   },
+   {
+    "t": 532.0,
+    "title": "5. Defeat Bandit Counterattack"
+   }
+  ],
+  "losses": [],
+  "damage_total": 108,
+  "attackers": 19,
+  "top_attackers": [
+   {
+    "damage": 50,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 15,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 10,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Urbanmech (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_03",
+  "seed": 3,
+  "wall_s": 18.0
+ },
+ {
+  "result": "WON",
+  "t_end": 851,
+  "player_alive": 3,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4 - Extract all surviving mechs"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger to popup last 2 Objectives"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "2nd Hidden Trigger to popup last 2 Objectives"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 143.7,
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "t": 470.8,
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "t": 810.8,
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "t": 846.1,
+    "title": "4 - Extract all surviving mechs"
+   }
+  ],
+  "losses": [
+   {
+    "t": 55.7,
+    "unit": "Werewolf",
+    "armour": 13,
+    "last_hit_by": "Flea"
+   },
+   {
+    "t": 270.7,
+    "unit": "Werewolf",
+    "armour": 12,
+    "last_hit_by": "Urbanmech"
+   }
+  ],
+  "damage_total": 382,
+  "attackers": 27,
+  "top_attackers": [
+   {
+    "damage": 138,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 88,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 58,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 40,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 32,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 15,
+    "attacker": "Poweredarmor (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 3,
+    "attacker": "Infantry (vehicle)"
+   },
+   {
+    "damage": 2,
+    "attacker": "Harasser (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_04",
+  "seed": 1,
+  "wall_s": 29.7
+ },
+ {
+  "result": "WON",
+  "t_end": 459,
+  "player_alive": 5,
+  "enemies_alive": 21,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4 - Extract all surviving mechs"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger to popup last 2 Objectives"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "2nd Hidden Trigger to popup last 2 Objectives"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 77.1,
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "t": 289.6,
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "t": 416.2,
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "t": 453.5,
+    "title": "4 - Extract all surviving mechs"
+   }
+  ],
+  "losses": [],
+  "damage_total": 128,
+  "attackers": 21,
+  "top_attackers": [
+   {
+    "damage": 32,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 15,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Poweredarmor (vehicle)"
+   },
+   {
+    "damage": 11,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 10,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 3,
+    "attacker": "Infantry (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_04",
+  "seed": 2,
+  "wall_s": 18.2
+ },
+ {
+  "result": "WON",
+  "t_end": 590,
+  "player_alive": 4,
+  "enemies_alive": 15,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4 - Extract all surviving mechs"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger to popup last 2 Objectives"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "2nd Hidden Trigger to popup last 2 Objectives"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 77.1,
+    "title": "1 - Move to Bandit Convoy's Last Known Location"
+   },
+   {
+    "t": 294.0,
+    "title": "2 - Destroy Bandit Supply Convoy"
+   },
+   {
+    "t": 450.1,
+    "title": "3 - Capture Weapon's Facility"
+   },
+   {
+    "t": 585.3,
+    "title": "4 - Extract all surviving mechs"
+   }
+  ],
+  "losses": [
+   {
+    "t": 498.8,
+    "unit": "Werewolf",
+    "armour": 26,
+    "last_hit_by": "Attack Copter"
+   }
+  ],
+  "damage_total": 226,
+  "attackers": 23,
+  "top_attackers": [
+   {
+    "damage": 78,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 48,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 28,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 5,
+    "attacker": "Poweredarmor (vehicle)"
+   },
+   {
+    "damage": 2,
+    "attacker": "Harasser (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_04",
+  "seed": 3,
+  "wall_s": 24.1
+ },
+ {
+  "result": "WON",
+  "t_end": 649,
+  "player_alive": 3,
+  "enemies_alive": 7,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Move to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Resource Trucks"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 178.3,
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "t": 198.3,
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "t": 352.7,
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "t": 531.6,
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "t": 643.5,
+    "title": "5. Move to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 260.7,
+    "unit": "Werewolf",
+    "armour": 14,
+    "last_hit_by": "Lrmcarrier"
+   }
+  ],
+  "damage_total": 232,
+  "attackers": 20,
+  "top_attackers": [
+   {
+    "damage": 114,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 40,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 19,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 16,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 14,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Flea (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_05",
+  "seed": 1,
+  "wall_s": 20.9
+ },
+ {
+  "result": "WON",
+  "t_end": 667,
+  "player_alive": 3,
+  "enemies_alive": 7,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Move to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Resource Trucks"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 72.5,
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "t": 186.7,
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "t": 362.6,
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "t": 540.9,
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "t": 662.0,
+    "title": "5. Move to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 82.7,
+    "unit": "Werewolf",
+    "armour": 68,
+    "last_hit_by": "Lrmcarrier"
+   }
+  ],
+  "damage_total": 185,
+  "attackers": 21,
+  "top_attackers": [
+   {
+    "damage": 42,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 42,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 32,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 32,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Centipede (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_05",
+  "seed": 2,
+  "wall_s": 19.9
+ },
+ {
+  "result": "WON",
+  "t_end": 649,
+  "player_alive": 2,
+  "enemies_alive": 6,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "5. Move to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Resource Trucks"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 78.7,
+    "title": "1. Destroy Fuel Tanks"
+   },
+   {
+    "t": 168.8,
+    "title": "2. Capture Weapons Facility"
+   },
+   {
+    "t": 349.7,
+    "title": "3. Capture Repair Bay"
+   },
+   {
+    "t": 533.1,
+    "title": "4. Capture Prison Complex"
+   },
+   {
+    "t": 644.0,
+    "title": "5. Move to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 112.5,
+    "unit": "Werewolf",
+    "armour": 23,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 471.3,
+    "unit": "Hunchback",
+    "armour": 62,
+    "last_hit_by": "Centipede"
+   }
+  ],
+  "damage_total": 243,
+  "attackers": 23,
+  "top_attackers": [
+   {
+    "damage": 57,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 44,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 37,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 34,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 32,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Vedette (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_05",
+  "seed": 3,
+  "wall_s": 19.9
+ },
+ {
+  "result": "LOST",
+  "t_end": 801,
+  "player_alive": 0,
+  "enemies_alive": 7,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Protect the Base Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all attacking Liao forces."
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "FAILED",
+    "title": "a - Capture Steiner Sensor Control."
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Capture the Turret Control at Road Checkpoin"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden OBJ to Trigger Wave 2"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Trigger Wave3"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 159.6,
+    "unit": "Werewolf",
+    "armour": 24,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 326.8,
+    "unit": "Hollander",
+    "armour": 20,
+    "last_hit_by": "ShaYu"
+   },
+   {
+    "t": 756.4,
+    "unit": "Hunchback",
+    "armour": 24,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 790.3,
+    "unit": "Bushwacker",
+    "armour": 27,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 795.5,
+    "unit": "Highlander",
+    "armour": 19,
+    "last_hit_by": "Storm"
+   }
+  ],
+  "damage_total": 743,
+  "attackers": 34,
+  "top_attackers": [
+   {
+    "damage": 282,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 134,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 86,
+    "attacker": "Drillson (vehicle)"
+   },
+   {
+    "damage": 86,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 57,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 56,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Hetzer (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Attack Copter (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_06",
+  "seed": 1,
+  "wall_s": 27.4
+ },
+ {
+  "result": "LOST",
+  "t_end": 908,
+  "player_alive": 0,
+  "enemies_alive": 12,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Protect the Base Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all attacking Liao forces."
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "FAILED",
+    "title": "a - Capture Steiner Sensor Control."
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Capture the Turret Control at Road Checkpoin"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden OBJ to Trigger Wave 2"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Trigger Wave3"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 174.2,
+    "unit": "Werewolf",
+    "armour": 11,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 255.5,
+    "unit": "Highlander",
+    "armour": 52,
+    "last_hit_by": "ShaYu"
+   },
+   {
+    "t": 886.6,
+    "unit": "Bushwacker",
+    "armour": 20,
+    "last_hit_by": "ShaYu"
+   },
+   {
+    "t": 892.3,
+    "unit": "Hollander",
+    "armour": 19,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 903.3,
+    "unit": "Hunchback",
+    "armour": 17,
+    "last_hit_by": "Storm"
+   }
+  ],
+  "damage_total": 704,
+  "attackers": 34,
+  "top_attackers": [
+   {
+    "damage": 172,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 108,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 91,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 90,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 86,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 73,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 72,
+    "attacker": "Drillson (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Hetzer (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_06",
+  "seed": 2,
+  "wall_s": 31.2
+ },
+ {
+  "result": "LOST",
+  "t_end": 727,
+  "player_alive": 0,
+  "enemies_alive": 10,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Protect the Base Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all attacking Liao forces."
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "FAILED",
+    "title": "a - Capture Steiner Sensor Control."
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Capture the Turret Control at Road Checkpoin"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden OBJ to Trigger Wave 2"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Trigger Wave3"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 165.9,
+    "unit": "Werewolf",
+    "armour": 11,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 626.3,
+    "unit": "Hunchback",
+    "armour": 15,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 685.9,
+    "unit": "Highlander",
+    "armour": 27,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 690.2,
+    "unit": "Bushwacker",
+    "armour": 19,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 721.5,
+    "unit": "Hollander",
+    "armour": 26,
+    "last_hit_by": "Lrmcarrier"
+   }
+  ],
+  "damage_total": 788,
+  "attackers": 35,
+  "top_attackers": [
+   {
+    "damage": 315,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 170,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 161,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 54,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 34,
+    "attacker": "Drillson (vehicle)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Vedette (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_06",
+  "seed": 3,
+  "wall_s": 26.0
+ },
+ {
+  "result": "LOST",
+  "t_end": 591,
+  "player_alive": 0,
+  "enemies_alive": 31,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Liao Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy Processing Plant"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "3. Extract All Surviving 'Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy All Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 413.4,
+    "title": "1. Capture Liao Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 134.7,
+    "unit": "Werewolf",
+    "armour": 22,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 278.6,
+    "unit": "Bushwacker",
+    "armour": 23,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 586.0,
+    "unit": "Bushwacker",
+    "armour": 32,
+    "last_hit_by": "Catapult"
+   }
+  ],
+  "damage_total": 330,
+  "attackers": 12,
+  "top_attackers": [
+   {
+    "damage": 147,
+    "attacker": "MenShen (mech)"
+   },
+   {
+    "damage": 84,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 48,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Storm (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_07",
+  "seed": 1,
+  "wall_s": 17.3
+ },
+ {
+  "result": "LOST",
+  "t_end": 837,
+  "player_alive": 0,
+  "enemies_alive": 28,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Liao Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy Processing Plant"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "3. Extract All Surviving 'Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy All Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 380.2,
+    "title": "1. Capture Liao Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 110.2,
+    "unit": "Werewolf",
+    "armour": 46,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 329.3,
+    "unit": "Bushwacker",
+    "armour": 25,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 832.2,
+    "unit": "Bushwacker",
+    "armour": 15,
+    "last_hit_by": "Catapult"
+   }
+  ],
+  "damage_total": 390,
+  "attackers": 14,
+  "top_attackers": [
+   {
+    "damage": 167,
+    "attacker": "MenShen (mech)"
+   },
+   {
+    "damage": 128,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 48,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 33,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 14,
+    "attacker": "Storm (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_07",
+  "seed": 2,
+  "wall_s": 21.4
+ },
+ {
+  "result": "LOST",
+  "t_end": 813,
+  "player_alive": 0,
+  "enemies_alive": 28,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Liao Headquarters"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy Processing Plant"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "3. Extract All Surviving 'Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy All Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 409.3,
+    "title": "1. Capture Liao Headquarters"
+   }
+  ],
+  "losses": [
+   {
+    "t": 108.5,
+    "unit": "Werewolf",
+    "armour": 18,
+    "last_hit_by": "Vedette"
+   },
+   {
+    "t": 300.2,
+    "unit": "Bushwacker",
+    "armour": 12,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 807.8,
+    "unit": "Bushwacker",
+    "armour": 12,
+    "last_hit_by": "Catapult"
+   }
+  ],
+  "damage_total": 443,
+  "attackers": 16,
+  "top_attackers": [
+   {
+    "damage": 153,
+    "attacker": "MenShen (mech)"
+   },
+   {
+    "damage": 128,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 81,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 8,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 7,
+    "attacker": "Storm (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_07",
+  "seed": 3,
+  "wall_s": 19.4
+ },
+ {
+  "result": "LOST",
+  "t_end": 653,
+  "player_alive": 1,
+  "enemies_alive": 35,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Destroy Air Traffic Control Tower"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2 - Link up with Atlas"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 1)",
+    "title": "3 - Destroy Air Traffic Control Tower BETA"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 1)",
+    "title": "4 - Evacuate all 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 185.6,
+    "unit": "Hollander",
+    "armour": 55,
+    "last_hit_by": "Flea"
+   },
+   {
+    "t": 217.3,
+    "unit": "Werewolf",
+    "armour": 31,
+    "last_hit_by": "Flea"
+   },
+   {
+    "t": 647.8,
+    "unit": "Highlander",
+    "armour": 18,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 406,
+  "attackers": 24,
+  "top_attackers": [
+   {
+    "damage": 134,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 84,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 83,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 48,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 34,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Hetzer (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_08",
+  "seed": 1,
+  "wall_s": 28.1
+ },
+ {
+  "result": "LOST",
+  "t_end": 620,
+  "player_alive": 1,
+  "enemies_alive": 35,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Destroy Air Traffic Control Tower"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2 - Link up with Atlas"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 1)",
+    "title": "3 - Destroy Air Traffic Control Tower BETA"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 1)",
+    "title": "4 - Evacuate all 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 89.0,
+    "unit": "Werewolf",
+    "armour": 67,
+    "last_hit_by": "Hetzer"
+   },
+   {
+    "t": 200.0,
+    "unit": "Hollander",
+    "armour": 37,
+    "last_hit_by": "Flea"
+   },
+   {
+    "t": 614.8,
+    "unit": "Highlander",
+    "armour": 12,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 370,
+  "attackers": 26,
+  "top_attackers": [
+   {
+    "damage": 126,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 89,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 63,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 40,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Hetzer (vehicle)"
+   },
+   {
+    "damage": 16,
+    "attacker": "Starslayer (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_08",
+  "seed": 2,
+  "wall_s": 29.1
+ },
+ {
+  "result": "LOST",
+  "t_end": 507,
+  "player_alive": 1,
+  "enemies_alive": 39,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1 - Destroy Air Traffic Control Tower"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2 - Link up with Atlas"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 1)",
+    "title": "3 - Destroy Air Traffic Control Tower BETA"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 1)",
+    "title": "4 - Evacuate all 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 148.7,
+    "unit": "Werewolf",
+    "armour": 41,
+    "last_hit_by": "Flea"
+   },
+   {
+    "t": 159.7,
+    "unit": "Hollander",
+    "armour": 69,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 501.5,
+    "unit": "Highlander",
+    "armour": 20,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 355,
+  "attackers": 21,
+  "top_attackers": [
+   {
+    "damage": 104,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 96,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 83,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 54,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Starslayer (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_08",
+  "seed": 3,
+  "wall_s": 22.8
+ },
+ {
+  "result": "LOST",
+  "t_end": 738,
+  "player_alive": 0,
+  "enemies_alive": 27,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Capture Weapons Facility"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3 - Destroy Bandit HQ in Downed Spacecraft Nosec"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Eliminate Bandit Leader at Bandit HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 15)",
+    "title": "Move all Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Destroy 12 Enemy Units"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Trigger to signal ambush at Nosecone"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger for Extraction"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 318.2,
+    "title": "1 - Capture Weapons Facility"
+   }
+  ],
+  "losses": [
+   {
+    "t": 76.0,
+    "unit": "Werewolf",
+    "armour": 39,
+    "last_hit_by": "Flea"
+   },
+   {
+    "t": 256.8,
+    "unit": "Bushwacker",
+    "armour": 61,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 584.4,
+    "unit": "Zeus",
+    "armour": 11,
+    "last_hit_by": "Flea"
+   },
+   {
+    "t": 732.8,
+    "unit": "Hunchback",
+    "armour": 16,
+    "last_hit_by": "Flea"
+   }
+  ],
+  "damage_total": 530,
+  "attackers": 28,
+  "top_attackers": [
+   {
+    "damage": 192,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 114,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 81,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 46,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Hetzer (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Swarmlrmc (vehicle)"
+   },
+   {
+    "damage": 10,
+    "attacker": "Heavy Copter (mech)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Vedette (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_09",
+  "seed": 1,
+  "wall_s": 50.3
+ },
+ {
+  "result": "LOST",
+  "t_end": 660,
+  "player_alive": 0,
+  "enemies_alive": 26,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Capture Weapons Facility"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3 - Destroy Bandit HQ in Downed Spacecraft Nosec"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Eliminate Bandit Leader at Bandit HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 15)",
+    "title": "Move all Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Destroy 12 Enemy Units"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Trigger to signal ambush at Nosecone"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger for Extraction"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 341.9,
+    "title": "1 - Capture Weapons Facility"
+   },
+   {
+    "t": 566.3,
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   }
+  ],
+  "losses": [
+   {
+    "t": 89.0,
+    "unit": "Werewolf",
+    "armour": 18,
+    "last_hit_by": "Flea"
+   },
+   {
+    "t": 629.8,
+    "unit": "Hunchback",
+    "armour": 20,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 643.0,
+    "unit": "Zeus",
+    "armour": 43,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 654.8,
+    "unit": "Bushwacker",
+    "armour": 18,
+    "last_hit_by": "Starslayer"
+   }
+  ],
+  "damage_total": 546,
+  "attackers": 32,
+  "top_attackers": [
+   {
+    "damage": 110,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 94,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 58,
+    "attacker": "LaoHu (mech)"
+   },
+   {
+    "damage": 54,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 45,
+    "attacker": "Swarmlrmc (vehicle)"
+   },
+   {
+    "damage": 33,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 28,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 16,
+    "attacker": "Heavy Copter (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_09",
+  "seed": 2,
+  "wall_s": 46.1
+ },
+ {
+  "result": "LOST",
+  "t_end": 658,
+  "player_alive": 0,
+  "enemies_alive": 20,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Capture Weapons Facility"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3 - Destroy Bandit HQ in Downed Spacecraft Nosec"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Eliminate Bandit Leader at Bandit HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 15)",
+    "title": "Move all Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Destroy 12 Enemy Units"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Trigger to signal ambush at Nosecone"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger for Extraction"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 339.5,
+    "title": "1 - Capture Weapons Facility"
+   },
+   {
+    "t": 536.3,
+    "title": "2 - Destroy Fuel Tanks at Refinery"
+   }
+  ],
+  "losses": [
+   {
+    "t": 183.3,
+    "unit": "Werewolf",
+    "armour": 25,
+    "last_hit_by": "Urbanmech"
+   },
+   {
+    "t": 612.2,
+    "unit": "Hunchback",
+    "armour": 18,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 631.5,
+    "unit": "Bushwacker",
+    "armour": 18,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 652.9,
+    "unit": "Zeus",
+    "armour": 43,
+    "last_hit_by": "Urbanmech"
+   }
+  ],
+  "damage_total": 548,
+  "attackers": 35,
+  "top_attackers": [
+   {
+    "damage": 134,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 114,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 64,
+    "attacker": "LaoHu (mech)"
+   },
+   {
+    "damage": 48,
+    "attacker": "Swarmlrmc (vehicle)"
+   },
+   {
+    "damage": 43,
+    "attacker": "Flea (mech)"
+   },
+   {
+    "damage": 42,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Hetzer (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Heavy Copter (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_09",
+  "seed": 3,
+  "wall_s": 46.6
+ },
+ {
+  "result": "WON",
+  "t_end": 731,
+  "player_alive": 17,
+  "enemies_alive": 1,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy All Airfield Defenders"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec:  Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Protect the Convoy"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 353.8,
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "t": 555.8,
+    "title": "Destroy Steiner Reinforcements"
+   },
+   {
+    "t": 679.5,
+    "title": "Destroy All Airfield Defenders"
+   },
+   {
+    "t": 725.5,
+    "title": "Move All Surviving Mechs to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 23.7,
+    "unit": "s_barracks2",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 28.5,
+    "unit": "Cargotruck",
+    "armour": 80,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 36.6,
+    "unit": "s_barracks",
+    "armour": 0,
+    "last_hit_by": "Hunter"
+   },
+   {
+    "t": 46.0,
+    "unit": "s_barracks2",
+    "armour": 0,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 53.5,
+    "unit": "Cargotruck",
+    "armour": 80,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 61.8,
+    "unit": "s_barracks2",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 71.8,
+    "unit": "s_admin_wing",
+    "armour": 0,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 95.0,
+    "unit": "s_admin_entry",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 188.8,
+    "unit": "Raven",
+    "armour": 65,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 226.3,
+    "unit": "s_admin_core",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 260.5,
+    "unit": "s_barracks",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 505.2,
+    "unit": "Hunchback",
+    "armour": 23,
+    "last_hit_by": "Hunchback"
+   }
+  ],
+  "damage_total": 582,
+  "attackers": 22,
+  "top_attackers": [
+   {
+    "damage": 136,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 130,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 108,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 88,
+    "attacker": "Atlas (mech)"
+   },
+   {
+    "damage": 60,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 2,
+    "attacker": "Heavy Copter (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_10",
+  "seed": 1,
+  "wall_s": 23.5
+ },
+ {
+  "result": "LOST",
+  "t_end": 641,
+  "player_alive": 13,
+  "enemies_alive": 8,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy All Airfield Defenders"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 3)",
+    "title": "Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec:  Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "gated",
+    "title": "Protect the Convoy"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 298.4,
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "t": 592.1,
+    "title": "Destroy Steiner Reinforcements"
+   }
+  ],
+  "losses": [
+   {
+    "t": 23.7,
+    "unit": "s_barracks2",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 32.5,
+    "unit": "Cargotruck",
+    "armour": 80,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 36.6,
+    "unit": "s_barracks",
+    "armour": 0,
+    "last_hit_by": "Hunter"
+   },
+   {
+    "t": 46.0,
+    "unit": "s_barracks2",
+    "armour": 0,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 53.5,
+    "unit": "Cargotruck",
+    "armour": 80,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 61.8,
+    "unit": "s_barracks2",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 71.8,
+    "unit": "s_admin_wing",
+    "armour": 0,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 95.0,
+    "unit": "s_admin_entry",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 226.3,
+    "unit": "s_admin_core",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 253.9,
+    "unit": "Raven",
+    "armour": 33,
+    "last_hit_by": "Hunter"
+   },
+   {
+    "t": 262.5,
+    "unit": "s_barracks",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 374.6,
+    "unit": "Raven",
+    "armour": 25,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 418.2,
+    "unit": "Zeus",
+    "armour": 55,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 478.4,
+    "unit": "Hunchback",
+    "armour": 15,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 627.8,
+    "unit": "Highlander",
+    "armour": 25,
+    "last_hit_by": "Atlas"
+   },
+   {
+    "t": 636.3,
+    "unit": "Repairtruck",
+    "armour": 80,
+    "last_hit_by": "Atlas"
+   }
+  ],
+  "damage_total": 744,
+  "attackers": 17,
+  "top_attackers": [
+   {
+    "damage": 260,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 232,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 50,
+    "attacker": "Heavy Copter (mech)"
+   },
+   {
+    "damage": 46,
+    "attacker": "Atlas (mech)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 27,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 11,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Centipede (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_10",
+  "seed": 2,
+  "wall_s": 20.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 667,
+  "player_alive": 14,
+  "enemies_alive": 8,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy All Airfield Defenders"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 3)",
+    "title": "Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec:  Capture Steiner Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "gated",
+    "title": "Protect the Convoy"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 342.0,
+    "title": "Destroy all Gulag Defenders"
+   },
+   {
+    "t": 563.7,
+    "title": "Destroy Steiner Reinforcements"
+   }
+  ],
+  "losses": [
+   {
+    "t": 23.7,
+    "unit": "s_barracks2",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 36.6,
+    "unit": "s_barracks",
+    "armour": 0,
+    "last_hit_by": "Hunter"
+   },
+   {
+    "t": 39.5,
+    "unit": "Cargotruck",
+    "armour": 80,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 46.0,
+    "unit": "s_barracks2",
+    "armour": 0,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 48.5,
+    "unit": "s_barracks2",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 66.5,
+    "unit": "s_admin_wing",
+    "armour": 0,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 94.4,
+    "unit": "s_admin_entry",
+    "armour": 0,
+    "last_hit_by": "Hunter"
+   },
+   {
+    "t": 201.7,
+    "unit": "Raven",
+    "armour": 46,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 221.0,
+    "unit": "s_admin_core",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 257.5,
+    "unit": "s_barracks",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 413.7,
+    "unit": "Raven",
+    "armour": 49,
+    "last_hit_by": "Hunchback"
+   },
+   {
+    "t": 525.5,
+    "unit": "Zeus",
+    "armour": 16,
+    "last_hit_by": "Attack Copter"
+   },
+   {
+    "t": 601.5,
+    "unit": "Hunchback",
+    "armour": 59,
+    "last_hit_by": "Atlas"
+   },
+   {
+    "t": 661.5,
+    "unit": "Highlander",
+    "armour": 16,
+    "last_hit_by": "Atlas"
+   }
+  ],
+  "damage_total": 724,
+  "attackers": 22,
+  "top_attackers": [
+   {
+    "damage": 192,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 188,
+    "attacker": "Atlas (mech)"
+   },
+   {
+    "damage": 96,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 70,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 56,
+    "attacker": "Heavy Copter (mech)"
+   },
+   {
+    "damage": 42,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 33,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 5,
+    "attacker": "Werewolf (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_10",
+  "seed": 3,
+  "wall_s": 22.2
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 8,
+  "enemies_alive": 4,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "a - Capture RP Buildings at Davion Installation"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "b - Salvage Davion 'Mechs at salvage yard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Capture Davion Weapons Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Capture Steiner Weapons Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Steiner HQ Building"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4 - Extract at Steiner Drop Ship Pad"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor towers"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor control"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 01"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 02"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 03"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 04"
+   },
+   {
+    "index": 12,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 05"
+   },
+   {
+    "index": 13,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 06"
+   },
+   {
+    "index": 14,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Salvage VO"
+   },
+   {
+    "index": 15,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Start of mission wav file"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 466.7,
+    "title": "a - Capture RP Buildings at Davion Installation"
+   },
+   {
+    "t": 470.8,
+    "title": "1 - Capture Davion Weapons Facility"
+   },
+   {
+    "t": 514.6,
+    "title": "b - Salvage Davion 'Mechs at salvage yard"
+   },
+   {
+    "t": 626.1,
+    "title": "2 - Capture Steiner Weapons Facility"
+   },
+   {
+    "t": 828.8,
+    "title": "3 - Capture Steiner HQ Building"
+   }
+  ],
+  "losses": [
+   {
+    "t": 852.5,
+    "unit": "ShaYu",
+    "armour": 25,
+    "last_hit_by": "Highlander"
+   }
+  ],
+  "damage_total": 229,
+  "attackers": 19,
+  "top_attackers": [
+   {
+    "damage": 45,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 43,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 38,
+    "attacker": "Enfield (mech)"
+   },
+   {
+    "damage": 25,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 14,
+    "attacker": "Drillson (vehicle)"
+   },
+   {
+    "damage": 13,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 10,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 9,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 8,
+    "attacker": "Centipede (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_11",
+  "seed": 1,
+  "wall_s": 104.7
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 8,
+  "enemies_alive": 3,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "a - Capture RP Buildings at Davion Installation"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "b - Salvage Davion 'Mechs at salvage yard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Capture Davion Weapons Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Capture Steiner Weapons Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Steiner HQ Building"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4 - Extract at Steiner Drop Ship Pad"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor towers"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor control"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 01"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 02"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 03"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 04"
+   },
+   {
+    "index": 12,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 05"
+   },
+   {
+    "index": 13,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 06"
+   },
+   {
+    "index": 14,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Salvage VO"
+   },
+   {
+    "index": 15,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Start of mission wav file"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 625.7,
+    "title": "a - Capture RP Buildings at Davion Installation"
+   },
+   {
+    "t": 629.8,
+    "title": "1 - Capture Davion Weapons Facility"
+   },
+   {
+    "t": 673.6,
+    "title": "b - Salvage Davion 'Mechs at salvage yard"
+   },
+   {
+    "t": 792.1,
+    "title": "2 - Capture Steiner Weapons Facility"
+   },
+   {
+    "t": 969.8,
+    "title": "3 - Capture Steiner HQ Building"
+   }
+  ],
+  "losses": [
+   {
+    "t": 421.3,
+    "unit": "Raven",
+    "armour": 27,
+    "last_hit_by": "Enfield"
+   }
+  ],
+  "damage_total": 337,
+  "attackers": 24,
+  "top_attackers": [
+   {
+    "damage": 101,
+    "attacker": "Enfield (mech)"
+   },
+   {
+    "damage": 70,
+    "attacker": "Drillson (vehicle)"
+   },
+   {
+    "damage": 37,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 28,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Wolfhound (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 14,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 13,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 10,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 9,
+    "attacker": "Bushwacker (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_11",
+  "seed": 2,
+  "wall_s": 101.1
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 7,
+  "enemies_alive": 3,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "a - Capture RP Buildings at Davion Installation"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "b - Salvage Davion 'Mechs at salvage yard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Capture Davion Weapons Facility"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2 - Capture Steiner Weapons Facility"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3 - Capture Steiner HQ Building"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4 - Extract at Steiner Drop Ship Pad"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor towers"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden objective for sensor control"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 01"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 02"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 03"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 04"
+   },
+   {
+    "index": 12,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 05"
+   },
+   {
+    "index": 13,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "bool 06"
+   },
+   {
+    "index": 14,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Salvage VO"
+   },
+   {
+    "index": 15,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Start of mission wav file"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 544.7,
+    "title": "a - Capture RP Buildings at Davion Installation"
+   },
+   {
+    "t": 548.8,
+    "title": "1 - Capture Davion Weapons Facility"
+   },
+   {
+    "t": 592.6,
+    "title": "b - Salvage Davion 'Mechs at salvage yard"
+   },
+   {
+    "t": 703.2,
+    "title": "2 - Capture Steiner Weapons Facility"
+   },
+   {
+    "t": 903.8,
+    "title": "3 - Capture Steiner HQ Building"
+   }
+  ],
+  "losses": [
+   {
+    "t": 672.3,
+    "unit": "ShaYu",
+    "armour": 20,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 757.7,
+    "unit": "ShaYu",
+    "armour": 44,
+    "last_hit_by": "Zeus"
+   }
+  ],
+  "damage_total": 500,
+  "attackers": 24,
+  "top_attackers": [
+   {
+    "damage": 88,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 83,
+    "attacker": "Enfield (mech)"
+   },
+   {
+    "damage": 80,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 61,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 46,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 40,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 29,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 27,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Drillson (vehicle)"
+   },
+   {
+    "damage": 16,
+    "attacker": "Centipede (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_11",
+  "seed": 3,
+  "wall_s": 99.1
+ },
+ {
+  "result": "LOST",
+  "t_end": 647,
+  "player_alive": 0,
+  "enemies_alive": 59,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Intercept and destroy all lead Convoy element"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Intercept and destroy all units in second Con"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Intercept and destroy all units in third Conv"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Intercept and destroy all rearguard Convoy el"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move all surviving 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 491.1,
+    "title": "1. Intercept and destroy all lead Convoy elements"
+   }
+  ],
+  "losses": [
+   {
+    "t": 161.9,
+    "unit": "Werewolf",
+    "armour": 16,
+    "last_hit_by": "Hetzer"
+   },
+   {
+    "t": 609.8,
+    "unit": "Bushwacker",
+    "armour": 19,
+    "last_hit_by": "Enfield"
+   },
+   {
+    "t": 639.8,
+    "unit": "Catapult",
+    "armour": 29,
+    "last_hit_by": "Enfield"
+   },
+   {
+    "t": 641.8,
+    "unit": "Starslayer",
+    "armour": 15,
+    "last_hit_by": "Enfield"
+   }
+  ],
+  "damage_total": 570,
+  "attackers": 21,
+  "top_attackers": [
+   {
+    "damage": 220,
+    "attacker": "Enfield (mech)"
+   },
+   {
+    "damage": 72,
+    "attacker": "Uller (mech)"
+   },
+   {
+    "damage": 60,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 54,
+    "attacker": "Wolfhound (mech)"
+   },
+   {
+    "damage": 52,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 42,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Hetzer (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 10,
+    "attacker": "Harasser (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_12",
+  "seed": 1,
+  "wall_s": 50.0
+ },
+ {
+  "result": "LOST",
+  "t_end": 533,
+  "player_alive": 0,
+  "enemies_alive": 69,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Intercept and destroy all lead Convoy element"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Intercept and destroy all units in second Con"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Intercept and destroy all units in third Conv"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Intercept and destroy all rearguard Convoy el"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move all surviving 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 140.3,
+    "unit": "Werewolf",
+    "armour": 19,
+    "last_hit_by": "Wolfhound"
+   },
+   {
+    "t": 442.7,
+    "unit": "Bushwacker",
+    "armour": 12,
+    "last_hit_by": "Jagermech"
+   },
+   {
+    "t": 504.5,
+    "unit": "Catapult",
+    "armour": 6,
+    "last_hit_by": "Hunter"
+   },
+   {
+    "t": 528.3,
+    "unit": "Starslayer",
+    "armour": 27,
+    "last_hit_by": "Enfield"
+   }
+  ],
+  "damage_total": 676,
+  "attackers": 25,
+  "top_attackers": [
+   {
+    "damage": 190,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 96,
+    "attacker": "Hetzer (vehicle)"
+   },
+   {
+    "damage": 93,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 85,
+    "attacker": "Wolfhound (mech)"
+   },
+   {
+    "damage": 72,
+    "attacker": "Uller (mech)"
+   },
+   {
+    "damage": 54,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Enfield (mech)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Vedette (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_12",
+  "seed": 2,
+  "wall_s": 37.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 660,
+  "player_alive": 0,
+  "enemies_alive": 58,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Intercept and destroy all lead Convoy element"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Intercept and destroy all units in second Con"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Intercept and destroy all units in third Conv"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Intercept and destroy all rearguard Convoy el"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move all surviving 'Mechs to extraction point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 116.6,
+    "unit": "Werewolf",
+    "armour": 22,
+    "last_hit_by": "Uller"
+   },
+   {
+    "t": 516.1,
+    "unit": "Bushwacker",
+    "armour": 22,
+    "last_hit_by": "Jagermech"
+   },
+   {
+    "t": 637.0,
+    "unit": "Starslayer",
+    "armour": 20,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 654.7,
+    "unit": "Catapult",
+    "armour": 14,
+    "last_hit_by": "Vedette"
+   }
+  ],
+  "damage_total": 670,
+  "attackers": 26,
+  "top_attackers": [
+   {
+    "damage": 150,
+    "attacker": "Enfield (mech)"
+   },
+   {
+    "damage": 140,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 116,
+    "attacker": "Uller (mech)"
+   },
+   {
+    "damage": 74,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 57,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 42,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 32,
+    "attacker": "Wolfhound (mech)"
+   },
+   {
+    "damage": 22,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Hetzer (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_12",
+  "seed": 3,
+  "wall_s": 50.4
+ },
+ {
+  "result": "LOST",
+  "t_end": 575,
+  "player_alive": 0,
+  "enemies_alive": 19,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Both HPG Station"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Capture Weapons Facility #1"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #2"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #3"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Davion Dropship"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all Surviving 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Super Secret Hidden OBJ to track if you kill the"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 417.3,
+    "title": "Destroy Both HPG Station"
+   },
+   {
+    "t": 446.6,
+    "title": "Capture Weapons Facility #1"
+   }
+  ],
+  "losses": [
+   {
+    "t": 134.5,
+    "unit": "ShaYu",
+    "armour": 61,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 233.8,
+    "unit": "Starslayer",
+    "armour": 68,
+    "last_hit_by": "Poweredarmor"
+   },
+   {
+    "t": 525.8,
+    "unit": "MenShen",
+    "armour": 24,
+    "last_hit_by": "Poweredarmor"
+   },
+   {
+    "t": 547.6,
+    "unit": "Catapult",
+    "armour": 16,
+    "last_hit_by": "Poweredarmor"
+   },
+   {
+    "t": 569.8,
+    "unit": "Starslayer",
+    "armour": 23,
+    "last_hit_by": "Poweredarmor"
+   }
+  ],
+  "damage_total": 636,
+  "attackers": 31,
+  "top_attackers": [
+   {
+    "damage": 422,
+    "attacker": "Poweredarmor (vehicle)"
+   },
+   {
+    "damage": 80,
+    "attacker": "Enfield (mech)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 28,
+    "attacker": "Uller (mech)"
+   },
+   {
+    "damage": 28,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Wolfhound (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_13",
+  "seed": 1,
+  "wall_s": 21.7
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 2,
+  "enemies_alive": 7,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Both HPG Station"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Capture Weapons Facility #1"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #2"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #3"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Davion Dropship"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all Surviving 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Super Secret Hidden OBJ to track if you kill the"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 255.7,
+    "title": "Destroy Both HPG Station"
+   },
+   {
+    "t": 386.8,
+    "title": "Capture Weapons Facility #1"
+   }
+  ],
+  "losses": [
+   {
+    "t": 146.8,
+    "unit": "ShaYu",
+    "armour": 41,
+    "last_hit_by": "Enfield"
+   },
+   {
+    "t": 502.6,
+    "unit": "MenShen",
+    "armour": 13,
+    "last_hit_by": "Poweredarmor"
+   },
+   {
+    "t": 554.1,
+    "unit": "Catapult",
+    "armour": 1,
+    "last_hit_by": "Uller"
+   }
+  ],
+  "damage_total": 558,
+  "attackers": 26,
+  "top_attackers": [
+   {
+    "damage": 300,
+    "attacker": "Poweredarmor (vehicle)"
+   },
+   {
+    "damage": 90,
+    "attacker": "Uller (mech)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Enfield (mech)"
+   },
+   {
+    "damage": 44,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 35,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 22,
+    "attacker": "Wolfhound (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_13",
+  "seed": 2,
+  "wall_s": 57.3
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 3,
+  "enemies_alive": 8,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Both HPG Station"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Capture Weapons Facility #1"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #2"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Weapons Facility #3"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Davion Dropship"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all Surviving 'Mechs to Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Super Secret Hidden OBJ to track if you kill the"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 255.9,
+    "title": "Destroy Both HPG Station"
+   },
+   {
+    "t": 280.4,
+    "title": "Capture Weapons Facility #1"
+   }
+  ],
+  "losses": [
+   {
+    "t": 236.8,
+    "unit": "ShaYu",
+    "armour": 28,
+    "last_hit_by": "Poweredarmor"
+   },
+   {
+    "t": 448.2,
+    "unit": "MenShen",
+    "armour": 3,
+    "last_hit_by": "Poweredarmor"
+   }
+  ],
+  "damage_total": 532,
+  "attackers": 28,
+  "top_attackers": [
+   {
+    "damage": 268,
+    "attacker": "Poweredarmor (vehicle)"
+   },
+   {
+    "damage": 196,
+    "attacker": "Uller (mech)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 22,
+    "attacker": "Enfield (mech)"
+   },
+   {
+    "damage": 7,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Wolfhound (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_13",
+  "seed": 3,
+  "wall_s": 58.4
+ },
+ {
+  "result": "LOST",
+  "t_end": 505,
+  "player_alive": 0,
+  "enemies_alive": 22,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Orbital Gun Alpha"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Orbital Gun Beta"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Orbital Gun Gamma"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Mobile Orbital Gun Omega"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move to the Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Airport Sensor Control"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Fuel Supplies at Resupply Depot"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Communications Array"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy all Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 66.9,
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "t": 302.0,
+    "title": "Destroy Orbital Gun Alpha"
+   }
+  ],
+  "losses": [
+   {
+    "t": 499.9,
+    "unit": "Thor",
+    "armour": 25,
+    "last_hit_by": "Harasser"
+   }
+  ],
+  "damage_total": 176,
+  "attackers": 10,
+  "top_attackers": [
+   {
+    "damage": 58,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Monsoon (vehicle)"
+   },
+   {
+    "damage": 10,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 2,
+    "attacker": "Harasser (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_14",
+  "seed": 1,
+  "wall_s": 22.0
+ },
+ {
+  "result": "LOST",
+  "t_end": 574,
+  "player_alive": 0,
+  "enemies_alive": 18,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Orbital Gun Alpha"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Orbital Gun Beta"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Orbital Gun Gamma"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Mobile Orbital Gun Omega"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move to the Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Airport Sensor Control"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Fuel Supplies at Resupply Depot"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Communications Array"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy all Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 60.9,
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "t": 244.3,
+    "title": "Destroy Orbital Gun Alpha"
+   }
+  ],
+  "losses": [
+   {
+    "t": 569.3,
+    "unit": "Thor",
+    "armour": 17,
+    "last_hit_by": "Hunchback"
+   }
+  ],
+  "damage_total": 212,
+  "attackers": 14,
+  "top_attackers": [
+   {
+    "damage": 48,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 46,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 27,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Monsoon (vehicle)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 10,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 3,
+    "attacker": "Lrmcarrier (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_14",
+  "seed": 2,
+  "wall_s": 27.0
+ },
+ {
+  "result": "LOST",
+  "t_end": 384,
+  "player_alive": 0,
+  "enemies_alive": 23,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Destroy Orbital Gun Alpha"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Orbital Gun Beta"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Orbital Gun Gamma"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Mobile Orbital Gun Omega"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move to the Extraction Point"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Airport Sensor Control"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Fuel Supplies at Resupply Depot"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Capture Communications Array"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy all Enemy Units"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 94.6,
+    "title": "Contact the Liao Operative"
+   },
+   {
+    "t": 264.0,
+    "title": "Destroy Orbital Gun Alpha"
+   }
+  ],
+  "losses": [
+   {
+    "t": 378.5,
+    "unit": "Thor",
+    "armour": 20,
+    "last_hit_by": "Lrmcarrier"
+   }
+  ],
+  "damage_total": 182,
+  "attackers": 11,
+  "top_attackers": [
+   {
+    "damage": 58,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 42,
+    "attacker": "Monsoon (vehicle)"
+   },
+   {
+    "damage": 34,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Lrmcarrier (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_14",
+  "seed": 3,
+  "wall_s": 19.1
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 3,
+  "enemies_alive": 37,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Destroy all Legion Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy the Three Industrial Complexes"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "3. Move All Surviving Mech to Extraction Zone"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy Relay Stations' Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy the Two Medium Factories"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Rendezvous with the Liao Operative near the M"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Super secret Hidden Objective"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 8.5,
+    "unit": "Centipede",
+    "armour": 70,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 13.0,
+    "unit": "Harasser",
+    "armour": 64,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 16.3,
+    "unit": "Harasser",
+    "armour": 75,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 17.3,
+    "unit": "Harasser",
+    "armour": 79,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 23.2,
+    "unit": "Monsoon",
+    "armour": 55,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 23.3,
+    "unit": "Monsoon",
+    "armour": 80,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 24.1,
+    "unit": "Centipede",
+    "armour": 60,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 30.5,
+    "unit": "Centipede",
+    "armour": 57,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 37.6,
+    "unit": "Centipede",
+    "armour": 47,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 39.8,
+    "unit": "Vedette",
+    "armour": 78,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 46.4,
+    "unit": "Monsoon",
+    "armour": 78,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 48.1,
+    "unit": "Vedette",
+    "armour": 90,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 53.2,
+    "unit": "Attack Copter",
+    "armour": 45,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 57.1,
+    "unit": "Hunter",
+    "armour": 45,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 61.0,
+    "unit": "Attack Copter",
+    "armour": 58,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 61.1,
+    "unit": "Hunter",
+    "armour": 79,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 67.4,
+    "unit": "Hunter",
+    "armour": 39,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 116.0,
+    "unit": "ShadowCat",
+    "armour": 40,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 364.4,
+    "unit": "ShadowCat",
+    "armour": 26,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 386.6,
+    "unit": "Catapult",
+    "armour": 23,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 413.3,
+    "unit": "Catapult",
+    "armour": 32,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 440.0,
+    "unit": "Zeus",
+    "armour": 21,
+    "last_hit_by": "Legion"
+   }
+  ],
+  "damage_total": 874,
+  "attackers": 20,
+  "top_attackers": [
+   {
+    "damage": 515,
+    "attacker": "Legion (vehicle)"
+   },
+   {
+    "damage": 167,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 75,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 26,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Hetzer (vehicle)"
+   },
+   {
+    "damage": 7,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Vedette (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_15",
+  "seed": 1,
+  "wall_s": 79.2
+ },
+ {
+  "result": "LOST",
+  "t_end": 490,
+  "player_alive": 2,
+  "enemies_alive": 38,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Destroy all Legion Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy the Three Industrial Complexes"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "3. Move All Surviving Mech to Extraction Zone"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy Relay Stations' Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy the Two Medium Factories"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Rendezvous with the Liao Operative near the M"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Super secret Hidden Objective"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 11.8,
+    "unit": "Harasser",
+    "armour": 79,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 12.2,
+    "unit": "Harasser",
+    "armour": 79,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 13.0,
+    "unit": "Centipede",
+    "armour": 80,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 13.9,
+    "unit": "Harasser",
+    "armour": 79,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 20.8,
+    "unit": "Attack Copter",
+    "armour": 77,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 22.7,
+    "unit": "Centipede",
+    "armour": 70,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 25.3,
+    "unit": "Monsoon",
+    "armour": 80,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 31.7,
+    "unit": "Monsoon",
+    "armour": 58,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 38.3,
+    "unit": "Hunter",
+    "armour": 58,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 40.9,
+    "unit": "Attack Copter",
+    "armour": 72,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 46.8,
+    "unit": "Hunter",
+    "armour": 55,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 47.7,
+    "unit": "Centipede",
+    "armour": 80,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 47.7,
+    "unit": "Monsoon",
+    "armour": 42,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 51.5,
+    "unit": "Centipede",
+    "armour": 80,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 54.4,
+    "unit": "Vedette",
+    "armour": 78,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 57.5,
+    "unit": "Hunter",
+    "armour": 58,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 60.9,
+    "unit": "Vedette",
+    "armour": 57,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 91.3,
+    "unit": "ShadowCat",
+    "armour": 35,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 117.6,
+    "unit": "ShadowCat",
+    "armour": 47,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 141.1,
+    "unit": "Catapult",
+    "armour": 46,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 450.7,
+    "unit": "Catapult",
+    "armour": 14,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 474.5,
+    "unit": "Zeus",
+    "armour": 21,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 484.9,
+    "unit": "Repairtruck",
+    "armour": 80,
+    "last_hit_by": "Legion"
+   }
+  ],
+  "damage_total": 800,
+  "attackers": 17,
+  "top_attackers": [
+   {
+    "damage": 254,
+    "attacker": "Legion (vehicle)"
+   },
+   {
+    "damage": 197,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 189,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 117,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 14,
+    "attacker": "Storm (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_15",
+  "seed": 2,
+  "wall_s": 29.4
+ },
+ {
+  "result": "WON",
+  "t_end": 524,
+  "player_alive": 8,
+  "enemies_alive": 30,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy all Legion Tanks"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy the Three Industrial Complexes"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "3. Move All Surviving Mech to Extraction Zone"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy Relay Stations' Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy the Two Medium Factories"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Rendezvous with the Liao Operative near the M"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Super secret Hidden Objective"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 458.3,
+    "title": "1. Destroy all Legion Tanks"
+   },
+   {
+    "t": 474.8,
+    "title": "2. Destroy the Three Industrial Complexes"
+   },
+   {
+    "t": 519.3,
+    "title": "3. Move All Surviving Mech to Extraction Zone"
+   }
+  ],
+  "losses": [
+   {
+    "t": 12.7,
+    "unit": "Harasser",
+    "armour": 79,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 13.2,
+    "unit": "Harasser",
+    "armour": 70,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 13.5,
+    "unit": "Centipede",
+    "armour": 60,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 16.0,
+    "unit": "Harasser",
+    "armour": 75,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 19.7,
+    "unit": "Monsoon",
+    "armour": 56,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 22.9,
+    "unit": "Centipede",
+    "armour": 80,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 26.0,
+    "unit": "Monsoon",
+    "armour": 61,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 27.3,
+    "unit": "Centipede",
+    "armour": 80,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 33.4,
+    "unit": "Centipede",
+    "armour": 80,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 34.3,
+    "unit": "Vedette",
+    "armour": 67,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 39.2,
+    "unit": "Vedette",
+    "armour": 78,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 41.0,
+    "unit": "Attack Copter",
+    "armour": 84,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 41.2,
+    "unit": "Monsoon",
+    "armour": 38,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 44.8,
+    "unit": "Hunter",
+    "armour": 79,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 46.3,
+    "unit": "Hunter",
+    "armour": 76,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 49.8,
+    "unit": "Hunter",
+    "armour": 79,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 59.4,
+    "unit": "Attack Copter",
+    "armour": 55,
+    "last_hit_by": "Lrmcarrier"
+   }
+  ],
+  "damage_total": 312,
+  "attackers": 15,
+  "top_attackers": [
+   {
+    "damage": 134,
+    "attacker": "Legion (vehicle)"
+   },
+   {
+    "damage": 68,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 44,
+    "attacker": "Highlander (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_15",
+  "seed": 3,
+  "wall_s": 33.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 509,
+  "player_alive": 0,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Sensor Control"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy All Base Defenders"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy All Reinforcements"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Capture Davion Base HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture All Main Base Davion Turret Controls"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Capture All Main Base Davion Gate Controls"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 35.2,
+    "title": "1. Capture Sensor Control"
+   },
+   {
+    "t": 237.0,
+    "title": "2. Destroy All Base Defenders"
+   }
+  ],
+  "losses": [
+   {
+    "t": 372.8,
+    "unit": "MenShen",
+    "armour": 49,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 391.8,
+    "unit": "Shootist",
+    "armour": 17,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 444.0,
+    "unit": "Bushwacker",
+    "armour": 14,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 471.6,
+    "unit": "Hollander",
+    "armour": 44,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 504.4,
+    "unit": "Madcat",
+    "armour": 44,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 713,
+  "attackers": 24,
+  "top_attackers": [
+   {
+    "damage": 344,
+    "attacker": "Madcat (mech)"
+   },
+   {
+    "damage": 106,
+    "attacker": "Vulture (mech)"
+   },
+   {
+    "damage": 68,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 54,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 40,
+    "attacker": "Wolfhound (mech)"
+   },
+   {
+    "damage": 40,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 34,
+    "attacker": "Uller (mech)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Drillson (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_16",
+  "seed": 1,
+  "wall_s": 18.0
+ },
+ {
+  "result": "LOST",
+  "t_end": 557,
+  "player_alive": 0,
+  "enemies_alive": 18,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Sensor Control"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy All Base Defenders"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy All Reinforcements"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Capture Davion Base HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture All Main Base Davion Turret Controls"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Capture All Main Base Davion Gate Controls"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 32.2,
+    "title": "1. Capture Sensor Control"
+   },
+   {
+    "t": 275.9,
+    "title": "2. Destroy All Base Defenders"
+   }
+  ],
+  "losses": [
+   {
+    "t": 420.6,
+    "unit": "MenShen",
+    "armour": 18,
+    "last_hit_by": "Vulture"
+   },
+   {
+    "t": 427.5,
+    "unit": "Hollander",
+    "armour": 67,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 474.3,
+    "unit": "Madcat",
+    "armour": 17,
+    "last_hit_by": "Vulture"
+   },
+   {
+    "t": 515.8,
+    "unit": "Shootist",
+    "armour": 15,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 551.8,
+    "unit": "Bushwacker",
+    "armour": 14,
+    "last_hit_by": "Madcat"
+   }
+  ],
+  "damage_total": 831,
+  "attackers": 16,
+  "top_attackers": [
+   {
+    "damage": 360,
+    "attacker": "Madcat (mech)"
+   },
+   {
+    "damage": 206,
+    "attacker": "Vulture (mech)"
+   },
+   {
+    "damage": 120,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Uller (mech)"
+   },
+   {
+    "damage": 26,
+    "attacker": "Wolfhound (mech)"
+   },
+   {
+    "damage": 10,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 2,
+    "attacker": "ShadowCat (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_16",
+  "seed": 2,
+  "wall_s": 18.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 526,
+  "player_alive": 0,
+  "enemies_alive": 18,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Capture Sensor Control"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Destroy All Base Defenders"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy All Reinforcements"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Capture Davion Base HQ"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "5. Move All Surviving Mechs to Extraction Point"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture All Main Base Davion Turret Controls"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Capture All Main Base Davion Gate Controls"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 29.2,
+    "title": "1. Capture Sensor Control"
+   },
+   {
+    "t": 239.8,
+    "title": "2. Destroy All Base Defenders"
+   }
+  ],
+  "losses": [
+   {
+    "t": 177.9,
+    "unit": "Hollander",
+    "armour": 39,
+    "last_hit_by": "Vulture"
+   },
+   {
+    "t": 405.2,
+    "unit": "MenShen",
+    "armour": 40,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 414.5,
+    "unit": "Shootist",
+    "armour": 13,
+    "last_hit_by": "Vulture"
+   },
+   {
+    "t": 450.5,
+    "unit": "Bushwacker",
+    "armour": 25,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 520.6,
+    "unit": "Madcat",
+    "armour": 12,
+    "last_hit_by": "Madcat"
+   }
+  ],
+  "damage_total": 838,
+  "attackers": 25,
+  "top_attackers": [
+   {
+    "damage": 335,
+    "attacker": "Madcat (mech)"
+   },
+   {
+    "damage": 249,
+    "attacker": "Vulture (mech)"
+   },
+   {
+    "damage": 78,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 32,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 22,
+    "attacker": "Uller (mech)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Wolfhound (mech)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Hunter (vehicle)"
+   },
+   {
+    "damage": 10,
+    "attacker": "ShadowCat (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_16",
+  "seed": 3,
+  "wall_s": 17.8
+ },
+ {
+  "result": "LOST",
+  "t_end": 215,
+  "player_alive": 19,
+  "enemies_alive": 34,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Escort Jason Cho to Rendezvous Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Kill all Enemy Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec: Take Control of Steiner Base"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Triggered Used to Activate Liao Son"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to Kill Liao Son"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To trigger Liao Reinforce Gp 2"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to kill Liao Son's Troop"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 3.0,
+    "title": "Escort Jason Cho to Rendezvous Location"
+   }
+  ],
+  "losses": [
+   {
+    "t": 141.9,
+    "unit": "Zeus",
+    "armour": 6,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 157.3,
+    "unit": "Hunchback",
+    "armour": 21,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 196.6,
+    "unit": "Catapult",
+    "armour": 17,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 200.1,
+    "unit": "Madcat",
+    "armour": 18,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 210.1,
+    "unit": "Catapult",
+    "armour": 50,
+    "last_hit_by": "Zeus"
+   }
+  ],
+  "damage_total": 887,
+  "attackers": 11,
+  "top_attackers": [
+   {
+    "damage": 556,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 154,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 70,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 63,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 44,
+    "attacker": "Werewolf (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_17",
+  "seed": 1,
+  "wall_s": 8.4
+ },
+ {
+  "result": "LOST",
+  "t_end": 208,
+  "player_alive": 19,
+  "enemies_alive": 36,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Escort Jason Cho to Rendezvous Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Kill all Enemy Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec: Take Control of Steiner Base"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Triggered Used to Activate Liao Son"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to Kill Liao Son"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To trigger Liao Reinforce Gp 2"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to kill Liao Son's Troop"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 3.0,
+    "title": "Escort Jason Cho to Rendezvous Location"
+   }
+  ],
+  "losses": [
+   {
+    "t": 103.8,
+    "unit": "Zeus",
+    "armour": 24,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 131.4,
+    "unit": "Hunchback",
+    "armour": 16,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 171.0,
+    "unit": "Catapult",
+    "armour": 17,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 190.4,
+    "unit": "Madcat",
+    "armour": 17,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 202.5,
+    "unit": "Catapult",
+    "armour": 19,
+    "last_hit_by": "Bushwacker"
+   }
+  ],
+  "damage_total": 1040,
+  "attackers": 11,
+  "top_attackers": [
+   {
+    "damage": 576,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 187,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 120,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 109,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 48,
+    "attacker": "Werewolf (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_17",
+  "seed": 2,
+  "wall_s": 8.8
+ },
+ {
+  "result": "LOST",
+  "t_end": 241,
+  "player_alive": 19,
+  "enemies_alive": 32,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "Escort Jason Cho to Rendezvous Location"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Kill all Enemy Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "Sec: Take Control of Steiner Base"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Triggered Used to Activate Liao Son"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to Kill Liao Son"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To trigger Liao Reinforce Gp 2"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Trigger to kill Liao Son's Troop"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 3.0,
+    "title": "Escort Jason Cho to Rendezvous Location"
+   }
+  ],
+  "losses": [
+   {
+    "t": 125.0,
+    "unit": "Zeus",
+    "armour": 19,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 152.8,
+    "unit": "Hunchback",
+    "armour": 19,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 184.7,
+    "unit": "Catapult",
+    "armour": 39,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 190.4,
+    "unit": "Madcat",
+    "armour": 21,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 235.6,
+    "unit": "Catapult",
+    "armour": 12,
+    "last_hit_by": "Hollander"
+   }
+  ],
+  "damage_total": 942,
+  "attackers": 11,
+  "top_attackers": [
+   {
+    "damage": 578,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 199,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 100,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 46,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Werewolf (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_17",
+  "seed": 3,
+  "wall_s": 9.0
+ },
+ {
+  "result": "LOST",
+  "t_end": 275,
+  "player_alive": 0,
+  "enemies_alive": 57,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Defend City from Liao and Steiner Forces"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all Liao/Steiner Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Recapture Davion Headquarters"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Recapture the City's Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Recapture Davion Sensor Control"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To kill group 1"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group2"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group 3"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective To Kill Group 4"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Trigger Group Sneaky"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective that Triggers Objectives to app"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective when the player kills 25 enemie"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 229.6,
+    "unit": "Bushwacker",
+    "armour": 82,
+    "last_hit_by": "Aero Spotter"
+   },
+   {
+    "t": 229.6,
+    "unit": "Anubis",
+    "armour": 50,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 255.1,
+    "unit": "Madcat",
+    "armour": 39,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 259.8,
+    "unit": "Thor",
+    "armour": 38,
+    "last_hit_by": "-"
+   },
+   {
+    "t": 269.8,
+    "unit": "Vulture",
+    "armour": 16,
+    "last_hit_by": "Aero Spotter"
+   }
+  ],
+  "damage_total": 141,
+  "attackers": 8,
+  "top_attackers": [
+   {
+    "damage": 55,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 16,
+    "attacker": "Aero Spotter (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 10,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 8,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Drillson (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_18",
+  "seed": 1,
+  "wall_s": 32.9
+ },
+ {
+  "result": "LOST",
+  "t_end": 1415,
+  "player_alive": 0,
+  "enemies_alive": 23,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Defend City from Liao and Steiner Forces"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all Liao/Steiner Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Recapture Davion Headquarters"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Recapture the City's Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Recapture Davion Sensor Control"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Object To kill group 1"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group2"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group 3"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective To Kill Group 4"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective to Trigger Group Sneaky"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective that Triggers Objectives to app"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective when the player kills 25 enemie"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 292.9,
+    "unit": "Anubis",
+    "armour": 20,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 634.7,
+    "unit": "Vulture",
+    "armour": 10,
+    "last_hit_by": "ShaYu"
+   },
+   {
+    "t": 822.5,
+    "unit": "Bushwacker",
+    "armour": 32,
+    "last_hit_by": "Lrmcarrier"
+   },
+   {
+    "t": 979.6,
+    "unit": "IndustrialComplex",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 1084.7,
+    "unit": "IndustrialComplex",
+    "armour": 0,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 1126.5,
+    "unit": "SingleCivLivingA",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 1132.3,
+    "unit": "2CivLiving",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 1276.5,
+    "unit": "2StoryCivLiving",
+    "armour": 0,
+    "last_hit_by": "Werewolf"
+   },
+   {
+    "t": 1325.0,
+    "unit": "Madcat",
+    "armour": 14,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 1409.7,
+    "unit": "Thor",
+    "armour": 33,
+    "last_hit_by": "Hollander"
+   }
+  ],
+  "damage_total": 893,
+  "attackers": 37,
+  "top_attackers": [
+   {
+    "damage": 204,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 127,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 124,
+    "attacker": "LaoHu (mech)"
+   },
+   {
+    "damage": 114,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 60,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 50,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 44,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 44,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 39,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Shootist (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_18",
+  "seed": 2,
+  "wall_s": 125.0
+ },
+ {
+  "result": "LOST",
+  "t_end": 1167,
+  "player_alive": 0,
+  "enemies_alive": 56,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Defend City from Liao and Steiner Forces"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Destroy all Liao/Steiner Forces"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Recapture Davion Headquarters"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Recapture the City's Power Generator"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Recapture Davion Sensor Control"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Object To kill group 1"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group2"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Kill Group 3"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective To Kill Group 4"
+   },
+   {
+    "index": 9,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective to Trigger Group Sneaky"
+   },
+   {
+    "index": 10,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Objective that Triggers Objectives to app"
+   },
+   {
+    "index": 11,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective when the player kills 25 enemie"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 308.5,
+    "unit": "Madcat",
+    "armour": 27,
+    "last_hit_by": "Aero Spotter"
+   },
+   {
+    "t": 318.4,
+    "unit": "Bushwacker",
+    "armour": 30,
+    "last_hit_by": "Aero Spotter"
+   },
+   {
+    "t": 323.5,
+    "unit": "Thor",
+    "armour": 43,
+    "last_hit_by": "Aero Spotter"
+   },
+   {
+    "t": 328.4,
+    "unit": "Vulture",
+    "armour": 26,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 1161.4,
+    "unit": "Anubis",
+    "armour": 20,
+    "last_hit_by": "Highlander"
+   }
+  ],
+  "damage_total": 276,
+  "attackers": 9,
+  "top_attackers": [
+   {
+    "damage": 94,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 60,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 44,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 34,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Aero Spotter (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_18",
+  "seed": 3,
+  "wall_s": 132.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 346,
+  "player_alive": 0,
+  "enemies_alive": 62,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Destroy 1/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "2. Move All Surviving Mech to Extraction Point"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy 2/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy  All Enemy Forces in the Sector"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Captrue Liao Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Destroy All 3 Power Generators at the Liao Ba"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "e. Destroy Both Industrial Complex at Liao Indus"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy All 5 Slayer Bombers at  Liao Airstri"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "g. Capture Weapon Facility"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 47.4,
+    "unit": "Werewolf",
+    "armour": 58,
+    "last_hit_by": "Shootist"
+   },
+   {
+    "t": 267.8,
+    "unit": "Madcat",
+    "armour": 21,
+    "last_hit_by": "Aero Spotter"
+   },
+   {
+    "t": 287.8,
+    "unit": "Madcat",
+    "armour": 2,
+    "last_hit_by": "Aero Spotter"
+   },
+   {
+    "t": 297.8,
+    "unit": "Catapult",
+    "armour": 24,
+    "last_hit_by": "Aero Spotter"
+   },
+   {
+    "t": 341.0,
+    "unit": "Zeus",
+    "armour": 9,
+    "last_hit_by": "Aero Spotter"
+   }
+  ],
+  "damage_total": 404,
+  "attackers": 18,
+  "top_attackers": [
+   {
+    "damage": 115,
+    "attacker": "MenShen (mech)"
+   },
+   {
+    "damage": 48,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 48,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 44,
+    "attacker": "Aero Spotter (vehicle)"
+   },
+   {
+    "damage": 38,
+    "attacker": "Raven (mech)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Hetzer (vehicle)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 3,
+    "attacker": "Lrmcarrier (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_19",
+  "seed": 1,
+  "wall_s": 27.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 234,
+  "player_alive": 0,
+  "enemies_alive": 69,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Destroy 1/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "2. Move All Surviving Mech to Extraction Point"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy 2/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy  All Enemy Forces in the Sector"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Captrue Liao Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Destroy All 3 Power Generators at the Liao Ba"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "e. Destroy Both Industrial Complex at Liao Indus"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy All 5 Slayer Bombers at  Liao Airstri"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "g. Capture Weapon Facility"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 170.3,
+    "unit": "Werewolf",
+    "armour": 43,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 190.4,
+    "unit": "Madcat",
+    "armour": 47,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 201.8,
+    "unit": "Madcat",
+    "armour": 15,
+    "last_hit_by": "Raven"
+   },
+   {
+    "t": 201.8,
+    "unit": "Catapult",
+    "armour": 46,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 229.2,
+    "unit": "Zeus",
+    "armour": 10,
+    "last_hit_by": "Raven"
+   }
+  ],
+  "damage_total": 402,
+  "attackers": 15,
+  "top_attackers": [
+   {
+    "damage": 72,
+    "attacker": "MenShen (mech)"
+   },
+   {
+    "damage": 70,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 57,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 57,
+    "attacker": "Raven (mech)"
+   },
+   {
+    "damage": 48,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 48,
+    "attacker": "Hetzer (vehicle)"
+   },
+   {
+    "damage": 28,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 16,
+    "attacker": "Aero Spotter (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Vedette (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_19",
+  "seed": 2,
+  "wall_s": 18.5
+ },
+ {
+  "result": "LOST",
+  "t_end": 538,
+  "player_alive": 0,
+  "enemies_alive": 54,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Destroy 1/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "2. Move All Surviving Mech to Extraction Point"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy 2/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b. Destroy  All Enemy Forces in the Sector"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Captrue Liao Headquarters"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Destroy All 3 Power Generators at the Liao Ba"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "e. Destroy Both Industrial Complex at Liao Indus"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy All 5 Slayer Bombers at  Liao Airstri"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "g. Capture Weapon Facility"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 358.3,
+    "title": "1. Destroy 1/3 of All Enemy Forces in the Sector"
+   },
+   {
+    "t": 533.4,
+    "title": "2. Move All Surviving Mech to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 153.3,
+    "unit": "Werewolf",
+    "armour": 37,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 311.1,
+    "unit": "Madcat",
+    "armour": 31,
+    "last_hit_by": "Aero Spotter"
+   },
+   {
+    "t": 451.4,
+    "unit": "Madcat",
+    "armour": 13,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 460.7,
+    "unit": "Catapult",
+    "armour": 42,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 533.4,
+    "unit": "Zeus",
+    "armour": 24,
+    "last_hit_by": "Catapult"
+   }
+  ],
+  "damage_total": 662,
+  "attackers": 22,
+  "top_attackers": [
+   {
+    "damage": 163,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 123,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 74,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 72,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 72,
+    "attacker": "MenShen (mech)"
+   },
+   {
+    "damage": 42,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 39,
+    "attacker": "Swarmlrmc (vehicle)"
+   },
+   {
+    "damage": 25,
+    "attacker": "Raven (mech)"
+   },
+   {
+    "damage": 14,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Hetzer (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_19",
+  "seed": 3,
+  "wall_s": 36.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 595,
+  "player_alive": 0,
+  "enemies_alive": 49,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Goto Davion Dropship"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Rescue Drop Ship Crew at Prison"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy Orbital Turret"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Destroy Mobile Orbital Gun#1"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "5. Destroy Moblie Orbital Gun #2"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "6. Go To Davion Dropship for Extraction"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy All Enemy Forces"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 454.5,
+    "title": "1. Goto Davion Dropship"
+   }
+  ],
+  "losses": [
+   {
+    "t": 114.7,
+    "unit": "Madcat",
+    "armour": 16,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 135.9,
+    "unit": "Madcat",
+    "armour": 3,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 480.0,
+    "unit": "MenShen",
+    "armour": 19,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 530.4,
+    "unit": "Zeus",
+    "armour": 10,
+    "last_hit_by": "Vulture"
+   },
+   {
+    "t": 590.4,
+    "unit": "Zeus",
+    "armour": 14,
+    "last_hit_by": "Madcat"
+   }
+  ],
+  "damage_total": 1256,
+  "attackers": 24,
+  "top_attackers": [
+   {
+    "damage": 347,
+    "attacker": "Madcat (mech)"
+   },
+   {
+    "damage": 230,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 217,
+    "attacker": "Vulture (mech)"
+   },
+   {
+    "damage": 171,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 93,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 54,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 46,
+    "attacker": "Drillson (vehicle)"
+   },
+   {
+    "damage": 44,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 15,
+    "attacker": "Anubis (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_20",
+  "seed": 1,
+  "wall_s": 35.5
+ },
+ {
+  "result": "LOST",
+  "t_end": 448,
+  "player_alive": 0,
+  "enemies_alive": 49,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Goto Davion Dropship"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Rescue Drop Ship Crew at Prison"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy Orbital Turret"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Destroy Mobile Orbital Gun#1"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "5. Destroy Moblie Orbital Gun #2"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "6. Go To Davion Dropship for Extraction"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy All Enemy Forces"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 359.4,
+    "title": "1. Goto Davion Dropship"
+   }
+  ],
+  "losses": [
+   {
+    "t": 85.7,
+    "unit": "Madcat",
+    "armour": 38,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 417.4,
+    "unit": "MenShen",
+    "armour": 16,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 430.8,
+    "unit": "Zeus",
+    "armour": 11,
+    "last_hit_by": "Harasser"
+   },
+   {
+    "t": 433.8,
+    "unit": "Madcat",
+    "armour": 46,
+    "last_hit_by": "Vulture"
+   },
+   {
+    "t": 443.1,
+    "unit": "Zeus",
+    "armour": 14,
+    "last_hit_by": "Harasser"
+   }
+  ],
+  "damage_total": 978,
+  "attackers": 25,
+  "top_attackers": [
+   {
+    "damage": 290,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 205,
+    "attacker": "Madcat (mech)"
+   },
+   {
+    "damage": 123,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 92,
+    "attacker": "Vulture (mech)"
+   },
+   {
+    "damage": 81,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 66,
+    "attacker": "Harasser (vehicle)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Drillson (vehicle)"
+   },
+   {
+    "damage": 18,
+    "attacker": "ShaYu (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_20",
+  "seed": 2,
+  "wall_s": 28.6
+ },
+ {
+  "result": "LOST",
+  "t_end": 710,
+  "player_alive": 0,
+  "enemies_alive": 50,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1. Goto Davion Dropship"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "2. Rescue Drop Ship Crew at Prison"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "3. Destroy Orbital Turret"
+   },
+   {
+    "index": 3,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "4. Destroy Mobile Orbital Gun#1"
+   },
+   {
+    "index": 4,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "5. Destroy Moblie Orbital Gun #2"
+   },
+   {
+    "index": 5,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "6. Go To Davion Dropship for Extraction"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Destroy All Enemy Forces"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 649.5,
+    "title": "1. Goto Davion Dropship"
+   }
+  ],
+  "losses": [
+   {
+    "t": 102.4,
+    "unit": "Madcat",
+    "armour": 17,
+    "last_hit_by": "Attack Copter"
+   },
+   {
+    "t": 132.0,
+    "unit": "Madcat",
+    "armour": 11,
+    "last_hit_by": "Centipede"
+   },
+   {
+    "t": 681.9,
+    "unit": "MenShen",
+    "armour": 11,
+    "last_hit_by": "Madcat"
+   },
+   {
+    "t": 687.2,
+    "unit": "Zeus",
+    "armour": 17,
+    "last_hit_by": "ShadowCat"
+   },
+   {
+    "t": 704.8,
+    "unit": "Zeus",
+    "armour": 12,
+    "last_hit_by": "Madcat"
+   }
+  ],
+  "damage_total": 1188,
+  "attackers": 29,
+  "top_attackers": [
+   {
+    "damage": 270,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 204,
+    "attacker": "Centipede (vehicle)"
+   },
+   {
+    "damage": 114,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 102,
+    "attacker": "Madcat (mech)"
+   },
+   {
+    "damage": 102,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 90,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 72,
+    "attacker": "ShaYu (mech)"
+   },
+   {
+    "damage": 64,
+    "attacker": "Vulture (mech)"
+   },
+   {
+    "damage": 40,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 40,
+    "attacker": "Harasser (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_20",
+  "seed": 3,
+  "wall_s": 47.5
+ },
+ {
+  "result": "WON",
+  "t_end": 444,
+  "player_alive": 2,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move all units to Extraction Point"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Destroy Ammo Dump ALPHA"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Destroy Ammo Dump BETA"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c - Destroy Power Generator ALPHA"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d - Destroy Power Generator BETA"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture the Weapons Facility"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy Industrial Complex"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden trigger area 4 PG ALPHA"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "hidden trigger area 4 PG BETA"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 439.4,
+    "title": "1 - Move all units to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 176.9,
+    "unit": "Anubis",
+    "armour": 55,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 186.4,
+    "unit": "Anubis",
+    "armour": 43,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 196,
+  "attackers": 12,
+  "top_attackers": [
+   {
+    "damage": 56,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 51,
+    "attacker": "Atlas (mech)"
+   },
+   {
+    "damage": 41,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 14,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 4,
+    "attacker": "Monsoon (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_21",
+  "seed": 1,
+  "wall_s": 18.2
+ },
+ {
+  "result": "WON",
+  "t_end": 456,
+  "player_alive": 2,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move all units to Extraction Point"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Destroy Ammo Dump ALPHA"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Destroy Ammo Dump BETA"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c - Destroy Power Generator ALPHA"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d - Destroy Power Generator BETA"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture the Weapons Facility"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy Industrial Complex"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden trigger area 4 PG ALPHA"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden trigger area 4 PG BETA"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 450.8,
+    "title": "1 - Move all units to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 103.3,
+    "unit": "Anubis",
+    "armour": 67,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 204.4,
+    "unit": "Anubis",
+    "armour": 15,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 216,
+  "attackers": 13,
+  "top_attackers": [
+   {
+    "damage": 68,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 39,
+    "attacker": "Atlas (mech)"
+   },
+   {
+    "damage": 26,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 19,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Monsoon (vehicle)"
+   },
+   {
+    "damage": 14,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Vedette (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Harasser (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_21",
+  "seed": 2,
+  "wall_s": 19.8
+ },
+ {
+  "result": "WON",
+  "t_end": 452,
+  "player_alive": 2,
+  "enemies_alive": 17,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "done",
+    "title": "1 - Move all units to Extraction Point"
+   },
+   {
+    "index": 1,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a - Destroy Ammo Dump ALPHA"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "b - Destroy Ammo Dump BETA"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c - Destroy Power Generator ALPHA"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d - Destroy Power Generator BETA"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture the Weapons Facility"
+   },
+   {
+    "index": 6,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "f. Destroy Industrial Complex"
+   },
+   {
+    "index": 7,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "hidden trigger area 4 PG ALPHA"
+   },
+   {
+    "index": 8,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "hidden trigger area 4 PG BETA"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 446.9,
+    "title": "1 - Move all units to Extraction Point"
+   }
+  ],
+  "losses": [
+   {
+    "t": 200.4,
+    "unit": "Anubis",
+    "armour": 30,
+    "last_hit_by": "Atlas"
+   },
+   {
+    "t": 378.0,
+    "unit": "Anubis",
+    "armour": 41,
+    "last_hit_by": "Bushwacker"
+   }
+  ],
+  "damage_total": 209,
+  "attackers": 12,
+  "top_attackers": [
+   {
+    "damage": 56,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 50,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 48,
+    "attacker": "Atlas (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Shootist (mech)"
+   },
+   {
+    "damage": 17,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 7,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 7,
+    "attacker": "Monsoon (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_21",
+  "seed": 3,
+  "wall_s": 17.4
+ },
+ {
+  "result": "LOST",
+  "t_end": 521,
+  "player_alive": 0,
+  "enemies_alive": 40,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Elite Guard"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Palace"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all surviving Mechs to Extraction Point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 265.3,
+    "unit": "ShadowCat",
+    "armour": 23,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 273.5,
+    "unit": "ShadowCat",
+    "armour": 25,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 304.4,
+    "unit": "Bushwacker",
+    "armour": 14,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 322.5,
+    "unit": "Catapult",
+    "armour": 29,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 331.4,
+    "unit": "Catapult",
+    "armour": 16,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 347.9,
+    "unit": "Shootist",
+    "armour": 12,
+    "last_hit_by": "Swarmlrmc"
+   },
+   {
+    "t": 405.8,
+    "unit": "Jagermech",
+    "armour": 6,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 515.8,
+    "unit": "Highlander",
+    "armour": 12,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 1515,
+  "attackers": 28,
+  "top_attackers": [
+   {
+    "damage": 592,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 337,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 270,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 163,
+    "attacker": "MenShen (mech)"
+   },
+   {
+    "damage": 81,
+    "attacker": "Swarmlrmc (vehicle)"
+   },
+   {
+    "damage": 60,
+    "attacker": "LaoHu (mech)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Lrmcarrier (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_22",
+  "seed": 1,
+  "wall_s": 40.5
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 1,
+  "enemies_alive": 40,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Elite Guard"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Palace"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all surviving Mechs to Extraction Point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 76.5,
+    "unit": "MenShen",
+    "armour": 23,
+    "last_hit_by": "Catapult"
+   },
+   {
+    "t": 189.3,
+    "unit": "Shootist",
+    "armour": 21,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 212.2,
+    "unit": "ShadowCat",
+    "armour": 19,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 224.7,
+    "unit": "Catapult",
+    "armour": 20,
+    "last_hit_by": "Starslayer"
+   },
+   {
+    "t": 281.4,
+    "unit": "ShadowCat",
+    "armour": 12,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 363.5,
+    "unit": "Catapult",
+    "armour": 17,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 438.0,
+    "unit": "Highlander",
+    "armour": 17,
+    "last_hit_by": "Anubis"
+   },
+   {
+    "t": 471.5,
+    "unit": "Jagermech",
+    "armour": 36,
+    "last_hit_by": "Raven"
+   },
+   {
+    "t": 503.3,
+    "unit": "Bushwacker",
+    "armour": 15,
+    "last_hit_by": "Raven"
+   }
+  ],
+  "damage_total": 1466,
+  "attackers": 31,
+  "top_attackers": [
+   {
+    "damage": 468,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 300,
+    "attacker": "Raven (mech)"
+   },
+   {
+    "damage": 199,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 158,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 144,
+    "attacker": "MenShen (mech)"
+   },
+   {
+    "damage": 116,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 44,
+    "attacker": "LaoHu (mech)"
+   },
+   {
+    "damage": 36,
+    "attacker": "Swarmlrmc (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_22",
+  "seed": 2,
+  "wall_s": 122.7
+ },
+ {
+  "result": "PLAYING",
+  "t_end": 1800,
+  "player_alive": 1,
+  "enemies_alive": 31,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Elite Guard"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy the Liao Palace"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "gated",
+    "title": "Move all surviving Mechs to Extraction Point"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 193.9,
+    "unit": "ShadowCat",
+    "armour": 50,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 214.5,
+    "unit": "Shootist",
+    "armour": 21,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 291.8,
+    "unit": "MenShen",
+    "armour": 28,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 367.8,
+    "unit": "Catapult",
+    "armour": 45,
+    "last_hit_by": "Raven"
+   },
+   {
+    "t": 406.1,
+    "unit": "Catapult",
+    "armour": 4,
+    "last_hit_by": "Raven"
+   },
+   {
+    "t": 515.2,
+    "unit": "Highlander",
+    "armour": 13,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 543.8,
+    "unit": "Jagermech",
+    "armour": 17,
+    "last_hit_by": "MenShen"
+   },
+   {
+    "t": 772.3,
+    "unit": "ShadowCat",
+    "armour": 18,
+    "last_hit_by": "LaoHu"
+   },
+   {
+    "t": 800.3,
+    "unit": "Bushwacker",
+    "armour": 25,
+    "last_hit_by": "LaoHu"
+   }
+  ],
+  "damage_total": 1786,
+  "attackers": 37,
+  "top_attackers": [
+   {
+    "damage": 577,
+    "attacker": "MenShen (mech)"
+   },
+   {
+    "damage": 324,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 272,
+    "attacker": "Raven (mech)"
+   },
+   {
+    "damage": 199,
+    "attacker": "Starslayer (mech)"
+   },
+   {
+    "damage": 154,
+    "attacker": "LaoHu (mech)"
+   },
+   {
+    "damage": 96,
+    "attacker": "Catapult (mech)"
+   },
+   {
+    "damage": 86,
+    "attacker": "Anubis (mech)"
+   },
+   {
+    "damage": 78,
+    "attacker": "Swarmlrmc (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_22",
+  "seed": 3,
+  "wall_s": 224.2
+ },
+ {
+  "result": "LOST",
+  "t_end": 517,
+  "player_alive": 5,
+  "enemies_alive": 57,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Clear Out Steiner Forces at Starport"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 0)",
+    "title": "2. Eliminate Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Destroy Steiner Dropships"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Capture Steiner Mobile HQ Vehicle"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 240.3,
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   }
+  ],
+  "losses": [
+   {
+    "t": 252.6,
+    "unit": "Centipede",
+    "armour": 60,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 256.3,
+    "unit": "Centipede",
+    "armour": 67,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 263.1,
+    "unit": "Vedette",
+    "armour": 57,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 265.3,
+    "unit": "Lrmcarrier",
+    "armour": 78,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 449.5,
+    "unit": "Catapult",
+    "armour": 21,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 461.9,
+    "unit": "Madcat",
+    "armour": 23,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 512.3,
+    "unit": "Werewolf",
+    "armour": 15,
+    "last_hit_by": "Bushwacker"
+   }
+  ],
+  "damage_total": 522,
+  "attackers": 16,
+  "top_attackers": [
+   {
+    "damage": 185,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 77,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 72,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 70,
+    "attacker": "Heavy Copter (mech)"
+   },
+   {
+    "damage": 51,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 40,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 9,
+    "attacker": "Lrmcarrier (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_23",
+  "seed": 1,
+  "wall_s": 28.7
+ },
+ {
+  "result": "LOST",
+  "t_end": 509,
+  "player_alive": 6,
+  "enemies_alive": 48,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Clear Out Steiner Forces at Starport"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 0)",
+    "title": "2. Eliminate Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Destroy Steiner Dropships"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Capture Steiner Mobile HQ Vehicle"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 222.4,
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   }
+  ],
+  "losses": [
+   {
+    "t": 248.4,
+    "unit": "Werewolf",
+    "armour": 21,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 452.0,
+    "unit": "Centipede",
+    "armour": 80,
+    "last_hit_by": "Monsoon"
+   },
+   {
+    "t": 455.8,
+    "unit": "Centipede",
+    "armour": 80,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 462.5,
+    "unit": "Lrmcarrier",
+    "armour": 56,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 489.7,
+    "unit": "Catapult",
+    "armour": 22,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 504.0,
+    "unit": "Madcat",
+    "armour": 7,
+    "last_hit_by": "Werewolf"
+   }
+  ],
+  "damage_total": 570,
+  "attackers": 21,
+  "top_attackers": [
+   {
+    "damage": 132,
+    "attacker": "Heavy Copter (mech)"
+   },
+   {
+    "damage": 90,
+    "attacker": "Atlas (mech)"
+   },
+   {
+    "damage": 76,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 70,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 58,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 39,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Attack Copter (mech)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Lrmcarrier (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_23",
+  "seed": 2,
+  "wall_s": 31.1
+ },
+ {
+  "result": "LOST",
+  "t_end": 332,
+  "player_alive": 2,
+  "enemies_alive": 60,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "1. Clear Out Steiner Forces at Starport"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 0)",
+    "title": "2. Eliminate Steiner Reinforcements"
+   },
+   {
+    "index": 2,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "a. Capture Sensor Control"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": false,
+    "state": "done",
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "c. Destroy Steiner Dropships"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": false,
+    "state": "open",
+    "title": "d. Capture Steiner Mobile HQ Vehicle"
+   }
+  ],
+  "objective_times": [
+   {
+    "t": 235.1,
+    "title": "b. Clear Out Patrols Around Town to Free Rebels"
+   }
+  ],
+  "losses": [
+   {
+    "t": 249.7,
+    "unit": "Centipede",
+    "armour": 40,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 253.1,
+    "unit": "Centipede",
+    "armour": 60,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 253.2,
+    "unit": "Vedette",
+    "armour": 61,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 258.2,
+    "unit": "Vedette",
+    "armour": 53,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 261.9,
+    "unit": "Vedette",
+    "armour": 61,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 265.2,
+    "unit": "Lrmcarrier",
+    "armour": 78,
+    "last_hit_by": "Drillson"
+   },
+   {
+    "t": 270.7,
+    "unit": "Lrmcarrier",
+    "armour": 52,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 278.8,
+    "unit": "Madcat",
+    "armour": 39,
+    "last_hit_by": "Storm"
+   },
+   {
+    "t": 284.0,
+    "unit": "Werewolf",
+    "armour": 37,
+    "last_hit_by": "Partisan"
+   },
+   {
+    "t": 326.7,
+    "unit": "Catapult",
+    "armour": 23,
+    "last_hit_by": "Partisan"
+   }
+  ],
+  "damage_total": 412,
+  "attackers": 14,
+  "top_attackers": [
+   {
+    "damage": 180,
+    "attacker": "Partisan (vehicle)"
+   },
+   {
+    "damage": 88,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 49,
+    "attacker": "Storm (vehicle)"
+   },
+   {
+    "damage": 40,
+    "attacker": "Werewolf (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Lrmcarrier (vehicle)"
+   },
+   {
+    "damage": 20,
+    "attacker": "Heavy Copter (mech)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Attack Copter (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_23",
+  "seed": 3,
+  "wall_s": 18.1
+ },
+ {
+  "result": "LOST",
+  "t_end": 502,
+  "player_alive": 0,
+  "enemies_alive": 22,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Steiner High Command"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Eliminate Renard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag F1)",
+    "title": "Extract All Surviving Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Area Trigger to Popup Renard Obj"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Destroying Fuel Trucks"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective for Triggering Extract"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 138.0,
+    "unit": "Uller",
+    "armour": 54,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 449.4,
+    "unit": "Madcat",
+    "armour": 29,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 462.8,
+    "unit": "BloodAsp",
+    "armour": 31,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 468.3,
+    "unit": "BloodAsp",
+    "armour": 23,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 482.9,
+    "unit": "Madcat",
+    "armour": 20,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 497.4,
+    "unit": "Madcat",
+    "armour": 22,
+    "last_hit_by": "Legion"
+   }
+  ],
+  "damage_total": 1156,
+  "attackers": 26,
+  "top_attackers": [
+   {
+    "damage": 540,
+    "attacker": "Legion (vehicle)"
+   },
+   {
+    "damage": 183,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 176,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 87,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 70,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 52,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 24,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 18,
+    "attacker": "Urbanmech (mech)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Swarmlrmc (vehicle)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_24",
+  "seed": 1,
+  "wall_s": 40.2
+ },
+ {
+  "result": "LOST",
+  "t_end": 491,
+  "player_alive": 0,
+  "enemies_alive": 32,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Steiner High Command"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 0)",
+    "title": "Eliminate Renard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag F1)",
+    "title": "Extract All Surviving Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Area Trigger to Popup Renard Obj"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Destroying Fuel Trucks"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective for Triggering Extract"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 125.7,
+    "unit": "Uller",
+    "armour": 57,
+    "last_hit_by": "Highlander"
+   },
+   {
+    "t": 147.5,
+    "unit": "Madcat",
+    "armour": 15,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 442.7,
+    "unit": "Madcat",
+    "armour": 35,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 456.7,
+    "unit": "BloodAsp",
+    "armour": 30,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 474.4,
+    "unit": "Madcat",
+    "armour": 40,
+    "last_hit_by": "Legion"
+   },
+   {
+    "t": 486.4,
+    "unit": "BloodAsp",
+    "armour": 16,
+    "last_hit_by": "Legion"
+   }
+  ],
+  "damage_total": 1206,
+  "attackers": 25,
+  "top_attackers": [
+   {
+    "damage": 420,
+    "attacker": "Legion (vehicle)"
+   },
+   {
+    "damage": 284,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 155,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 120,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 80,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 70,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 44,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 21,
+    "attacker": "Swarmlrmc (vehicle)"
+   },
+   {
+    "damage": 12,
+    "attacker": "Urbanmech (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_24",
+  "seed": 2,
+  "wall_s": 38.9
+ },
+ {
+  "result": "LOST",
+  "t_end": 495,
+  "player_alive": 0,
+  "enemies_alive": 33,
+  "objectives": [
+   {
+    "index": 0,
+    "primary": true,
+    "hidden": false,
+    "state": "open",
+    "title": "Destroy Steiner High Command"
+   },
+   {
+    "index": 1,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag 0)",
+    "title": "Eliminate Renard"
+   },
+   {
+    "index": 2,
+    "primary": true,
+    "hidden": false,
+    "state": "inactive (flag F1)",
+    "title": "Extract All Surviving Mechs"
+   },
+   {
+    "index": 3,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Area Trigger to Popup Renard Obj"
+   },
+   {
+    "index": 4,
+    "primary": false,
+    "hidden": true,
+    "state": "done",
+    "title": "Hidden Trigger for Destroying Fuel Trucks"
+   },
+   {
+    "index": 5,
+    "primary": false,
+    "hidden": true,
+    "state": "open",
+    "title": "Hidden Objective for Triggering Extract"
+   }
+  ],
+  "objective_times": [],
+  "losses": [
+   {
+    "t": 79.2,
+    "unit": "Madcat",
+    "armour": 63,
+    "last_hit_by": "Hollander"
+   },
+   {
+    "t": 135.6,
+    "unit": "Uller",
+    "armour": 74,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 197.3,
+    "unit": "BloodAsp",
+    "armour": 30,
+    "last_hit_by": "Bushwacker"
+   },
+   {
+    "t": 342.9,
+    "unit": "Madcat",
+    "armour": 39,
+    "last_hit_by": "Jagermech"
+   },
+   {
+    "t": 488.3,
+    "unit": "BloodAsp",
+    "armour": 24,
+    "last_hit_by": "Zeus"
+   },
+   {
+    "t": 489.5,
+    "unit": "Madcat",
+    "armour": 37,
+    "last_hit_by": "Hunchback"
+   }
+  ],
+  "damage_total": 910,
+  "attackers": 24,
+  "top_attackers": [
+   {
+    "damage": 290,
+    "attacker": "Highlander (mech)"
+   },
+   {
+    "damage": 170,
+    "attacker": "Legion (vehicle)"
+   },
+   {
+    "damage": 150,
+    "attacker": "Bushwacker (mech)"
+   },
+   {
+    "damage": 73,
+    "attacker": "Zeus (mech)"
+   },
+   {
+    "damage": 72,
+    "attacker": "Jagermech (mech)"
+   },
+   {
+    "damage": 60,
+    "attacker": "Hollander (mech)"
+   },
+   {
+    "damage": 58,
+    "attacker": "Hunchback (mech)"
+   },
+   {
+    "damage": 30,
+    "attacker": "Swarmlrmc (vehicle)"
+   },
+   {
+    "damage": 6,
+    "attacker": "Urbanmech (mech)"
+   }
+  ],
+  "abl_errors": "[]",
+  "abl_missing": "[]",
+  "force": null,
+  "support": [],
+  "damage_dealt": null,
+  "kills": null,
+  "mission": "mc2_24",
+  "seed": 3,
+  "wall_s": 38.4
+ }
+]

@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_05
+force: campaign 3 units 215 t of 220 t, RP 7000: Zeus Prime(pmwmeat), Zeus Prime(pmwworm), Bushwacker Prime(pmwpalerider)
+ABL pilots: 44
+t=  23.2  objective done: 1. Destroy Fuel Tanks
+t= 118.0  LOST Zeus (disabled, armour 75%, heat 0, ejected false, pilot 0.0 wounds, last hit by Anubis)
+t= 162.9  LOST Bushwacker (disabled, armour 17%, heat 0, ejected false, pilot 0.0 wounds, last hit by Partisan)
+t= 260.9  objective done: 2. Capture Weapons Facility
+t= 456.7  SUPPORT repair_truck (-351, 293) rp_left=1000
+t= 481.8  objective done: 3. Capture Repair Bay
+t= 918.6  objective done: 4. Capture Prison Complex
+t=1180.9  objective done: 5. Move to Extraction Point
+t=1186.0  MISSION WON
+seed 1 end t=1186 result=WON  player alive 2  enemies alive 7
+damage to lance: 754 from 27 attackers; hits by location (0 head .. 10 rear RT): { 2: 28, 4: 36, 6: 26, 1: 29, 3: 29, 5: 32, 7: 33, 8: 11, 10: 1, 9: 8, 0: 2 }
+damage by lance: 1202; kills 34
+       164  Anubis (mech)
+       152  Partisan (vehicle)
+       147  Storm (vehicle)
+       104  Centipede (vehicle)
+        90  Lrmcarrier (vehicle)
+        62  ShaYu (mech)
+        23  Flea (mech)
+        12  Vedette (vehicle)
+  obj 0 P: done  1. Destroy Fuel Tanks
+  obj 1 P: done  2. Capture Weapons Facility
+  obj 2 P: done  3. Capture Repair Bay
+  obj 3 P: done  4. Capture Prison Complex
+  obj 4 P: done  5. Move to Extraction Point
+  obj 5 s: open  a. Capture Resource Trucks
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_05_EC3_fireant1:attack": 1, "mc2_05_EC1_ved1:attack": 1, "mc2_05_EC1_ved2:attack": 1, "mc2_05_EC1_LRMs:attack": 4, "mc2_05_EC3_storm1:attack": 2, "mc2_05_EC3_LRMs:attack": 5, "mc2_05_EC3_shayu1:attack": 1, "mc2_05_EC3_shayu2:attack": 1, "mc2_05_EC1_anubis1:attack": 1, "mc2_05_EC1_anubis2:attack": 1, "mc2_05_EC2_storm1:attack": 1, "mc2_05_EC4_shayu1:start": 1, "mc2_05_EC1_storm1:attack": 1, "mc2_05_EC4_shayu2:start": 1, "mc2_05_EC4_LRMs:start": 2, "mc2_05_EC2_anubis1:attack": 1, "mc2_05_EC2_storm2:attack": 1, "mc2_05_EC2_LRMs:attack": 3, "mc2_05_EC2_ved1:attack": 1, "mc2_05_EC1_cents1:attack": 2, "mc2_05_EC1_cents2:attack": 1, "mc2_05_EC2_cents2:attack": 1, "mc2_05_EC2_cents1:attack": 1, "mc2_05_RP_trucks:start": 2, "mc2_05_EC3_anubis1:attack": 1, "DredAttack01:noweapons": 1, "mc2_05_EC1_part1:attack": 1, "mc2_05_EC1_partG:attack": 1, "PBrain:": 3 }
+enemy pilots that moved >20 m: 37 / 44
+
+--- stderr ---
+WARNING: 475 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

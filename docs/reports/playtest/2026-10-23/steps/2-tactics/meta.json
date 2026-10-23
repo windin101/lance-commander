@@ -1,0 +1,27 @@
+{
+ "commit": "f215d71",
+ "dirty": [
+  "M game/scripts/sim/sim_abl.gd",
+  " M game/scripts/sim/sim_world.gd",
+  " M game/scripts/world/command_input.gd",
+  " M game/scripts/world/intro_flyby.gd",
+  " M game/scripts/world/mission_view.gd",
+  " M game/tools/autoplay.gd",
+  "?? game/tools/autoplay_baseline.gd",
+  "?? game/tools/autoplay_baseline.gd.uid",
+  "?? game/tools/autoplay_i12tmp.gd",
+  "?? game/tools/autoplay_i12tmp.gd.uid",
+  "?? game/tools/autoplay_run.gd",
+  "?? game/tools/autoplay_run.gd.uid"
+ ],
+ "scripts_diff_sha1": "da6f883af9",
+ "bot_sha1": "9add36f210",
+ "seeds": [
+  1,
+  2,
+  3
+ ],
+ "max_seconds": 1800,
+ "bot_args": [],
+ "jobs": 3
+}

@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_19
+force: fit 5 units 325 t of 330 t, RP 12000: Mad Cat Prime(pmp_bubba), Mad Cat Prime(pmp_bubba), Catapult Prime(pmp_bubba), Razorback Prime(pmp_bubba), Zeus Prime(pmp_bubba)
+ABL pilots: 87
+t=  44.2  LOST Werewolf (destroyed, armour 56%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hetzer)
+t=  51.5  SUPPORT salvage_craft Shootist rp_left=2000
+t= 223.9  LOST Shootist (disabled, armour 14%, heat 0, ejected false, pilot 0.0 wounds, last hit by Catapult)
+t= 290.6  LOST Madcat (disabled, armour 32%, heat 3, ejected false, pilot 0.0 wounds, last hit by Zeus)
+t= 348.4  LOST Zeus (disabled, armour 12%, heat 0, ejected false, pilot 1.0 wounds, last hit by Raven)
+t= 366.7  PULLBACK Madcat at 24%
+t= 367.4  LOST Madcat (destroyed, armour 13%, heat 0, ejected false, pilot 0.0 wounds, last hit by MenShen)
+t= 379.7  LOST Catapult (destroyed, armour 9%, heat 0, ejected false, pilot 3.0 wounds, last hit by Hollander)
+t= 384.6  MISSION LOST
+seed 2 end t=385 result=LOST  player alive 0  enemies alive 60
+damage to lance: 680 from 21 attackers; hits by location (0 head .. 10 rear RT): { 1: 25, 6: 31, 3: 24, 7: 22, 2: 33, 5: 19, 4: 20, 0: 4, 8: 1, 10: 1, 9: 1 }
+damage by lance: 1936; kills 22
+       147  Catapult (mech)
+       117  Shootist (mech)
+       102  Hunchback (mech)
+        72  MenShen (mech)
+        60  ShaYu (mech)
+        60  Hollander (mech)
+        30  Zeus (mech)
+        24  Hetzer (vehicle)
+        24  Raven (mech)
+        20  Aero Spotter (vehicle)
+  obj 0 P: open  1. Destroy 1/3 of All Enemy Forces in the Sector
+  obj 1 P: gated  2. Move All Surviving Mech to Extraction Point
+  obj 2 s: open  a. Destroy 2/3 of All Enemy Forces in the Sector
+  obj 3 s: open  b. Destroy  All Enemy Forces in the Sector
+  obj 4 s: open  c. Captrue Liao Headquarters
+  obj 5 s: open  d. Destroy All 3 Power Generators at the Liao Ba
+  obj 6 s: open  e. Destroy Both Industrial Complex at Liao Indus
+  obj 7 s: open  f. Destroy All 5 Slayer Bombers at  Liao Airstri
+  obj 8 s: open  g. Capture Weapon Facility
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 5, "mc2_19_MOG:start": 1, "mc2_19_HQ_PD:start": 4, "mc2_19_Power_Patrol_M1:start": 3, "mc2_19_Power_PD:start": 2, "mc2_19_Power_guard:start": 3, "mc2_19_Power_Patrol_V1:start": 1, "pbrain:attack": 1, "mc2_19_Ind_PD:attack": 1, "mc2_19_IND_Patrol_V1:attack": 2, "mc2_19_IND_Patrol_V2:attack": 1, "mc2_19_IND_guard:attack": 2, "mc2_19_IND_Patrol_M1:attack": 2, "mc2_19_Port_guard:start": 1, "mc2_19_Port_guard:attack": 3, "mc2_19_Port_Patrol_V1:attack": 2, "mc2_19_Port_guard_Mech:attack": 1, "mc2_19_Port_guard_Mech:start": 1, "mc2_19_Port_Patrol_M1:attack": 1, "mc2_19_Port_Patrol_M2:attack": 1, "mc2_19_Port_Patrol_M2:baseassault": 3, "mc2_19_Hanger_guard:start": 3, "mc2_19_Hanger_Patrol_V1:baseassault": 1, "mc2_19_Hanger_Patrol_M1:baseassault": 3, "mc2_19_Hanger_Rein_V1:start": 3, "mc2_19_Hanger_Rein_M1:start": 1, "mc2_19_Hanger_guard_LRM:start": 2, "mc2_19_MOG_guard:attack": 2, "mc2_19_MOG_Patrol_M1:attack": 1, "mc2_19_MOG_guard2:attack": 1, "mc2_19_MainA_Patrol_M1:start": 4, "mc2_19_TENT_PD:start": 3, "mc2_19_TENT_Patrol_M1:start": 2, "mc2_19_MainA_guard:start": 2, "mc2_19_MainA_Patrol_V2:start": 2, "mc2_19_MainA_Patrol_V3:start": 1, "mc2_19_HQ_guard_Ved:start": 2, "mc2_19_AMMO_guard:start": 2, "mc2_19_AMMO_Patrol_V1:start": 1, "mc2_19_MainL_Patrol_M2:start": 2, "mc2_19_MainL_Patrol_M1:start": 2, "mc2_19_MainL_Patrol_V1:start": 2, "mc2_19_HQ_Patrol_V1:start": 1, "mc2_19_HQ_guard:start": 2, "mc2_19_MainA_Patrol_V1:start": 1, "pbrain:": 1 }
+enemy pilots that moved >20 m: 55 / 88
+
+--- stderr ---
+WARNING: 764 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,54 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_09
+force: campaign 5 units 300 t of 300 t, RP 30000: Shootist Prime(pmwsteel), Shootist Prime(pmwclaymore), Bushwacker Prime(pmwworm), Bushwacker Prime(pmwmeat), Hunchback Prime(pmwpalerider)
+ABL pilots: 64
+t=  54.5  SUPPORT air_strike (-215, -353) rp_left=23000
+t= 100.7  SUPPORT salvage_craft Flea rp_left=13000
+t= 113.1  SUPPORT salvage_craft Flea rp_left=7000
+t= 125.5  SUPPORT repair_truck (13, -194) rp_left=1000
+t= 240.3  LOST Flea (destroyed, armour 23%, heat 1, ejected false, pilot 0.0 wounds, last hit by Urbanmech)
+t= 268.8  LOST Flea (disabled, armour 22%, heat 0, ejected false, pilot 0.0 wounds, last hit by Centipede)
+t= 348.5  objective done: 1 - Capture Weapons Facility
+t= 363.7  SUPPORT air_strike (-83, 993) rp_left=2000
+t= 455.3  LOST Hunchback (disabled, armour 50%, heat 0, ejected false, pilot 0.0 wounds, last hit by LaoHu)
+t= 473.3  LOST Bushwacker (disabled, armour 37%, heat 0, ejected false, pilot 1.0 wounds, last hit by Starslayer)
+t= 562.8  capture target LaoHu destroyed by Shootist
+t= 562.8  objective done: Eliminate Bandit Leader at Bandit HQ
+t= 609.9  LOST Repairtruck (disabled, armour 100%, heat 0, ejected false, pilot 0.0 wounds, last hit by -)
+t= 641.7  LOST Bushwacker (disabled, armour 33%, heat 0, ejected false, pilot 1.0 wounds, last hit by Flea)
+t= 750.0  objective done: 2 - Destroy Fuel Tanks at Refinery
+t= 811.2  objective done: 3 - Destroy Bandit HQ in Downed Spacecraft Nosecone
+t= 863.1  objective done: Move all Surviving Mechs to Extraction Point
+t= 868.1  MISSION WON
+seed 3 end t=868 result=WON  player alive 2  enemies alive 4
+damage to lance: 1074 from 40 attackers; hits by location (0 head .. 10 rear RT): { 1: 71, 7: 36, 2: 53, 6: 44, 3: 59, 4: 49, 5: 47, 9: 1, 0: 4, 8: 3 }
+damage by lance: 2542; kills 51
+       259  LaoHu (mech)
+       215  Urbanmech (mech)
+       188  Partisan (vehicle)
+       154  Starslayer (mech)
+        73  Flea (mech)
+        60  Swarmlrmc (vehicle)
+        48  Centipede (vehicle)
+        42  Hunter (vehicle)
+        21  Lrmcarrier (vehicle)
+         8  Heavy Copter (mech)
+  obj 0 P: done  1 - Capture Weapons Facility
+  obj 1 P: done  2 - Destroy Fuel Tanks at Refinery
+  obj 2 P: done  3 - Destroy Bandit HQ in Downed Spacecraft Nosec
+  obj 3 P: done  Eliminate Bandit Leader at Bandit HQ
+  obj 4 P: done  Move all Surviving Mechs to Extraction Point
+  obj 5 s hidden: done  Destroy 12 Enemy Units
+  obj 6 s hidden: done  Trigger to signal ambush at Nosecone
+  obj 7 s hidden: done  Hidden Trigger for Extraction
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_09_EC1_Grp1_Cent1:attack": 1, "mc2_09_EC1_Grp1_Ved:attack": 2, "mc2_09_EC1_Grp2_Urb:attack": 2, "mc2_09_EC1_Grp2_LRM:start": 2, "mc2_09_EC1_Grp3_Fire1:attack": 1, "pbrain:attack": 2, "mc2_09_EC2_Grp2_Ved1:attack": 1, "mc2_09_EC2_Grp2_Ved2:attack": 1, "mc2_09_EC3_Grp4_Heli:attack": 2, "mc2_09_EC3_Grp1_Hetz:attack": 1, "mc2_09_EC3_Grp1_Cent:attack": 1, "mc2_09_EC4_Grp1_Hetz:attack": 3, "mc2_09_EC4_Grp2_Urb:attack": 2, "mc2_09_EC5_Grp1_Cat:attack": 1, "mc2_09_EC5_Grp2_Star1:attack": 1, "mc2_09_EC5_Grp2_Star2:attack": 1, "mc2_09_EC3_Grp3_Fire:attack": 2, "mc2_09_EC3_Grp3_Urb:attack": 1, "mc2_09_EC3_Grp2_Fire:attack": 2, "mc2_09_EC3_Grp5_LRM:attack": 2, "mc2_09_EC1_Grp1_Urb1:attack": 1, "mc2_09_EC4_Grp3_Urb1:attack": 1, "mc2_09_EC4_Grp3_Urb2:attack": 1, "mc2_09_EC6_Grp2_NWPat_lrm:attack": 2, "mc2_09_EC6_Grp2_NWPat:start": 2, "mc2_09_EC6_Grp1_NEPat:attack": 2, "mc2_09_EC4_Grp3_Fire:attack": 1, "mc2_09_EC6_Grp4_Vehs:attack": 5, "mc2_09_EC6_Grp5_DeadVehs:start": 3, "mc2_09_EC3_Grp4_Mechs:attack": 4, "mc2_09_EC2_Grp1_Fire:attack": 2, "mc2_09_EC2_Grp2_Fire:attack": 3, "mc2_09_EC6_Grp1_NEPat_lrm:attack": 1, "PBrain:": 5, "pbrain:": 2 }
+enemy pilots that moved >20 m: 60 / 66
+
+--- stderr ---
+WARNING: 858 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

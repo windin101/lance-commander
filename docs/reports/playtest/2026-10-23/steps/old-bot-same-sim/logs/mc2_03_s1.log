@@ -1,0 +1,35 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_03
+ABL pilots: 38
+t= 127.9  objective done: 2. Destroy Enemies at Checkpoint
+t= 130.3  objective done: 1. Destroy Turret Generators at Checkpoint
+t= 209.2  objective done: 3. Capture HQ Vehicle
+t= 316.3  LOST Werewolf (disabled, armour 22%, heat 0, ejected false, pilot 0.0 wounds, last hit by Harasser)
+t= 385.8  objective done: 4. Capture Weapon Facility
+t= 562.5  LOST Bushwacker (disabled, armour 41%, heat 0, ejected false, pilot 0.0 wounds, last hit by Starslayer)
+t= 580.8  objective done: 5. Defeat Bandit Counterattack
+t= 585.8  MISSION WON
+seed 1 end t=586 result=WON  player alive 3  enemies alive 5
+damage to lance: 224 from 24 attackers; hits by location (0 head .. 10 rear RT): { 7: 11, 2: 8, 1: 18, 5: 8, 4: 13, 6: 11, 3: 9, 0: 1 }
+        62  Flea (mech)
+        54  Vedette (vehicle)
+        34  Urbanmech (mech)
+        26  Harasser (vehicle)
+        24  Lrmcarrier (vehicle)
+        24  Starslayer (mech)
+  obj 0 P: done  1. Destroy Turret Generators at Checkpoint
+  obj 1 P: done  2. Destroy Enemies at Checkpoint
+  obj 2 P: done  3. Capture HQ Vehicle
+  obj 3 P: done  4. Capture Weapon Facility
+  obj 4 P: done  5. Defeat Bandit Counterattack
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 4, "mc2_03_dred:attack": 2, "mc2_03_turretguard2:attack": 1, "mc2_03_dred1:attack": 1, "mc2_03_turretguard:attack": 2, "mc2_03_dred2:attack": 1, "mc2_03_CNVhq:base1patrol": 1, "mc2_03_Cnv_grd_01:attack": 2, "mc2_03_Cnv_grd_02:attack": 2, "mc2_03_CNV:base1patrol": 1, "mc2_03_CNV_RT:base1patrol": 1, "mc2_03_CNV_FT:base1patrol": 1, "mc2_03_patrol_01:attack": 1, "mc2_03_BaseG_Shutdown:attack": 2, "mc2_03_weapfacgrd:attack": 1, "mc2_03_patrol_02:attack": 1, "mc2_03_patrol_03:attack": 1, "mc2_03_patrol_04:attack": 1, "mc2_03_Reinf_G1_2:attack": 2, "mc2_03_Reinf_G1_1:attack": 2, "mc2_03_Reinf_G2_1:attack": 2, "mc2_03_Reinf_G2_2:attack": 2, "mc2_03_Reinf_G1_3:attack": 2, "mc2_03_powered_armor:start": 1, "mc2_03_RP_trucks:start": 1 }
+enemy pilots that moved >20 m: 36 / 38
+
+--- stderr ---
+WARNING: 406 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

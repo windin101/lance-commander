@@ -1,0 +1,50 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_09
+force: campaign 5 units 300 t of 300 t, RP 30000: Atlas Prime(pmwsteel), Atlas Prime(pmwclaymore), Hollander Prime(pmwworm), Hollander Prime(pmwmeat), Razorback Prime(pmwpalerider)
+ABL pilots: 64
+t=  36.5  SUPPORT salvage_craft Urbanmech rp_left=20000
+t=  45.5  SUPPORT air_strike (-21, -318) rp_left=13000
+t=  57.5  SUPPORT air_strike (-0, -512) rp_left=6000
+t=  62.3  LOST Werewolf (disabled, armour 33%, heat 4, ejected false, pilot 1.0 wounds, last hit by Flea)
+t=  79.0  SUPPORT repair_truck (155, -540) rp_left=0
+t= 247.6  LOST Hollander (disabled, armour 56%, heat 0, ejected false, pilot 0.0 wounds, last hit by Urbanmech)
+t= 350.1  objective done: 1 - Capture Weapons Facility
+t= 543.8  objective done: 2 - Destroy Fuel Tanks at Refinery
+t= 630.7  PULLBACK Atlas at 26%
+t= 633.8  LOST Atlas (disabled, armour 16%, heat 0, ejected false, pilot 2.0 wounds, last hit by Starslayer)
+t= 672.7  LOST Urbanmech (destroyed, armour 29%, heat 3, ejected false, pilot 1.0 wounds, last hit by Urbanmech)
+t= 684.1  LOST Hollander (disabled, armour 29%, heat 0, ejected false, pilot 2.0 wounds, last hit by Urbanmech)
+t= 764.8  LOST Atlas (destroyed, armour 18%, heat 0, ejected false, pilot 1.0 wounds, last hit by Starslayer)
+t= 777.5  LOST Repairtruck (destroyed, armour 75%, heat 0, ejected false, pilot 0.0 wounds, last hit by LaoHu)
+t= 782.5  MISSION LOST
+seed 1 end t=783 result=LOST  player alive 0  enemies alive 15
+damage to lance: 1194 from 37 attackers; hits by location (0 head .. 10 rear RT): { 5: 74, 6: 22, 3: 55, 1: 57, 7: 55, 2: 62, 4: 35, 0: 7, 8: 2, 10: 3, 9: 4 }
+       343  LaoHu (mech)
+       316  Starslayer (mech)
+       209  Urbanmech (mech)
+       148  Partisan (vehicle)
+        62  Flea (mech)
+        33  Swarmlrmc (vehicle)
+        27  Hunter (vehicle)
+        27  Lrmcarrier (vehicle)
+        24  Heavy Copter (mech)
+         6  Vedette (vehicle)
+  obj 0 P: done  1 - Capture Weapons Facility
+  obj 1 P: done  2 - Destroy Fuel Tanks at Refinery
+  obj 2 P: open  3 - Destroy Bandit HQ in Downed Spacecraft Nosec
+  obj 3 P: open  Eliminate Bandit Leader at Bandit HQ
+  obj 4 P: inactive (flag 15)  Move all Surviving Mechs to Extraction Point
+  obj 5 s hidden: done  Destroy 12 Enemy Units
+  obj 6 s hidden: open  Trigger to signal ambush at Nosecone
+  obj 7 s hidden: open  Hidden Trigger for Extraction
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_09_EC1_Grp1_Cent1:attack": 1, "mc2_09_EC1_Grp1_Ved:attack": 2, "mc2_09_EC1_Grp2_Urb:attack": 2, "mc2_09_EC1_Grp2_LRM:start": 2, "mc2_09_EC1_Grp3_Fire1:attack": 1, "mc2_09_EC1_Grp3_Fire2:attack": 2, "mc2_09_EC2_Grp2_Ved1:attack": 1, "mc2_09_EC2_Grp2_Ved2:attack": 1, "mc2_09_EC3_Grp4_Heli:attack": 2, "mc2_09_EC3_Grp1_Hetz:attack": 1, "mc2_09_EC3_Grp1_Cent:attack": 1, "mc2_09_EC4_Grp1_Hetz:attack": 3, "mc2_09_EC4_Grp2_Urb:attack": 1, "mc2_09_EC4_Grp2_Urb:start": 1, "mc2_09_EC5_Grp1_Cat:hqrun": 1, "mc2_09_EC5_Grp2_Star1:hqrun": 1, "mc2_09_EC5_Grp2_Star2:hqrun": 1, "mc2_09_EC3_Grp3_Fire:attack": 2, "mc2_09_EC3_Grp3_Urb:attack": 1, "mc2_09_EC3_Grp2_Fire:attack": 2, "mc2_09_EC3_Grp5_LRM:attack": 2, "pbrain:attack": 1, "mc2_09_EC4_Grp3_Urb1:attack": 1, "mc2_09_EC4_Grp3_Urb2:start": 1, "mc2_09_EC6_Grp2_NWPat_lrm:attack": 2, "mc2_09_EC6_Grp2_NWPat:attack": 2, "mc2_09_EC6_Grp1_NEPat:start": 2, "mc2_09_EC4_Grp3_Fire:attack": 1, "mc2_09_EC6_Grp4_Vehs:start": 5, "mc2_09_EC6_Grp5_DeadVehs:start": 3, "mc2_09_EC3_Grp4_Mechs:attack": 4, "mc2_09_EC2_Grp1_Fire:attack": 2, "mc2_09_EC2_Grp2_Fire:attack": 3, "mc2_09_EC6_Grp1_NEPat_lrm:start": 1, "PBrain:": 5, "pbrain:": 1 }
+enemy pilots that moved >20 m: 55 / 65
+
+--- stderr ---
+WARNING: 856 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

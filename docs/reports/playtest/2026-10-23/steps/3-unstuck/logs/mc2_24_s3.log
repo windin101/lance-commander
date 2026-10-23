@@ -1,0 +1,47 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_24
+force: campaign 7 units 450 t of 450 t, RP 10000: Mad Cat Prime(pmwrooster), Mad Cat Prime(pmwmother), Mad Cat Prime(pmwghost), Shootist Prime(pmwscooter), Catapult Prime(pmwbubba), Vulture Prime(pmwvenom), Razorback Prime(pmwwicked)
+ABL pilots: 71
+t=  57.5  SUPPORT salvage_craft Bushwacker rp_left=0
+t= 341.7  LOST Catapult (disabled, armour 27%, heat 0, ejected false, pilot 0.0 wounds, last hit by Legion)
+t= 364.5  objective done: Destroy Steiner High Command
+t= 390.7  PULLBACK Vulture at 28%
+t= 390.8  LOST Vulture (disabled, armour 15%, heat 5, ejected false, pilot 1.0 wounds, last hit by Highlander)
+t= 401.8  LOST Werewolf (destroyed, armour 26%, heat 2, ejected false, pilot 1.0 wounds, last hit by Atlas)
+t= 411.7  PULLBACK Bushwacker at 27%
+t= 435.7  PULLBACK Shootist at 29%
+t= 439.8  LOST Shootist (destroyed, armour 10%, heat 0, ejected false, pilot 2.0 wounds, last hit by Atlas)
+t= 468.0  LOST Madcat (disabled, armour 22%, heat 0, ejected false, pilot 1.0 wounds, last hit by Atlas)
+t= 525.0  LOST Madcat (disabled, armour 17%, heat 11, ejected false, pilot 2.0 wounds, last hit by Atlas)
+t= 605.5  LOST Madcat (destroyed, armour 22%, heat 0, ejected false, pilot 0.0 wounds, last hit by Atlas)
+t= 625.5  LOST Bushwacker (destroyed, armour 16%, heat 4, ejected false, pilot 0.0 wounds, last hit by Atlas)
+t= 630.5  MISSION LOST
+seed 3 end t=631 result=LOST  player alive 0  enemies alive 12
+damage to lance: 1523 from 30 attackers; hits by location (0 head .. 10 rear RT): { 2: 42, 6: 28, 3: 41, 0: 8, 4: 40, 7: 51, 1: 40, 5: 32, 8: 3, 9: 5, 10: 1 }
+       586  Atlas (mech)
+       326  Highlander (mech)
+       210  Legion (vehicle)
+       149  Bushwacker (mech)
+       110  Hollander (mech)
+        64  Hunchback (mech)
+        24  Shootist (mech)
+        24  Zeus (mech)
+        18  Jagermech (mech)
+         6  Swarmlrmc (vehicle)
+  obj 0 P: done  Destroy Steiner High Command
+  obj 1 P: open  Eliminate Renard
+  obj 2 P: inactive (flag F1)  Extract All Surviving Mechs
+  obj 3 s hidden: done  Hidden Area Trigger to Popup Renard Obj
+  obj 4 s hidden: done  Hidden Trigger for Destroying Fuel Trucks
+  obj 5 s hidden: open  Hidden Objective for Triggering Extract
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_24_EC3_FGate_highl:attack": 2, "mc2_24_EC6_North_Renards2:attack": 2, "mc2_24_EC6_North_Renards:attack1": 1, "mc2_24_EC6_North_Renards3:attack": 2, "mc2_24_EC1_East_G4S:attack": 1, "mc2_24_EC1_East_G3S:attack": 1, "mc2_24_EC2_West_legion:attack": 5, "mc2_24_EC1_East_G2:attack": 2, "mc2_24_EC1_East_G1:attack": 2, "mc2_24_EC3_FGate_bushw1:attack": 2, "mc2_24_EC3_FGate_bushw2:attack": 2, "mc2_24_EC2_West_razors:start": 2, "mc2_24_EC2_West_razors2:start": 2, "mc2_24_EC4_West_Mechs4:attack": 1, "mc2_24_EC4_West_Mechs3:attack": 1, "mc2_24_EC4_West_Mechs1:attack": 2, "mc2_24_EC4_West_Mechs2:attack": 2, "mc2_24_EC5_North_power:attack": 4, "mc2_24_EC5_North_power:start": 4, "mc2_24_EC2_West_haras:start": 2, "mc2_24_EC3_FGate_haras:attack": 2, "pbrain:attack": 1, "mc2_24_EC6_South_Mechs2:attack": 1, "mc2_24_EC6_South_Mechs:attack": 2, "mc2_24_EC2_West_hollands:start": 2, "mc2_24_EC2_West_bushws:start": 2, "mc2_24_Fuel_CNV:start": 5, "mc2_24_EC1_Reb_mech:attack": 1, "mc2_24_EC1_Reb_veds:attack": 3, "mc2_24_EC1_Reb_LRMs3S:attack": 3, "PBrain:": 7, "pbrain:": 1 }
+enemy pilots that moved >20 m: 58 / 72
+
+--- stderr ---
+WARNING: 890 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

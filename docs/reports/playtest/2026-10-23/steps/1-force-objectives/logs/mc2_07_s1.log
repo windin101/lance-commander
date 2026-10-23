@@ -1,0 +1,37 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_07
+force: campaign 4 units 200 t of 200 t, RP 6000: Highlander Prime(pmwsteel), Hunchback Prime(pmwmeat), Razorback Prime(pmwworm), Razorback Prime(pmwpalerider)
+ABL pilots: 56
+t= 128.6  PULLBACK Hunchback at 27%
+t= 131.7  SUPPORT repair_truck (302, 324) rp_left=0
+t= 139.4  LOST Hunchback (destroyed, armour 5%, heat 0, ejected false, pilot 3.0 wounds, last hit by Vedette)
+t= 185.8  objective done: 1. Capture Liao Headquarters
+t= 311.5  LOST Werewolf (destroyed, armour 25%, heat 0, ejected false, pilot 1.0 wounds, last hit by Storm)
+t= 343.5  LOST Werewolf (disabled, armour 29%, heat 0, ejected false, pilot 1.0 wounds, last hit by Catapult)
+t= 527.7  objective done: 2. Destroy Processing Plant
+t= 548.2  objective done: 3. Extract All Surviving 'Mechs
+t= 553.2  MISSION WON
+seed 1 end t=553 result=WON  player alive 2  enemies alive 22
+damage to lance: 752 from 22 attackers; hits by location (0 head .. 10 rear RT): { 2: 22, 7: 22, 4: 28, 5: 26, 1: 24, 3: 32, 6: 28, 0: 5, 8: 5, 9: 7, 10: 5 }
+       234  Catapult (mech)
+       180  Vedette (vehicle)
+       147  Storm (vehicle)
+        90  MenShen (mech)
+        66  Lrmcarrier (vehicle)
+        28  Centipede (vehicle)
+         6  Infantry (vehicle)
+  obj 0 P: done  1. Capture Liao Headquarters
+  obj 1 P: done  2. Destroy Processing Plant
+  obj 2 P: done  3. Extract All Surviving 'Mechs
+  obj 3 s: open  Destroy All Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_07_E3_LRMs:attack": 2, "mc2_07_E3_Mix_Pat:attack": 2, "mc2_07_E2_NCV1_FTs:start": 2, "mc2_07_E2_NCV1_TT1:start": 2, "mc2_07_E2_NCV1_TT2:start": 1, "mc2_07_E2_NCV1_TT3:start": 1, "mc2_07_E2_LRM:attack": 1, "mc2_07_E2_NCV1_CT1:start": 2, "mc2_07_E2_NCV1_CT2:start": 1, "mc2_07_E2_NCV1_ET1:start": 1, "mc2_07_E2_Storm:attack": 1, "mc2_07_E3_Cent1:attack": 1, "mc2_07_E1_Ved1:start": 1, "mc2_07_E1_Ved2:start": 1, "mc2_07_E3_Mix_Guards:attack": 7, "mc2_07_E2_Cata:attack": 1, "mc2_07_E3_Menshen1:attack": 1, "mc2_07_E3_Ved1:attack": 1, "mc2_07_E2_Lao:attack": 1, "mc2_07_E2_infantry1:attack": 8, "mc2_07_E2_infantry2:building_retreat": 7, "mc2_07_E2_infantry:attack": 1, "mc2_07_E1_Fire:start": 1, "mc2_07_E1_infantry3:start": 2, "mc2_07_E3_Menshen2:attack": 1, "mc2_07_E1_NCV1_Minelayer1:start": 1, "mc2_07_E1_NCV1_Minelayer2:start": 1, "PBrain:": 4 }
+enemy pilots that moved >20 m: 41 / 56
+
+--- stderr ---
+WARNING: 448 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

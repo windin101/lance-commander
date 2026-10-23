@@ -1,0 +1,37 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_06
+ABL pilots: 49
+t=  64.6  capture target S_SensorControl destroyed by ?
+t= 174.2  LOST Werewolf (disabled, armour 11%, heat 0, ejected false, pilot 3.0 wounds, last hit by Drillson)
+t= 255.5  LOST Highlander (disabled, armour 52%, heat 0, ejected false, pilot 1.0 wounds, last hit by ShaYu)
+t= 886.6  LOST Bushwacker (destroyed, armour 20%, heat 0, ejected false, pilot 0.0 wounds, last hit by ShaYu)
+t= 892.3  LOST Hollander (disabled, armour 19%, heat 0, ejected false, pilot 1.0 wounds, last hit by Storm)
+t= 903.3  LOST Hunchback (disabled, armour 17%, heat 0, ejected false, pilot 1.0 wounds, last hit by Storm)
+t= 908.3  MISSION LOST
+seed 2 end t=908 result=LOST  player alive 0  enemies alive 12
+damage to lance: 704 from 34 attackers; hits by location (0 head .. 10 rear RT): { 2: 27, 6: 34, 5: 20, 3: 31, 7: 21, 1: 31, 4: 25, 0: 6 }
+       172  ShaYu (mech)
+       108  Lrmcarrier (vehicle)
+        91  Storm (vehicle)
+        90  Attack Copter (mech)
+        86  Starslayer (mech)
+        73  Catapult (mech)
+        72  Drillson (vehicle)
+        12  Hetzer (vehicle)
+  obj 0 P: open  1. Protect the Base Headquarters
+  obj 1 P: open  2. Destroy all attacking Liao forces.
+  obj 2 s: FAILED  a - Capture Steiner Sensor Control.
+  obj 3 s: open  b - Capture the Turret Control at Road Checkpoin
+  obj 4 s hidden: done  Hidden OBJ to Trigger Wave 2
+  obj 5 s hidden: done  Hidden Objective to Trigger Wave3
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 5, "mc2_06_wv1_Guard2:attack": 3, "mc2_06_wv1_2a_lrm:spawnin": 3, "mc2_06_wv1_2a:attack": 2, "mc2_06_wv1_2a:spawnin": 1, "mc2_06_wv1_Guard2:spawnin": 1, "mc2_06_wv1_1a:attack": 4, "mc2_06_wv1_Guard:attack": 3, "mc2_06_wv2_3a:attack": 5, "mc2_06_wv2_Guard2:base1escort": 2, "mc2_06_wv2_2a:spawn": 2, "mc2_06_wv2_2a:baseassault": 2, "mc2_06_wv3_2a:attack": 4, "mc2_06_wv3_Guard:spawnin": 1, "mc2_06_wv3_Guard:base1escort": 2, "mc2_06_wv3_1a:baseassault": 3, "mc2_06_wv3_1a:attack": 1, "mc2_06_wv1_Guard:base1escort": 1, "mc2_06_wv1_2b:spawnin": 1, "mc2_06_out_Guard:attack": 3 }
+enemy pilots that moved >20 m: 48 / 49
+
+--- stderr ---
+WARNING: 586 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

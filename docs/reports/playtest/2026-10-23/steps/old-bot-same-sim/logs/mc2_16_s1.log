@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_16
+ABL pilots: 51
+t=  35.2  objective done: 1. Capture Sensor Control
+t= 237.0  objective done: 2. Destroy All Base Defenders
+t= 372.8  LOST MenShen (destroyed, armour 49%, heat 16, ejected false, pilot 0.0 wounds, last hit by Madcat)
+t= 391.8  LOST Shootist (disabled, armour 17%, heat 11, ejected false, pilot 0.0 wounds, last hit by Madcat)
+t= 444.0  LOST Bushwacker (destroyed, armour 14%, heat 0, ejected false, pilot 1.0 wounds, last hit by Madcat)
+t= 471.6  LOST Hollander (disabled, armour 44%, heat 0, ejected false, pilot 1.0 wounds, last hit by Madcat)
+t= 504.4  LOST Madcat (disabled, armour 44%, heat 0, ejected false, pilot 1.0 wounds, last hit by Partisan)
+t= 509.4  MISSION LOST
+seed 1 end t=509 result=LOST  player alive 0  enemies alive 17
+damage to lance: 713 from 24 attackers; hits by location (0 head .. 10 rear RT): { 3: 32, 2: 41, 5: 28, 1: 64, 7: 34, 4: 32, 6: 22, 8: 6, 9: 2, 10: 2, 0: 3 }
+       344  Madcat (mech)
+       106  Vulture (mech)
+        68  Partisan (vehicle)
+        54  Lrmcarrier (vehicle)
+        40  Wolfhound (mech)
+        40  Harasser (vehicle)
+        34  Uller (mech)
+        12  Hunter (vehicle)
+         6  Attack Copter (mech)
+         6  Drillson (vehicle)
+  obj 0 P: done  1. Capture Sensor Control
+  obj 1 P: done  2. Destroy All Base Defenders
+  obj 2 P: open  3. Destroy All Reinforcements
+  obj 3 P: open  4. Capture Davion Base HQ
+  obj 4 P: gated  5. Move All Surviving Mechs to Extraction Point
+  obj 5 s: open  a. Capture All Main Base Davion Turret Controls
+  obj 6 s: open  b. Capture All Main Base Davion Gate Controls
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 5, "mc2_16_NorthPatrol:attack": 1, "mc2_16_SensorGuard:attack": 2, "mc2_16_SensorPatrol:attack": 2, "mc2_16_1stMain:attack": 3, "mc2_16_BaseGuard:attack": 8, "mc2_16_BasePatrol2:attack": 2, "mc2_16_1stMain_lrm:attack": 1, "mc2_16_BaseGuard_lrm:attack": 1, "mc2_16_2ndMain_part:base1escort": 1, "mc2_16_2ndMain2:base1patrol": 2, "mc2_16_2ndMain:attack": 1, "mc2_16_3rdMain:attack": 3, "mc2_16_3rdMain_lrm:base1escort": 1, "mc2_16_BasePatrol3:attack": 1, "mc2_16_1stEast2:base1patrol": 2, "mc2_16_1stEast:base1escort": 3, "mc2_16_2ndEast:base1escort": 1, "mc2_16_2ndEast2:base1patrol": 3, "mc2_16_3rdEast:base1escort": 2, "mc2_16_3rdEast2:base1patrol": 1, "mc2_16_4thMain:attack": 1, "mc2_16_4thMain:base1escort": 1, "mc2_16_BaseGuard2:attack": 1, "mc2_16_BaseGuard3_lrm:attack": 2 }
+enemy pilots that moved >20 m: 51 / 51
+
+--- stderr ---
+WARNING: 462 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

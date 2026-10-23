@@ -1,0 +1,41 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_18
+ABL pilots: 72
+t= 229.6  LOST Bushwacker (disabled, armour 82%, heat 0, ejected false, pilot 0.0 wounds, last hit by Aero Spotter)
+t= 229.6  LOST Anubis (destroyed, armour 50%, heat 0, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t= 255.1  LOST Madcat (disabled, armour 39%, heat 3, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t= 259.8  LOST Thor (destroyed, armour 38%, heat 0, ejected false, pilot 0.0 wounds, last hit by -)
+t= 269.8  LOST Vulture (destroyed, armour 16%, heat 0, ejected false, pilot 1.0 wounds, last hit by Aero Spotter)
+t= 274.7  MISSION LOST
+seed 1 end t=275 result=LOST  player alive 0  enemies alive 57
+damage to lance: 141 from 8 attackers; hits by location (0 head .. 10 rear RT): { 1: 6, 7: 3, 2: 9, 6: 8, 4: 5, 5: 6, 3: 2, 0: 1 }
+        55  Highlander (mech)
+        36  Starslayer (mech)
+        16  Aero Spotter (vehicle)
+        12  Partisan (vehicle)
+        10  Hollander (mech)
+         8  Shootist (mech)
+         4  Drillson (vehicle)
+  obj 0 P: open  1. Defend City from Liao and Steiner Forces
+  obj 1 P: open  2. Destroy all Liao/Steiner Forces
+  obj 2 s: open  a. Recapture Davion Headquarters
+  obj 3 s: open  b. Recapture the City's Power Generator
+  obj 4 s: open  c. Recapture Davion Sensor Control
+  obj 5 s hidden: open  Hidden Object To kill group 1
+  obj 6 s hidden: open  Hidden Objective to Kill Group2
+  obj 7 s hidden: open  Hidden Objective to Kill Group 3
+  obj 8 s hidden: open  Hidden Objective To Kill Group 4
+  obj 9 s hidden: open  Hidden Objective to Trigger Group Sneaky
+  obj 10 s hidden: done  Hidden Objective that Triggers Objectives to app
+  obj 11 s hidden: open  Hidden Objective when the player kills 25 enemie
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 5, "mc2_18_Grp1_Mechs:start": 4, "mc2_18_Grp1_Veh:start": 2, "mc2_18_Grp2_Mechs:start": 4, "mc2_18_Grp3_Mechs:start": 6, "mc2_18_Grp2_Veh:start": 4, "mc2_18_Grp4_Mechs:start": 5, "mc2_18_sneaky_mech:start": 4, "mc2_18_Gpatrol_Veh:start": 2, "mc2_18_guard_Veh:start": 3, "mc2_18_Grp0_Veh:start": 5, "mc2_18_guard_PD_mech:start": 4, "mc2_18_patrol_1:start": 1, "mc2_18_guard_Low:start": 1, "mc2_18_guard_High:start": 2, "mc2_18_Gpatrol_Mechs:attack": 2, "mc2_18_guard_Low:attack": 1, "mc2_18_guard_High:attack": 2, "mc2_18_guard_LOW:start": 7, "mc2_18_guard_HIGH:attack": 2, "mc2_18_patrol_lake2:attack": 2, "mc2_18_patrol_lake:attack": 1, "mc2_18_patrol_4:start": 1, "mc2_18_guard_HIGH:start": 1, "mc2_18_patrol_2:start": 1 }
+enemy pilots that moved >20 m: 21 / 72
+
+--- stderr ---
+WARNING: 872 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
