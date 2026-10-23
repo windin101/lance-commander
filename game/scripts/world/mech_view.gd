@@ -35,7 +35,11 @@ func setup(sim_mech: SimUnit, sim_map: SimMap) -> void:
 	_paint_name = mech.model
 	# HD models (tools/art pipeline) replace the 2001 mesh when present; --no-hd compares.
 	var hd_path := _asset_path("_hd.glb")
-	if ResourceLoader.exists(hd_path) and not OS.get_cmdline_user_args().has("--no-hd"):
+	var v2_path := ArtV2.model_path("mechs" if mech is SimMech else "vehicles", mech.model)  # HD rework, dev switch
+	if v2_path != "":
+		path = v2_path
+		_paint_name = mech.model + "_v2"
+	elif ResourceLoader.exists(hd_path) and not OS.get_cmdline_user_args().has("--no-hd"):
 		path = hd_path
 		_paint_name = mech.model + "_hd"
 	if not ResourceLoader.exists(path):
@@ -165,7 +169,7 @@ func _wreck() -> void:
 	_wrecked = true
 	ring.visible = false
 	# HD mechs: fall over with their own animation, freeze on the last frame, scorch.
-	if _paint_name.ends_with("_hd") and player and player.has_animation("FallForward"):
+	if (_paint_name.ends_with("_hd") or _paint_name.ends_with("_v2")) and player and player.has_animation("FallForward"):
 		var fall := player.get_animation("FallForward")
 		player.speed_scale = 1.0
 		player.play("FallForward")
@@ -185,6 +189,12 @@ func _wreck() -> void:
 ## Darken a destroyed model: burnt paint, no shine.
 static func _scorch(root: Node) -> void:
 	for mi in root.find_children("*", "MeshInstance3D", true, false):
+		var sm := (mi as MeshInstance3D).material_override as ShaderMaterial
+		if sm:  # v2 unit shader: its own burn
+			var burnt_v2 := sm.duplicate() as ShaderMaterial
+			burnt_v2.set_shader_parameter("scorch", 1.0)
+			(mi as MeshInstance3D).material_override = burnt_v2
+			continue
 		var m := (mi as MeshInstance3D).material_override as StandardMaterial3D
 		if m == null:
 			continue

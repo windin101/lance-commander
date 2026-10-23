@@ -150,6 +150,23 @@ Each orientation was checked by eye against the original's front view. Mechs are
 - **Attention mode:** run the ComfyUI used for the Qwen edits with `--use-split-cross-attention`. With PyTorch SDPA on this ROCm nightly, edits intermittently come back as garbage.
 - **Retries:** split attention still fails now and then, so `hd_mech.py` validates each concept and retries with the next seed.
 
+## HD rework v2 (staged, `game/assets/v2/`, 2026-10-23)
+
+Pilot assets of the model and texture rework (plan and audit: `docs/art/rework-audit.md`). They are staged beside the
+installed models and only load with the dev switch on (`ArtV2`: `--art-v2`, `MC2_ART_V2=1`, or `[art] v2=true` in
+`user://dev.cfg`); with it off the game is unchanged. Nothing installed was overwritten.
+
+| File | What | How it was made | Licence |
+|---|---|---|---|
+| `v2/mechs/bushwacker.glb`, `bushwacker_{mask,detail,normal}.png`, `bushwacker.rig.json` | HD Bushwacker v2: 59.6k tris, 2048 px maps | `tools/art/hd_v2.py bushwacker --stl bsw-x1-4.stl --joints tools/art/hd_v2/bushwacker.json --steps fit,segment,bake,paint,install`. Fit by `stl_rig.py` (unchanged; hips, knees and ankles pinned in x, pelvis centred with `x_shift` 300). Re-segmented along the sculpt's creases (geodesic regions + alpha-expansion), ball and drum actuators at 7 joints (waist drum about the twist axis), Blender 5.2 Smart UV Project, Cycles AO and bevelled-edge normal bakes, zone mask from the original's mask per crease panel, "07" decals. No hand edits. | adaptation of "BSW-X1, X2 & S2 Bushwacker for Battletech" by Syllogy (https://www.printables.com/model/1863885), **CC BY-NC-SA 4.0**; notice `v2/mechs/bushwacker.LICENSE.md`. Skeleton and animations: Shared Source terms. |
+| `v2/vehicles/lrmc.glb`, `lrmc_{mask,detail,normal}.png`, `lrmc.rig.json` | HD LRM carrier v2: 150k tris (Godot import LODs for the RTS camera), 1024 px maps | `hd_v2.py lrmc --folder vehicles --stl Heavy_LRM_Carrier_.stl --joints tools/art/hd_v2/lrmc.json --tex 1024 --faces 150000 --steps fitveh,lowpoly,bake,paint,install`. Fit by `stl_hd.py` (unchanged, but not simplified), Blender merge + planar dissolve + collapse from the 653k-tri kit, then as the mech. No hand edits. | adaptation of "Heavy LRM Carrier" by RGriffin65 (https://www.thingiverse.com/thing:7132255), **CC BY-SA 4.0**; notice `v2/vehicles/lrmc.LICENSE.md`. |
+| `v2/objects/quonsetclean.glb`, `quonsetclean_ao.png`, `quonsetclean.v2.json` | Quonset hut v2: 7.6k tris, true arcs, tiling PBR surfaces, 1024 px AO | `CAD_ARC_SEGMENTS=96 tools/cad/quonsetclean_cad.py` → `solidcraft-cli run` (SolidCraft 0.15) → `tools/art/hd_v2_building.py quonsetclean <obj> --openings openings.json`. Surfaces by CAD body and opening; Cycles AO on UV2. | dimensions measured from the Shared Source original: **Shared Source (non-commercial)**; textures new work |
+| `v2/shared/{sheet,panel,concrete,trim,door}_{albedo,normal}.png`, `grunge.png` | tiling building surfaces, unit grunge | `tools/art/hd_v2_textures.py`, procedural numpy, seeded `crc32(name)` | new work, project terms |
+| `game/shaders/unit_hd.gdshader`, `building_hd.gdshader`, `game/data/unit_weather.json` | v2 shaders; per-mission dust and snow | hand-written; the weather table by `tools/art/unit_weather.py` from each map's colour map, snow read by eye (overrides in the script) | new work, project terms |
+
+Source sculpts for every adapted model are staged on `/mnt/nvme1n1p1/mc2-sources/<kind>/<name>/` (zip or STL as
+downloaded, plus `SOURCE.txt`; `tools/art/stage_sources.py`, index in `index.json`); they are not in the repository.
+
 ## HUD paper dolls (`game/assets/ui/dolls/<unit>_doll.png`, `dolls.json`)
 
 These are derived from this project's own HD models (`game/assets/mechs/*_hd.glb`, `game/assets/vehicles/*_hd.glb`) by `tools/art/paper_doll.py` (2026-10-20), with per-unit overrides in `tools/art/paper_doll.json`. Each mask inherits the licence of the model it was drawn from: the Shared Source terms (non-commercial) for Hunyuan and CAD models, and the third-party licence recorded in `original/hd/<unit>/provenance.json` for adapted sculpts. Nothing is generated. Rerunning the tool rebuilds them exactly; `python3 -I tools/art/paper_doll.py <unit>` redoes one unit.

@@ -1,0 +1,21 @@
+{
+ "model": "lrmc.glb",
+ "made_by": "tools/art/hd_v2.py",
+ "actuators": [],
+ "filler_faces": [
+  [
+   150000,
+   150000
+  ]
+ ],
+ "joint_pairs": [],
+ "contacts": [],
+ "parts": {
+  "lrmc2": 110532,
+  "lrmc_turret": 837,
+  "LrmPods": 38631
+ },
+ "tris": 150000,
+ "height_m": 4.47,
+ "texture_px": 1024
+}

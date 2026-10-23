@@ -1,0 +1,209 @@
+{
+ "model": "bushwacker.glb",
+ "made_by": "tools/art/hd_v2.py",
+ "actuators": [
+  {
+   "node": "bw_torso",
+   "joint": "joint_torso",
+   "kind": "hinge",
+   "radius": 0.6155718357169639,
+   "length": 0.37586939922040113,
+   "axis": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "bw_luarm",
+   "joint": "joint_luarm",
+   "kind": "ball",
+   "radius": 0.31583112312359957,
+   "length": 0.0,
+   "axis": [
+    -0.9770172610548603,
+    -0.21313098762164484,
+    0.0035289823294401
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "bw_ruleg",
+   "joint": "joint_ruleg",
+   "kind": "ball",
+   "radius": 0.4813765022459984,
+   "length": 0.0,
+   "axis": [
+    -0.999394730991304,
+    0.013606430642106097,
+    -0.03201619452715695
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "bw_luleg",
+   "joint": "joint_luleg",
+   "kind": "ball",
+   "radius": 0.31583112312359957,
+   "length": 0.0,
+   "axis": [
+    -0.9954713650423528,
+    -0.08635774652379244,
+    -0.039737903770169856
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "bw_llleg",
+   "joint": "joint_llleg",
+   "kind": "hinge",
+   "radius": 0.2190090924751119,
+   "length": 0.7973131193014609,
+   "axis": [
+    -1.0,
+    7.699028359287041e-10,
+    1.1781763065155104e-10
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "bw_lfoot",
+   "joint": "joint_lankle",
+   "kind": "ball",
+   "radius": 0.4813765022459984,
+   "length": 0.0,
+   "axis": [
+    -0.8836119930988354,
+    0.23333987727415811,
+    -0.4059339199002524
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "bw_rfoot",
+   "joint": "joint_rankle",
+   "kind": "ball",
+   "radius": 0.4813765022459984,
+   "length": 0.0,
+   "axis": [
+    -0.9079976148885475,
+    0.3717280282229053,
+    0.19328374062558948
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  }
+ ],
+ "filler_faces": [
+  [
+   49967,
+   59567
+  ]
+ ],
+ "joint_pairs": [
+  [
+   "bw_llleg",
+   "bw_lfoot"
+  ],
+  [
+   "bw_luleg",
+   "bw_llleg"
+  ],
+  [
+   "bw_rlleg",
+   "bw_rfoot"
+  ],
+  [
+   "bw_ruleg",
+   "bw_rlleg"
+  ],
+  [
+   "bw_hip",
+   "bw_luleg"
+  ],
+  [
+   "bw_hip",
+   "bw_ruleg"
+  ],
+  [
+   "bw_hip",
+   "bw_torso"
+  ],
+  [
+   "bw_torso",
+   "joint_lmlauncher"
+  ],
+  [
+   "bw_torso",
+   "bw_luarm"
+  ],
+  [
+   "bw_luarm",
+   "bw_lgun"
+  ]
+ ],
+ "contacts": [
+  [
+   "bw_torso",
+   "bw_luleg"
+  ],
+  [
+   "bw_torso",
+   "bw_ruleg"
+  ],
+  [
+   "bw_torso",
+   "bw_rlleg"
+  ],
+  [
+   "bw_torso",
+   "bw_rgun"
+  ]
+ ],
+ "parts": {
+  "bw_lfoot": 3772,
+  "bw_llleg": 4941,
+  "bw_luleg": 2963,
+  "bw_rfoot": 3862,
+  "bw_rlleg": 2934,
+  "bw_ruleg": 2148,
+  "bw_hip": 2383,
+  "bw_torso": 24844,
+  "joint_lmlauncher": 0,
+  "bw_lgun": 2568,
+  "bw_luarm": 2822,
+  "bw_rgun": 6330,
+  "bw_ruarm": 0
+ },
+ "tris": 59567,
+ "height_m": 8.95,
+ "texture_px": 2048
+}

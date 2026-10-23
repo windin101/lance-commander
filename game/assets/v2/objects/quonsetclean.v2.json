@@ -1,0 +1,16 @@
+{
+ "app": "quonsetclean",
+ "made_by": "tools/art/hd_v2_building.py",
+ "obj": "/home/leeo/craft/solid/mc2/buildings/quonsetclean/v2/quonsetclean.obj",
+ "tris": 7554,
+ "types": {
+  "sheet": 0.165,
+  "panel": 0.126,
+  "concrete": 0.002,
+  "trim": 0.703,
+  "door": 0.001,
+  "glass": 0.004
+ },
+ "ao_px": 1024,
+ "licence": "MC2 Shared Source terms (dimensions from the original); textures new work"
+}

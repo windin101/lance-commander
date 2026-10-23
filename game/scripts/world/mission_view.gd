@@ -49,6 +49,7 @@ func _ready() -> void:
 	terrain.water_fit = mission_fit.get("Water", {})
 	terrain.water_detail_tiling = float(mission_fit.get("Terrain", {}).get("WaterDetailTilingFactor", 45.0))
 	terrain.build(world.map, "res://assets/maps/%s" % mission)
+	MechPaint.set_environment_for(mission)  # dust and snow on v2 units
 	objects_view = ObjectsView.new()
 	objects_view.name = "Objects"
 	add_child(objects_view)

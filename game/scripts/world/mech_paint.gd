@@ -6,6 +6,9 @@ extends RefCounted
 ## Missions pass (HighlightColor1, HighlightColor2, BaseColor) for (red, green, blue).
 
 static var _cache := {}
+## Environment layer of the v2 unit shader (HD rework 2026-10-23): dust and snow cover, 0..1, set per mission.
+static var env_dust := 0.0
+static var env_snow := 0.0
 
 
 ## ARGB int from a mission FIT (may be negative) -> Color.
@@ -65,7 +68,11 @@ static func _first_material(root: Node) -> StandardMaterial3D:
 
 
 ## Recolour every mesh under root with one material using the painted texture.
+## A "<model>_v2" name (ArtV2 models) gets the v2 unit shader instead (apply_v2).
 static func apply(root: Node, model_name: String, red: Color, green: Color, blue: Color, folder: String = "mechs") -> void:
+	if model_name.ends_with("_v2"):
+		apply_v2(root, model_name.trim_suffix("_v2"), red, green, blue, folder)
+		return
 	var key := "%s/%s|%s|%s|%s" % [folder, model_name, red.to_html(), green.to_html(), blue.to_html()]
 	var mat: StandardMaterial3D = _cache.get(key)
 	if mat == null:
@@ -93,3 +100,73 @@ static func apply(root: Node, model_name: String, red: Color, green: Color, blue
 		_cache[key] = mat
 	for mi in root.find_children("*", "MeshInstance3D", true, false):
 		(mi as MeshInstance3D).material_override = mat
+
+
+# --- v2 (HD rework, 2026-10-23) ---------------------------------------------------------------------------
+
+static var _v2_mats: Array[ShaderMaterial] = []
+static var env_dust_colour := Color(0.56, 0.5, 0.4)
+
+
+## A team colour as the v2 shader takes it: a little desaturated and below full brightness, so a scheme's pure
+## green or red reads as paint under PBR light rather than as an emissive sticker.
+static func _paint_colour(c: Color) -> Color:
+	var l := c.get_luminance()
+	return c.lerp(Color(l, l, l), 0.18) * 0.82
+
+
+## The v2 unit shader (res://shaders/unit_hd.gdshader) with this model's mask, detail and normal maps
+## (res://assets/v2/<folder>/<name>_{mask,detail,normal}.png) and the team colours: red = HighlightColor1,
+## green = HighlightColor2, blue = BaseColor, as the original's mask channels.
+static func apply_v2(root: Node, name: String, red: Color, green: Color, blue: Color, folder: String = "mechs") -> void:
+	var key := "v2/%s/%s|%s|%s|%s" % [folder, name, red.to_html(), green.to_html(), blue.to_html()]
+	var mat: ShaderMaterial = _cache.get(key)
+	if mat == null:
+		var dir := "res://assets/v2/%s/%s" % [folder, name]
+		mat = ShaderMaterial.new()
+		mat.shader = load("res://shaders/unit_hd.gdshader")
+		for k in ["mask", "detail", "normal"]:
+			var p := "%s_%s.png" % [dir, k]
+			if ResourceLoader.exists(p):
+				mat.set_shader_parameter("%s_tex" % k, load(p))
+		mat.set_shader_parameter("grunge_tex", load("res://assets/v2/shared/grunge.png"))
+		mat.set_shader_parameter("base_colour", _paint_colour(blue))
+		mat.set_shader_parameter("hl1_colour", _paint_colour(red))
+		mat.set_shader_parameter("hl2_colour", _paint_colour(green))
+		var rig_path := "%s.rig.json" % dir
+		if FileAccess.file_exists(rig_path):
+			var rig: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(rig_path))
+			mat.set_shader_parameter("height_m", float(rig.get("height_m", 9.0)))
+			for k in ["wear", "grime", "burns", "grunge_scale"]:
+				if rig.has(k):
+					mat.set_shader_parameter(k, float(rig[k]))
+		_set_env(mat)
+		_cache[key] = mat
+		_v2_mats.append(mat)
+	var seed := float(absi(hash(root.name)) % 997) / 9.97
+	for mi in root.find_children("*", "MeshInstance3D", true, false):
+		(mi as MeshInstance3D).material_override = mat
+		(mi as MeshInstance3D).set_instance_shader_parameter("unit_seed", seed)
+
+
+static func _set_env(mat: ShaderMaterial) -> void:
+	mat.set_shader_parameter("dust", env_dust)
+	mat.set_shader_parameter("snow", env_snow)
+	mat.set_shader_parameter("dust_colour", env_dust_colour)
+
+
+## The mission's dust and snow layer on every v2 unit (game/data/unit_weather.json, tools/art/unit_weather.py).
+static func set_environment_for(mission: String) -> void:
+	var path := "res://data/unit_weather.json"
+	var w: Dictionary = {}
+	if FileAccess.file_exists(path):
+		w = JSON.parse_string(FileAccess.get_file_as_string(path)).get(mission, {})
+	set_environment(float(w.get("dust", 0.25)), float(w.get("snow", 0.0)), Color(String(w.get("dust_colour", "#8f8066"))))
+
+
+static func set_environment(dust: float, snow: float, colour: Color) -> void:
+	env_dust = dust
+	env_snow = snow
+	env_dust_colour = colour
+	for m in _v2_mats:
+		_set_env(m)

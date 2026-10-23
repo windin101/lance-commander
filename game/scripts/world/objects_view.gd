@@ -37,7 +37,9 @@ func build(sim_map: SimMap, mission: String) -> int:
 			# HD models (tools/art, --kind objects) replace the 2001 mesh when present; --no-hd compares.
 			# order: the SolidCraft rebuild, then the original model with 4x upscaled textures (tools/art/upscale_textures.py), then a
 			# Hunyuan HD model, then the original
-			var res := "res://assets/objects/%s_cad.glb" % app  # SolidCraft rebuild (tools/cad, tools/art/cad_building.py)
+			var res := ArtV2.model_path("objects", app)  # HD rework (tools/art/hd_v2_building.py), dev switch
+			if res == "":
+				res = "res://assets/objects/%s_cad.glb" % app  # SolidCraft rebuild (tools/cad, tools/art/cad_building.py)
 			if not ResourceLoader.exists(res):
 				res = "res://assets/objects/%s_hdtex.glb" % app
 			if not ResourceLoader.exists(res):
@@ -48,6 +50,8 @@ func build(sim_map: SimMap, mission: String) -> int:
 			if scenes[app] != null:
 				var probe: Node3D = scenes[app].instantiate()
 				_matte(probe)  # materials are shared by every instance of this model
+				if res.begins_with("res://assets/v2/"):
+					ArtV2.dress_object(probe, app)
 				probe.free()
 		if scenes[app] == null:
 			continue

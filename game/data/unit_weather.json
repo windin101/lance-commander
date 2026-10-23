@@ -1,0 +1,123 @@
+{
+ "mc2_01": {
+  "snow": 0.0,
+  "dust": 0.42,
+  "dust_colour": "#9b804e"
+ },
+ "mc2_02": {
+  "snow": 0.25,
+  "dust": 0.25,
+  "dust_colour": "#838167"
+ },
+ "mc2_03": {
+  "snow": 0.01,
+  "dust": 0.25,
+  "dust_colour": "#867b63"
+ },
+ "mc2_04": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#948955"
+ },
+ "mc2_05": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#628870"
+ },
+ "mc2_06": {
+  "snow": 0.6,
+  "dust": 0.27,
+  "dust_colour": "#838067"
+ },
+ "mc2_07": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#958855"
+ },
+ "mc2_08": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#8d825d"
+ },
+ "mc2_09": {
+  "snow": 0.0,
+  "dust": 0.44,
+  "dust_colour": "#917e58"
+ },
+ "mc2_10": {
+  "snow": 0.01,
+  "dust": 0.26,
+  "dust_colour": "#897b61"
+ },
+ "mc2_11": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#8b7c5f"
+ },
+ "mc2_12": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#938956"
+ },
+ "mc2_13": {
+  "snow": 0.0,
+  "dust": 0.55,
+  "dust_colour": "#757575",
+  "_why": "lunar regolith, grey but not snow"
+ },
+ "mc2_14": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#9e744c"
+ },
+ "mc2_15": {
+  "snow": 0.35,
+  "dust": 0.25,
+  "dust_colour": "#8c8c5d"
+ },
+ "mc2_16": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#897f61"
+ },
+ "mc2_17": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#877a63"
+ },
+ "mc2_18": {
+  "snow": 0.45,
+  "dust": 0.25,
+  "dust_colour": "#808367"
+ },
+ "mc2_19": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#688181"
+ },
+ "mc2_20": {
+  "snow": 0.2,
+  "dust": 0.25,
+  "dust_colour": "#8b835f"
+ },
+ "mc2_21": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#6c7e72"
+ },
+ "mc2_22": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#928358"
+ },
+ "mc2_23": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#658465"
+ },
+ "mc2_24": {
+  "snow": 0.0,
+  "dust": 0.25,
+  "dust_colour": "#8e7d5b"
+ }
+}

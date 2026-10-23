@@ -15,6 +15,7 @@ the side windows have small hoods; 6 cm arch ribs ring the hull between the side
 """
 import json
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -42,8 +43,12 @@ pts[0] = (pts[0][0], 0.0)
 pts[-1] = (pts[-1][0], 0.0)
 hull = B.prism_z("hull", pts, Z0, Z1)
 
-# inset end walls: cut a 24-gon half disc of radius R - LIP back INSET from each end
-def half_disc(rad, k=24):
+# inset end walls: cut a 24-gon half disc of radius R - LIP back INSET from each end. CAD_ARC_SEGMENTS (HD rework v2,
+# 2026-10-23: 96) makes the end walls and ribs true-looking arcs instead of the original's facets; unset keeps v1.
+ARC = int(os.environ.get("CAD_ARC_SEGMENTS", 24))
+
+
+def half_disc(rad, k=ARC):
     return [(rad * math.cos(math.pi * i / k), rad * math.sin(math.pi * i / k)) for i in range(k + 1)]
 
 for z in (Z0, Z1):
@@ -52,8 +57,8 @@ for z in (Z0, Z1):
     B.cut(hull, t)
 
 # arch ribs between the side windows, one sheet bay (4.23 m) apart
-outer = [(x, y) for x, y in half_disc(R + AMP + 0.06, 48)]
-inner = [(x, y) for x, y in half_disc(R - AMP - 0.02, 48)][::-1]
+outer = [(x, y) for x, y in half_disc(R + AMP + 0.06, 2 * ARC)]
+inner = [(x, y) for x, y in half_disc(R - AMP - 0.02, 2 * ARC)][::-1]
 for k, zr in enumerate((-10.62, -6.39, -2.16, 2.07)):
     B.prism_z(f"rib{k}@avg", outer + inner, zr - 0.1, zr + 0.1)
 
