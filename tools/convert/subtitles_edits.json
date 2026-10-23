@@ -1,0 +1,611 @@
+{
+ "_doc": "Reviewed corrections and speakers for tools/convert/subtitles.py build. pilots: key -> {text} or {drop}; vo: key -> {speaker, text?, segment_speakers?}; spellings: [regex, replacement] applied to every line.",
+ "pilots": {
+  "pilot1/plt1_acknowledgec": {
+   "text": "Right."
+  },
+  "pilot1/plt1_ammoout": {
+   "text": "Ammo's running dry."
+  },
+  "pilot1/plt1_callsignb": {
+   "text": "Let's hear it for Bubba."
+  },
+  "pilot1/plt1_capturebuilding": {
+   "text": "Building captured."
+  },
+  "pilot1/plt1_mechcrippled": {
+   "text": "My 'Mech's limping something awful."
+  },
+  "pilot1/plt1_mechdeada": {
+   "text": "Popped him good!"
+  },
+  "pilot1/plt1_mechdeadb": {
+   "text": "I done whooped him good."
+  },
+  "pilot1/plt1_mechsalvagablea": {
+   "text": "Here's one for the salvage heap."
+  },
+  "pilot1/plt1_taunta": {
+   "text": "You're all mine now."
+  },
+  "pilot1/plt1_weaponsout": {
+   "text": "Well, I ain't got no weapons left!"
+  },
+  "pilot10/plt10_buildingdead": {
+   "text": "Building destroyed."
+  },
+  "pilot10/plt10_calledshot": {
+   "text": "You set 'em up, I'll knock 'em down."
+  },
+  "pilot10/plt10_hittingmines": {
+   "text": "Hold up! Sound off, landmines!"
+  },
+  "pilot10/plt10_mechsalvageableb": {
+   "text": "This 'Mech's salvageable, Commander."
+  },
+  "pilot10/plt10_sensorcontactb": {
+   "text": "I got something on sensors."
+  },
+  "pilot11/plt11_calledshot": {
+   "text": "That's tricky!"
+  },
+  "pilot11/plt11_callsigna": {
+   "text": "It's Jinx!"
+  },
+  "pilot12/plt12_airstrikeattack": {
+   "text": "Airstrike!"
+  },
+  "pilot12/plt12_cannotcapture": {
+   "text": "Aborting capture."
+  },
+  "pilot12/plt12_ejecting": {
+   "text": "I'm punching out!"
+  },
+  "pilot13/plt13_ammoout": {
+   "text": "I'm all out, sir."
+  },
+  "pilot13/plt13_callsigna": {
+   "text": "It's Meat."
+  },
+  "pilot13/plt13_callsignb": {
+   "text": "This is Meat."
+  },
+  "pilot13/plt13_capturebuilding": {
+   "text": "Building captured."
+  },
+  "pilot13/plt13_guard": {
+   "text": "Guard duty, uh-huh."
+  },
+  "pilot13/plt13_pilothurt": {
+   "text": "I took one in the gut!"
+  },
+  "pilot14/plt14_buildingdead": {
+   "text": "The building's gone!"
+  },
+  "pilot14/plt14_cannotcapture": {
+   "text": "Bogey's too close!"
+  },
+  "pilot14/plt14_capturevehicle": {
+   "text": "Vehicle's ours."
+  },
+  "pilot14/plt14_ejecting": {
+   "text": "Punch it out!"
+  },
+  "pilot14/plt14_taunta": {
+   "text": "Hehehe."
+  },
+  "pilot14/plt14_tauntb": {
+   "text": "Get some!"
+  },
+  "pilot14/plt14_weaponsout": {
+   "text": "All weapons gone, I'm playing D!"
+  },
+  "pilot15/plt15_acknowledgeb": {
+   "text": "Aff."
+  },
+  "pilot15/plt15_callsignb": {
+   "text": "Nuke reporting."
+  },
+  "pilot15/plt15_mechsalvageableb": {
+   "text": "More salvage."
+  },
+  "pilot16/plt16_callsigna": {
+   "text": "Palerider here."
+  },
+  "pilot16/plt16_callsignb": {
+   "text": "It's Palerider."
+  },
+  "pilot16/plt16_cannotcapture": {
+   "text": "Enemy's too close for capture."
+  },
+  "pilot16/plt16_mechdeada": {
+   "text": "Guess he didn't make it."
+  },
+  "pilot17/plt17_acknowledgea": {
+   "text": "Aff, my commander."
+  },
+  "pilot17/plt17_cannotcapture": {
+   "text": "I must abort the capture. I am ashamed."
+  },
+  "pilot17/plt17_mechsalvagablea": {
+   "text": "Here's one for the salvage heap."
+  },
+  "pilot17/plt17_refitnotcomplete": {
+   "text": "I am unworried."
+  },
+  "pilot17/plt17_taunta": {
+   "text": "Freebirth."
+  },
+  "pilot18/plt18_pilothurt": {
+   "text": "Son of a... I'm hit!"
+  },
+  "pilot19/plt19_ejecting": {
+   "text": "Ejecting!"
+  },
+  "pilot19/plt19_guard": {
+   "text": "I'm on guard!"
+  },
+  "pilot19/plt19_mechsalvageableb": {
+   "text": "This 'Mech's salvageable, Commander."
+  },
+  "pilot19/plt19_vehicledeada": {
+   "text": "Another one bites the dust."
+  },
+  "pilot2/plt2_armorholeb": {
+   "text": "I can't take much more of this."
+  },
+  "pilot2/plt2_callsigna": {
+   "text": "It's Chopper."
+  },
+  "pilot2/plt2_callsignb": {
+   "text": "This is Chopper here."
+  },
+  "pilot2/plt2_mechdeada": {
+   "text": "Yes! Scrap metal!"
+  },
+  "pilot2/plt2_refitcomplete": {
+   "text": "Jeez, five by five."
+  },
+  "pilot20/plt20_egg": {
+   "text": "Tell my wife I..."
+  },
+  "pilot20/plt20_ejecting": {
+   "text": "Ejecting!"
+  },
+  "pilot20/plt20_mechsalvageableb": {
+   "text": "This 'Mech's salvageable, Commander."
+  },
+  "pilot21/plt21_acknowledgea": {
+   "text": "Right on that!"
+  },
+  "pilot21/plt21_armorholea": {
+   "text": "My armor's getting stripped off!"
+  },
+  "pilot21/plt21_ejecting": {
+   "text": "Ejecting!"
+  },
+  "pilot21/plt21_pilothurt": {
+   "text": "Ow! My arm!"
+  },
+  "pilot22/plt22_callsigna": {
+   "text": "Steel reporting."
+  },
+  "pilot22/plt22_egg1": {
+   "drop": true
+  },
+  "pilot22/plt22_egg2": {
+   "drop": true
+  },
+  "pilot22/plt22_ejecting": {
+   "text": "Ejecting!"
+  },
+  "pilot22/plt22_guard": {
+   "text": "Roger that, guarding this position."
+  },
+  "pilot22/plt22_mechdeada": {
+   "text": "Scratch one enemy 'Mech."
+  },
+  "pilot23/plt23_cannotcapture": {
+   "text": "I can't capture that, the enemy's too close!"
+  },
+  "pilot23/plt23_ejecting": {
+   "text": "Ejecting! Ejecting!"
+  },
+  "pilot23/plt23_mechcrippled": {
+   "text": "Oh, my butt's dragging!"
+  },
+  "pilot24/plt24_ammoout": {
+   "text": "My ammo's out!"
+  },
+  "pilot24/plt24_calledshot": {
+   "text": "Taking aim."
+  },
+  "pilot24/plt24_callsignb": {
+   "text": "This is Venom."
+  },
+  "pilot24/plt24_cannotcapture": {
+   "text": "Aborting capture, enemy too close."
+  },
+  "pilot24/plt24_ejecting": {
+   "text": "Ejecting!"
+  },
+  "pilot24/plt24_guard": {
+   "text": "Securing this position."
+  },
+  "pilot24/plt24_mechsalvageablea": {
+   "text": "Here's one for the salvage heap."
+  },
+  "pilot24/plt24_mechsalvageableb": {
+   "text": "We can salvage that 'Mech."
+  },
+  "pilot24/plt24_vehicledeada": {
+   "text": "Vehicle toasted."
+  },
+  "pilot24/plt24_weaponsout": {
+   "text": "No weapons left. Want me to bleed on him?"
+  },
+  "pilot25/plt25_callsigna": {
+   "text": "Wicked here."
+  },
+  "pilot25/plt25_targetacknowledgea": {
+   "text": "Locking target."
+  },
+  "pilot25/plt25_taunta": {
+   "text": "Open wide!"
+  },
+  "pilot26/plt26_callsigna": {
+   "text": "Worm here."
+  },
+  "pilot26/plt26_callsignb": {
+   "text": "This is Worm."
+  },
+  "pilot26/plt26_mechsavageablea": {
+   "text": "Heh heh, one for the salvage heaps."
+  },
+  "pilot26/plt26_taunta": {
+   "text": "It's just you and me."
+  },
+  "pilot26/plt26_tauntc": {
+   "text": "Stand still, maggot."
+  },
+  "pilot26/plt26_vehicledeadb": {
+   "text": "He's dust."
+  },
+  "pilot3/plt3_airstrikeattack": {
+   "text": "Airstrike!"
+  },
+  "pilot3/plt3_armorholea": {
+   "text": "I'm getting short for home!"
+  },
+  "pilot3/plt3_armorholeb": {
+   "text": "Me 'Mech's falling apart!"
+  },
+  "pilot3/plt3_callsignb": {
+   "text": "This is Claymore."
+  },
+  "pilot3/plt3_pilothurt": {
+   "text": "Damn! I've got blood in my eyes!"
+  },
+  "pilot3/plt3_taunta": {
+   "text": "You'll have to shoot better than that!"
+  },
+  "pilot4/plt4_armorholea": {
+   "text": "My armor's cheesecloth!"
+  },
+  "pilot4/plt4_taunta": {
+   "text": "Hm. Throttle's twitchy."
+  },
+  "pilot5/plt5_callsigna": {
+   "text": "Haha, it's Creep."
+  },
+  "pilot5/plt5_callsignb": {
+   "text": "This is Creep."
+  },
+  "pilot5/plt5_mechdeada": {
+   "text": "Ha ha ha ha ha!"
+  },
+  "pilot5/plt5_pilothurt": {
+   "text": "Ooh, that got me! I'm shot!"
+  },
+  "pilot6/plt6_buildingdead": {
+   "text": "Building leveled."
+  },
+  "pilot6/plt6_tauntb": {
+   "text": "Looking for the shot."
+  },
+  "pilot7/plt7_capturebuilding": {
+   "text": "The building's ours."
+  },
+  "pilot9/plt9_acknowledgec": {
+   "text": "Check."
+  },
+  "pilot9/plt9_callsigna": {
+   "text": "Hacksaw here."
+  }
+ },
+ "spellings": [
+  [
+   "\\b[Mm]ech [Ww]arriors\\b",
+   "MechWarriors"
+  ],
+  [
+   "\\b[Mm]ech [Ww]arrior\\b",
+   "MechWarrior"
+  ],
+  [
+   "(?<!')\\b[Mm]ech's\\b",
+   "'Mech's"
+  ],
+  [
+   "(?<!')\\b[Mm]echs\\b",
+   "'Mechs"
+  ],
+  [
+   "(?<!')\\b[Mm]ech\\b",
+   "'Mech"
+  ],
+  [
+   "\\bTAC map\\b",
+   "tac map"
+  ],
+  [
+   "\\bC-bills\\b",
+   "C-Bills"
+  ],
+  [
+   "\\bMan Shen\\b",
+   "Men Shen"
+  ],
+  [
+   "\\bBong\\b",
+   "Vong"
+  ],
+  [
+   "Clan Objection Pod",
+   "Clan ejection pod"
+  ],
+  [
+   "\\bComray\\b",
+   "complex"
+  ],
+  [
+   "\\blong tom\\b",
+   "Long Tom"
+  ],
+  [
+   "\\bYoucan\\b",
+   "You can"
+  ],
+  [
+   "\\burban mech\\b",
+   "UrbanMech"
+  ],
+  [
+   "\\b5 by 5\\b",
+   "five by five"
+  ],
+  [
+   "\\bdefenceless\\b",
+   "defenseless"
+  ],
+  [
+   "\\bAAAA+\\b",
+   ""
+  ],
+  [
+   "\\bAHHH+\\b",
+   ""
+  ]
+ ],
+ "vo": {
+  "mc2_01": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_04_0": {
+   "speaker": "Liao Operator"
+  },
+  "mc2_04_1": {
+   "speaker": "Liao Operator"
+  },
+  "mc2_05_1": {
+   "speaker": "Steel"
+  },
+  "mc2_06": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_09_1": {
+   "segment_speakers": [
+    "Bandit Boss",
+    "Liao Operator",
+    "Bandit Boss",
+    "Bandit Boss"
+   ],
+   "speaker": ""
+  },
+  "mc2_11_0": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_11_1": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_11_2": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_11_3": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_11_4": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_11_5": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_12_0": {
+   "speaker": "Cash"
+  },
+  "mc2_12_1": {
+   "speaker": "Cash"
+  },
+  "mc2_12_2": {
+   "speaker": "Cash"
+  },
+  "mc2_12_3": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_13_2": {
+   "segment_speakers": [
+    "Tac Officer",
+    "Clan Warrior"
+   ],
+   "speaker": ""
+  },
+  "mc2_13_3": {
+   "speaker": "Clan Warrior"
+  },
+  "mc2_15_0": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_15_3": {
+   "speaker": "Partisan"
+  },
+  "mc2_15_4": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_15_5": {
+   "speaker": "Steiner Commander"
+  },
+  "mc2_15_6": {
+   "speaker": "Partisan"
+  },
+  "mc2_17_3": {
+   "segment_speakers": [
+    "Jason Cho",
+    "Colonel Renard"
+   ],
+   "speaker": ""
+  },
+  "mc2_17_5": {
+   "speaker": "Jason Cho",
+   "text": ""
+  },
+  "mc2_17_8": {
+   "speaker": "Jason Cho"
+  },
+  "mc2_17_9": {
+   "speaker": "Jason Cho"
+  },
+  "mc2_17_a": {
+   "speaker": "Colonel Renard"
+  },
+  "mc2_17_b": {
+   "speaker": "Jason Cho"
+  },
+  "mc2_17_c": {
+   "speaker": "Colonel Renard"
+  },
+  "mc2_17_d": {
+   "speaker": "Jason Cho"
+  },
+  "mc2_17_e": {
+   "speaker": "Colonel Renard"
+  },
+  "mc2_17_f": {
+   "speaker": "Colonel Renard"
+  },
+  "mc2_17_h": {
+   "speaker": "Colonel Renard"
+  },
+  "mc2_17_i": {
+   "speaker": "Jason Cho",
+   "text": "We expected as much. Name your price."
+  },
+  "mc2_17_j": {
+   "speaker": "Colonel Renard"
+  },
+  "mc2_17_k": {
+   "speaker": "Jason Cho",
+   "text": "Hahaha! That's all? Then the deal is done!"
+  },
+  "mc2_18_0": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_18_1": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_19_0": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_20_0": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_20_1": {
+   "speaker": "Rooster"
+  },
+  "mc2_20_2": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_22": {
+   "speaker": "Palace Guard"
+  },
+  "mc2_23_2": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_23_3": {
+   "speaker": "Tac Officer"
+  },
+  "mc2_23_5": {
+   "speaker": "Rebel Strike Team Leader"
+  },
+  "mc2_24_5": {
+   "speaker": "Colonel Renard"
+  },
+  "mc2_24_6": {
+   "speaker": "Colonel Renard"
+  },
+  "mc2_24_7": {
+   "speaker": "Colonel Renard"
+  },
+  "tut_1cii": {
+   "speaker": "Tac Officer"
+  },
+  "tut_1e": {
+   "speaker": "Tac Officer"
+  },
+  "tut_1gi": {
+   "speaker": "Tac Officer"
+  },
+  "tut_1h": {
+   "speaker": "Tac Officer"
+  },
+  "tut_1hi": {
+   "speaker": "Tac Officer"
+  },
+  "tut_3eii": {
+   "speaker": "Tac Officer"
+  },
+  "tut_3hi": {
+   "speaker": "Tac Officer"
+  },
+  "tut_3kii": {
+   "speaker": "Tac Officer"
+  },
+  "tut_3kij": {
+   "speaker": "Tac Officer"
+  },
+  "tut_6a": {
+   "speaker": "Tac Officer"
+  },
+  "tut_6b": {
+   "speaker": "Tac Officer"
+  },
+  "tut_6c": {
+   "speaker": "Tac Officer"
+  },
+  "tut_6d": {
+   "speaker": "Tac Officer"
+  },
+  "v6h": {
+   "speaker": "Tac Officer"
+  }
+ }
+}

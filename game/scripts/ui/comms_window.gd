@@ -22,6 +22,8 @@ var subtitle: Label
 var speaker_unit: SimUnit = null
 var _line_until := -1.0  # ticks (s) when a say() line ends
 var _voice := false
+var _voice_speaker := ""  # the playing voice-over's subtitle (Subtitles), "" when none or off
+var _voice_text := ""
 
 
 func _ready() -> void:
@@ -95,8 +97,12 @@ func say(speaker: String, text: String, unit: SimUnit = null, seconds := -1.0, p
 
 
 ## A mission voice-over is playing (AudioDirector.voice): keep the panel up while it does.
-func set_voice(active: bool) -> void:
+## speaker and text: its subtitle (Subtitles.vo_line) when there is one and subtitles are on;
+## without text the panel says "Incoming transmission." as before.
+func set_voice(active: bool, speaker := "", text := "") -> void:
 	_voice = active
+	_voice_speaker = speaker
+	_voice_text = text if active else ""
 
 
 func is_playing() -> bool:
@@ -113,9 +119,9 @@ func _process(_delta: float) -> void:
 	if player.is_playing() or line:
 		visible = true
 	elif _voice:
-		if not visible:
-			caption.text = "Command"
-			subtitle.text = "Incoming transmission."
+		if not visible or _voice_text != "" or subtitle.text != "Incoming transmission.":
+			caption.text = _voice_speaker if _voice_speaker != "" else "Command"
+			subtitle.text = _voice_text if _voice_text != "" else "Incoming transmission."
 			speaker_unit = null
 			portrait.texture = PilotPortraits.placeholder()
 		visible = true

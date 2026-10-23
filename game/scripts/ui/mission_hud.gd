@@ -89,7 +89,7 @@ func setup(mission_view: Node) -> void:
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(box)
 	_build()
-	if _args.has("select") or _args.has("comms") or _args.has("tag"):
+	if _args.has("select") or _args.has("comms") or _args.has("tag") or _args.has("say") or _args.has("radio"):
 		_dev_args.call_deferred()
 
 
@@ -180,6 +180,29 @@ func show_enemy_tag(u: SimUnit, at := Vector2.ZERO) -> void:
 		else ("Disabled" if u.is_disabled() else "Hostile")
 	enemy_tag.size = enemy_tag.get_combined_minimum_size()
 	enemy_tag.position = at + Vector2(kit.em(1.4), kit.em(1.0))
+
+
+## The comms panel while a mission voice-over plays: its subtitle (speaker and the segment
+## playing now) when subtitles are on and the line has one.
+func _update_voice() -> void:
+	var v: AudioStreamPlayer = view.audio.voice if view.audio != null else null
+	var playing := v != null and v.playing
+	var line := ["", ""]
+	if playing and v.stream and Subtitles.enabled():
+		line = Subtitles.vo_line(String(v.stream.resource_path).get_file().get_basename(), v.get_playback_position())
+	comms.set_voice(playing, line[0], line[1])
+
+
+## A pilot's radio line (message stem, e.g. "underattacka") on the comms panel with the pilot's
+## card blinking, for as long as the line lasts, when subtitles are on and it has text.
+func radio_line(u: SimUnit, stem: String) -> bool:
+	if u == null or not Subtitles.enabled():
+		return false
+	var e := Subtitles.pilot_line(u.pilot_profile, stem, GameData.pilots)
+	if e.is_empty() or String(e.get("text", "")) == "":
+		return false
+	pilot_says(u, String(e["text"]), maxf(1.5, float(e.get("duration", 0.0)) + 0.4))
+	return true
 
 
 func _update_enemy_tag() -> void:
@@ -458,6 +481,12 @@ func _dev_args() -> void:
 		var id := int(_args["comms"])
 		if id >= 0 and id < view.world.units.size():
 			pilot_says(view.world.units[id], "Airfield in sight. Picking up a 'Mech on the apron, looks like a Starslayer.", 600.0)
+	if _args.has("say"):  # dev: --say=<voice-over> plays it (subtitle screenshots)
+		view.audio.say(String(_args["say"]))
+	if _args.has("radio"):  # dev: --radio=<unit id>:<message stem> shows that pilot's radio line
+		var bits: PackedStringArray = String(_args["radio"]).split(":")
+		if bits.size() == 2 and int(bits[0]) < view.world.units.size():
+			radio_line(view.world.units[int(bits[0])], bits[1])
 	if _args.has("tag"):  # dev: --tag centres the camera on the first named enemy and shows its tag
 		for u in view.world.units:
 			if u.team != view.sm.player_team and u.is_mover() and not u.is_disabled() and ForceNames.of_unit(u) != "":
@@ -578,7 +607,7 @@ func _process(_delta: float) -> void:
 	# command panel, systems, comms
 	command_panel.update_state(modes, view.sm.support, view.input.support_kind, view.input.can_jump())
 	systems.show_unit(first)
-	comms.set_voice(view.audio != null and view.audio.voice != null and view.audio.voice.playing)
+	_update_voice()
 	_update_banner()
 	_update_enemy_tag()
 	_layout()
