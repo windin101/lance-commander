@@ -1,0 +1,91 @@
+{
+ "turn": false,
+ "l": {
+  "hip": [
+   780,
+   650,
+   4470
+  ],
+  "knee": [
+   1120,
+   1420,
+   3010
+  ],
+  "ankle": [
+   2020,
+   -450,
+   850
+  ]
+ },
+ "r": {
+  "hip": [
+   -780,
+   -340,
+   4390
+  ],
+  "knee": [
+   -890,
+   880,
+   3670
+  ],
+  "ankle": [
+   -1555,
+   0,
+   800
+  ]
+ },
+ "upper_joints": {
+  "joint_ruarm": [
+   -1400,
+   -1250,
+   5800
+  ],
+  "joint_rgun": [
+   -1550,
+   -1250,
+   5800
+  ]
+ },
+ "arm_tips": {
+  "r": [
+   -3100,
+   -1250,
+   5800
+  ]
+ },
+ "arm_reach": 1250,
+ "x_shift": 300,
+ "_why": {
+  "x_shift": "v2 2026-10-23: the bbox centre sits 300 mm off the pelvis (the right gun reaches further out); hips/knees/ankles get x pinned, stl_rig averaged the hanging left gun into the left hip (x 2283)",
+  "v2.seed_boxes": "the waist block below the torso twist (joint_torso, z 5.46 m in the sculpt frame) belongs to the pelvis",
+  "v2.joints.joint_torso": "the torso twists about the vertical: a waist drum about that axis, sized to the waist, with the hip/torso seam split by the pivot plane beside it"
+ },
+ "v2": {
+  "seed_boxes": {
+   "bw_hip": [
+    [
+     -520,
+     -1200,
+     4650,
+     520,
+     1200,
+     5150
+    ]
+   ]
+  },
+  "seed_k": 60,
+  "joints": {
+   "joint_torso": {
+    "type": "hinge",
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "r_max": 1100,
+    "protrude": 0.45,
+    "relabel": true
+   }
+  }
+ }
+}

@@ -141,9 +141,9 @@ class Studio:
 		var tries: Array = [["_hd", "_hd"], ["", ""]]
 		if kind == "object":
 			tries = [["_cad", ""], ["_hdtex", ""], ["_hd", ""], ["", ""]]
-		var path := ""
-		var paint_name := name
-		for t in tries:
+		var path := ArtV2.model_path(folder, name)  # HD rework, dev switch
+		var paint_name := name + "_v2" if path != "" else name
+		for t in (tries if path == "" else []):
 			var p := "res://assets/%s/%s%s.glb" % [folder, name, t[0]]
 			if ResourceLoader.exists(p):
 				path = p
@@ -153,6 +153,8 @@ class Studio:
 			return false
 		model = (load(path) as PackedScene).instantiate()
 		pivot.add_child(model)
+		if kind == "object" and path.begins_with("res://assets/v2/"):
+			ArtV2.dress_object(model, name)
 		if paint.size() == 3 and kind != "object":
 			MechPaint.apply(model, paint_name, MechPaint.argb(int(paint[0])), MechPaint.argb(int(paint[1])), MechPaint.argb(int(paint[2])), folder)
 		var player: AnimationPlayer = model.find_child("AnimationPlayer", true, false)
