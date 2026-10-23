@@ -1463,7 +1463,7 @@ them:
 
 | System | Natives | Notes |
 |---|---|---|
-| Per-team sensor/contact status (none / sensor q1–4 / visual) | `getContacts`, `selectContact`, `getContactId`/`RelativePosition`, `newScan`/`coreScan`, the target-priority MOVER and CURTARGET entries, `getSensorsActive` | Highest priority after orders: every patrol and guard brain scans every tick. Minimum: visual = line of sight within visual range from any team member; sensor = within a sensor-equipped member's range. |
+| Per-team sensor/contact status (none / sensor q1–4 / visual) | `getContacts`, `selectContact`, `getContactId`/`RelativePosition`, `newScan`/`coreScan`, the target-priority MOVER and CURTARGET entries, `getSensorsActive` | Highest priority after orders: every patrol and guard brain scans every tick. Minimum: visual = line of sight within visual range from any team member; sensor = within a sensor-equipped member's range. **Done 2026-10-23 (I90):** `SimWorld.is_contact`, see combat-rules.md "Line of sight and contacts". Quality levels are not modelled. |
 | Pilot alarm/event queue | `getNextPilotEvent`, `getAlarmTriggers` | Raised from combat: fired at (TARGETED), hit, fired weapon, killed target, mate events, move-path failure. |
 | Tactical-order layer with done-status and the general/player/alarm precedence | all `core*` and `order*`, `getTacOrder`, `clearTacOrder` | |
 | Goal planner / attack positioning | `coreAttack` pursue, `setMoveArea` | Can be approximated by "move toward the target until in optimal range, staying inside the move area". |

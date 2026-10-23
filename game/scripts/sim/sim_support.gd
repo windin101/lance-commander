@@ -4,19 +4,28 @@ extends RefCounted
 ## enemy aerospace spotter's strikes. Behaviour follows docs/specs/support-powers.md
 ## (section numbers below refer to it).
 ##
-## Implemented: air strike (3.1), sensor probe (3.2), repair truck via VTOL delivery
-## (3.3, 3.4), salvage craft (3.6), RP gains on capture (1), spotter strikes (5).
-## Not yet: minelayer, scout copter, artillery piece (their unit data isn't converted).
+## Implemented: air strike (3.1), sensor probe (3.2), repair truck, minelayer and artillery piece
+## via VTOL delivery (3.3, 3.4, 3.5, 3.9), salvage craft (3.6), repair bays (3.7), RP gains on
+## capture (1), spotter strikes (5).
+## Not yet: the scout copter (an air "mech", no air movement in the sim) and the artillery
+## piece's suppression fire on a ground point (it fires at enemies in reach, LOS or a team
+## mate's, like any unit without a brain).
 ## Simplifications: no line-of-sight model, so an air strike is always the big one;
 ## the cost is charged when the target is placed rather than on the button press
 ## (same outcome: the original refunds a cancelled call); deliveries appear without
 ## the VTOL / Karnov animations.
 
-const COSTS := {"air_strike": 7000, "sensor_probe": 2000, "repair_truck": 6000, "salvage_craft": 10000}
-const ORDER := ["air_strike", "sensor_probe", "repair_truck", "salvage_craft"]
-const LABELS := {"air_strike": "Air strike", "sensor_probe": "Sensor probe", "repair_truck": "Repair truck",
-	"salvage_craft": "Salvage craft"}
-const DELIVERIES := ["repair_truck", "salvage_craft"]  # one VTOL / Karnov at a time (2)
+## controlGui.cpp:80-89 costs; the support tab's order (controlGui.cpp:92-115), less the scout.
+const COSTS := {"air_strike": 7000, "artillery_piece": 8000, "sensor_probe": 2000, "repair_truck": 6000,
+	"minelayer": 4000, "salvage_craft": 10000}
+const ORDER := ["air_strike", "artillery_piece", "sensor_probe", "repair_truck", "minelayer", "salvage_craft"]
+const LABELS := {"air_strike": "Air strike", "artillery_piece": "Artillery piece", "sensor_probe": "Sensor probe",
+	"repair_truck": "Repair truck", "minelayer": "Minelayer", "salvage_craft": "Salvage craft"}
+const DELIVERIES := ["repair_truck", "artillery_piece", "minelayer", "salvage_craft"]  # one VTOL / Karnov at a time (2)
+## The delivered unit's vehicle file and pilot (controlGui.cpp:101-115: 182 PMWRepair, 120
+## PMWMinelayer, 415 PMWGuardTower).
+const VEHICLE_OF := {"repair_truck": ["repairtruck", "pmwrepair"], "minelayer": ["minelayer", "pmwminelayer"],
+	"artillery_piece": ["guardtower", "pmwguardtower"]}
 
 const STRIKE_DELAY := 7.0
 const STRIKE_REACH_M := 37.4  # 187 wu: strike extent; plus the target's own (3.1)
@@ -43,6 +52,7 @@ var rp := 0
 var pending: Array[Dictionary] = []  # strikes, deliveries, salvage in progress
 var probes: Array[Dictionary] = []  # {pos, t0}
 var repairs: Array[Dictionary] = []  # {truck, mech, phase, next}
+var bay_repairs: Array[Dictionary] = []  # {bay, mech, phase, next} (3.7)
 var delivering := false
 var _spotter_next := {}  # spotter id -> next strike time
 var _next_reinforcement_id := 2050  # runtime part IDs (abl-natives.md 1.2)
@@ -80,10 +90,10 @@ func call_power(kind: String, target: Variant) -> bool:
 			pending.append({"kind": "strike", "at": target, "impact": t + STRIKE_DELAY, "team": sm.player_team})
 		"sensor_probe":
 			probes.append({"pos": target, "t0": t})
-		"repair_truck":
+		"repair_truck", "minelayer", "artillery_piece":
 			delivering = true
-			pending.append({"kind": "vtol", "vehicle": "repairtruck", "at": world.map.nearest_walkable(target),
-				"spawn": t + VTOL_SPAWN, "done": t + VTOL_DONE, "unit": null})
+			pending.append({"kind": "vtol", "vehicle": VEHICLE_OF[kind][0], "pilot": VEHICLE_OF[kind][1],
+				"at": world.map.nearest_walkable(target), "spawn": t + VTOL_SPAWN, "done": t + VTOL_DONE, "unit": null})
 		"salvage_craft":
 			delivering = true
 			pending.append({"kind": "salvage", "target": target, "done": t + SALVAGE_TIME})
@@ -104,6 +114,52 @@ func order_repair(truck: SimUnit, mech: SimUnit) -> bool:
 			_end_repair(r)
 	repairs.append({"truck": truck, "mech": mech, "phase": "drive", "next": 0.0})
 	world.order_move(truck, mech.position)
+	return true
+
+
+## A friendly repair bay fixes one mech at a time (TACTICAL_ORDER_GETFIXED, tacordr.cpp:1081-1100,
+## 1537-1622; missiongui.cpp:1417, 4532-4566): the bay must be on the mech's team (capture it
+## first), have refit points left and be free; the mech must be the player's to order, need a refit
+## and not be disabled. Mech bays take mechs only.
+func order_bay_repair(mech: SimUnit, bay: SimUnit) -> bool:
+	if not (mech is SimMech) or not (bay is SimStructure) or mech.is_disabled() or not needs_refit(mech):
+		return false
+	if not bay.can_refit or not bay.mech_bay or bay.is_destroyed() or bay.team != mech.team or bay_points(bay) <= 0.0:
+		return false
+	for r in bay_repairs:
+		if r["mech"] == mech and r["bay"] == bay:
+			return true
+	if bay.refit_buddy != null and bay.refit_buddy.exists and not bay.refit_buddy.is_disabled():
+		return false
+	cancel_bay_repair(mech)
+	bay.refit_buddy = mech
+	var goal := world.map.nearest_walkable(bay.position, mech.hover)
+	bay_repairs.append({"bay": bay, "mech": mech, "phase": "move", "next": 0.0, "goal": goal})
+	world.order_move(mech, goal, true)
+	return true
+
+
+## The bay's pool is its own remaining hit points (Building::getRefitPoints, bldng.h:372).
+static func bay_points(bay: SimStructure) -> float:
+	return maxf(bay.damage_level - bay.damage, 0.0) if bay.damage_level < INF else 0.0
+
+
+## A new order or a death breaks the pairing (tacordr.cpp:1537).
+func cancel_bay_repair(mech: SimUnit) -> void:
+	for r in bay_repairs.duplicate():
+		if r["mech"] == mech:
+			_end_bay(r, false)
+
+
+## A selected minelayer lays mines on its moves while this is on (LAYMINES, controlGui.cpp:1110-1117;
+## MOVE_MODE_MINELAYING, missiongui.cpp:3156-3157).
+func order_lay_mines(v: SimUnit, goal: Vector2, run := false) -> bool:
+	if not (v is SimVehicle) or v.mine_stock <= 0 or v.is_disabled():
+		return false
+	if not world.order_move(v, goal, run):
+		return false
+	v.laying_mines = true
+	v.mine_dwell = 0.0
 	return true
 
 
@@ -134,7 +190,7 @@ func step() -> void:
 					continue
 			"vtol":
 				if p["unit"] == null and t >= p["spawn"]:
-					p["unit"] = _spawn_vehicle(p["vehicle"], p["at"])
+					p["unit"] = _spawn_vehicle(p["vehicle"], p["at"], String(p.get("pilot", "")))
 				if t >= p["done"]:
 					delivering = false
 					continue
@@ -148,6 +204,8 @@ func step() -> void:
 	probes = probes.filter(func(pr): return t - float(pr["t0"]) < PROBE_LIFE)
 	for r in repairs.duplicate():
 		_repair_step(r)
+	for r in bay_repairs.duplicate():
+		_bay_step(r)
 	_spotters()
 
 
@@ -208,11 +266,14 @@ func _spotters() -> void:
 
 # --- deliveries (3.3) --------------------------------------------------------------------
 
-func _spawn_vehicle(file: String, at: Vector2) -> SimUnit:
+func _spawn_vehicle(file: String, at: Vector2, pilot_profile: String = "") -> SimUnit:
 	var path := "res://data/vehicles/%s.json" % file
 	if not FileAccess.file_exists(path):
 		return null
-	var v := SimVehicle.from_data(JSON.parse_string(FileAccess.get_file_as_string(path)), world.rules, SimPilot.make(50, 50))
+	var pilot_fit: Dictionary = sm.pilots.get(pilot_profile, {})
+	var pilot := SimPilot.from_fit(pilot_fit) if not pilot_fit.is_empty() else SimPilot.make(50, 50)
+	var v := SimVehicle.from_data(JSON.parse_string(FileAccess.get_file_as_string(path)), world.rules, pilot)
+	v.pilot_profile = pilot_profile
 	v.team = sm.player_team
 	v.commander = 0
 	v.is_player = true
@@ -256,6 +317,57 @@ func _repair_step(r: Dictionary) -> void:
 					truck.status = SimUnit.Status.DISABLED  # spent: POWER_USED_UP
 				world.events.append({"type": "repair_done", "unit": mech.id, "truck": truck.id})
 				_end_repair(r)
+
+
+## The GETFIXED stages (tacordr.cpp:1545-1620): move onto the bay; power down and wait 3 s; every
+## RefitTime run a refit cycle (3.4.1, the vehicle cost factors) and burn the points used as damage
+## to the bay (bldng.cpp:1649-1660, it is destroyed at 0); when done, start up and walk one tile off.
+func _bay_step(r: Dictionary) -> void:
+	var bay: SimStructure = r["bay"]
+	var mech: SimMech = r["mech"]
+	if mech.is_disabled() or not mech.exists or bay.is_destroyed() or bay.team != mech.team:
+		_end_bay(r, false)
+		return
+	var t := world.time
+	match r["phase"]:
+		"move":
+			if mech.order == SimWorld.Order.MOVE and mech.path.size() > 0:
+				return  # still walking
+			if mech.position.distance_to(r["goal"]) > float(world.rules.refit["range"]):
+				_end_bay(r, false)  # the move was replaced or failed
+				return
+			world.order_hold(mech)
+			mech.status = SimUnit.Status.SHUTDOWN
+			mech.powered_down = true  # orderPowerDown: an ordered shutdown, heat doesn't restart it
+			r["phase"] = "power_down"
+			r["next"] = t + float(world.rules.refit["power_down"])
+		"power_down", "refit":
+			if t < float(r["next"]):
+				return
+			if r["phase"] == "power_down":
+				world.events.append({"type": "bay_repair", "unit": mech.id, "bay": bay.id})
+			r["phase"] = "refit"
+			r["next"] = t + float(world.rules.refit["time"])
+			var used := _refit_cycle(mech, minf(float(world.rules.refit["amount"]) / 3.0, bay_points(bay)))
+			bay.take_hit(world.rules, world.rng, used, 0, -5, t)
+			if not needs_refit(mech) or bay.is_destroyed():
+				world.events.append({"type": "repair_done", "unit": mech.id, "bay": bay.id, "bay_gone": bay.is_destroyed()})
+				_end_bay(r, true)
+
+
+func _end_bay(r: Dictionary, walk_off: bool) -> void:
+	var mech: SimUnit = r["mech"]
+	var bay: SimStructure = r["bay"]
+	if r["phase"] != "move" and mech.status == SimUnit.Status.SHUTDOWN:
+		mech.powered_down = false
+		mech.status = SimUnit.Status.NORMAL  # startUp (tacordr.cpp:1597)
+	if walk_off and not mech.is_disabled():
+		# worldToTile, +1 row and +1 col, cell (2, 2) of that tile (tacordr.cpp:1601-1607)
+		var v := world.map.vertex_m
+		world.order_move(mech, world.map.nearest_walkable(bay.position + Vector2(v, -v), mech.hover), false)
+	if bay.refit_buddy == mech:
+		bay.refit_buddy = null
+	bay_repairs.erase(r)
 
 
 func _end_repair(r: Dictionary) -> void:

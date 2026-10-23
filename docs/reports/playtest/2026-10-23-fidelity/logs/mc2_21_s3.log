@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_21
+force: campaign 3 units 200 t of 200 t, RP 23000: Zeus Prime(pmwrooster), Mad Cat Prime(pmwmother), Shadow Cat Prime(pmwghost)
+ABL pilots: 38
+t=  18.5  SUPPORT air_strike (-883, -559) rp_left=16000
+t=  21.5  SUPPORT artillery_piece (-884, -841) rp_left=8000
+t= 100.7  SUPPORT repair_truck (-946, -436) rp_left=2000
+t= 118.7  CAPTURED Zeus S_spotlightControl
+t= 119.1  REPAIR_DONE ShadowCat 
+t= 130.7  CAPTURED Madcat S_TurretControl
+t= 161.2  LOST ShadowCat (disabled, armour 56%, heat 0, ejected false, pilot 0.0 wounds, last hit by LRMTurret)
+t= 228.5  LOST Repairtruck (destroyed, armour 65%, heat 0, ejected false, pilot 0.0 wounds, last hit by LRMTurret)
+t= 236.2  CAPTURED Zeus S_spotlightControl
+t= 241.8  CAPTURED Zeus S_TurretControl
+t= 295.7  CAPTURED Madcat S_spotlightControl
+t= 335.5  LOST Madcat (disabled, armour 29%, heat 0, ejected false, pilot 1.0 wounds, last hit by Shootist)
+t= 339.7  FALLBACK 3 threats (dps 16 vs 6, health 55%) to (-829, 38)
+t= 351.8  LOST Zeus (disabled, armour 19%, heat 0, ejected false, pilot 1.0 wounds, last hit by Atlas)
+t= 351.8  objective done: 1 - Move all units to Extraction Point
+t= 356.8  MISSION WON
+seed 3 end t=357 result=WON  player alive 1  enemies alive 20
+damage to lance: 606 from 25 attackers; hits by location (0 head .. 10 rear RT): { 6: 18, 5: 28, 7: 34, 2: 33, 1: 32, 4: 29, 3: 24, 0: 2, 8: 4, 10: 3 }
+damage by lance: 1123; kills 16
+       222  LRMTurret (vehicle)
+       148  Atlas (mech)
+        87  LRMPopup (vehicle)
+        64  Shootist (mech)
+        48  MediumAutoCannonTurret (vehicle)
+        29  Werewolf (mech)
+         6  Partisan (vehicle)
+         2  Harasser (vehicle)
+  obj 0 P: done  1 - Move all units to Extraction Point
+  obj 1 s: open  a - Destroy Ammo Dump ALPHA
+  obj 2 s: open  b - Destroy Ammo Dump BETA
+  obj 3 s: open  c - Destroy Power Generator ALPHA
+  obj 4 s: open  d - Destroy Power Generator BETA
+  obj 5 s: open  a. Capture the Weapons Facility
+  obj 6 s: open  f. Destroy Industrial Complex
+  obj 7 s hidden: done  hidden trigger area 4 PG ALPHA
+  obj 8 s hidden: open  hidden trigger area 4 PG BETA
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_21_BETA_PG01:attack": 6, "mc2_21_BETA_PG01:start": 1, "mc2_21_BETA_PG01:start1": 2, "mc2_21_ALPHA_AD01:start": 2, "mc2_21_ALPHA_AD02:start": 2, "mc2_21_dred:attack": 4, "mc2_21_dred_p:attack": 1, "mc2_21_dred_p:start": 3, "mc2_21_dred:start": 1, "mc2_21_Patrol_EVill:start": 2, "mc2_21_Patrol_SDumpB:start": 2, "mc2_21_Patrol_BwtDumps:start": 2, "mc2_21_Patrol_NVil:attack": 3, "mc2_21_Patrol_BhBase:start": 3, "mc2_21_Patrol_Extrat:start": 1, "PBrain:": 3 }
+enemy pilots that moved >20 m: 26 / 38
+
+--- stderr ---
+WARNING: 625 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

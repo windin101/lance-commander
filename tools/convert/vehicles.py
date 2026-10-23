@@ -14,6 +14,18 @@ import fit
 import mech_model
 
 SECTIONS = ["Front", "Left", "Right", "Rear", "Turret"]
+MAX_WEAPON_NODES = 4  # Gvactor.cpp:91
+
+
+def count_weapon_nodes(ase_path):
+    """Weapon_01..Weapon_04 nodes the shape has (names match case-insensitively, msl.h:510).
+    GVAppearanceType always looks for 4 and drops the missing ones (Gvactor.cpp:311-321, 466-474);
+    GroundVehicle::fireWeapon only fires from the first two (gvehicl.cpp:4610), so with 3 or 4
+    the least-used choice gets stuck (combat-rules.md O1)."""
+    import re
+    text = open(ase_path, encoding="cp1252", errors="replace").read()
+    names = {m.lower() for m in re.findall(r'\*NODE_NAME\s+"(weapon_0[1-4])"', text, re.I)}
+    return len(names)
 VEHICLE_CLASS = 3
 
 
@@ -48,6 +60,11 @@ def parse_vehicle(f):
         # gvehicl.cpp:1241: RefitPoints become the repair pool; ResourcePoints pay out on capture
         "refit_points": float(general.get("RefitPoints", 0)),
         "resource_points": int(general.get("ResourcePoints", 0)),
+        # gvehicl.cpp:317, 344-347: sight factor (artillery piece 1.2) and the minelayer's mine
+        # stock, which becomes its turret armour (gvehicl.cpp:1254-1258)
+        "los_factor": float(general.get("LOSFactor", 1.0)),
+        "mine_layer": int(general.get("MineLayer", 0) or 0),
+        "mine_sweeper": bool(general.get("MineSweeper", False)),
         "max_velocity": float(dyn.get("MaxVelocity", 10.0)),
         "max_turret_yaw": float(dyn.get("MaxTurretYaw", 0)),
         "max_turret_yaw_rate": float(dyn.get("MaxTurretYawRate", 0)),
@@ -59,6 +76,47 @@ def parse_vehicle(f):
         "num_weapons": int(inv.get("NumWeapons", 0)),
         "num_ammo": int(inv.get("NumAmmo", 0)),
     }
+
+
+# The vehicles the support tab delivers (controlGui.cpp:101-108): repair truck 182, minelayer
+# 120, artillery piece 415 (GuardTower.fit, "ArtilleryPiece"). Converted even when no mission
+# places them.
+SUPPORT_OBJECTS = {"repairtruck": 182, "minelayer": 120, "guardtower": 415}
+
+
+def convert_support(data_dir, out_data, out_assets):
+    """Convert the support-power vehicles. Returns their JSON stems."""
+    objects_dir = os.path.join(data_dir, "Objects")
+    out = []
+    for stem, number in SUPPORT_OBJECTS.items():
+        fname, f = object_fit_for(objects_dir, number)
+        if f.get("ObjectClass", {}).get("ObjectTypeNum") != VEHICLE_CLASS:
+            continue
+        _write_vehicle(parse_vehicle(f), os.path.splitext(fname)[0].lower(), data_dir, out_data, out_assets)
+        out.append(os.path.splitext(fname)[0].lower())
+    return out
+
+
+def _write_vehicle(v, stem, data_dir, out_data, out_assets):
+    import json
+    tgl = os.path.join(data_dir, "TGL")
+    os.makedirs(out_data, exist_ok=True)
+    os.makedirs(out_assets, exist_ok=True)
+    glb = os.path.join(out_assets, v["appearance"] + ".glb")
+    base_ase = mech_model._find(tgl, v["appearance"] + ".ase", required=False)
+    v["weapon_nodes"] = count_weapon_nodes(base_ase) if base_ase else -1
+    with open(os.path.join(out_data, stem + ".json"), "w", encoding="utf-8") as fh:
+        json.dump(v, fh, indent=1)
+    if base_ase and not os.path.exists(glb):
+        mech_model.build(tgl, v["appearance"], glb, gestures=["Walk", "Run"])
+        import ase
+        tex = mech_model.material_texture(ase.parse_file(base_ase), tgl)
+        if tex:
+            with open(tex, "rb") as fh, open(os.path.join(out_assets, v["appearance"] + "_paint.bin"), "wb") as out_bin:
+                out_bin.write(mech_model.tga_to_png(fh.read()))
+        wreck = mech_model._find(tgl, v["appearance"] + "Dam.ase", required=False)
+        if wreck:
+            mech_model.build(tgl, v["appearance"] + "Dam", os.path.join(out_assets, v["appearance"] + "_wreck.glb"), gestures=[])
 
 
 def convert_for_mission(mission_fit, data_dir, out_data, out_assets, known_chassis):
@@ -80,10 +138,11 @@ def convert_for_mission(mission_fit, data_dir, out_data, out_assets, known_chass
         v = parse_vehicle(f)
         stem = os.path.splitext(fname)[0].lower()
         import json
-        with open(os.path.join(out_data, stem + ".json"), "w", encoding="utf-8") as fh:
-            json.dump(v, fh, indent=1)
         glb = os.path.join(out_assets, v["appearance"] + ".glb")
         base_ase = mech_model._find(tgl, v["appearance"] + ".ase", required=False)
+        v["weapon_nodes"] = count_weapon_nodes(base_ase) if base_ase else -1
+        with open(os.path.join(out_data, stem + ".json"), "w", encoding="utf-8") as fh:
+            json.dump(v, fh, indent=1)
         if base_ase:
             mech_model.build(tgl, v["appearance"], glb, gestures=["Walk", "Run"])
             # Vehicle textures are paint masks too: keep a lossless copy for MechPaint.

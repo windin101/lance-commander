@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_24
+force: campaign 8 units 450 t of 450 t, RP 10000: Shootist Prime(pmwrooster), Catapult Prime(pmwmother), Catapult Prime(pmwghost), Catapult Prime(pmwscooter), Vulture Prime(pmwbubba), Men Shen Prime(pmwvenom), Sha Yu Prime(pmwwicked), Razorback Prime(pmwsteel)
+ABL pilots: 72
+t=  63.5  SUPPORT salvage_craft Bushwacker rp_left=0
+t=  71.4  LOST ShaYu (destroyed, armour 28%, heat 0, ejected false, pilot 0.0 wounds, last hit by Bushwacker)
+t=  80.3  LOST Werewolf (disabled, armour 23%, heat 0, ejected false, pilot 0.0 wounds, last hit by Bushwacker)
+t=  81.5  LOST Bushwacker (disabled, armour 34%, heat 0, ejected false, pilot 0.0 wounds, last hit by Highlander)
+t= 113.1  PULLBACK Shootist at 23%
+t= 114.9  LOST Shootist (destroyed, armour 13%, heat 0, ejected false, pilot 1.0 wounds, last hit by Highlander)
+t= 224.7  PULLBACK MenShen at 24%
+t= 225.7  LOST MenShen (destroyed, armour 24%, heat 0, ejected false, pilot 1.0 wounds, last hit by Hollander)
+t= 242.6  LOST Catapult (disabled, armour 41%, heat 0, ejected false, pilot 1.0 wounds, last hit by LongTomTurret)
+t= 257.0  LOST Catapult (disabled, armour 39%, heat 0, ejected false, pilot 0.0 wounds, last hit by LongTomTurret)
+t= 270.2  CAPTURED Catapult S_TurretControl
+t= 279.7  FALLBACK 4 threats (dps 13 vs 8, health 53%) to (-329, -305)
+t= 338.0  LOST Vulture (destroyed, armour 28%, heat 11, ejected false, pilot 2.0 wounds, last hit by Hunchback)
+t= 339.7  FALLBACK 5 threats (dps 15 vs 3, health 53%) to (-329, -305)
+t= 359.0  LOST Catapult (disabled, armour 38%, heat 9, ejected false, pilot 0.0 wounds, last hit by Hunchback)
+t= 364.0  MISSION LOST
+seed 3 end t=364 result=LOST  player alive 0  enemies alive 37
+damage to lance: 1225 from 24 attackers; hits by location (0 head .. 10 rear RT): { 3: 23, 1: 31, 6: 21, 4: 27, 5: 34, 7: 28, 2: 33, 0: 4, 8: 3, 10: 7, 9: 1 }
+damage by lance: 2188; kills 16
+       435  LongTomTurret (vehicle)
+       292  Highlander (mech)
+       207  Bushwacker (mech)
+       180  Hollander (mech)
+        68  Hunchback (mech)
+        42  LRMTurret (vehicle)
+  obj 0 P: open  Destroy Steiner High Command
+  obj 1 P: inactive (flag 0)  Eliminate Renard
+  obj 2 P: inactive (flag F1)  Extract All Surviving Mechs
+  obj 3 s hidden: open  Hidden Area Trigger to Popup Renard Obj
+  obj 4 s hidden: done  Hidden Trigger for Destroying Fuel Trucks
+  obj 5 s hidden: open  Hidden Objective for Triggering Extract
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_24_EC3_FGate_highl:attack": 2, "mc2_24_EC6_North_Renards2:start": 2, "mc2_24_EC6_North_Renards:start": 1, "mc2_24_EC6_North_Renards3:start": 2, "mc2_24_EC1_East_G4S:attack": 1, "mc2_24_EC1_East_G3S:attack": 1, "mc2_24_EC2_West_legion:start": 5, "mc2_24_EC1_East_G2:attack": 2, "mc2_24_EC1_East_G1:attack": 2, "mc2_24_EC3_FGate_bushw1:attack": 2, "pbrain:attack": 1, "mc2_24_EC3_FGate_bushw2:attack": 1, "mc2_24_EC2_West_razors:attack": 2, "mc2_24_EC2_West_razors2:attack": 2, "mc2_24_EC4_West_Mechs4:start": 1, "mc2_24_EC4_West_Mechs3:start": 1, "mc2_24_EC4_West_Mechs1:start": 2, "mc2_24_EC4_West_Mechs2:start": 2, "mc2_24_EC5_North_power:start": 8, "mc2_24_EC2_West_haras:start": 2, "mc2_24_EC3_FGate_haras:attack": 2, "mc2_24_EC6_South_Mechs2:attack": 2, "mc2_24_EC6_South_Mechs:attack": 2, "mc2_24_EC2_West_hollands:attack": 2, "mc2_24_EC2_West_bushws:attack": 2, "mc2_24_Fuel_CNV:start": 5, "mc2_24_EC1_Reb_mech:attack": 1, "mc2_24_EC1_Reb_veds:attack": 3, "mc2_24_EC1_Reb_LRMs3S:attack": 3, "PBrain:": 8, "pbrain:": 1 }
+enemy pilots that moved >20 m: 48 / 73
+
+--- stderr ---
+WARNING: 924 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

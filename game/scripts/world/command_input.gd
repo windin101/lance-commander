@@ -29,7 +29,8 @@ const GUARD := 2
 const JUMP := 4
 const MODE_BITS := {"run": RUN, "guard": GUARD, "jump": JUMP}
 ## Held keys -> the mode they arm while down (missiongui.cpp:203-226).
-const MODE_KEYS := {KEY_SPACE: "run", KEY_J: "jump", KEY_G: "guard", KEY_C: "fire_from_position"}
+const MODE_KEYS := {KEY_SPACE: "run", KEY_J: "jump", KEY_G: "guard", KEY_C: "fire_from_position",
+	KEY_M: "lay_mines"}  # M: this port's key for the minelayer's LAYMINES button (controlGui.cpp:1110)
 
 var abl: SimAbl = null  # the mission's ABL bridge: player orders go to the lance's pbrain
 var support: SimSupport = null
@@ -140,6 +141,8 @@ func mode_on(kind: String) -> bool:
 		return fire_from_position or _held.values().has(kind)
 	if kind == "hold":
 		return not selection.is_empty() and selection.all(func(m): return m.hold_position)
+	if kind == "lay_mines":
+		return _held.values().has(kind)
 	var bit: int = MODE_BITS.get(kind, 0)
 	return bit != 0 and (mode_bits & bit != 0 or _held.values().has(kind))
 
@@ -412,6 +415,15 @@ func _command(screen: Vector2) -> void:
 	var enemy := target
 	if enemy == null or enemy.team == player_team:
 		enemy = structure_at(screen)
+	# A friendly repair bay with a damaged mech selected: get fixed (missiongui.cpp:1417, doRepairBay
+	# 4549-4566; support-powers.md 3.7). One mech pairs with the bay at a time.
+	if enemy is SimStructure and enemy.team == player_team and enemy.can_refit and enemy.mech_bay and support:
+		var sent := false
+		for m in selection:
+			if not sent and support.order_bay_repair(m, enemy):
+				sent = true
+		if sent:
+			return
 	# A capturable target always means capture (capture-and-objectives.md A2); only an
 	# all-mech selection may capture, otherwise the click is refused.
 	if enemy and abl and abl.can_capture(enemy, player_team):
@@ -451,6 +463,9 @@ func _command(screen: Vector2) -> void:
 		if n > 1:
 			var a := TAU * i / n
 			offset = Vector2(cos(a), sin(a)) * 14.0
+		if mode_on("lay_mines") and support and selection[i] is SimVehicle and selection[i].mine_stock > 0:
+			support.order_lay_mines(selection[i], g + offset, run)  # MOVE_MODE_MINELAYING
+			continue
 		_order(selection[i], "move", g + offset, {"run": run})
 	_used_mode()
 

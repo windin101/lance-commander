@@ -25,6 +25,10 @@ var forest_cost := 50.0  # gamesys General.ForestMoveCost
 var elevation_m := PackedFloat32Array()  # per vertex, metres
 var cells := PackedInt32Array()  # raw MapCell words
 
+var _los_local := PackedFloat32Array()  # per cell: local height (objects, trees) in metres
+var _los_forest := PackedByteArray()  # per cell: 1 = forest
+var mines := PackedByteArray()  # per cell: 0 none, 1 laid, 2 spent (MapCell mine bits, Move.h)
+
 var _astar: AStarGrid2D
 var _astar_hover: AStarGrid2D
 var _astar_offmap: Dictionary = {}  # hover -> grid with off-map cells open (movers that start off the map)
@@ -47,7 +51,108 @@ static func load_mission(mission: String, base_dir: String = "res://data/maps") 
 	var raw := FileAccess.get_file_as_bytes(dir.path_join("cells.bin"))
 	m.cells = raw.to_int32_array()
 	assert(m.cells.size() == m.cells_per_side * m.cells_per_side, "cells.bin size mismatch")
+	m._load_mines()
 	return m
+
+
+## The map's own mines (mc2_11's fields, mc2_15's LRM-turret valley): the cell mine state.
+func _load_mines() -> void:
+	mines.resize(cells.size())
+	var bits: Array = meta["cell_bits"].get("mine", [13, 15])
+	var shift := int(bits[0])
+	var mask := int(bits[1])
+	for i in cells.size():
+		var v := (cells[i] >> shift) & mask
+		mines[i] = 1 if v == 1 else (2 if v == 2 else 0)
+
+
+func mine_at(cell: Vector2i) -> int:
+	if not in_bounds(cell):
+		return 0
+	return mines[cell.y * cells_per_side + cell.x]
+
+
+func set_mine(cell: Vector2i, state: int) -> void:
+	if in_bounds(cell):
+		mines[cell.y * cells_per_side + cell.x] = state
+
+
+# --- line of sight (Team::lineOfSight, team.cpp:1071-1260) ------------------------
+
+const LOS_ACCURACY := 1.5  # ACCURACY_ADJUST (team.cpp:1067)
+
+
+func _build_los() -> void:
+	var n := cells.size()
+	_los_local.resize(n)
+	_los_forest.resize(n)
+	var hb: Array = meta["cell_bits"]["height"]
+	var fb: Array = meta["cell_bits"]["forest"]
+	for i in n:
+		var w := cells[i]
+		# getLocalHeight x 4 x worldUnitsPerMeter world units = 4 m per step (team.cpp:1203)
+		_los_local[i] = 4.0 * float((w >> int(hb[0])) & int(hb[1]))
+		_los_forest[i] = (w >> int(fb[0])) & int(fb[1])
+
+
+## Local (object) height of a cell in metres.
+func local_height(cell: Vector2i) -> float:
+	if _los_local.is_empty():
+		_build_los()
+	if not in_bounds(cell):
+		return 0.0
+	return _los_local[cell.y * cells_per_side + cell.x]
+
+
+## Real line of sight from a sight point to a target point, as the original walks it:
+## from the centre of the shooter's cell to the centre of the target's cell, in steps of
+## 1/1.5 cell, comparing the sight line with the terrain plus each cell's local (object)
+## height. A step under the terrain blocks at once; a step under a forest cell's height counts
+## a tree, and max_trees trees block (MaxTreeLOSCellBlock). The walk stops early, seeing the
+## target, once it is within the target's extent plus half a cell. from_h / to_h are the
+## sight points' heights above the ground; start_ext_m skips the shooter's own footprint.
+func line_of_sight(from: Vector2, from_h: float, to: Vector2, to_h: float, ext_m: float = 0.0,
+		start_ext_m: float = 0.0, max_trees: int = 6) -> bool:
+	if _los_local.is_empty():
+		_build_los()
+	var mc := cell_of(from)
+	var tc := cell_of(to)
+	var start := cell_center(mc)
+	var end := cell_center(tc)
+	var start_z := height_at(start) + from_h
+	var end_z := height_at(end) + to_h
+	var length := Vector2(tc - mc).length() * LOS_ACCURACY
+	if length <= 0.0001:
+		return true
+	var step := (end - start) / length
+	var height_step := (end_z - start_z) / (length + LOS_ACCURACY)
+	var cur := start
+	var line_z := start_z
+	var iters := int(length - 0.5)
+	var trees := 0
+	var check_ext := ext_m > 0.0001
+	var ext := ext_m + cell_m * 0.5  # + HALF_CELL_DIST
+	var ext_sq := ext * ext
+	var check_start := start_ext_m > 0.0001
+	var n := cells_per_side
+	for i in iters:
+		line_z += height_step
+		var ground := height_at(cur)
+		var c := cell_of(cur)
+		var idx := c.y * n + c.x
+		var top := ground + (_los_local[idx] if c.x >= 0 and c.y >= 0 and c.x < n and c.y < n else 0.0)
+		if check_ext:
+			var dz := end_z - ground
+			if (end - cur).length_squared() + dz * dz <= ext_sq:
+				break
+		if line_z < top and (not check_start or cur.distance_to(start) > start_ext_m):
+			var tree := c.x >= 0 and c.y >= 0 and c.x < n and c.y < n and _los_forest[idx] == 1
+			if tree:
+				trees += 1
+			if not tree or trees >= max_trees:
+				return false
+		cur += step
+	return true
 
 
 # --- coordinates ----------------------------------------------------------

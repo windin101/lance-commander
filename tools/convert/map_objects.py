@@ -24,9 +24,38 @@ def read_objects(pak_path):
     out = []
     for i in range(count):
         t, x, y, z, rot, dmg, team, parent, _a, _b = RECORD.unpack_from(data, 4 + i * RECORD.size)
-        out.append({"type": t, "x": round(x, 3), "y": round(y, 3), "z": round(z, 3),
-                    "rotation": round(rot, 3), "damage": dmg, "team": team})
+        o = {"type": t, "x": round(x, 3), "y": round(y, 3), "z": round(z, 3),
+             "rotation": round(rot, 3), "damage": dmg, "team": team}
+        # parentId: the control building's cell, (row << 16) | col; 0 and 0xffffffff mean none
+        # (objmgr.cpp:820, 970-991; turret.cpp:551-556).
+        if parent not in (0, -1):
+            o["parent"] = [(parent >> 16) & 0xFFFF, parent & 0xFFFF]
+        out.append(o)
     return out
+
+
+TURRET_CLASS = 21
+
+
+def turret_data(f):
+    """[TurretData] of a turret FIT (TurretType::init, turret.cpp:129-235). Radii are world units."""
+    td = f.get("TurretData", {})
+    weapons = []
+    for key in ("WeaponType", "WeaponType1", "WeaponType2", "WeaponType3"):
+        mid = int(td.get(key, -1))
+        weapons.append(mid)
+    return {
+        "damage_level": td.get("DmgLevel", 0),
+        "weapons": weapons,  # -1 = empty slot (a spotlight has none)
+        "pilot_skill": td.get("PilotSkill", 50),
+        "attack_radius": td.get("AttackRadius", 0.0),  # replaces the extent radius (turret.cpp:2142)
+        "yaw_rate": td.get("MaxTurretYawRate", 0.0),
+        "los_factor": td.get("LOSFactor", 1.0),
+        "little_extent": td.get("LittleExtent", 20.0),
+        "explosion_damage": td.get("ExplosionDamage", 0.0),
+        "explosion_radius": td.get("ExplosionRadius", 0.0),
+        "tonnage": td.get("Tonnage", 20),
+    }
 
 
 def type_table(objects_dir, types):
@@ -53,7 +82,15 @@ def type_table(objects_dir, types):
             # bldng.cpp:265: capturable by type (objectives can also make a target capturable)
             "capturable": bool(bd.get("Capturable", False)),
             "resource_points": bd.get("ResourcePoints", 0),
+            # bldng.cpp:1261-1262: repair bays (CanRefit + MechBay; tacordr.cpp:1081-1100)
+            "can_refit": bool(bd.get("CanRefit", False)),
+            "mech_bay": bool(bd.get("MechBay", False)),
+            # bldng.cpp:240, 1266: a team sensor (sensor towers), metres; -1 none
+            "sensor_range": bd.get("SensorRange", -1.0),
+            "lookout_range": bd.get("LookoutTowerRange", 0.0),
         }
+        if table[t]["class"] == TURRET_CLASS:
+            table[t]["turret"] = turret_data(f)
     return table
 
 

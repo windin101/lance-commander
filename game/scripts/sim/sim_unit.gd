@@ -60,6 +60,7 @@ var heat := 0.0
 var heat_capacity := 30.0
 var heat_check_time := 0.0
 var uses_heat := true
+var unlimited_ammo := false  # SimRules.unlimited_ammo, set by SimWorld.add_unit (O2)
 
 # Movement and orders (SimWorld).
 var run_speed := 20.0  # m/s
@@ -95,6 +96,12 @@ var jump_start := 0.0
 var jump_alt := 0.0  # height above the ground in a jump (the view's arc)
 var prev_jump_alt := 0.0
 var after_jump := Callable()  # an order given in the air, applied on landing
+
+# Sight (SimWorld.line_of_sight, is_contact).
+var los_height_m := -1.0  # sight point above the ground (getLOSPosition); -1 = not looked up yet
+var los_factor := 1.0  # LOSFactor: scales the visual range (gameobj.cpp:1890)
+var attack_radius_m := 275.0  # pilot attackRadius: drop the last target beyond it (warrior.cpp:3532-3538)
+var _sensor_inv := -2  # inventory index of the Sensors component, -1 none (-2 not looked up)
 
 
 func kind() -> String:
@@ -140,8 +147,8 @@ func uses_ammo(inv: int) -> bool:
 
 ## Rounds left for a weapon's ammo type, or -1 for unlimited (getWeaponShots).
 func weapon_shots(inv: int) -> int:
-	if not uses_ammo(inv):
-		return -1
+	if not uses_ammo(inv) or unlimited_ammo:
+		return -1  # UNLIMITED_SHOTS (mover.cpp:5784-5788)
 	var ammo_id := int(weapon(inv)["ammo_id"])
 	var total := 0
 	for i in range(num_other + num_weapons, items.size()):
@@ -152,6 +159,8 @@ func weapon_shots(inv: int) -> int:
 
 ## Spend rounds from the first bins with ammo (Mover::reduceAmmo).
 func reduce_ammo(ammo_id: int, amount: int) -> void:
+	if unlimited_ammo:
+		return  # numShots == UNLIMITED_SHOTS: no deductWeaponShot (gvehicl.cpp:4630, mech.cpp)
 	for i in range(num_other + num_weapons, items.size()):
 		if items[i]["master_id"] != ammo_id:
 			continue
@@ -183,3 +192,25 @@ func distance_to(other_position: Vector2) -> float:
 
 func heat_level() -> int:
 	return clampi(int(floor(30.0 * heat / heat_capacity)), 0, 30)
+
+
+## The fitted sensor's range in metres (compbas.csv range factor, gvehicl.cpp:1090-1095), 0 for
+## vehicle sensors and -1 with no sensor or a destroyed one (SensorSystem::enabled, Contact.cpp:203).
+func sensor_range() -> float:
+	if _sensor_inv == -2:
+		_sensor_inv = -1
+		for i in num_other:
+			if items[i]["form"] == "Sensors":
+				_sensor_inv = i
+				break
+	if _sensor_inv < 0 or items[_sensor_inv]["disabled"]:
+		return -1.0
+	return float(items[_sensor_inv]["component"].get("sensor", {}).get("range_factor", 0.0))
+
+
+## A working ECM suite: the unit has no sensor signature (Contact.cpp:296, getEcmRange != 0).
+func has_ecm() -> bool:
+	for i in num_other:
+		if items[i]["form"] == "ECM" and not items[i]["disabled"]:
+			return true
+	return false

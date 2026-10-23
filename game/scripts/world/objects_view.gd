@@ -84,7 +84,25 @@ func bounds(index: int) -> AABB:
 	return box
 
 
+var _turret_heads: Dictionary = {}  # object index -> [the model's "Turret" node, its rest transform, placement yaw]
+
+
+## Turn a map turret's gun (the shape's "Turret" node, Gvactor/bdactor setMoverParameters) to an
+## absolute heading in degrees (0 = north, clockwise).
+func set_turret_yaw(index: int, yaw_deg: float, placed_deg: float) -> void:
+	if not _turret_heads.has(index):
+		var node: Node3D = nodes.get(index)
+		var head: Node3D = node.find_child("Turret", true, false) as Node3D if node else null
+		_turret_heads[index] = [head, head.transform if head else Transform3D(), placed_deg]
+	var h: Array = _turret_heads[index]
+	if h[0] == null or not is_instance_valid(h[0]):
+		return
+	var rest: Transform3D = h[1]
+	(h[0] as Node3D).transform = Transform3D(Basis(Vector3.UP, -deg_to_rad(yaw_deg - float(h[2]))) * rest.basis, rest.origin)
+
+
 func destroy(index: int) -> void:
+	_turret_heads.erase(index)
 	if _tree_slot.has(index):  # a destroyed tree: the leaves go and the trunk is broken off to a stump
 		var slot: Array = _tree_slot[index]
 		var mms: Array = _tree_mm.get(slot[0], [])

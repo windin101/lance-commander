@@ -450,11 +450,14 @@ The result is about one mine per cell crossed, at most one per 0.5 s.
   artlry.cpp:686).
 
 **Ambiguities:**
-- **Mechs.** No mech-side mine trigger was found anywhere in this source.
-  `MineDamage` is used only in gvehicl.cpp. The pathfinder's `avoidMines`
-  local is set but never read (MCLib/Move.cpp:4391). Whether mechs ever
-  trigger or avoid mines needs a dedicated mines spec. Do not assume that
-  mechs take mine damage.
+- **Mechs.** *(Corrected 2026-10-23.)* `BattleMech::mineCheck`
+  (mech.cpp:3731-3778, called each update, mech.cpp:5973) sets off a laid mine
+  under a mech **over 35 t** that is not jumping: 12 damage in the bottom
+  section from a random side, and the mine is spent. (An earlier text search
+  missed it because mech.cpp reads as binary to grep.) This matches the
+  walkthroughs: light mechs walk through minefields (CB, SOE on mc2_07). The
+  pathfinder's `avoidMines` local is set but never read (MCLib/Move.cpp:4391),
+  so nobody avoids mines.
 - **Running out.** When the stock reaches 0, the 1-point self-hits move on
   to the turret's internal structure. The code has no explicit "out of
   mines" stop.
@@ -560,6 +563,20 @@ It has no special support code beyond what air movement gives it:
 Its value is fast, mobile **line of sight**. That is needed for vehicle
 drops (§2.3), for full-strength air strikes (§3.1), and for indirect fire
 (§3.9). It arrives shut down and powers up when the VTOL leaves.
+
+### 3.8.1 In the remake (2026-10-23, I95, I96)
+
+- **Repair bays** (`SimSupport.order_bay_repair`): right-click a friendly bay with a damaged
+  mech selected. The sequence above runs; the bay's pool is `DmgLevel − damage`, burnt as damage.
+  A neutral or enemy bay must be captured first. The bot (autoplay) uses it.
+- **Artillery piece:** delivered like the repair truck (`data/vehicles/guardtower.json`, pilot
+  `PMWGuardTower`). With no brain it fires at the nearest armed enemy in reach, on its own or a
+  team mate's sight. Suppression fire on a ground point is not implemented yet.
+- **Minelayer:** delivered the same way (`minelayer.json`, pilot `PMWMinelayer`). Select it,
+  hold **M** and right-click: the move lays mines (`SimSupport.order_lay_mines`). This port has
+  no LAYMINES button yet; M stands in for it.
+- The support row now carries six tiles in the original's order, less the scout copter: air
+  strike, artillery piece, sensor probe, repair truck, minelayer, salvage craft.
 
 ### 3.9 Artillery piece (8000 RP)
 

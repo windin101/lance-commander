@@ -10,6 +10,9 @@
  "explosion_radius": 0.0,
  "refit_points": 0.0,
  "resource_points": 0,
+ "los_factor": 1.0,
+ "mine_layer": 160,
+ "mine_sweeper": false,
  "max_velocity": 15.0,
  "max_turret_yaw": 360.0,
  "max_turret_yaw_rate": 150.0,
@@ -35,5 +38,6 @@
  ],
  "num_other": 4,
  "num_weapons": 0,
- "num_ammo": 0
+ "num_ammo": 0,
+ "weapon_nodes": 1
 }

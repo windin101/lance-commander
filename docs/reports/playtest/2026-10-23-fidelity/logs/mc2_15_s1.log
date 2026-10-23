@@ -1,0 +1,115 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_15
+force: campaign 5 units 320 t of 320 t, RP 6000: Lao Hu Prime(pmwsteel), Lao Hu Prime(pmwclaymore), Shootist Prime(pmwworm), Catapult Prime(pmwmeat), Raven Prime(pmwpalerider)
+ABL pilots: 82
+t=  20.0  ALLY LOST Harasser (destroyed, armour 79%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  33.5  ALLY LOST Centipede (destroyed, armour 80%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t=  40.7  ALLY LOST Attack Copter (destroyed, armour 61%, heat 0, ejected false, pilot 1.0 wounds, last hit by Werewolf)
+t=  43.4  ALLY LOST Centipede (destroyed, armour 80%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t=  47.8  ALLY LOST Attack Copter (destroyed, armour 48%, heat 0, ejected false, pilot 0.0 wounds, last hit by Shootist)
+t=  48.5  ALLY LOST Harasser (destroyed, armour 79%, heat 0, ejected false, pilot 0.0 wounds, last hit by Shootist)
+t=  56.3  ALLY LOST Harasser (destroyed, armour 54%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t=  59.2  ALLY LOST Monsoon (destroyed, armour 48%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hollander)
+t=  68.5  ALLY LOST Monsoon (destroyed, armour 60%, heat 0, ejected false, pilot 0.0 wounds, last hit by Shootist)
+t=  73.4  ALLY LOST Centipede (destroyed, armour 40%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t=  75.3  ALLY LOST Vedette (destroyed, armour 53%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hollander)
+t=  79.0  PULLBACK Raven at 29%
+t=  82.1  SUPPORT repair_truck (585, -380) rp_left=0
+t=  88.5  ALLY LOST Centipede (destroyed, armour 40%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hollander)
+t=  89.5  ALLY LOST Monsoon (destroyed, armour 68%, heat 0, ejected false, pilot 0.0 wounds, last hit by Shootist)
+t= 103.1  ALLY LOST Vedette (destroyed, armour 55%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t= 103.5  ALLY LOST Hunter (destroyed, armour 79%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t= 103.9  REPAIR_DONE Raven 
+t= 111.6  ALLY LOST Hunter (destroyed, armour 73%, heat 0, ejected false, pilot 0.0 wounds, last hit by Lrmcarrier)
+t= 117.6  ALLY LOST Hunter (destroyed, armour 55%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hollander)
+t= 180.6  CAPTURED Catapult S_TurretControl
+t= 184.8  REPAIR_DONE Shootist 
+t= 224.8  LOST Raven (disabled, armour 33%, heat 0, ejected false, pilot 0.0 wounds, last hit by Shootist)
+t= 271.8  REPAIR_DONE LaoHu 
+t= 327.2  capture target S_SensorControl destroyed by ?
+t= 346.7  REPAIR_DONE LaoHu 
+t= 472.9  objective done: 1. Destroy all Legion Tanks
+t= 479.3  REPAIR_DONE Shootist 
+t= 482.3  objective done: 2. Destroy the Three Industrial Complexes
+t= 485.8  REPAIR_DONE LaoHu 
+t= 525.5  objective done: 3. Move All Surviving Mech to Extraction Zone
+t= 530.5  MISSION WON
+seed 1 end t=531 result=WON  player alive 7  enemies alive 21
+damage to lance: 484 from 29 attackers; hits by location (0 head .. 10 rear RT): { 7: 12, 3: 22, 4: 24, 2: 28, 6: 29, 5: 17, 1: 20, 10: 2, 0: 1 }
+damage by lance: 2875; kills 34
+        90  Bushwacker (mech)
+        90  Werewolf (mech)
+        74  Highlander (mech)
+        66  Shootist (mech)
+        36  Hunchback (mech)
+        36  Vedette (vehicle)
+        30  Legion (vehicle)
+        28  Storm (vehicle)
+        21  Lrmcarrier (vehicle)
+        12  SRMPopup (vehicle)
+  obj 0 P: done  1. Destroy all Legion Tanks
+  obj 1 P: done  2. Destroy the Three Industrial Complexes
+  obj 2 P: done  3. Move All Surviving Mech to Extraction Zone
+  obj 3 s: open  a. Destroy Relay Stations' Power Generator
+  obj 4 s: open  b. Destroy the Two Medium Factories
+  obj 5 s: open  c. Rendezvous with the Liao Operative near the M
+  obj 6 s hidden: done  Super secret Hidden Objective
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_15_E4_ref_Sdpot_Mech1:attack": 2, "mc2_15_E4_Legion_SD:attack": 5, "mc2_15_E2_TCD_Mech1a:start": 1, "mc2_15_E2_TCD_Mech1b:start": 1, "mc2_15_E2_TCD_Mech1c:start": 1, "mc2_15_E2_TCD_Mech2:start": 1, "mc2_15_E2_TCD_Mech2a:start": 1, "mc2_15_E2_MB_Mech1:attack": 1, "mc2_15_E2_MB_Mech2:start": 1, "mc2_15_E2_MB_Mech3:start": 1, "mc2_15_E2_Com_Mech1:start": 1, "mc2_15_E2_Com_Veh:start": 2, "mc2_15_E2_Est_LRM:attack": 6, "mc2_15_E2_WestPatrol_veh1:start": 2, "mc2_15_E2_Est_mech1:attack": 1, "mc2_15_E2_MB_Veh1:start": 1, "mc2_15_E2_MB_Veh1a:start": 1, "mc2_15_E2_MB_veh2:start": 1, "mc2_15_E3_Veh2b:attack": 1, "mc2_15_E3_Veh2a:attack": 1, "mc2_15_E3_Veh2c:attack": 1, "mc2_15_E3_Veh1a:attack": 1, "mc2_15_E3_Veh1ba:attack2": 1, "mc2_15_E3_mech1:attack": 1, "mc2_15_E3_Veh1b:attack2": 2, "mc2_15_E4_Legion_P4:attack": 1, "mc2_15_E4_ref_Sdpot_Mech2:attack": 1, "mc2_15_E4_ref_TCBASE_Mech1:attack": 1, "mc2_15_E4_ref_TCBASE_Mech2:attack": 2, "mc2_15_E4_Legion_P3:attack": 1, "mc2_15_E4_Legion_P2:attack": 1, "mc2_15_E4_Legion_P1:attack": 1, "mc2_15_E2_Pd_Guard_Mech2:attack": 1, "mc2_15_E2_Est_Patrol_Mech1:attack": 2, "mc2_15_E2_Pd_Guard_Mech1:attack": 1, "mc2_15_EB_East_Pat:attack": 2, "mc2_15_E1_Vill_Spotter:start": 1, "mc2_15_E1_Vill_LRM_2:start": 2, "mc2_15_E1_Vill_LRM_1:start": 2, "mc2_15_E4_Cent:attack": 1, "mc2_15_EA_Reb_Veh2:attack": 7, "mc2_15_EA_Reb_VehHQ:assaultbase": 2, "mc2_15_EA_Reb_Veh1:attack": 10, "PBrain:": 5 }
+enemy pilots that moved >20 m: 70 / 82
+
+--- stderr ---
+ERROR: The object does not have any 'meta' values with the key 'contact'.
+   at: get_meta (core/object/object.cpp:1053)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://scripts/sim/sim_abl.gd:1052)
+       [1] _call (res://scripts/abl/abl_runtime.gd:450)
+       [2] _call_stmt (res://scripts/abl/abl_runtime.gd:419)
+       [3] _exec (res://scripts/abl/abl_runtime.gd:352)
+       [4] _exec_block (res://scripts/abl/abl_runtime.gd:344)
+       [5] _exec (res://scripts/abl/abl_runtime.gd:394)
+       [6] _exec_block (res://scripts/abl/abl_runtime.gd:344)
+       [7] _call_declared (res://scripts/abl/abl_runtime.gd:491)
+       [8] _call (res://scripts/abl/abl_runtime.gd:442)
+       [9] _call_stmt (res://scripts/abl/abl_runtime.gd:419)
+       [10] _exec (res://scripts/abl/abl_runtime.gd:352)
+       [11] _exec_block (res://scripts/abl/abl_runtime.gd:344)
+       [12] _call_declared (res://scripts/abl/abl_runtime.gd:491)
+       [13] _execute (res://scripts/abl/abl_runtime.gd:328)
+       [14] execute (res://scripts/abl/abl_runtime.gd:87)
+       [15] _pilot_tick (res://scripts/sim/sim_abl.gd:177)
+       [16] think (res://scripts/sim/sim_abl.gd:104)
+       [17] step (res://scripts/sim/sim_world.gd:208)
+       [18] step (res://scripts/sim/sim_mission.gd:137)
+       [19] _play (res://tools/autoplay.gd:900)
+       [20] _init (res://tools/autoplay.gd:38)
+ERROR: The object does not have any 'meta' values with the key 'contact'.
+   at: get_meta (core/object/object.cpp:1053)
+   GDScript backtrace (most recent call first):
+       [0] <anonymous lambda> (res://scripts/sim/sim_abl.gd:1052)
+       [1] _call (res://scripts/abl/abl_runtime.gd:450)
+       [2] _call_stmt (res://scripts/abl/abl_runtime.gd:419)
+       [3] _exec (res://scripts/abl/abl_runtime.gd:352)
+       [4] _exec_block (res://scripts/abl/abl_runtime.gd:344)
+       [5] _exec (res://scripts/abl/abl_runtime.gd:394)
+       [6] _exec_block (res://scripts/abl/abl_runtime.gd:344)
+       [7] _call_declared (res://scripts/abl/abl_runtime.gd:491)
+       [8] _call (res://scripts/abl/abl_runtime.gd:442)
+       [9] _call_stmt (res://scripts/abl/abl_runtime.gd:419)
+       [10] _exec (res://scripts/abl/abl_runtime.gd:352)
+       [11] _exec_block (res://scripts/abl/abl_runtime.gd:344)
+       [12] _call_declared (res://scripts/abl/abl_runtime.gd:491)
+       [13] _execute (res://scripts/abl/abl_runtime.gd:328)
+       [14] execute (res://scripts/abl/abl_runtime.gd:87)
+       [15] _pilot_tick (res://scripts/sim/sim_abl.gd:177)
+       [16] think (res://scripts/sim/sim_abl.gd:104)
+       [17] step (res://scripts/sim/sim_world.gd:208)
+       [18] step (res://scripts/sim/sim_mission.gd:137)
+       [19] _play (res://tools/autoplay.gd:900)
+       [20] _init (res://tools/autoplay.gd:38)
+WARNING: 629 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

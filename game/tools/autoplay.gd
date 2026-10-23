@@ -126,6 +126,8 @@ var _locs := {}  # armour location -> hits on the lance
 var _dealt := 0.0  # damage the lance dealt to enemies
 var _goal := {}  # unit id -> the move goal the bot last gave it
 var _cap_stall := {}  # unit id -> checks it stood still on a capture order
+var _cap_trace := -INF  # --trace: last capture report
+var _side: SimUnit = null  # the capture on the way (RP building, turret control, bay) being worked
 var _stuck := {}  # unit id -> moves to the same goal that left it standing
 var _retreat := {}  # unit id -> true while it is pulled back to repair
 var _verbose := true
@@ -243,8 +245,10 @@ func _force_text(sm: SimMission, force: Array) -> String:
 # --- play --------------------------------------------------------------------------------
 
 func _lance(w: SimWorld) -> Array:
+	# not the support deliveries that can't fight alongside: trucks, the immobile artillery piece
 	return w.units.filter(func(u): return u.team == 0 and u.commander == 0 and u.is_mover() \
-		and u.exists and not u.is_disabled() and not u.hulk and u.on_gui and u.refit_pool <= 0.0 and u.num_weapons > 0)
+		and u.exists and not u.is_disabled() and not u.hulk and u.on_gui and u.refit_pool <= 0.0 and u.num_weapons > 0 \
+		and u.run_speed > 0.0)
 
 
 func _centre(units: Array) -> Vector2:
@@ -348,12 +352,22 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 		return {"kind": "attack", "target": soft[0]}
 	# Resource Points: a player takes the RP buildings and ordnance trucks near the route
 	# (support-powers.md 1); support powers need them, and several missions start with 0 RP.
+	# Turret controls and repair bays near the route too: every walkthrough fights inside captured
+	# turrets and repairs at captured bays (docs/research/original-missions.md, I94, I95).
 	if sm.abl:
-		var rp_t := w.units.filter(func(u): return u.resource_points > 0 and u.capturable and sm.abl.can_capture(u, 0) \
-			and u.position.distance_to(centre) <= 700.0 and _path_ok(sm, lance[0], u))
+		var rp_t := w.units.filter(func(u): return u.capturable and sm.abl.can_capture(u, 0) \
+			and (u.resource_points > 0 or (u is SimStructure and (u.control or (u.can_refit and u.mech_bay)))) \
+			and u.position.distance_to(centre) <= (700.0 if u.resource_points > 0 else 450.0) and _path_ok(sm, lance[0], u))
+		# keep the one already started (a group walk is slow; without this the lance swayed
+		# between it and the next objective at the edge of the radius)
+		if _side and is_instance_valid(_side) and not rp_t.has(_side) and sm.abl.can_capture(_side, 0) \
+				and _side.position.distance_to(centre) <= 750.0:
+			rp_t.append(_side)
 		if not rp_t.is_empty():
-			rp_t.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
+			rp_t.sort_custom(func(a, b): return a == _side or (b != _side and a.position.distance_to(centre) < b.position.distance_to(centre)))
+			_side = rp_t[0]
 			return {"kind": "capture", "target": rp_t[0]}
+		_side = null
 	# In the designer's order (the numbered objectives follow the route; nearest-first sent
 	# mc2_11's lance to objective 3 across the map first).
 	for obj in objs:
@@ -538,10 +552,20 @@ func _fight(sm: SimMission, fighters: Array, threats: Array) -> void:
 ## then one mech captures while the rest guard it.
 func _capture(sm: SimMission, units: Array, centre: Vector2, t: SimUnit) -> void:
 	var w := sm.world
+	if _trace and w.time - _cap_trace >= 30.0:
+		_cap_trace = w.time
+		var cp := units.filter(func(m): return m.brain is SimAbl.Pilot and int(m.brain.order.get("code", -1)) == SimAbl.TO_CAPTURE)
+		print("t=%6.1f  CAPTURE %s at %.0f m from the lance; capturer %s order %d dist %.0f; can_capture %s" % [w.time, t.name,
+			t.distance_to(centre), cp[0].name if cp else "-", cp[0].order if cp else -1, cp[0].distance_to(t.position) if cp else -1.0,
+			sm.abl.can_capture(t, 0)])
 	var guards := w.units.filter(func(u): return u != t and u.team != 0 and u.is_mover() and u.exists and not u.is_disabled() \
 		and not u.hulk and u.num_weapons > 0 and u.position.distance_to(t.position) <= SimAbl.BLOCK_CAPTURE_M + 10.0)
 	if not guards.is_empty():
 		guards.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
+		if _trace and w.time - _cap_trace >= 30.0:
+			_cap_trace = w.time
+			print("t=%6.1f  CAPTURE guards %d: %s (%s) at %.0f m, awake %s, contact %s" % [w.time, guards.size(), guards[0].name,
+				guards[0].brain_name, guards[0].distance_to(centre), guards[0].awake, sm.abl.is_contact(0, guards[0])])
 		for m in units:
 			if not (m.order == SimWorld.Order.ATTACK and guards.has(m.order_target)):
 				_order(sm, m, "attack", guards[0])
@@ -583,7 +607,7 @@ func _pull_back(sm: SimMission, m: SimUnit, lance: Array, centre: Vector2, threa
 	var s: SimSupport = sm.support
 	var trucks := w.units.filter(func(u): return u.refit_pool > 0.0 and u.team == 0 and not u.is_disabled() and u.exists)
 	var can_repair := not trucks.is_empty() or (s != null and s.rp >= int(SimSupport.COSTS["repair_truck"])) \
-		or (s != null and s.delivering)
+		or (s != null and s.delivering) or _bay_for(sm, m) != null
 	var h := _health(m)
 	if _retreat.has(m.id):
 		if h >= RESUME_FRAC or (threats.is_empty() and not can_repair) or String(task.get("kind", "")) == "extract" \
@@ -600,6 +624,8 @@ func _pull_back(sm: SimMission, m: SimUnit, lance: Array, centre: Vector2, threa
 	else:
 		return false
 	_goal.erase(m.id)
+	if _to_bay(sm, m):
+		return true
 	if not trucks.is_empty():
 		trucks.sort_custom(func(a, b): return a.distance_to(m.position) < b.distance_to(m.position))
 		var truck: SimUnit = trucks[0]
@@ -616,6 +642,41 @@ func _pull_back(sm: SimMission, m: SimUnit, lance: Array, centre: Vector2, threa
 	if m.distance_to(away) > 40.0 and (m.order != SimWorld.Order.MOVE or m.path.is_empty()):
 		_order(sm, m, "move", w.map.nearest_walkable(away))
 	return true
+
+
+## A friendly repair bay with points left within reach of the mech, free or already fixing it.
+func _bay_for(sm: SimMission, m: SimUnit) -> SimStructure:
+	if sm.support == null or not (m is SimMech):
+		return null
+	var best: SimStructure = null
+	for u in sm.world.units:
+		if not (u is SimStructure) or not u.can_refit or not u.mech_bay or u.is_destroyed() or u.team != 0:
+			continue
+		if SimSupport.bay_points(u) <= 1.0 or u.distance_to(m.position) > 900.0:
+			continue
+		if u.refit_buddy != null and u.refit_buddy != m and u.refit_buddy.exists and not u.refit_buddy.is_disabled():
+			continue
+		if best == null or u.distance_to(m.position) < best.distance_to(m.position):
+			best = u
+	return best
+
+
+## Send a damaged mech to a friendly bay (GETFIXED, support-powers.md 3.7); true while it is
+## going there or being repaired.
+func _to_bay(sm: SimMission, m: SimUnit) -> bool:
+	var s: SimSupport = sm.support
+	if s == null:
+		return false
+	if s.bay_repairs.any(func(r): return r["mech"] == m):
+		return true
+	var bay := _bay_for(sm, m)
+	if bay == null or not SimSupport.needs_refit(m):
+		return false
+	if s.order_bay_repair(m, bay):
+		if _verbose:
+			print("t=%6.1f  BAY %s -> %s (%.0f m)" % [sm.world.time, m.name, bay.name, m.distance_to(bay.position)])
+		return true
+	return false
 
 
 ## Outgunned (the threats in reach out-shoot the lance by half again and it is worn), fall back
@@ -661,6 +722,21 @@ func _repair_lull(sm: SimMission, units: Array, task: Dictionary) -> bool:
 	var w := sm.world
 	if String(task.get("kind", "")) == "extract":
 		return false
+	# a lull near a friendly bay: the worst-hurt mech under 70% gets fixed there first
+	var at_bay := false
+	for m in units:
+		if sm.support and sm.support.bay_repairs.any(func(r): return r["mech"] == m):
+			at_bay = true
+	if not at_bay:
+		var hurt_b := units.filter(func(m): return m is SimMech and _health(m) < RESUME_FRAC and SimSupport.needs_refit(m) \
+			and _bay_for(sm, m) != null)
+		hurt_b.sort_custom(func(a, b): return _health(a) < _health(b))
+		for m in hurt_b:
+			if _to_bay(sm, m):
+				at_bay = true
+				break
+	if at_bay:
+		return true
 	var trucks := w.units.filter(func(u): return u.refit_pool > 0.0 and u.team == 0 and not u.is_disabled() and u.exists)
 	var waiting := sm.support != null and sm.support.delivering and sm.support.pending.any(func(p): return p["kind"] == "vtol")
 	if trucks.is_empty() and not waiting:
@@ -794,6 +870,15 @@ func _use_support(sm: SimMission, lance: Array, centre: Vector2, threats: Array)
 		if best_at != null and _support(sm, "air_strike", best_at):
 			_last_strike = w.time
 			return
+	# Long Toms against bunched enemies (players drop 2-4 to break waves, research doc): a piece
+	# behind the lance when three or more armed enemies are near and RP covers a truck as well.
+	var guns := w.units.filter(func(u): return u.team == 0 and u.model == "artillerypiece" and u.exists and not u.is_disabled())
+	if s.can_call("artillery_piece") and guns.size() < 3 and threats.size() >= 3 \
+			and s.rp - int(SimSupport.COSTS["artillery_piece"]) >= reserve \
+			and not guns.any(func(g): return g.position.distance_to(centre) < 150.0):
+		var back := centre + (centre - _centre(threats)).normalized() * 50.0
+		if _support(sm, "artillery_piece", w.map.nearest_walkable(back)):
+			return
 	if s.can_call("sensor_probe") and threats.is_empty() and s.probes.is_empty() \
 			and w.time > 30.0 and s.rp >= int(SimSupport.COSTS["sensor_probe"]) + 2 * int(SimSupport.COSTS["repair_truck"]) + int(SimSupport.COSTS["air_strike"]):
 		var task := _task(sm, lance, centre)
@@ -851,6 +936,12 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool)
 							u.last_attacker.name if u.last_attacker else "-"])
 				"mission_end":
 					if verbose: print("t=%6.1f  MISSION %s" % [w.time, "WON" if e["won"] else "LOST"])
+				"captured", "capture_blocked", "capture_refused", "turret_team", "turret_down", "repair_done", "mine":
+					if verbose and (_trace or e["type"] in ["captured", "turret_down", "repair_done"]):
+						var who: String = w.units[e["unit"]].name if int(e.get("unit", -1)) >= 0 else "-"
+						var what: String = w.units[e["target"]].name if e.has("target") else (w.units[e["bay"]].name if e.has("bay") else "")
+						var by: String = (" by " + w.units[e["by"]].name + " (" + w.units[e["by"]].brain_name + ")") if e.has("by") else ""
+						print("t=%6.1f  %s %s %s%s" % [w.time, String(e["type"]).to_upper(), who, what, by])
 				"impact":
 					var victim: SimUnit = w.units[e["unit"]]
 					if victim.team != 0 and int(e.get("from", -1)) >= 0 and w.units[e["from"]].commander == 0:

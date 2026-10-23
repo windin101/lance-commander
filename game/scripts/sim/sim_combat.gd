@@ -63,7 +63,8 @@ static func attack_chance(rules: SimRules, attacker: SimUnit, inv: int, target: 
 			chance += 20.0
 
 	if attacker.uses_heat:
-		chance -= float(rules.heat_row(attacker.heat_level())["fire_mod"])
+		# H3, softened by H9 (heat_fire_mod_factor, combat-rules.md)
+		chance -= float(rules.heat_row(attacker.heat_level())["fire_mod"]) * rules.heat_fire_mod_factor
 	return clampf(chance, 5.0, 95.0)
 
 

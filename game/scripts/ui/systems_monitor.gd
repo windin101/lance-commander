@@ -253,6 +253,7 @@ func refresh() -> void:
 		var best := 0.0
 		var dead := true
 		var shots := -1
+		var energy := true
 		for inv in g["items"]:
 			var item: Dictionary = unit.items[inv]
 			if item["disabled"]:
@@ -261,8 +262,9 @@ func refresh() -> void:
 			var recycle := float(unit.weapon(inv).get("recycle", 1.0))
 			best = maxf(best, 1.0 - clampf((float(item["ready_time"]) - now) / maxf(recycle, 0.01), 0.0, 1.0))
 			shots = unit.weapon_shots(inv)
+			energy = not unit.uses_ammo(inv)
 		r[0].add_theme_color_override("font_color", UiStyle.HUD_DIM if dead else UiStyle.HUD_INK)
-		r[1].text = "—" if shots < 0 else str(shots)
+		r[1].text = ("—" if energy else "∞") if shots < 0 else str(shots)  # ∞: unlimited ammo (O2)
 		r[2].value = 0.0 if dead else best
 
 

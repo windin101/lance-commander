@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-23T18:10:38+13:00",
+  "updated": "2026-10-23T20:14:43+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -500,8 +500,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-23T16:08:58+13:00",
-      "note": "Fidelity 2026-10-23 (F6): what is left is sim_world.gd:492-515. Once its brain has attacked, an AI unit fires at the nearest armed enemy whenever it has no order target. The original's combatDecisionTree fires only at getLastTarget() and drops it beyond attackRadius (warrior.cpp:3493,3532-3538). See docs/reports/fidelity/2026-10-23-combat.md"
+      "updated": "2026-10-23T19:06:15+13:00",
+      "note": "Fidelity 2026-10-23 (F6) done: SimWorld._pick_target now fires an engaged brain only at its last target (current_target), dropped beyond attackRadius 275 m (warrior.cpp:3493,3532-3538); no fire-at-will fallback for units with a brain (flag SimRules.brain_target_only). sim_cinematic_test.gd passes. Still open for the remaining parts of this issue, if any (autoplay counting commander-2 dummies)."
     },
     {
       "id": "I13",
@@ -1486,10 +1486,10 @@
       "repro": "python3 docs/reports/fidelity/2026-10-23-combat/make_variant.py game/tools/autoplay.gd /tmp/v.gd; godot --headless --path game -s /tmp/v.gd -- 1 1800 --mission=mc2_15 --damage [--v-nodes]",
       "owner": null,
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-23T16:08:57+13:00",
-      "updated": "2026-10-23T16:08:57+13:00",
-      "note": null
+      "updated": "2026-10-23T18:17:30+13:00",
+      "note": "Fixed 2026-10-23 (Lee: copy the original). SimRules.vehicle_weapon_nodes (O1, default on): least-used weapon node, refuse node >3 or recycling (0.25 s), no recycle/ammo spent (gvehicl.cpp:4601-4618, Gvactor.cpp:578-660). weapon_nodes per vehicle from the ASE (tools/convert/vehicles.py count_weapon_nodes; data/vehicles/*.json). Partisan/Legion 4 nodes -> 2 shots per mission. combat-rules.md 'Kept original rules' O1. Tests: game/test/sim_fidelity_test.gd (node counts, least-used choice, Partisan 2 shots, rule off, 2-node vehicle keeps firing)."
     },
     {
       "id": "I89",
@@ -1499,10 +1499,10 @@
       "repro": "godot --headless --path game -s /tmp/v.gd -- 1 1800 --mission=mc2_19 --damage [--v-heatoff]  (v.gd from make_variant.py)",
       "owner": null,
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-23T16:08:57+13:00",
-      "updated": "2026-10-23T16:08:57+13:00",
-      "note": null
+      "updated": "2026-10-23T18:17:30+13:00",
+      "note": "Fixed 2026-10-23 (Lee: soften heat). Heat stays on for all mechs; SimRules.heat_fire_mod_factor = 0.5 halves heat.csv fire_mod in SimCombat.attack_chance (sim_combat.gd). Recorded as H9 in combat-rules.md. Test: sim_combat_test.gd test_heat_fire_penalty (48.5 at level 10, 37 with factor 1.0)."
     },
     {
       "id": "I90",
@@ -1512,10 +1512,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_22 --damage --shots=200",
       "owner": null,
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-23T16:08:58+13:00",
-      "updated": "2026-10-23T16:08:58+13:00",
-      "note": null
+      "updated": "2026-10-23T19:06:14+13:00",
+      "note": "Fixed 2026-10-23. SimWorld.is_contact replaces the 500 m placeholder: visual = LOS within 225 m (VisualRangeTable 9 x 25 m, Scout +20%, LOSFactor; gameobj.cpp:1881-1897) from a team mover with a working sensor; sensor = fitted sensor range (compbas: Vehicle 0, Standard 1, Extended 400, Advanced 550, Cyclops 800; Contact.cpp:274-330) or a team sensor tower (bldng.cpp:1266, towers follow their sensor control and fail with it), not through ECM or shutdown. Cached 0.5 s. Flag SimRules.original_contacts. Spec: combat-rules.md 'Line of sight and contacts', abl-natives.md 5. Tests: sim_fidelity_test.gd (visual 225 m, scout, sensors/ECM/shutdown, hill). sim_brain_test guard test moved its intruder from 250 m to 180 m (inside sight)."
     },
     {
       "id": "I91",
@@ -1525,10 +1525,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_22 --damage",
       "owner": null,
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-23T16:08:58+13:00",
-      "updated": "2026-10-23T16:08:58+13:00",
-      "note": null
+      "updated": "2026-10-23T19:06:14+13:00",
+      "note": "Fixed 2026-10-23. Team::lineOfSight walk ported (SimMap.line_of_sight, team.cpp:1071-1260): cell-centre to cell-centre in 2/3-cell steps against terrain + cell local height (4 m per step), forest steps counted to MaxTreeLOSBlock 6, early out inside the target extent. Sight heights from the shapes' lowest weapon node (tools/convert/los_heights.py -> data/los_heights.json). Direct fire needs LOS; indirect (LRM5, Swarm LRM, LRM, Long Tom) a team mate's (warrior.cpp:3396-3414). Attackers keep closing until they can see. Also added area-effect weapons (Long Tom, Swarm LRM blast hit or miss, weaponbolt.cpp:762-794). Pair LOS cached 0.5 s; sweep speed unchanged (~29 sim-s per wall-s). Flags line_of_sight, area_effect_weapons. Tests: sim_fidelity_test.gd (trees, ridge, LRM spotter, closing, Long Tom blast)."
     },
     {
       "id": "I92",
@@ -1538,10 +1538,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_20 --damage --trace",
       "owner": null,
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-23T16:08:58+13:00",
-      "updated": "2026-10-23T16:08:58+13:00",
-      "note": null
+      "updated": "2026-10-23T19:06:14+13:00",
+      "note": "Fixed 2026-10-23. SimAbl._issue: brain move orders set the pilot's moveRun from their RUN flag (corebrain.abx:235-237, warrior.cpp:5314/5974); attack/guard orders without a speed use the last move's pace (coreAttack ignores RUN, warrior.cpp:5574); default walk. Flag SimRules.brain_walk. Spec combat-rules.md 'Brain move speed'. Test: sim_fidelity_test.gd test_brain_moves_walk_unless_the_script_runs."
     },
     {
       "id": "I93",
@@ -1554,6 +1554,97 @@
       "status": "open",
       "created": "2026-10-23T16:08:58+13:00",
       "updated": "2026-10-23T16:08:58+13:00",
+      "note": null
+    },
+    {
+      "id": "I94",
+      "sev": "P1",
+      "title": "Map turrets and capturable turret controls",
+      "detail": "Turrets (object class 21) are never simulated: sim_mission.gd:202 loads class-1 objects only. The original links turrets to a control building via parent (turret.cpp:551); capturing the control turns its turrets to the captor's side. map_objects.py drops parent, and all turret controls convert as capturable:false. Every walkthrough builds missions 12-24 around captured turrets (docs/research/original-missions.md).",
+      "repro": null,
+      "owner": "sim",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-23T18:11:16+13:00",
+      "updated": "2026-10-23T19:06:28+13:00",
+      "note": "Fixed 2026-10-23. map_objects.py now writes each placement's parent cell and the turret [TurretData] (weapons, PilotSkill, AttackRadius, yaw rate, DmgLevel, LittleExtent); objects.json regenerated for all 24 missions (1024 parent links, all resolve). SimTurret (game/scripts/sim/sim_turret.gd, turret.cpp): closest enemy mover in the attack radius, turns at its yaw rate, fires within +/-10 deg after a 1 s pop-up, LOS (team LOS for LRMs), to-hit = pilot skill +50 vs a still target. Parent becomes a capturable control (Liao/Bandit controls included); turrets follow its team and go dark for good when it is destroyed (turret.cpp:617-646). Capturing a child hands the team up to its parent (bldng.cpp:972-979). Team 2 placements join team 0. View: guns turn (ObjectsView.set_turret_yaw), turret shots use the weapon FX, tac-map triangles. Bot captures controls near the route. Limits: pop-up time is one constant, no turretsEnabled ABL switch. Tests: game/test/sim_turret_test.gd (9)."
+    },
+    {
+      "id": "I95",
+      "sev": "P1",
+      "title": "Repair bays",
+      "detail": "Maps of mc2_13/14/17 and others place repair bays; the original repairs friendly mechs standing in them. No repair-bay code exists. The no-RP missions are designed around them (docs/research/original-missions.md).",
+      "repro": null,
+      "owner": "sim",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-23T18:11:16+13:00",
+      "updated": "2026-10-23T19:06:28+13:00",
+      "note": "Fixed 2026-10-23. The original repairs only on an order (TACTICAL_ORDER_GETFIXED, tacordr.cpp:1081-1100,1537-1622), not by standing in the bay; the bay must be friendly (missiongui.cpp:1417), so capture it first. SimSupport.order_bay_repair: one mech per bay, walk on, power down 3 s, refit cycle every 1 s (10 points, vehicle cost factors, support-powers.md 3.4.1), points burnt as bay damage (pool = DmgLevel - damage, bldng.h:372, bldng.cpp:1649), walk one tile off. Right-click a friendly bay with a damaged mech selected (CommandInput). Bot sends damaged mechs to friendly bays and captures bays near its route. Test: support_test.gd test_a_friendly_repair_bay_repairs_a_mech_and_burns_its_own_points."
+    },
+    {
+      "id": "I96",
+      "sev": "P2",
+      "title": "Long Tom artillery piece and minelayer support",
+      "detail": "sim_support.gd: 'Not yet: minelayer, scout copter, artillery piece'. Players rely on placed artillery and mines in mc2_12, 15 and 23 (docs/research/original-missions.md).",
+      "repro": null,
+      "owner": "sim",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-23T18:11:16+13:00",
+      "updated": "2026-10-23T19:06:29+13:00",
+      "note": "Fixed 2026-10-23. GuardTower.fit converted (data/vehicles/guardtower.json, artillerypiece.glb; vehicles.convert_support). Support row: air strike, artillery piece 8000, sensor probe, repair truck, minelayer 4000, salvage (controlGui.cpp:80-115, less the scout). Delivered by VTOL with PMWGuardTower / PMWMinelayer pilots. Long Tom: indirect fire, 15-damage 37 m blast hit or miss. Minelayer: hold M + right-click lays mines (one per new cell after 0.5 s, stock 160 = turret armour, gvehicl.cpp:3605-3637). Mines: mechs and vehicles over 35 t set them off for 12 (mech.cpp:3731-3778 - corrects support-powers.md 3.5) ; map-placed mines from the cell bits (mc2_07, 11, 15, 22). Not done: suppression fire on a ground point, a LAYMINES button (M key stands in), the scout copter. Tests: support_test.gd (delivery, mines), sim_fidelity_test.gd (Long Tom blast)."
+    },
+    {
+      "id": "I97",
+      "sev": "P2",
+      "title": "Unlimited ammo by default, as the original single player",
+      "detail": "The original's single-player preference UnlimitedAmmo defaults TRUE (prefs.cpp:143-145; mover.cpp:5784-5788), so every bin is infinite. sim_combat.gd:100 always spends ammo. Make it a setting, default on.",
+      "repro": null,
+      "owner": "sim",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-23T18:11:16+13:00",
+      "updated": "2026-10-23T18:17:30+13:00",
+      "note": "Fixed 2026-10-23. SimRules.unlimited_ammo (O2, default on, logmain.cpp:53 / mover.cpp:5784-5788): SimWorld.add_unit copies it to SimUnit.unlimited_ammo; weapon_shots returns -1 and reduce_ammo is a no-op. HUD (unit_card.gd, systems_monitor.gd) shows the infinity sign for ammo weapons, a dash for energy weapons. combat-rules.md O2. Tests: sim_fidelity_test.gd test_unlimited_ammo_by_default / test_limited_ammo_when_switched_off."
+    },
+    {
+      "id": "I98",
+      "sev": "P2",
+      "title": "HD model articulation and texture rework (mechs, vehicles, buildings)",
+      "detail": "Lee 2026-10-23: joint chopping (stl_rig.py planar cuts, rigid nearest-part skinning, caps) and the projected low-res paint masks look extremely bad in game, bay and lab. Plan: audit, articulation along kit part lines with overlapping actuators and a pose test, textures from scratch (UVs, bakes from the full sculpt, new 3-zone masks, shared battle-worn material), building PBR retexture and remodels, pilot set (Bushwacker, one vehicle, one building) for approval, then rollout. Decisions: battle-worn; Blender; CC-SA derivatives fine.",
+      "repro": null,
+      "owner": "game-art",
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-23T19:56:32+13:00",
+      "updated": "2026-10-23T19:56:32+13:00",
+      "note": null
+    },
+    {
+      "id": "I99",
+      "sev": "P2",
+      "title": "Autoplay bot walks into live map turrets and stalls in fights it cannot see (sweep 2026-10-23-fidelity: 14/72 wins, was 28/72)",
+      "detail": "After I88-I97 the map turrets fire (I94): they are now the lance's top killers (MediumAutoCannonTurret 28, LargePulseCannonTurret 16, SRMTurret 15 losses in lost runs). The bot captures controls/bays near its route but never treats enemy turrets as threats (they are not movers), never targets generators/controls to drop forts, and 12 runs end PLAYING at 1800 s (mc2_03, 04, 09, 20, 22, 23) with a lone mech fighting enemies it has no line of sight to. Players destroy generators, jump-capture controls and lure enemies into captured turrets (docs/research/original-missions.md). Report docs/reports/playtest/2026-10-23-fidelity/README.md",
+      "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_04 --damage --trace",
+      "owner": "bot",
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-23T20:13:52+13:00",
+      "updated": "2026-10-23T20:13:52+13:00",
+      "note": null
+    },
+    {
+      "id": "I100",
+      "sev": "P2",
+      "title": "Repair truck: heat system restarts a mech it just powered down",
+      "detail": "A mech under repair by a repair truck is restarted by the heat system right after it powers down. The repair-bay code marks its power-down so heat leaves it alone; the truck code doesn't (found during the I95 work, 2026-10-23).",
+      "repro": null,
+      "owner": "sim",
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-23T20:14:43+13:00",
+      "updated": "2026-10-23T20:14:43+13:00",
       "note": null
     }
   ],
@@ -1661,91 +1752,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T16:59:41+13:00",
-      "who": "conductor",
-      "msg": "issue I2 fixed: fixed in batch 2: jaegermech approved in review wf_184c9edf-383"
-    },
-    {
-      "at": "2026-10-19T16:59:41+13:00",
-      "who": "conductor",
-      "msg": "issue I3 fixed: fixed in batch 2: starslayer approved in review wf_184c9edf-383"
-    },
-    {
-      "at": "2026-10-19T16:59:41+13:00",
-      "who": "conductor",
-      "msg": "issue I6 fixed: fixed in batch 2: highlander approved in review wf_184c9edf-383"
-    },
-    {
-      "at": "2026-10-19T16:59:41+13:00",
-      "who": "conductor",
-      "msg": "issue I8 fixed: fixed in batch 2: bushwacker approved in review wf_184c9edf-383"
-    },
-    {
-      "at": "2026-10-19T16:59:41+13:00",
-      "who": "conductor",
-      "msg": "issue I4 duplicate: urbanmech: mesh redone in batch 2 (seed 4242, debris gone); remaining fault is orientation, see I38"
-    },
-    {
-      "at": "2026-10-19T16:59:41+13:00",
-      "who": "conductor",
-      "msg": "run wf_184c9edf-383 (phase-7-hd-review) ok: 13 agents, 695610 tokens"
-    },
-    {
-      "at": "2026-10-19T16:59:43+13:00",
-      "who": "conductor",
-      "msg": "decided C26: docs/art-provenance.md per-mech table is now generated by tools/art/provenance_table.py from provenance.json + open issues; a gate checks it is current \u2014 batch 1 and the batch 2 critic both found hand-written rows stale or missing; the data already exists in provenance.json"
-    },
-    {
-      "at": "2026-10-19T17:00:22+13:00",
-      "who": "gate",
-      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
-    },
-    {
-      "at": "2026-10-19T17:01:10+13:00",
-      "who": "gate",
-      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
-    },
-    {
-      "at": "2026-10-19T17:01:33+13:00",
-      "who": "conductor",
-      "msg": "issue I7 duplicate: superseded by I37 (seed 8 already used and drifted; I37 uses seed 12)"
-    },
-    {
-      "at": "2026-10-19T17:01:33+13:00",
-      "who": "conductor",
-      "msg": "decided C27: Batch 3: run the 13 open HD redos on GPU0 straight away, each from its issue's repro (script generated from state.json, one redo per mech asserted) \u2014 GPU0 is idle and the repros are corrected; this is the conductor's own rerun list, not a new look"
-    },
-    {
-      "at": "2026-10-19T17:40:59+13:00",
-      "who": "conductor",
-      "msg": "batch 3 done 17:40: 13/13 redos ran OK (40 min); review launched in 4 groups"
-    },
-    {
-      "at": "2026-10-19T17:43:20+13:00",
-      "who": "game-art",
-      "msg": "issue I47 P2: HD mediumcopter: reseed_mesh"
-    },
-    {
-      "at": "2026-10-19T17:43:20+13:00",
-      "who": "game-art",
-      "msg": "issue I48 P2: HD heavycopter: reseed_mesh"
-    },
-    {
-      "at": "2026-10-19T17:43:20+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 4: 0 approved, 2 issues"
-    },
-    {
-      "at": "2026-10-19T17:43:36+13:00",
-      "who": "game-art",
-      "msg": "issue I49 P2: HD atlas: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T17:43:36+13:00",
-      "who": "game-art",
-      "msg": "issue I50 P2: HD laohu: reseed_mesh"
-    },
     {
       "at": "2026-10-19T17:43:38+13:00",
       "who": "game-art",
@@ -2660,6 +2666,91 @@
       "at": "2026-10-23T18:10:38+13:00",
       "who": "conductor",
       "msg": "issue I87 fixed: Weapon and damage effects pass accepted by Lee 2026-10-23"
+    },
+    {
+      "at": "2026-10-23T18:11:16+13:00",
+      "who": "sim",
+      "msg": "issue I94 P1: Map turrets and capturable turret controls"
+    },
+    {
+      "at": "2026-10-23T18:11:16+13:00",
+      "who": "sim",
+      "msg": "issue I95 P1: Repair bays"
+    },
+    {
+      "at": "2026-10-23T18:11:16+13:00",
+      "who": "sim",
+      "msg": "issue I96 P2: Long Tom artillery piece and minelayer support"
+    },
+    {
+      "at": "2026-10-23T18:11:16+13:00",
+      "who": "sim",
+      "msg": "issue I97 P2: Unlimited ammo by default, as the original single player"
+    },
+    {
+      "at": "2026-10-23T18:17:30+13:00",
+      "who": "conductor",
+      "msg": "issue I88 fixed: Fixed 2026-10-23 (Lee: copy the original). SimRules.vehicle_weapon_nodes (O1, default on): least-used weapon node, refuse node >3 or recycling (0.25 s), no recycle/ammo spent (gvehicl.cpp:4601-4618, Gvactor.cpp:578-660). weapon_nodes per vehicle from the ASE (tools/convert/vehicles.py count_weapon_nodes; data/vehicles/*.json). Partisan/Legion 4 nodes -> 2 shots per mission. combat-rules.md 'Kept original rules' O1. Tests: game/test/sim_fidelity_test.gd (node counts, least-used choice, Partisan 2 shots, rule off, 2-node vehicle keeps firing)."
+    },
+    {
+      "at": "2026-10-23T18:17:30+13:00",
+      "who": "conductor",
+      "msg": "issue I89 fixed: Fixed 2026-10-23 (Lee: soften heat). Heat stays on for all mechs; SimRules.heat_fire_mod_factor = 0.5 halves heat.csv fire_mod in SimCombat.attack_chance (sim_combat.gd). Recorded as H9 in combat-rules.md. Test: sim_combat_test.gd test_heat_fire_penalty (48.5 at level 10, 37 with factor 1.0)."
+    },
+    {
+      "at": "2026-10-23T18:17:30+13:00",
+      "who": "conductor",
+      "msg": "issue I97 fixed: Fixed 2026-10-23. SimRules.unlimited_ammo (O2, default on, logmain.cpp:53 / mover.cpp:5784-5788): SimWorld.add_unit copies it to SimUnit.unlimited_ammo; weapon_shots returns -1 and reduce_ammo is a no-op. HUD (unit_card.gd, systems_monitor.gd) shows the infinity sign for ammo weapons, a dash for energy weapons. combat-rules.md O2. Tests: sim_fidelity_test.gd test_unlimited_ammo_by_default / test_limited_ammo_when_switched_off."
+    },
+    {
+      "at": "2026-10-23T19:06:14+13:00",
+      "who": "conductor",
+      "msg": "issue I90 fixed: Fixed 2026-10-23. SimWorld.is_contact replaces the 500 m placeholder: visual = LOS within 225 m (VisualRangeTable 9 x 25 m, Scout +20%, LOSFactor; gameobj.cpp:1881-1897) from a team mover with a working sensor; sensor = fitted sensor range (compbas: Vehicle 0, Standard 1, Extended 400, Advanced 550, Cyclops 800; Contact.cpp:274-330) or a team sensor tower (bldng.cpp:1266, towers follow their sensor control and fail with it), not through ECM or shutdown. Cached 0.5 s. Flag SimRules.original_contacts. Spec: combat-rules.md 'Line of sight and contacts', abl-natives.md 5. Tests: sim_fidelity_test.gd (visual 225 m, scout, sensors/ECM/shutdown, hill). sim_brain_test guard test moved its intruder from 250 m to 180 m (inside sight)."
+    },
+    {
+      "at": "2026-10-23T19:06:14+13:00",
+      "who": "conductor",
+      "msg": "issue I91 fixed: Fixed 2026-10-23. Team::lineOfSight walk ported (SimMap.line_of_sight, team.cpp:1071-1260): cell-centre to cell-centre in 2/3-cell steps against terrain + cell local height (4 m per step), forest steps counted to MaxTreeLOSBlock 6, early out inside the target extent. Sight heights from the shapes' lowest weapon node (tools/convert/los_heights.py -> data/los_heights.json). Direct fire needs LOS; indirect (LRM5, Swarm LRM, LRM, Long Tom) a team mate's (warrior.cpp:3396-3414). Attackers keep closing until they can see. Also added area-effect weapons (Long Tom, Swarm LRM blast hit or miss, weaponbolt.cpp:762-794). Pair LOS cached 0.5 s; sweep speed unchanged (~29 sim-s per wall-s). Flags line_of_sight, area_effect_weapons. Tests: sim_fidelity_test.gd (trees, ridge, LRM spotter, closing, Long Tom blast)."
+    },
+    {
+      "at": "2026-10-23T19:06:14+13:00",
+      "who": "conductor",
+      "msg": "issue I92 fixed: Fixed 2026-10-23. SimAbl._issue: brain move orders set the pilot's moveRun from their RUN flag (corebrain.abx:235-237, warrior.cpp:5314/5974); attack/guard orders without a speed use the last move's pace (coreAttack ignores RUN, warrior.cpp:5574); default walk. Flag SimRules.brain_walk. Spec combat-rules.md 'Brain move speed'. Test: sim_fidelity_test.gd test_brain_moves_walk_unless_the_script_runs."
+    },
+    {
+      "at": "2026-10-23T19:06:15+13:00",
+      "who": "conductor",
+      "msg": "issue I12 updated: note \u2014 Fidelity 2026-10-23 (F6) done: SimWorld._pick_target now fires an engaged brain only at its last target (current_target), dropped beyond attackRadius 275 m (warrior.cpp:3493,3532-3538); no fire-at-will fallback for units with a brain (flag SimRules.brain_target_only). sim_cinematic_test.gd passes. Still open for the remaining parts of this issue, if any (autoplay counting commander-2 dummies)."
+    },
+    {
+      "at": "2026-10-23T19:06:28+13:00",
+      "who": "conductor",
+      "msg": "issue I94 fixed: Fixed 2026-10-23. map_objects.py now writes each placement's parent cell and the turret [TurretData] (weapons, PilotSkill, AttackRadius, yaw rate, DmgLevel, LittleExtent); objects.json regenerated for all 24 missions (1024 parent links, all resolve). SimTurret (game/scripts/sim/sim_turret.gd, turret.cpp): closest enemy mover in the attack radius, turns at its yaw rate, fires within +/-10 deg after a 1 s pop-up, LOS (team LOS for LRMs), to-hit = pilot skill +50 vs a still target. Parent becomes a capturable control (Liao/Bandit controls included); turrets follow its team and go dark for good when it is destroyed (turret.cpp:617-646). Capturing a child hands the team up to its parent (bldng.cpp:972-979). Team 2 placements join team 0. View: guns turn (ObjectsView.set_turret_yaw), turret shots use the weapon FX, tac-map triangles. Bot captures controls near the route. Limits: pop-up time is one constant, no turretsEnabled ABL switch. Tests: game/test/sim_turret_test.gd (9)."
+    },
+    {
+      "at": "2026-10-23T19:06:28+13:00",
+      "who": "conductor",
+      "msg": "issue I95 fixed: Fixed 2026-10-23. The original repairs only on an order (TACTICAL_ORDER_GETFIXED, tacordr.cpp:1081-1100,1537-1622), not by standing in the bay; the bay must be friendly (missiongui.cpp:1417), so capture it first. SimSupport.order_bay_repair: one mech per bay, walk on, power down 3 s, refit cycle every 1 s (10 points, vehicle cost factors, support-powers.md 3.4.1), points burnt as bay damage (pool = DmgLevel - damage, bldng.h:372, bldng.cpp:1649), walk one tile off. Right-click a friendly bay with a damaged mech selected (CommandInput). Bot sends damaged mechs to friendly bays and captures bays near its route. Test: support_test.gd test_a_friendly_repair_bay_repairs_a_mech_and_burns_its_own_points."
+    },
+    {
+      "at": "2026-10-23T19:06:29+13:00",
+      "who": "conductor",
+      "msg": "issue I96 fixed: Fixed 2026-10-23. GuardTower.fit converted (data/vehicles/guardtower.json, artillerypiece.glb; vehicles.convert_support). Support row: air strike, artillery piece 8000, sensor probe, repair truck, minelayer 4000, salvage (controlGui.cpp:80-115, less the scout). Delivered by VTOL with PMWGuardTower / PMWMinelayer pilots. Long Tom: indirect fire, 15-damage 37 m blast hit or miss. Minelayer: hold M + right-click lays mines (one per new cell after 0.5 s, stock 160 = turret armour, gvehicl.cpp:3605-3637). Mines: mechs and vehicles over 35 t set them off for 12 (mech.cpp:3731-3778 - corrects support-powers.md 3.5) ; map-placed mines from the cell bits (mc2_07, 11, 15, 22). Not done: suppression fire on a ground point, a LAYMINES button (M key stands in), the scout copter. Tests: support_test.gd (delivery, mines), sim_fidelity_test.gd (Long Tom blast)."
+    },
+    {
+      "at": "2026-10-23T19:56:32+13:00",
+      "who": "game-art",
+      "msg": "issue I98 P2: HD model articulation and texture rework (mechs, vehicles, buildings)"
+    },
+    {
+      "at": "2026-10-23T20:13:52+13:00",
+      "who": "bot",
+      "msg": "issue I99 P2: Autoplay bot walks into live map turrets and stalls in fights it cannot see (sweep 2026-10-23-fidelity: 14/72 wins, was 28/72)"
+    },
+    {
+      "at": "2026-10-23T20:14:43+13:00",
+      "who": "sim",
+      "msg": "issue I100 P2: Repair truck: heat system restarts a mech it just powered down"
     }
   ],
   "choices": [

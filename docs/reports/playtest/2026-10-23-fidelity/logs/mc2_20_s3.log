@@ -1,0 +1,40 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_20
+force: campaign 5 units 320 t of 320 t, RP 12000: Mad Cat Prime(pmwscooter), Mad Cat Prime(pmwvenom), Shootist Prime(pmwbubba), Catapult Prime(pmwwicked), Wolfhound Prime(pmwsteel)
+ABL pilots: 79
+t=  72.8  SUPPORT salvage_craft Hunchback rp_left=2000
+t= 106.9  PULLBACK Catapult at 22%
+t= 115.4  LOST Catapult (destroyed, armour 9%, heat 0, ejected false, pilot 2.0 wounds, last hit by Attack Copter)
+t= 180.5  objective done: 1. Goto Davion Dropship
+t= 193.6  CAPTURED Madcat OrdnanceTruckProp
+t= 193.7  SUPPORT repair_truck (-119, 150) rp_left=0
+seed 3 end t=1800 result=PLAYING  player alive 6  enemies alive 47
+damage to lance: 520 from 16 attackers; hits by location (0 head .. 10 rear RT): { 1: 20, 2: 17, 3: 20, 6: 9, 7: 15, 5: 14, 0: 4, 4: 18, 10: 1, 9: 2, 8: 1 }
+damage by lance: 1830; kills 27
+       130  Hollander (mech)
+       108  Zeus (mech)
+        94  Madcat (mech)
+        54  Attack Copter (mech)
+        46  Harasser (vehicle)
+        38  ShadowCat (mech)
+        33  Vulture (mech)
+        16  Centipede (vehicle)
+         2  Drillson (vehicle)
+  obj 0 P: done  1. Goto Davion Dropship
+  obj 1 P: open  2. Rescue Drop Ship Crew at Prison
+  obj 2 P: open  3. Destroy Orbital Turret
+  obj 3 P: open  4. Destroy Mobile Orbital Gun#1
+  obj 4 P: open  5. Destroy Moblie Orbital Gun #2
+  obj 5 P: gated  6. Go To Davion Dropship for Extraction
+  obj 6 s: open  a. Destroy All Enemy Forces
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_20_Base_PD2:start": 2, "mc2_20_MOG_PD:noweapons": 1, "mc2_20_s1Sth_Patrol_M2:start": 2, "mc2_20_s1Sth_Patrol_M1:start": 3, "mc2_20_Prision_guard:attack": 4, "mc2_20_Prision_PD:attack": 2, "mc2_20_Prision_Patrol_M1:attack": 5, "mc2_20_s1WST_Patrol_M1:attack": 6, "mc2_20_MogM_Mog:start": 1, "mc2_20_MogM_escort_M1:escorting": 2, "mc2_20_MogM_escort_V1:escorting": 4, "mc2_20_MOG_REIN:start": 5, "mc2_20_MOG_guard:start": 2, "mc2_20_Base_Rein_V1:start": 3, "mc2_20_Base_Patrol_M1:start": 5, "mc2_20_Base_Rein_M1:start": 1, "mc2_20_Base_PD:start": 1, "mc2_20_base_Patrol_v1:start": 1, "mc2_20_Base_guard:start": 3, "mc2_20_Turret1_guard:start": 2, "pbrain:attack": 1, "mc2_20_Dship_PD:attack": 4, "mc2_20_Dship_Patrol_V1:attack": 5, "mc2_20_MOG_guard_V1:start": 9, "PBrain:": 5, "pbrain:": 1 }
+enemy pilots that moved >20 m: 45 / 80
+
+--- stderr ---
+WARNING: 621 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
