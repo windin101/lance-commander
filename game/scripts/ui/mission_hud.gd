@@ -487,13 +487,18 @@ func _dev_args() -> void:
 		var bits: PackedStringArray = String(_args["radio"]).split(":")
 		if bits.size() == 2 and int(bits[0]) < view.world.units.size():
 			radio_line(view.world.units[int(bits[0])], bits[1])
-	if _args.has("tag"):  # dev: --tag centres the camera on the first named enemy and shows its tag
+	if _args.has("tag"):  # dev: --tag shows the tag on the named enemy nearest the lance (and centres the
+		# camera on it, unless --focus framed the shot already)
+		var lance: Array = view.world.units.filter(func(u): return u.team == view.sm.player_team and u.is_mover() and not u.is_disabled())
+		var best := INF
 		for u in view.world.units:
 			if u.team != view.sm.player_team and u.is_mover() and not u.is_disabled() and ForceNames.of_unit(u) != "":
-				_dev_tag = u
-				if view.camera is RtsCamera:
-					(view.camera as RtsCamera).follow(u)
-				break
+				var d: float = u.position.distance_to(lance[0].position) if not lance.is_empty() else 0.0
+				if d < best:
+					best = d
+					_dev_tag = u
+		if _dev_tag and view.camera is RtsCamera and not _args.has("focus"):
+			(view.camera as RtsCamera).follow(_dev_tag)
 
 
 var _dev_tag: SimUnit = null

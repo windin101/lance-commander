@@ -5,7 +5,7 @@ release of the game. You command a lance of up to twelve 'Mechs, plus support ve
 24-mission campaign. It has modern graphics, a rewritten simulation and the heat system the original left
 unfinished.
 
-![A lance crossing the island towards the abandoned airfield in mission 1](docs/screens/readme/battle.jpg)
+![Mission 2: a lance fighting Bandit Legion infantry, with the tactical officer on comms, sensor rings on the tac map and an enemy tag](docs/screens/readme/battle.jpg)
 
 > **Status:** work in progress. The campaign loop, combat, AI and world rendering work end to end. Art is still
 > being upgraded, and balance has not been tuned.
@@ -26,19 +26,33 @@ compiled out or inconsistent, the specs say what the remake does instead and why
 ### Campaign
 
 - **All 24 missions** of the original campaign, in order.
-- **Briefing:** a tactical map with numbered objective markers, the mission text and the tactical officer's
-  notes.
-- **Mech Bay:** deploy 'Mechs within the mission's drop weight and the 12-slot cap, assign pilots, sell reserve
-  'Mechs and buy from the mission's purchase list.
-- **Debrief:** objectives met or failed, the state of each lance member and enemy losses.
+- **Briefing:** a tactical map with the drop zone and numbered objective markers, objectives with their
+  rewards, the mission text and the tactical officer's notes. It also shows the support powers allowed, the
+  weather and the forces you will meet. The objective target turns in a small view, as in the original, and
+  the operation's briefing video plays there if you have converted it from your own disc.
+- **Mech Bay:** your hangar, with each 'Mech's pilot, loadout, ratings and a live 3D model. You deploy 'Mechs
+  within the mission's drop weight and the 12-slot cap, assign pilots, and sell or buy 'Mechs.
+- **Mech Lab:** refit any 'Mech under MechWarrior 5-style rules. Hardpoints, slots and the structure weight
+  are worked out from the stock designs, so every designer 'Mech is legal as it comes. Stripped parts go to
+  stores, and a loadout can be saved as a named variant and applied to another 'Mech of that chassis.
+- **Market:** the mission's purchase list as offer cards. Each offer has the original's description, ratings,
+  stock loadout and hardpoints, and the panel says whether a purchase joins the lance or goes to the reserve.
+- **Pilots:** a personnel screen with generated portraits, a short bio, and skill bars showing growth since
+  hire. Each pilot has a service record and a mission log of every mission flown.
+- **Paint:** one colour scheme for all your units, with presets and patterns.
+- **Debrief:** objectives met or failed, the state of each lance member and enemy losses by force.
 - **Salvage:** after a win, every disabled 'Mech on the field, your own included, can be bought back at 80% of
   its price.
-- **MechWarriors** keep their skills, specialties and wounds between missions.
+- **MechWarriors** keep their skills, specialties and mission records between missions.
 
-<p>
-  <img src="docs/screens/phase12-briefing.png" width="49%" alt="Mission briefing with tactical map and objectives">
-  <img src="docs/screens/phase12-debrief.png" width="49%" alt="Mission debrief listing objectives, lance damage and enemy losses">
-</p>
+| | |
+|---|---|
+| ![Mission briefing: objectives, tactical map with drop zone and markers, briefing text and intel](docs/screens/readme/briefing.jpg) | ![Mech Bay: hangar roster, live 'Mech model, loadout summary and the deployment strip](docs/screens/readme/bay.jpg) |
+| *Briefing* | *Mech Bay* |
+| ![Mech Lab: parts list, the eight locations with hardpoints and slots, and the refit stats](docs/screens/readme/lab.jpg) | ![Market: offer cards, the Hunchback on the stage and its full detail panel](docs/screens/readme/market.jpg) |
+| *Mech Lab* | *Market* |
+| ![Pilots: personnel list, a pilot portrait and the résumé with skills, record and mission log](docs/screens/readme/pilots.jpg) | ![Paint scheme panel over the Mech Bay](docs/screens/readme/paint.jpg) |
+| *Pilots* | *Paint* |
 
 ### Combat
 
@@ -48,12 +62,22 @@ compiled out or inconsistent, the specs say what the remake does instead and why
   the original's own tables, so weapons heat, heat sinks cool, and an overheating 'Mech shuts down.
 - **Location-based damage:** a per-unit paper doll on the unit card shows armour and internal structure for each
   location.
-- **Support powers** paid for with resource points: air strikes, sensor probes, repair trucks and salvage
-  craft.
+- **Weapon effects** for each weapon, after the original's: lasers, PPCs, autocannon tracers, missile salvos
+  and flamers, with impacts and wrecks.
+- **Bases and turrets:** turret forts, gates and sensor towers work as in the original. Capture a control
+  building and its turrets and gates fight for you.
+- **Support powers** paid for with resource points: air strikes, artillery, sensor probes, scout 'Copters,
+  minelayers, repair trucks and salvage craft.
 - **The original mission scripts and AI brains:** the remake has its own interpreter for ABL, MechCommander 2's
   scripting language. It runs the 2001 scripts for every mission's triggers, objectives, reinforcements and
   unit behaviour.
-- **A minimap, objective markers and a comms window** for mission messages.
+- **A framed HUD:** lance cards, a command panel, a systems monitor, and a tac map that draws sensor rings as
+  the original did and shows only the enemies you have contact with. Hovering over an enemy names it and its
+  force.
+- **Comms with subtitles:** mission voice-overs and pilot radio lines show the speaker and the line. The
+  subtitles are transcripts of the original's own audio and can be turned off in the pause menu.
+
+![Mission 22: a lance assaulting a Liao turret fort, missiles in the air](docs/screens/readme/fort.jpg)
 
 ### World
 
@@ -93,7 +117,8 @@ as a fallback, and records the provenance of every asset (see [docs/art-provenan
   original animations.
 - **Vehicles:** 28 HD vehicles, copters and infantry, adapted the same way, with turrets mounted on the
   original's turret joints.
-- **Paint:** every unit takes the original's three-channel team colour scheme.
+- **Paint:** enemy and allied units wear their mission's three-channel team colours. Your own units wear the
+  scheme chosen in the Mech Bay.
 - **Buildings:**
   - The original's buildings keep their geometry. Their textures are upscaled 4x with RealESRGAN.
   - Common buildings are being rebuilt as new parametric CAD models.
@@ -121,6 +146,7 @@ The first launch imports the assets, which takes a few minutes.
 | F | Alpha strike |
 | WASD, Q/E, mouse wheel | Pan, rotate and zoom the camera |
 | Click the minimap | Pan there |
+| Esc | Pause menu (HUD scale, subtitles) |
 
 To regenerate the data from the source release, put the release in `reference/mc2-source/` (it is gitignored)
 and run the converters:
