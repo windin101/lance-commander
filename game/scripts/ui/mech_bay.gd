@@ -334,7 +334,7 @@ func _refresh() -> void:
 	var market := mode == "market"
 	var crew := mode == "pilots"
 	_roster_panel.visible = mode == "hangar"
-	_summary_panel.visible = mode == "hangar"
+	_summary_panel.visible = mode == "hangar" and _paint_panel == null  # the paint panel takes its place
 	_market_panel.visible = market
 	_offer_panel.visible = market
 	_pilot_panel.visible = crew
@@ -653,6 +653,7 @@ func open_paint() -> void:
 	kit.place(p["panel"], 0.99, 0.13, 0.99, 0.845, 32.0, true)
 	add_child(p["panel"])
 	_paint_panel = p["panel"]
+	_summary_panel.visible = false  # the panel's frame is translucent: don't let the loadout show through
 	var mm := kit.margin(0.9, 0.7, 0.9, 0.7)
 	p["body"].add_child(mm)
 	var pp := PaintPanel.new(kit)
@@ -667,11 +668,16 @@ func open_paint() -> void:
 	p["body"].add_child(kit.rule())
 	var fm := kit.margin(0.7, 0.6, 0.7, 0.6)
 	p["body"].add_child(fm)
-	var close := kit.button("Done", func():
-		_paint_panel.queue_free()
-		_paint_panel = null)
+	var close := kit.button("Done", close_paint)
 	close.size_flags_horizontal = Control.SIZE_SHRINK_END
 	fm.add_child(close)
+
+func close_paint() -> void:
+	if _paint_panel:
+		_paint_panel.queue_free()
+		_paint_panel = null
+	_summary_panel.visible = mode == "hangar"
+
 
 func _close_overlay() -> void:
 	if _overlay:
@@ -726,6 +732,7 @@ func _overlay_row(text: String, sub: String, action: String, enabled: bool, on_p
 
 func _open_buy() -> void:
 	_close_overlay()
+	close_paint()
 	mode = "market"
 	var offers := camp.purchasable(mission)
 	if offer.is_empty() or not offers.any(func(o): return _same_offer(o, offer)):
@@ -998,6 +1005,7 @@ func _refresh_market() -> void:
 
 func _open_pilots() -> void:
 	_close_overlay()
+	close_paint()
 	mode = "pilots"
 	assign_to = -1
 	if pilot == "" or camp.pilot_status(pilot, mission) == "unavailable":
@@ -1012,6 +1020,7 @@ func _open_assign() -> void:
 	if m.is_empty():
 		return
 	_close_overlay()
+	close_paint()
 	mode = "pilots"
 	assign_to = int(m["id"])
 	var free := camp.free_pilots(mission)
