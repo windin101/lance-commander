@@ -383,14 +383,24 @@ func _orders(sm: SimMission) -> void:
 			var u: SimUnit = c.get("unit")
 			if u != null and u.exists and not SimObjectives.dead(u):
 				left.append(u)
-		_spared = left[0] if left.size() == 1 else null
-		if left.size() == 1 and _verbose and w.time - _avoid_said >= 60.0:
+		# pick the one to spare early, a vehicle where there is one ("leave one LRM carrier alive"
+		# [KC, CB]): waiting for the last one left a mech, which fought on and died
+		if _spare_pick != null and (not _spare_pick.exists or SimObjectives.dead(_spare_pick)):
+			_spare_pick = null
+		if _spare_pick == null and not left.is_empty():
+			var veh := left.filter(func(u): return u is SimVehicle)
+			var pool: Array = veh if not veh.is_empty() else left
+			pool.sort_custom(func(a, b): return _dps(a) < _dps(b))
+			_spare_pick = pool[0]
+		_spared = _spare_pick
+		_spare_count = left.size()
+		if _spared != null and left.size() == 1 and _verbose and w.time - _avoid_said >= 60.0:
 			_avoid_said = w.time
-			print("t=%6.1f  SPARE %s: the last target of objective %d, kept until the reception is ready" % [w.time, left[0].name, _spare])
+			print("t=%6.1f  SPARE %s: the last target of objective %d, kept until the reception is ready" % [w.time, _spared.name, _spare])
 	threats = threats.filter(func(u): return u != _spared)
 	_stall_watch(sm, threats)
 	_use_support(sm, lance, centre, threats)
-	if _spared != null and threats.is_empty() and _prepare(sm, lance, centre):
+	if _spared != null and _spare_left() == 1 and threats.is_empty() and _prepare(sm, lance, centre):
 		return
 	if not _hold_pending.is_empty() and (_hold_pending["after"] as Array).all(func(i): return int(sm.objectives.objectives[i]["status"]) != 0):
 		_hold_at = _hold_pending["at"]
@@ -753,6 +763,8 @@ var _follow_since := -1.0
 var _via: Array = []  # ROUTE_PLANS "via": points walked through before the objectives
 var _spare := -1  # ROUTE_PLANS "spare": the objective whose last target is left alive until ready
 var _spared: SimUnit = null
+var _spare_pick: SimUnit = null  # the objective target chosen to be spared
+var _spare_count := 0  # targets of the spare objective still standing
 var _prep_at = null
 var _prep_guns := 0
 var _prep_dir := Vector2(1, 0)  # the side of the reception the guns go (away from the enemy)
@@ -783,6 +795,10 @@ var _hold_decoy := false
 var _lure_mechs := false  # HOLD_PLANS "lure_mechs": the decoy draws out mechs only
 var _lure_s := 90.0  # HOLD_PLANS "lure_s": seconds spent on each guard before giving up  # HOLD_PLANS "decoy": one mech lures the waiting guards to the hold  # a HOLD_PLANS entry waiting on its "after" objectives
 var _hold_quiet := 0.0
+
+
+func _spare_left() -> int:
+	return _spare_count
 
 
 ## The reception before the last spared target dies: the lance gathers at "prep_at", repairs
@@ -1801,6 +1817,7 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	_mine_at_start = false
 	_rp_reserve = int(rp_plan.get("rp_reserve", 0))
 	_spared = null
+	_spare_pick = null
 	_ready = false
 	var plan: Dictionary = HOLD_PLANS.get(mission, {})
 	_hold_at = null

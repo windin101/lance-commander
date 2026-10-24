@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T18:54:54+13:00",
+  "updated": "2026-10-24T18:58:44+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -721,8 +721,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:22+13:00",
-      "updated": "2026-10-24T15:20:42+13:00",
-      "note": "2026-10-24 extras:\n- Minelayer: the bot now uses it (ROUTE_PLANS 'mines', laid during the preparation). mc2_23 lays two 240 m lines across the west approach (x=200, y -560..-1060), and the minelayer is kept out of the lance.\n- Starport tease: HOLD_PLANS mc2_23 holds NW of the starport once the town is clear, with a decoy drawing out mechs only for up to 45 s each (lure_mechs/lure_s, per plan; mc2_22 keeps its 90 s, any unit).\nResult: still 0/3. The lance lives longer (744-1190 s, 37-44 kills) but the spare often ends on a mech (Atlas or Bushwacker) that fights and dies before the reception is ready, so the mines and guns rarely meet the waves. Next: make the fights leave the last LRM carrier alone."
+      "updated": "2026-10-24T18:58:44+13:00",
+      "note": "2026-10-24 pass 2: the target to spare is now chosen at the start of objective 0, preferring a vehicle (the weakest by dps), and excluded from the bot's targets. The lance's automatic fire and the guns still kill the spared LRM carrier in 2 of 3 seeds, and the re-pick then falls on a mech (Bushwacker or Hollander). The reception was ready in seed 1 (2 guns, mines laid, lance repaired) but it is still 0/3 (975-1497 s). Two ways forward, both unexplored: hold fire near the spared unit (a player would order the lance away or use fire-at-will off), or Lee accepting it as a bot limit."
     },
     {
       "id": "I30",
@@ -2015,11 +2015,6 @@
     {
       "at": "2026-10-20T06:34:18+13:00",
       "who": "conductor",
-      "msg": "issue I71 updated: title, note \u2014 Lee D6 2026-10-20: redo"
-    },
-    {
-      "at": "2026-10-20T06:34:18+13:00",
-      "who": "conductor",
       "msg": "issue I72 updated: title, note \u2014 Lee D6 2026-10-20: redo"
     },
     {
@@ -3011,6 +3006,11 @@
       "at": "2026-10-24T18:54:54+13:00",
       "who": "conductor",
       "msg": "issue I28 updated: note \u2014 2026-10-24 pass 2: 2/6 over seeds 1-6 (s1 W 1089, s3 W 1067). The RP-building capture fix (I99) lets the lance take the compound's RP and salvage. New 'prep_before' plan option (mc2_22: objective 0, the Elite Guard): repair, and up to 3 Long Toms behind the lance before going for it. Reserving 16k RP for the guns starved the salvage and gave 0/6, so there is no reserve. Losses are to the Elite Guard's Swarm-LRM Catapults (900-1100 damage)."
+    },
+    {
+      "at": "2026-10-24T18:58:44+13:00",
+      "who": "conductor",
+      "msg": "issue I29 updated: note \u2014 2026-10-24 pass 2: the target to spare is now chosen at the start of objective 0, preferring a vehicle (the weakest by dps), and excluded from the bot's targets. The lance's automatic fire and the guns still kill the spared LRM carrier in 2 of 3 seeds, and the re-pick then falls on a mech (Bushwacker or Hollander). The reception was ready in seed 1 (2 guns, mines laid, lance repaired) but it is still 0/3 (975-1497 s). Two ways forward, both unexplored: hold fire near the spared unit (a player would order the lance away or use fire-at-will off), or Lee accepting it as a bot limit."
     }
   ],
   "choices": [
