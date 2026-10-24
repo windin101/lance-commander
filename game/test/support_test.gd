@@ -69,6 +69,8 @@ func test_salvage_craft_takes_a_disabled_enemy_mech() -> void:
 	enemy.status = SimUnit.Status.DISABLED
 	enemy.internal[SimMech.Body.CTORSO] = 0.0
 	var armour := _armour(enemy)
+	var old_brain = enemy.brain
+	var pilots_before: int = sm.abl.pilots.size()
 	assert_bool(sm.support.call_power("salvage_craft", enemy)).is_true()
 	_run(10.0)
 	assert_int(enemy.team).is_equal(0)
@@ -77,6 +79,12 @@ func test_salvage_craft_takes_a_disabled_enemy_mech() -> void:
 	assert_float(enemy.internal[SimMech.Body.CTORSO]).is_equal(enemy.max_internal[SimMech.Body.CTORSO])
 	assert_float(_armour(enemy)).is_equal(armour)  # armour is not restored (3.6)
 	assert_bool(enemy.brain is SimAbl.Pilot).is_true()
+	# I119: the new pbrain replaces the old enemy brain in the pilot list instead of joining it
+	assert_bool(old_brain is SimAbl.Pilot).is_true()
+	assert_bool(enemy.brain != old_brain).is_true()
+	assert_bool(sm.abl.pilots.has(old_brain)).is_false()
+	assert_int(sm.abl.pilots.filter(func(p): return p.unit == enemy).size()).is_equal(1)
+	assert_int(sm.abl.pilots.size()).is_equal(pilots_before)
 
 
 func test_capturing_the_resource_building_pays_rp() -> void:
