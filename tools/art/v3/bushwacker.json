@@ -1,0 +1,174 @@
+{
+ "_doc": "v3 HD pipeline settings for the Bushwacker (tools/art/v3/v3_mech.py). Coordinates: game mm in the sculpt's own pose (Z up, forward -Y, feet on z=0).",
+ "name": "bushwacker",
+ "folder": "mechs",
+ "stl": "~/craft/solid/mc2/stl/bushwacker/bsw-x1-4.stl",
+ "source": {
+  "title": "BSW-X1, X2 & S2 Bushwacker for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863885",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "bsw-x1-4.stl"
+ },
+ "k": 190.11777166713873,
+ "base_glb": "game/assets/mechs/bushwacker.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/bushwacker",
+ "feet": [
+  "bw_lfoot",
+  "bw_rfoot"
+ ],
+ "glass_from_v2": true,
+ "part_region": {
+  "bw_hip": "body",
+  "bw_torso": "body",
+  "joint_lmlauncher": "weapons",
+  "bw_luarm": "arms",
+  "bw_lgun": "arms",
+  "bw_ruarm": "arms",
+  "bw_rgun": "arms",
+  "bw_luleg": "upper_legs",
+  "bw_ruleg": "upper_legs",
+  "bw_llleg": "lower_legs",
+  "bw_rlleg": "lower_legs",
+  "bw_lfoot": "feet",
+  "bw_rfoot": "feet"
+ },
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 45000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 11,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 2200,
+  "chip_scale_mm": 170,
+  "exposure": {
+   "bw_llleg": 1.0,
+   "bw_rlleg": 1.0,
+   "bw_lfoot": 1.0,
+   "bw_rfoot": 1.0,
+   "bw_lgun": 0.95,
+   "bw_rgun": 0.95
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.06,
+    "_why": "long narrow trim strips"
+   }
+  ]
+ },
+ "weapons": [
+  {
+   "name": "LRM box, left torso (Lab: LRM5 x2 LT)",
+   "whole_parts": [
+    "joint_lmlauncher"
+   ]
+  },
+  {
+   "name": "launcher box, left forearm (4 tubes; Lab: AC/10 in LA)",
+   "whole_parts": [
+    "bw_lgun"
+   ]
+  },
+  {
+   "name": "gun arm, right forearm (barrel and drums; Lab: PPC in RA)",
+   "whole_parts": [
+    "bw_rgun"
+   ]
+  },
+  {
+   "name": "nose guns (twin barrels)",
+   "parts": [
+    "bw_torso"
+   ],
+   "volume": {
+    "min": [
+     -1150,
+     -3800,
+     5050
+    ],
+    "max": [
+     1150,
+     -2600,
+     5900
+    ]
+   }
+  }
+ ],
+ "joints": {
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 620
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 480
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 480
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 380
+  },
+  "joint_rgun": {
+   "kind": "sphere",
+   "r": 380
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 480
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 480
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 420,
+   "half": 560
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 420,
+   "half": 560
+  },
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 380,
+   "half": 600
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 380,
+   "half": 600
+  }
+ },
+ "auto_actuators": true
+}

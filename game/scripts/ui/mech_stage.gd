@@ -82,12 +82,23 @@ class Studio:
 		env.ambient_light_color = Color(0.42, 0.47, 0.52)
 		env.ambient_light_energy = 0.65
 		env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+		if ArtV3.enabled:  # HD rework v3 pilot lighting: sky ambient and reflections, AgX, SSAO, shadows, TAA
+			env.sky = ArtV3.studio_sky()
+			ArtV3.dress_environment(env, 0.55)  # no TAA here: it breaks the transparent background (MSAA 4x stays)
 		var we := WorldEnvironment.new()
 		we.environment = env
 		root.add_child(we)
 		var key := DirectionalLight3D.new()
 		key.rotation_degrees = Vector3(-38, -35, 0)
 		key.light_energy = 1.35
+		if ArtV3.enabled:
+			key.shadow_enabled = true
+			key.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
+			key.directional_shadow_max_distance = 60.0
+			key.shadow_bias = 0.06
+			key.shadow_normal_bias = 1.2
+			key.shadow_blur = 1.5
+			key.light_energy = 1.5
 		root.add_child(key)
 		var fill_light := DirectionalLight3D.new()
 		fill_light.rotation_degrees = Vector3(-15, 120, 0)
@@ -141,8 +152,11 @@ class Studio:
 		var tries: Array = [["_hd", "_hd"], ["", ""]]
 		if kind == "object":
 			tries = [["_cad", ""], ["_hd", ""], ["_hdtex", ""], ["", ""]]  # as ObjectsView
-		var path := ArtV2.model_path(folder, name)  # HD rework, dev switch
-		var paint_name := name + "_v2" if path != "" else name
+		var path := ArtV3.model_path(folder, name)  # HD rework v3, dev switch
+		var paint_name := name + "_v3" if path != "" else name
+		if path == "":
+			path = ArtV2.model_path(folder, name)  # HD rework v2, dev switch
+			paint_name = name + "_v2" if path != "" else name
 		for t in (tries if path == "" else []):
 			var p := "res://assets/%s/%s%s.glb" % [folder, name, t[0]]
 			if ResourceLoader.exists(p):

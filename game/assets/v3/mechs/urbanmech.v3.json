@@ -1,0 +1,52 @@
+{
+ "model": "urbanmech.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "UM-R60 Urbanmech for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1864017",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "um-r60-4.stl"
+ },
+ "tris": 54304,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Walk": 0.342,
+  "Run": 0.439,
+  "STtoWK": 0.319,
+  "WKtoST": 0.342,
+  "WKtoRN": 0.435,
+  "RNtoWK": 0.479,
+  "LimpLeft": 0.157,
+  "LimpRight": 0.251,
+  "ParkToStand": 0.449,
+  "StandToPark": 0.448,
+  "Jump": 0.274,
+  "FallForward": 1.074,
+  "FallBackward": 0.556,
+  "GetUpFront": 1.073,
+  "GetUpBack": 0.508,
+  "HitFront": 0.284,
+  "HitBack": 0.077,
+  "HitLeft": 0.068,
+  "HitRight": 0.139
+ },
+ "paint_stats": {
+  "texels": 1562438,
+  "chip_share": 0.030469689037260998,
+  "grime_mean": 0.4356034994125366,
+  "paint_share": 0.5318367832835607,
+  "glass_texels": 7061,
+  "emissive_texels": 0,
+  "piping_texels": 19992,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

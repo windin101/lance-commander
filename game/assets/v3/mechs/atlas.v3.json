@@ -1,0 +1,52 @@
+{
+ "model": "atlas.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "AS7-D Atlas for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863870",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "as7-d4.stl"
+ },
+ "tris": 50707,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.112,
+  "Walk": 0.385,
+  "Run": 0.518,
+  "STtoWK": 0.467,
+  "WKtoST": 0.352,
+  "WKtoRN": 0.383,
+  "RNtoWK": 0.637,
+  "LimpLeft": 0.995,
+  "LimpRight": 1.291,
+  "ParkToStand": 0.724,
+  "StandToPark": 0.628,
+  "Jump": 0.628,
+  "FallForward": 0.788,
+  "FallBackward": 1.582,
+  "GetUpFront": 0.726,
+  "GetUpBack": 2.06,
+  "HitFront": 0.073,
+  "HitLeft": 0.205,
+  "HitRight": 0.167
+ },
+ "paint_stats": {
+  "texels": 1596607,
+  "chip_share": 0.03164773798436309,
+  "grime_mean": 0.46271374821662903,
+  "paint_share": 0.45358876667833725,
+  "glass_texels": 529,
+  "emissive_texels": 462,
+  "piping_texels": 71230,
+  "stripe_texels": 38292,
+  "band_texels": 14122
+ }
+}

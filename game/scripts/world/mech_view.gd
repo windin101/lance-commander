@@ -36,7 +36,11 @@ func setup(sim_mech: SimUnit, sim_map: SimMap) -> void:
 	# HD models (tools/art pipeline) replace the 2001 mesh when present; --no-hd compares.
 	var hd_path := _asset_path("_hd.glb")
 	var v2_path := ArtV2.model_path("mechs" if mech is SimMech else "vehicles", mech.model)  # HD rework, dev switch
-	if v2_path != "":
+	var v3_path := ArtV3.model_path("mechs" if mech is SimMech else "vehicles", mech.model)  # HD rework v3, dev switch
+	if v3_path != "":
+		path = v3_path
+		_paint_name = mech.model + "_v3"
+	elif v2_path != "":
 		path = v2_path
 		_paint_name = mech.model + "_v2"
 	elif ResourceLoader.exists(hd_path) and not OS.get_cmdline_user_args().has("--no-hd"):
@@ -170,7 +174,7 @@ func _wreck() -> void:
 	_wrecked = true
 	ring.visible = false
 	# HD mechs: fall over with their own animation, freeze on the last frame, scorch.
-	if (_paint_name.ends_with("_hd") or _paint_name.ends_with("_v2")) and player and player.has_animation("FallForward"):
+	if (_paint_name.ends_with("_hd") or _paint_name.ends_with("_v2") or _paint_name.ends_with("_v3")) and player and player.has_animation("FallForward"):
 		var fall := player.get_animation("FallForward")
 		player.speed_scale = 1.0
 		player.play("FallForward")

@@ -70,6 +70,10 @@ static func _first_material(root: Node) -> StandardMaterial3D:
 ## Recolour every mesh under root with one material using the painted texture.
 ## A "<model>_v2" name (ArtV2 models) gets the v2 unit shader instead (apply_v2).
 static func apply(root: Node, model_name: String, red: Color, green: Color, blue: Color, folder: String = "mechs") -> void:
+	if model_name.ends_with("_v3"):
+		ArtV3.apply(root, model_name.trim_suffix("_v3"), {"mode": "mask", "base": "#" + blue.to_html(false),
+			"hl1": "#" + red.to_html(false), "hl2": "#" + green.to_html(false), "pattern": "plain"}, folder)
+		return
 	if model_name.ends_with("_v2"):
 		apply_v2(root, model_name.trim_suffix("_v2"), red, green, blue, folder)
 		return
@@ -121,6 +125,9 @@ static func _paint_colour(c: Color) -> Color:
 ## Paint a model with a scheme (PaintScheme): the v2 shader for a "<model>_v2" name, else the v1 recolour of the
 ## team mask with the scheme's plain colours (v1 palette UVs can't take a pattern).
 static func apply_scheme(root: Node, model_name: String, scheme: Dictionary, folder: String = "mechs") -> void:
+	if model_name.ends_with("_v3"):
+		ArtV3.apply(root, model_name.trim_suffix("_v3"), scheme, folder)
+		return
 	var c := PaintScheme.plain_colours(scheme)
 	if not model_name.ends_with("_v2"):
 		apply(root, model_name, c[0], c[1], c[2], folder)
@@ -223,5 +230,6 @@ static func set_environment(dust: float, snow: float, colour: Color) -> void:
 	env_dust = dust
 	env_snow = snow
 	env_dust_colour = colour
+	ArtV3.set_environment(dust, snow, colour)
 	for m in _v2_mats:
 		_set_env(m)

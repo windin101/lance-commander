@@ -86,7 +86,11 @@ static var _bios := {}
 ## mission 2's lance as the mock-up shows it (dev screenshots); returns the mission.
 static func dev_sample(c: Campaign) -> String:
 	c.reset()
-	c.add_mech("bushwacker", 0, "pmwhacksaw", 1)
+	var first := "bushwacker"
+	for a in OS.get_cmdline_user_args():  # dev: --sample-chassis=<chassis> leads the sample lance (art reviews)
+		if a.begins_with("--sample-chassis="):
+			first = a.trim_prefix("--sample-chassis=")
+	c.add_mech(first, 0, "pmwhacksaw", 1)
 	c.add_mech("bushwacker", 0, "pmwlongshot", 2)
 	c.add_mech("urbanmech", 0, "pmwflash", 3)
 	c.add_mech("werewolf", 0, "", 0)

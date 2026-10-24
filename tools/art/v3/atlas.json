@@ -1,0 +1,698 @@
+{
+ "_doc": "v3 HD pipeline settings for the Atlas (tools/art/v3/v3_mech.py). Coordinates are game mm in the sculpt's own pose (Z up, forward -Y, feet on z=0), read off tools/art/v3 views/slices of the sculpt; see docs/art-provenance.md (v3 Atlas).",
+ "stl": "~/craft/solid/mc2/stl/atlas/as7-d4.stl",
+ "source": {
+  "title": "AS7-D Atlas for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863870",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "as7-d4.stl"
+ },
+ "k": 259.74475963426096,
+ "base_glb": "game/assets/mechs/atlas.glb",
+ "pivots": {
+  "root": [
+   0,
+   330,
+   6900
+  ],
+  "torso": [
+   0,
+   300,
+   7450
+  ],
+  "rshoulder": [
+   -2650,
+   1230,
+   11950
+  ],
+  "ruarm": [
+   -3400,
+   1150,
+   11000
+  ],
+  "rgun": [
+   -3900,
+   1230,
+   9600
+  ],
+  "rhand": [
+   -4550,
+   -2550,
+   8150
+  ],
+  "lshoulder": [
+   2650,
+   1000,
+   11950
+  ],
+  "luarm": [
+   3300,
+   1500,
+   10970
+  ],
+  "lgun": [
+   4100,
+   1800,
+   9890
+  ],
+  "lhand": [
+   4500,
+   -350,
+   6850
+  ],
+  "luleg": [
+   1750,
+   300,
+   6350
+  ],
+  "llleg": [
+   2350,
+   -780,
+   4600
+  ],
+  "lankle": [
+   2640,
+   -1710,
+   960
+  ],
+  "lfoot": [
+   2640,
+   -3900,
+   250
+  ],
+  "ruleg": [
+   -1750,
+   300,
+   6350
+  ],
+  "rlleg": [
+   -2480,
+   770,
+   4340
+  ],
+  "rankle": [
+   -2670,
+   2360,
+   820
+  ],
+  "rfoot": [
+   -2670,
+   170,
+   250
+  ]
+ },
+ "seg": {
+  "core_ratio": 0.55,
+  "crease": 2.0,
+  "min_crease_deg": 20,
+  "min_island": 300,
+  "boxes": [
+   {
+    "part": "a_torso",
+    "min": [
+     -3450,
+     -3000,
+     8000
+    ],
+    "max": [
+     -2150,
+     3000,
+     10300
+    ],
+    "_why": "AC/20 in the right torso (canon AS7-D), fused beside the right forearm"
+   },
+   {
+    "part": "a-hip",
+    "min": [
+     -2900,
+     -3000,
+     4000
+    ],
+    "max": [
+     2900,
+     3000,
+     7250
+    ],
+    "_why": "hip skirt: below the waist the armour rides the pelvis, so the torso twist doesn't drag it across the thighs",
+    "from": [
+     "a_torso"
+    ]
+   },
+   {
+    "part": "a_llleg",
+    "min": [
+     1000,
+     -5000,
+     1250
+    ],
+    "max": [
+     4200,
+     1000,
+     3000
+    ],
+    "from": [
+     "a_lfoot"
+    ],
+    "_why": "foot armour above the ankle drum (heel plate, cuff) rides the shin"
+   },
+   {
+    "part": "a_rlleg",
+    "min": [
+     -4200,
+     -1000,
+     1150
+    ],
+    "max": [
+     -1000,
+     5000,
+     3000
+    ],
+    "from": [
+     "a_rfoot"
+    ],
+    "_why": "foot armour above the ankle drum (heel plate, cuff) rides the shin"
+   }
+  ],
+  "patch_majority": 0.85
+ },
+ "joints": {
+  "torso": {
+   "kind": "cyl",
+   "r": 950,
+   "half": 120,
+   "axis_rest": [
+    0,
+    0,
+    1
+   ],
+   "offset": [
+    0,
+    0,
+    -211
+   ]
+  },
+  "rshoulder": {
+   "kind": "sphere",
+   "r": 700
+  },
+  "lshoulder": {
+   "kind": "sphere",
+   "r": 700
+  },
+  "ruarm": {
+   "kind": "sphere",
+   "r": 550
+  },
+  "luarm": {
+   "kind": "sphere",
+   "r": 550
+  },
+  "rgun": {
+   "kind": "cyl",
+   "r": 450,
+   "half": 500
+  },
+  "lgun": {
+   "kind": "cyl",
+   "r": 450,
+   "half": 500
+  },
+  "luleg": {
+   "kind": "sphere",
+   "r": 650
+  },
+  "ruleg": {
+   "kind": "sphere",
+   "r": 650
+  },
+  "llleg": {
+   "kind": "cyl",
+   "r": 650,
+   "half": 950
+  },
+  "rlleg": {
+   "kind": "cyl",
+   "r": 650,
+   "half": 950
+  },
+  "lankle": {
+   "kind": "cyl",
+   "r": 650,
+   "half": 1150
+  },
+  "rankle": {
+   "kind": "cyl",
+   "r": 650,
+   "half": 1150
+  }
+ },
+ "skirt_mm": 0,
+ "max_edge_mm": 150,
+ "clips": [
+  {
+   "part": "a_lfoot",
+   "p": [
+    0,
+    0,
+    1000
+   ],
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "_why": "flat heel deck under the shin's heel plate"
+  },
+  {
+   "part": "a_rfoot",
+   "p": [
+    0,
+    0,
+    870
+   ],
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "_why": "flat heel deck under the shin's heel plate"
+  },
+  {
+   "part": "a_torso",
+   "p": [
+    0,
+    0,
+    7470
+   ],
+   "n": [
+    0,
+    0,
+    -1
+   ],
+   "_why": "flat torso underside over the waist ring"
+  },
+  {
+   "part": "a-hip",
+   "p": [
+    0,
+    0,
+    7290
+   ],
+   "n": [
+    0,
+    0,
+    1
+   ],
+   "_why": "flat pelvis top under the waist ring"
+  }
+ ],
+ "lowpoly": {
+  "faces": 60000,
+  "uv_angle": 66,
+  "minor_scale": 0.5,
+  "margin": 0.0005,
+  "shape_method": "AABB",
+  "padding": 4
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "head",
+    "min": [
+     -1150,
+     -3000,
+     11000
+    ],
+    "max": [
+     1150,
+     600,
+     13600
+    ],
+    "parts": [
+     "a_torso"
+    ],
+    "_why": "the skull cockpit"
+   },
+   {
+    "set": "glass",
+    "level": "panel",
+    "min": [
+     -700,
+     -3000,
+     11950
+    ],
+    "max": [
+     -290,
+     -500,
+     12150
+    ],
+    "parts": [
+     "a_torso"
+    ],
+    "normal": [
+     0,
+     -1,
+     0,
+     0.5
+    ],
+    "max_area_m2": 0.4,
+    "_why": "right eye slit: the cockpit viewport (canon AS7-D)"
+   },
+   {
+    "set": "glass",
+    "level": "panel",
+    "min": [
+     290,
+     -3000,
+     11950
+    ],
+    "max": [
+     700,
+     -500,
+     12150
+    ],
+    "parts": [
+     "a_torso"
+    ],
+    "normal": [
+     0,
+     -1,
+     0,
+     0.5
+    ],
+    "max_area_m2": 0.4,
+    "_why": "left eye slit"
+   },
+   {
+    "set": "band",
+    "level": "panel",
+    "min": [
+     1000,
+     -3000,
+     5000
+    ],
+    "max": [
+     4000,
+     0,
+     6400
+    ],
+    "parts": [
+     "a_luleg"
+    ],
+    "normal": [
+     0,
+     -1,
+     0,
+     0.6
+    ],
+    "min_area_m2": 0.6,
+    "_why": "thigh plate, left"
+   },
+   {
+    "set": "band",
+    "level": "panel",
+    "min": [
+     -4000,
+     -3000,
+     5000
+    ],
+    "max": [
+     -1000,
+     0,
+     6400
+    ],
+    "parts": [
+     "a_ruleg"
+    ],
+    "normal": [
+     0,
+     -1,
+     0,
+     0.6
+    ],
+    "min_area_m2": 0.6,
+    "_why": "thigh plate, right"
+   },
+   {
+    "set": "stripe",
+    "level": "panel",
+    "min": [
+     2900,
+     -4000,
+     0
+    ],
+    "max": [
+     4500,
+     4000,
+     7500
+    ],
+    "parts": [
+     "a_luleg",
+     "a_llleg"
+    ],
+    "normal": [
+     1,
+     0,
+     0,
+     0.7
+    ],
+    "min_area_m2": 0.4,
+    "_why": "outer leg panels, left"
+   },
+   {
+    "set": "stripe",
+    "level": "panel",
+    "min": [
+     -4500,
+     -4000,
+     0
+    ],
+    "max": [
+     -2900,
+     4000,
+     7500
+    ],
+    "parts": [
+     "a_ruleg",
+     "a_rlleg"
+    ],
+    "normal": [
+     -1,
+     0,
+     0,
+     0.7
+    ],
+    "min_area_m2": 0.4,
+    "_why": "outer leg panels, right"
+   },
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 300,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.12,
+    "_why": "long narrow trim strips"
+   }
+  ]
+ },
+ "wear": {
+  "seed": 7,
+  "chips": 1.0,
+  "grime": 1.25,
+  "dust": 1.0,
+  "exposure": {
+   "a_llleg": 1.0,
+   "a_rlleg": 1.0,
+   "a_lfoot": 1.0,
+   "a_rfoot": 1.0,
+   "a_ruarm": 0.9,
+   "a_luarm": 0.9,
+   "a_rgun": 0.95,
+   "a_lgun": 0.95
+  },
+  "soot": [
+   {
+    "p": [
+     -2800,
+     -2900,
+     8850
+    ],
+    "r": 900,
+    "_why": "AC/20 muzzle"
+   },
+   {
+    "p": [
+     1450,
+     -2200,
+     11100
+    ],
+    "r": 1100,
+    "_why": "LRM/SRM ports"
+   }
+  ],
+  "grime_opacity": 0.9,
+  "edge_lighten": 0.22,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "dirt_patches": 0.35
+ },
+ "name": "atlas",
+ "folder": "mechs",
+ "weapons": [
+  {
+   "name": "LRM-20, left torso",
+   "parts": [
+    "a_torso"
+   ],
+   "volume": {
+    "hull": [
+     [
+      1440,
+      -1930,
+      10420
+     ],
+     [
+      1440,
+      -430,
+      12480
+     ],
+     [
+      1440,
+      -1300,
+      9950
+     ],
+     [
+      1440,
+      170,
+      12100
+     ],
+     [
+      2740,
+      -1930,
+      10420
+     ],
+     [
+      2740,
+      -430,
+      12480
+     ],
+     [
+      2740,
+      -1300,
+      9950
+     ],
+     [
+      2740,
+      170,
+      12100
+     ]
+    ]
+   },
+   "_why": "angled 10-tube box on the left chest: front face plane through (y-1850,z10500)-(y-500,z12400), 550 mm deep"
+  },
+  {
+   "name": "SRM-6 rack + LRM block, left torso",
+   "parts": [
+    "a_torso"
+   ],
+   "volume": {
+    "min": [
+     760,
+     -1800,
+     9600
+    ],
+    "max": [
+     1500,
+     -620,
+     11760
+    ]
+   },
+   "_why": "tall box beside it: 2x3 SRM rack over a 4-tube block",
+   "inside": 0.7
+  },
+  {
+   "name": "AC/20, right torso",
+   "parts": [
+    "a_torso"
+   ],
+   "volume": {
+    "min": [
+     -3220,
+     -2950,
+     7700
+    ],
+    "max": [
+     -2030,
+     -700,
+     10320
+    ]
+   },
+   "_why": "housing, barrel and the drum under it"
+  },
+  {
+   "name": "medium laser, left arm",
+   "parts": [
+    "a_lgun"
+   ],
+   "volume": {
+    "min": [
+     5100,
+     -3500,
+     7800
+    ],
+    "max": [
+     5900,
+     2500,
+     9850
+    ]
+   },
+   "_why": "pod on the outer forearm"
+  },
+  {
+   "name": "medium laser, right arm",
+   "parts": [
+    "a_rgun"
+   ],
+   "volume": {
+    "min": [
+     -5900,
+     -3500,
+     8150
+    ],
+    "max": [
+     -5300,
+     2500,
+     9400
+    ]
+   },
+   "_why": "pod on the outer forearm"
+  }
+ ],
+ "lenses": [
+  {
+   "p": [
+    5535,
+    29,
+    7950
+   ],
+   "r": 150,
+   "_why": "left arm laser lens"
+  },
+  {
+   "p": [
+    -5530,
+    -1287,
+    8400
+   ],
+   "r": 150,
+   "_why": "right arm laser lens"
+  }
+ ]
+}

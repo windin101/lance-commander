@@ -1,0 +1,149 @@
+{
+ "_doc": "v3 HD pipeline settings for the urbanmech (tools/art/v3/v3_mech.py); fit and segmentation start from the v2 work (hd_v2.py) on the same sculpt.",
+ "name": "urbanmech",
+ "folder": "mechs",
+ "stl": "~/craft/solid/mc2/stl/urbanmech/um-r60-4.stl",
+ "source": {
+  "title": "UM-R60 Urbanmech for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1864017",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "um-r60-4.stl"
+ },
+ "k": 173.10742484835686,
+ "base_glb": "game/assets/mechs/urbanmech.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/urbanmech",
+ "glass_from_v2": true,
+ "auto_actuators": true,
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 40000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 13,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 1800,
+  "chip_scale_mm": 160,
+  "exposure": {
+   "um_llleg": 1.0,
+   "um_rlleg": 1.0,
+   "joint_ltoe": 1.0,
+   "joint_rtoe": 1.0,
+   "um_lgun": 0.95,
+   "um_rgun": 0.95
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 200,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05,
+    "_why": "long narrow trim strips"
+   }
+  ]
+ },
+ "feet": [
+  "joint_ltoe",
+  "joint_rtoe"
+ ],
+ "part_region": {
+  "um_hip": "body",
+  "um_torso": "body",
+  "um_lgun": "arms",
+  "um_rgun": "arms",
+  "um_luleg": "upper_legs",
+  "um_ruleg": "upper_legs",
+  "um_llleg": "lower_legs",
+  "um_rlleg": "lower_legs",
+  "joint_ltoe": "feet",
+  "joint_rtoe": "feet"
+ },
+ "joints": {
+  "joint_torso": {
+   "kind": "cyl",
+   "r": 800,
+   "half": 120,
+   "axis_rest": [
+    0,
+    0,
+    1
+   ]
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 380
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 380
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 400
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 400
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 340,
+   "half": 420
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 340,
+   "half": 420
+  },
+  "joint_ltoe": {
+   "kind": "cyl",
+   "r": 300,
+   "half": 420
+  },
+  "joint_rtoe": {
+   "kind": "cyl",
+   "r": 300,
+   "half": 420
+  }
+ },
+ "weapons": [
+  {
+   "name": "autocannon arm, right",
+   "whole_parts": [
+    "um_rgun"
+   ]
+  },
+  {
+   "name": "laser arm, left",
+   "whole_parts": [
+    "um_lgun"
+   ]
+  }
+ ],
+ "bake": {
+  "cage_m": 0.08,
+  "ray_m": 0.35
+ }
+}
