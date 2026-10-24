@@ -144,6 +144,7 @@ var _cap_stall := {}  # unit id -> checks it stood still on a capture order
 var _cap_trace := -INF  # --trace: last capture report
 var _fight_trace := -INF  # --trace: last fight report
 var _lull_trace := -INF  # --trace: last repair-lull report
+var _bay_m := 900.0  # ROUTE_PLANS "bay_m": how far a hurt mech walks back to a friendly bay
 var _fort_keep := false  # ROUTE_PLANS "fort_keep": stick to the fort job begun (mc2_11; cost mc2_08 4/6 -> 2/6 as a default)
 var _fort_last := {}  # the fort job being worked (hysteresis, see _fort_job)
 var _side: SimUnit = null  # the capture on the way (RP building, turret control, bay) being worked
@@ -204,9 +205,12 @@ const STEALTH_PLANS := {"mc2_14": {"first": [6]}}
 ##   [KC, BK, CB]: objectives 2 (HQ, by the drop), 3 (power generator), 4 (sensor control).
 ##   "rp_reserve" keeps two repair trucks' worth of RP from strikes and salvage ("repair in the
 ##   lulls" [KC, CB]); the city's bay is lost mid-mission in most runs.
+##   ("bay_m" 1600, walking hurt mechs back to the dropship bay, was tried 2026-10-24: they went
+##   alone past the Gauss forts and died, 0/3 either way; "bay_m" stays as a plan option.)
 const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true},
 	"mc2_18": {"first": [2, 3, 4], "arcs": true, "rp_reserve": 12000},
 	"mc2_08": {"rp_reserve": 6000},
+	"mc2_22": {"prep_before": 0, "prep_guns": 3},
 	"mc2_11": {"ecm_first": true, "rp_reserve": 6000, "arcs": true, "fort_keep": true},
 	"mc2_24": {"via": [Vector2(600.0, -1100.0), Vector2(1150.0, -400.0), Vector2(1250.0, 500.0), Vector2(1150.0, 900.0)],
 		"first": [4], "run_out": true},
@@ -221,6 +225,10 @@ const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true},
 ##   attack anything the team senses within 525 m, mc2_11_EC1_Grp2.abl:27-28). "ecm_first": the
 ##   mech with a working ECM suite (no sensor signature) goes alone for the enemy sensor towers
 ##   while the rest hold outside the towers' sensor radius.
+## - mc2_22: the Elite Guard (Cyclops, Lao Hu, Catapults with Swarm LRMs) is fought with "Long
+##   Toms on the near side of the bridge" [BK, KC]: "prep_before" repairs the lance and puts 3
+##   Long Toms behind it before it goes for objective 0. (Seeds 1-6: 2/6, was 1/3 on seeds 1-3;
+##   holding 16k RP back for the guns cost the salvage that grows the lance: 0/6.)
 ## - mc2_08: no RP at the start, 5 RP buildings (50k): "try to use no more than one repair truck
 ##   for the whole mission" [KC, CB]; a truck's worth is kept from salvage and strikes. (Not a
 ##   default: on mc2_03 the same reserve cost 6/6 -> 1/6, its salvaged mechs fight for it.)
@@ -550,6 +558,14 @@ func _orders(sm: SimMission) -> void:
 	if _ecm_first and threats.is_empty() and _ecm_run(sm, lance, centre):
 		return
 	var task := _task(sm, lance, centre)
+	if _prep_before >= 0 and not _ready and _cur_obj == _prep_before and threats.is_empty() and task.has("target"):
+		# get ready before the objective's fight: repair, Long Toms behind the lance (ROUTE_PLANS
+		# "prep_before"; mc2_22's Elite Guard)
+		if _prep_at == null:
+			_prep_at = centre
+			_prep_dir = (centre - (task["target"] as SimUnit).position).normalized()
+		if _prepare(sm, lance, centre):
+			return
 	if _trace:
 		var key := "%s %s" % [task.get("kind", "-"), (task["target"] as SimUnit).name if task.has("target") else str(task.get("area", ""))]
 		if threats.size() > 0:
@@ -739,6 +755,8 @@ var _spare := -1  # ROUTE_PLANS "spare": the objective whose last target is left
 var _spared: SimUnit = null
 var _prep_at = null
 var _prep_guns := 0
+var _prep_dir := Vector2(1, 0)  # the side of the reception the guns go (away from the enemy)
+var _prep_before := -1  # ROUTE_PLANS "prep_before": prepare before this objective's fight
 var _mine_segs: Array = []  # ROUTE_PLANS "mines": segments still to lay
 var _mines_called := false
 var _mine_at_start := false
@@ -783,7 +801,8 @@ func _prepare(sm: SimMission, lance: Array, centre: Vector2) -> bool:
 		var k := guns.size()
 		# behind the lance from the waves (they come from the west edge), out of its own blasts'
 		# way (a Long Tom 60 m off had shelled our Catapult)
-		var spot: Vector2 = w.map.nearest_walkable(at + Vector2(130.0, -50.0 + 50.0 * k))
+		var side := Vector2(-_prep_dir.y, _prep_dir.x)
+		var spot: Vector2 = w.map.nearest_walkable(at + _prep_dir * 130.0 + side * (-50.0 + 50.0 * k))
 		_support(sm, "artillery_piece", spot)
 		_prepping = false
 		return true
@@ -828,6 +847,10 @@ func _prepare(sm: SimMission, lance: Array, centre: Vector2) -> bool:
 			_to_bay(sm, m)
 		return true
 	_ready = true
+	if _spared == null:
+		if _verbose:
+			print("t=%6.1f  READY: %d guns at (%.0f, %.0f), lance repaired; on to objective %d" % [w.time, guns.size(), at.x, at.y, _prep_before])
+		return false
 	if _verbose:
 		print("t=%6.1f  READY: %d guns at (%.0f, %.0f), lance repaired; releasing %s" % [w.time, guns.size(), at.x, at.y, _spared.name])
 	_hold_at = at
@@ -1438,7 +1461,7 @@ func _bay_for(sm: SimMission, m: SimUnit) -> SimStructure:
 	for u in sm.world.units:
 		if not (u is SimStructure) or not u.can_refit or not u.mech_bay or u.is_destroyed() or u.team != 0:
 			continue
-		if SimSupport.bay_points(u) <= 1.0 or u.distance_to(m.position) > (2000.0 if _stealth else 900.0):
+		if SimSupport.bay_points(u) <= 1.0 or u.distance_to(m.position) > (2000.0 if _stealth else _bay_m):
 			continue
 		if u.refit_buddy != null and u.refit_buddy != m and u.refit_buddy.exists and not u.refit_buddy.is_disabled():
 			continue
@@ -1766,10 +1789,13 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	_run_out = bool(rp_plan.get("run_out", false))
 	_ecm_first = bool(rp_plan.get("ecm_first", false))
 	_fort_keep = bool(rp_plan.get("fort_keep", false))
+	_bay_m = float(rp_plan.get("bay_m", 900.0))
 	_fort_last = {}
 	_follow_since = -1.0
 	_prep_at = rp_plan.get("prep_at")
 	_prep_guns = int(rp_plan.get("prep_guns", 0))
+	_prep_before = int(rp_plan.get("prep_before", -1))
+	_prep_dir = Vector2(1, 0)
 	_mine_segs = (rp_plan.get("mines", []) as Array).duplicate(true)
 	_mines_called = false
 	_mine_at_start = false
