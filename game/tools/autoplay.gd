@@ -204,6 +204,7 @@ const STEALTH_PLANS := {"mc2_14": {"first": [6]}}
 ##   lulls" [KC, CB]); the city's bay is lost mid-mission in most runs.
 const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true},
 	"mc2_18": {"first": [2, 3, 4], "arcs": true, "rp_reserve": 12000},
+	"mc2_08": {"rp_reserve": 6000},
 	"mc2_24": {"via": [Vector2(600.0, -1100.0), Vector2(1150.0, -400.0), Vector2(1250.0, 500.0), Vector2(1150.0, 900.0)],
 		"first": [4], "run_out": true},
 	"mc2_23": {"spare": 0, "prep_at": Vector2(620.0, -830.0), "prep_guns": 2, "rp_reserve": 24000,
@@ -212,6 +213,9 @@ const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true},
 ## the lance's own ground (mines have no team check, support-powers.md 3.5). mc2_23: KC spends the
 ## 36k on "several minelayers" around the western road and the starport's NW edge; the waves come
 ## in from the west edge.
+## - mc2_08: no RP at the start, 5 RP buildings (50k): "try to use no more than one repair truck
+##   for the whole mission" [KC, CB]; a truck's worth is kept from salvage and strikes. (Not a
+##   default: on mc2_03 the same reserve cost 6/6 -> 1/6, its salvaged mechs fight for it.)
 ## - mc2_24: "Do NOT assault the main gate" [KC]: "via" walks the lance east, out of the main
 ##   gate's turrets (Long Toms on both horns), round to the rebels who breach the east wall (team 2,
 ##   from (1300-1470, 985)), and in with them; objective 4 (the fuel trucks inside) starts their
@@ -636,13 +640,15 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 	# Turret controls and repair bays near the route too: every walkthrough fights inside captured
 	# turrets and repairs at captured bays (docs/research/original-missions.md, I94, I95).
 	if sm.abl:
-		var rp_t := w.units.filter(func(u): return u.capturable and sm.abl.can_capture(u, 0) \
+		var rp_t := w.units.filter(func(u): return u.capturable and sm.abl.can_capture(u, 0) and float(_cap_skip.get(u.id, -INF)) < w.time \
 			and (u.resource_points > 0 or (u is SimStructure and (u.control or (u.can_refit and u.mech_bay) \
 				or u.name.contains("SensorControl")))) \
-			and u.position.distance_to(centre) <= (700.0 if u.resource_points > 0 else 450.0) and _path_ok(sm, lance[0], u))
+			and u.position.distance_to(centre) <= (700.0 if u.resource_points > 0 else 450.0) \
+			and (_path_ok(sm, lance[0], u) or _capture_path_ok(sm, lance[0], u)))
 		# keep the one already started (a group walk is slow; without this the lance swayed
 		# between it and the next objective at the edge of the radius)
 		if _side and is_instance_valid(_side) and not rp_t.has(_side) and sm.abl.can_capture(_side, 0) \
+				and float(_cap_skip.get(_side.id, -INF)) < w.time \
 				and _side.position.distance_to(centre) <= 750.0:
 			rp_t.append(_side)
 		if not rp_t.is_empty():
@@ -729,6 +735,8 @@ var _fort_strike := true  # --no-fort-strike: no air strike on a fort's generato
 var _unlocks := true  # --no-unlock: objectives under a fort aren't preceded by its generator (A/B)
 var _bombs := true  # --no-bombs: no shooting explosive buildings under enemies (A/B)
 var _arcs := false  # ROUTE_PLANS "arcs": no chasing into enemy forts' arcs
+var _cap_progress := {}  # capture target id -> [closest approach, when it was last bettered]
+var _cap_skip := {}  # capture target id -> until when it is left alone
 var _held := {}  # unit id -> its attack order fires from where it stands
 var _moved := {}  # unit id -> last time the stealth bot saw it moving
 var _avoided := {}  # unit id -> seconds the stealth bot has spent walking away from it
@@ -903,6 +911,19 @@ func _path_ok(sm: SimMission, from: SimUnit, u: SimUnit) -> bool:
 	if w.time - float(c[0]) > 30.0:
 		c = [w.time, w.map.find_path(from.position, w.map.nearest_walkable(u.position, from.hover), from.hover).size() > 0]
 		_paths[u.id] = c
+	return c[1]
+
+
+## A capture walks to the building's capture goal, not its centre (SimAbl._capture_goal: the cell
+## by the door the original picks); a big building's centre cell can be walled in by its own
+## footprint (mc2_08's RP buildings showed no path from 38 m away).
+func _capture_path_ok(sm: SimMission, from: SimUnit, u: SimUnit) -> bool:
+	var key := -1 - u.id
+	var c: Array = _paths.get(key, [-INF, false])
+	if sm.world.time - float(c[0]) > 30.0:
+		var goal: Vector2 = sm.abl._capture_goal(from, u)
+		c = [sm.world.time, sm.world.map.find_path(from.position, goal, from.hover).size() > 0]
+		_paths[key] = c
 	return c[1]
 
 
@@ -1105,6 +1126,25 @@ func _capture(sm: SimMission, units: Array, centre: Vector2, t: SimUnit) -> void
 	for m in units:
 		if m is SimMech and m.brain is SimAbl.Pilot and int(m.brain.order.get("code", -1)) == SimAbl.TO_CAPTURE:
 			capturer = m
+	# progress watch: a capture that hasn't got any closer in 60 s (a river, a mined bridge, a
+	# walled pocket) is left alone for 3 minutes (mc2_11 stood 10 minutes 259 m short)
+	var near_d := INF
+	for m in units:
+		near_d = minf(near_d, m.distance_to(t.position))
+	var prog: Array = _cap_progress.get(t.id, [INF, w.time, w.time])
+	if w.time - float(prog[2]) > 10.0:
+		prog = [INF, w.time, w.time]  # the capture was interrupted (a fight): start the watch again
+	prog[2] = w.time
+	if near_d < float(prog[0]) - 15.0:
+		_cap_progress[t.id] = [near_d, w.time, w.time]
+	elif w.time - float(prog[1]) > 60.0:
+		_cap_skip[t.id] = w.time + 180.0
+		_cap_progress.erase(t.id)
+		if _verbose:
+			print("t=%6.1f  CAPTURE of %s makes no progress (%.0f m): left for 3 min" % [w.time, t.name, near_d])
+		return
+	else:
+		_cap_progress[t.id] = prog
 	if capturer != null and capturer.order == SimWorld.Order.HOLD:
 		# A capture order that left the mech standing short of the target (its walk goal could not
 		# be reached): count it, re-issue it, then walk it straight at the target.
@@ -1248,7 +1288,7 @@ func _fort_job(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 					and _covering(w, gen.position).size() < _covering(w, par.position).size() \
 					and gen.position.distance_to(centre) <= 700.0:
 				return {"kind": "attack", "target": gen}
-			if sm.abl.can_capture(par, 0):
+			if sm.abl.can_capture(par, 0) and float(_cap_skip.get(par.id, -INF)) < w.time:
 				return {"kind": "capture", "target": par}
 			if par.team != 0:
 				return {"kind": "attack", "target": par}
@@ -1486,6 +1526,8 @@ func _use_support(sm: SimMission, lance: Array, centre: Vector2, threats: Array)
 				worst = m
 		if worst and (_health(worst) < 0.9 or threats.is_empty()):
 			s.order_repair(t, worst)
+	# (a salvaged mech joins the lance at once, so salvage comes before everything; holding a
+	# repair truck's worth back cost mc2_03 6/6 -> 1/6 in an A/B, 2026-10-24)
 	if s.can_call("salvage_craft"):
 		var cands := w.units.filter(func(u): return u is SimMech and u.is_disabled() and not u.is_destroyed() and u.exists \
 			and u.position.distance_to(centre) <= 600.0)
@@ -1600,7 +1642,7 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	_stealth = STEALTH_PLANS.has(mission)
 	_quiet_spot = null
 	_first = STEALTH_PLANS.get(mission, ROUTE_PLANS.get(mission, {})).get("first", [])
-	_arcs = bool(ROUTE_PLANS.get(mission, {}).get("arcs", false))
+	_arcs = bool(ROUTE_PLANS.get(mission, {}).get("arcs", false)) or "--arcs" in args
 	var rp_plan: Dictionary = ROUTE_PLANS.get(mission, {})
 	_spare = int(rp_plan.get("spare", -1))
 	_via = (rp_plan.get("via", []) as Array).duplicate()

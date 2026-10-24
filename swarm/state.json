@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T17:08:46+13:00",
+  "updated": "2026-10-24T18:02:51+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1631,8 +1631,8 @@
       "phase": 8,
       "status": "open",
       "created": "2026-10-23T20:13:52+13:00",
-      "updated": "2026-10-24T16:28:38+13:00",
-      "note": "2026-10-24 full sweep (docs/reports/playtest/2026-10-24-full): 40/72, 14/24 missions at 2/3+. The gate fails with 10 under. Two bot fixes went in after the first full pass:\n- a control the lance can capture is preferred to killing its generator (mc2_20 back to 2/3; isolated with the re-check bot on the current sim);\n- no bombing with our own structure in the blast (mc2_17 back to 3/3).\nForts still the main cause on mc2_08, 09 and 11 (0/3)."
+      "updated": "2026-10-24T18:02:51+13:00",
+      "note": "2026-10-24 fort pass (6 seeds each), against the committed full-sweep bot:\n- mc2_03 3/6 -> 6/6\n- mc2_08 0/6 -> 4/6\n- mc2_09 0/6 -> 4/6\n- mc2_11 0/6 -> 0/6 (no more 1800 s stalls but one)\n- mc2_13 0/6 -> 0/6\nChanges:\n1. RP buildings, controls and bays count as reachable when the capture goal (the cell SimAbl._capture_goal picks by the building) has a path, not just the centre cell. The footprint walled the centre in, so mc2_08's and mc2_11's RP buildings were never taken.\n2. A capture progress watch leaves a target alone for 3 min when the lance gets no closer in 60 s (mc2_11 stood 10 minutes 259 m short).\n3. mc2_08 keeps a repair truck's worth of RP from salvage (ROUTE_PLANS rp_reserve 6000). As a default the same reserve cost mc2_03 6/6 -> 1/6: its salvaged mechs fight for it.\n4. Game fix I120: legless mechs eject.\nTried and dropped: arcs discipline as a default (no gain on 03/08/09/11)."
     },
     {
       "id": "I100",
@@ -1893,6 +1893,19 @@
       "created": "2026-10-24T17:05:06+13:00",
       "updated": "2026-10-24T17:08:46+13:00",
       "note": "SimAbl.add_pilot erases the unit's previous Pilot before appending the new one (2 lines). support_test test_salvage_craft_takes_a_disabled_enemy_mech now checks the old brain left the list, one entry per unit, count unchanged (fails without the fix: 2 entries, 47 vs 46). Full suite ALL TESTS PASSED (287 cases)."
+    },
+    {
+      "id": "I120",
+      "sev": "P1",
+      "title": "A mech with both legs destroyed lay fallen for good instead of ejecting",
+      "detail": "calcLegStatus raises PILOT_ALARM_VEHICLE_INCAPACITATED when both legs are destroyed (mech.cpp:3422-3433). The pilot's alarm pass handles it as handleOwnVehicleIncapacitation(0) (warrior.cpp:4760-4765), which calls handleEjection: the pilot ejects and the mech is disabled (warrior.cpp:6913-6925, mover.cpp:7125-7146). The sim left a legless mech fallen, alive and armed forever: on mc2_11 four of the lance lay legless for minutes, and legless enemies held 'destroy all' open. SimWorld._update_motion now ejects and disables it.",
+      "repro": null,
+      "owner": "programmer",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T18:02:51+13:00",
+      "updated": "2026-10-24T18:02:51+13:00",
+      "note": "Test: sim_fidelity_test test_a_mech_with_both_legs_gone_ejects. Full suite passes. Regression check: mc2_01/06/10/21 3/3, mc2_16/17/20 2/3."
     }
   ],
   "coverage": {
@@ -1999,21 +2012,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-20T06:34:17+13:00",
-      "who": "conductor",
-      "msg": "issue I65 fixed: Lee approved the look (D6, 2026-10-20)"
-    },
-    {
-      "at": "2026-10-20T06:34:17+13:00",
-      "who": "conductor",
-      "msg": "issue I66 fixed: Lee approved the look (D6, 2026-10-20)"
-    },
-    {
-      "at": "2026-10-20T06:34:17+13:00",
-      "who": "conductor",
-      "msg": "issue I67 updated: title, note \u2014 Lee D6 2026-10-20: redo"
-    },
     {
       "at": "2026-10-20T06:34:17+13:00",
       "who": "conductor",
@@ -2998,6 +2996,21 @@
       "at": "2026-10-24T17:08:46+13:00",
       "who": "conductor",
       "msg": "issue I119 fixed: SimAbl.add_pilot erases the unit's previous Pilot before appending the new one (2 lines). support_test test_salvage_craft_takes_a_disabled_enemy_mech now checks the old brain left the list, one entry per unit, count unchanged (fails without the fix: 2 entries, 47 vs 46). Full suite ALL TESTS PASSED (287 cases)."
+    },
+    {
+      "at": "2026-10-24T18:02:51+13:00",
+      "who": "programmer",
+      "msg": "issue I120 P1: A mech with both legs destroyed lay fallen for good instead of ejecting"
+    },
+    {
+      "at": "2026-10-24T18:02:51+13:00",
+      "who": "conductor",
+      "msg": "issue I120 fixed: Test: sim_fidelity_test test_a_mech_with_both_legs_gone_ejects. Full suite passes. Regression check: mc2_01/06/10/21 3/3, mc2_16/17/20 2/3."
+    },
+    {
+      "at": "2026-10-24T18:02:51+13:00",
+      "who": "conductor",
+      "msg": "issue I99 updated: note \u2014 2026-10-24 fort pass (6 seeds each), against the committed full-sweep bot:\n- mc2_03 3/6 -> 6/6\n- mc2_08 0/6 -> 4/6\n- mc2_09 0/6 -> 4/6\n- mc2_11 0/6 -> 0/6 (no more 1800 s stalls but one)\n- mc2_13 0/6 -> 0/6\nChanges:\n1. RP buildings, controls and bays count as reachable when the capture goal (the cell SimAbl._capture_goal picks by the building) has a path, not just the centre cell. The footprint walled the centre in, so mc2_08's and mc2_11's RP buildings were never taken.\n2. A capture progress watch leaves a target alone for 3 min when the lance gets no closer in 60 s (mc2_11 stood 10 minutes 259 m short).\n3. mc2_08 keeps a repair truck's worth of RP from salvage (ROUTE_PLANS rp_reserve 6000). As a default the same reserve cost mc2_03 6/6 -> 1/6: its salvaged mechs fight for it.\n4. Game fix I120: legless mechs eject.\nTried and dropped: arcs discipline as a default (no gain on 03/08/09/11)."
     }
   ],
   "choices": [

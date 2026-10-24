@@ -291,6 +291,17 @@ func _update_motion(m: SimUnit, dt: float) -> void:
 	if m.order == Order.JUMP:  # airborne: always lands, whatever happens to it in flight
 		_update_jump(m, dt)
 		return
+	if m is SimMech and not m.is_disabled() and not m.ejected and _legs_gone(m):
+		# Both legs destroyed: calcLegStatus raises PILOT_ALARM_VEHICLE_INCAPACITATED (mech.cpp:
+		# 3422-3433), and the pilot's alarm pass handles it as handleOwnVehicleIncapacitation(0)
+		# (warrior.cpp:4760-4765), which ejects and disables the mech (warrior.cpp:6913-6925,
+		# Mover::handleEjection, mover.cpp:7125-7146). A legless mech used to lie there for good,
+		# alive, holding "destroy all" open.
+		order_hold(m)
+		m.ejected = true
+		m.status = SimUnit.Status.DISABLED
+		events.append({"type": "ejected", "unit": m.id})
+		return
 	if m.is_disabled() or m.status == SimUnit.Status.SHUTDOWN:
 		m.body_state = SimUnit.BodyState.STANDING if not m.is_disabled() else m.body_state
 		return
