@@ -1,0 +1,53 @@
+{
+ "model": "thor.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Summoner Prime, AKA Thor for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1864004",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "smn-prime4.stl"
+ },
+ "tris": 49037,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.061,
+  "Walk": 0.304,
+  "Run": 0.396,
+  "STtoWK": 0.263,
+  "WKtoST": 0.302,
+  "WKtoRN": 0.329,
+  "RNtoWK": 0.337,
+  "LimpLeft": 0.463,
+  "LimpRight": 0.38,
+  "ParkToStand": 0.337,
+  "StandToPark": 0.341,
+  "Jump": 0.401,
+  "FallForward": 2.99,
+  "FallBackward": 1.587,
+  "GetUpFront": 3.003,
+  "GetUpBack": 2.08,
+  "HitFront": 0.192,
+  "HitBack": 0.093,
+  "HitLeft": 0.275,
+  "HitRight": 0.17
+ },
+ "paint_stats": {
+  "texels": 1818699,
+  "chip_share": 0.022693144934923262,
+  "grime_mean": 0.29359379410743713,
+  "paint_share": 0.6584888428486517,
+  "glass_texels": 27317,
+  "emissive_texels": 0,
+  "piping_texels": 149316,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

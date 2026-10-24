@@ -22,6 +22,8 @@ a = ap.parse_args()
 z = np.load(a.src)
 P, F, part, kind = z["P"] / 1000.0, z["F"], z["part"], z["kind"]
 scale_face = np.load(a.hidden) if a.hidden else np.ones(len(F))
+if len(scale_face) != len(F):   # from a different decimation: ignore (stage glassdensity regenerates it)
+    print("uv scale ignored: face count changed"); scale_face = np.ones(len(F))
 atlas = xatlas.Atlas()
 groups = []
 for p in np.unique(part):
