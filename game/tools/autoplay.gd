@@ -198,7 +198,13 @@ const STEALTH_PLANS := {"mc2_14": {"first": [6]}}
 ##   [KC, BK, CB]: objectives 2 (HQ, by the drop), 3 (power generator), 4 (sensor control).
 const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true},
 	"mc2_18": {"first": [2, 3, 4], "arcs": true},
+	"mc2_24": {"via": [Vector2(600.0, -1100.0), Vector2(1150.0, -400.0), Vector2(1250.0, 500.0), Vector2(1150.0, 900.0)],
+		"first": [4], "run_out": true},
 	"mc2_23": {"spare": 0, "prep_at": Vector2(620.0, -830.0), "prep_guns": 3, "rp_reserve": 24000}}
+## - mc2_24: "Do NOT assault the main gate" [KC]: "via" walks the lance east, out of the main
+##   gate's turrets (Long Toms on both horns), round to the rebels who breach the east wall (team 2,
+##   from (1300-1470, 985)), and in with them; objective 4 (the fuel trucks inside) starts their
+##   mech attack (mc2_24.abl:281-289) [KC, BK, CB].
 ## - mc2_23: "The trick is to PREPARE a proper reception for the reinforcements BEFORE they
 ##   arrive" [KC]. The two reinforcement waves come 3 s after objective 0 (the starport force) is
 ##   done (mc2_23.abl:207-215), so "spare" leaves the last of its targets alive. Meanwhile the
@@ -322,7 +328,7 @@ func _centre(units: Array) -> Vector2:
 
 
 func _armed_enemy(u: SimUnit) -> bool:
-	return u.team != 0 and u.is_mover() and u.exists and u.awake and not u.is_disabled() and not u.hulk and u.num_weapons > 0
+	return SimWorld.hostile(u.team, 0) and u.is_mover() and u.exists and u.awake and not u.is_disabled() and not u.hulk and u.num_weapons > 0
 
 
 ## A methodical player: pull badly damaged mechs back, fight the armed enemies near the lance
@@ -530,6 +536,11 @@ func _orders(sm: SimMission) -> void:
 	if fighters.is_empty():
 		return
 	centre = _centre(fighters)
+	if _run_out and String(task.get("kind", "")) == "extract":
+		# "RUN ... for extraction ... As long as ONE mech reaches the extraction, you win!" [KC]:
+		# every survivor runs for it, nobody stops to fight (ROUTE_PLANS "run_out")
+		_run_to(sm, lance, task["area"])
+		return
 	if threats.is_empty():
 		_safe = centre  # the last place the lance stood with nobody near
 	else:
@@ -580,6 +591,13 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 				r = maxi(r, 2)
 		return (-100 + 10 * _first.find(int(o["index"])) if _first.has(int(o["index"])) else 0 if o["primary"] else 10) + r
 	objs.sort_custom(func(a, b): return rank.call(a) < rank.call(b) or (rank.call(a) == rank.call(b) and a["index"] < b["index"]))
+	if _run_out:
+		# the extraction is open and it's the last primary: nothing on the way is worth a detour
+		var open_p := objs.filter(func(o): return o["primary"])
+		if open_p.size() == 1 and open_p[0]["conditions"].any(func(c): return c["kind"] == "MoveAllSurvivingMechsToArea"):
+			var job := _obj_task(sm, open_p[0], lance, centre)
+			if not job.is_empty():
+				return job
 	# Targets of opportunity, as a player shoots them on the way: unarmed enemy vehicles (fuel and
 	# supply trucks) close to the lance, unless they can be captured (ordnance trucks pay RP) or sit
 	# near something an objective wants captured (a fuel truck's blast took mc2_03's Mobile HQ).
@@ -588,7 +606,7 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 		for c in o["conditions"]:
 			if String(c["kind"]).begins_with("Capture") and c.get("unit") != null:
 				keep[c["unit"]] = true
-	var soft := w.units.filter(func(u): return u.team != 0 and u.is_mover() and u.exists and u.awake and not u.is_disabled() \
+	var soft := w.units.filter(func(u): return SimWorld.hostile(u.team, 0) and u.is_mover() and u.exists and u.awake and not u.is_disabled() \
 		and not u.hulk and u.num_weapons == 0 and not keep.has(u) and u.position.distance_to(centre) <= 220.0 \
 		and not (sm.abl and u.capturable and sm.abl.can_capture(u, 0)) \
 		and not keep.keys().any(func(k): return not k.is_destroyed() and k.position.distance_to(u.position) < 120.0))
@@ -620,6 +638,22 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 			_side = rp_t[0]
 			return {"kind": "capture", "target": rp_t[0]}
 		_side = null
+	# A route round a defended front first (ROUTE_PLANS "via")
+	while not _via.is_empty() and centre.distance_to(_via[0]) <= 120.0:
+		_via.pop_front()
+	if not _via.is_empty():
+		return {"kind": "move", "area": _via[0], "radius": 60.0}
+	# "follow the rebels in through the east breach" [KC, BK, CB]: behind the neutral team's armed
+	# movers while they lead (ROUTE_PLANS "follow"), up to 6 minutes
+	if _follow >= 0 and w.time - _follow_since < 360.0:
+		var lead := w.units.filter(func(u): return u.team == _follow and u.is_mover() and u.exists and not u.is_disabled() \
+			and u.num_weapons > 0)
+		if lead.size() >= 2:
+			if _follow_since < 0.0:
+				_follow_since = w.time
+			var lc := _centre(lead)
+			var behind: Vector2 = lc + (centre - lc).normalized() * 120.0
+			return {"kind": "move", "area": w.map.nearest_walkable(behind), "radius": 60.0}
 	# In the designer's order (the numbered objectives follow the route; nearest-first sent
 	# mc2_11's lance to objective 3 across the map first).
 	for obj in objs:
@@ -665,6 +699,10 @@ var _stealth := false  # a STEALTH_PLANS mission: patrols are avoided
 var _first: Array = []  # ... and these objectives are worked first
 var _avoid_said := -INF
 var _quiet_spot = null  # Vector2: the last place the stealth bot stood with no enemy in sight or fort arc
+var _run_out := false  # ROUTE_PLANS "run_out": the extraction is a run, not a fight
+var _follow := -1  # ROUTE_PLANS "follow": a neutral team the lance walks in behind
+var _follow_since := -1.0
+var _via: Array = []  # ROUTE_PLANS "via": points walked through before the objectives
 var _spare := -1  # ROUTE_PLANS "spare": the objective whose last target is left alive until ready
 var _spared: SimUnit = null
 var _prep_at = null
@@ -1508,6 +1546,10 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	_arcs = bool(ROUTE_PLANS.get(mission, {}).get("arcs", false))
 	var rp_plan: Dictionary = ROUTE_PLANS.get(mission, {})
 	_spare = int(rp_plan.get("spare", -1))
+	_via = (rp_plan.get("via", []) as Array).duplicate()
+	_follow = int(rp_plan.get("follow", -1))
+	_run_out = bool(rp_plan.get("run_out", false))
+	_follow_since = -1.0
 	_prep_at = rp_plan.get("prep_at")
 	_prep_guns = int(rp_plan.get("prep_guns", 0))
 	_rp_reserve = int(rp_plan.get("rp_reserve", 0))

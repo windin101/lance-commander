@@ -71,11 +71,20 @@ func add_unit(u: SimUnit) -> SimUnit:
 	return u
 
 
+## Single-player team relations (Mission::init, mission.cpp:1632-1647; Team::relations): every
+## team is the enemy of every other except the player (0) and team 2, which are neutral to each
+## other (mc2_24's rebels). Neutrals neither target nor block each other.
+static func hostile(a: int, b: int) -> bool:
+	if a == b:
+		return false
+	return not ((a == 0 and b == 2) or (a == 2 and b == 0))
+
+
 ## Hostile units that can be auto-targeted (movers only; structures need an order).
 func enemies_of(m: SimUnit) -> Array[SimUnit]:
 	var out: Array[SimUnit] = []
 	for o in movers():
-		if o.team != m.team and o.exists and not o.is_disabled():
+		if hostile(o.team, m.team) and o.exists and not o.is_disabled():
 			out.append(o)
 	return out
 
@@ -1120,9 +1129,10 @@ func explosion(at: Vector2, damage: float, radius_m: float, source: SimUnit = nu
 
 func _pick_target(m: SimUnit) -> SimUnit:
 	var forced := m.order == Order.ATTACK and m.force_target
-	if m.current_target and m.current_target.team == m.team and not forced:
+	if m.current_target and not hostile(m.current_target.team, m.team) and not forced:
 		m.current_target = null  # it changed sides (a captured turret or building): not a target now
-	if m.order in [Order.ATTACK, Order.GUARD] and m.order_target and m.order_target.team == m.team and not forced:
+	if m.order in [Order.ATTACK, Order.GUARD] and m.order_target and not hostile(m.order_target.team, m.team) and not forced \
+			and m.order_target.team == m.team:
 		order_hold(m)
 	if m.order in [Order.ATTACK, Order.GUARD] and m.order_target and not m.order_target.is_disabled():
 		return m.order_target

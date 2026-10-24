@@ -538,3 +538,20 @@ func test_an_aimed_order_aims_its_shots() -> void:
 				locs[e["location"]] = true
 		world.events.clear()
 	assert_array(locs.keys()).is_equal([SimMech.Body.HEAD])  # every hit lands on the head
+
+
+## Single-player team relations (mission.cpp:1632-1647): the player (0) and team 2 (mc2_24's
+## rebels) are neutral to each other, so neither auto-targets the other; both fight team 1.
+func test_team_two_is_neutral_to_the_player() -> void:
+	assert_bool(SimWorld.hostile(0, 2)).is_false()
+	assert_bool(SimWorld.hostile(2, 0)).is_false()
+	assert_bool(SimWorld.hostile(1, 2)).is_true()
+	assert_bool(SimWorld.hostile(0, 1)).is_true()
+	_flat_world()
+	var rebel := _vehicle("partisan", 2, Vector2.ZERO)
+	var ours := _target_mech(Vector2(0, 60))  # team 0
+	var foe := _vehicle("partisan", 1, Vector2(40, 0))
+	var seen := world.enemies_of(rebel)
+	assert_bool(seen.has(ours)).is_false()
+	assert_bool(seen.has(foe)).is_true()
+	assert_bool(world.enemies_of(ours).has(rebel)).is_false()
