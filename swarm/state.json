@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T14:03:51+13:00",
+  "updated": "2026-10-24T14:14:18+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -617,8 +617,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-24T13:41:47+13:00",
-      "note": "Still 0/3 at 1800 s, but 2 seeds are alive at the cap with the airport, Gun Alpha and (in one) Omega taken. Seed 3 lost the Lao Hu to a Werewolf at 350 s. The rest is long stretches of avoiding patrols. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+      "updated": "2026-10-24T14:14:18+13:00",
+      "note": "2026-10-24 mc2_14 pass. Port check: no new gap. The fuel-tank and ammo-dump blasts (I115) now exist, but the bot's bomb rule didn't fire here. Bot changes: when outgunned with no captured fort strong enough (fort dps + ours < theirs), it breaks contact back to the last quiet spot instead of luring. Guards standing at their posts (not moved for 30 s) are no longer avoided; avoiding them for good had stalled it short of Gun Beta for 15 minutes. Results: 1800 s cap, 3/3 alive (no win in time). 4000 s cap: seed 3 WON at 3943 s (all objectives), seed 2 alive with 5 enemies left, seed 1 lost at 2102 s with 3 left. The mission is winnable by the stealth line but takes about an hour; the sweep cap of 1800 s scores it PLAYING. Leaving open: about an hour for 1 win in 3."
     },
     {
       "id": "I22",
@@ -1948,11 +1948,6 @@
   ],
   "log": [
     {
-      "at": "2026-10-19T19:47:35+13:00",
-      "who": "conductor",
-      "msg": "vulture STL rig: 48.7k tris, walks on MC2's animations; sheets vulture_stl_final_*.png; uncommitted pending D4"
-    },
-    {
       "at": "2026-10-19T19:50:34+13:00",
       "who": "conductor",
       "msg": "issue I59 fixed: vulture replaced by the adapted Syllogy model (CC BY-NC-SA 4.0), rigged by tools/art/stl_rig.py"
@@ -2946,6 +2941,11 @@
       "at": "2026-10-24T14:03:51+13:00",
       "who": "conductor",
       "msg": "issue I20 updated: note \u2014 2026-10-24 mc2_13 pass. Port check: found and fixed I115 (buildings never exploded, so the guides' fuel-tank tactic didn't exist). Turret/generator sleep chains match the original (bldng.cpp:903-913, turret.cpp:620-633). Bot (ROUTE_PLANS mc2_13):\n- dropship first: fuel/pipe tanks shot under the charging Thor and Ryoken (both killed early in seed 1);\n- then WF#3, its bay and sensor control, and WF#1, with the Powered Armor facility (#2) last;\n- before an objective under a fort, it kills the fort's generator (the HPG AC turrets hang on the 2 NE-crater generators);\n- it doesn't chase into enemy arcs.\nResult: 3 of 6 objectives every seed (was 0-1), still 0/3; one seed alive at 1800 s. The losses are Gauss-fort head kills, the HPG AC turrets and the Uller/Enfield patrols, with no repair once the lance has left the dropship bay (1.3 km away)."
+    },
+    {
+      "at": "2026-10-24T14:14:18+13:00",
+      "who": "conductor",
+      "msg": "issue I21 updated: note \u2014 2026-10-24 mc2_14 pass. Port check: no new gap. The fuel-tank and ammo-dump blasts (I115) now exist, but the bot's bomb rule didn't fire here. Bot changes: when outgunned with no captured fort strong enough (fort dps + ours < theirs), it breaks contact back to the last quiet spot instead of luring. Guards standing at their posts (not moved for 30 s) are no longer avoided; avoiding them for good had stalled it short of Gun Beta for 15 minutes. Results: 1800 s cap, 3/3 alive (no win in time). 4000 s cap: seed 3 WON at 3943 s (all objectives), seed 2 alive with 5 enemies left, seed 1 lost at 2102 s with 3 left. The mission is winnable by the stealth line but takes about an hour; the sweep cap of 1800 s scores it PLAYING. Leaving open: about an hour for 1 win in 3."
     }
   ],
   "choices": [
