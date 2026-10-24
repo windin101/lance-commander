@@ -186,6 +186,17 @@ terrain and cell heights only). Flag `attack_goals`.
 - Flag `slew`. Arena (40 fights, 4 mechs at 150 m): 4 Partisans' damage 17 -> 22 per minute,
   fights 26 -> 22 s; 6 Harassers 84 -> 25 per minute (they turn their hulls), fights 9 -> 13 s.
 
+## Building explosions (I115, 2026-10-24)
+
+- A destroyed building blows up with its type's `ExplosionDamage` and `ExplosionRadius`. The blast
+  has no owner: `createExplosion(BUILDING_EXPLOSION_ID, NULL, hitNode, explDamage, explRadius)`
+  (bldng.cpp:205-211, 1256-1257, 1476-1488).
+  - LargeFuelTank, SmallFuelTank and AmmoDump: 30 damage, 300 wu (60 m).
+  - FuelPipe: 20 damage, 225 wu.
+- Movers take the blast in 5-point chunks. A nearby tank takes it whole and can chain.
+- A building placed destroyed (FIT damage & 0x0f) is set to its damage level without a blast
+  (objmgr.cpp:1171-1173).
+
 ## Player controls from the original (2026-10-24)
 
 The command table is missiongui.cpp:195-310; the palette's buttons are ControlGui::Commands

@@ -176,6 +176,15 @@ const HOLD_PLANS := {"mc2_17": {"objective": 2, "radius": 200.0, "quiet": 180.0}
 ##   control, objective 6), then "watch the patrols on sensors and avoid ... them" [KC, CB]
 ##   (Lee, 2026-10-24: avoid patrols rather than fight them).
 const STEALTH_PLANS := {"mc2_14": {"first": [6]}}
+## Objectives the walkthroughs take first, out of the designer's order (docs/research/original-missions.md):
+## - mc2_13: "Go to the dropship first and blow the fuel tanks on the Thor and Ryoken as they
+##   charge", then its repair bay and sensor control [KC, CB, SOE, BK]; objective 4 is the dropship.
+##   Weapons Facility #3 sits beside it, and #2 is the Powered Armor nest the guides keep for last
+##   ("Don't fight the Powered Armor in the open" [CB, BK]).
+##   "The Gauss Turret bases are incredibly deadly ... should be avoided at all costs" [SOE]:
+##   "arcs" keeps the lance from chasing a target into an enemy fort's arcs (it fires from where
+##   it stands instead). Not a default: on mc2_03 it cost 4/4 -> 0/4 (2026-10-24).
+const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true}}
 const AVOID_M := 360.0  # stealth: an unengaged patrol this close is walked away from
 
 
@@ -467,7 +476,7 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 				r = maxi(r, 1)
 			elif c["kind"] == "MoveAllSurvivingMechsToArea":
 				r = maxi(r, 2)
-		return (-10 if _first.has(int(o["index"])) else 0 if o["primary"] else 10) + r
+		return (-100 + 10 * _first.find(int(o["index"])) if _first.has(int(o["index"])) else 0 if o["primary"] else 10) + r
 	objs.sort_custom(func(a, b): return rank.call(a) < rank.call(b) or (rank.call(a) == rank.call(b) and a["index"] < b["index"]))
 	# Targets of opportunity, as a player shoots them on the way: unarmed enemy vehicles (fuel and
 	# supply trucks) close to the lance, unless they can be captured (ordnance trucks pay RP) or sit
@@ -496,7 +505,8 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 	# turrets and repairs at captured bays (docs/research/original-missions.md, I94, I95).
 	if sm.abl:
 		var rp_t := w.units.filter(func(u): return u.capturable and sm.abl.can_capture(u, 0) \
-			and (u.resource_points > 0 or (u is SimStructure and (u.control or (u.can_refit and u.mech_bay)))) \
+			and (u.resource_points > 0 or (u is SimStructure and (u.control or (u.can_refit and u.mech_bay) \
+				or u.name.contains("SensorControl")))) \
 			and u.position.distance_to(centre) <= (700.0 if u.resource_points > 0 else 450.0) and _path_ok(sm, lance[0], u))
 		# keep the one already started (a group walk is slow; without this the lance swayed
 		# between it and the next objective at the edge of the radius)
@@ -514,14 +524,47 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 		var job := _obj_task(sm, obj, lance, centre)
 		if not job.is_empty():
 			_cur_obj = int(obj["index"])
+			if sm.abl:
+				return _unlock(sm, job, lance)
 			return job
 	return {}
+
+
+## An objective under an enemy fort's guns: first switch the fort off at its root, the control's
+## generator if it has one (a destroyed parent puts its children to sleep, bldng.cpp:903-913,
+## turret.cpp:620-633), else capture or destroy the control. mc2_13: "Kill the two generators in
+## the NE crater to drop the HPG turrets" [KC, CB].
+func _unlock(sm: SimMission, job: Dictionary, lance: Array) -> Dictionary:
+	var w := sm.world
+	var t: SimUnit = job.get("target")
+	var at: Vector2 = t.position if t != null else job.get("area", Vector2.INF)
+	if at == Vector2.INF:
+		return job
+	var best: SimStructure = null
+	for tur in _covering(w, at):
+		var ctl: SimStructure = tur.parent
+		if ctl == null or ctl.is_destroyed() or ctl == t:
+			continue
+		var root: SimStructure = ctl
+		if ctl.parent != null and not ctl.parent.is_destroyed() and ctl.parent.team != 0:
+			root = ctl.parent
+		if root.team == 0 or not _path_ok(sm, lance[0], root):
+			continue
+		if best == null or _covering(w, root.position).size() < _covering(w, best.position).size():
+			best = root
+	if best == null or _covering(w, best.position).size() >= _covering(w, at).size():
+		return job
+	if best.capturable and sm.abl.can_capture(best, 0) and best.parent == null:
+		return {"kind": "capture", "target": best}
+	return {"kind": "attack", "target": best}
 
 
 var _stealth := false  # a STEALTH_PLANS mission: patrols are avoided
 var _first: Array = []  # ... and these objectives are worked first
 var _avoid_said := -INF
 var _quiet_spot = null  # Vector2: the last place the stealth bot stood with no enemy in sight or fort arc
+var _arcs := false  # ROUTE_PLANS "arcs": no chasing into enemy forts' arcs
+var _held := {}  # unit id -> its attack order fires from where it stands
 var _avoided := {}  # unit id -> seconds the stealth bot has spent walking away from it
 var _hold_at = null  # Vector2: the base a HOLD_PLANS mission holds, until it has been quiet
 var _hold_r := 0.0
@@ -698,6 +741,16 @@ func _fight(sm: SimMission, fighters: Array, threats: Array) -> void:
 			have += _dps(m)
 	for m in free:
 		want[m] = ranked[0]
+	# Blow a fuel tank, pipe or ammo dump under the enemy (bldng.cpp:1476-1488): an enemy mech
+	# inside a blast that reaches none of ours is worth the nearest gun's volley ("blow the fuel
+	# tanks on the Thor and Ryoken as they charge", mc2_13; "use its fuel tanks on the pursuers",
+	# mc2_17; ammo dumps on the Hunchbacks, mc2_14).
+	var bomb := _bomb_for(sm, fighters, threats)
+	if bomb != null:
+		fighters.sort_custom(func(a, b): return a.distance_to(bomb.position) < b.distance_to(bomb.position))
+		want[fighters[0]] = bomb
+		if fighters.size() > 3:
+			want[fighters[1]] = bomb
 	var mid := _centre(fighters)
 	if _trace and sm.world.time - _fight_trace >= 30.0:
 		_fight_trace = sm.world.time
@@ -720,10 +773,41 @@ func _fight(sm: SimMission, fighters: Array, threats: Array) -> void:
 			continue
 		_goal.erase(m.id)
 		var cur: SimUnit = m.order_target if m.order == SimWorld.Order.ATTACK else null
-		if cur != null and score.has(cur) and score[cur] >= 0.7 * score[t]:
+		if t == bomb:
+			if cur != t:
+				_order(sm, m, "attack", t, {"force": true})  # a neutral building needs force fire
+				if _verbose:
+					print("t=%6.1f  BOMB %s shoots %s under %s" % [sm.world.time, m.name, t.name,
+						threats.filter(func(e): return e is SimMech and e.distance_to(t.position) <= bomb.explosion_radius_m * 0.8).map(func(e): return e.name)])
 			continue
-		if cur != t:
-			_order(sm, m, "attack", t)
+		var hold := _arcs and _covering(sm.world, m.position).is_empty() and not _covering(sm.world, t.position).is_empty()
+		if cur != null and score.has(cur) and score[cur] >= 0.7 * score[t] and bool(_held.get(m.id, false)) == hold:
+			continue
+		if cur != t or bool(_held.get(m.id, false)) != hold:
+			_order(sm, m, "attack", t, {"pursue": not hold})
+			_held[m.id] = hold
+
+
+## An intact enemy-side or neutral building that explodes, with an enemy mech in its blast and
+## none of our units in it, within reach of one of the fighters.
+func _bomb_for(sm: SimMission, fighters: Array, threats: Array) -> SimStructure:
+	var w := sm.world
+	var ours := w.units.filter(func(u): return u.team == 0 and u.is_mover() and u.exists and not u.is_disabled())
+	var best: SimStructure = null
+	var best_n := 0
+	for u in w.units:
+		if not (u is SimStructure) or u is SimTurret or u.is_destroyed() or u.explosion_damage < 20.0 or u.team == 0:
+			continue
+		var r: float = u.explosion_radius_m
+		if not fighters.any(func(m): return m.distance_to(u.position) <= w.attack_range(m)):
+			continue
+		if ours.any(func(m): return m.distance_to(u.position) <= r + 10.0):
+			continue
+		var n := threats.filter(func(t): return t is SimMech and t.distance_to(u.position) <= r * 0.8).size()
+		if n > best_n:
+			best = u
+			best_n = n
+	return best
 
 
 ## Capture: clear the guards first (an armed enemy within 75 m of the target refuses it),
@@ -888,6 +972,14 @@ func _fort_job(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 		if par != null and par.exists and not par.is_destroyed():
 			if par.position.distance_to(centre) > 600.0 or not _path_ok(sm, lance[0], par):
 				continue
+			# The control hangs on a generator that stands outside the guns: a destroyed (or asleep)
+			# parent puts the control and its turrets to sleep (bldng.cpp:903-913, turret.cpp:620-633;
+			# "kill the two generators ... to drop the HPG turrets" [KC, CB]).
+			var gen: SimStructure = par.parent
+			if gen != null and gen.exists and not gen.is_destroyed() and gen.team != 0 \
+					and _covering(w, gen.position).size() < _covering(w, par.position).size() \
+					and gen.position.distance_to(centre) <= 700.0:
+				return {"kind": "attack", "target": gen}
 			if sm.abl.can_capture(par, 0):
 				return {"kind": "capture", "target": par}
 			if par.team != 0:
@@ -1202,7 +1294,8 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	_trace = "--trace" in args
 	_stealth = STEALTH_PLANS.has(mission)
 	_quiet_spot = null
-	_first = STEALTH_PLANS.get(mission, {}).get("first", [])
+	_first = STEALTH_PLANS.get(mission, ROUTE_PLANS.get(mission, {})).get("first", [])
+	_arcs = bool(ROUTE_PLANS.get(mission, {}).get("arcs", false))
 	var plan: Dictionary = HOLD_PLANS.get(mission, {})
 	_hold_at = null
 	_hold_reached = false

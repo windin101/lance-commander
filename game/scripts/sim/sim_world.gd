@@ -253,6 +253,10 @@ func step(dt: float = TICK) -> void:
 				_splash(m)
 			elif m is SimTurret and m.is_destroyed() and m.explosion_damage > 0.0:
 				explosion(m.position, m.explosion_damage, m.explosion_radius_m, m)  # turret.cpp:2198
+			elif m is SimStructure and not (m is SimTurret) and m.is_destroyed() and m.explosion_damage > 0.0:
+				# a fuel tank, ammo dump or pipe blows up with its type's damage and radius, owner none
+				# (bldng.cpp:1476-1488: createExplosion(..., NULL, hitNode, explDamage, explRadius))
+				explosion(m.position, m.explosion_damage, m.explosion_radius_m, null)
 
 
 ## Vehicle death explosion: full ExplosionDamage to every mover within the radius,

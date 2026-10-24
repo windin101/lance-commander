@@ -303,3 +303,30 @@ func test_the_spotter_strikes_its_own_target_after_ten_seconds_in_range() -> voi
 	var s: Array = strikes.call()
 	assert_int(s.size()).is_equal(1)
 	assert_float((s[0]["at"] as Vector2).distance_to(target.position)).is_less(1.0)
+
+
+## A destroyed building with an ExplosionDamage blows up (bldng.cpp:205-211, 1476-1488). mc2_13's
+## large fuel tanks (30 damage, 300 wu = 60 m) are the guides' answer to the Thor and Ryoken.
+func test_a_destroyed_fuel_tank_blows_up_on_whoever_is_near() -> void:
+	var q := _quiet_mission("mc2_13")
+	var tank: SimStructure = q.world.units.filter(func(u): return u is SimStructure and u.name == "LargeFuelTank")[0]
+	assert_float(tank.explosion_damage).is_equal(30.0)
+	assert_float(tank.explosion_radius_m).is_equal_approx(60.0, 0.01)
+	tank.position = Vector2(-1100.0, -200.0)  # away from the depot's other tanks and pipes (they would chain)
+	var m: SimUnit = q.world.units.filter(func(u): return u is SimMech and u.team == 0)[0]
+	m.position = tank.position + Vector2(25, 0)
+	var far: SimUnit = q.world.units.filter(func(u): return u is SimMech and u.team == 0)[1]
+	far.position = tank.position + Vector2(90, 0)
+	var before: float = _armour(m) + m.internal.reduce(func(a, b): return a + b, 0.0)
+	var far_before := _armour(far)
+	tank.take_hit(q.world.rules, q.world.rng, tank.damage_level + 1.0, 0, 143, 0.0)
+	var blasts := 0
+	for i in 3:
+		q.step()
+		for e in q.world.events:
+			if e["type"] == "impact" and e["unit"] == m.id and e.get("form", "") == "blast":
+				blasts += 1
+		q.world.events.clear()
+	assert_int(blasts).is_equal(6)  # 30 damage in chunks of 5 (carnage.cpp:349-367)
+	assert_float(_armour(m) + m.internal.reduce(func(a, b): return a + b, 0.0)).is_less_equal(before - 29.0)
+	assert_float(_armour(far)).is_equal(far_before)
