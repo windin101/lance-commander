@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T14:43:37+13:00",
+  "updated": "2026-10-24T14:51:05+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -721,8 +721,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:22+13:00",
-      "updated": "2026-10-24T13:41:47+13:00",
-      "note": "Still 0/3. Secondary b (town patrols) is done every seed, and obj 0 (starport) in seed 3. LRM carriers, MediumAutoCannon turrets, Atlas and Zeus finish the lance at 332-897 s. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+      "updated": "2026-10-24T14:51:05+13:00",
+      "note": "2026-10-24 mc2_23 pass. Port check: the reinforcement trigger matches mc2_23.abl:207-215 (both groups come 3 s after objective 0); the group make-up (3 Werewolf/Razorback, 4 Highlander, 2 Hunchback, 1 Hollander) matches the guides within their spread. Bot (ROUTE_PLANS mc2_23, KC's 'PREPARE a proper reception'):\n- 24k RP kept back until ready;\n- objective 0's starport force killed strongest-first, the weakest spared;\n- at the dropship bays: repair, then 2-3 Long Toms placed 130 m behind;\n- then the spared target is released and the lance holds the spot.\nLong Toms placed 60 m off had shelled our own Catapult, hence the 130 m.\nResult: still 0/3. Reception ready and obj 0 done in 2/3 seeds (622/736 s), but the lance has lost 2-3 of 6 at the starport by then, and the 10-mech wave finishes it at 1008-1120 s; seed 3 dies at the starport by 456 s. Left: minelayers (the bot has no minelayer use yet) and teasing the starport mechs out a few at a time."
     },
     {
       "id": "I30",
@@ -1631,8 +1631,8 @@
       "phase": 8,
       "status": "open",
       "created": "2026-10-23T20:13:52+13:00",
-      "updated": "2026-10-24T13:41:47+13:00",
-      "note": "Re-check: fort missions still losing are mc2_09 (1/3), mc2_13, mc2_22, mc2_23, mc2_24 (0/3), with turrets among the top attackers. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+      "updated": "2026-10-24T14:46:11+13:00",
+      "note": "mc2_03 A/B, 4 seeds (2026-10-24): base 3/4; --no-fort-strike 3/4 (identical runs, because the strike never fires on mc2_03); --no-bombs 2/4. Neither rule costs mc2_03 wins, so both stay on everywhere. The earlier 4/4 was before I115 (buildings explode), which is a faithful rule change."
     },
     {
       "id": "I100",
@@ -1960,16 +1960,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T20:35:42+13:00",
-      "who": "conductor",
-      "msg": "run wf_773e1eaa-b57 (phase-7-stl-adapt) ok: 18 agents, 2345145 tokens"
-    },
-    {
-      "at": "2026-10-19T20:35:42+13:00",
-      "who": "game-art",
-      "msg": "issue I64 P2: stl_rig: hip cuts leave sliver shards; posed arms tear at shoulder/elbow"
-    },
     {
       "at": "2026-10-19T20:35:42+13:00",
       "who": "conductor",
@@ -2959,6 +2949,16 @@
       "at": "2026-10-24T14:43:37+13:00",
       "who": "conductor",
       "msg": "issue I28 updated: note \u2014 2026-10-24 mc2_22 pass. Port check: the start-area rush is not a port bug; the guards (mc2_22_EC1_*.abl) guard their posts and attack only within 300 m. Fixed I116 (sleeping buildings could be captured). Bot (HOLD_PLANS mc2_22, KC and CB's corner line):\n- an air strike on a fort's generator from outside its guns (generic, 'FORT STRIKE': forts of 3+ turrets whose root is under its own guns; the northern line's 13 turrets go to sleep at t=7);\n- the lance holds the drop while the fastest sound mech decoys guards in;\n- the hold ends when nothing more can be lured without entering a fort's arcs.\nResult: still 0/3, but the lance lives to 622-877 s (was 169-230) with 21-45 kills (was 9-11). The turrets are off the top of the damage table; Men Shen, Catapults and the Elite Guard (Cyclops, Swarm LRMs) finish it. Regression: mc2_03 2/3 in a recheck (4/4 earlier this session before I115/I116 and the fort strike), mc2_13 0/3."
+    },
+    {
+      "at": "2026-10-24T14:46:11+13:00",
+      "who": "conductor",
+      "msg": "issue I99 updated: note \u2014 mc2_03 A/B, 4 seeds (2026-10-24): base 3/4; --no-fort-strike 3/4 (identical runs, because the strike never fires on mc2_03); --no-bombs 2/4. Neither rule costs mc2_03 wins, so both stay on everywhere. The earlier 4/4 was before I115 (buildings explode), which is a faithful rule change."
+    },
+    {
+      "at": "2026-10-24T14:51:05+13:00",
+      "who": "conductor",
+      "msg": "issue I29 updated: note \u2014 2026-10-24 mc2_23 pass. Port check: the reinforcement trigger matches mc2_23.abl:207-215 (both groups come 3 s after objective 0); the group make-up (3 Werewolf/Razorback, 4 Highlander, 2 Hunchback, 1 Hollander) matches the guides within their spread. Bot (ROUTE_PLANS mc2_23, KC's 'PREPARE a proper reception'):\n- 24k RP kept back until ready;\n- objective 0's starport force killed strongest-first, the weakest spared;\n- at the dropship bays: repair, then 2-3 Long Toms placed 130 m behind;\n- then the spared target is released and the lance holds the spot.\nLong Toms placed 60 m off had shelled our own Catapult, hence the 130 m.\nResult: still 0/3. Reception ready and obj 0 done in 2/3 seeds (622/736 s), but the lance has lost 2-3 of 6 at the starport by then, and the 10-mech wave finishes it at 1008-1120 s; seed 3 dies at the starport by 456 s. Left: minelayers (the bot has no minelayer use yet) and teasing the starport mechs out a few at a time."
     }
   ],
   "choices": [
