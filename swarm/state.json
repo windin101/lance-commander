@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T13:41:47+13:00",
+  "updated": "2026-10-24T13:46:54+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1824,10 +1824,10 @@
       "repro": null,
       "owner": "programmer",
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-24T13:41:25+13:00",
-      "updated": "2026-10-24T13:41:25+13:00",
-      "note": null
+      "updated": "2026-10-24T13:46:54+13:00",
+      "note": "Ported gvehicl.cpp:3640-3664. The spotter now strikes its pilot's current target (or its attack-order target), only while that target is within 120 m and in line of sight, with a 10 s timeInCurrent that is kept while the target is away. Strike impacts carry the calling team, and the autoplay damage table now lists 'Air strike (enemy/ours)' and sourceless blasts. mc2_19: enemy strikes dealt 150/675/360 to the lance (previously uncounted). Test: support_test test_the_spotter_strikes_its_own_target_after_ten_seconds_in_range."
     }
   ],
   "coverage": {
@@ -1934,11 +1934,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T18:45:57+13:00",
-      "who": "conductor",
-      "msg": "decided C31: vulture: full CAD rebuild pilot in SolidCraft, styled on the modern Mad Dog Prime interpretation Lee linked; the hybrid attempt is shelved and the previous HD vulture restored \u2014 Lee's call (2026-10-19): a new build is likely faster than chasing Hunyuan/part mismatches, and he wants the modern look"
-    },
     {
       "at": "2026-10-19T18:55:32+13:00",
       "who": "conductor",
@@ -2933,6 +2928,11 @@
       "at": "2026-10-24T13:41:47+13:00",
       "who": "conductor",
       "msg": "issue I99 updated: note \u2014 Re-check: fort missions still losing are mc2_09 (1/3), mc2_13, mc2_22, mc2_23, mc2_24 (0/3), with turrets among the top attackers. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:46:54+13:00",
+      "who": "conductor",
+      "msg": "issue I114 fixed: Ported gvehicl.cpp:3640-3664. The spotter now strikes its pilot's current target (or its attack-order target), only while that target is within 120 m and in line of sight, with a 10 s timeInCurrent that is kept while the target is away. Strike impacts carry the calling team, and the autoplay damage table now lists 'Air strike (enemy/ours)' and sourceless blasts. mc2_19: enemy strikes dealt 150/675/360 to the lance (previously uncounted). Test: support_test test_the_spotter_strikes_its_own_target_after_ten_seconds_in_range."
     }
   ],
   "choices": [

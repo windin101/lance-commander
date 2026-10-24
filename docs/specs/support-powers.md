@@ -657,6 +657,10 @@ at **10 live strikes** (artlry.cpp:104–117). Single player has no cap.
   - The timer is not reset when the target leaves range.
   - The strike damages anything in the radius, including the spotter's own
     side (§3.1).
+  - The remake follows this since 2026-10-24 (I114, `SimSupport._spotters`). Before that it struck
+    the nearest player unit every 10 s with no sight check. The strike's impacts now carry the
+    calling team, and the autoplay damage table lists them as "Air strike (enemy)" or
+    "Air strike (ours)".
 - **`callStrike` / `callStrikeEx` ABL natives** (ablmc2.cpp:3990–4103).
   They document type numbers 248/249/250 (artillery) and 507/508/509 (air),
   then pass those numbers **straight** to `IfaceCallStrike`. That function

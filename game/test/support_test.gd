@@ -273,3 +273,33 @@ func test_air_movers_ignore_strikes_and_cannot_capture() -> void:
 	var building: SimUnit = sm.world.units.filter(func(u): return u is SimStructure and sm.abl.can_capture(u, 0))[0]
 	sm.abl.player_order(c, "capture", building)
 	assert_int(int(c.brain.order.get("code", 0))).is_not_equal(SimAbl.TO_CAPTURE)
+
+
+## The aerospace spotter (gvehicl.cpp:3640-3664) strikes its pilot's current target, not the nearest
+## player unit. The target must be within 120 m and in sight while a 10 s timer runs, and the timer is
+## kept while the target is away. I114.
+func test_the_spotter_strikes_its_own_target_after_ten_seconds_in_range() -> void:
+	var q := _quiet_mission("mc2_19")
+	var spot: SimUnit = q.world.units.filter(func(u): return u is SimVehicle and u.model == "aerospotter")[0]
+	spot.exists = true
+	spot.awake = false  # no brain or gunnery of its own to change its target
+	var lance: Array = q.world.units.filter(func(u): return u is SimMech and u.team == 0 and u.commander == 0)
+	var target: SimUnit = lance[0]
+	var other: SimUnit = lance[1]
+	q.world.rules.line_of_sight = false  # sight is tested separately (SimWorld.line_of_sight)
+	other.position = spot.position + Vector2(30, 0)  # nearer, but not its target
+	target.position = spot.position + Vector2(0, 90)
+	spot.current_target = target
+	var strikes := func() -> Array: return q.support.pending.filter(func(p): return p["kind"] == "strike")
+	for i in int(6.0 / SimWorld.TICK):
+		q.step()
+	target.position = spot.position + Vector2(0, 200)  # out of range: the timer holds
+	for i in int(5.0 / SimWorld.TICK):
+		q.step()
+	assert_int(strikes.call().size()).is_equal(0)
+	target.position = spot.position + Vector2(0, 90)
+	for i in int(4.5 / SimWorld.TICK):
+		q.step()
+	var s: Array = strikes.call()
+	assert_int(s.size()).is_equal(1)
+	assert_float((s[0]["at"] as Vector2).distance_to(target.position)).is_less(1.0)

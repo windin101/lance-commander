@@ -53,7 +53,7 @@ var probes: Array[Dictionary] = []  # {pos, t0}
 var repairs: Array[Dictionary] = []  # {truck, mech, phase, next}
 var bay_repairs: Array[Dictionary] = []  # {bay, mech, phase, next} (3.7)
 var delivering := false
-var _spotter_next := {}  # spotter id -> next strike time
+var _spotter_time := {}  # spotter id -> timeInCurrent, seconds with its target in range and sight
 var _next_reinforcement_id := 2050  # runtime part IDs (abl-natives.md 1.2)
 
 
@@ -192,7 +192,7 @@ func step() -> void:
 		match p["kind"]:
 			"strike":
 				if t >= p["impact"]:
-					_strike(p["at"])
+					_strike(p["at"], int(p.get("team", -1)))
 					continue
 			"vtol":
 				if p["unit"] == null and t >= p["spawn"]:
@@ -233,7 +233,7 @@ func probe_covers(team: int, pos: Vector2) -> bool:
 
 # --- air strike (3.1) ---------------------------------------------------------------------
 
-func _strike(at: Vector2) -> void:
+func _strike(at: Vector2, team := -1) -> void:
 	world.events.append({"type": "strike_impact", "at": at})
 	for u in world.units:
 		if not u.exists or u.is_destroyed():
@@ -253,29 +253,31 @@ func _strike(at: Vector2) -> void:
 				loc = u.roll_hit_location(world.rules, world.rng, at)
 			SimCombat.apply_shot(world.rules, world.rng, u, {"hit": true, "damage": STRIKE_DAMAGE, "location": loc,
 				"master_id": -3}, world.time)
-			world.events.append({"type": "impact", "unit": u.id, "from": -1, "location": loc, "damage": STRIKE_DAMAGE, "form": "strike"})
+			world.events.append({"type": "impact", "unit": u.id, "from": -1, "location": loc, "damage": STRIKE_DAMAGE, "form": "strike",
+				"team": team})
 
 
-## The enemy aerospace spotter calls a big strike every 10 s on a player unit within
-## 120 m, landing 4 s later (5).
+## The enemy aerospace spotter (gvehicl.cpp:3640-3664): while its pilot's current target is
+## within 120 m (WeaponRanges Medium) and in its line of sight, a timer runs; past StrikeWaitTime
+## (10 s) it calls a large strike on the target, landing StrikeTimeToImpact (4 s) later. The timer
+## is kept, not reset, while the target is out of range or out of sight (5).
 func _spotters() -> void:
 	for u in world.units:
-		if not (u is SimVehicle) or u.model != "aerospotter" or u.team == sm.player_team or not u.exists or u.is_disabled():
+		if not (u is SimVehicle) or u.model != "aerospotter" or not u.exists or u.is_disabled():
 			continue
-		if world.time < float(_spotter_next.get(u.id, 0.0)):
+		var t: SimUnit = u.current_target
+		if t == null and u.order == SimWorld.Order.ATTACK:
+			t = u.order_target  # the brain's attack order (pilot->getCurrentTarget)
+		if t == null or not t.exists or t.is_disabled() or t.team == u.team:
 			continue
-		var best: SimUnit = null
-		var best_d := SPOTTER_RANGE_M
-		for m in world.units:
-			if m.team == sm.player_team and m.is_mover() and m.exists and not m.is_disabled():
-				var d := m.position.distance_to(u.position)
-				if d <= best_d:
-					best = m
-					best_d = d
-		if best:
-			_spotter_next[u.id] = world.time + SPOTTER_PERIOD
-			pending.append({"kind": "strike", "at": best.position, "impact": world.time + SPOTTER_DELAY, "team": u.team})
-			world.events.append({"type": "support", "kind": "air_strike", "at": best.position, "enemy": true})
+		if u.position.distance_to(t.position) > SPOTTER_RANGE_M or not world.line_of_sight(u, t):
+			continue
+		_spotter_time[u.id] = float(_spotter_time.get(u.id, 0.0)) + SimWorld.TICK
+		if float(_spotter_time[u.id]) > SPOTTER_PERIOD:
+			_spotter_time[u.id] = 0.0
+			pending.append({"kind": "strike", "at": t.position, "impact": world.time + SPOTTER_DELAY, "team": u.team,
+				"source": u.id})
+			world.events.append({"type": "support", "kind": "air_strike", "at": t.position, "enemy": true})
 
 
 # --- deliveries (3.3) --------------------------------------------------------------------

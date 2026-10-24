@@ -1275,6 +1275,13 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 						_attackers[src.id] = true
 						var loc := int(e.get("location", -1))
 						_locs[loc] = _locs.get(loc, 0) + 1
+					elif victim.team == 0 and victim.commander == 0:
+						# no source unit: an air strike (whose team called it, I114) or an unowned blast
+						var what := "Air strike (%s)" % ("ours" if int(e.get("team", -1)) == 0 else "enemy") \
+							if String(e.get("form", "")) == "strike" else "Explosion (%s)" % e.get("form", "?")
+						_damage[what] = _damage.get(what, 0.0) + float(e.get("damage", 0.0))
+						var loc2 := int(e.get("location", -1))
+						_locs[loc2] = _locs.get(loc2, 0) + 1
 				"shot":  # --shots=N: the first N shots, who fired at whom and under which brain (I12)
 					if _shots_left > 0:
 						_shots_left -= 1
