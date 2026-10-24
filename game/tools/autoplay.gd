@@ -45,7 +45,7 @@ func _init() -> void:
 	var o := sm.objectives
 	for u in w.units:
 		_start[u.id] = u.position
-	_play(sm, max_t, args, true)
+	_play(sm, max_t, args, true, mission)
 	var alive := w.units.filter(func(u): return u.team == 0 and u.is_mover() and not u.is_disabled())
 	var enemies := w.units.filter(func(u): return u.team != 0 and u.is_mover() and not u.is_disabled())
 	print("seed %d end t=%.0f result=%s  player alive %d  enemies alive %d" % [seed_value, w.time,
@@ -74,6 +74,11 @@ func _init() -> void:
 			String(obj["title"]).strip_edges().left(48)])
 		if "--targets" in args and obj["status"] == 0 and obj["active"]:
 			for c in obj["conditions"]:
+				if c["kind"] in ["DestroyAllEnemyUnits", "DestroyNumberOfEnemyUnits"]:
+					for u in w.units:
+						if u.team != 0 and u.is_mover() and not SimObjectives.dead(u):
+							print("      left: %s (team %d, brain %s, awake %s, exists %s, hulk %s, at %s, unreachable %s)" % [u.name,
+								u.team, u.brain_name, u.awake, u.exists, u.hulk, u.position, _unreach.has(u.id)])
 				if c["kind"] == "MoveAllSurvivingMechsToArea":
 					for u in w.units:
 						if u.is_mover() and u.exists and u.commander != 0 and not SimObjectives.dead(u) and not u.hulk \
@@ -158,6 +163,20 @@ const RESUME_FRAC := 0.7  # ... and above which it rejoins
 const LEASH_M := 160.0  # in a fight, a mech this far from the rest regroups first
 const KILL_TIME := 12.0  # focus fire: enough guns on a target to strip it in about this long
 const STRIKE_GUARD_M := 70.0  # no air strike this close to our own units or a target we must keep
+## Missions the walkthroughs win by running to a base and holding it (docs/research/original-missions.md):
+## the lance runs to the objective's area at once without stopping to fight, takes the turret
+## controls and bays there, and fights only what comes inside `radius` until the area has been
+## quiet for `quiet` seconds.
+## - mc2_17: "As soon as the cutscene stops, RUN for that Steiner base to the east" [KC, BK];
+##   capture its 2 turret controls and 2 repair bays and hold through the waves (Lee, 2026-10-24).
+const HOLD_PLANS := {"mc2_17": {"objective": 2, "radius": 200.0, "quiet": 180.0}}
+## Stealth missions: the walkthroughs avoid the patrols rather than fight them, and work some
+## objectives out of the designer's order (docs/research/original-missions.md).
+## - mc2_14 (solo Lao Hu): "take the airport first" (its turret controls, bay and the sensor
+##   control, objective 6), then "watch the patrols on sensors and avoid ... them" [KC, CB]
+##   (Lee, 2026-10-24: avoid patrols rather than fight them).
+const STEALTH_PLANS := {"mc2_14": {"first": [6]}}
+const AVOID_M := 360.0  # stealth: an unengaged patrol this close is walked away from
 
 
 # --- the force -------------------------------------------------------------------------
@@ -292,6 +311,99 @@ func _orders(sm: SimMission) -> void:
 		and lance.any(func(m): return m.distance_to(u.position) <= ENGAGE_M))
 	_stall_watch(sm, threats)
 	_use_support(sm, lance, centre, threats)
+	if _hold_at != null:
+		threats = threats.filter(func(u): return u.position.distance_to(_hold_at) <= _hold_r + 200.0)
+		if not _hold_reached:
+			if centre.distance_to(_hold_at) > _hold_r * 0.6:
+				_run_to(sm, lance, _hold_at)
+				return
+			_hold_reached = true
+			_hold_quiet = w.time
+			if _verbose:
+				print("t=%6.1f  HOLD reached (%.0f, %.0f)" % [w.time, _hold_at.x, _hold_at.y])
+		if not threats.is_empty() or w.units.any(func(u): return _armed_enemy(u) and u.awake \
+				and u.position.distance_to(_hold_at) <= _hold_r + 700.0):
+			_hold_quiet = w.time
+		elif w.time - _hold_quiet >= _hold_q:
+			if _verbose:
+				print("t=%6.1f  HOLD over: quiet for %.0f s" % [w.time, _hold_q])
+			_hold_at = null
+	if _stealth:
+		# A patrol that hasn't turned on us is avoided; only what is shooting at us (or guards
+		# what we must take) is fought.
+		var engaged := threats.filter(func(u): return lance.has(u.order_target) or float(u.last_attacked_time) > w.time - 15.0 \
+			and u.last_attacker != null and lance.has(u.last_attacker))
+		var near := threats.filter(func(u): return not engaged.has(u) and lance.any(func(m): return m.distance_to(u.position) <= AVOID_M))
+		# "avoid or ambush them one at a time" [KC]: a group we out-gun that is alone, or that has
+		# sat across our way for a minute, is ambushed instead
+		if not near.is_empty():
+			var theirs_n := 0.0
+			for u in near:
+				theirs_n += _dps(u)
+				_avoided[u.id] = float(_avoided.get(u.id, 0.0)) + 3.0
+			var ours_n := 0.0
+			for m in lance:
+				ours_n += _dps(m)
+			if theirs_n < 0.6 * ours_n and (near.size() == 1 or near.any(func(u): return float(_avoided[u.id]) >= 60.0)) \
+					and _covering(w, centre).is_empty() and not near.any(func(u): return not _covering(w, u.position).is_empty()):
+				engaged.append_array(near)
+				near = []
+		if threats.is_empty() and _covering(w, centre).is_empty():
+			_quiet_spot = centre
+		if engaged.is_empty() and not near.is_empty():
+			var away := (centre - _centre(near)).normalized()
+			var nc := _centre(near)
+			if _quiet_spot != null and (_quiet_spot as Vector2).distance_to(nc) > centre.distance_to(nc) + 50.0 \
+					and (_quiet_spot as Vector2).distance_to(centre) > 40.0:
+				away = ((_quiet_spot as Vector2) - centre).normalized()  # back the way we came, where it was quiet
+			var spot: Vector2 = w.map.nearest_walkable(centre + away * 200.0)
+			for turn in [0.0, 45.0, -45.0, 90.0, -90.0]:  # not into an enemy fort's arcs
+				var p2: Vector2 = w.map.nearest_walkable(centre + away.rotated(deg_to_rad(turn)) * 200.0)
+				if _covering(w, p2).is_empty():
+					spot = p2
+					break
+			if _verbose and w.time - _avoid_said >= 20.0:
+				_avoid_said = w.time
+				print("t=%6.1f  AVOID %d patrol units (nearest %s)" % [w.time, near.size(), near[0].name])
+			for m in lance:
+				if m.order != SimWorld.Order.MOVE or m.path.is_empty() or (_goal.get(m.id, Vector2.INF) as Vector2).distance_to(spot) > 60.0:
+					_order(sm, m, "move", spot)
+					_goal[m.id] = spot
+			return
+		threats = engaged
+		# Outgunned or worn: lure them back into our captured turrets, or to a bay ("Retreat to
+		# forts. Hop between bays" [KC, CB]).
+		if not engaged.is_empty():
+			var theirs := 0.0
+			for u in engaged:
+				theirs += _dps(u)
+			var ours := 0.0
+			var hp := 0.0
+			for m in lance:
+				ours += _dps(m)
+				hp += _health(m)
+			hp /= lance.size()
+			var bay: SimStructure = _bay_for(sm, lance[0]) if lance.size() == 1 else null
+			if hp < 0.45 and bay != null and _to_bay(sm, lance[0]):
+				return  # hop to a bay
+			if theirs > 0.8 * ours or hp < 0.5:
+				var forts := w.units.filter(func(u): return u is SimTurret and u.team == 0 and u.active and not u.is_destroyed() \
+					and u.num_weapons > 0 and u.position.distance_to(centre) <= 700.0)
+				if not forts.is_empty():
+					var fc := _centre(forts)
+					forts.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
+					var near_fort: Vector2 = forts[0].position
+					if centre.distance_to(near_fort) > 70.0:
+						var spot2: Vector2 = w.map.nearest_walkable(near_fort + (fc - near_fort).normalized() * 30.0)
+						if _verbose and w.time - _avoid_said >= 20.0:
+							_avoid_said = w.time
+							print("t=%6.1f  LURE %d to our turrets at (%.0f, %.0f) (dps %.0f vs %.0f, health %.0f%%)" % [w.time,
+								engaged.size(), spot2.x, spot2.y, theirs, ours, 100.0 * hp])
+						for m in lance:
+							if m.order != SimWorld.Order.MOVE or m.path.is_empty() or (_goal.get(m.id, Vector2.INF) as Vector2).distance_to(spot2) > 40.0:
+								_order(sm, m, "move", spot2)
+								_goal[m.id] = spot2
+						return
 	var task := _task(sm, lance, centre)
 	if _trace:
 		var key := "%s %s" % [task.get("kind", "-"), (task["target"] as SimUnit).name if task.has("target") else str(task.get("area", ""))]
@@ -310,12 +422,18 @@ func _orders(sm: SimMission) -> void:
 	if threats.is_empty():
 		_safe = centre  # the last place the lance stood with nobody near
 	else:
-		if _fall_back(sm, fighters, centre, threats, task):
+		if _hold_at == null and _fall_back(sm, fighters, centre, threats, task):
 			return
 		_fight(sm, fighters, threats)
 		return
 	if _repair_lull(sm, fighters, task):
 		return
+	if _hold_at != null:
+		# holding: nothing outside the base is worth leaving it for; wait inside it
+		var tu: SimUnit = task.get("target")
+		if (tu == null and String(task.get("kind", "")) != "capture") or (tu != null and tu.position.distance_to(_hold_at) > _hold_r + 150.0):
+			_group_move(sm, fighters, centre, _hold_at, 40.0)
+			return
 	match String(task.get("kind", "")):
 		"attack":
 			var t: SimUnit = task["target"]
@@ -349,7 +467,7 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 				r = maxi(r, 1)
 			elif c["kind"] == "MoveAllSurvivingMechsToArea":
 				r = maxi(r, 2)
-		return (0 if o["primary"] else 10) + r
+		return (-10 if _first.has(int(o["index"])) else 0 if o["primary"] else 10) + r
 	objs.sort_custom(func(a, b): return rank.call(a) < rank.call(b) or (rank.call(a) == rank.call(b) and a["index"] < b["index"]))
 	# Targets of opportunity, as a player shoots them on the way: unarmed enemy vehicles (fuel and
 	# supply trucks) close to the lance, unless they can be captured (ordnance trucks pay RP) or sit
@@ -398,6 +516,31 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 			_cur_obj = int(obj["index"])
 			return job
 	return {}
+
+
+var _stealth := false  # a STEALTH_PLANS mission: patrols are avoided
+var _first: Array = []  # ... and these objectives are worked first
+var _avoid_said := -INF
+var _quiet_spot = null  # Vector2: the last place the stealth bot stood with no enemy in sight or fort arc
+var _avoided := {}  # unit id -> seconds the stealth bot has spent walking away from it
+var _hold_at = null  # Vector2: the base a HOLD_PLANS mission holds, until it has been quiet
+var _hold_r := 0.0
+var _hold_q := 0.0
+var _hold_reached := false
+var _hold_quiet := 0.0
+
+
+## Every mech runs straight to its own spot around the point, no waiting for the slow ones (a
+## chase: a mech that stops for the rest is caught).
+func _run_to(sm: SimMission, units: Array, at: Vector2) -> void:
+	var n := units.size()
+	for i in n:
+		var m: SimUnit = units[i]
+		var spot: Vector2 = sm.world.map.nearest_walkable(at + Vector2.from_angle(TAU * i / n) * 30.0, m.hover)
+		var last: Variant = _goal.get(m.id)
+		if m.order != SimWorld.Order.MOVE or m.path.is_empty() or last == null or (last as Vector2).distance_to(spot) > 20.0:
+			_order(sm, m, "move", spot)
+			_goal[m.id] = spot
 
 
 var _cur_obj := -1  # the objective the bot is working
@@ -535,6 +678,9 @@ func _fight(sm: SimMission, fighters: Array, threats: Array) -> void:
 			d = minf(d, m.distance_to(t.position))
 		var s := (_dps(t) + 0.5) / (_hp(t) + 30.0) * (1.5 if t is SimMech else 1.0)
 		s /= 1.0 + maxf(0.0, d - 180.0) / 120.0
+		if not _covering(sm.world, t.position).is_empty():
+			s *= 0.25  # under an enemy fort's guns: let it come out (I99; holding the lance out of the
+			# arcs as well cost mc2_03 4/4 -> 0/4 in an A/B, 2026-10-24: it dithered on the edge)
 		score[t] = s
 	var ranked := threats.duplicate()
 	ranked.sort_custom(func(a, b): return score[a] > score[b])
@@ -564,10 +710,13 @@ func _fight(sm: SimMission, fighters: Array, threats: Array) -> void:
 		var t: SimUnit = want[m]
 		# Leash: a mech that has chased off more than LEASH_M from the rest comes back unless its
 		# target is already in its reach (pursuit into the next enemy group killed lone mechs, I18).
-		if fighters.size() > 1 and m.distance_to(mid) > LEASH_M and m.distance_to(t.position) > sm.world.attack_range(m) / 0.9:
+		var anchor: Vector2 = mid if _hold_at == null else _hold_at
+		var leash := LEASH_M if _hold_at == null else _hold_r
+		if (fighters.size() > 1 or _hold_at != null) and m.distance_to(anchor) > leash \
+				and m.distance_to(t.position) > sm.world.attack_range(m) / 0.9:
 			if m.order != SimWorld.Order.MOVE or _goal.get(m.id) == null:
-				_order(sm, m, "move", sm.world.map.nearest_walkable(mid, m.hover))
-				_goal[m.id] = mid
+				_order(sm, m, "move", sm.world.map.nearest_walkable(anchor, m.hover))
+				_goal[m.id] = anchor
 			continue
 		_goal.erase(m.id)
 		var cur: SimUnit = m.order_target if m.order == SimWorld.Order.ATTACK else null
@@ -622,8 +771,19 @@ func _capture(sm: SimMission, units: Array, centre: Vector2, t: SimUnit) -> void
 		mechs.sort_custom(func(a, b): return a.distance_to(t.position) < b.distance_to(t.position))
 		if not mechs.is_empty():
 			capturer = mechs[0]
-			_order(sm, capturer, "capture", t)
 			_goal.erase(capturer.id)
+			# Jump-capture under the guns: "jump in and land next to the control building, hit
+			# capture" [KC] (docs/research/original-missions.md, mc2_14).
+			var spot: Vector2 = w.map.nearest_walkable(t.position + (capturer.position - t.position).normalized() * 20.0, capturer.hover)
+			if capturer.order == SimWorld.Order.JUMP:
+				pass
+			elif capturer.distance_to(t.position) > 60.0 and not _covering(w, t.position).is_empty() \
+					and w.jump_refusal(capturer, spot) == "":
+				_order(sm, capturer, "jump", spot)
+				if _verbose:
+					print("t=%6.1f  JUMP %s to capture %s" % [w.time, capturer.name, t.name])
+			else:
+				_order(sm, capturer, "capture", t)
 	var rest := units.filter(func(m): return m != capturer)
 	_group_move(sm, rest, _centre(rest) if not rest.is_empty() else centre, t.position, 40.0)
 
@@ -645,7 +805,7 @@ func _pull_back(sm: SimMission, m: SimUnit, lance: Array, centre: Vector2, threa
 			return false
 	elif m is SimMech and h < RETREAT_FRAC and (can_repair or not threats.is_empty()) and String(task.get("kind", "")) != "extract":
 		var out := lance.filter(func(o): return _retreat.has(o.id)).size()
-		if (out + 1) * 2 > lance.size():
+		if (out + 1) * 2 > lance.size() and not (_stealth and _bay_for(sm, m) != null):
 			return false
 		_retreat[m.id] = true
 		if _verbose:
@@ -684,17 +844,29 @@ func _trucks(sm: SimMission) -> Array:
 
 ## Active enemy turrets with guns (I99).
 func _enemy_turrets(w: SimWorld) -> Array:
-	return w.units.filter(func(u): return u is SimTurret and u.active and u.team != 0 and u.team >= 0 \
-		and not u.is_destroyed() and u.num_weapons > 0)
+	if _turret_cache_t != w.time:
+		_turret_cache_t = w.time
+		_turret_cache = w.units.filter(func(u): return u is SimTurret and u.active and u.team != 0 and u.team >= 0 \
+			and not u.is_destroyed() and u.num_weapons > 0)
+		_reach_cache.clear()
+	return _turret_cache
+
+
+var _turret_cache_t := -1.0
+var _turret_cache: Array = []
+var _reach_cache := {}
 
 
 ## A turret's longest weapon reach, metres.
 func _turret_reach(w: SimWorld, t: SimTurret) -> float:
+	if _reach_cache.has(t.id):
+		return _reach_cache[t.id]
 	var r := 0.0
 	for i in t.num_weapons:
 		var wpn: Dictionary = t.items[i]["component"].get("weapon", {})
 		r = maxf(r, float(w.rules.weapon_ranges[w.rules.range_index(wpn.get("range", "short"))][1]))
-	return minf(r, t.attack_m)
+	_reach_cache[t.id] = minf(r, t.attack_m)
+	return _reach_cache[t.id]
 
 
 ## Enemy turrets whose guns reach a point.
@@ -750,7 +922,7 @@ func _bay_for(sm: SimMission, m: SimUnit) -> SimStructure:
 	for u in sm.world.units:
 		if not (u is SimStructure) or not u.can_refit or not u.mech_bay or u.is_destroyed() or u.team != 0:
 			continue
-		if SimSupport.bay_points(u) <= 1.0 or u.distance_to(m.position) > 900.0:
+		if SimSupport.bay_points(u) <= 1.0 or u.distance_to(m.position) > (2000.0 if _stealth else 900.0):
 			continue
 		if u.refit_buddy != null and u.refit_buddy != m and u.refit_buddy.exists and not u.refit_buddy.is_disabled():
 			continue
@@ -828,8 +1000,10 @@ func _repair_lull(sm: SimMission, units: Array, task: Dictionary) -> bool:
 		if sm.support and sm.support.bay_repairs.any(func(r): return r["mech"] == m):
 			at_bay = true
 	if not at_bay:
-		var hurt_b := units.filter(func(m): return m is SimMech and _health(m) < RESUME_FRAC and SimSupport.needs_refit(m) \
-			and _bay_for(sm, m) != null)
+		# a lone stealth mech tops up before every leg: it has no one to cover it
+		var top := 0.85 if _stealth else RESUME_FRAC
+		var hurt_b := units.filter(func(m): return m is SimMech and _health(m) < top and SimSupport.needs_refit(m) \
+			and _bay_for(sm, m) != null and (_health(m) < RESUME_FRAC or _bay_for(sm, m).distance_to(m.position) <= 600.0))
 		hurt_b.sort_custom(func(a, b): return _health(a) < _health(b))
 		for m in hurt_b:
 			if _to_bay(sm, m):
@@ -871,9 +1045,11 @@ func _repair_lull(sm: SimMission, units: Array, task: Dictionary) -> bool:
 
 ## Orders go through the lance's pbrain, as the player's do (CommandInput). The bot keeps
 ## Run on (the original's Space held): a player order walks otherwise (I82).
-func _order(sm: SimMission, m: SimUnit, kind: String, arg: Variant) -> void:
+func _order(sm: SimMission, m: SimUnit, kind: String, arg: Variant, extra := {}) -> void:
 	if sm.abl and m.brain is SimAbl.Pilot:
-		sm.abl.player_order(m, kind, arg, {"run": true})
+		var opts := {"run": true}
+		opts.merge(extra, true)
+		sm.abl.player_order(m, kind, arg, opts)
 	elif kind == "attack":
 		sm.world.order_attack(m, arg)
 	elif kind == "stop":
@@ -1019,11 +1195,24 @@ func _use_support(sm: SimMission, lance: Array, centre: Vector2, threats: Array)
 			_support(sm, "sensor_probe", centre + (goal - centre).normalized() * 450.0)
 
 
-func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool) -> void:
+func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool, mission := "") -> void:
 	var w := sm.world
 	var o := sm.objectives
 	var next_order := 0.0
 	_trace = "--trace" in args
+	_stealth = STEALTH_PLANS.has(mission)
+	_quiet_spot = null
+	_first = STEALTH_PLANS.get(mission, {}).get("first", [])
+	var plan: Dictionary = HOLD_PLANS.get(mission, {})
+	_hold_at = null
+	_hold_reached = false
+	for obj in sm.objectives.objectives:
+		if not plan.is_empty() and int(obj["index"]) == int(plan["objective"]):
+			for c in obj["conditions"]:
+				if c.has("center"):
+					_hold_at = c["center"]
+					_hold_r = float(plan["radius"])
+					_hold_q = float(plan["quiet"])
 	for a in args:
 		if a.begins_with("--shots="):
 			_shots_left = int(a.trim_prefix("--shots="))
@@ -1124,7 +1313,7 @@ func _campaign(data: Object, max_t: float) -> void:
 				_equip(camp, m)
 				force = camp.force()
 			var sm := SimMission.load_mission(data, m, attempt + 1, true, force)
-			_play(sm, max_t, PackedStringArray(), false)
+			_play(sm, max_t, PackedStringArray(), false, m)
 			var r := MissionReport.from_sim(sm, m, data)
 			won = r["won"]
 			var names := []

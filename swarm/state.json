@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T12:54:35+13:00",
+  "updated": "2026-10-24T13:28:47+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -617,8 +617,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-24T11:47:42+13:00",
-      "note": "Lee 2026-10-24: keep mc2_14 as a stealth mission (no patrol thinning); the bot should avoid patrols."
+      "updated": "2026-10-24T13:28:47+13:00",
+      "note": "2026-10-24 step 6 (Lee: avoid patrols): STEALTH_PLANS mc2_14 takes the airport first (controls, bay, sensor control), avoids unengaged patrols it doesn't out-gun (backing to the last quiet spot, never into enemy arcs), ambushes lone weak ones, jump-captures controls under fire, lures attackers into captured turrets and hops to bays. Also fixed I112 (the Lao Hu stood without firing). The Lao Hu now survives to 1800 s in 2 of 3 seeds and takes the airport every seed and Gun Alpha in most, but it hasn't won (0/3 at 1800 s, 0/4 at 3600 s). The losses come at the Gun Alpha fort (Hunchback plus turrets), and the late game is slow avoidance. Still open."
     },
     {
       "id": "I22",
@@ -656,8 +656,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-24T11:47:42+13:00",
-      "note": "Lee 2026-10-24: keep mc2_17 as the original; teach the bot the players' tactic (run east to the abandoned Steiner base, take its turret controls and repair bays, hold through the waves)."
+      "updated": "2026-10-24T13:28:47+13:00",
+      "note": "2026-10-24 step 6: the bot plays Lee's line (HOLD_PLANS mc2_17): it runs to the Steiner base at once, captures both turret controls and both bays, and holds through the waves. It won 3 of 3 seeds (1197-1387 s, 1 mech lost); baseline was 0/3, lost by 162-198 s. One seed segfaulted inside Godot once (abl_runtime _slot, signal 11) and did not reproduce on a rerun. Finishing also needed I111 (removed movers blocked destroy-all). Ready to close after the full re-check sweep."
     },
     {
       "id": "I25",
@@ -1631,8 +1631,8 @@
       "phase": 8,
       "status": "open",
       "created": "2026-10-23T20:13:52+13:00",
-      "updated": "2026-10-23T21:19:56+13:00",
-      "note": "2026-10-23 (uncommitted): bot spots enemy turret forts (300 m), captures their control or destroys control/generator, counts covering turrets in fall-back, drops a Long Tom at forts from outside their reach and sets idle guns on turrets, stall watch (150 s without damage -> leave threats 2 min), reachable repair trucks only. Harness: an immobile Long Tom no longer holds a dead lance's mission open (the mc2_03/09 'stalls'). Sweep 2026-10-23-turrets: 24/72 runs (fidelity 14, pre-fidelity 28), 8 missions 2/3+ (5, 9), 1 run at the cap (17). Still weak: mc2_03, 07, 09 (turret forts, Swarm LRM carriers) and most of mc2_11 on."
+      "updated": "2026-10-24T13:28:47+13:00",
+      "note": "2026-10-24 step 6: threats under an enemy fort's guns rank a quarter as high in focus fire. A/B, 4 seeds: holding the lance out of the arcs as well dithered on the edge of the arcs (mc2_03 4/4 -> 0/4), so it was dropped. Jump-capture of controls under fire was added. mc2_03 4/4 (was 1/3), mc2_13 0/4, mc2_22 0/4. mc2_22: the compound's guards engage when the lance moves for the turret control; the corner hold KC describes never gets the enemy to come (an 1800 s hold had no contact at all), so it needs the turret-control capture to work as the player's first move. The torso fix (I112) touches every fort fight. Still open for mc2_13 and mc2_22."
     },
     {
       "id": "I100",
@@ -1776,6 +1776,32 @@
       "created": "2026-10-24T12:54:35+13:00",
       "updated": "2026-10-24T12:54:35+13:00",
       "note": null
+    },
+    {
+      "id": "I111",
+      "sev": "P2",
+      "title": "Movers removed by the mission script (objectRemove) blocked 'destroy all enemy units'",
+      "detail": "objectRemove takes a mover off ObjectManager's mover list (Mission::removeMover -> freeMover, objmgr.cpp:597-606, 1993-1997), so CDestroyAllEnemyUnits / CDestroyNumberOfEnemyUnits never see it (Objective.cpp:322-366). We only set exists=false, so mc2_17's runaway Cyclops, boss Atlas and 2 guard Highlanders held 'Kill all Enemy Forces' open forever. SimUnit.removed is now set by objectRemove and skipped by both counts.",
+      "repro": "autoplay mc2_17 seed 1 --targets (before: PLAYING at 1800 s with 4 removed enemies left)",
+      "owner": "programmer",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T13:28:47+13:00",
+      "updated": "2026-10-24T13:28:47+13:00",
+      "note": "sim_objectives_test test_a_removed_enemy_does_not_block_destroy_all; mc2_17 now completes."
+    },
+    {
+      "id": "I112",
+      "sev": "P1",
+      "title": "A twist-limited torso turned the short way round the back and stuck at its stop (mech stops firing)",
+      "detail": "_update_turret wrapped the torso offset to -180..180, so a torso at -120 with a target at +111 off the nose kept turning negative into its MaxTorsoYaw stop and never fired. The body didn't turn either, because the target was inside the twist + fire arc. The original doesn't wrap torsoRelFacing (mech.cpp:4590-4600, the wrap is commented out), so the torso swings back through the front. It affected every mission with slew on (I93): mc2_14's Lao Hu stood for minutes beside a Werewolf without firing.",
+      "repro": "autoplay mc2_14 seed 2 --trace (before the fix)",
+      "owner": "programmer",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T13:28:47+13:00",
+      "updated": "2026-10-24T13:28:47+13:00",
+      "note": "sim_fidelity_test test_a_twisted_torso_swings_back_through_the_front; full suite passes."
     }
   ],
   "coverage": {
@@ -1882,41 +1908,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T18:06:09+13:00",
-      "who": "game-art",
-      "msg": "issue I57 P2: HD laohu: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T18:06:12+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 1: 1 approved, 3 issues"
-    },
-    {
-      "at": "2026-10-19T18:09:29+13:00",
-      "who": "game-art",
-      "msg": "issue I58 P2: HD thor: reseed_mesh"
-    },
-    {
-      "at": "2026-10-19T18:09:29+13:00",
-      "who": "game-art",
-      "msg": "issue I59 P2: HD vulture: reseed_mesh"
-    },
-    {
-      "at": "2026-10-19T18:09:29+13:00",
-      "who": "game-art",
-      "msg": "issue I60 P2: HD mediumcopter: reseed_mesh"
-    },
-    {
-      "at": "2026-10-19T18:09:29+13:00",
-      "who": "game-art",
-      "msg": "issue I61 P2: HD heavycopter: reseed_concept"
-    },
-    {
-      "at": "2026-10-19T18:09:29+13:00",
-      "who": "game-art",
-      "msg": "phase 7 review group 2: 0 approved, 4 issues"
-    },
     {
       "at": "2026-10-19T18:10:43+13:00",
       "who": "conductor",
@@ -2881,6 +2872,41 @@
       "at": "2026-10-24T12:54:35+13:00",
       "who": "sim",
       "msg": "issue I110 P3: ABL playSpeech is a no-op (pilot radio)"
+    },
+    {
+      "at": "2026-10-24T13:28:47+13:00",
+      "who": "programmer",
+      "msg": "issue I111 P2: Movers removed by the mission script (objectRemove) blocked 'destroy all enemy units'"
+    },
+    {
+      "at": "2026-10-24T13:28:47+13:00",
+      "who": "conductor",
+      "msg": "issue I111 fixed: sim_objectives_test test_a_removed_enemy_does_not_block_destroy_all; mc2_17 now completes."
+    },
+    {
+      "at": "2026-10-24T13:28:47+13:00",
+      "who": "programmer",
+      "msg": "issue I112 P1: A twist-limited torso turned the short way round the back and stuck at its stop (mech stops firing)"
+    },
+    {
+      "at": "2026-10-24T13:28:47+13:00",
+      "who": "conductor",
+      "msg": "issue I112 fixed: sim_fidelity_test test_a_twisted_torso_swings_back_through_the_front; full suite passes."
+    },
+    {
+      "at": "2026-10-24T13:28:47+13:00",
+      "who": "conductor",
+      "msg": "issue I24 updated: note \u2014 2026-10-24 step 6: the bot plays Lee's line (HOLD_PLANS mc2_17): it runs to the Steiner base at once, captures both turret controls and both bays, and holds through the waves. It won 3 of 3 seeds (1197-1387 s, 1 mech lost); baseline was 0/3, lost by 162-198 s. One seed segfaulted inside Godot once (abl_runtime _slot, signal 11) and did not reproduce on a rerun. Finishing also needed I111 (removed movers blocked destroy-all). Ready to close after the full re-check sweep."
+    },
+    {
+      "at": "2026-10-24T13:28:47+13:00",
+      "who": "conductor",
+      "msg": "issue I21 updated: note \u2014 2026-10-24 step 6 (Lee: avoid patrols): STEALTH_PLANS mc2_14 takes the airport first (controls, bay, sensor control), avoids unengaged patrols it doesn't out-gun (backing to the last quiet spot, never into enemy arcs), ambushes lone weak ones, jump-captures controls under fire, lures attackers into captured turrets and hops to bays. Also fixed I112 (the Lao Hu stood without firing). The Lao Hu now survives to 1800 s in 2 of 3 seeds and takes the airport every seed and Gun Alpha in most, but it hasn't won (0/3 at 1800 s, 0/4 at 3600 s). The losses come at the Gun Alpha fort (Hunchback plus turrets), and the late game is slow avoidance. Still open."
+    },
+    {
+      "at": "2026-10-24T13:28:47+13:00",
+      "who": "conductor",
+      "msg": "issue I99 updated: note \u2014 2026-10-24 step 6: threats under an enemy fort's guns rank a quarter as high in focus fire. A/B, 4 seeds: holding the lance out of the arcs as well dithered on the edge of the arcs (mc2_03 4/4 -> 0/4), so it was dropped. Jump-capture of controls under fire was added. mc2_03 4/4 (was 1/3), mc2_13 0/4, mc2_22 0/4. mc2_22: the compound's guards engage when the lance moves for the turret control; the corner hold KC describes never gets the enemy to come (an 1800 s hold had no contact at all), so it needs the turret-control capture to work as the player's first move. The torso fix (I112) touches every fort fight. Still open for mc2_13 and mc2_22."
     }
   ],
   "choices": [

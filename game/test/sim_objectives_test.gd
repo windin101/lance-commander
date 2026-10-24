@@ -131,3 +131,17 @@ func test_parts_placed_destroyed() -> void:
 	for u in s11.world.units:
 		if u.part_index in [9, 10, 11, 14, 39]:
 			assert_bool(u.is_disabled()).is_true()
+
+
+## A mover the mission script removed (objectRemove) leaves ObjectManager's mover list, so
+## "destroy all enemy units" no longer waits on it (objmgr.cpp:1993-1997, Objective.cpp:322-334;
+## mc2_17's runaway Cyclops and guard Highlanders held the mission open).
+func test_a_removed_enemy_does_not_block_destroy_all() -> void:
+	var c := {"kind": "DestroyAllEnemyUnits"}
+	var enemies: Array = sm.world.units.filter(func(u): return u.is_mover() and u.team != 0)
+	for u in enemies.slice(1):
+		u.status = SimUnit.Status.DESTROYED
+	assert_int(sm.objectives._cond_status(c, sm.world)).is_equal(SimObjectives.Status.UNDETERMINED)
+	enemies[0].exists = false
+	enemies[0].removed = true
+	assert_int(sm.objectives._cond_status(c, sm.world)).is_equal(SimObjectives.Status.SUCCESS)

@@ -158,14 +158,16 @@ func _cond_status(c: Dictionary, world: SimWorld) -> int:
 		"CaptureOrDestroySpecificStructure":
 			return Status.SUCCESS if u.is_destroyed() or u.team == player_team else Status.UNDETERMINED
 		"DestroyAllEnemyUnits":
+			# a mover the mission script removed is off ObjectManager's mover list, so neither
+			# count sees it (objmgr.cpp:1993-1997, Objective.cpp:322-334)
 			for m in world.units:
-				if m.is_mover() and m.team != player_team and not dead(m):
+				if m.is_mover() and not m.removed and m.team != player_team and not dead(m):
 					return Status.UNDETERMINED
 			return Status.SUCCESS
 		"DestroyNumberOfEnemyUnits":
 			var n := 0
 			for m in world.units:
-				if m.is_mover() and m.team != player_team and dead(m):
+				if m.is_mover() and not m.removed and m.team != player_team and dead(m):
 					n += 1
 			return Status.SUCCESS if n >= int(c["num"]) else Status.UNDETERMINED
 		"MoveAnyUnitToArea":
