@@ -1,0 +1,55 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_14
+force: campaign 1 units 75 t of 75 t, RP 0: Lao Hu Prime(pmwsteel)
+ABL pilots: 36
+t=  43.2  CAPTURED LaoHu MeetHall
+t=  43.2  objective done: Contact the Liao Operative
+t= 121.8  CAPTURED LaoHu S_TurretControl
+t= 140.2  CAPTURED LaoHu S_TurretControl
+t= 161.1  CAPTURED LaoHu S_TurretControl
+t= 179.0  CAPTURED LaoHu RepairBay
+t= 181.3  BAY LaoHu -> RepairBay (36 m)
+t= 193.0  REPAIR_DONE LaoHu RepairBay
+t= 206.0  CAPTURED LaoHu S_SensorControl
+t= 206.0  objective done: Capture Airport Sensor Control
+t= 264.7  AVOID 1 patrol units (nearest Hunchback)
+t= 267.7  JUMP LaoHu to capture S_TurretControl
+t= 276.0  CAPTURED LaoHu S_TurretControl
+t= 285.7  AVOID 1 patrol units (nearest Hunchback)
+t= 309.7  LURE 2 to our turrets at (625, 158) (dps 6 vs 6, health 92%)
+t= 330.7  LURE 7 to our turrets at (625, 158) (dps 12 vs 6, health 68%)
+t= 345.7  FALLBACK 7 threats (dps 14 vs 2, health 48%) to (644, 59)
+t= 348.7  BAY LaoHu -> RepairBay (1300 m)
+t= 350.5  LOST LaoHu (disabled, armour 26%, heat 0, ejected false, pilot 1.0 wounds, last hit by Werewolf)
+t= 355.5  MISSION LOST
+seed 3 end t=356 result=LOST  player alive 0  enemies alive 28
+damage to lance: 235 from 15 attackers; hits by location (0 head .. 10 rear RT): { 1: 16, 5: 7, 2: 18, 3: 9, 6: 6, 4: 7, 7: 10, 0: 4, 8: 5, 9: 1 }
+damage by lance: 404; kills 7
+        76  Werewolf (mech)
+        66  MediumAutoCannonTurret (vehicle)
+        54  Hunchback (mech)
+        16  LaoHu (mech)
+        12  SRMTurret (vehicle)
+         9  Hunter (vehicle)
+         2  Harasser (vehicle)
+  obj 0 P: done  Contact the Liao Operative
+  obj 1 P: open  Destroy Orbital Gun Alpha
+  obj 2 P: open  Destroy Orbital Gun Beta
+  obj 3 P: open  Destroy Orbital Gun Gamma
+  obj 4 P: open  Destroy Mobile Orbital Gun Omega
+  obj 5 P: gated  Move to the Extraction Point
+  obj 6 s: done  Capture Airport Sensor Control
+  obj 7 s: open  Destroy Fuel Supplies at Resupply Depot
+  obj 8 s: open  Capture Communications Array
+  obj 9 s: open  Destroy all Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_14_patrol8:start": 1, "mc2_14_patrol1:start": 1, "mc2_14_patrol2:start": 2, "mc2_14_static1:attack": 5, "mc2_14_patrol3:start": 1, "mc2_14_patrol4:start": 2, "mc2_14_patrol5:attack": 2, "mc2_14_patrol6:start": 1, "mc2_14_patrol7:start": 1, "mc2_14_patrol15:start": 2, "mc2_14_patrol16:start": 2, "mc2_14_static1:start": 5, "mc2_14_patrol9:start": 1, "mc2_14_MOG_patrol:start": 1, "mc2_14_patrol10:start": 2, "mc2_14_patrol11:start": 2, "mc2_14_patrol12:start": 2, "mc2_14_patrol13:start": 1, "mc2_14_patrol14:start": 1, "PBrain:": 1 }
+enemy pilots that moved >20 m: 30 / 36
+
+--- stderr ---
+WARNING: 913 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

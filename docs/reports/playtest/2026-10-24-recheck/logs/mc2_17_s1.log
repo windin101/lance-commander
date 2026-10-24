@@ -1,0 +1,59 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_17
+force: campaign 6 units 350 t of 350 t, RP 0: Shootist Prime(pmwsteel), Shootist Prime(pmwclaymore), Catapult Prime(pmwworm), Men Shen Prime(pmwmeat), Men Shen Prime(pmwpalerider), Raven Prime(pmwtwitch)
+ABL pilots: 62
+t=   3.0  objective done: Escort Jason Cho to Rendezvous Location
+t= 130.2  objective done: Sec: Take Control of Steiner Base
+t= 148.2  HOLD reached (397, -235)
+t= 148.5  CAPTURED Raven S_TurretControl
+t= 148.8  LOST LRMPopup (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by MenShen)
+t= 151.4  CAPTURED Shootist S_TurretControl
+t= 156.5  CAPTURED Raven RepairBay
+t= 158.3  CAPTURED MenShen RepairBay
+t= 242.5  LOST LRMPopup (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Zeus)
+t= 277.7  BAY MenShen -> RepairBay (224 m)
+t= 340.0  REPAIR_DONE MenShen RepairBay
+t= 340.7  BAY Raven -> RepairBay (149 m)
+t= 391.7  BAY Raven -> RepairBay (270 m)
+t= 463.8  REPAIR_DONE Raven RepairBay
+t= 629.8  LOST Catapult (disabled, armour 72%, heat 0, ejected false, pilot 0.0 wounds, last hit by Cyclops)
+t= 832.1  LOST LRMPopup (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 919.7  BAY Shootist -> RepairBay (147 m)
+t= 949.9  REPAIR_DONE Shootist RepairBay
+t=1179.8  PULLBACK Shootist at 27%
+t=1179.8  BAY Shootist -> RepairBay (215 m)
+t=1185.6  LOST Shootist (destroyed, armour 10%, heat 0, ejected false, pilot 2.0 wounds, last hit by LaoHu)
+t=1206.2  objective done: Kill all Enemy Forces
+t=1207.7  BAY MenShen -> RepairBay (238 m)
+t=1211.3  MISSION WON
+seed 1 end t=1211 result=WON  player alive 23  enemies alive 4
+damage to lance: 984 from 34 attackers; hits by location (0 head .. 10 rear RT): { 7: 41, 3: 39, 6: 40, 1: 51, 4: 42, 10: 3, 5: 30, 2: 27, 0: 21, 8: 3, 9: 2 }
+damage by lance: 4055; kills 33
+       181  Zeus (mech)
+       165  Starslayer (mech)
+       108  Catapult (mech)
+        98  LaoHu (mech)
+        84  LRMPopup (vehicle)
+        77  Cyclops (mech)
+        66  ShaYu (mech)
+        58  Highlander (mech)
+        46  Bushwacker (mech)
+        32  Raven (mech)
+  obj 0 P: done  Escort Jason Cho to Rendezvous Location
+  obj 1 P: done  Kill all Enemy Forces
+  obj 2 s: done  Sec: Take Control of Steiner Base
+  obj 3 s hidden: done  Hidden Triggered Used to Activate Liao Son
+  obj 4 s hidden: done  Hidden Trigger to Kill Liao Son
+  obj 5 s hidden: done  Hidden Object To trigger Liao Reinforce Gp 2
+  obj 6 s hidden: done  Hidden Trigger to kill Liao Son's Troop
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_17_EC1_Cen_Mech_1:attack": 1, "mc2_17_EC1_Cen_Mech_0:attack": 1, "mc2_17_EC1_Cen_Mech_2:attack": 2, "mc2_17_EC1_Flk_Mech_M2:attack": 2, "mc2_17_EC1_Flk_Mech_M1:attack": 3, "mc2_17_a1_Copter_2a:attack": 6, "mc2_17_a2_Liao_Mech_1:attack": 1, "mc2_17_a2_Liao_Mech_1b:attack": 1, "mc2_17_a2_Liao_Mech_1a:attack": 1, "mc2_17_a2_Liao_Mech_2:attack": 1, "mc2_17_a2_Liao_Mech_2a:attack": 1, "mc2_17_a2_Liao_Mech_4a:attack": 1, "mc2_17_a2_Liao_Mech_4b:attack": 1, "mc2_17_a2_Liao_Mech_4:attack": 1, "mc2_17_a3_Liao_Mech_1:attack": 5, "mc2_17_a3_Liao_Mech_2:attack": 4, "mc2_17_EC1_Stein_Guard_1:retreatoffmap": 1, "mc2_17_EC1_Stein_Guard_2:retreatoffmap": 1, "mc2_17_CamDum_son:runsaways": 1, "mc2_17_EC1_Steiner_Boss:baseassault": 1, "mc2_17_a1_LiaoSon:attack": 1, "mc2_17_rebel_LRM_1d:guardarea": 1, "mc2_17_rebel_LRM_1c:guardarea": 1, "mc2_17_rebel_LRM_1b:guardarea": 1, "mc2_17_rebel_LRM_1a:guardarea": 1, "mc2_17_rebel_FuelTruck_1:guardarea": 1, "mc2_17_rebel_FuelTruck_3:guardarea": 1, "mc2_17_rebel_FuelTruck_2:guardarea": 1, "mc2_17_rebel_FuelTruck_4:guardarea": 1, "mc2_17_rebel_Part_1a:entertherebels": 1, "mc2_17_rebel_Part_1b:entertherebels": 1, "mc2_17_rebel_Hover_Drill_1:patrollake": 2, "mc2_17_rebel_Hover_Cent_1:patrollake": 2, "mc2_17_rebel_Hover_Cent_2:patrollake": 2, "mc2_17_CamDum_Stien:start": 3, "PBrain:": 6 }
+enemy pilots that moved >20 m: 59 / 62
+
+--- stderr ---
+WARNING: 472 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

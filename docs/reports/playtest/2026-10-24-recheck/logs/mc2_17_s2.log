@@ -1,0 +1,65 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_17
+force: campaign 6 units 350 t of 350 t, RP 0: Shootist Prime(pmwsteel), Shootist Prime(pmwclaymore), Catapult Prime(pmwworm), Men Shen Prime(pmwmeat), Men Shen Prime(pmwpalerider), Raven Prime(pmwtwitch)
+ABL pilots: 62
+t=   3.0  objective done: Escort Jason Cho to Rendezvous Location
+t= 130.2  objective done: Sec: Take Control of Steiner Base
+t= 148.2  HOLD reached (397, -235)
+t= 148.5  CAPTURED Raven S_TurretControl
+t= 148.8  LOST LRMPopup (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by MenShen)
+t= 151.4  CAPTURED Shootist S_TurretControl
+t= 156.5  CAPTURED Raven RepairBay
+t= 158.3  CAPTURED MenShen RepairBay
+t= 242.5  LOST LRMPopup (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Zeus)
+t= 289.7  BAY Raven -> RepairBay (119 m)
+t= 307.5  REPAIR_DONE Raven RepairBay
+t= 307.7  BAY MenShen -> RepairBay (16 m)
+t= 323.1  REPAIR_DONE MenShen RepairBay
+t= 325.7  BAY MenShen -> RepairBay (162 m)
+t= 397.7  BAY MenShen -> RepairBay (299 m)
+t= 429.9  REPAIR_DONE MenShen RepairBay
+t= 845.6  LOST LRMPopup (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 891.0  LOST Catapult (disabled, armour 16%, heat 0, ejected false, pilot 1.0 wounds, last hit by Anubis)
+t= 920.3  LOST Raven (disabled, armour 22%, heat 4, ejected false, pilot 2.0 wounds, last hit by Anubis)
+t=1182.8  LOST Shootist (disabled, armour 21%, heat 0, ejected false, pilot 2.0 wounds, last hit by LaoHu)
+t=1207.7  PULLBACK MenShen at 29%
+t=1207.7  BAY MenShen -> RepairBay (215 m)
+t=1208.5  LOST MenShen (destroyed, armour 21%, heat 0, ejected false, pilot 2.0 wounds, last hit by Starslayer)
+t=1213.9  PULLBACK Shootist at 26%
+t=1213.9  BAY Shootist -> RepairBay (202 m)
+t=1220.8  LOST Shootist (disabled, armour 4%, heat 0, ejected false, pilot 2.0 wounds, last hit by Starslayer)
+t=1325.5  BAY MenShen -> RepairBay (624 m)
+t=1381.8  objective done: Kill all Enemy Forces
+t=1384.4  BAY MenShen -> RepairBay (375 m)
+t=1386.9  MISSION WON
+seed 2 end t=1387 result=WON  player alive 20  enemies alive 4
+damage to lance: 1392 from 36 attackers; hits by location (0 head .. 10 rear RT): { 5: 56, 7: 45, 1: 68, 2: 63, 6: 54, 8: 14, 4: 52, 0: 30, 3: 50, 9: 13, 10: 2 }
+damage by lance: 4254; kills 33
+       344  Starslayer (mech)
+       170  LaoHu (mech)
+       163  Zeus (mech)
+       114  Highlander (mech)
+        83  Cyclops (mech)
+        83  Anubis (mech)
+        83  Catapult (mech)
+        71  Raven (mech)
+        69  LRMPopup (vehicle)
+        56  ShaYu (mech)
+  obj 0 P: done  Escort Jason Cho to Rendezvous Location
+  obj 1 P: done  Kill all Enemy Forces
+  obj 2 s: done  Sec: Take Control of Steiner Base
+  obj 3 s hidden: done  Hidden Triggered Used to Activate Liao Son
+  obj 4 s hidden: done  Hidden Trigger to Kill Liao Son
+  obj 5 s hidden: done  Hidden Object To trigger Liao Reinforce Gp 2
+  obj 6 s hidden: done  Hidden Trigger to kill Liao Son's Troop
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_17_EC1_Cen_Mech_1:attack": 1, "mc2_17_EC1_Cen_Mech_0:attack": 1, "mc2_17_EC1_Cen_Mech_2:attack": 2, "mc2_17_EC1_Flk_Mech_M2:attack": 2, "mc2_17_EC1_Flk_Mech_M1:attack": 3, "mc2_17_a1_Copter_2a:attack": 6, "mc2_17_a2_Liao_Mech_1:attack": 1, "mc2_17_a2_Liao_Mech_1b:attack": 1, "mc2_17_a2_Liao_Mech_1a:attack": 1, "mc2_17_a2_Liao_Mech_2:attack": 1, "mc2_17_a2_Liao_Mech_2a:attack": 1, "mc2_17_a2_Liao_Mech_4a:attack": 1, "mc2_17_a2_Liao_Mech_4b:attack": 1, "mc2_17_a2_Liao_Mech_4:attack": 1, "mc2_17_a3_Liao_Mech_1:attack": 5, "mc2_17_a3_Liao_Mech_2:attack": 4, "mc2_17_EC1_Stein_Guard_1:retreatoffmap": 1, "mc2_17_EC1_Stein_Guard_2:retreatoffmap": 1, "mc2_17_CamDum_son:runsaways": 1, "mc2_17_EC1_Steiner_Boss:baseassault": 1, "mc2_17_a1_LiaoSon:attack": 1, "mc2_17_rebel_LRM_1d:guardarea": 1, "mc2_17_rebel_LRM_1c:guardarea": 1, "mc2_17_rebel_LRM_1b:guardarea": 1, "mc2_17_rebel_LRM_1a:guardarea": 1, "mc2_17_rebel_FuelTruck_1:guardarea": 1, "mc2_17_rebel_FuelTruck_3:guardarea": 1, "mc2_17_rebel_FuelTruck_2:guardarea": 1, "mc2_17_rebel_FuelTruck_4:guardarea": 1, "mc2_17_rebel_Part_1a:entertherebels": 1, "mc2_17_rebel_Part_1b:entertherebels": 1, "mc2_17_rebel_Hover_Drill_1:patrollake": 2, "mc2_17_rebel_Hover_Cent_1:patrollake": 2, "mc2_17_rebel_Hover_Cent_2:patrollake": 2, "mc2_17_CamDum_Stien:start": 3, "PBrain:": 6 }
+enemy pilots that moved >20 m: 59 / 62
+
+--- stderr ---
+WARNING: 472 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,108 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_14
+force: campaign 1 units 75 t of 75 t, RP 0: Lao Hu Prime(pmwsteel)
+ABL pilots: 36
+t=  34.2  CAPTURED LaoHu MeetHall
+t=  34.2  objective done: Contact the Liao Operative
+t=  63.5  AVOID 2 patrol units (nearest Hunter)
+t=  66.6  JUMP LaoHu to capture S_TurretControl
+t= 126.4  CAPTURED LaoHu S_TurretControl
+t= 148.1  CAPTURED LaoHu S_TurretControl
+t= 170.4  CAPTURED LaoHu S_TurretControl
+t= 188.3  CAPTURED LaoHu RepairBay
+t= 190.6  BAY LaoHu -> RepairBay (36 m)
+t= 205.6  REPAIR_DONE LaoHu RepairBay
+t= 218.9  CAPTURED LaoHu S_SensorControl
+t= 218.9  objective done: Capture Airport Sensor Control
+t= 283.0  CAPTURED LaoHu S_TurretControl
+t= 288.7  AVOID 1 patrol units (nearest Hunchback)
+t= 315.7  LURE 2 to our turrets at (621, 156) (dps 6 vs 6, health 78%)
+t= 342.7  LURE 4 to our turrets at (621, 156) (dps 4 vs 5, health 54%)
+t= 363.7  LURE 4 to our turrets at (621, 156) (dps 4 vs 5, health 48%)
+t= 369.7  BAY LaoHu -> RepairBay (1315 m)
+t= 459.3  REPAIR_DONE LaoHu RepairBay
+t= 540.1  CAPTURED LaoHu S_TurretControl
+t= 551.9  CAPTURED LaoHu S_TurretControl
+t= 559.6  CAPTURED LaoHu RepairBay
+t= 573.8  objective done: Destroy Orbital Gun Alpha
+t= 588.7  LURE 2 to our turrets at (648, 316) (dps 3 vs 4, health 87%)
+t= 612.7  AVOID 2 patrol units (nearest Harasser)
+t= 633.7  AVOID 2 patrol units (nearest Harasser)
+t= 654.7  AVOID 2 patrol units (nearest Harasser)
+t= 678.7  LURE 3 to our turrets at (619, 212) (dps 4 vs 4, health 87%)
+t= 705.7  LURE 3 to our turrets at (648, 316) (dps 4 vs 4, health 87%)
+t= 729.7  LURE 3 to our turrets at (648, 316) (dps 4 vs 4, health 87%)
+t= 750.7  LURE 3 to our turrets at (650, 324) (dps 4 vs 4, health 87%)
+t= 798.7  AVOID 2 patrol units (nearest Monsoon)
+t= 822.7  AVOID 2 patrol units (nearest Monsoon)
+t= 846.7  AVOID 2 patrol units (nearest Monsoon)
+t= 870.7  AVOID 2 patrol units (nearest Monsoon)
+t= 894.7  AVOID 2 patrol units (nearest Monsoon)
+t= 918.7  AVOID 2 patrol units (nearest Monsoon)
+t= 942.7  AVOID 2 patrol units (nearest Monsoon)
+t= 966.7  AVOID 2 patrol units (nearest Monsoon)
+t= 990.7  AVOID 2 patrol units (nearest Monsoon)
+t=1014.7  AVOID 2 patrol units (nearest Monsoon)
+t=1039.2  AVOID 2 patrol units (nearest Monsoon)
+t=1064.0  AVOID 2 patrol units (nearest Monsoon)
+t=1091.9  AVOID 2 patrol units (nearest Monsoon)
+t=1116.7  AVOID 2 patrol units (nearest Monsoon)
+t=1141.5  AVOID 2 patrol units (nearest Monsoon)
+t=1166.3  AVOID 2 patrol units (nearest Monsoon)
+t=1191.1  AVOID 2 patrol units (nearest Monsoon)
+t=1215.9  AVOID 2 patrol units (nearest Monsoon)
+t=1240.7  AVOID 2 patrol units (nearest Monsoon)
+t=1265.5  AVOID 2 patrol units (nearest Monsoon)
+t=1326.0  objective done: Destroy Mobile Orbital Gun Omega
+t=1333.7  AVOID 2 patrol units (nearest Monsoon)
+t=1358.5  AVOID 2 patrol units (nearest Monsoon)
+t=1383.3  AVOID 2 patrol units (nearest Monsoon)
+t=1408.1  AVOID 2 patrol units (nearest Monsoon)
+t=1432.9  AVOID 2 patrol units (nearest Monsoon)
+t=1457.7  AVOID 2 patrol units (nearest Monsoon)
+t=1482.5  AVOID 2 patrol units (nearest Monsoon)
+t=1507.3  AVOID 2 patrol units (nearest Monsoon)
+t=1529.0  AVOID 2 patrol units (nearest Monsoon)
+t=1553.8  AVOID 2 patrol units (nearest Monsoon)
+t=1578.6  AVOID 2 patrol units (nearest Monsoon)
+t=1603.4  AVOID 2 patrol units (nearest Monsoon)
+t=1628.2  AVOID 2 patrol units (nearest Monsoon)
+t=1653.0  AVOID 2 patrol units (nearest Monsoon)
+t=1677.8  AVOID 2 patrol units (nearest Monsoon)
+t=1702.6  AVOID 2 patrol units (nearest Monsoon)
+t=1727.4  AVOID 2 patrol units (nearest Monsoon)
+t=1752.2  AVOID 2 patrol units (nearest Monsoon)
+t=1777.0  AVOID 2 patrol units (nearest Monsoon)
+seed 2 end t=1800 result=PLAYING  player alive 1  enemies alive 16
+damage to lance: 260 from 20 attackers; hits by location (0 head .. 10 rear RT): { 7: 7, 6: 10, 1: 12, 5: 13, 10: 2, 3: 10, 0: 2, 2: 4, 9: 1, 8: 2, 4: 1 }
+damage by lance: 808; kills 19
+       120  MediumAutoCannonTurret (vehicle)
+        44  Hunchback (mech)
+        26  Werewolf (mech)
+        18  Hunter (vehicle)
+        18  Vedette (vehicle)
+        12  LaoHu (mech)
+        12  SRMTurret (vehicle)
+         6  Attack Copter (mech)
+         4  Harasser (vehicle)
+  obj 0 P: done  Contact the Liao Operative
+  obj 1 P: done  Destroy Orbital Gun Alpha
+  obj 2 P: open  Destroy Orbital Gun Beta
+  obj 3 P: open  Destroy Orbital Gun Gamma
+  obj 4 P: done  Destroy Mobile Orbital Gun Omega
+  obj 5 P: gated  Move to the Extraction Point
+  obj 6 s: done  Capture Airport Sensor Control
+  obj 7 s: open  Destroy Fuel Supplies at Resupply Depot
+  obj 8 s: open  Capture Communications Array
+  obj 9 s: open  Destroy all Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_14_patrol8:start": 1, "mc2_14_patrol1:attack": 1, "mc2_14_patrol2:attack": 2, "mc2_14_static1:attack": 5, "mc2_14_patrol3:attack": 1, "mc2_14_patrol4:attack": 2, "mc2_14_patrol5:attack": 2, "mc2_14_patrol6:start": 1, "mc2_14_patrol7:start": 1, "mc2_14_patrol15:start": 2, "mc2_14_patrol16:start": 2, "mc2_14_static1:start": 5, "mc2_14_patrol9:attack": 1, "mc2_14_MOG_patrol:start": 1, "mc2_14_patrol10:start": 2, "mc2_14_patrol11:start": 2, "mc2_14_patrol12:attack": 2, "mc2_14_patrol13:start": 1, "mc2_14_patrol14:start": 1, "PBrain:": 1 }
+enemy pilots that moved >20 m: 30 / 36
+
+--- stderr ---
+WARNING: 913 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

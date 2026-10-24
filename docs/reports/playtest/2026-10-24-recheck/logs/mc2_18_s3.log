@@ -1,0 +1,82 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_18
+force: campaign 5 units 320 t of 320 t, RP 16000: Lao Hu Prime(pmwsteel), Lao Hu Prime(pmwclaymore), Shootist Prime(pmwworm), Catapult Prime(pmwmeat), Wolfhound Prime(pmwpalerider)
+ABL pilots: 72
+t=  32.0  SUPPORT air_strike (-686, -781) rp_left=9000
+t=  71.2  CAPTURED Shootist DavionTurretControl.fit
+t= 120.9  SUPPORT repair_truck (-425, -499) rp_left=3000
+t= 142.4  REPAIR_DONE LaoHu 
+t= 151.6  CAPTURED Wolfhound OrdnanceTruckProp
+t= 158.1  SUPPORT air_strike (-388, 117) rp_left=0
+t= 189.1  JUMP LaoHu to capture DavionTurretControl.fit
+t= 192.3  CAPTURED LaoHu DavionTurretControl.fit
+t= 198.9  CAPTURED Catapult OrdnanceTruckProp
+t= 202.8  CAPTURED Wolfhound RepairBay
+t= 202.9  REPAIR_DONE Shootist 
+t= 205.7  CAPTURED Wolfhound OrdnanceTruckProp
+t= 219.0  REPAIR_DONE Wolfhound 
+t= 254.2  PULLBACK Wolfhound at 29%
+t= 254.2  BAY Wolfhound -> RepairBay (477 m)
+t= 327.2  REPAIR_DONE LaoHu 
+t= 355.8  REPAIR_DONE Wolfhound RepairBay
+t= 356.2  BAY LaoHu -> RepairBay (771 m)
+t= 413.0  REPAIR_DONE LaoHu RepairBay
+t= 449.2  SUPPORT air_strike (567, 4) rp_left=1000
+t= 486.6  LOST Repairtruck (destroyed, armour 75%, heat 0, ejected false, pilot 0.0 wounds, last hit by LRMTurret)
+t= 518.2  BAY Shootist -> RepairBay (834 m)
+t= 551.2  PULLBACK Shootist at 30%
+t= 551.2  JUMP LaoHu to capture DavionTurretControl.fit
+t= 554.3  CAPTURED LaoHu DavionTurretControl.fit
+t= 579.6  CAPTURED LaoHu DavionTurretControl.fit
+t= 599.2  PULLBACK LaoHu at 20%
+t= 679.4  LOST Wolfhound (disabled, armour 15%, heat 0, ejected false, pilot 1.0 wounds, last hit by Werewolf)
+t= 713.2  REPAIR_DONE Shootist RepairBay
+t= 713.2  PULLBACK LaoHu at 20%
+t= 713.2  BAY LaoHu -> RepairBay (619 m)
+t= 815.8  LOST LaoHu (disabled, armour 27%, heat 0, ejected false, pilot 2.0 wounds, last hit by ShaYu)
+t= 837.3  REPAIR_DONE LaoHu RepairBay
+t= 837.4  LOST RepairBay (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by -)
+t= 845.2  FALLBACK 9 threats (dps 19 vs 5, health 58%) to (-516, 347)
+t= 876.0  LOST Shootist (disabled, armour 3%, heat 0, ejected false, pilot 2.0 wounds, last hit by ShaYu)
+t=1013.2  PULLBACK LaoHu at 23%
+t=1016.2  FALLBACK 4 threats (dps 16 vs 4, health 56%) to (299, 47)
+t=1043.9  PULLBACK LaoHu at 23%
+t=1068.0  LOST Catapult (disabled, armour 6%, heat 0, ejected false, pilot 2.0 wounds, last hit by MenShen)
+t=1089.1  LOST LaoHu (destroyed, armour 13%, heat 0, ejected false, pilot 3.0 wounds, last hit by MenShen)
+t=1094.2  MISSION LOST
+seed 3 end t=1094 result=LOST  player alive 0  enemies alive 25
+damage to lance: 1356 from 51 attackers; hits by location (0 head .. 10 rear RT): { 5: 65, 6: 54, 9: 9, 1: 55, 7: 51, 3: 48, 10: 12, 4: 54, 2: 67, 8: 17, 0: 12 }
+damage by lance: 2786; kills 42
+       318  LRMTurret (vehicle)
+       266  ShaYu (mech)
+        94  Starslayer (mech)
+        93  Lrmcarrier (vehicle)
+        82  MenShen (mech)
+        74  Catapult (mech)
+        56  LaoHu (mech)
+        48  Vedette (vehicle)
+        48  SRMTurret (vehicle)
+        46  Raven (mech)
+  obj 0 P: open  1. Defend City from Liao and Steiner Forces
+  obj 1 P: open  2. Destroy all Liao/Steiner Forces
+  obj 2 s: open  a. Recapture Davion Headquarters
+  obj 3 s: open  b. Recapture the City's Power Generator
+  obj 4 s: open  c. Recapture Davion Sensor Control
+  obj 5 s hidden: done  Hidden Object To kill group 1
+  obj 6 s hidden: open  Hidden Objective to Kill Group2
+  obj 7 s hidden: open  Hidden Objective to Kill Group 3
+  obj 8 s hidden: open  Hidden Objective To Kill Group 4
+  obj 9 s hidden: done  Hidden Objective to Trigger Group Sneaky
+  obj 10 s hidden: done  Hidden Objective that Triggers Objectives to app
+  obj 11 s hidden: done  Hidden Objective when the player kills 25 enemie
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_18_Grp1_Mechs:attack": 4, "mc2_18_Grp1_Veh:attack": 2, "mc2_18_Grp2_Mechs:baseassault": 4, "mc2_18_Grp3_Mechs:start": 6, "mc2_18_Grp2_Veh:baseassault": 4, "mc2_18_Grp4_Mechs:start": 5, "mc2_18_sneaky_mech:baseassault": 4, "mc2_18_Gpatrol_Veh:attack": 2, "mc2_18_guard_Veh:attack": 1, "mc2_18_guard_Veh:start": 2, "mc2_18_Grp0_Veh:attack": 5, "mc2_18_guard_PD_mech:attack": 4, "mc2_18_patrol_1:attack": 1, "mc2_18_guard_Low:attack": 2, "mc2_18_guard_High:attack": 4, "mc2_18_Gpatrol_Mechs:attack": 2, "mc2_18_guard_LOW:attack": 7, "mc2_18_guard_HIGH:attack": 3, "mc2_18_patrol_lake2:attack": 2, "mc2_18_patrol_lake:attack": 1, "mc2_18_patrol_4:attack": 1, "mc2_18_patrol_2:attack": 1, "PBrain:": 5 }
+enemy pilots that moved >20 m: 57 / 72
+
+--- stderr ---
+WARNING: 900 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T13:28:47+13:00",
+  "updated": "2026-10-24T13:41:47+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -524,10 +524,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_01 --damage --targets",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:46+13:00",
+      "note": "No longer reproduces: mc2_01 3/3 (241-247 s), 0-2 light mechs lost to the Starslayer. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I15",
@@ -537,10 +537,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_06 --damage --targets",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:46+13:00",
+      "note": "No longer reproduces: mc2_06 3/3 (was 2/3). The road-checkpoint turret control is captured and our air strike no longer destroys the Sensor Control. Secondary a (capture the Sensor Control) is still left undone. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I16",
@@ -550,10 +550,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_07 --damage --targets",
       "owner": "ai",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:46+13:00",
+      "note": "No longer reproduces: mc2_07 2/3 with the 200 t campaign lance (was 0/3). HQ captured by t=198. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I17",
@@ -563,10 +563,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_07 --damage --targets",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:46+13:00",
+      "note": "No longer reproduces: no lone mech is sent across the map. The seed-3 loss is the last two mechs falling back under a guntower after the Zeus was lost at 108 s. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I18",
@@ -576,10 +576,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 2 1800 --mission=mc2_09 --damage --targets --cues",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:46+13:00",
+      "note": "No longer reproduces: the campaign force has no Werewolf, and the formation fix (I102) keeps the lance together. mc2_09 is 1/3, lost to Swarm LRM carriers and LRM turrets; that is tracked in I99. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I19",
@@ -589,10 +589,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 3 1800 --mission=mc2_10 --damage --targets",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:46+13:00",
+      "note": "No longer reproduces: mc2_10 3/3. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I20",
@@ -604,8 +604,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:47+13:00",
+      "note": "Still 0/3. No objective done in 2 seeds. The top attackers are the MediumAutoCannon and Gauss turrets, then the Storm. The Sha Yu dies first at 117-131 s every seed. No support (0 RP). Fort fights, see I99. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I21",
@@ -617,8 +617,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-24T13:28:47+13:00",
-      "note": "2026-10-24 step 6 (Lee: avoid patrols): STEALTH_PLANS mc2_14 takes the airport first (controls, bay, sensor control), avoids unengaged patrols it doesn't out-gun (backing to the last quiet spot, never into enemy arcs), ambushes lone weak ones, jump-captures controls under fire, lures attackers into captured turrets and hops to bays. Also fixed I112 (the Lao Hu stood without firing). The Lao Hu now survives to 1800 s in 2 of 3 seeds and takes the airport every seed and Gun Alpha in most, but it hasn't won (0/3 at 1800 s, 0/4 at 3600 s). The losses come at the Gun Alpha fort (Hunchback plus turrets), and the late game is slow avoidance. Still open."
+      "updated": "2026-10-24T13:41:47+13:00",
+      "note": "Still 0/3 at 1800 s, but 2 seeds are alive at the cap with the airport, Gun Alpha and (in one) Omega taken. Seed 3 lost the Lao Hu to a Werewolf at 350 s. The rest is long stretches of avoiding patrols. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I22",
@@ -628,10 +628,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_15 --damage --targets",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:46+13:00",
+      "note": "No longer reproduces: mc2_15 3/3, 0-2 mechs lost. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I23",
@@ -641,10 +641,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_16 --damage --targets",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:46+13:00",
+      "note": "No longer reproduces: mc2_16 2/3 (was 0/3). The winning seeds complete all 6 visible objectives, turret and HQ secondaries included. Seed 1 lost 2 Lao Hus to LRM carriers. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I24",
@@ -654,10 +654,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_17 --damage --targets",
       "owner": "ai",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-24T13:28:47+13:00",
-      "note": "2026-10-24 step 6: the bot plays Lee's line (HOLD_PLANS mc2_17): it runs to the Steiner base at once, captures both turret controls and both bays, and holds through the waves. It won 3 of 3 seeds (1197-1387 s, 1 mech lost); baseline was 0/3, lost by 162-198 s. One seed segfaulted inside Godot once (abl_runtime _slot, signal 11) and did not reproduce on a rerun. Finishing also needed I111 (removed movers blocked destroy-all). Ready to close after the full re-check sweep."
+      "updated": "2026-10-24T13:41:46+13:00",
+      "note": "Fixed by the step-6 hold plan and I111: mc2_17 3/3 (1197-1387 s, 1 mech lost). Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I25",
@@ -669,8 +669,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:47+13:00",
+      "note": "Still 0/3, but the lance now kills 37-53 (max 22 before), so the 25-kill trigger fires. It still never retakes the HQ, power generator or sensor control, and is worn down by 971-1094 s by Sha Yu, LRM turrets and the Lao Hu. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I26",
@@ -680,10 +680,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_19 --damage --targets",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:47+13:00",
+      "note": "Bot part no longer reproduces: mc2_19 2/3 (was 0/3). The two sim gaps (spotter LOS, strike damage missing from the table) moved to I114. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I27",
@@ -693,10 +693,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_20 --damage --targets",
       "owner": "ai",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:47+13:00",
+      "note": "No longer reproduces: mc2_20 2/3 (was 1/3), 6 of 7 objectives done in the wins. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I28",
@@ -708,8 +708,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-19T16:45:21+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:47+13:00",
+      "note": "Still 0/3, lance dead by 169-230 s. The Large Pulse Cannon and LRM turret lines plus the guards inside the start area engage as soon as the lance moves for the turret control. Holding the corner (KC) made no contact in 1800 s. It needs a better opening (I99). Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I29",
@@ -721,8 +721,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:22+13:00",
-      "updated": "2026-10-19T16:45:22+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:47+13:00",
+      "note": "Still 0/3. Secondary b (town patrols) is done every seed, and obj 0 (starport) in seed 3. LRM carriers, MediumAutoCannon turrets, Atlas and Zeus finish the lance at 332-897 s. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I30",
@@ -734,8 +734,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:22+13:00",
-      "updated": "2026-10-19T16:45:22+13:00",
-      "note": null
+      "updated": "2026-10-24T13:41:47+13:00",
+      "note": "Still 0/3, but the fuel-truck hidden objective now completes in 2 of 3 seeds (the issue said never). The lance still dies at the front gate by 222-467 s to Highlanders, Bushwackers and the LRM and Long Tom turrets, losing 3 mechs in the first 100 s every seed. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I31",
@@ -1631,8 +1631,8 @@
       "phase": 8,
       "status": "open",
       "created": "2026-10-23T20:13:52+13:00",
-      "updated": "2026-10-24T13:28:47+13:00",
-      "note": "2026-10-24 step 6: threats under an enemy fort's guns rank a quarter as high in focus fire. A/B, 4 seeds: holding the lance out of the arcs as well dithered on the edge of the arcs (mc2_03 4/4 -> 0/4), so it was dropped. Jump-capture of controls under fire was added. mc2_03 4/4 (was 1/3), mc2_13 0/4, mc2_22 0/4. mc2_22: the compound's guards engage when the lance moves for the turret control; the corner hold KC describes never gets the enemy to come (an 1800 s hold had no contact at all), so it needs the turret-control capture to work as the player's first move. The torso fix (I112) touches every fort fight. Still open for mc2_13 and mc2_22."
+      "updated": "2026-10-24T13:41:47+13:00",
+      "note": "Re-check: fort missions still losing are mc2_09 (1/3), mc2_13, mc2_22, mc2_23, mc2_24 (0/3), with turrets among the top attackers. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     },
     {
       "id": "I100",
@@ -1802,6 +1802,32 @@
       "created": "2026-10-24T13:28:47+13:00",
       "updated": "2026-10-24T13:28:47+13:00",
       "note": "sim_fidelity_test test_a_twisted_torso_swings_back_through_the_front; full suite passes."
+    },
+    {
+      "id": "I113",
+      "sev": "P3",
+      "title": "Godot segfault (signal 11) in abl_runtime _slot during an mc2_17 autoplay run, not reproducible",
+      "detail": "2026-10-24, mc2_17 seed 3 (step 6 sweep, --jobs 2): Godot 4.7.2 crashed with signal 11 at about t=440 s. The GDScript backtrace is AblRuntime._slot <- _read <- _eval <- _call ... <- SimAbl._pilot_tick <- SimWorld.step. The C++ backtrace is a deep, repeating interpreter recursion. The sim is single-threaded and deterministic: same seed, same result, and other reruns reproduce exactly. Yet the rerun of the same seed and code ran to a WON at 1231 s. Unexplained. Possibly the workstation's known load instability (random non-repeating segfaults under full load), or a Godot interpreter bug with deep recursion. If it recurs, capture a --verbose run and check whether the ABL call depth is unusually high at the crash.",
+      "repro": "python3 -I tools/playtest_sweep.py --missions mc2_17 --seeds 3 (the 2026-10-24 crash log is in the session scratchpad, s6-17/logs/mc2_17_s3.log; the rerun did not crash)",
+      "owner": "programmer",
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-24T13:30:12+13:00",
+      "updated": "2026-10-24T13:30:12+13:00",
+      "note": null
+    },
+    {
+      "id": "I114",
+      "sev": "P3",
+      "title": "Spotter strikes: no line-of-sight check, and their damage is missing from the autoplay damage table",
+      "detail": "Split from I26 (mc2_19). SimSupport._spotters (sim_support.gd:259-277) calls a strike on the nearest player unit within 120 m without checking that the spotter can see it; check the original aerospotter's targeting before adding one. Strike impacts carry from -1, so autoplay's damage table (autoplay.gd:1269-1271) drops them, and the playtest reports undercount enemy strike damage.",
+      "repro": null,
+      "owner": "programmer",
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-24T13:41:25+13:00",
+      "updated": "2026-10-24T13:41:25+13:00",
+      "note": null
     }
   ],
   "coverage": {
@@ -1908,106 +1934,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I49 duplicate: superseded by I55"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I55 updated: repro, note \u2014 repro planned by hd_redo.py: concept seeds tried [7, 8, 9, 10, 13] -> 14; cropped, re-render with more margin"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I48 duplicate: superseded by I61"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I61 updated: repro, note \u2014 repro planned by hd_redo.py: concept seeds tried [7] -> 8; cropped, re-render with more margin"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I50 duplicate: superseded by I57"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I57 updated: repro, note \u2014 repro planned by hd_redo.py: concept seeds tried [7, 9] -> 10; cropped, re-render with more margin"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I51 duplicate: superseded by I56"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I56 updated: repro, note \u2014 repro planned by hd_redo.py: mesh seeds tried [1234] -> 4242"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I47 duplicate: superseded by I60"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I60 updated: repro, note \u2014 repro planned by hd_redo.py: mesh seeds tried [1234, 4242] -> 777"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I52 fixed: ryoken approved in review"
-    },
-    {
-      "at": "2026-10-19T18:10:43+13:00",
-      "who": "conductor",
-      "msg": "issue I53 duplicate: superseded by I58"
-    },
-    {
-      "at": "2026-10-19T18:10:44+13:00",
-      "who": "conductor",
-      "msg": "issue I58 updated: repro, note \u2014 repro planned by hd_redo.py: mesh seeds tried [1234, 4242] -> 777"
-    },
-    {
-      "at": "2026-10-19T18:10:44+13:00",
-      "who": "conductor",
-      "msg": "issue I54 duplicate: superseded by I59"
-    },
-    {
-      "at": "2026-10-19T18:10:44+13:00",
-      "who": "conductor",
-      "msg": "issue I59 updated: repro, note \u2014 repro planned by hd_redo.py: mesh seeds tried [777, 1234, 4242] -> 2024"
-    },
-    {
-      "at": "2026-10-19T18:10:44+13:00",
-      "who": "conductor",
-      "msg": "run wf_a1860977-9d9 (phase-7-hd-review) ok: 5 agents, 262320 tokens"
-    },
-    {
-      "at": "2026-10-19T18:10:44+13:00",
-      "who": "conductor",
-      "msg": "decided C30: Batch 5 not launched; the 7 mechs that failed 3-4 times go to Lee with their sheets \u2014 approval rate fell to 1/8; re-rolling seeds is no longer converging for these, and continuing (or accepting near-misses) is a call on the look, which is Lee's"
-    },
-    {
-      "at": "2026-10-19T18:10:44+13:00",
-      "who": "conductor",
-      "msg": "decision D3 queued for Lee: 7 HD mechs have failed review 3-4 times (atlas, laohu, madcat, thor, vulture, mediumcopter, heavycopter). How should they be handled?"
-    },
-    {
-      "at": "2026-10-19T18:11:24+13:00",
-      "who": "gate",
-      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
-    },
-    {
-      "at": "2026-10-19T18:34:00+13:00",
-      "who": "lee",
-      "msg": "decision D3 answered: trial SolidCraft for the thin parts (vulture lower legs, heavycopter rotor); hold the other 5 until the trial is judged"
-    },
     {
       "at": "2026-10-19T18:45:57+13:00",
       "who": "conductor",
@@ -2907,6 +2833,106 @@
       "at": "2026-10-24T13:28:47+13:00",
       "who": "conductor",
       "msg": "issue I99 updated: note \u2014 2026-10-24 step 6: threats under an enemy fort's guns rank a quarter as high in focus fire. A/B, 4 seeds: holding the lance out of the arcs as well dithered on the edge of the arcs (mc2_03 4/4 -> 0/4), so it was dropped. Jump-capture of controls under fire was added. mc2_03 4/4 (was 1/3), mc2_13 0/4, mc2_22 0/4. mc2_22: the compound's guards engage when the lance moves for the turret control; the corner hold KC describes never gets the enemy to come (an 1800 s hold had no contact at all), so it needs the turret-control capture to work as the player's first move. The torso fix (I112) touches every fort fight. Still open for mc2_13 and mc2_22."
+    },
+    {
+      "at": "2026-10-24T13:30:12+13:00",
+      "who": "programmer",
+      "msg": "issue I113 P3: Godot segfault (signal 11) in abl_runtime _slot during an mc2_17 autoplay run, not reproducible"
+    },
+    {
+      "at": "2026-10-24T13:41:25+13:00",
+      "who": "programmer",
+      "msg": "issue I114 P3: Spotter strikes: no line-of-sight check, and their damage is missing from the autoplay damage table"
+    },
+    {
+      "at": "2026-10-24T13:41:46+13:00",
+      "who": "conductor",
+      "msg": "issue I14 fixed: No longer reproduces: mc2_01 3/3 (241-247 s), 0-2 light mechs lost to the Starslayer. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:46+13:00",
+      "who": "conductor",
+      "msg": "issue I15 fixed: No longer reproduces: mc2_06 3/3 (was 2/3). The road-checkpoint turret control is captured and our air strike no longer destroys the Sensor Control. Secondary a (capture the Sensor Control) is still left undone. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:46+13:00",
+      "who": "conductor",
+      "msg": "issue I16 fixed: No longer reproduces: mc2_07 2/3 with the 200 t campaign lance (was 0/3). HQ captured by t=198. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:46+13:00",
+      "who": "conductor",
+      "msg": "issue I17 fixed: No longer reproduces: no lone mech is sent across the map. The seed-3 loss is the last two mechs falling back under a guntower after the Zeus was lost at 108 s. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:46+13:00",
+      "who": "conductor",
+      "msg": "issue I18 fixed: No longer reproduces: the campaign force has no Werewolf, and the formation fix (I102) keeps the lance together. mc2_09 is 1/3, lost to Swarm LRM carriers and LRM turrets; that is tracked in I99. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:46+13:00",
+      "who": "conductor",
+      "msg": "issue I19 fixed: No longer reproduces: mc2_10 3/3. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:46+13:00",
+      "who": "conductor",
+      "msg": "issue I22 fixed: No longer reproduces: mc2_15 3/3, 0-2 mechs lost. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:46+13:00",
+      "who": "conductor",
+      "msg": "issue I23 fixed: No longer reproduces: mc2_16 2/3 (was 0/3). The winning seeds complete all 6 visible objectives, turret and HQ secondaries included. Seed 1 lost 2 Lao Hus to LRM carriers. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:46+13:00",
+      "who": "conductor",
+      "msg": "issue I24 fixed: Fixed by the step-6 hold plan and I111: mc2_17 3/3 (1197-1387 s, 1 mech lost). Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:47+13:00",
+      "who": "conductor",
+      "msg": "issue I26 fixed: Bot part no longer reproduces: mc2_19 2/3 (was 0/3). The two sim gaps (spotter LOS, strike damage missing from the table) moved to I114. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:47+13:00",
+      "who": "conductor",
+      "msg": "issue I27 fixed: No longer reproduces: mc2_20 2/3 (was 1/3), 6 of 7 objectives done in the wins. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:47+13:00",
+      "who": "conductor",
+      "msg": "issue I20 updated: note \u2014 Still 0/3. No objective done in 2 seeds. The top attackers are the MediumAutoCannon and Gauss turrets, then the Storm. The Sha Yu dies first at 117-131 s every seed. No support (0 RP). Fort fights, see I99. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:47+13:00",
+      "who": "conductor",
+      "msg": "issue I21 updated: note \u2014 Still 0/3 at 1800 s, but 2 seeds are alive at the cap with the airport, Gun Alpha and (in one) Omega taken. Seed 3 lost the Lao Hu to a Werewolf at 350 s. The rest is long stretches of avoiding patrols. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:47+13:00",
+      "who": "conductor",
+      "msg": "issue I25 updated: note \u2014 Still 0/3, but the lance now kills 37-53 (max 22 before), so the 25-kill trigger fires. It still never retakes the HQ, power generator or sensor control, and is worn down by 971-1094 s by Sha Yu, LRM turrets and the Lao Hu. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:47+13:00",
+      "who": "conductor",
+      "msg": "issue I28 updated: note \u2014 Still 0/3, lance dead by 169-230 s. The Large Pulse Cannon and LRM turret lines plus the guards inside the start area engage as soon as the lance moves for the turret control. Holding the corner (KC) made no contact in 1800 s. It needs a better opening (I99). Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:47+13:00",
+      "who": "conductor",
+      "msg": "issue I29 updated: note \u2014 Still 0/3. Secondary b (town patrols) is done every seed, and obj 0 (starport) in seed 3. LRM carriers, MediumAutoCannon turrets, Atlas and Zeus finish the lance at 332-897 s. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:47+13:00",
+      "who": "conductor",
+      "msg": "issue I30 updated: note \u2014 Still 0/3, but the fuel-truck hidden objective now completes in 2 of 3 seeds (the issue said never). The lance still dies at the front gate by 222-467 s to Highlanders, Bushwackers and the LRM and Long Tom turrets, losing 3 mechs in the first 100 s every seed. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+    },
+    {
+      "at": "2026-10-24T13:41:47+13:00",
+      "who": "conductor",
+      "msg": "issue I99 updated: note \u2014 Re-check: fort missions still losing are mc2_09 (1/3), mc2_13, mc2_22, mc2_23, mc2_24 (0/3), with turrets among the top attackers. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
     }
   ],
   "choices": [

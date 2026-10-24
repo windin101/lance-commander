@@ -1,0 +1,62 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_13
+force: campaign 4 units 230 t of 230 t, RP 0: Shootist Prime(pmwsteel), Catapult Prime(pmwclaymore), Men Shen Prime(pmwworm), Sha Yu Prime(pmwmeat)
+ABL pilots: 48
+t= 131.5  LOST ShaYu (destroyed, armour 21%, heat 0, ejected false, pilot 1.0 wounds, last hit by Storm)
+t= 165.8  CAPTURED Shootist DavionTurretControl.fit
+t= 174.2  CAPTURED Catapult DavionTurretControl.fit
+t= 203.3  CAPTURED MenShen DavionTurretControl.fit
+t= 240.2  FALLBACK 4 threats (dps 22 vs 13, health 58%) to (-41, 646)
+t= 245.7  LOST MenShen (destroyed, armour 25%, heat 13, ejected false, pilot 0.0 wounds, last hit by MediumAutoCannonTurret)
+t= 360.8  CAPTURED Shootist DavionTurretControl.fit
+t= 368.8  CAPTURED Shootist DavionTurretControl.fit
+t= 390.7  PULLBACK Shootist at 29%
+t= 399.7  FALLBACK 2 threats (dps 7 vs 4, health 53%) to (423, 588)
+t= 530.7  CAPTURED Shootist DavionTurretControl.fit
+t= 618.8  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Wolfhound)
+t= 632.0  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Wolfhound)
+t= 635.5  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Wolfhound)
+t= 644.5  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Wolfhound)
+t= 653.5  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Wolfhound)
+t= 654.8  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Wolfhound)
+t= 662.5  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Wolfhound)
+t= 663.3  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Wolfhound)
+t= 720.4  CAPTURED Catapult DavionTurretControl.fit
+t= 736.9  CAPTURED Catapult DavionTurretControl.fit
+t= 738.7  PULLBACK Shootist at 26%
+t= 753.7  PULLBACK Shootist at 26%
+t= 756.7  FALLBACK 6 threats (dps 7 vs 4, health 46%) to (232, -173)
+t= 783.0  LOST Shootist (destroyed, armour 23%, heat 0, ejected false, pilot 0.0 wounds, last hit by GaussTurret)
+t= 816.7  FALLBACK 16 threats (dps 22 vs 4, health 42%) to (277, -302)
+t= 876.7  FALLBACK 10 threats (dps 14 vs 2, health 20%) to (277, -302)
+t= 877.7  LOST Catapult (disabled, armour 3%, heat 0, ejected false, pilot 1.0 wounds, last hit by Poweredarmor)
+t= 882.7  MISSION LOST
+seed 2 end t=883 result=LOST  player alive 0  enemies alive 20
+damage to lance: 948 from 40 attackers; hits by location (0 head .. 10 rear RT): { 4: 18, 1: 22, 2: 20, 5: 23, 7: 20, 3: 21, 10: 6, 8: 7, 0: 116, 9: 7, 6: 7 }
+damage by lance: 1662; kills 25
+       230  GaussTurret (vehicle)
+       213  Wolfhound (mech)
+       156  MediumAutoCannonTurret (vehicle)
+       154  Storm (vehicle)
+        70  Enfield (mech)
+        68  Jagermech (mech)
+        34  Uller (mech)
+        24  Poweredarmor (vehicle)
+  obj 0 P: open  Destroy Both HPG Station
+  obj 1 P: open  Capture Weapons Facility #1
+  obj 2 P: open  Capture Weapons Facility #2
+  obj 3 P: open  Capture Weapons Facility #3
+  obj 4 P: open  Destroy Davion Dropship
+  obj 5 P: gated  Move all Surviving 'Mechs to Extraction Point
+  obj 6 s hidden: open  Super Secret Hidden OBJ to track if you kill the
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_13_Enfield_S:attack": 1, "mc2_13_WFac2_Veh_1:attack": 1, "mc2_13_WFac2_Veh_2:attack": 1, "mc2_13_Enfield_N:attack": 1, "mc2_13_WFac1_PWARM:attack": 5, "mc2_13_WFac1_PWARM_1:start": 10, "mc2_13_WFac1_PWARM_1:attack": 6, "mc2_13_PowerGen_Mech_1:gotohpg": 2, "mc2_13_SpacePort_Clan_Thor:start": 1, "mc2_13_SpacePort_Clan_1:start": 1, "mc2_13_Enfield_TC:attack": 1, "mc2_13_OutPatl_Grp1_Lead:start": 1, "mc2_13_OutPatl_Grp1_Escort:escortinglead": 2, "mc2_13_MISC_Storms:start": 1, "mc2_13_Crat_W_Patrol:attack": 2, "mc2_13_Crat_N_Patrol:start": 2, "mc2_13_Crat_E_Patrol:attack": 2, "mc2_13_MISC_Storms:attack": 4, "PBrain:": 4 }
+enemy pilots that moved >20 m: 46 / 48
+
+--- stderr ---
+WARNING: 539 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

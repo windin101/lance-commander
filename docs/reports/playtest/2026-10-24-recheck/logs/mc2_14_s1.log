@@ -1,0 +1,105 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_14
+force: campaign 1 units 75 t of 75 t, RP 0: Lao Hu Prime(pmwsteel)
+ABL pilots: 36
+t=  37.2  CAPTURED LaoHu MeetHall
+t=  37.2  objective done: Contact the Liao Operative
+t= 118.0  CAPTURED LaoHu S_TurretControl
+t= 138.9  CAPTURED LaoHu S_TurretControl
+t= 161.1  CAPTURED LaoHu S_TurretControl
+t= 179.0  CAPTURED LaoHu RepairBay
+t= 188.9  CAPTURED LaoHu S_SensorControl
+t= 188.9  objective done: Capture Airport Sensor Control
+t= 246.4  AVOID 1 patrol units (nearest Hunchback)
+t= 261.7  JUMP LaoHu to capture S_TurretControl
+t= 267.7  AVOID 2 patrol units (nearest Hunchback)
+t= 273.7  BAY LaoHu -> RepairBay (1151 m)
+t= 351.5  REPAIR_DONE LaoHu RepairBay
+t= 396.7  AVOID 2 patrol units (nearest Vedette)
+t= 420.7  AVOID 2 patrol units (nearest Vedette)
+t= 444.7  AVOID 2 patrol units (nearest Vedette)
+t= 468.7  AVOID 2 patrol units (nearest Vedette)
+t= 492.7  AVOID 2 patrol units (nearest Vedette)
+t= 540.7  FALLBACK 2 threats (dps 8 vs 3, health 48%) to (585, -79)
+t= 543.7  BAY LaoHu -> RepairBay (1247 m)
+t= 639.2  REPAIR_DONE LaoHu RepairBay
+t= 648.7  LURE 1 to our turrets at (160, -724) (dps 3 vs 3, health 100%)
+t= 734.4  CAPTURED LaoHu S_TurretControl
+t= 747.0  CAPTURED LaoHu S_TurretControl
+t= 758.9  CAPTURED LaoHu S_TurretControl
+t= 766.6  CAPTURED LaoHu RepairBay
+t= 784.8  objective done: Destroy Orbital Gun Alpha
+t= 840.7  AVOID 2 patrol units (nearest Monsoon)
+t= 864.7  AVOID 2 patrol units (nearest Hetzer)
+t= 885.7  AVOID 2 patrol units (nearest Hetzer)
+t= 909.7  AVOID 2 patrol units (nearest Hetzer)
+t= 930.7  AVOID 4 patrol units (nearest Hetzer)
+t= 951.7  AVOID 2 patrol units (nearest Monsoon)
+t= 996.7  LURE 2 to our turrets at (610, 120) (dps 4 vs 3, health 87%)
+t=1017.7  LURE 2 to our turrets at (616, 170) (dps 4 vs 3, health 87%)
+t=1042.3  LURE 2 to our turrets at (616, 170) (dps 4 vs 3, health 87%)
+t=1110.5  AVOID 1 patrol units (nearest Lrmcarrier)
+t=1152.9  CAPTURED LaoHu S_TurretControl
+t=1165.0  CAPTURED LaoHu S_TurretControl
+t=1172.5  AVOID 1 patrol units (nearest Hollander)
+t=1194.2  AVOID 2 patrol units (nearest Hunter)
+t=1215.9  AVOID 1 patrol units (nearest Hollander)
+t=1237.6  AVOID 2 patrol units (nearest Hunter)
+t=1259.3  AVOID 1 patrol units (nearest Hollander)
+t=1284.1  AVOID 2 patrol units (nearest Hunter)
+t=1305.8  AVOID 1 patrol units (nearest Hollander)
+t=1327.5  AVOID 1 patrol units (nearest Hollander)
+t=1349.2  AVOID 2 patrol units (nearest Hunter)
+t=1374.0  AVOID 1 patrol units (nearest Hollander)
+t=1401.9  AVOID 2 patrol units (nearest Hunter)
+t=1423.6  AVOID 2 patrol units (nearest Hollander)
+t=1445.3  AVOID 2 patrol units (nearest Hunter)
+t=1467.0  AVOID 1 patrol units (nearest Hollander)
+t=1488.7  AVOID 2 patrol units (nearest Hunter)
+t=1510.4  AVOID 2 patrol units (nearest Hunter)
+t=1535.2  AVOID 2 patrol units (nearest Hunter)
+t=1560.0  AVOID 1 patrol units (nearest Hollander)
+t=1581.7  AVOID 2 patrol units (nearest Hunter)
+t=1606.5  AVOID 1 patrol units (nearest Hollander)
+t=1634.4  AVOID 2 patrol units (nearest Hunter)
+t=1656.1  AVOID 1 patrol units (nearest Hollander)
+t=1684.0  AVOID 2 patrol units (nearest Hunter)
+t=1708.8  AVOID 1 patrol units (nearest Hollander)
+t=1730.5  AVOID 2 patrol units (nearest Hunter)
+t=1752.2  AVOID 1 patrol units (nearest Hollander)
+t=1773.9  AVOID 1 patrol units (nearest Hollander)
+t=1798.7  AVOID 3 patrol units (nearest Hollander)
+seed 1 end t=1800 result=PLAYING  player alive 1  enemies alive 16
+damage to lance: 376 from 25 attackers; hits by location (0 head .. 10 rear RT): { 2: 13, 3: 14, 1: 17, 6: 24, 5: 14, 4: 14, 7: 9, 8: 1, 0: 3, 9: 1 }
+damage by lance: 768; kills 19
+       132  MediumAutoCannonTurret (vehicle)
+        72  SRMTurret (vehicle)
+        58  Hunchback (mech)
+        39  Werewolf (mech)
+        24  Vedette (vehicle)
+        15  Hunter (vehicle)
+        12  Hetzer (vehicle)
+        10  Monsoon (vehicle)
+         6  Attack Copter (mech)
+         4  LaoHu (mech)
+  obj 0 P: done  Contact the Liao Operative
+  obj 1 P: done  Destroy Orbital Gun Alpha
+  obj 2 P: open  Destroy Orbital Gun Beta
+  obj 3 P: open  Destroy Orbital Gun Gamma
+  obj 4 P: open  Destroy Mobile Orbital Gun Omega
+  obj 5 P: gated  Move to the Extraction Point
+  obj 6 s: done  Capture Airport Sensor Control
+  obj 7 s: open  Destroy Fuel Supplies at Resupply Depot
+  obj 8 s: open  Capture Communications Array
+  obj 9 s: open  Destroy all Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_14_patrol8:start": 1, "mc2_14_patrol1:attack": 1, "mc2_14_patrol2:attack": 2, "mc2_14_static1:attack": 7, "mc2_14_patrol3:attack": 1, "mc2_14_patrol4:attack": 2, "mc2_14_patrol5:attack": 2, "mc2_14_patrol6:attack": 1, "mc2_14_patrol7:start": 1, "mc2_14_patrol15:start": 2, "mc2_14_patrol16:start": 2, "mc2_14_static1:start": 3, "mc2_14_patrol9:attack": 1, "mc2_14_MOG_patrol:start": 1, "mc2_14_patrol10:start": 2, "mc2_14_patrol11:start": 2, "mc2_14_patrol12:attack": 2, "mc2_14_patrol13:start": 1, "mc2_14_patrol14:start": 1, "PBrain:": 1 }
+enemy pilots that moved >20 m: 33 / 36
+
+--- stderr ---
+WARNING: 913 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
