@@ -1,0 +1,52 @@
+{
+ "model": "jaegermech.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "JM6-S4 Jagermech for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863950",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "jm6-s4.stl"
+ },
+ "tris": 44933,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Walk": 0.251,
+  "Run": 0.366,
+  "STtoWK": 0.237,
+  "WKtoST": 0.177,
+  "WKtoRN": 0.37,
+  "RNtoWK": 0.254,
+  "LimpLeft": 0.155,
+  "LimpRight": 0.141,
+  "ParkToStand": 0.368,
+  "StandToPark": 0.372,
+  "Jump": 0.473,
+  "FallForward": 1.051,
+  "FallBackward": 0.731,
+  "GetUpFront": 1.085,
+  "GetUpBack": 1.16,
+  "HitFront": 0.088,
+  "HitBack": 0.2,
+  "HitLeft": 0.131,
+  "HitRight": 0.125
+ },
+ "paint_stats": {
+  "texels": 1870685,
+  "chip_share": 0.029066892608857184,
+  "grime_mean": 0.31675487756729126,
+  "paint_share": 0.6524214392054247,
+  "glass_texels": 1279,
+  "emissive_texels": 0,
+  "piping_texels": 120676,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

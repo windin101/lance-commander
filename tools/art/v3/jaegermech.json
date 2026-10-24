@@ -1,0 +1,150 @@
+{
+ "_doc": "v3 settings for the jaegermech (tools/art/v3/v3_mech.py), fit and labels from the v2 work on the same sculpt.",
+ "name": "jaegermech",
+ "folder": "mechs",
+ "stl": "/home/leeo/craft/solid/mc2/stl/jaegermech/jm6-s4.stl",
+ "source": {
+  "title": "JM6-S4 Jagermech for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863950",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "jm6-s4.stl"
+ },
+ "k": 199.03247799335247,
+ "base_glb": "game/assets/mechs/jaegermech.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/jaegermech",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 40000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 2363,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "jm_rfoot": 1.0,
+   "jm_ruarm": 0.95,
+   "jm_rlleg": 1.0,
+   "jm_luarm": 0.95,
+   "jm_lfoot": 1.0,
+   "jm_llleg": 1.0
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "part_region": {
+  "jm_rfoot": "feet",
+  "jm_ruarm": "arms",
+  "jm_rlleg": "lower_legs",
+  "jm_ruleg": "upper_legs",
+  "jm_luarm": "arms",
+  "jm_lfoot": "feet",
+  "jm_llleg": "lower_legs",
+  "jm_luleg": "upper_legs",
+  "jm_hip": "body",
+  "jm_torso": "body"
+ },
+ "feet": [
+  "jm_rfoot",
+  "jm_lfoot"
+ ],
+ "joints": {
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 425,
+   "half": 553
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 468
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 425,
+   "half": 553
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 468
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 468
+  },
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 425,
+   "half": 553
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 425,
+   "half": 553
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 468
+  },
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 662
+  }
+ },
+ "weapons": [
+  {
+   "name": "twin autocannon arm, right",
+   "whole_parts": [
+    "jm_ruarm"
+   ]
+  },
+  {
+   "name": "twin autocannon arm, left",
+   "whole_parts": [
+    "jm_luarm"
+   ]
+  }
+ ],
+ "glass_outlines": [
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-jaegermech/outline_sheets/sheet_front.png",
+   "view": "front"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-jaegermech/outline_sheets/sheet_q34.png",
+   "view": "q34"
+  }
+ ],
+ "_glass_note": "Lee's canopy outlines, 2026-10-25 (front + 3/4)"
+}
