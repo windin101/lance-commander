@@ -18,6 +18,12 @@ Each run is `godot --headless -s res://tools/autoplay.gd -- <seed> <max> --missi
   force (what the bot deployed), support [{t, kind, target}]
 
 and a summary table to stdout. The sweep never edits the game; it is a read-only probe.
+
+Time caps: every mission runs to --max-seconds (1800 s) except those in MISSION_MAX_SECONDS. These
+are missions whose walkthrough line is slow by design. mc2_14 (a solo stealth mech) is won by the
+guides' stealth line in about an hour, so it gets 4500 s. --flat-cap uses --max-seconds for all.
+Each run's cap is in its results.json record ("max_seconds") and in meta.json
+("max_seconds_by_mission"), so a gate or a reader can tell a PLAYING at the cap from a stall.
 """
 
 import argparse
@@ -32,6 +38,9 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+MISSION_MAX_SECONDS = {
+    "mc2_14": 4500,  # solo stealth: 1 of 3 seeds won at 3943 s (2026-10-24, I21)
+}
 GAME = ROOT / "game"
 GODOT = "godot"
 
@@ -86,11 +95,11 @@ def run_one(mission: str, seed: int, max_s: int, logdir: Path, extra: list, scri
     try:
         p = subprocess.run([GODOT, "--headless", "--path", str(GAME), "-s", script, "--",
                             str(seed), str(max_s), f"--mission={mission}", "--damage", *extra],
-                           capture_output=True, text=True, timeout=1200)
+                           capture_output=True, text=True, timeout=max(1200, max_s // 2))
         out = p.stdout + ("\n--- stderr ---\n" + p.stderr if p.stderr.strip() else "")
     except subprocess.TimeoutExpired as e:
         out = (e.stdout or b"").decode(errors="replace") if isinstance(e.stdout, bytes) else (e.stdout or "")
-        out += "\n--- TIMEOUT after 1200 s ---"
+        out += f"\n--- TIMEOUT after {max(1200, max_s // 2)} s ---"
     (logdir / f"{mission}_s{seed}.log").write_text(out)
     rec = parse(out)
     rec.update(mission=mission, seed=seed, wall_s=round(time.time() - t0, 1))
@@ -107,6 +116,7 @@ def main() -> int:
     ap.add_argument("--reparse", action="store_true", help="rebuild <out>/results.json from its logs (no Godot)")
     ap.add_argument("--script", default="res://tools/autoplay.gd", help="bot script (A/B against an older bot)")
     ap.add_argument("--bot-args", default="", help="extra autoplay arguments, space separated")
+    ap.add_argument("--flat-cap", action="store_true", help="ignore MISSION_MAX_SECONDS: every mission gets --max-seconds")
     a = ap.parse_args()
     extra = a.bot_args.split()
     if a.reparse:
@@ -133,10 +143,13 @@ def main() -> int:
     out = Path(a.out)
     (out / "logs").mkdir(parents=True, exist_ok=True)
     jobs = [(m, s) for m in missions for s in seeds]
+    cap = {m: a.max_seconds if a.flat_cap else MISSION_MAX_SECONDS.get(m, a.max_seconds) for m in missions}
     print(f"{len(jobs)} runs ({len(missions)} missions x {len(seeds)} seeds), {a.jobs} at a time", flush=True)
     t0 = time.time()
     with ThreadPoolExecutor(a.jobs) as ex:
-        results = list(ex.map(lambda j: run_one(j[0], j[1], a.max_seconds, out / "logs", extra, a.script), jobs))
+        results = list(ex.map(lambda j: run_one(j[0], j[1], cap[j[0]], out / "logs", extra, a.script), jobs))
+    for r in results:
+        r["max_seconds"] = cap[r["mission"]]
     results.sort(key=lambda r: (r["mission"], r["seed"]))
     (out / "results.json").write_text(json.dumps(results, indent=1) + "\n")
     git = lambda *c: subprocess.run(["git", *c], cwd=ROOT, capture_output=True, text=True).stdout.strip()
@@ -145,7 +158,8 @@ def main() -> int:
         "commit": git("rev-parse", "--short", "HEAD"), "dirty": git("status", "--short", "game/scripts", "game/data", "game/tools").splitlines(),
         "scripts_diff_sha1": hashlib.sha1(git("diff", "HEAD", "--", "game/scripts").encode()).hexdigest()[:10],
         "bot_sha1": hashlib.sha1((GAME / a.script.removeprefix("res://")).read_bytes()).hexdigest()[:10],
-        "seeds": seeds, "max_seconds": a.max_seconds, "bot_args": extra, "jobs": a.jobs}, indent=1) + "\n")
+        "seeds": seeds, "max_seconds": a.max_seconds, "max_seconds_by_mission": cap, "bot_args": extra,
+        "jobs": a.jobs}, indent=1) + "\n")
     print(f"done in {time.time() - t0:.0f} s -> {out / 'results.json'}\n")
     print(f"{'mission':8} " + " ".join(f"s{s:<6}" for s in seeds) + " won")
     by = {}
@@ -157,7 +171,7 @@ def main() -> int:
             r = by[m][s]
             cells.append(f"{r['result'][:1]}{(r['t_end'] or 0):>5}s")
         won = sum(1 for s in seeds if by[m][s]["result"] == "WON")
-        print(f"{m:8} " + " ".join(cells) + f"  {won}/{len(seeds)}")
+        print(f"{m:8} " + " ".join(cells) + f"  {won}/{len(seeds)}" + (f"  (cap {cap[m]} s)" if cap[m] != a.max_seconds else ""))
     wins = sum(1 for r in results if r["result"] == "WON")
     errs = sum(1 for r in results if r["result"] == "ERROR")
     print(f"\nwon {wins}/{len(results)} runs; {sum(1 for m in missions if any(by[m][s]['result']=='WON' for s in seeds))}"
