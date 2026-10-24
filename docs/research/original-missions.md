@@ -440,6 +440,11 @@ KC: "Liao also tends to send you on UNSUPPORTED missions, meaning you have minim
       doesn't out-gun, jump-captures controls under fire, lures attackers into captured turrets and
       hops to bays. It now takes the airport every seed and Gun Alpha (and sometimes Omega) in most of
       them, but no run has won yet. The losses come at the Gun Alpha fort (Hunchback plus turrets).
+    - **Later on 2026-10-24:** two more changes. The bot breaks contact back to its last quiet spot
+      when no captured fort can turn a fight, and it no longer walks away from guards standing at
+      their posts (only from moving patrols). The Lao Hu now survives to 1800 s in 3/3 seeds. Over
+      4000 s, one seed won at 3943 s (every objective), one was alive with 5 enemies left, and one
+      was lost at 2102 s with 3 enemies left. The stealth line is slow: about an hour of play.
   - The 31 patrols are mostly vehicles that a player meets a few at a time.
   - With bays and turrets, "sparser patrols" is probably unnecessary.
 - **Sourcing:** well-sourced (3 guides agree).

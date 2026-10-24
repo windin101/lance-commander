@@ -342,7 +342,13 @@ func _orders(sm: SimMission) -> void:
 		# what we must take) is fought.
 		var engaged := threats.filter(func(u): return lance.has(u.order_target) or float(u.last_attacked_time) > w.time - 15.0 \
 			and u.last_attacker != null and lance.has(u.last_attacker))
-		var near := threats.filter(func(u): return not engaged.has(u) and lance.any(func(m): return m.distance_to(u.position) <= AVOID_M))
+		# a unit standing at its post (a fort's guards) is not a patrol to walk away from: avoiding
+		# it for good stalled mc2_14 short of Gun Beta for 15 minutes
+		for u in threats:
+			if u.speed > 0.5:
+				_moved[u.id] = w.time
+		var near := threats.filter(func(u): return not engaged.has(u) and w.time - float(_moved.get(u.id, -INF)) < 30.0 \
+			and lance.any(func(m): return m.distance_to(u.position) <= AVOID_M))
 		# "avoid or ambush them one at a time" [KC]: a group we out-gun that is alone, or that has
 		# sat across our way for a minute, is ambushed instead
 		if not near.is_empty():
@@ -373,7 +379,9 @@ func _orders(sm: SimMission) -> void:
 					break
 			if _verbose and w.time - _avoid_said >= 20.0:
 				_avoid_said = w.time
-				print("t=%6.1f  AVOID %d patrol units (nearest %s)" % [w.time, near.size(), near[0].name])
+				print("t=%6.1f  AVOID %d patrol units (nearest %s at %.0f m, avoided %.0f s, speed %.1f, in arcs %s/%s)" % [w.time,
+					near.size(), near[0].name, near[0].distance_to(centre), float(_avoided.get(near[0].id, 0.0)), near[0].speed,
+					not _covering(w, centre).is_empty(), near.any(func(u): return not _covering(w, u.position).is_empty())])
 			for m in lance:
 				if m.order != SimWorld.Order.MOVE or m.path.is_empty() or (_goal.get(m.id, Vector2.INF) as Vector2).distance_to(spot) > 60.0:
 					_order(sm, m, "move", spot)
@@ -398,9 +406,26 @@ func _orders(sm: SimMission) -> void:
 			if theirs > 0.8 * ours or hp < 0.5:
 				var forts := w.units.filter(func(u): return u is SimTurret and u.team == 0 and u.active and not u.is_destroyed() \
 					and u.num_weapons > 0 and u.position.distance_to(centre) <= 700.0)
+				forts.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
+				var fort_dps := 0.0
+				for f in forts:
+					if f.position.distance_to(forts[0].position) <= 120.0:
+						fort_dps += _dps(f)
+				if (forts.is_empty() or fort_dps + ours < theirs) and _quiet_spot != null \
+						and (_quiet_spot as Vector2).distance_to(centre) > 150.0:
+					# no fort of ours strong enough to turn it: break contact back the way we came
+					var q: Vector2 = _quiet_spot
+					if _verbose and w.time - _avoid_said >= 20.0:
+						_avoid_said = w.time
+						print("t=%6.1f  BREAK %d attackers to (%.0f, %.0f) (dps %.0f vs %.0f + forts %.0f, health %.0f%%)" % [w.time,
+							engaged.size(), q.x, q.y, theirs, ours, fort_dps, 100.0 * hp])
+					for m in lance:
+						if m.order != SimWorld.Order.MOVE or m.path.is_empty() or (_goal.get(m.id, Vector2.INF) as Vector2).distance_to(q) > 40.0:
+							_order(sm, m, "move", w.map.nearest_walkable(q, m.hover))
+							_goal[m.id] = q
+					return
 				if not forts.is_empty():
 					var fc := _centre(forts)
-					forts.sort_custom(func(a, b): return a.position.distance_to(centre) < b.position.distance_to(centre))
 					var near_fort: Vector2 = forts[0].position
 					if centre.distance_to(near_fort) > 70.0:
 						var spot2: Vector2 = w.map.nearest_walkable(near_fort + (fc - near_fort).normalized() * 30.0)
@@ -565,6 +590,7 @@ var _avoid_said := -INF
 var _quiet_spot = null  # Vector2: the last place the stealth bot stood with no enemy in sight or fort arc
 var _arcs := false  # ROUTE_PLANS "arcs": no chasing into enemy forts' arcs
 var _held := {}  # unit id -> its attack order fires from where it stands
+var _moved := {}  # unit id -> last time the stealth bot saw it moving
 var _avoided := {}  # unit id -> seconds the stealth bot has spent walking away from it
 var _hold_at = null  # Vector2: the base a HOLD_PLANS mission holds, until it has been quiet
 var _hold_r := 0.0
