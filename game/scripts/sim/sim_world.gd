@@ -103,7 +103,7 @@ func unit_by_part(part_index: int) -> SimUnit:
 func order_move(m: SimUnit, goal: Vector2, run := true) -> bool:
 	if _after_landing(m, func(): order_move(m, goal, run)):
 		return true
-	var path := map.find_path(m.position, map.nearest_walkable(goal, m.travel()), m.travel())
+	var path := map.find_path(m.position, map.nearest_walkable(goal, m.travel()), m.travel(), m.avoid_mines)
 	m.order = Order.MOVE
 	m.order_target = null
 	m.move_run = run
@@ -475,7 +475,7 @@ func _current_goal(m: SimUnit) -> Variant:
 			m.path = PackedVector2Array()
 			return null
 		if m.path.is_empty() or time >= m.repath_time:
-			m.path = map.find_path(m.position, map.nearest_walkable(m.attack_point, m.travel()), m.travel())
+			m.path = map.find_path(m.position, map.nearest_walkable(m.attack_point, m.travel()), m.travel(), m.avoid_mines)
 			m.path_index = 0
 			m.repath_time = time + 2.0
 	if m.order == Order.ATTACK:
@@ -498,7 +498,7 @@ func _current_goal(m: SimUnit) -> Variant:
 					# that has one (the attack tactic repositions on NOT_LOCKED)
 					m.path = _sight_position_path(m, t)
 				else:
-					m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel())
+					m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel(), m.avoid_mines)
 				if m.path.is_empty():
 					m.path = _firing_position_path(m, t)
 				m.path_index = 0
@@ -539,12 +539,12 @@ func _guard_goal(m: SimUnit) -> Variant:
 			m.path = PackedVector2Array()
 			return null
 		if m.path.is_empty() or time >= m.repath_time:
-			m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel())
+			m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel(), m.avoid_mines)
 			m.path_index = 0
 			m.repath_time = time + 2.0
 	elif m.position.distance_to(anchor) > ARRIVE_M * 4.0:
 		if m.path.is_empty() or time >= m.repath_time:
-			m.path = map.find_path(m.position, map.nearest_walkable(anchor, m.travel()), m.travel())
+			m.path = map.find_path(m.position, map.nearest_walkable(anchor, m.travel()), m.travel(), m.avoid_mines)
 			m.path_index = 0
 			m.repath_time = time + 2.0
 	else:
@@ -782,7 +782,7 @@ func _attack_goal_path(m: SimUnit, t: SimUnit) -> void:
 	if map.cell_of(m.attack_goal) == map.cell_of(m.position):
 		m.path = PackedVector2Array()
 		return
-	m.path = map.find_path(m.position, m.attack_goal, m.travel())
+	m.path = map.find_path(m.position, m.attack_goal, m.travel(), m.avoid_mines)
 	if m.path.is_empty():
 		m.path = _firing_position_path(m, t)
 
@@ -819,11 +819,11 @@ func _sight_position_path(m: SimUnit, t: SimUnit) -> PackedVector2Array:
 				cands.append(p)
 	cands.sort_custom(func(a, b): return a.distance_to(m.position) < b.distance_to(m.position))
 	for p in cands.slice(0, 6):
-		var path := map.find_path(m.position, p, m.travel())
+		var path := map.find_path(m.position, p, m.travel(), m.avoid_mines)
 		if not path.is_empty():
 			return path
 	# no spot with a line of fire in reach: close in on the target itself
-	return map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel())
+	return map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel(), m.avoid_mines)
 
 
 ## A target with no path to its cell (an island past deep water, a walled pocket): walk
@@ -838,7 +838,7 @@ func _firing_position_path(m: SimUnit, t: SimUnit) -> PackedVector2Array:
 				ring.append(p)
 		ring.sort_custom(func(a, b): return a.distance_to(m.position) < b.distance_to(m.position))
 		for p in ring:
-			var path := map.find_path(m.position, p, m.travel())
+			var path := map.find_path(m.position, p, m.travel(), m.avoid_mines)
 			if not path.is_empty():
 				return path
 	return PackedVector2Array()

@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T18:02:51+13:00",
+  "updated": "2026-10-24T18:27:06+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1631,8 +1631,8 @@
       "phase": 8,
       "status": "open",
       "created": "2026-10-23T20:13:52+13:00",
-      "updated": "2026-10-24T18:02:51+13:00",
-      "note": "2026-10-24 fort pass (6 seeds each), against the committed full-sweep bot:\n- mc2_03 3/6 -> 6/6\n- mc2_08 0/6 -> 4/6\n- mc2_09 0/6 -> 4/6\n- mc2_11 0/6 -> 0/6 (no more 1800 s stalls but one)\n- mc2_13 0/6 -> 0/6\nChanges:\n1. RP buildings, controls and bays count as reachable when the capture goal (the cell SimAbl._capture_goal picks by the building) has a path, not just the centre cell. The footprint walled the centre in, so mc2_08's and mc2_11's RP buildings were never taken.\n2. A capture progress watch leaves a target alone for 3 min when the lance gets no closer in 60 s (mc2_11 stood 10 minutes 259 m short).\n3. mc2_08 keeps a repair truck's worth of RP from salvage (ROUTE_PLANS rp_reserve 6000). As a default the same reserve cost mc2_03 6/6 -> 1/6: its salvaged mechs fight for it.\n4. Game fix I120: legless mechs eject.\nTried and dropped: arcs discipline as a default (no gain on 03/08/09/11)."
+      "updated": "2026-10-24T18:27:06+13:00",
+      "note": "2026-10-24 mc2_11 pass. Port check: the sensor net works as in the original (the Grp2 brains attack anything the team senses within 525 m; ECM gives no signature, Contact.cpp:257-350). Bot:\n- ECM run: the Men Shen kills both towers alone by about 190 s while the others wait outside 550 m;\n- fort-job hysteresis: it had swayed 140 s between a control and an ordnance truck;\n- jump-capture across water or walls (a jumper walks to a launch spot and jumps in), and targets with no walking path count as reachable if a jumper can launch to them;\n- player units path round laid mines (SimUnit.avoid_mines; the original's pathfinder doesn't, so the AI keeps walking through them): 0 mine hits, was 5;\n- arcs discipline on mc2_11.\nResult: 0/3 (625/1271/1144 s). The Steiner Weapons Facility is taken in 1 seed; LRM pop-up and AC forts, then the Steiner HQ guard, finish the lance. The island RP is 171 m from the nearest walkable cell, beyond the 128 m jump range."
     },
     {
       "id": "I100",
@@ -2012,11 +2012,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-20T06:34:17+13:00",
-      "who": "conductor",
-      "msg": "issue I68 fixed: Lee approved the look (D6, 2026-10-20)"
-    },
     {
       "at": "2026-10-20T06:34:18+13:00",
       "who": "conductor",
@@ -3011,6 +3006,11 @@
       "at": "2026-10-24T18:02:51+13:00",
       "who": "conductor",
       "msg": "issue I99 updated: note \u2014 2026-10-24 fort pass (6 seeds each), against the committed full-sweep bot:\n- mc2_03 3/6 -> 6/6\n- mc2_08 0/6 -> 4/6\n- mc2_09 0/6 -> 4/6\n- mc2_11 0/6 -> 0/6 (no more 1800 s stalls but one)\n- mc2_13 0/6 -> 0/6\nChanges:\n1. RP buildings, controls and bays count as reachable when the capture goal (the cell SimAbl._capture_goal picks by the building) has a path, not just the centre cell. The footprint walled the centre in, so mc2_08's and mc2_11's RP buildings were never taken.\n2. A capture progress watch leaves a target alone for 3 min when the lance gets no closer in 60 s (mc2_11 stood 10 minutes 259 m short).\n3. mc2_08 keeps a repair truck's worth of RP from salvage (ROUTE_PLANS rp_reserve 6000). As a default the same reserve cost mc2_03 6/6 -> 1/6: its salvaged mechs fight for it.\n4. Game fix I120: legless mechs eject.\nTried and dropped: arcs discipline as a default (no gain on 03/08/09/11)."
+    },
+    {
+      "at": "2026-10-24T18:27:06+13:00",
+      "who": "conductor",
+      "msg": "issue I99 updated: note \u2014 2026-10-24 mc2_11 pass. Port check: the sensor net works as in the original (the Grp2 brains attack anything the team senses within 525 m; ECM gives no signature, Contact.cpp:257-350). Bot:\n- ECM run: the Men Shen kills both towers alone by about 190 s while the others wait outside 550 m;\n- fort-job hysteresis: it had swayed 140 s between a control and an ordnance truck;\n- jump-capture across water or walls (a jumper walks to a launch spot and jumps in), and targets with no walking path count as reachable if a jumper can launch to them;\n- player units path round laid mines (SimUnit.avoid_mines; the original's pathfinder doesn't, so the AI keeps walking through them): 0 mine hits, was 5;\n- arcs discipline on mc2_11.\nResult: 0/3 (625/1271/1144 s). The Steiner Weapons Facility is taken in 1 seed; LRM pop-up and AC forts, then the Steiner HQ guard, finish the lance. The island RP is 171 m from the nearest walkable cell, beyond the 128 m jump range."
     }
   ],
   "choices": [

@@ -35,6 +35,7 @@ var mines := PackedByteArray()  # per cell: 0 none, 1 laid, 2 spent (MapCell min
 var _astar: AStarGrid2D
 var _astar_hover: AStarGrid2D
 var _astar_offmap: Dictionary = {}  # hover -> grid with off-map cells open (movers that start off the map)
+var _astar_mines: AStarGrid2D = null  # the ground grid with laid mines solid (SimUnit.avoid_mines)
 
 
 static func load_mission(mission: String, base_dir: String = "res://data/maps") -> SimMap:
@@ -78,6 +79,8 @@ func mine_at(cell: Vector2i) -> int:
 func set_mine(cell: Vector2i, state: int) -> void:
 	if in_bounds(cell):
 		mines[cell.y * cells_per_side + cell.x] = state
+		if _astar_mines != null and is_walkable(cell, false):
+			_astar_mines.set_point_solid(cell, state == 1)
 
 
 # --- line of sight (Team::lineOfSight, team.cpp:1071-1260) ------------------------
@@ -255,7 +258,11 @@ func _build_grid(hover: bool, travel_offmap: bool = false) -> AStarGrid2D:
 
 ## Path of world positions (cell centres) from start to goal, empty if none.
 ## Ends exactly at the goal when the goal cell is reachable.
-func find_path(start: Vector2, goal: Vector2, hover = false) -> PackedVector2Array:
+## avoid_mines: route round laid mines (map mine state 1), as a player steers by hand round the
+## minefields everyone can see; the original's pathfinder never does (its avoidMines local is set
+## but unread, MCLib/Move.cpp:4391), so this is off for every unit unless SimUnit.avoid_mines.
+## Falls back to the plain path when no mine-free one exists.
+func find_path(start: Vector2, goal: Vector2, hover = false, avoid_mines := false) -> PackedVector2Array:
 	if hover is int and hover == AIR:
 		return PackedVector2Array([goal]) if in_bounds(cell_of(goal)) else PackedVector2Array()
 	hover = bool(hover)
@@ -264,6 +271,21 @@ func find_path(start: Vector2, goal: Vector2, hover = false) -> PackedVector2Arr
 	if hover and _astar_hover == null:
 		_astar_hover = _build_grid(true)
 	var grid := _astar_hover if hover else _astar
+	if avoid_mines and not hover:
+		if _astar_mines == null:
+			_astar_mines = _build_grid(false)
+			for i in mines.size():
+				if mines[i] == 1:
+					var mc := Vector2i(i % cells_per_side, i / cells_per_side)
+					if is_walkable(mc, false):
+						_astar_mines.set_point_solid(mc, true)
+		var safe := find_path(start, goal, false, false) if mine_at(cell_of(goal)) == 1 else _path_on(_astar_mines, start, goal, false)
+		if not safe.is_empty():
+			return safe
+	return _path_on(grid, start, goal, hover)
+
+
+func _path_on(grid: AStarGrid2D, start: Vector2, goal: Vector2, hover: bool) -> PackedVector2Array:
 	var a := cell_of(start)
 	var b := cell_of(goal)
 	var out := PackedVector2Array()
