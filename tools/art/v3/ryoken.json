@@ -157,19 +157,19 @@
  ],
  "glass_outlines": [
   {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-ryoken/outline_sheets/sheet_q34.png",
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-ryoken/outline_drawn/sheet_q34.png",
    "view": "q34"
   },
   {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-ryoken/outline_sheets/sheet_rside.png",
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-ryoken/outline_drawn/sheet_rside.png",
    "view": "rside"
   },
   {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-ryoken/outline_sheets/sheet_side.png",
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-ryoken/outline_drawn/sheet_side.png",
    "view": "side"
   },
   {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-ryoken/outline_sheets/sheet_top.png",
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-ryoken/outline_drawn/sheet_top.png",
    "view": "top"
   }
  ],

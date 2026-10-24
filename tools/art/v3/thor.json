@@ -2227,15 +2227,8 @@
    "r": 450
   }
  },
- "glass_outlines": [
-  {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-thor/outline_sheets/sheet_q34.png",
-   "view": "q34"
-  },
-  {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-thor/outline_sheets/sheet_top.png",
-   "view": "top"
-  }
- ],
- "glass_from_v2": false
+ "glass_outlines": [],
+ "glass_from_v2": false,
+ "glass_faces_file": "/mnt/nvme1n1p1/mc2-rework/v3/thor/glass_faces_baked.npy",
+ "_glass_note": "Lee's outline sheets were overwritten by a review rerun (fixed in v3_paint.make_sheets); glass is recovered from the approved bake"
 }

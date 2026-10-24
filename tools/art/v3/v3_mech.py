@@ -320,6 +320,9 @@ def stage_fit(cfg, work, _orig=None):
         V, F, par = C.split_long_edges(V, F, float(cfg["max_edge_mm"]), parent=np.arange(len(F)))
         li = li[par]
     names = f["node_names"]
+    if cfg.get("fold"):
+        V, F, src_f = fold_parts(V, F, cfg["fold"])
+        li = li[src_f]
     np.savez(work / "sculpt.npz", P=V, F=F)
     np.save(work / "v2lab.npy", np.array([names[i] for i in li]))
     xf = {names[int(k)]: np.array(v) for k, v in f["xform"].items()}
@@ -334,6 +337,90 @@ def stage_fit(cfg, work, _orig=None):
            "turn_deg": {p_: float(np.degrees(np.arccos(np.clip((np.trace(M_[:3, :3]) - 1) / 2, -1, 1)))) for p_, M_ in xf.items()}}
     (work / "fit.json").write_text(json.dumps(fit, indent=1))
     print(f"fit (from v2 {v2.name}): {len(F)} faces, {len(parts)} parts, ground drop {drop:.0f} mm")
+
+
+
+def fold_parts(V, F, folds):
+    """Geometry edits on the sculpt (Lee's calls): each fold {"box": {min, max}} selects the faces whose vertices all
+    lie in the box (a lid, a hatch), detaches them (own vertex copies), turns them about the X axis through their
+    hinge (the box's lower-front end, found from the selection's long axis in Y-Z) until they hang straight down
+    (lid closed over a front face), then moves them so their back sits at "rest_y" (the face they close over) with
+    the old hinge end at "top_z"."""
+    V = V.copy()
+    src_f = np.arange(len(F))
+    for fd in folds:
+        lo, hi = np.asarray(fd["box"]["min"], float), np.asarray(fd["box"]["max"], float)
+        inb = np.all((V >= lo) & (V <= hi), axis=1)
+        sel = inb[F].all(1)
+        if "hinge" in fd:   # a true hinge: the lid is what lies beyond the hinge plane along the lid
+            import v3_stages as VS
+            H = np.asarray(fd["hinge"], float); dd = np.asarray(fd["dir"], float); dd /= np.linalg.norm(dd)
+            def side(X, H=H, dd=dd, lo=lo, hi=hi):
+                inside = np.all((X >= lo) & (X <= hi), axis=-1)
+                return np.where(inside, (X[..., 1:] - H) @ dd, -1e6)
+            # conformal split along the hinge plane (straight lid edge): rest = side < 0, lid = side > 0
+            Vr, Fr, _, sr = VS.clip_outside(V, F, lambda X: -side(X), src=src_f)   # keeps f >= 0
+            Vl, Fl, _, sl = VS.clip_outside(V, F, side, src=src_f)
+            V = np.r_[Vr, Vl]; F = np.r_[Fr, Fl + len(Vr)]; src_f = np.r_[sr, sl]
+            inb = np.zeros(len(V), bool); inb[len(Vr):] = True
+            sel = np.r_[np.zeros(len(Fr), bool), np.ones(len(Fl), bool)]
+        vs = np.unique(F[sel])
+        newi = len(V) + np.arange(len(vs))
+        remap = -np.ones(len(V), int); remap[vs] = newi
+        Vn = V[vs].copy()
+        F = F.copy(); F[sel] = remap[F[sel]]
+        yz = Vn[:, 1:]; mu = yz.mean(0)
+        w, vec = np.linalg.eigh(np.cov((yz - mu).T)); d = vec[:, 1]
+        if d[1] < 0:
+            d = -d
+        ang = np.arctan2(-1.0, 0.0) - np.arctan2(d[1], d[0])          # long axis -> straight down
+        c, s_ = np.cos(ang), np.sin(ang)
+        bot = mu + d * ((yz - mu) @ d).min()
+        if "hinge" in fd:
+            d = np.asarray(fd["dir"], float); d /= np.linalg.norm(d)
+            ang = np.arctan2(-1.0, 0.0) - np.arctan2(d[1], d[0]) + np.radians(fd.get("extra_deg", 0.0))
+            c, s_ = np.cos(ang), np.sin(ang)
+            bot = np.asarray(fd["hinge"], float)
+        q = yz - bot
+        yz2 = np.c_[q[:, 0] * c - q[:, 1] * s_, q[:, 0] * s_ + q[:, 1] * c] + bot
+        if "rest_y" in fd:
+            yz2[:, 0] += float(fd["rest_y"]) - yz2[:, 0].max()
+        if "top_z" in fd:
+            yz2[:, 1] += float(fd["top_z"]) - yz2[:, 1].max()
+        Vn[:, 1:] = yz2
+        V = np.r_[V, Vn]
+        print(f"fit: fold {fd.get('name', '')}: {int(sel.sum())} faces turned {np.degrees(ang):.0f} deg")
+        if "hinge_bar_r" in fd:
+            # the kit's interleaved knuckles can't be split cleanly: drop everything near the hinge axis and model
+            # a plain hinge bar (a capped cylinder along X) in its place
+            import v3_stages as VS
+            H = np.asarray(fd["hinge"], float)
+            Cf = V[F].mean(1)
+            inx = (Cf[:, 0] >= lo[0]) & (Cf[:, 0] <= hi[0])
+            Rc = float(fd.get("hinge_clear_r", 200))
+            near = (np.linalg.norm(Cf[:, 1:] - H, axis=1) < Rc) & inx
+            donor = int(src_f[np.flatnonzero(near)[0]]) if near.any() else int(src_f[np.flatnonzero(inx)[0]])
+            xr = V[F[inx]][..., 0]
+            x0, x1 = float(xr.min()) + 20, float(xr.max()) - 20
+            # a conformal cut along the cylinder (clean circular edges), only within the box's x range
+            def fcyl(X, H=H, Rc=Rc, x0=x0, x1=x1):
+                return np.maximum(np.linalg.norm(X[..., 1:] - H, axis=-1) - Rc, np.maximum(x0 - X[..., 0], X[..., 0] - x1))
+            V, F, _, src_f = VS.clip_outside(V, F, fcyl, src=src_f)
+            r = float(fd["hinge_bar_r"]); n = 32
+            a_ = np.linspace(0, 2 * np.pi, n, endpoint=False)
+            ring = np.c_[r * np.cos(a_) + H[0], r * np.sin(a_) + H[1]]
+            b0 = len(V)
+            Vc = np.r_[np.c_[np.full(n, x0), ring], np.c_[np.full(n, x1), ring], [[x0, *H], [x1, *H]]]
+            Fc = []
+            for i in range(n):
+                j = (i + 1) % n
+                Fc += [[b0 + i, b0 + n + j, b0 + j], [b0 + i, b0 + n + i, b0 + n + j],
+                       [b0 + 2 * n, b0 + i, b0 + j], [b0 + 2 * n + 1, b0 + n + j, b0 + n + i]]
+            V = np.r_[V, Vc]; F = np.r_[F, np.array(Fc)]
+            src_f = np.r_[src_f, np.full(len(Fc), donor)]
+            print(f"fit: hinge bar r {r:.0f} mm replaces {int(near.sum())} faces")
+    return V, F, src_f
+
 
 
 if __name__ == "__main__":

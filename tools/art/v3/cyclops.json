@@ -211,15 +211,15 @@
  ],
  "glass_outlines": [
   {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-cyclops/outline_sheets/sheet_front.png",
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-cyclops/outline_drawn/sheet_front.png",
    "view": "front"
   },
   {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-cyclops/outline_sheets/sheet_q34.png",
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-cyclops/outline_drawn/sheet_q34.png",
    "view": "q34"
   },
   {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-cyclops/outline_sheets/sheet_side.png",
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-cyclops/outline_drawn/sheet_side.png",
    "view": "side"
   }
  ]

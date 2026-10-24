@@ -180,11 +180,11 @@
  ],
  "glass_outlines": [
   {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-highlander/outline_sheets/sheet_front.png",
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-highlander/outline_drawn/sheet_front.png",
    "view": "front"
   },
   {
-   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-highlander/outline_sheets/sheet_q34.png",
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-highlander/outline_drawn/sheet_q34.png",
    "view": "q34"
   }
  ],

@@ -276,7 +276,7 @@ def classify_texels(cfg, work, part_name, low_kind, src, hkind, XS, N):
         gl = glass_faces_v3(cfg, work)
         if gl is not None:
             gt = (src >= 0) & gl[np.clip(src, 0, None)] & ~hidden
-            if cfg.get("glass_outlines") and cfg.get("glass_hull", True):
+            if (cfg.get("glass_outlines") or cfg.get("glass_faces_file")) and cfg.get("glass_hull", True):
                 gt = hull_fill(gt, work) & ~hidden
                 gt = vote_smooth(gt, work, int(cfg.get("glass_vote_px", 2))) & ~hidden
                 if cfg.get("glass_low_faces", True):
@@ -625,13 +625,20 @@ def make_sheets(work, out_dir, size=1400):
     out_dir = Path(out_dir); out_dir.mkdir(parents=True, exist_ok=True)
     z = np.load(work / "sculpt.npz")
     np.savez(work / "sheet_plain.npz", P=z["P"], F=z["F"], col=np.full((len(z["F"]), 3), 0.72))
-    C.blender("views", work / "sheet_plain.npz", out_dir / "sheet", "--views", SHEET_VIEWS, "--size", str(size))
+    # never overwrite a sheet an artist has drawn on (2026-10-25: a review rerun wiped Lee's Thor and Catapult
+    # outlines); plain sheets are rendered to a scratch prefix and copied only where no strokes exist
+    drawn = [v for v in SHEET_VIEWS.split(",") if (out_dir / f"sheet_{v}.png").exists() and has_strokes(out_dir / f"sheet_{v}.png")]
+    if drawn:
+        print(f"  sheets: kept the drawn sheets {drawn}; not re-rendering any (camera must match them)")
+    else:
+        C.blender("views", work / "sheet_plain.npz", out_dir / "sheet", "--views", SHEET_VIEWS, "--size", str(size))
     idx = np.arange(len(z["F"])) + 1
     col = np.c_[(idx >> 16) & 255, (idx >> 8) & 255, idx & 255] / 255.0
     np.savez(work / "sheet_fid.npz", P=z["P"], F=z["F"], col=srgb_to_lin(col))   # the render writes sRGB: exact bytes
     C.blender("views", work / "sheet_fid.npz", work / "sheetfid", "--views", SHEET_VIEWS, "--size", str(size), "--flat", "1")
     import shutil
-    shutil.copy(out_dir / "sheet.json", work / "sheetfid.json")
+    if (out_dir / "sheet.json").exists():
+        shutil.copy(out_dir / "sheet.json", work / "sheetfid.json")
     return out_dir
 
 
@@ -667,6 +674,12 @@ def glass_faces_v3(cfg, work):
         return _PATCH_CACHE[key]
     out = None
     z = np.load(work / "sculpt.npz"); P, F = z["P"], z["F"]
+    if cfg.get("glass_faces_file"):   # glass recovered from an earlier bake (the outlines it came from were lost)
+        out = np.load(Path(cfg["glass_faces_file"]).expanduser())
+        if (work / "glass_extra.npy").exists() and len(np.load(work / "glass_extra.npy")) == len(out):
+            out = out | np.load(work / "glass_extra.npy")
+        _PATCH_CACHE[key] = out
+        return out
     if cfg.get("glass_from_v2"):
         from scipy.spatial import cKDTree
         v2 = Path(cfg["from_v2"])
@@ -842,3 +855,10 @@ def vote_smooth(m, work, r=2, iters=2):
         num = ndi.uniform_filter(img * cw, k); den = ndi.uniform_filter(cw, k)
         img = ((num / np.maximum(den, 1e-6)) > 0.5).astype(np.float32) * cw
     return img.ravel()[ii] > 0.5
+
+
+def has_strokes(png, minpx=30):
+    from PIL import Image
+    a = np.asarray(Image.open(png).convert("RGB")).astype(int)
+    blue = (a[..., 2] > 90) & (a[..., 2] - a[..., 0] > 50) & (a[..., 2] - a[..., 1] > 40)
+    return int(blue.sum()) > minpx

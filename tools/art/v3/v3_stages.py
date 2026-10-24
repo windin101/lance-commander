@@ -1470,7 +1470,12 @@ def stage_canopy(cfg, work):
         a = np.asarray(Image.open(f).convert("RGB")).astype(int)
         blue = (a[..., 2] > 90) & (a[..., 2] - a[..., 0] > 50) & (a[..., 2] - a[..., 1] > 40)
         if blue.sum() > 30:
-            outs.append({"png": str(f), "view": f.stem[len("sheet_"):]})
+            keep = R / "outline_drawn"; keep.mkdir(exist_ok=True)   # a safe copy of the artist's drawing
+            import shutil
+            if not (keep / f.name).exists() or (keep / f.name).stat().st_mtime < f.stat().st_mtime:
+                shutil.copy2(f, keep / f.name)
+                shutil.copy2(R / "outline_sheets" / "sheet.json", keep / "sheet.json")
+            outs.append({"png": str(keep / f.name), "view": f.stem[len("sheet_"):]})
     if not outs:
         print("  canopy: no outlines drawn yet"); return
     p = Path(cfg["_path"]); d = json.loads(p.read_text())
@@ -1541,7 +1546,7 @@ def stage_flatten(cfg, work):
     from scipy.sparse.csgraph import connected_components
     from scipy.spatial import Delaunay, ConvexHull, cKDTree
     pts = cfg.get("flatten_panes", [])
-    if not pts:
+    if not pts and not cfg.get("pane_flatten"):
         return
     zp = work / "sculpt.npz"
     z = np.load(zp); P, F = z["P"].copy(), z["F"]
@@ -1556,6 +1561,29 @@ def stage_flatten(cfg, work):
     Cn = P[F].mean(1)
     gi = np.flatnonzero(g); tree = cKDTree(Cn[gi])
     extra = np.zeros(n, bool)
+    for item in cfg.get("pane_flatten", []):
+        # a pane whose recess floor is faceted or carries a raised inner plate (Catapult, 2026-10-25): every vertex
+        # inside the pane's opening (convex hull of the glass near p, in its plane, 3 % inset) that sits below the
+        # frame rim is pressed onto one floor plane; those faces all become glass
+        p = np.asarray(item["p"], float); mr = float(item.get("merge_r", 400))
+        gsel = g & (np.linalg.norm(Cn - p, axis=1) < mr)
+        V = P[np.unique(F[gsel])]; mu = V.mean(0)
+        w, vec = np.linalg.eigh(np.cov((V - mu).T)); nrm, e1, e2 = vec[:, 0], vec[:, 2], vec[:, 1]
+        N = np.cross(P[F[:, 1]] - P[F[:, 0]], P[F[:, 2]] - P[F[:, 0]])
+        if (N[gsel] @ nrm).sum() < 0:
+            nrm = -nrm
+        Q = np.c_[(V - mu) @ e1, (V - mu) @ e2]
+        hull = Delaunay(Q[ConvexHull(Q).vertices] * float(item.get("inset", 0.97)))
+        floor = float(np.percentile((V - mu) @ nrm, float(item.get("floor_pct", 20))))
+        h = (P - mu) @ nrm
+        q = np.c_[(P - mu) @ e1, (P - mu) @ e2]
+        rim = float(item.get("rim_mm", 40))
+        mv = np.flatnonzero((hull.find_simplex(q) >= 0) & (h < floor + rim) & (h > floor - 3 * rim) &
+                            (np.linalg.norm(P - p, axis=1) < mr * 1.5))
+        P[mv] -= np.outer(h[mv] - floor, nrm)
+        fin = np.isin(F, mv).all(1)
+        extra |= fin
+        print(f"  pane flatten at {np.round(p).tolist()}: {len(mv)} vertices onto the floor, {int(fin.sum())} faces glass")
     for item in pts:
         p = np.asarray(item["p"], float); r = float(item.get("r", 110))
         c = comp[gi[tree.query(p)[1]]]
@@ -1578,7 +1606,7 @@ def stage_flatten(cfg, work):
     if not (work / "sculpt_orig.npz").exists():
         import shutil; shutil.copy(zp, work / "sculpt_orig.npz")
     np.savez(zp, P=P, F=F)
-    np.save(work / "glass_extra.npy", np.zeros(len(F), bool))
+    np.save(work / "glass_extra.npy", extra if cfg.get("pane_flatten") else np.zeros(len(F), bool))
 
 
 def stage_glassdensity(cfg, work):

@@ -231,6 +231,7 @@ Tools: `tools/art/v3/v3_mech.py` (stages fit, segment, joints, lowpoly, bake, pa
 | `v3/mechs/flea.*` | Syllogy, "FLE-4 Flea for Battletech", Printables 1863913, `fle-4-5_untwist.stl (untwisted copy)` (CC BY-NC-SA 4.0) | `tools/art/v3/flea.json`: laser pods and chin laser as volumes, canopy from Lee's outlines (2026-10-25), seed 17 | 43.1k tris |
 | `v3/mechs/hunchback.*` | Syllogy, "HBK-4G Hunchback for Battletech", Printables 1863925, `hbk-4g-10.stl` (CC BY-NC-SA 4.0) | `tools/art/v3/hunchback.json`: AC/20 hunch as weapon (arms stay paint), canopy from Lee's outlines (2026-10-25), seed 17 | 46.5k tris |
 | `v3/mechs/zeus.*` | Syllogy, "ZEU-5T Zeus for Battletech", Printables 1864062, `zeu-5t4.stl` (CC BY-NC-SA 4.0) | `tools/art/v3/zeus.json`: pivots read from mm-grid slices, forearm guns as weapons, canopy from Lee's outlines (2026-10-25), seed 19 | 53.0k tris |
+| `v3/mechs/catapult.*` | Syllogy, "CPLT-C1 Catapult Alternative Art for Battletech", Printables 1863887, `cplt-c1-5.stl` (CC BY-NC-SA 4.0) | `tools/art/v3/catapult.json`: LRM hatch lids folded shut about the kit's hinge axis with a plain hinge bar (`fold`), LRM boxes as whole weapons, canopy from Lee's outlines with the front pane floor flattened (`pane_flatten`) (2026-10-25), seed 17 | 50.2k tris |
 
 Weapons are marked as whole geometry (`weapons` in each config: a whole rigid part, or a volume snapped to the
 sculpt's flat panels; `outlines` back-projects blue outlines drawn on the `sheets` stage's aligned views). The

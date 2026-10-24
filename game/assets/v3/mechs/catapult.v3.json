@@ -1,0 +1,53 @@
+{
+ "model": "catapult.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "CPLT-C1 Catapult Alternative Art for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863887",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "cplt-c1-5.stl"
+ },
+ "tris": 50218,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.264,
+  "Walk": 0.613,
+  "Run": 0.689,
+  "STtoWK": 0.563,
+  "WKtoST": 0.669,
+  "WKtoRN": 0.618,
+  "RNtoWK": 0.608,
+  "LimpLeft": 0.524,
+  "LimpRight": 1.097,
+  "ParkToStand": 0.781,
+  "StandToPark": 0.78,
+  "Jump": 0.896,
+  "FallForward": 1.746,
+  "FallBackward": 1.978,
+  "GetUpFront": 1.698,
+  "GetUpBack": 1.946,
+  "HitFront": 0.333,
+  "HitBack": 0.312,
+  "HitLeft": 0.635,
+  "HitRight": 0.465
+ },
+ "paint_stats": {
+  "texels": 1983699,
+  "chip_share": 0.018129262554450045,
+  "grime_mean": 0.3570556640625,
+  "paint_share": 0.587583600132883,
+  "glass_texels": 23358,
+  "emissive_texels": 0,
+  "piping_texels": 98247,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}
