@@ -1,0 +1,53 @@
+{
+ "model": "werewolf.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Werewolf Battlemech",
+  "author": "UnrestedGuy",
+  "url": "https://www.thingiverse.com/thing:6992277",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "B-Werewolf004.stl"
+ },
+ "tris": 44046,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.285,
+  "Walk": 0.26,
+  "Run": 0.362,
+  "STtoWK": 0.182,
+  "WKtoST": 0.259,
+  "WKtoRN": 0.432,
+  "RNtoWK": 0.311,
+  "LimpLeft": 0.945,
+  "LimpRight": 0.806,
+  "ParkToStand": 0.748,
+  "StandToPark": 0.749,
+  "Jump": 0.71,
+  "FallForward": 1.455,
+  "FallBackward": 1.538,
+  "GetUpFront": 1.495,
+  "GetUpBack": 1.839,
+  "HitFront": 0.415,
+  "HitBack": 0.106,
+  "HitLeft": 0.159,
+  "HitRight": 0.431
+ },
+ "paint_stats": {
+  "texels": 1899259,
+  "chip_share": 0.04991525642368945,
+  "grime_mean": 0.4771834909915924,
+  "paint_share": 0.4657442718449669,
+  "glass_texels": 2000,
+  "emissive_texels": 0,
+  "piping_texels": 131208,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

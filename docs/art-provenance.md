@@ -200,6 +200,37 @@ installed models and only load with the dev switch on (`ArtV2`: `--art-v2`, `MC2
 Source sculpts for every adapted model are staged on `/mnt/nvme1n1p1/mc2-sources/<kind>/<name>/` (zip or STL as
 downloaded, plus `SOURCE.txt`; `tools/art/stage_sources.py`, index in `index.json`); they are not in the repository.
 
+## HD rework v3, Pipeline A (staged, `game/assets/v3/`, 2026-10-24)
+
+Approved plan (Lee, 2026-10-24) replacing v2: rigid parts on the kit's own part lines with modelled joints, one UV
+atlas, Cycles CPU bakes from the full sculpt, a hand-authored zone mask and baked wear, one shader for the paint
+scheme. Behind the `ArtV3` dev switch (`--art-v3`, `MC2_ART_V3=1`, `user://dev.cfg [art] v3=true`); v1 stays the
+default and v2 is parked. CPU only (Blender 5.2 Cycles on the CPU device, numpy/scipy, `xatlas` 0.0.11 in
+`/mnt/nvme1n1p1/mc2-rework/v3/venv`). No AI generation.
+
+Tools: `tools/art/v3/v3_mech.py` (stages fit, segment, joints, lowpoly, bake, paint, write, pose),
+`v3_stages.py`, `v3_paint.py`, `v3_blender.py`, `v3_xatlas.py`, `v3_install.sh`, `v3_gallery.sh`; settings per mech in
+`tools/art/v3/<mech>.json`. Shader `game/shaders/unit_v3.gdshader`, loader `game/scripts/world/art_v3.gd`.
+
+| asset | source (licence) | settings | result |
+|---|---|---|---|
+| `v3/mechs/atlas.glb` + `atlas_{albedo,orm,normal,ids,camo}.png`, `atlas.v3.json`, `atlas.LICENSE.md` | Syllogy, "AS7-D Atlas for Battletech", Printables 1863870, `as7-d4.stl` (CC BY-NC-SA 4.0; one fused shell) | `tools/art/v3/atlas.json`: k 259.74 game mm per sculpt mm, sculpt edges split to 150 mm, pivots read off mm-grid views and slices of the sculpt, 13 actuators (balls at waist/shoulders/upper arms/hips, drums at elbows/knees/ankles), 4 flat decks, 60k face budget, seed 7 | 50.7k tris, 14 rigid parts (one mesh per MC2 part node, 100 % on its bone), 2048 albedo/ORM/normal, 1024 ids, 512 camo, 17.7 MiB as BC7; 53 px/m on the sculpt surface |
+
+| `v3/mechs/bushwacker.*` | Syllogy, "BSW-X1, X2 & S2 Bushwacker for Battletech", Printables 1863885, `bsw-x1-4.stl` (CC BY-NC-SA 4.0) | `tools/art/v3/bushwacker.json`: fit and part labels from the v2 work (`from_v2`, the pelvis-squared, torso-yawed v2 fit), canopy carried over from Lee's v2 outline (`glass_from_v2`), actuators auto-sized (5 dropped where the pivot is outside the armour), seed 11 | 27.0k tris, 13 parts, 98 px/m |
+| `v3/mechs/werewolf.*` | UnrestedGuy, "Werewolf Battlemech", Thingiverse 6992277, `B-Werewolf004.stl` (CC BY-NC-SA 4.0) | `tools/art/v3/werewolf.json`: from the v2 work, canopy from v2, seed 13 | 44.0k tris, 12 parts, 104 px/m |
+| `v3/mechs/urbanmech.*` | Syllogy, "UM-R60 Urbanmech for Battletech", Printables 1864017, `um-r60-4.stl` (CC BY-NC-SA 4.0) | `tools/art/v3/urbanmech.json`: from the v2 work, canopy from v2, bake cage 80 mm / ray 350 mm, seed 13 | 54.3k tris, 10 parts, 140 px/m |
+
+Weapons are marked as whole geometry (`weapons` in each config: a whole rigid part, or a volume snapped to the
+sculpt's flat panels; `outlines` back-projects blue outlines drawn on the `sheets` stage's aligned views). The
+`weapons_check.png` and `canopy_check.png` renders are standard review outputs (`v3_mech.py <mech> --steps review`).
+
+Hand decisions for the Atlas (all in `atlas.json` with a reason): the AC/20 barrel and its housing ride the torso
+(canon AS7-D right-torso AC/20), the hip skirt rides the pelvis, the heel plates and cuffs above the ankle ride the
+shins, and the cockpit glass is the two skull eye slits. The launcher faces on the left chest are bare metal.
+Mesh and textures: CC BY-NC-SA 4.0 (share-alike with credit, see `atlas.LICENSE.md`). Skeleton and animations:
+MC2 Shared Source (`docs/MC2-SOURCE-EULA.md`). The textures are original work made from the bakes; no third-party
+texture was used.
+
 ## HUD paper dolls (`game/assets/ui/dolls/<unit>_doll.png`, `dolls.json`)
 
 These are derived from this project's own HD models (`game/assets/mechs/*_hd.glb`, `game/assets/vehicles/*_hd.glb`) by `tools/art/paper_doll.py` (2026-10-20), with per-unit overrides in `tools/art/paper_doll.json`. Each mask inherits the licence of the model it was drawn from: the Shared Source terms (non-commercial) for Hunyuan and CAD models, and the third-party licence recorded in `original/hd/<unit>/provenance.json` for adapted sculpts. Nothing is generated. Rerunning the tool rebuilds them exactly; `python3 -I tools/art/paper_doll.py <unit>` redoes one unit.

@@ -88,6 +88,15 @@ func _ready() -> void:
 	add_child(camera)
 	camera.make_current()
 	_focus_player()
+	if ArtV3.enabled:  # v3 pilot: one reflection probe over the start area, so bare metal reflects the battlefield
+		var probe := ReflectionProbe.new()
+		probe.name = "V3Probe"
+		probe.update_mode = ReflectionProbe.UPDATE_ONCE
+		probe.size = Vector3(900, 260, 900)
+		probe.max_distance = 1200.0
+		probe.ambient_mode = ReflectionProbe.AMBIENT_DISABLED
+		probe.position = Vector3(camera.focus.x, world.map.height_at(Vector2(camera.focus.x, -camera.focus.z)) + 60.0, camera.focus.z)
+		add_child(probe)
 	compass = CameraCompass.new()
 	compass.name = "Compass"
 	add_child(compass)
@@ -520,6 +529,9 @@ func _lighting(cam_block: Dictionary, fit_data: Dictionary = {}) -> void:
 	if fog_start > fog_full and not (is_equal_approx(fog_start, -1.0) and is_equal_approx(fog_full, -2.0)):
 		env.fog_height = fog_start * world.map.meters_per_wu
 		env.fog_height_density = 1.0 / maxf(1.0, (fog_start - fog_full) * world.map.meters_per_wu)
+	if ArtV3.enabled:  # HD rework v3 pilot lighting (dev switch): AgX, sky ambient/reflections, SSAO, TAA, a probe
+		ArtV3.dress_environment(env, 1.0)
+		ArtV3.dress_viewport(get_viewport())
 	_env = env
 	_update_haze()
 	var we := WorldEnvironment.new()

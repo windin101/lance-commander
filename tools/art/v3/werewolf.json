@@ -1,0 +1,226 @@
+{
+ "_doc": "v3 HD pipeline settings for the werewolf (tools/art/v3/v3_mech.py); fit and segmentation start from the v2 work (hd_v2.py) on the same sculpt.",
+ "name": "werewolf",
+ "folder": "mechs",
+ "stl": "~/craft/solid/mc2/stl/werewolf/B-Werewolf004.stl",
+ "source": {
+  "title": "Werewolf Battlemech",
+  "author": "UnrestedGuy",
+  "url": "https://www.thingiverse.com/thing:6992277",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "B-Werewolf004.stl"
+ },
+ "k": 187.66128722022825,
+ "base_glb": "game/assets/mechs/werewolf.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/werewolf",
+ "glass_from_v2": true,
+ "auto_actuators": true,
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 40000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 13,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 1800,
+  "chip_scale_mm": 160,
+  "exposure": {
+   "ww_llleg": 1.0,
+   "ww_rlleg": 1.0,
+   "ww_lfoot": 1.0,
+   "ww_rfoot": 1.0,
+   "ww_larm": 0.95,
+   "ww_rarm": 0.95
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 200,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05,
+    "_why": "long narrow trim strips"
+   }
+  ]
+ },
+ "feet": [
+  "ww_lfoot",
+  "ww_rfoot"
+ ],
+ "part_region": {
+  "ww_hips": "body",
+  "ww_torso": "body",
+  "ww_larm": "arms",
+  "ww_rarm": "arms",
+  "luleg": "upper_legs",
+  "ww_ruleg": "upper_legs",
+  "ww_lmleg": "lower_legs",
+  "ww_rmleg": "lower_legs",
+  "ww_llleg": "lower_legs",
+  "ww_rlleg": "lower_legs",
+  "ww_lfoot": "feet",
+  "ww_rfoot": "feet"
+ },
+ "joints": {
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 520
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 420
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 420
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 420
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 420
+  },
+  "joint_lmleg": {
+   "kind": "cyl",
+   "r": 360,
+   "half": 480
+  },
+  "joint_rmleg": {
+   "kind": "cyl",
+   "r": 360,
+   "half": 480
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 340,
+   "half": 460
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 340,
+   "half": 460
+  },
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 320,
+   "half": 480
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 320,
+   "half": 480
+  }
+ },
+ "weapons": [
+  {
+   "name": "missile box, right shoulder (6 tubes)",
+   "parts": [
+    "ww_torso"
+   ],
+   "volume": {
+    "hull": [
+     [
+      -2998,
+      0,
+      6620
+     ],
+     [
+      -2998,
+      1680,
+      6620
+     ],
+     [
+      -2620,
+      0,
+      7430
+     ],
+     [
+      -2620,
+      1680,
+      7430
+     ],
+     [
+      -1880,
+      0,
+      7210
+     ],
+     [
+      -1880,
+      1680,
+      7210
+     ],
+     [
+      -2230,
+      0,
+      6350
+     ],
+     [
+      -2230,
+      1680,
+      6350
+     ]
+    ]
+   },
+   "_why": "6-tube box on its slanted rail"
+  },
+  {
+   "name": "laser barrel, upper chest",
+   "parts": [
+    "ww_torso"
+   ],
+   "volume": {
+    "min": [
+     -230,
+     -900,
+     6080
+    ],
+    "max": [
+     20,
+     -560,
+     6350
+    ]
+   }
+  },
+  {
+   "name": "laser barrel, belly",
+   "parts": [
+    "ww_torso"
+   ],
+   "volume": {
+    "min": [
+     -230,
+     -1020,
+     4380
+    ],
+    "max": [
+     20,
+     -560,
+     4640
+    ]
+   }
+  }
+ ]
+}

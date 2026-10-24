@@ -33,6 +33,11 @@ static func named(name: String) -> Dictionary:
 
 ## The player's scheme (a copy): the default overlaid with the saved [paint] settings.
 static func player() -> Dictionary:
+	for a in OS.get_cmdline_user_args():  # dev: --player-scheme=<scheme> paints the player's units so (review shots)
+		if a.begins_with("--player-scheme="):
+			var forced := named(a.trim_prefix("--player-scheme="))
+			forced["owner"] = "player"
+			return forced
 	if _player.is_empty():
 		var s := named("player_default")
 		var cfg := ConfigFile.new()

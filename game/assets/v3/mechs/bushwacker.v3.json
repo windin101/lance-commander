@@ -1,0 +1,53 @@
+{
+ "model": "bushwacker.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "BSW-X1, X2 & S2 Bushwacker for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863885",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "bsw-x1-4.stl"
+ },
+ "tris": 27014,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.034,
+  "Walk": 0.279,
+  "Run": 0.372,
+  "STtoWK": 0.115,
+  "WKtoST": 0.279,
+  "WKtoRN": 0.364,
+  "RNtoWK": 0.36,
+  "LimpLeft": 0.32,
+  "LimpRight": 0.182,
+  "ParkToStand": 0.119,
+  "StandToPark": 0.119,
+  "Jump": 0.484,
+  "FallForward": 0.913,
+  "FallBackward": 1.261,
+  "GetUpFront": 0.758,
+  "GetUpBack": 1.021,
+  "HitFront": 0.025,
+  "HitBack": 0.123,
+  "HitLeft": 0.018,
+  "HitRight": 0.009
+ },
+ "paint_stats": {
+  "texels": 1872999,
+  "chip_share": 0.01708596747782567,
+  "grime_mean": 0.4359709322452545,
+  "paint_share": 0.48404937749566335,
+  "glass_texels": 6827,
+  "emissive_texels": 0,
+  "piping_texels": 67993,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}
