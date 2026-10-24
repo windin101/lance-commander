@@ -94,3 +94,15 @@ func test_personnel_screen_resume_and_assignment() -> void:
 	bay._assign_pressed()
 	assert_str(String(bay.camp.mechs[0]["pilot"])).is_equal("pmwchopper")
 	assert_str(bay.mode).is_equal("hangar")
+
+
+func test_paint_panel_replaces_the_loadout_summary() -> void:
+	var bay: MechBay = auto_free(load("res://scenes/mech_bay.tscn").instantiate())
+	add_child(bay)
+	assert_bool(bay._summary_panel.visible).is_true()
+	bay.open_paint()
+	assert_bool(bay._summary_panel.visible).is_false()  # nothing shows through the paint panel's frame
+	bay._select(int(bay.camp.mechs[1]["id"]))  # picking another 'Mech keeps it hidden
+	assert_bool(bay._summary_panel.visible).is_false()
+	bay.close_paint()
+	assert_bool(bay._summary_panel.visible).is_true()
