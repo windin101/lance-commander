@@ -183,7 +183,7 @@ def _stage_fit_own(cfg, work):
     # 3. ground: the lowest foot point of the re-posed sculpt sits on z = 0 (root translation keys follow)
     lab_guess = nearest_bone_labels(P, F, cfg)
     zmin = []
-    for part in ("a_lfoot", "a_rfoot"):
+    for part in cfg.get("feet", ["a_lfoot", "a_rfoot"]):
         m = lab_guess == part
         V = P[np.unique(F[m])]
         zmin.append((V @ xf[part][:3, :3].T + xf[part][:3, 3])[:, 2].min())

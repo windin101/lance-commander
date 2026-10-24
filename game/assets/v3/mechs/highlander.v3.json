@@ -1,0 +1,52 @@
+{
+ "model": "highlander.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "HGN-732 Highlander for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863932",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "hgn-732-4.stl"
+ },
+ "tris": 44528,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Walk": 0.623,
+  "Run": 0.659,
+  "STtoWK": 0.599,
+  "WKtoST": 0.678,
+  "WKtoRN": 0.719,
+  "RNtoWK": 0.542,
+  "LimpLeft": 0.22,
+  "LimpRight": 0.217,
+  "ParkToStand": 0.576,
+  "StandToPark": 0.596,
+  "Jump": 1.173,
+  "FallForward": 2.398,
+  "FallBackward": 3.538,
+  "GetUpFront": 2.742,
+  "GetUpBack": 3.73,
+  "HitFront": 0.196,
+  "HitBack": 0.127,
+  "HitLeft": 0.034,
+  "HitRight": 0.124
+ },
+ "paint_stats": {
+  "texels": 1773068,
+  "chip_share": 0.02932318444639461,
+  "grime_mean": 0.3772716522216797,
+  "paint_share": 0.567745286700792,
+  "glass_texels": 6814,
+  "emissive_texels": 0,
+  "piping_texels": 116904,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

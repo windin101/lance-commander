@@ -1034,6 +1034,9 @@ def stage_lowpoly(cfg, work):
     # budget per part by sculpt area share
     area = np.bincount(pi, weights=A * (z["kind"] != 2), minlength=len(names))
     budget = np.maximum(300, (total * area / area.sum()).astype(int))
+    for part_, k_ in cfg.get("lowpoly", {}).get("budget_scale", {}).items():   # e.g. the cockpit part, so thin canopy
+        if part_ in names:                                                    # frames survive the decimation
+            budget[names.index(part_)] = int(budget[names.index(part_)] * k_)
     kind = z["kind"].copy()
     np.savez(work / "lp_in.npz", P=z["P"], F=z["F"], part=pi, kind=kind, budget_part=np.arange(len(names)), budget_faces=budget)
     lp = cfg.get("lowpoly", {})
@@ -1042,7 +1045,9 @@ def stage_lowpoly(cfg, work):
     py = cfg.get("xatlas_python", "/mnt/nvme1n1p1/mc2-rework/v3/venv/bin/python")
     r = subprocess.run([py, "-I", str(C.HERE / "v3_xatlas.py"), str(work / "low_geo.npz"), str(work / "low.npz"),
                         "--res", str(cfg.get("tex", 2048)), "--padding", str(lp.get("padding", 3)),
-                        "--minor", str(lp.get("minor_scale", 0.5))], capture_output=True, text=True)
+                        "--minor", str(lp.get("minor_scale", 0.5))]
+                       + (["--hidden", str(work / "uv_scale.npy")] if (work / "uv_scale.npy").exists() else []),
+                       capture_output=True, text=True)
     print(r.stdout.strip()[-300:], r.stderr.strip()[-800:])
     if False:
       C.blender("lowpoly", work / "lp_in.npz", work / "low.npz", "--uv_angle", str(lp.get("uv_angle", 50)),
@@ -1475,6 +1480,10 @@ def stage_canopy(cfg, work):
     VP._PATCH_CACHE.clear()
     VP.stage_paint(cfg, work)
     stage_write(cfg, work)
+    if True:   # the check is rendered from the baked result itself
+        n = canopy_check_texel(cfg, work, R / "canopy_check.png", R / "canopy_check_zoom.png")
+        print(f"  canopy: {len(outs)} outlined views, {n} glass texels -> {R / 'canopy_check.png'}")
+        return
     n = canopy_check(cfg, work, R / "canopy_check.png")
     z = np.load(work / "sculpt.npz"); g = VP.glass_faces_v3(cfg, work)
     c = z["P"][z["F"][g]].reshape(-1, 3).mean(0).astype(int)
@@ -1486,3 +1495,107 @@ def stage_canopy(cfg, work):
         s.paste(Image.open(work / f"ccz_{v}.png").convert("RGB"), (i * 800, 0))
     s.save(R / "canopy_check_zoom.png")
     print(f"  canopy: {len(outs)} outlined views, {n} glass faces -> {R / 'canopy_check.png'}")
+
+
+def canopy_check_texel(cfg, work, out, zoom_out=None, size=700):
+    """Canopy check from the baked result itself (texel glass): the game mesh, grey with the glass zone blue, in
+    aligned views (Cycles, flat-ish light), plus a zoom on the glass."""
+    from PIL import Image, ImageDraw
+    ids_img = np.asarray(Image.open(work / "tex/ids.png"))[..., 0]       # the written texture, gutter included
+    res = ids_img.shape[0]
+    g = (ids_img.ravel() // 16) == 9
+    img = np.full((res * res, 3), 0.62, np.float32)
+    img[g] = (0.08, 0.3, 0.95)
+    Ld = work / "ld_canopy"; Ld.mkdir(exist_ok=True)
+    Image.fromarray((img.reshape(res, res, 3) * 255).astype(np.uint8)).save(Ld / "albedo.png")
+    views = ["front", "q34", "side", "top"]
+    names = {"front": "front", "q34": "3/4 front-left", "side": "left side (+X)", "top": "top (front down)"}
+    C.blender("lookdev", work / "low.npz", work / "cct", "--maps", Ld, "--shading", work / "bake/low_shading.npz",
+              "--views", ",".join(views), "--size", str(size), "--samples", "12", "--sun", "2.0", "--sky", "0.8")
+    sheet = Image.new("RGB", (size * len(views), size + 30), (22, 22, 26)); d = ImageDraw.Draw(sheet)
+    for i, v in enumerate(views):
+        sheet.paste(Image.open(work / f"cct_{v}.png").convert("RGB"), (i * size, 30)); d.text((i * size + 8, 8), names[v], fill=(255, 255, 255))
+    sheet.save(out)
+    pos = np.load(work / "bake/pos.npy").reshape(-1, 3)
+    gp = pos[g & (np.load(work / "bake/fid.npy").ravel() >= 0)]
+    if len(gp) and zoom_out:
+        c = gp.mean(0).astype(int); span = int(max(1500, np.ptp(gp, 0).max() * 1.8))
+        C.blender("lookdev", work / "low.npz", work / "ccz", "--maps", Ld, "--shading", work / "bake/low_shading.npz",
+                  "--views", "front,q34,side", "--size", "800", "--samples", "16", "--sun", "2.0", "--sky", "0.8",
+                  "--centre", f"{c[0]},{c[1]},{c[2]}", "--span", str(span))
+        s_ = Image.new("RGB", (2400, 800))
+        for i, v in enumerate(("front", "q34", "side")):
+            s_.paste(Image.open(work / f"ccz_{v}.png").convert("RGB"), (i * 800, 0))
+        s_.save(zoom_out)
+    return int(g.sum())
+
+
+def stage_flatten(cfg, work):
+    """Lee's mesh edits on the sculpt (run after fit/segment, before joints): cfg "flatten_panes": [[x, y, z], ...]
+    sculpt-frame points on canopy panes whose frame has raised teeth cutting into the pane (Mad Cat, 2026-10-25).
+    For each pane (the glass crease patch nearest the point): the non-glass faces inside the pane's in-plane convex
+    hull and within 200 mm of its plane are the teeth; their vertices strictly inside the hull are pressed onto the
+    pane's plane and the faces are added to the glass (work/glass_extra.npy). Face count and labels are unchanged."""
+    import v3_paint as VP
+    from scipy.sparse import coo_matrix
+    from scipy.sparse.csgraph import connected_components
+    from scipy.spatial import Delaunay, ConvexHull, cKDTree
+    pts = cfg.get("flatten_panes", [])
+    if not pts:
+        return
+    zp = work / "sculpt.npz"
+    z = np.load(zp); P, F = z["P"].copy(), z["F"]
+    cfg2 = dict(cfg); cfg2.pop("flatten_panes", None)
+    VP._PATCH_CACHE.clear()
+    if (work / "glass_extra.npy").exists():
+        (work / "glass_extra.npy").unlink()
+    g = VP.glass_faces_v3(cfg2, work)
+    fa, fb = face_graph(P, F)[:2]; n = len(F)
+    e = g[fa] & g[fb]
+    _, comp = connected_components(coo_matrix((np.ones(e.sum()), (fa[e], fb[e])), shape=(n, n)), directed=False)
+    Cn = P[F].mean(1)
+    gi = np.flatnonzero(g); tree = cKDTree(Cn[gi])
+    extra = np.zeros(n, bool)
+    for item in pts:
+        p = np.asarray(item["p"], float); r = float(item.get("r", 110))
+        c = comp[gi[tree.query(p)[1]]]
+        m = (comp == c) & g
+        V = P[np.unique(F[m])]; mu = V.mean(0)
+        w, vec = np.linalg.eigh(np.cov((V - mu).T)); nrm = vec[:, 0]
+        N = np.cross(P[F[:, 1]] - P[F[:, 0]], P[F[:, 2]] - P[F[:, 0]])
+        if (N[m] @ nrm).mean() < 0:
+            nrm = -nrm                                   # out of the recess
+        sel = (np.linalg.norm(Cn - p, axis=1) < r) & ~g
+        vs = np.unique(F[sel])
+        outside = np.unique(F[~sel & ~g & (np.linalg.norm(Cn - p, axis=1) < 3 * r)])
+        rim = np.intersect1d(vs, outside)                 # where the pocket meets the frame around it
+        h = lambda X: (X - p) @ nrm
+        top = np.median(h(P[rim])) if len(rim) else np.percentile(h(P[vs]), 90)
+        pane_v = np.unique(F[m])
+        mv = vs[~np.isin(vs, pane_v) & ~np.isin(vs, rim) & (h(P[vs]) < top - 3)]
+        P[mv] += np.outer(top - h(P[mv]), nrm)            # fill the pocket up to the frame
+        print(f"  fill pocket at {np.round(p).tolist()}: {len(mv)} vertices raised to the frame ({len(rim)} rim vertices)")
+    if not (work / "sculpt_orig.npz").exists():
+        import shutil; shutil.copy(zp, work / "sculpt_orig.npz")
+    np.savez(zp, P=P, F=F)
+    np.save(work / "glass_extra.npy", np.zeros(len(F), bool))
+
+
+def stage_glassdensity(cfg, work):
+    """Give the canopy more texels: low faces that are glass in the current build (and their neighbours) get
+    cfg glass_uv_scale (default 2.5) times the atlas density at the next lowpoly (work/uv_scale.npy, per low face;
+    the decimated geometry is deterministic, so the indices hold). Pane edges then alias at a finer step."""
+    from PIL import Image
+    ids = np.asarray(Image.open(work / "tex/ids.png"))[..., 0].ravel() // 16
+    fid = np.load(work / "bake/fid.npy").ravel()
+    nlow = len(np.load(work / "low.npz")["F"])
+    gl = np.zeros(nlow, bool)
+    ok = (fid >= 0) & (ids == 9)
+    gl[np.unique(fid[ok])] = True
+    lo = np.load(work / "low.npz"); F = lo["F"]
+    fa, fb = face_graph(lo["P"], F)[:2]
+    for _ in range(2):
+        gl = gl | (np.bincount(fa, weights=gl[fb], minlength=nlow) + np.bincount(fb, weights=gl[fa], minlength=nlow) > 0)
+    sc = np.where(gl, float(cfg.get("glass_uv_scale", 2.5)), 1.0)
+    np.save(work / "uv_scale.npy", sc)
+    print(f"  glass density: {int(gl.sum())} low faces at x{sc.max():.1f}")

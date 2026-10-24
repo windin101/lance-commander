@@ -1,0 +1,217 @@
+{
+ "_doc": "v3 settings for the madcat (tools/art/v3/v3_mech.py), fit and labels from the v2 work on the same sculpt.",
+ "name": "madcat",
+ "folder": "mechs",
+ "stl": "/home/leeo/craft/solid/mc2/stl/madcat/twf-prime-5.stl",
+ "source": {
+  "title": "Timberwolf Prime, aka Madcat for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1864016",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "twf-prime-5.stl"
+ },
+ "k": 252.0408765932041,
+ "base_glb": "game/assets/mechs/madcat.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/madcat",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 40000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 2640,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "mc_rfoot": 1.0,
+   "mc_rlleg": 1.0,
+   "mc_rgun": 0.95,
+   "mc_ruarm": 0.95,
+   "mc_lfoot": 1.0,
+   "mc_luarm": 0.95,
+   "mc_lgun": 0.95,
+   "mc_llleg": 1.0
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "part_region": {
+  "mc_rfoot": "feet",
+  "mc_rlleg": "lower_legs",
+  "mc_ruleg": "upper_legs",
+  "mc_rgun": "arms",
+  "mc_ruarm": "arms",
+  "mc_lfoot": "feet",
+  "mc_luarm": "arms",
+  "mc_lgun": "arms",
+  "mc_llleg": "lower_legs",
+  "mc_luleg": "upper_legs",
+  "mc_hip": "body",
+  "mc_torso": "body",
+  "joint_rmlauncher": "weapons",
+  "joint_lmlauncher": "weapons"
+ },
+ "feet": [
+  "mc_rfoot",
+  "mc_lfoot"
+ ],
+ "joints": {
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 475,
+   "half": 618
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 475,
+   "half": 618
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_rgun": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 475,
+   "half": 618
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 475,
+   "half": 618
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 739
+  },
+  "joint_rmlauncher": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_lmlauncher": {
+   "kind": "sphere",
+   "r": 523
+  }
+ },
+ "weapons": [
+  {
+   "name": "LRM box, left shoulder",
+   "whole_parts": [
+    "joint_lmlauncher"
+   ]
+  },
+  {
+   "name": "LRM box, right shoulder",
+   "whole_parts": [
+    "joint_rmlauncher"
+   ]
+  },
+  {
+   "name": "arm pod, left",
+   "whole_parts": [
+    "mc_lgun"
+   ]
+  },
+  {
+   "name": "arm pod, right",
+   "whole_parts": [
+    "mc_rgun"
+   ]
+  }
+ ],
+ "glass_outlines": [
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-madcat/outline_sheets/sheet_front.png",
+   "view": "front"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-madcat/outline_sheets/sheet_q34.png",
+   "view": "q34"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-madcat/outline_sheets/sheet_rside.png",
+   "view": "rside"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-madcat/outline_sheets/sheet_side.png",
+   "view": "side"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-madcat/outline_sheets/sheet_top.png",
+   "view": "top"
+  }
+ ],
+ "flatten_panes": [
+  {
+   "p": [
+    594,
+    -2412,
+    8059
+   ],
+   "r": 110
+  },
+  {
+   "p": [
+    -594,
+    -2412,
+    8059
+   ],
+   "r": 110
+  }
+ ],
+ "_flatten_why": "Lee 2026-10-25 (option b): press flat the small raised block in the top-left corner of the pane he flagged (3/4 centre-right, side middle) and its mirror",
+ "glass_low_faces": true,
+ "glass_vote_px": 1,
+ "glass_low_face_share": 0.5
+}

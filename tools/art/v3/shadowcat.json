@@ -1,0 +1,171 @@
+{
+ "_doc": "v3 settings for the shadowcat (tools/art/v3/v3_mech.py), fit and labels from the v2 work on the same sculpt.",
+ "name": "shadowcat",
+ "folder": "mechs",
+ "stl": "/home/leeo/craft/solid/mc2/stl/shadowcat/sdc-prime4.stl",
+ "source": {
+  "title": "Shadowcat Prime for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863998",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "sdc-prime4.stl"
+ },
+ "k": 194.5017605035737,
+ "base_glb": "game/assets/mechs/shadowcat.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/shadowcat",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 40000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 1896,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "sc_lgun": 0.95,
+   "sc_luarm": 0.95,
+   "sc_lfoot": 1.0,
+   "sc_llleg": 1.0,
+   "sc_rfoot": 1.0,
+   "sc_rlleg": 1.0,
+   "sc_rgun": 0.95,
+   "sc_ruarm": 0.95
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "part_region": {
+  "sc_lgun": "arms",
+  "sc_luarm": "arms",
+  "sc_torso": "body",
+  "sc_lfoot": "feet",
+  "sc_llleg": "lower_legs",
+  "sc_luleg": "upper_legs",
+  "sc_rfoot": "feet",
+  "sc_rlleg": "lower_legs",
+  "sc_ruleg": "upper_legs",
+  "sc_hip": "body",
+  "sc_rgun": "arms",
+  "sc_ruarm": "arms"
+ },
+ "feet": [
+  "sc_lfoot",
+  "sc_rfoot"
+ ],
+ "joints": {
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 375
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 375
+  },
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 531
+  },
+  "joint_lfoot": {
+   "kind": "sphere",
+   "r": 375
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 341,
+   "half": 444
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 375
+  },
+  "joint_rfoot": {
+   "kind": "sphere",
+   "r": 375
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 341,
+   "half": 444
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 375
+  },
+  "joint_rgun": {
+   "kind": "sphere",
+   "r": 375
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 375
+  }
+ },
+ "weapons": [
+  {
+   "name": "gun arm, left",
+   "whole_parts": [
+    "sc_lgun"
+   ]
+  },
+  {
+   "name": "gun arm, right",
+   "whole_parts": [
+    "sc_rgun"
+   ]
+  }
+ ],
+ "glass_outlines": [
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-shadowcat/outline_sheets/sheet_front.png",
+   "view": "front"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-shadowcat/outline_sheets/sheet_q34.png",
+   "view": "q34"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-shadowcat/outline_sheets/sheet_rside.png",
+   "view": "rside"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-shadowcat/outline_sheets/sheet_side.png",
+   "view": "side"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-shadowcat/outline_sheets/sheet_top.png",
+   "view": "top"
+  }
+ ]
+}

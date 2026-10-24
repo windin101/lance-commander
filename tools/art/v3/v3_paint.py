@@ -269,10 +269,26 @@ def classify_texels(cfg, work, part_name, low_kind, src, hkind, XS, N):
             pipe_ok |= t
         else:
             zone[t] = {"metal": 2, "glass": 3, "emissive": 4, "paint": 0}[what]
-    gl = glass_faces_v3(cfg, work)
-    if gl is not None:
-        gt = (src >= 0) & gl[np.clip(src, 0, None)] & ~hidden
+    if cfg.get("glass_outlines") and cfg.get("glass_mode", "patch") == "texel":
+        gt = glass_texels(cfg, work, XS, src) & ~hidden
         zone[gt] = 3
+    else:
+        gl = glass_faces_v3(cfg, work)
+        if gl is not None:
+            gt = (src >= 0) & gl[np.clip(src, 0, None)] & ~hidden
+            if cfg.get("glass_outlines") and cfg.get("glass_hull", True):
+                gt = hull_fill(gt, work) & ~hidden
+                gt = vote_smooth(gt, work, int(cfg.get("glass_vote_px", 2))) & ~hidden
+                if cfg.get("glass_low_faces", True):
+                    # snap to the game mesh's own faces: a low face is glass when most of its texels are, so the
+                    # pane edge is the mesh edge between the pane floor and its frame wall (straight, no dashes)
+                    lf = np.load(work / "bake/fid.npy").ravel()
+                    lf = lf[lf >= 0]
+                    nlf = int(lf.max()) + 1
+                    frac = np.bincount(lf, weights=gt, minlength=nlf) / np.maximum(np.bincount(lf, minlength=nlf), 1)
+                    thr = float(cfg.get("glass_low_face_share", 0.5))
+                    gt = ((frac[lf] >= thr) | (gt & (frac[lf] >= 0.2))) & ~hidden
+            zone[gt] = 3
     if cfg.get("weapons") or cfg.get("lenses"):
         wid, lens, _ = weapon_faces(cfg, work)
         wt = np.where(src >= 0, wid[np.clip(src, 0, None)], -1)
@@ -431,6 +447,17 @@ def stage_paint(cfg, work):
     orm = to_img(np.c_[np.clip(0.2 + 0.8 * A, 0, 1), np.clip(rough, 0.04, 1), np.clip(metal, 0, 1), np.clip(shade * 0.8, 0, 1)], 4)
     Image.fromarray((orm * 255 + 0.5).astype(np.uint8), "RGBA").save(out / "orm.png")
     ids = to_img(np.c_[rid * 16 + 8, pip * 255, stripe * 255, band * 255], 4)
+    # glass gutter: the atlas gutter next to a pane takes the pane's values, so bilinear and mip sampling at a chart
+    # edge doesn't pull the frame's grey into the glass (the dashed pane rims, Mad Cat 2026-10-25)
+    gimg = np.zeros(res * res, bool); gimg[ii] = gl
+    gimg = gimg.reshape(res, res)
+    gut = ndimage.binary_dilation(gimg, iterations=4) & ~cover
+    if gut.any():
+        idx = ndimage.distance_transform_edt(~gimg, return_distances=False, return_indices=True)
+        for img_ in (alb, orm, ids):
+            img_[gut] = img_[idx[0][gut], idx[1][gut]]
+        Image.fromarray((np.clip(alb, 0, 1) * 255 + 0.5).astype(np.uint8), "RGBA").save(out / "albedo.png")
+        Image.fromarray((orm * 255 + 0.5).astype(np.uint8), "RGBA").save(out / "orm.png")
     Image.fromarray(np.clip(ids, 0, 255).astype(np.uint8), "RGBA").save(out / "ids.png")
     c1 = fbm(X, 1500.0, 3, seed + 404); c2 = fbm(X, 650.0, 3, seed + 505); c3 = fbm(X, 300.0, 2, seed + 606)
     expo_env = np.clip(smoothstep(0.2, 0.9, N[:, 2]) * 0.8 + smoothstep(2500, 300, height) * 0.6, 0, 1)
@@ -664,6 +691,35 @@ def glass_faces_v3(cfg, work):
                 out = hit.copy()                       # themselves plus small facets they mostly cover: continuous
                 small = parea / 1e6 < float(cfg.get("glass_panel_max_m2", 0.05))
                 out |= ((frac >= 0.3) & small)[pcomp]
+    if cfg.get("glass_outlines") and cfg.get("glass_mode", "patch") == "patch":
+        # Lee's outlines pick panes; the pane's own geometry draws the edge: a crease patch (faces joined across
+        # edges flatter than glass_patch_deg, so bounded by the recess rim) is glass when >= half of its visible
+        # pixels, summed over every outlined view, fall inside an outline (Mad Cat, 2026-10-25)
+        from PIL import Image
+        nF = len(F); vis = np.zeros(nF); hit = np.zeros(nF)
+        for o in cfg["glass_outlines"]:
+            m = outline_mask(Path(o["png"]).expanduser(), erode=0)   # the stroke counts: thin slits are mostly line
+            fid = np.asarray(Image.open(work / f"sheetfid_{o['view']}.png").convert("RGB")).astype(np.int64)
+            ids = (fid[..., 0] << 16) + (fid[..., 1] << 8) + fid[..., 2] - 1
+            ok = (ids >= 0) & (ids < nF)
+            vis += np.bincount(ids[ok], minlength=nF); hit += np.bincount(ids[ok & m], minlength=nF)
+        comp, area, _, _ = sculpt_patches(work, float(cfg.get("glass_patch_deg", 15)))
+        pv = np.bincount(comp, weights=vis, minlength=len(area)); ph = np.bincount(comp, weights=hit, minlength=len(area))
+        out = ((pv > 0) & (ph >= 0.5 * pv))[comp]
+        if (work / "glass_extra.npy").exists():   # pane faces Lee had flattened (stage flatten)
+            out |= np.load(work / "glass_extra.npy")
+        Cn_ = P[F].mean(1)
+        for b in cfg.get("glass_exclude", []):    # Lee's "not glass" calls, sculpt-frame boxes
+            out &= ~in_box(Cn_, b)
+        # panes that are not recessed (a flat visor in a bigger plate): the faces inside the outline themselves,
+        # but only in patches the outline covers a fair share of (no stray faces of the plates around a pane)
+        pc, pa, _, _ = sculpt_panels(work, float(cfg.get("glass_panel_deg", 12)))
+        qv = np.bincount(pc, weights=vis, minlength=len(pa)); qh = np.bincount(pc, weights=hit, minlength=len(pa))
+        out |= ((qv > 0) & (qh >= float(cfg.get("glass_panel_share", 0.35)) * qv))[pc]
+        for b in cfg.get("glass_exclude", []):
+            out &= ~in_box(P[F].mean(1), b)
+        _PATCH_CACHE[key] = out
+        return out
     for o in cfg.get("glass_outlines", []):
         m = outline_faces(work, Path(o["png"]).expanduser(), o["view"])
         out = m if out is None else (out | m)
@@ -675,3 +731,114 @@ def glass_faces_v3(cfg, work):
             out = out | (cnt >= 2)    # fill notches only: never drops a small outlined lens
     _PATCH_CACHE[key] = out
     return out
+
+
+def outline_mask(png, erode=1):
+    """Lee's closed blue outlines on a sheet -> filled region (stroke included, then 1 px eroded, so the glass edge
+    runs along the middle of his line). Red strokes are review marks, never glass."""
+    from PIL import Image
+    from scipy import ndimage as ndi
+    a = np.asarray(Image.open(png).convert("RGB")).astype(int)
+    blue = (a[..., 2] > 90) & (a[..., 2] - a[..., 0] > 50) & (a[..., 2] - a[..., 1] > 40)
+    region = ndi.binary_fill_holes(ndi.binary_closing(blue, iterations=2))
+    region &= ndi.binary_fill_holes(region & ~blue) | ~blue        # keep only closed outlines (not open scribbles)
+    return ndi.binary_erosion(region, iterations=erode) if erode else region
+
+
+def glass_texels(cfg, work, XS, src):
+    """Glass per texel, cut exactly along the outline (texture-space knife): each texel's sculpt-frame position is
+    projected into every outlined sheet's camera; it is glass if it falls inside a closed blue outline and its own
+    sculpt face is the one that camera sees there (face-id render, 3x3 tolerance), so hidden surfaces behind the
+    canopy never pick it up. Edges follow Lee's line, not the triangles."""
+    import v3_common as C
+    from PIL import Image
+    out = np.zeros(len(XS), bool)
+    for o in cfg.get("glass_outlines", []):
+        png = Path(o["png"]).expanduser(); v = o["view"]
+        meta = json.loads((png.parent / "sheet.json").read_text())
+        mask = outline_mask(png)
+        fid = np.asarray(Image.open(work / f"sheetfid_{v}.png").convert("RGB")).astype(np.int64)
+        ids = (fid[..., 0] << 16) + (fid[..., 1] << 8) + fid[..., 2] - 1
+        H, W = mask.shape
+        px = C.world_to_px(meta, v, XS)
+        xi = np.round(px[:, 0] - 0.5).astype(int); yi = np.round(px[:, 1] - 0.5).astype(int)
+        ok = (xi >= 1) & (xi < W - 1) & (yi >= 1) & (yi < H - 1)
+        inside = np.zeros(len(XS), bool)
+        inside[ok] = mask[yi[ok], xi[ok]]
+        # visible = the texel lies on (within tol of the plane of) a face the camera sees at or next to its pixel
+        zz = np.load(work / "sculpt.npz"); P_, F_ = zz["P"], zz["F"]
+        Tn = np.cross(P_[F_[:, 1]] - P_[F_[:, 0]], P_[F_[:, 2]] - P_[F_[:, 0]])
+        Tn /= np.linalg.norm(Tn, axis=1, keepdims=True) + 1e-12
+        tol = float(cfg.get("glass_depth_tol_mm", 40))
+        vis = np.zeros(len(XS), bool)
+        k = np.flatnonzero(ok & inside)
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                f = ids[yi[k] + dy, xi[k] + dx]
+                good = (f >= 0) & (f < len(F_))
+                fk = np.clip(f, 0, len(F_) - 1)
+                d = np.abs(((XS[k] - P_[F_[fk, 0]]) * Tn[fk]).sum(1))
+                vis[k] |= good & (d < tol)
+        out |= inside & vis
+    out = clean_texel_mask(out, work, int(cfg.get("glass_close_px", 2)))
+    print(f"  glass (texel knife): {int(out.sum())} texels from {len(cfg.get('glass_outlines', []))} outlined views")
+    return out
+
+
+def clean_texel_mask(m, work, close_px=2):
+    """Close pinholes and fill small holes of a per-texel mask in the atlas, without crossing into uncovered texels
+    (other UV islands): closing restricted to the covered area, then holes under 60 texels filled."""
+    from scipy import ndimage as ndi
+    fid = np.load(work / "bake/fid.npy"); cover = fid >= 0
+    ii = np.flatnonzero(cover.ravel())
+    img = np.zeros(cover.size, bool); img[ii] = m
+    img = img.reshape(cover.shape)
+    img = ndi.binary_closing(img, iterations=close_px) & cover
+    holes = ndi.binary_fill_holes(img) & ~img
+    lab, n = ndi.label(holes)
+    if n:
+        sz = ndi.sum(holes, lab, np.arange(1, n + 1))
+        img |= np.isin(lab, np.flatnonzero(sz < 60) + 1)
+    img = ndi.binary_opening(img, iterations=1) | (img & ndi.binary_erosion(img, iterations=1))
+    return img.ravel()[ii]
+
+
+def hull_fill(m, work, min_px=30):
+    """Each connected glass region in the atlas filled to its convex hull (inside covered texels): canopy panes are
+    convex, so notches where a frame lip or a print facet cut into a pane close, and the pane edge is straight."""
+    from scipy import ndimage as ndi
+    from scipy.spatial import Delaunay, ConvexHull
+    fid = np.load(work / "bake/fid.npy"); cover = fid >= 0
+    ii = np.flatnonzero(cover.ravel())
+    img = np.zeros(cover.size, bool); img[ii] = m; img = img.reshape(cover.shape)
+    lab, n = ndi.label(img)
+    out = img.copy()
+    for k, sl in enumerate(ndi.find_objects(lab), 1):
+        ys, xs = np.nonzero(lab[sl] == k)
+        if len(ys) < min_px:
+            continue
+        pts = np.c_[xs, ys].astype(float)
+        try:
+            hull = Delaunay(pts[ConvexHull(pts).vertices])
+        except Exception:
+            continue
+        gy, gx = np.mgrid[0:lab[sl].shape[0], 0:lab[sl].shape[1]]
+        inside = hull.find_simplex(np.c_[gx.ravel(), gy.ravel()]) >= 0
+        sub = out[sl]
+        sub |= inside.reshape(sub.shape) & cover[sl] & (fid[sl] >= 0) & ndi.binary_dilation(lab[sl] == k, iterations=12)
+    return out.ravel()[ii]
+
+
+def vote_smooth(m, work, r=2, iters=2):
+    """Majority vote of a texel mask over a (2r+1)^2 window of covered texels: the dashed rim where the bake rays
+    flip between a pane and its frame wall becomes a straight edge."""
+    from scipy import ndimage as ndi
+    fid = np.load(work / "bake/fid.npy"); cover = fid >= 0
+    ii = np.flatnonzero(cover.ravel())
+    img = np.zeros(cover.size, np.float32); img[ii] = m; img = img.reshape(cover.shape)
+    cw = cover.astype(np.float32)
+    k = 2 * r + 1
+    for _ in range(iters):
+        num = ndi.uniform_filter(img * cw, k); den = ndi.uniform_filter(cw, k)
+        img = ((num / np.maximum(den, 1e-6)) > 0.5).astype(np.float32) * cw
+    return img.ravel()[ii] > 0.5
