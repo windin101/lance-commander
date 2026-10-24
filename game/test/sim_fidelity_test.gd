@@ -422,6 +422,26 @@ func test_a_turret_must_turn_before_it_fires_behind() -> void:
 	assert_int(_shots_by(q, 0.3)).is_greater(0)  # instant twist without the rule
 
 
+## A twist-limited torso turns through the front to a target on the other side, never the short
+## way round the back past its stop (torsoRelFacing is not wrapped, mech.cpp:4590-4600). A
+## Lao Hu twisted to -120 stood for minutes without firing at a Werewolf at +111 (mc2_14).
+func test_a_twisted_torso_swings_back_through_the_front() -> void:
+	_flat_world()
+	var m := SimFixture.mech("atlas", rules)
+	m.team = 1
+	m.position = Vector2.ZERO
+	m.facing = 0.0
+	m.max_torso_yaw = 120.0
+	world.add_unit(m)
+	var t := _target_mech(Vector2(sin(deg_to_rad(111.0)), cos(deg_to_rad(111.0))) * 60.0)  # 111 deg off the nose
+	var rel := m.rel_facing_to(t.position)
+	assert_float(absf(rel)).is_between(110.0, 112.0)
+	m.turret_rel = -120.0 * signf(rel)  # twisted hard the other way
+	world.order_attack(m, t, true, false)
+	assert_int(_shots_by(m, 3.0)).is_greater(0)
+	assert_float(absf(m.turret_rel - rel)).is_less(15.0)
+
+
 func test_vehicles_accelerate_at_max_accel() -> void:
 	_flat_world()
 	var legion := _vehicle("tankk", 1, Vector2.ZERO)  # MaxAccel 0.5, 12 m/s

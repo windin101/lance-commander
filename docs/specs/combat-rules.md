@@ -174,6 +174,9 @@ terrain and cell heights only). Flag `attack_goals`.
   gvehicl.cpp:2937-2961). Rates: chassis `TorsoYawRate` (360 deg/s on every mech, 0 on the
   copters, which must turn their body), vehicle `MaxTurretYawRate` (90-180, the Partisan 120,
   the artillery piece 720).
+  A twist-limited torso turns the straight way through the front, never round the back, because the
+  original doesn't wrap torsoRelFacing (mech.cpp:4590-4600). Our first version wrapped it, which
+  left torsos stuck against their stop (I112, 2026-10-24).
 - **Lock:** a weapon fires only when the target is within FireArc/2 (12.5 deg) of the torso or
   turret (`weaponLocked`, gvehicl.cpp:4283, mech.cpp:7342), not of the whole twist range.
 - **Acceleration:** a vehicle's speed rises by `MaxAccel` per second (gvehicl.cpp:934,

@@ -425,6 +425,11 @@ KC: "Liao also tends to send you on UNSUPPORTED missions, meaning you have minim
 - **Losses/time:** no SR record.
 - **Bot note:**
   - The remake can't support the intended play: no repair bays, no turrets, and no patrol avoidance (I21).
+    - **Update 2026-10-24:** bays, turrets and captures work, and the bot plays the stealth line
+      (`STEALTH_PLANS` in `game/tools/autoplay.gd`): it takes the airport first, avoids patrols it
+      doesn't out-gun, jump-captures controls under fire, lures attackers into captured turrets and
+      hops to bays. It now takes the airport every seed and Gun Alpha (and sometimes Omega) in most of
+      them, but no run has won yet. The losses come at the Gun Alpha fort (Hunchback plus turrets).
   - The 31 patrols are mostly vehicles that a player meets a few at a time.
   - With bays and turrets, "sparser patrols" is probably unnecessary.
 - **Sourcing:** well-sourced (3 guides agree).
@@ -533,7 +538,12 @@ KC: "Liao also tends to send you on UNSUPPORTED missions, meaning you have minim
 - **Bot note:**
   - The bot dies 106–117 s after the battle starts. That is about the time a lance needs to *reach* the base.
   - The designed answer is to run east at once, repair at the 2 bays between waves and fight inside the turrets.
-  - The remake can't give that answer yet: bays and turrets are inert, though the base walls and gate exist as
+  - **Update 2026-10-24:** the bot now plays this line (`HOLD_PLANS` in `game/tools/autoplay.gd`).
+    It runs to the base without stopping to fight, captures both controls and both bays, and holds
+    inside the base through every wave. It won 3 of 3 seeds in 1197-1387 s and lost 1 mech.
+    Finishing also needed a game fix: movers that the script removes no longer block "destroy all"
+    (I111).
+  - Before 2026-10-24: the remake couldn't give that answer, because bays and turrets were inert, though the base walls and gate existed as
     buildings.
   - **What the README calls "10–11 threats at once" is what CB describes for a lance that doesn't kill the first
     wave fast.** It is the original's behaviour, not a remake bug.

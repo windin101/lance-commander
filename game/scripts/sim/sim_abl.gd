@@ -802,6 +802,7 @@ func _register() -> void:
 		if o == null or not o.is_mover():
 			return 1
 		o.exists = false
+		o.removed = true
 		world.order_hold(o)
 		return 0)
 	r.register_native("distanceToObject", func(_i, a):

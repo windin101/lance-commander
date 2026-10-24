@@ -338,13 +338,16 @@ func _update_turret(m: SimUnit, dt: float) -> void:
 		t = m
 	elif t and not t.is_disabled():
 		want = m.rel_facing_to(t.position)
-	var off := wrapf(want - m.turret_rel, -180.0, 180.0)
+	var lim := m.max_torso_yaw
+	# A twist-limited torso turns the straight way through the front, never round the back: the
+	# original doesn't wrap torsoRelFacing (mech.cpp:4590-4600, the wrap is commented out). The
+	# shortest-way wrap left a torso twisted to -120 stuck against its stop for a target at +111.
+	var off := wrapf(want - m.turret_rel, -180.0, 180.0) if lim >= 180.0 else want - m.turret_rel
 	if absf(off) <= m.fire_arc_half and t != null:
 		return
 	if t == null and absf(m.turret_rel) <= m.fire_arc_half:
 		return
 	var step := clampf(off, -m.turret_rate * dt, m.turret_rate * dt)
-	var lim := m.max_torso_yaw
 	m.turret_rel = clampf(m.turret_rel + step, -lim, lim) if lim < 180.0 else wrapf(m.turret_rel + step, -180.0, 180.0)
 
 
