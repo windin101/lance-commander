@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T17:05:11+13:00",
+  "updated": "2026-10-24T17:08:46+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1889,10 +1889,10 @@
       "repro": "load mc2_11, disable an enemy mech, sm.support._salvage(m): count pilots whose unit is m -> 2",
       "owner": "sim",
       "phase": 8,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-24T17:05:06+13:00",
-      "updated": "2026-10-24T17:05:06+13:00",
-      "note": null
+      "updated": "2026-10-24T17:08:46+13:00",
+      "note": "SimAbl.add_pilot erases the unit's previous Pilot before appending the new one (2 lines). support_test test_salvage_craft_takes_a_disabled_enemy_mech now checks the old brain left the list, one entry per unit, count unchanged (fails without the fix: 2 entries, 47 vs 46). Full suite ALL TESTS PASSED (287 cases)."
     }
   ],
   "coverage": {
@@ -1999,11 +1999,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-20T06:34:17+13:00",
-      "who": "lee",
-      "msg": "decision D6 answered: approve 23 (catapult cyclops shadowcat thor werewolf aerospotter ambulance cargotruck centipede drillson fueltruck harasser hetzer hunter legion lrmc mobilehq ordnancetruck storm trooptransport truck vedette heavycopter); redo 7 (highlander uller urbanmech zeus mog repairtruck swarmlrmc)"
-    },
     {
       "at": "2026-10-20T06:34:17+13:00",
       "who": "conductor",
@@ -2998,6 +2993,11 @@
       "at": "2026-10-24T17:05:11+13:00",
       "who": "conductor",
       "msg": "issue I33 updated: note \u2014 Explained, not nondeterminism: the end count is sim_abl.pilots.size(), which grows mid-run with add_pilot for each delivered unit (sim_support _spawn_mech) and each salvaged mech (_salvage); how many the bot salvages or calls depends on the seed's fight. Today mc2_11 s1-3: start 38, end 38/38/38 (no salvage in these runs). Side bug filed as I119: salvage leaves the enemy brain's old Pilot in the list."
+    },
+    {
+      "at": "2026-10-24T17:08:46+13:00",
+      "who": "conductor",
+      "msg": "issue I119 fixed: SimAbl.add_pilot erases the unit's previous Pilot before appending the new one (2 lines). support_test test_salvage_craft_takes_a_disabled_enemy_mech now checks the old brain left the list, one entry per unit, count unchanged (fails without the fix: 2 entries, 47 vs 46). Full suite ALL TESTS PASSED (287 cases)."
     }
   ],
   "choices": [

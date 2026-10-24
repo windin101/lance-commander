@@ -155,6 +155,8 @@ func add_pilot(u: SimUnit, brain: String) -> Pilot:
 	p.cells.resize(60)
 	p.cells.fill(0)
 	p.next_brain = world.time + (pilots.size() % 30) * BRAIN_STAGGER
+	if u.brain is Pilot:
+		pilots.erase(u.brain)  # a salvaged mech's old (enemy) brain leaves the list (I119)
 	u.brain = p
 	u.brain_name = brain
 	pilots.append(p)
