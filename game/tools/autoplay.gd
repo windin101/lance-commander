@@ -179,7 +179,11 @@ const STRIKE_GUARD_M := 70.0  # no air strike this close to our own units or a t
 ##   setTargetPriority MOVER 300), so the lance holds the drop and a decoy brings them in, while
 ##   an air strike puts the northern turret line to sleep.
 const HOLD_PLANS := {"mc2_17": {"objective": 2, "radius": 200.0, "quiet": 180.0},
-	"mc2_22": {"at_start": true, "radius": 120.0, "quiet": 45.0, "watch": 450.0, "decoy": true}}
+	"mc2_22": {"at_start": true, "radius": 120.0, "quiet": 45.0, "watch": 450.0, "decoy": true},
+	"mc2_23": {"after": [3], "at": Vector2(100.0, -350.0), "radius": 120.0, "quiet": 60.0, "watch": 500.0, "decoy": true,
+		"lure_mechs": true, "lure_s": 45.0}}
+## - mc2_23: "Tease the starport mechs out a few at a time" [KC, CB]: once the town is clear
+##   (objective 3), the lance waits north-west of the starport and a decoy draws its guards out.
 ## Stealth missions: the walkthroughs avoid the patrols rather than fight them, and work some
 ## objectives out of the designer's order (docs/research/original-missions.md).
 ## - mc2_14 (solo Lao Hu): "take the airport first" (its turret controls, bay and the sensor
@@ -196,11 +200,18 @@ const STEALTH_PLANS := {"mc2_14": {"first": [6]}}
 ##   it stands instead). Not a default: on mc2_03 it cost 4/4 -> 0/4 (2026-10-24).
 ## - mc2_18: "Recapture HQ, power and sensor control" first (the secondaries "are worth a lot")
 ##   [KC, BK, CB]: objectives 2 (HQ, by the drop), 3 (power generator), 4 (sensor control).
+##   "rp_reserve" keeps two repair trucks' worth of RP from strikes and salvage ("repair in the
+##   lulls" [KC, CB]); the city's bay is lost mid-mission in most runs.
 const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true},
-	"mc2_18": {"first": [2, 3, 4], "arcs": true},
+	"mc2_18": {"first": [2, 3, 4], "arcs": true, "rp_reserve": 12000},
 	"mc2_24": {"via": [Vector2(600.0, -1100.0), Vector2(1150.0, -400.0), Vector2(1250.0, 500.0), Vector2(1150.0, 900.0)],
 		"first": [4], "run_out": true},
-	"mc2_23": {"spare": 0, "prep_at": Vector2(620.0, -830.0), "prep_guns": 3, "rp_reserve": 24000}}
+	"mc2_23": {"spare": 0, "prep_at": Vector2(620.0, -830.0), "prep_guns": 2, "rp_reserve": 24000,
+		"mines": [[Vector2(200.0, -560.0), Vector2(200.0, -800.0)], [Vector2(200.0, -820.0), Vector2(200.0, -1060.0)]]}}
+## "mines": segments a minelayer lays during the preparation, across the waves' approach and off
+## the lance's own ground (mines have no team check, support-powers.md 3.5). mc2_23: KC spends the
+## 36k on "several minelayers" around the western road and the starport's NW edge; the waves come
+## in from the west edge.
 ## - mc2_24: "Do NOT assault the main gate" [KC]: "via" walks the lance east, out of the main
 ##   gate's turrets (Long Toms on both horns), round to the rebels who breach the east wall (team 2,
 ##   from (1300-1470, 985)), and in with them; objective 4 (the fuel trucks inside) starts their
@@ -317,7 +328,7 @@ func _lance(w: SimWorld) -> Array:
 	# not the support deliveries that can't fight alongside: trucks, the immobile artillery piece
 	return w.units.filter(func(u): return u.team == 0 and u.commander == 0 and u.is_mover() \
 		and u.exists and not u.is_disabled() and not u.hulk and u.on_gui and u.refit_pool <= 0.0 and u.num_weapons > 0 \
-		and u.run_speed > 0.0)
+		and u.run_speed > 0.0 and not (u is SimVehicle and (u.mine_stock > 0 or u.laying_mines)))
 
 
 func _centre(units: Array) -> Vector2:
@@ -395,7 +406,8 @@ func _orders(sm: SimMission) -> void:
 			var lure: SimUnit = null
 			var spot := Vector2.ZERO
 			for e in waiting:  # the nearest guard that can be lured without walking into a fort's arcs
-				if d == null or float(_lure_tries.get(e.id, 0.0)) > 90.0:
+				# mechs only ("tease the starport mechs out" [KC]): the vehicles stay at their posts
+				if d == null or (_lure_mechs and not (e is SimMech)) or float(_lure_tries.get(e.id, 0.0)) > _lure_s:
 					continue
 				var p: Vector2 = w.map.nearest_walkable(e.position + (_hold_at - e.position).normalized() * 260.0, d.hover)
 				if _covering(w, p).is_empty():
@@ -707,6 +719,9 @@ var _spare := -1  # ROUTE_PLANS "spare": the objective whose last target is left
 var _spared: SimUnit = null
 var _prep_at = null
 var _prep_guns := 0
+var _mine_segs: Array = []  # ROUTE_PLANS "mines": segments still to lay
+var _mines_called := false
+var _mine_at_start := false
 var _rp_reserve := 0
 var _prepping := false
 var _ready := false
@@ -723,7 +738,9 @@ var _hold_reached := false
 var _hold_pending := {}
 var _hold_watch := 700.0  # enemies awake this far beyond the hold radius keep it going
 var _lure_tries := {}  # enemy id -> seconds a decoy has spent trying to draw it out
-var _hold_decoy := false  # HOLD_PLANS "decoy": one mech lures the waiting guards to the hold  # a HOLD_PLANS entry waiting on its "after" objectives
+var _hold_decoy := false
+var _lure_mechs := false  # HOLD_PLANS "lure_mechs": the decoy draws out mechs only
+var _lure_s := 90.0  # HOLD_PLANS "lure_s": seconds spent on each guard before giving up  # HOLD_PLANS "decoy": one mech lures the waiting guards to the hold  # a HOLD_PLANS entry waiting on its "after" objectives
 var _hold_quiet := 0.0
 
 
@@ -746,6 +763,39 @@ func _prepare(sm: SimMission, lance: Array, centre: Vector2) -> bool:
 		var spot: Vector2 = w.map.nearest_walkable(at + Vector2(130.0, -50.0 + 50.0 * k))
 		_support(sm, "artillery_piece", spot)
 		_prepping = false
+		return true
+	if s != null and not _mine_segs.is_empty():
+		var layers := w.units.filter(func(u): return u.team == 0 and u is SimVehicle and u.exists and not u.is_disabled() \
+			and (u.mine_stock > 0 or u.laying_mines))
+		if layers.is_empty():
+			if s.delivering:
+				return true
+			if _mines_called or not s.can_call("minelayer"):
+				_mine_segs.clear()  # it was lost or there's no RP: go without
+			else:
+				_prepping = true
+				_mines_called = _support(sm, "minelayer", w.map.nearest_walkable(_mine_segs[0][0]))
+				_prepping = false
+				if not _mines_called:
+					_mine_segs.clear()
+			return true
+		var ml: SimVehicle = layers[0]
+		if ml.order == SimWorld.Order.MOVE:
+			return true  # driving to a segment or laying one
+		var seg: Array = _mine_segs[0]
+		var a: Vector2 = w.map.nearest_walkable(seg[0])
+		if ml.distance_to(a) > 20.0 and not _mine_at_start:
+			w.order_move(ml, a, true)
+			_mine_at_start = true
+			return true
+		if ml.mine_stock > 0:
+			s.order_lay_mines(ml, w.map.nearest_walkable(seg[1]))
+			if _verbose:
+				print("t=%6.1f  MINES %s lays (%.0f, %.0f) -> (%.0f, %.0f), %d left" % [w.time, ml.name, a.x, a.y, seg[1].x, seg[1].y, ml.mine_stock])
+		_mine_segs.pop_front()
+		_mine_at_start = false
+		if ml.mine_stock <= 0:
+			_mine_segs.clear()
 		return true
 	var hurt := lance.filter(func(m): return m is SimMech and _health(m) < 0.85 and SimSupport.needs_refit(m) \
 		and (_bay_for(sm, m) != null or not _trucks(sm).is_empty() or (s != null and s.rp >= int(SimSupport.COSTS["repair_truck"]))))
@@ -1396,7 +1446,7 @@ func _health(m: SimUnit) -> float:
 
 
 func _support(sm: SimMission, kind: String, target: Variant) -> bool:
-	if _spare >= 0 and not _ready and kind != "repair_truck" and not (kind == "artillery_piece" and _prepping) \
+	if _rp_reserve > 0 and not _ready and kind != "repair_truck" and not (kind in ["artillery_piece", "minelayer"] and _prepping) \
 			and sm.support.rp - int(SimSupport.COSTS.get(kind, 0)) < _rp_reserve:
 		return false  # RP kept for the reception (ROUTE_PLANS "rp_reserve")
 	if not sm.support.call_power(kind, target):
@@ -1552,6 +1602,9 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	_follow_since = -1.0
 	_prep_at = rp_plan.get("prep_at")
 	_prep_guns = int(rp_plan.get("prep_guns", 0))
+	_mine_segs = (rp_plan.get("mines", []) as Array).duplicate(true)
+	_mines_called = false
+	_mine_at_start = false
 	_rp_reserve = int(rp_plan.get("rp_reserve", 0))
 	_spared = null
 	_ready = false
@@ -1563,6 +1616,8 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 		_hold_pending = plan
 	_hold_watch = float(plan.get("watch", 700.0))
 	_hold_decoy = bool(plan.get("decoy", false))
+	_lure_mechs = bool(plan.get("lure_mechs", false))
+	_lure_s = float(plan.get("lure_s", 90.0))
 	if plan.has("at_start"):
 		_hold_at = _centre(_lance(sm.world))
 		_hold_r = float(plan["radius"])

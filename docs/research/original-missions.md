@@ -598,6 +598,7 @@ KC: "Major Kelly and Baxter hand you the tough jobs but advanced mechs are plent
       order. It ranks the aerospotter first in fights and doesn't chase into enemy arcs.
     - Result: all three secondaries in 2/3 seeds, with 50-53 kills and 10 enemies left, but still
       0/3. A hold at the bay stalled: group 2 roams the city out of its reach.
+    - Keeping two repair trucks' worth of RP back (`rp_reserve`) gave the first win: 1/3, at 1197 s.
 - **Sourcing:** well-sourced.
 
 ### mc2_19 Mobile Assault: Mt. Cho
@@ -764,7 +765,11 @@ KC: "Major Kelly and Baxter hand you the tough jobs but advanced mechs are plent
     - Result: the reception is ready and objective 0 is done in 2/3 seeds, but still 0/3. The
       lance has lost 2-3 of its 6 mechs at the starport by then, and the 10-mech wave (4
       Highlanders) finishes it.
-    - Not done yet: KC's minelayers, and teasing the starport mechs out a few at a time.
+    - Later the same day, the bot gained both remaining pieces. A minelayer lays two lines across
+      the west approach during the preparation. A decoy draws the starport mechs out a few at a
+      time from a hold north-west of the starport. The lance now lives to 744-1190 s, but it is
+      still 0/3: the spared last target is usually a mech, which fights and dies before the
+      reception is ready.
 - **Sourcing:** well-sourced.
 
 ### mc2_24 Operation Goliath

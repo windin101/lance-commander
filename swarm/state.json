@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T15:07:10+13:00",
+  "updated": "2026-10-24T15:20:42+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -669,8 +669,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-24T14:34:52+13:00",
-      "note": "To do (coordinator, 2026-10-24): the bot should spend RP on repairs before early strikes, and protect the city's repair bay (it gets destroyed mid-mission). To be picked up again after mc2_24."
+      "updated": "2026-10-24T15:20:42+13:00",
+      "note": "2026-10-24 repair priority: ROUTE_PLANS mc2_18 rp_reserve 12000 (two repair trucks' worth) holds RP back from strikes and salvage. Result: first win, seed 2 at 1197 s with all objectives done; seeds 1 and 3 lost at 996/1301 s with 14-16 enemies left (49 kills each). 1/3 against the gate's 2/3. Protecting the city's bay is not done: it is still lost mid-mission in most runs."
     },
     {
       "id": "I26",
@@ -721,8 +721,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:22+13:00",
-      "updated": "2026-10-24T14:51:05+13:00",
-      "note": "2026-10-24 mc2_23 pass. Port check: the reinforcement trigger matches mc2_23.abl:207-215 (both groups come 3 s after objective 0); the group make-up (3 Werewolf/Razorback, 4 Highlander, 2 Hunchback, 1 Hollander) matches the guides within their spread. Bot (ROUTE_PLANS mc2_23, KC's 'PREPARE a proper reception'):\n- 24k RP kept back until ready;\n- objective 0's starport force killed strongest-first, the weakest spared;\n- at the dropship bays: repair, then 2-3 Long Toms placed 130 m behind;\n- then the spared target is released and the lance holds the spot.\nLong Toms placed 60 m off had shelled our own Catapult, hence the 130 m.\nResult: still 0/3. Reception ready and obj 0 done in 2/3 seeds (622/736 s), but the lance has lost 2-3 of 6 at the starport by then, and the 10-mech wave finishes it at 1008-1120 s; seed 3 dies at the starport by 456 s. Left: minelayers (the bot has no minelayer use yet) and teasing the starport mechs out a few at a time."
+      "updated": "2026-10-24T15:20:42+13:00",
+      "note": "2026-10-24 extras:\n- Minelayer: the bot now uses it (ROUTE_PLANS 'mines', laid during the preparation). mc2_23 lays two 240 m lines across the west approach (x=200, y -560..-1060), and the minelayer is kept out of the lance.\n- Starport tease: HOLD_PLANS mc2_23 holds NW of the starport once the town is clear, with a decoy drawing out mechs only for up to 45 s each (lure_mechs/lure_s, per plan; mc2_22 keeps its 90 s, any unit).\nResult: still 0/3. The lance lives longer (744-1190 s, 37-44 kills) but the spare often ends on a mech (Atlas or Bushwacker) that fights and dies before the reception is ready, so the mines and guns rarely meet the waves. Next: make the fights leave the last LRM carrier alone."
     },
     {
       "id": "I30",
@@ -732,10 +732,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 3 1800 --mission=mc2_24 --damage --targets --cues",
       "owner": "playtester",
       "phase": 7,
-      "status": "fixed",
+      "status": "open",
       "created": "2026-10-19T16:45:22+13:00",
-      "updated": "2026-10-24T15:07:10+13:00",
-      "note": "2026-10-24 mc2_24 pass: 2/4 wins (seeds 1 and 4 at 837/778 s; was 0/3). Port check found I117 (rebels and player hostile). The rebel attack starts 10 s in, and the fuel trucks trigger their mech attack (mc2_24.abl:270-289); the fuel-truck objective now completes. Bot (ROUTE_PLANS mc2_24):\n- 'via' route east round the main gate turrets to the rebel breach;\n- HQ and Renard;\n- 'run_out': once only the extraction is left, every survivor runs for it.\nSeeds 2 and 3 die in the base at 779/469 s."
+      "updated": "2026-10-24T15:08:28+13:00",
+      "note": "Reopened (coordinator, 2026-10-24): mc2_24 is 2/4 (seeds 1, 4 won at 837/778 s; seeds 2, 3 die in the base at 779/469 s), against the balance gate's 2 of 3. Tracking the remaining losses here."
     },
     {
       "id": "I31",
@@ -1975,21 +1975,6 @@
   "log": [
     {
       "at": "2026-10-20T06:15:30+13:00",
-      "who": "conductor",
-      "msg": "issue I55 fixed: superseded: atlas is now an adapted licensed sculpt (stl_rig.py), approved in review 2026-10-20"
-    },
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "conductor",
-      "msg": "issue I56 fixed: superseded: madcat is now an adapted licensed sculpt (stl_rig.py), approved in review 2026-10-20"
-    },
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "conductor",
-      "msg": "issue I57 fixed: superseded: laohu is now an adapted licensed sculpt (stl_rig.py), approved in review 2026-10-20"
-    },
-    {
-      "at": "2026-10-20T06:15:30+13:00",
       "who": "game-art",
       "msg": "issue I65 P3: HD catapult: look call"
     },
@@ -2972,6 +2957,21 @@
       "at": "2026-10-24T15:07:10+13:00",
       "who": "conductor",
       "msg": "issue I30 fixed: 2026-10-24 mc2_24 pass: 2/4 wins (seeds 1 and 4 at 837/778 s; was 0/3). Port check found I117 (rebels and player hostile). The rebel attack starts 10 s in, and the fuel trucks trigger their mech attack (mc2_24.abl:270-289); the fuel-truck objective now completes. Bot (ROUTE_PLANS mc2_24):\n- 'via' route east round the main gate turrets to the rebel breach;\n- HQ and Renard;\n- 'run_out': once only the extraction is left, every survivor runs for it.\nSeeds 2 and 3 die in the base at 779/469 s."
+    },
+    {
+      "at": "2026-10-24T15:08:28+13:00",
+      "who": "conductor",
+      "msg": "issue I30 reopened: mc2_24 2/4 vs gate 2/3"
+    },
+    {
+      "at": "2026-10-24T15:20:42+13:00",
+      "who": "conductor",
+      "msg": "issue I25 updated: note \u2014 2026-10-24 repair priority: ROUTE_PLANS mc2_18 rp_reserve 12000 (two repair trucks' worth) holds RP back from strikes and salvage. Result: first win, seed 2 at 1197 s with all objectives done; seeds 1 and 3 lost at 996/1301 s with 14-16 enemies left (49 kills each). 1/3 against the gate's 2/3. Protecting the city's bay is not done: it is still lost mid-mission in most runs."
+    },
+    {
+      "at": "2026-10-24T15:20:42+13:00",
+      "who": "conductor",
+      "msg": "issue I29 updated: note \u2014 2026-10-24 extras:\n- Minelayer: the bot now uses it (ROUTE_PLANS 'mines', laid during the preparation). mc2_23 lays two 240 m lines across the west approach (x=200, y -560..-1060), and the minelayer is kept out of the lance.\n- Starport tease: HOLD_PLANS mc2_23 holds NW of the starport once the town is clear, with a decoy drawing out mechs only for up to 45 s each (lure_mechs/lure_s, per plan; mc2_22 keeps its 90 s, any unit).\nResult: still 0/3. The lance lives longer (744-1190 s, 37-44 kills) but the spare often ends on a mech (Atlas or Bushwacker) that fights and dies before the reception is ready, so the mines and guns rarely meet the waves. Next: make the fights leave the last LRM carrier alone."
     }
   ],
   "choices": [
