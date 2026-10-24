@@ -1,0 +1,53 @@
+{
+ "model": "shadowcat.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Shadowcat Prime for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863998",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "sdc-prime4.stl"
+ },
+ "tris": 41634,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.057,
+  "Walk": 0.434,
+  "Run": 1.019,
+  "STtoWK": 0.84,
+  "WKtoST": 0.702,
+  "WKtoRN": 0.531,
+  "RNtoWK": 1.278,
+  "LimpLeft": 0.463,
+  "LimpRight": 0.735,
+  "ParkToStand": 0.569,
+  "StandToPark": 0.646,
+  "Jump": 0.834,
+  "FallForward": 1.559,
+  "FallBackward": 1.38,
+  "GetUpFront": 1.181,
+  "GetUpBack": 1.128,
+  "HitFront": 0.199,
+  "HitBack": 0.138,
+  "HitLeft": 0.191,
+  "HitRight": 0.171
+ },
+ "paint_stats": {
+  "texels": 1851915,
+  "chip_share": 0.037955845705661434,
+  "grime_mean": 0.2906077206134796,
+  "paint_share": 0.6586976184112122,
+  "glass_texels": 29912,
+  "emissive_texels": 0,
+  "piping_texels": 117937,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

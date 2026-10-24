@@ -1,0 +1,52 @@
+{
+ "model": "madcat.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Timberwolf Prime, aka Madcat for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1864016",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "twf-prime-5.stl"
+ },
+ "tris": 50803,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Walk": 0.752,
+  "Run": 0.823,
+  "STtoWK": 0.7,
+  "WKtoST": 0.707,
+  "WKtoRN": 0.821,
+  "RNtoWK": 0.817,
+  "LimpLeft": 0.78,
+  "LimpRight": 0.794,
+  "ParkToStand": 1.154,
+  "StandToPark": 1.153,
+  "Jump": 0.565,
+  "FallForward": 1.179,
+  "FallBackward": 1.564,
+  "GetUpFront": 1.165,
+  "GetUpBack": 1.383,
+  "HitFront": 0.218,
+  "HitBack": 0.289,
+  "HitLeft": 0.39,
+  "HitRight": 0.544
+ },
+ "paint_stats": {
+  "texels": 1840958,
+  "chip_share": 0.027802372460425495,
+  "grime_mean": 0.30463698506355286,
+  "paint_share": 0.6415377211212858,
+  "glass_texels": 40440,
+  "emissive_texels": 0,
+  "piping_texels": 131904,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

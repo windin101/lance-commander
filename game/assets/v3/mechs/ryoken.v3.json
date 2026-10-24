@@ -1,0 +1,53 @@
+{
+ "model": "ryoken.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Stormcrow Prime, AKA Ryoken for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863997",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "scr-prime4.stl"
+ },
+ "tris": 54280,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.066,
+  "Walk": 0.397,
+  "Run": 0.501,
+  "STtoWK": 0.404,
+  "WKtoST": 0.397,
+  "WKtoRN": 0.478,
+  "RNtoWK": 0.494,
+  "LimpLeft": 0.323,
+  "LimpRight": 0.318,
+  "ParkToStand": 0.362,
+  "StandToPark": 0.4,
+  "Jump": 0.325,
+  "FallForward": 1.063,
+  "FallBackward": 1.12,
+  "GetUpFront": 1.708,
+  "GetUpBack": 1.585,
+  "HitFront": 0.12,
+  "HitBack": 0.048,
+  "HitLeft": 0.13,
+  "HitRight": 0.107
+ },
+ "paint_stats": {
+  "texels": 1803521,
+  "chip_share": 0.02108874806558948,
+  "grime_mean": 0.3269791901111603,
+  "paint_share": 0.6584597573302445,
+  "glass_texels": 21763,
+  "emissive_texels": 0,
+  "piping_texels": 95964,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}
