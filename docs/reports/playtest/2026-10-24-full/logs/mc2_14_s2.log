@@ -1,0 +1,145 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_14
+force: campaign 1 units 75 t of 75 t, RP 0: Lao Hu Prime(pmwsteel)
+ABL pilots: 36
+t=  34.2  CAPTURED LaoHu MeetHall
+t=  34.2  objective done: Contact the Liao Operative
+t=  64.7  CAPTURED LaoHu S_TurretControl
+t= 116.4  CAPTURED LaoHu S_TurretControl
+t= 128.8  CAPTURED LaoHu S_SensorControl
+t= 128.8  objective done: Capture Airport Sensor Control
+t= 143.5  CAPTURED LaoHu S_TurretControl
+t= 160.4  CAPTURED LaoHu RepairBay
+t= 223.5  CAPTURED LaoHu S_TurretControl
+t= 237.1  LURE 3 to our turrets at (654, 154) (dps 5 vs 6, health 86%)
+t= 261.7  LURE 4 to our turrets at (621, 156) (dps 7 vs 5, health 58%)
+t= 264.7  FALLBACK 4 threats (dps 9 vs 5, health 58%) to (652, 54)
+t= 300.7  LURE 3 to our turrets at (621, 156) (dps 5 vs 5, health 58%)
+t= 324.7  FALLBACK 3 threats (dps 5 vs 2, health 47%) to (652, 54)
+t= 360.7  BAY LaoHu -> RepairBay (1298 m)
+t= 441.4  REPAIR_DONE LaoHu RepairBay
+t= 474.7  LURE 2 to our turrets at (207, -592) (dps 2 vs 2, health 78%)
+t= 498.7  LURE 3 to our turrets at (204, -588) (dps 5 vs 2, health 77%)
+t= 519.7  LURE 2 to our turrets at (183, -627) (dps 3 vs 2, health 76%)
+t= 543.7  LURE 3 to our turrets at (183, -627) (dps 5 vs 2, health 75%)
+t= 567.7  LURE 3 to our turrets at (183, -627) (dps 5 vs 2, health 74%)
+t= 588.7  LURE 1 to our turrets at (183, -627) (dps 2 vs 2, health 71%)
+t= 609.7  BAY LaoHu -> RepairBay (463 m)
+t= 642.6  REPAIR_DONE LaoHu RepairBay
+t= 718.2  CAPTURED LaoHu S_TurretControl
+t= 731.9  CAPTURED LaoHu S_TurretControl
+t= 739.6  CAPTURED LaoHu RepairBay
+t= 765.1  objective done: Destroy Orbital Gun Alpha
+t= 810.7  BREAK 2 attackers to (93, 311) (dps 2 vs 2 + forts 0, health 79%)
+t= 834.7  LURE 2 to our turrets at (617, 170) (dps 2 vs 2, health 79%)
+t= 855.7  LURE 2 to our turrets at (619, 212) (dps 2 vs 2, health 79%)
+t= 876.7  LURE 2 to our turrets at (619, 212) (dps 2 vs 2, health 79%)
+t= 900.7  BAY LaoHu -> RepairBay (364 m)
+t= 924.5  REPAIR_DONE LaoHu RepairBay
+t= 990.7  AVOID 1 patrol units (nearest Lrmcarrier at 256 m, avoided 3 s, speed 9.0, in arcs false/true)
+t=1014.7  AVOID 1 patrol units (nearest Lrmcarrier at 271 m, avoided 15 s, speed 9.0, in arcs false/true)
+t=1042.3  AVOID 1 patrol units (nearest Lrmcarrier at 296 m, avoided 24 s, speed 9.0, in arcs false/true)
+t=1054.7  JUMP LaoHu to capture S_TurretControl
+t=1060.9  JUMP LaoHu to capture S_TurretControl
+t=1064.0  BAY LaoHu -> RepairBay (753 m)
+t=1070.2  BAY LaoHu -> RepairBay (693 m)
+t=1124.3  REPAIR_DONE LaoHu RepairBay
+t=1169.4  AVOID 1 patrol units (nearest Lrmcarrier at 307 m, avoided 33 s, speed 9.0, in arcs false/false)
+t=1184.9  JUMP LaoHu to capture S_TurretControl
+t=1191.1  JUMP LaoHu to capture S_TurretControl
+t=1194.3  CAPTURED LaoHu S_TurretControl
+t=1203.5  AVOID 1 patrol units (nearest Lrmcarrier at 249 m, avoided 42 s, speed 7.5, in arcs false/true)
+t=1228.3  AVOID 1 patrol units (nearest Lrmcarrier at 280 m, avoided 60 s, speed 9.0, in arcs false/false)
+t=1234.5  BAY LaoHu -> RepairBay (595 m)
+t=1273.7  REPAIR_DONE LaoHu RepairBay
+t=1346.1  JUMP LaoHu to capture S_TurretControl
+t=1349.2  BAY LaoHu -> RepairBay (909 m)
+t=1414.4  REPAIR_DONE LaoHu RepairBay
+t=1477.7  CAPTURED LaoHu S_TurretControl
+t=1499.9  CAPTURED LaoHu S_TurretControl
+t=1504.2  LURE 2 to our turrets at (-837, -614) (dps 2 vs 2, health 75%)
+t=1535.2  LURE 1 to our turrets at (-780, -641) (dps 3 vs 2, health 71%)
+t=1556.9  LURE 1 to our turrets at (-777, -642) (dps 3 vs 2, health 71%)
+t=1581.7  FALLBACK 1 threats (dps 3 vs 1, health 57%) to (-835, -897)
+t=1584.8  LURE 1 to our turrets at (-777, -642) (dps 3 vs 1, health 57%)
+t=1606.5  LURE 1 to our turrets at (-780, -641) (dps 3 vs 1, health 50%)
+t=1628.2  BAY LaoHu -> RepairBay (840 m)
+t=1718.9  REPAIR_DONE LaoHu RepairBay
+t=1736.7  LURE 1 to our turrets at (147, -725) (dps 1 vs 1, health 79%)
+t=1755.3  BAY LaoHu -> RepairBay (333 m)
+t=1776.8  REPAIR_DONE LaoHu RepairBay
+t=1851.4  AVOID 1 patrol units (nearest Hollander at 208 m, avoided 3 s, speed 12.0, in arcs false/true)
+t=1879.3  AVOID 1 patrol units (nearest Hollander at 309 m, avoided 18 s, speed 12.0, in arcs false/true)
+t=1901.0  AVOID 1 patrol units (nearest Hollander at 310 m, avoided 30 s, speed 12.0, in arcs false/true)
+t=1928.9  AVOID 1 patrol units (nearest Hollander at 310 m, avoided 42 s, speed 12.0, in arcs false/true)
+t=1956.8  AVOID 1 patrol units (nearest Hollander at 268 m, avoided 57 s, speed 12.0, in arcs false/true)
+t=1987.8  AVOID 4 patrol units (nearest Hollander at 242 m, avoided 69 s, speed 12.0, in arcs false/true)
+t=2012.6  AVOID 3 patrol units (nearest Hollander at 297 m, avoided 84 s, speed 12.0, in arcs false/true)
+t=2034.3  AVOID 2 patrol units (nearest Hollander at 285 m, avoided 90 s, speed 0.0, in arcs false/true)
+t=2056.0  AVOID 1 patrol units (nearest Hollander at 284 m, avoided 102 s, speed 0.0, in arcs false/true)
+t=2087.0  LURE 5 to our turrets at (-760, -330) (dps 8 vs 1, health 79%)
+t=2108.7  LURE 5 to our turrets at (-760, -330) (dps 8 vs 1, health 72%)
+t=2173.8  LURE 2 to our turrets at (-760, -330) (dps 2 vs 1, health 54%)
+t=2198.6  LURE 1 to our turrets at (-760, -330) (dps 1 vs 1, health 49%)
+t=2220.3  LURE 1 to our turrets at (-760, -330) (dps 1 vs 1, health 49%)
+t=2242.0  LURE 1 to our turrets at (-760, -330) (dps 1 vs 1, health 46%)
+t=2248.2  BAY LaoHu -> RepairBay (1102 m)
+t=2319.9  REPAIR_DONE LaoHu RepairBay
+t=2320.0  LOST RepairBay (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by -)
+t=2322.6  BAY LaoHu -> RepairBay (1603 m)
+t=2418.5  REPAIR_DONE LaoHu RepairBay
+t=2431.1  LURE 1 to our turrets at (648, 316) (dps 1 vs 0, health 79%)
+t=2459.0  LURE 1 to our turrets at (619, 212) (dps 1 vs 0, health 79%)
+t=2480.7  AVOID 2 patrol units (nearest Harasser at 278 m, avoided 9 s, speed 0.0, in arcs false/false)
+t=2508.6  AVOID 2 patrol units (nearest Harasser at 289 m, avoided 21 s, speed 0.0, in arcs false/false)
+t=2533.4  AVOID 2 patrol units (nearest Harasser at 279 m, avoided 33 s, speed 0.0, in arcs false/false)
+t=2561.3  AVOID 1 patrol units (nearest Harasser at 280 m, avoided 45 s, speed 0.0, in arcs false/false)
+t=2583.0  AVOID 2 patrol units (nearest Harasser at 285 m, avoided 57 s, speed 4.5, in arcs false/false)
+t=2607.8  AVOID 2 patrol units (nearest Harasser at 280 m, avoided 66 s, speed 0.0, in arcs false/false)
+t=2629.5  AVOID 2 patrol units (nearest Harasser at 313 m, avoided 78 s, speed 9.0, in arcs false/false)
+t=2651.2  AVOID 2 patrol units (nearest Harasser at 302 m, avoided 90 s, speed 0.0, in arcs false/false)
+t=2676.0  AVOID 2 patrol units (nearest Harasser at 295 m, avoided 102 s, speed 1.5, in arcs false/false)
+t=2697.7  AVOID 2 patrol units (nearest Harasser at 285 m, avoided 114 s, speed 4.5, in arcs false/false)
+t=2756.6  AVOID 2 patrol units (nearest Harasser at 310 m, avoided 120 s, speed 9.0, in arcs false/false)
+t=2781.4  AVOID 2 patrol units (nearest Harasser at 291 m, avoided 132 s, speed 9.0, in arcs false/false)
+t=2818.6  BAY LaoHu -> RepairBay (684 m)
+t=2824.8  AVOID 1 patrol units (nearest Harasser at 262 m, avoided 138 s, speed 9.0, in arcs false/false)
+t=2831.0  BAY LaoHu -> RepairBay (668 m)
+t=2837.2  BAY LaoHu -> RepairBay (668 m)
+t=2846.5  LURE 2 to our turrets at (616, 564) (dps 2 vs 0, health 46%)
+t=2852.2  LOST LaoHu (disabled, armour 32%, heat 0, ejected false, pilot 1.0 wounds, last hit by Harasser)
+t=2857.3  MISSION LOST
+seed 2 end t=2857 result=LOST  player alive 0  enemies alive 7
+damage to lance: 652 from 33 attackers; hits by location (0 head .. 10 rear RT): { 7: 17, 6: 15, 1: 25, 5: 25, 4: 25, 2: 11, 0: 3, 8: 5, 3: 15, 10: 2, 9: 2 }
+damage by lance: 1094; kills 28
+       228  MediumAutoCannonTurret (vehicle)
+       138  Hunchback (mech)
+        90  Hollander (mech)
+        60  Hunter (vehicle)
+        45  Werewolf (mech)
+        34  SRMTurret (vehicle)
+        21  Monsoon (vehicle)
+        12  Hetzer (vehicle)
+         8  Harasser (vehicle)
+         6  Attack Copter (mech)
+  obj 0 P: done  Contact the Liao Operative
+  obj 1 P: done  Destroy Orbital Gun Alpha
+  obj 2 P: open  Destroy Orbital Gun Beta
+  obj 3 P: open  Destroy Orbital Gun Gamma
+  obj 4 P: open  Destroy Mobile Orbital Gun Omega
+  obj 5 P: gated  Move to the Extraction Point
+  obj 6 s: done  Capture Airport Sensor Control
+  obj 7 s: open  Destroy Fuel Supplies at Resupply Depot
+  obj 8 s: open  Capture Communications Array
+  obj 9 s: open  Destroy all Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_14_patrol8:start": 1, "mc2_14_patrol1:attack": 1, "mc2_14_patrol2:attack": 2, "mc2_14_static1:attack": 9, "mc2_14_patrol3:attack": 1, "mc2_14_patrol4:attack": 2, "mc2_14_patrol5:attack": 2, "mc2_14_patrol6:attack": 1, "mc2_14_patrol7:attack": 1, "mc2_14_patrol15:attack": 2, "mc2_14_patrol16:attack": 2, "mc2_14_static1:start": 1, "mc2_14_patrol9:attack": 1, "mc2_14_MOG_patrol:start": 1, "mc2_14_patrol10:start": 2, "mc2_14_patrol11:start": 2, "mc2_14_patrol12:attack": 2, "mc2_14_patrol13:start": 1, "mc2_14_patrol14:attack": 1, "PBrain:": 1 }
+enemy pilots that moved >20 m: 34 / 36
+
+--- stderr ---
+WARNING: 913 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,100 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_22
+force: campaign 6 units 380 t of 380 t, RP 16000: Mad Cat Prime(pmwrooster), Mad Cat Prime(pmwmother), Shootist Prime(pmwghost), Catapult Prime(pmwscooter), Vulture Prime(pmwbubba), Wolfhound Prime(pmwvenom)
+ABL pilots: 70
+t=   0.1  SUPPORT air_strike (-1318, -764) rp_left=9000
+t=   0.1  FORT STRIKE on LiaoTurretGenerator.fit (13 turrets hang on it)
+t=   0.1  HOLD reached (-1182, -1207)
+t=   0.1  DECOY Wolfhound toward Partisan at 405 m
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LRMTurret 
+t=   7.4  TURRET_DOWN LRMTurret 
+t=   7.4  TURRET_DOWN LRMTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=  21.5  DECOY Wolfhound toward Partisan at 363 m
+t=  48.5  DECOY Wolfhound toward Lrmcarrier at 420 m
+t=  78.8  LOST Wolfhound (disabled, armour 16%, heat 0, ejected false, pilot 1.0 wounds, last hit by LargePulseCannonTurret)
+t=  79.0  DECOY Madcat toward Lrmcarrier at 420 m
+t= 100.7  DECOY Madcat toward Partisan at 377 m
+t= 125.5  DECOY Madcat toward Lrmcarrier at 420 m
+t= 153.4  DECOY Madcat toward Lrmcarrier at 420 m
+t= 184.4  DECOY Madcat toward Catapult at 325 m
+t= 267.7  DECOY Madcat toward Starslayer at 541 m
+t= 321.7  HOLD over: no guard left to lure out (1 waiting)
+t= 330.7  SUPPORT repair_truck (-1193, -980) rp_left=3000
+t= 351.8  REPAIR_DONE Madcat 
+t= 364.4  CAPTURED Madcat LiaoTurretControl.fit
+t= 383.1  CAPTURED Madcat OrdnanceTruckProp
+t= 384.9  CAPTURED Madcat OrdnanceTruckProp
+t= 387.7  SUPPORT salvage_craft Wolfhound rp_left=1000
+t= 452.1  REPAIR_DONE Madcat 
+t= 465.8  REPAIR_DONE Wolfhound 
+t= 489.7  BOMB Wolfhound shoots FuelTruckProp under ["MenShen", "Starslayer"]
+t= 489.7  BOMB Shootist shoots FuelTruckProp under ["MenShen", "Starslayer"]
+t= 498.8  LOST Wolfhound (destroyed, armour 39%, heat 10, ejected false, pilot 2.0 wounds, last hit by Starslayer)
+t= 537.8  CAPTURED Vulture OrdnanceTruckProp
+t= 542.1  CAPTURED Madcat OrdnanceTruckProp
+t= 544.1  REPAIR_DONE Madcat 
+t= 553.8  REPAIR_DONE Shootist 
+t= 564.7  SUPPORT air_strike (-47, -192) rp_left=2000
+t= 576.7  BOMB Madcat shoots AmmoDump under ["Raven", "Raven", "MenShen", "MenShen", "Raven"]
+t= 576.7  BOMB Madcat shoots AmmoDump under ["Raven", "Raven", "MenShen", "MenShen", "Raven"]
+t= 594.7  PULLBACK Madcat at 30%
+t= 602.1  LOST Madcat (destroyed, armour 4%, heat 0, ejected false, pilot 2.0 wounds, last hit by MenShen)
+t= 606.7  BOMB Catapult shoots FuelTruckProp under ["Raven"]
+t= 606.7  BOMB Madcat shoots FuelTruckProp under ["Raven"]
+t= 619.3  REPAIR_DONE Madcat 
+t= 649.4  CAPTURED Catapult RepairBay
+t= 653.4  CAPTURED Shootist OrdnanceTruckProp
+t= 655.7  CAPTURED Shootist OrdnanceTruckProp
+t= 657.7  SUPPORT salvage_craft LaoHu rp_left=0
+t= 667.1  CAPTURED Madcat OrdnanceTruckProp
+t= 669.7  BAY LaoHu -> RepairBay (195 m)
+t= 694.6  REPAIR_DONE Vulture 
+t= 697.3  REPAIR_DONE LaoHu RepairBay
+t= 757.6  CAPTURED Vulture LiaoTurretControl.fit
+t= 809.7  LOST LaoHu (disabled, armour 24%, heat 0, ejected false, pilot 0.0 wounds, last hit by LaoHu)
+t= 827.3  LOST Repairtruck (destroyed, armour 65%, heat 0, ejected false, pilot 0.0 wounds, last hit by Catapult)
+t= 837.7  PULLBACK Shootist at 22%
+t= 841.5  LOST Shootist (destroyed, armour 5%, heat 0, ejected false, pilot 3.0 wounds, last hit by Swarmlrmc)
+t= 841.8  LOST Vulture (disabled, armour 17%, heat 21, ejected false, pilot 2.0 wounds, last hit by Catapult)
+t= 846.7  PULLBACK Madcat at 27%
+t= 851.3  LOST Madcat (destroyed, armour 10%, heat 0, ejected false, pilot 3.0 wounds, last hit by Catapult)
+t= 861.7  FALLBACK 8 threats (dps 23 vs 5, health 55%) to (382, 498)
+t= 870.2  LOST Catapult (destroyed, armour 16%, heat 0, ejected false, pilot 0.0 wounds, last hit by Catapult)
+t= 875.2  MISSION LOST
+seed 3 end t=875 result=LOST  player alive 0  enemies alive 18
+damage to lance: 1936 from 56 attackers; hits by location (0 head .. 10 rear RT): { 4: 87, 3: 93, 2: 94, 1: 106, 7: 69, 8: 30, 0: 13, 5: 69, 6: 76, 10: 17, 9: 14 }
+damage by lance: 4905; kills 45
+       626  Catapult (mech)
+       264  MenShen (mech)
+       233  Anubis (mech)
+       176  LaoHu (mech)
+       164  Cyclops (mech)
+       141  Swarmlrmc (vehicle)
+       104  Starslayer (mech)
+       101  Raven (mech)
+        56  LargePulseCannonTurret (vehicle)
+        51  LRMTurret (vehicle)
+  obj 0 P: open  Destroy the Liao Elite Guard
+  obj 1 P: open  Destroy the Liao Palace
+  obj 2 P: gated  Move all surviving Mechs to Extraction Point
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_22_EC1_LRM:start": 1, "mc2_22_EC1_LRM:attack": 1, "pbrain:attack": 1, "mc2_22_EC2_Heavy_Shutdown:attack": 1, "mc2_22_EC2_Medium_Shutdown:attack": 4, "mc2_22_EC2_Light_Shutdown:attack": 4, "mc2_22_EC3_Boss:start": 1, "mc2_22_EC3_Guards:attack": 4, "mc2_22_EC1_Mech_center_1:attack": 1, "mc2_22_EC1_Mech_center_2:attack": 1, "mc2_22_EC1_Mech_left:attack": 3, "mc2_22_EC1_Mech_right:attack": 3, "mc2_22_EC1_Veh_Left:attack": 2, "mc2_22_EC1_VEH_right:attack": 2, "mc2_22_EC2_ForestShutDown_West:start": 3, "mc2_22_EC2_ForestShutDown_EAST:start": 3, "mc2_22_EC2_Forest_Spotters:start": 2, "mc2_22_EC2_Light_Patrol_WEST:attack": 3, "mc2_22_EC2_Light_Patrol_east:attack": 3, "mc2_22_EC3_Guard2:start": 2, "mc2_22_EC2_ForestE_Patrol:attack": 5, "mc2_22_EC2_ForesW_Patrol:start": 3, "mc2_22_EC2_swarm:attack": 3, "mc2_22_EC4_Ambush_lrm:attack": 4, "mc2_22_EC4_Ambush:gotopalace": 2, "mc2_22_EC4_Spotter:start": 2, "PBrain:": 5, "pbrain:": 3 }
+enemy pilots that moved >20 m: 59 / 72
+
+--- stderr ---
+WARNING: 1068 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

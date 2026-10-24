@@ -1,0 +1,79 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_11
+force: campaign 3 units 160 t of 160 t, RP 0: Men Shen Prime(pmwsteel), Men Shen Prime(pmwclaymore), Starslayer Prime(pmwworm)
+ABL pilots: 38
+t=   0.1  capture target Jagermech destroyed by ?
+t=   0.1  capture target ShadowCat destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Jagermech destroyed by ?
+t= 228.9  CAPTURED MenShen DavionTurretControl.fit
+t= 263.1  CAPTURED Starslayer OrdnanceTruckProp
+t= 417.7  BOMB MenShen shoots SmallFuelTank under ["Enfield", "Enfield"]
+t= 465.1  CAPTURED MenShen DavionTurretControl.fit
+t= 469.6  CAPTURED MenShen DavionTurretControl.fit
+t= 498.2  CAPTURED Starslayer DavionTurretControl.fit
+t= 546.7  JUMP Starslayer to capture DavionTurretControl.fit
+t= 549.8  CAPTURED Starslayer DavionTurretControl.fit
+t= 557.9  CAPTURED MenShen DavionTurretControl.fit
+t= 574.2  CAPTURED MenShen DavionTurretControl.fit
+t= 599.5  CAPTURED MenShen DavionTurretControl.fit
+t= 616.6  CAPTURED MenShen DavionSensorControl.fit
+t= 644.9  CAPTURED MenShen RepairBay
+t= 645.7  BAY MenShen -> RepairBay (36 m)
+t= 665.0  LOST MenShen (disabled, armour 34%, heat 0, ejected false, pilot 0.0 wounds, last hit by MediumAutoCannonTurret)
+t= 665.2  REPAIR_DONE MenShen RepairBay
+t= 666.7  BAY Starslayer -> RepairBay (425 m)
+t= 764.9  REPAIR_DONE Starslayer RepairBay
+t= 774.7  CAPTURED Starslayer DavionTurretControl.fit
+t= 783.9  CAPTURED Starslayer WeaponsFacility
+t= 783.9  objective done: 1 - Capture Davion Weapons Facility
+t= 831.7  JUMP Starslayer to capture S_TurretControl
+t= 834.7  BAY MenShen -> RepairBay (889 m)
+t= 882.1  REPAIR_DONE MenShen RepairBay
+t= 894.7  JUMP Starslayer to capture S_TurretControl
+t= 897.8  CAPTURED Starslayer S_TurretControl
+t= 942.7  FALLBACK 2 threats (dps 26 vs 3, health 58%) to (-251, 1071)
+t= 962.8  LOST Starslayer (disabled, armour 17%, heat 0, ejected false, pilot 0.0 wounds, last hit by LRMPopup)
+t= 995.5  LOST MenShen (destroyed, armour 12%, heat 2, ejected false, pilot 2.0 wounds, last hit by Shootist)
+t=1000.5  MISSION LOST
+seed 3 end t=1001 result=LOST  player alive 0  enemies alive 11
+damage to lance: 816 from 38 attackers; hits by location (0 head .. 10 rear RT): { 3: 39, 2: 52, 1: 37, 7: 32, 5: 24, 6: 29, 4: 27, 8: 5, 9: 4, 0: 2, 10: 4 }
+damage by lance: 1450; kills 20
+       288  LRMPopup (vehicle)
+       180  MediumAutoCannonTurret (vehicle)
+       102  Enfield (mech)
+        76  Wolfhound (mech)
+        52  Shootist (mech)
+        30  Explosion (blast)
+        28  Drillson (vehicle)
+        26  Jagermech (mech)
+        16  Centipede (vehicle)
+        12  LRMTurret (vehicle)
+  obj 0 s: open  a - Capture RP Buildings at Davion Installation
+  obj 1 s: open  b - Salvage Davion 'Mechs at salvage yard
+  obj 2 P: done  1 - Capture Davion Weapons Facility
+  obj 3 P: open  2 - Capture Steiner Weapons Facility
+  obj 4 P: open  3 - Capture Steiner HQ Building
+  obj 5 P: gated  4 - Extract at Steiner Drop Ship Pad
+  obj 6 s hidden: open  hidden objective for sensor towers
+  obj 7 s hidden: done  hidden objective for sensor control
+  obj 8 s hidden: open  bool 01
+  obj 9 s hidden: open  bool 02
+  obj 10 s hidden: open  bool 03
+  obj 11 s hidden: open  bool 04
+  obj 12 s hidden: open  bool 05
+  obj 13 s hidden: done  bool 06
+  obj 14 s hidden: done  Hidden Trigger for Salvage VO
+  obj 15 s hidden: done  Start of mission wav file
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_11_EC1_grp4:attack": 2, "mc2_11_EC1_Grp2:attack": 2, "mc2_11_dred:start": 14, "mc2_11_EC2_grp1:attack2": 1, "mc2_11_EC2_grp2:attack": 1, "mc2_11_EC3_grp2:attack": 2, "mc2_11_EC3_grp3:attack": 1, "mc2_11_EC2_grp4:amok": 1, "mc2_11_EC2_grp3:attack": 1, "mc2_11_ec4_grp4:attack": 1, "mc2_11_ec1_grp1:attack": 2, "mc2_11_EC3_grp1:attack": 2, "mc2_11_EC1_Grp3:attack": 2, "mc2_11_EC1_grpwav:attack": 1, "mc2_11_dred_lrm:attack": 1, "DredAttack01:start": 1, "PBrain:": 3 }
+enemy pilots that moved >20 m: 20 / 38
+
+--- stderr ---
+WARNING: 776 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

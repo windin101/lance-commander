@@ -1,0 +1,53 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_24
+force: campaign 8 units 450 t of 450 t, RP 10000: Shootist Prime(pmwrooster), Catapult Prime(pmwmother), Catapult Prime(pmwghost), Catapult Prime(pmwscooter), Vulture Prime(pmwbubba), Men Shen Prime(pmwvenom), Sha Yu Prime(pmwwicked), Razorback Prime(pmwsteel)
+ABL pilots: 72
+t= 156.5  SUPPORT salvage_craft Werewolf rp_left=0
+t= 249.5  BOMB ShaYu shoots AmmoDump under ["Hunchback"]
+t= 249.5  BOMB Catapult shoots AmmoDump under ["Hunchback"]
+t= 258.8  LOST MenShen (disabled, armour 65%, heat 16, ejected false, pilot 1.0 wounds, last hit by Legion)
+t= 261.6  LOST ShaYu (destroyed, armour 47%, heat 0, ejected false, pilot 1.0 wounds, last hit by Hunchback)
+t= 263.5  LOST Werewolf (disabled, armour 28%, heat 7, ejected false, pilot 0.0 wounds, last hit by Zeus)
+t= 362.5  LOST Catapult (disabled, armour 27%, heat 0, ejected false, pilot 1.0 wounds, last hit by Hunchback)
+t= 372.7  PULLBACK Werewolf at 26%
+t= 374.9  LOST Werewolf (disabled, armour 21%, heat 0, ejected false, pilot 0.0 wounds, last hit by Bushwacker)
+t= 387.7  PULLBACK Shootist at 28%
+t= 390.3  LOST Shootist (disabled, armour 22%, heat 0, ejected false, pilot 0.0 wounds, last hit by Hunchback)
+t= 394.6  LOST Vulture (destroyed, armour 33%, heat 0, ejected false, pilot 0.0 wounds, last hit by Bushwacker)
+t= 432.7  FALLBACK 7 threats (dps 17 vs 6, health 58%) to (-209, 684)
+t= 438.7  PULLBACK Catapult at 27%
+t= 439.1  LOST Catapult (destroyed, armour 11%, heat 0, ejected false, pilot 2.0 wounds, last hit by Bushwacker)
+t= 570.7  FALLBACK 3 threats (dps 16 vs 5, health 59%) to (-209, 684)
+t= 630.7  FALLBACK 3 threats (dps 16 vs 4, health 50%) to (-209, 684)
+t= 690.7  FALLBACK 3 threats (dps 16 vs 4, health 43%) to (-209, 684)
+t= 750.7  FALLBACK 3 threats (dps 16 vs 4, health 25%) to (-209, 684)
+t= 773.8  LOST Catapult (disabled, armour 5%, heat 0, ejected false, pilot 4.0 wounds, last hit by Hunchback)
+t= 778.8  MISSION LOST
+seed 2 end t=779 result=LOST  player alive 0  enemies alive 21
+damage to lance: 1316 from 24 attackers; hits by location (0 head .. 10 rear RT): { 5: 36, 2: 37, 0: 10, 1: 51, 4: 39, 6: 53, 3: 32, 7: 41, 9: 14, 10: 16, 8: 17 }
+damage by lance: 2570; kills 27
+       678  Hunchback (mech)
+       273  Bushwacker (mech)
+       124  Zeus (mech)
+        96  Highlander (mech)
+        70  Hollander (mech)
+        60  Legion (vehicle)
+        12  LRMTurret (vehicle)
+         2  Partisan (vehicle)
+  obj 0 P: open  Destroy Steiner High Command
+  obj 1 P: open  Eliminate Renard
+  obj 2 P: inactive (flag F1)  Extract All Surviving Mechs
+  obj 3 s hidden: done  Hidden Area Trigger to Popup Renard Obj
+  obj 4 s hidden: done  Hidden Trigger for Destroying Fuel Trucks
+  obj 5 s hidden: open  Hidden Objective for Triggering Extract
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_24_EC3_FGate_highl:attack": 1, "mc2_24_EC3_FGate_highl:start": 1, "mc2_24_EC6_North_Renards2:attack": 1, "mc2_24_EC6_North_Renards2:attack1": 1, "mc2_24_EC6_North_Renards:attack1": 1, "mc2_24_EC6_North_Renards3:attack1": 2, "mc2_24_EC1_East_G4S:attack": 1, "mc2_24_EC1_East_G3S:attack": 1, "mc2_24_EC2_West_legion:attack": 5, "pbrain:attack": 1, "mc2_24_EC1_East_G1:attack": 2, "mc2_24_EC1_East_G2:attack": 1, "mc2_24_EC3_FGate_bushw1:attack": 2, "mc2_24_EC3_FGate_bushw2:start": 2, "mc2_24_EC2_West_razors:start": 2, "mc2_24_EC2_West_razors2:start": 2, "mc2_24_EC4_West_Mechs4:attack": 1, "mc2_24_EC4_West_Mechs3:attack": 1, "mc2_24_EC4_West_Mechs1:attack": 2, "mc2_24_EC4_West_Mechs2:attack": 2, "mc2_24_EC5_North_power:attack": 6, "mc2_24_EC5_North_power:start": 2, "mc2_24_EC2_West_haras:attack": 2, "mc2_24_EC3_FGate_haras:start": 2, "mc2_24_EC6_South_Mechs2:start": 2, "mc2_24_EC6_South_Mechs:start": 2, "mc2_24_EC2_West_hollands:start": 2, "mc2_24_EC2_West_bushws:attack": 1, "mc2_24_EC2_West_bushws:start": 1, "mc2_24_Fuel_CNV:start": 5, "mc2_24_EC1_Reb_mech:attack": 1, "mc2_24_EC1_Reb_veds:attack": 3, "mc2_24_EC1_Reb_LRMs3S:attack": 3, "PBrain:": 8, "pbrain:": 1 }
+enemy pilots that moved >20 m: 60 / 73
+
+--- stderr ---
+WARNING: 925 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

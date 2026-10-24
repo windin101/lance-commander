@@ -1,0 +1,57 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_13
+force: campaign 4 units 230 t of 230 t, RP 0: Shootist Prime(pmwsteel), Catapult Prime(pmwclaymore), Men Shen Prime(pmwworm), Sha Yu Prime(pmwmeat)
+ABL pilots: 48
+t=  51.5  BOMB ShaYu shoots PipeTank under ["Ryoken"]
+t=  51.5  BOMB MenShen shoots PipeTank under ["Ryoken"]
+t=  60.5  PULLBACK ShaYu at 28%
+t=  61.8  LOST ShaYu (disabled, armour 20%, heat 6, ejected false, pilot 0.0 wounds, last hit by Ryoken)
+t=  84.8  CAPTURED MenShen DavionSensorControl.fit
+t=  87.1  CAPTURED MenShen RepairBay
+t=  94.3  objective done: Destroy Davion Dropship
+t= 100.7  CAPTURED Catapult WeaponsFacility
+t= 100.7  objective done: Capture Weapons Facility #3
+t= 325.1  CAPTURED MenShen DavionTurretControl.fit
+t= 335.2  CAPTURED Catapult DavionTurretControl.fit
+t= 414.6  CAPTURED MenShen DavionTurretControl.fit
+t= 430.0  CAPTURED MenShen DavionTurretControl.fit
+t= 495.1  CAPTURED MenShen WeaponsFacility
+t= 495.1  objective done: Capture Weapons Facility #1
+t= 546.0  LOST MenShen (disabled, armour 34%, heat 3, ejected false, pilot 0.0 wounds, last hit by Enfield)
+t= 570.7  FALLBACK 5 threats (dps 15 vs 10, health 54%) to (-325, 566)
+t= 609.7  PULLBACK Shootist at 29%
+t= 614.0  LOST Shootist (disabled, armour 16%, heat 0, ejected false, pilot 0.0 wounds, last hit by Enfield)
+t= 618.8  LOST GaussTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Uller)
+t= 630.7  FALLBACK 2 threats (dps 9 vs 5, health 54%) to (-325, 566)
+t= 673.8  LOST Catapult (disabled, armour 13%, heat 4, ejected false, pilot 3.0 wounds, last hit by Enfield)
+t= 678.8  MISSION LOST
+seed 2 end t=679 result=LOST  player alive 0  enemies alive 27
+damage to lance: 726 from 24 attackers; hits by location (0 head .. 10 rear RT): { 7: 26, 1: 23, 3: 25, 4: 24, 6: 29, 2: 24, 5: 16, 9: 8, 10: 3, 8: 6, 0: 13 }
+damage by lance: 1368; kills 17
+       150  GaussTurret (vehicle)
+       146  Enfield (mech)
+        84  Uller (mech)
+        80  Thor (mech)
+        77  Storm (vehicle)
+        74  Ryoken (mech)
+        60  MediumAutoCannonTurret (vehicle)
+        36  Poweredarmor (vehicle)
+        20  Explosion (blast)
+  obj 0 P: open  Destroy Both HPG Station
+  obj 1 P: done  Capture Weapons Facility #1
+  obj 2 P: open  Capture Weapons Facility #2
+  obj 3 P: done  Capture Weapons Facility #3
+  obj 4 P: done  Destroy Davion Dropship
+  obj 5 P: gated  Move all Surviving 'Mechs to Extraction Point
+  obj 6 s hidden: done  Super Secret Hidden OBJ to track if you kill the
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_13_Enfield_S:attack": 1, "mc2_13_WFac2_Veh_1:attack": 1, "mc2_13_WFac2_Veh_2:attack": 1, "mc2_13_Enfield_N:attack": 1, "mc2_13_WFac1_PWARM:attack": 5, "mc2_13_WFac1_PWARM_1:start": 16, "mc2_13_PowerGen_Mech_1:start": 2, "mc2_13_SpacePort_Clan_Thor:attack": 1, "mc2_13_SpacePort_Clan_1:attack": 1, "mc2_13_Enfield_TC:attack": 1, "mc2_13_OutPatl_Grp1_Lead:start": 1, "mc2_13_OutPatl_Grp1_Escort:escortinglead": 2, "mc2_13_MISC_Storms:start": 2, "mc2_13_Crat_W_Patrol:start": 2, "mc2_13_Crat_N_Patrol:start": 2, "mc2_13_Crat_E_Patrol:attack": 2, "mc2_13_MISC_Storms:attack": 3, "PBrain:": 4 }
+enemy pilots that moved >20 m: 29 / 48
+
+--- stderr ---
+WARNING: 539 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

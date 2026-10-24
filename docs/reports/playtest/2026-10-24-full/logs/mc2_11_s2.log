@@ -1,0 +1,87 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_11
+force: campaign 3 units 160 t of 160 t, RP 0: Men Shen Prime(pmwsteel), Men Shen Prime(pmwclaymore), Starslayer Prime(pmwworm)
+ABL pilots: 38
+t=   0.1  capture target Jagermech destroyed by ?
+t=   0.1  capture target ShadowCat destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Jagermech destroyed by ?
+t= 115.3  CAPTURED MenShen OrdnanceTruckProp
+t= 177.3  CAPTURED MenShen DavionTurretControl.fit
+t= 349.8  CAPTURED Starslayer DavionTurretControl.fit
+t= 351.7  JUMP Starslayer to capture DavionTurretControl.fit
+t= 354.8  CAPTURED Starslayer DavionTurretControl.fit
+t= 367.5  CAPTURED MenShen DavionTurretControl.fit
+t= 382.2  CAPTURED Starslayer DavionTurretControl.fit
+t= 400.8  CAPTURED MenShen DavionTurretControl.fit
+t= 439.9  CAPTURED MenShen DavionTurretControl.fit
+t= 449.0  CAPTURED Starslayer DavionTurretControl.fit
+t= 484.8  CAPTURED MenShen DavionTurretControl.fit
+t= 493.4  CAPTURED MenShen RepairBay
+t= 495.7  BAY MenShen -> RepairBay (36 m)
+t= 515.4  REPAIR_DONE MenShen RepairBay
+t= 516.7  BAY MenShen -> RepairBay (35 m)
+t= 533.0  REPAIR_DONE MenShen RepairBay
+t= 534.9  CAPTURED MenShen WeaponsFacility
+t= 534.9  objective done: 1 - Capture Davion Weapons Facility
+t= 554.7  CAPTURED MenShen DavionSensorControl.fit
+t= 613.8  CAPTURED MenShen S_TurretControl
+t= 615.7  BAY Starslayer -> RepairBay (834 m)
+t= 668.9  REPAIR_DONE Starslayer RepairBay
+t= 762.7  FALLBACK 1 threats (dps 23 vs 14, health 58%) to (-271, 1098)
+t= 807.7  BAY MenShen -> RepairBay (829 m)
+t= 855.1  REPAIR_DONE MenShen RepairBay
+t= 855.2  LOST RepairBay (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by -)
+t= 904.1  CAPTURED MenShen S_TurretControl
+t= 904.2  LOST LRMPopup (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by MenShen)
+t= 906.7  JUMP Starslayer to capture S_TurretControl
+t= 909.8  CAPTURED Starslayer S_TurretControl
+t= 923.5  CAPTURED MenShen S_TurretControl
+t= 930.7  PULLBACK MenShen at 27%
+t= 936.7  FALLBACK 2 threats (dps 11 vs 6, health 46%) to (-579, 851)
+t= 966.5  LOST MenShen (disabled, armour 3%, heat 0, ejected false, pilot 3.0 wounds, last hit by Zeus)
+t= 987.1  LOST Starslayer (destroyed, armour 10%, heat 0, ejected false, pilot 3.0 wounds, last hit by Zeus)
+t=1005.7  FALLBACK 1 threats (dps 6 vs 2, health 27%) to (-679, 824)
+t=1040.1  LOST MenShen (disabled, armour 10%, heat 0, ejected false, pilot 1.0 wounds, last hit by MediumAutoCannonTurret)
+t=1045.2  MISSION LOST
+seed 2 end t=1045 result=LOST  player alive 0  enemies alive 11
+damage to lance: 1012 from 41 attackers; hits by location (0 head .. 10 rear RT): { 4: 44, 3: 42, 5: 40, 7: 34, 6: 39, 1: 30, 10: 7, 8: 11, 2: 31, 9: 4, 0: 10 }
+damage by lance: 2032; kills 19
+       348  LRMPopup (vehicle)
+       150  MediumAutoCannonTurret (vehicle)
+       115  Zeus (mech)
+       111  Enfield (mech)
+        96  Explosion (mine)
+        63  LRMTurret (vehicle)
+        46  Shootist (mech)
+        29  Wolfhound (mech)
+        24  Centipede (vehicle)
+        14  Jagermech (mech)
+  obj 0 s: open  a - Capture RP Buildings at Davion Installation
+  obj 1 s: open  b - Salvage Davion 'Mechs at salvage yard
+  obj 2 P: done  1 - Capture Davion Weapons Facility
+  obj 3 P: open  2 - Capture Steiner Weapons Facility
+  obj 4 P: open  3 - Capture Steiner HQ Building
+  obj 5 P: gated  4 - Extract at Steiner Drop Ship Pad
+  obj 6 s hidden: open  hidden objective for sensor towers
+  obj 7 s hidden: done  hidden objective for sensor control
+  obj 8 s hidden: open  bool 01
+  obj 9 s hidden: open  bool 02
+  obj 10 s hidden: open  bool 03
+  obj 11 s hidden: open  bool 04
+  obj 12 s hidden: open  bool 05
+  obj 13 s hidden: done  bool 06
+  obj 14 s hidden: done  Hidden Trigger for Salvage VO
+  obj 15 s hidden: done  Start of mission wav file
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_11_EC1_grp4:start": 2, "mc2_11_EC1_Grp2:attack": 2, "mc2_11_dred:start": 13, "mc2_11_EC2_grp1:attack2": 1, "mc2_11_EC2_grp2:attack": 1, "mc2_11_EC3_grp2:attack": 2, "mc2_11_EC3_grp3:attack": 1, "mc2_11_EC2_grp4:amok": 1, "mc2_11_EC2_grp3:attack": 1, "mc2_11_ec4_grp4:amok": 1, "mc2_11_dred:attack": 1, "mc2_11_ec1_grp1:attack": 2, "mc2_11_EC3_grp1:attack": 2, "mc2_11_EC1_Grp3:start": 2, "mc2_11_EC1_grpwav:attack": 1, "mc2_11_dred_lrm:attack": 1, "DredAttack01:start": 1, "PBrain:": 3 }
+enemy pilots that moved >20 m: 18 / 38
+
+--- stderr ---
+WARNING: 776 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

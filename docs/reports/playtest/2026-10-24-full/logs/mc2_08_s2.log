@@ -1,0 +1,40 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_08
+force: campaign 3 units 160 t of 160 t, RP 0: Bushwacker Prime(pmwsteel), Bushwacker Prime(pmwmeat), Hunchback Prime(pmwworm)
+ABL pilots: 70
+t= 122.2  CAPTURED Bushwacker BTurretControl.fit
+t= 322.0  CAPTURED Hunchback BTurretControl.fit
+t= 347.1  CAPTURED Bushwacker BTurretControl.fit
+t= 355.0  objective done: 1 - Destroy Air Traffic Control Tower
+t= 388.7  CAPTURED Bushwacker BTurretControl.fit
+t= 430.5  objective done: 2 - Link up with Atlas
+t= 568.1  LOST Bushwacker (disabled, armour 30%, heat 0, ejected false, pilot 0.0 wounds, last hit by Urbanmech)
+t= 639.7  FALLBACK 5 threats (dps 13 vs 4, health 52%) to (1000, 488)
+t= 643.7  LOST Hunchback (disabled, armour 19%, heat 5, ejected false, pilot 1.0 wounds, last hit by SRMTurret)
+t= 677.6  LOST Bushwacker (disabled, armour 5%, heat 0, ejected false, pilot 1.0 wounds, last hit by SRMTurret)
+t= 682.6  MISSION LOST
+seed 2 end t=683 result=LOST  player alive 1  enemies alive 14
+damage to lance: 444 from 42 attackers; hits by location (0 head .. 10 rear RT): { 3: 28, 1: 32, 5: 26, 7: 26, 6: 19, 4: 25, 2: 25, 10: 3, 8: 5, 9: 4, 0: 2 }
+damage by lance: 2074; kills 52
+       170  SRMTurret (vehicle)
+        81  Hunter (vehicle)
+        56  Urbanmech (mech)
+        56  Flea (mech)
+        32  Harasser (vehicle)
+        30  Raven (mech)
+        18  Starslayer (mech)
+  obj 0 P: done  1 - Destroy Air Traffic Control Tower
+  obj 1 P: done  2 - Link up with Atlas
+  obj 2 P: open  3 - Destroy Air Traffic Control Tower BETA
+  obj 3 P: gated  4 - Evacuate all 'Mechs to extraction point
+abl errors: []
+abl natives missing: []
+brain end states: { "pBrain:": 1, "mc2_08anubis1:attack": 1, "mc2_08_dred:attack": 18, "mc2_08beetle4:attack": 1, "mc2_08beetle9:attack": 1, "mc2_08beetle5:attack": 1, "mc2_08beetle8:start": 1, "mc2_08beetle6:start": 1, "mc2_08beetle7:start": 1, "mc2_08beetle3:attack": 1, "mc2_08beetle2:attack": 1, "mc2_08urbanmech2:attack": 1, "mc2_08urbanmech3:attack": 1, "mc2_08beetle1:attack": 1, "mc2_08urbanmech1:attack": 3, "mc2_08_dred:start": 7, "mc2_08addenemies1:attack": 2, "mc2_08_ec1_grp1:attack": 2, "mc2_08pathptrl2:attack": 1, "mc2_08pathptrl5:attack": 1, "mc2_08smairport1:start": 1, "mc2_08Cliffptrl1:attack": 1, "mc2_08cliffptrl1:attack": 1, "mc2_08pathptrl4:attack": 1, "mc2_08pathptrl1:attack": 1, "mc2_08pathptrl3:attack": 1, "mc2_08pathptrl6:attack": 2, "mc2_08pathptrl7:noweapons": 2, "mc2_08_lrm_brain:attack": 8, "mc2_08_lrm_brain:start": 2, "PBrain:": 3 }
+enemy pilots that moved >20 m: 57 / 70
+
+--- stderr ---
+WARNING: 616 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

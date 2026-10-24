@@ -672,7 +672,7 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 		var job := _obj_task(sm, obj, lance, centre)
 		if not job.is_empty():
 			_cur_obj = int(obj["index"])
-			if sm.abl:
+			if sm.abl and _unlocks:
 				return _unlock(sm, job, lance)
 			return job
 	return {}
@@ -726,6 +726,7 @@ var _rp_reserve := 0
 var _prepping := false
 var _ready := false
 var _fort_strike := true  # --no-fort-strike: no air strike on a fort's generator (A/B)
+var _unlocks := true  # --no-unlock: objectives under a fort aren't preceded by its generator (A/B)
 var _bombs := true  # --no-bombs: no shooting explosive buildings under enemies (A/B)
 var _arcs := false  # ROUTE_PLANS "arcs": no chasing into enemy forts' arcs
 var _held := {}  # unit id -> its attack order fires from where it stands
@@ -1060,6 +1061,9 @@ func _bomb_for(sm: SimMission, fighters: Array, threats: Array) -> SimStructure:
 			continue
 		if ours.any(func(m): return m.distance_to(u.position) <= r + 10.0):
 			continue
+		if w.units.any(func(b): return b is SimStructure and b.team == 0 and not b.is_destroyed() \
+				and b.position.distance_to(u.position) <= r + b.extent_m):
+			continue  # our own bay or control in the blast (mc2_17: an ammo dump took our repair bay)
 		var n := threats.filter(func(t): return t is SimMech and t.distance_to(u.position) <= r * 0.8).size()
 		if n > best_n:
 			best = u
@@ -1237,8 +1241,10 @@ func _fort_job(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 			# The control hangs on a generator that stands outside the guns: a destroyed (or asleep)
 			# parent puts the control and its turrets to sleep (bldng.cpp:903-913, turret.cpp:620-633;
 			# "kill the two generators ... to drop the HPG turrets" [KC, CB]).
+			# (a control we can take is worth more: its turrets become ours; mc2_20 lost its fort
+			# when the bot shot the generator instead, 2/3 -> 0/3)
 			var gen: SimStructure = par.parent
-			if gen != null and gen.exists and not gen.is_destroyed() and gen.team != 0 \
+			if not sm.abl.can_capture(par, 0) and gen != null and gen.exists and not gen.is_destroyed() and gen.team != 0 \
 					and _covering(w, gen.position).size() < _covering(w, par.position).size() \
 					and gen.position.distance_to(centre) <= 700.0:
 				return {"kind": "attack", "target": gen}
@@ -1590,6 +1596,7 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	_trace = "--trace" in args
 	_fort_strike = not ("--no-fort-strike" in args)
 	_bombs = not ("--no-bombs" in args)
+	_unlocks = not ("--no-unlock" in args)
 	_stealth = STEALTH_PLANS.has(mission)
 	_quiet_spot = null
 	_first = STEALTH_PLANS.get(mission, ROUTE_PLANS.get(mission, {})).get("first", [])

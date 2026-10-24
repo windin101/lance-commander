@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T15:20:42+13:00",
+  "updated": "2026-10-24T16:28:39+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -734,8 +734,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:22+13:00",
-      "updated": "2026-10-24T15:08:28+13:00",
-      "note": "Reopened (coordinator, 2026-10-24): mc2_24 is 2/4 (seeds 1, 4 won at 837/778 s; seeds 2, 3 die in the base at 779/469 s), against the balance gate's 2 of 3. Tracking the remaining losses here."
+      "updated": "2026-10-24T16:28:39+13:00",
+      "note": "2026-10-24 full sweep: 1/3 (seed 1 won at 1241 s; seeds 2-3 die in the base to Hunchbacks and Bushwackers at 469-779 s, before the HQ)."
     },
     {
       "id": "I31",
@@ -1345,8 +1345,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-20T11:48:38+13:00",
-      "updated": "2026-10-20T11:48:38+13:00",
-      "note": null
+      "updated": "2026-10-24T16:14:30+13:00",
+      "note": "Parked with I98 (asset/texture redo after everything else)."
     },
     {
       "id": "I78",
@@ -1434,10 +1434,10 @@
       "repro": null,
       "owner": "game-art",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-20T21:14:49+13:00",
-      "updated": "2026-10-24T09:29:44+13:00",
-      "note": "Sensor rings, Carver V location and briefing videos done. Comms subtitles: no data in the original (playWave plays audio only); would need transcription of the WAVs, Lee's call."
+      "updated": "2026-10-24T16:14:30+13:00",
+      "note": "All done: portraits (bee39f2), sensor rings, Carver V and briefing videos (fad0a6c), subtitles (2bbbf18), pilot radio (e046918)."
     },
     {
       "id": "I85",
@@ -1618,8 +1618,8 @@
       "phase": 8,
       "status": "open",
       "created": "2026-10-23T19:56:32+13:00",
-      "updated": "2026-10-23T19:56:32+13:00",
-      "note": null
+      "updated": "2026-10-24T16:14:30+13:00",
+      "note": "PARKED 2026-10-24 by Lee: even in game the v2 textures (mechs, vehicles, terrain) look terrible; all game assets and textures need redoing. Fix everything else first, then return with a fresh approach (bake-off proposed: clean stylised vs AI-painted from refs; terrain as tiled CC0 PBR by terrain class). v2 stays behind --art-v2."
     },
     {
       "id": "I99",
@@ -1631,8 +1631,8 @@
       "phase": 8,
       "status": "open",
       "created": "2026-10-23T20:13:52+13:00",
-      "updated": "2026-10-24T14:46:11+13:00",
-      "note": "mc2_03 A/B, 4 seeds (2026-10-24): base 3/4; --no-fort-strike 3/4 (identical runs, because the strike never fires on mc2_03); --no-bombs 2/4. Neither rule costs mc2_03 wins, so both stay on everywhere. The earlier 4/4 was before I115 (buildings explode), which is a faithful rule change."
+      "updated": "2026-10-24T16:28:38+13:00",
+      "note": "2026-10-24 full sweep (docs/reports/playtest/2026-10-24-full): 40/72, 14/24 missions at 2/3+. The gate fails with 10 under. Two bot fixes went in after the first full pass:\n- a control the lance can capture is preferred to killing its generator (mc2_20 back to 2/3; isolated with the re-check bot on the current sim);\n- no bombing with our own structure in the blast (mc2_17 back to 3/3).\nForts still the main cause on mc2_08, 09 and 11 (0/3)."
     },
     {
       "id": "I100",
@@ -1867,6 +1867,19 @@
       "created": "2026-10-24T15:07:09+13:00",
       "updated": "2026-10-24T15:07:10+13:00",
       "note": "Test: sim_fidelity_test test_team_two_is_neutral_to_the_player; full suite passes."
+    },
+    {
+      "id": "I118",
+      "sev": "P2",
+      "title": "mc2_12: lance dies by 242-283 s in the 2026-10-24 full sweep (was 388-573 s on 10-23)",
+      "detail": "A 205 t, 4-mech, 0 RP campaign lance is lost to Enfields (234-384 damage) after the convoy objective, every seed. It is earlier than in the 2026-10-23-turrets sweep. Not yet split between the bot and the sim: an A/B with the re-check bot (8923172) was cut short because another agent held the Godot lock.",
+      "repro": "python3 -I tools/playtest_sweep.py --missions mc2_12 [--script res://tools/<old bot>.gd]",
+      "owner": "playtester",
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-24T16:28:39+13:00",
+      "updated": "2026-10-24T16:28:39+13:00",
+      "note": null
     }
   ],
   "coverage": {
@@ -1973,36 +1986,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "game-art",
-      "msg": "issue I65 P3: HD catapult: look call"
-    },
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "game-art",
-      "msg": "issue I66 P3: HD cyclops: look call"
-    },
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "game-art",
-      "msg": "issue I67 P3: HD highlander: look call"
-    },
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "game-art",
-      "msg": "issue I68 P3: HD shadowcat: look call"
-    },
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "game-art",
-      "msg": "issue I69 P3: HD thor: look call"
-    },
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "game-art",
-      "msg": "issue I70 P3: HD uller: look call"
-    },
     {
       "at": "2026-10-20T06:15:30+13:00",
       "who": "game-art",
@@ -2972,6 +2955,36 @@
       "at": "2026-10-24T15:20:42+13:00",
       "who": "conductor",
       "msg": "issue I29 updated: note \u2014 2026-10-24 extras:\n- Minelayer: the bot now uses it (ROUTE_PLANS 'mines', laid during the preparation). mc2_23 lays two 240 m lines across the west approach (x=200, y -560..-1060), and the minelayer is kept out of the lance.\n- Starport tease: HOLD_PLANS mc2_23 holds NW of the starport once the town is clear, with a decoy drawing out mechs only for up to 45 s each (lure_mechs/lure_s, per plan; mc2_22 keeps its 90 s, any unit).\nResult: still 0/3. The lance lives longer (744-1190 s, 37-44 kills) but the spare often ends on a mech (Atlas or Bushwacker) that fights and dies before the reception is ready, so the mines and guns rarely meet the waves. Next: make the fights leave the last LRM carrier alone."
+    },
+    {
+      "at": "2026-10-24T16:14:30+13:00",
+      "who": "conductor",
+      "msg": "issue I98 updated: note \u2014 PARKED 2026-10-24 by Lee: even in game the v2 textures (mechs, vehicles, terrain) look terrible; all game assets and textures need redoing. Fix everything else first, then return with a fresh approach (bake-off proposed: clean stylised vs AI-painted from refs; terrain as tiled CC0 PBR by terrain class). v2 stays behind --art-v2."
+    },
+    {
+      "at": "2026-10-24T16:14:30+13:00",
+      "who": "conductor",
+      "msg": "issue I77 updated: note \u2014 Parked with I98 (asset/texture redo after everything else)."
+    },
+    {
+      "at": "2026-10-24T16:14:30+13:00",
+      "who": "conductor",
+      "msg": "issue I84 fixed: All done: portraits (bee39f2), sensor rings, Carver V and briefing videos (fad0a6c), subtitles (2bbbf18), pilot radio (e046918)."
+    },
+    {
+      "at": "2026-10-24T16:28:38+13:00",
+      "who": "conductor",
+      "msg": "issue I99 updated: note \u2014 2026-10-24 full sweep (docs/reports/playtest/2026-10-24-full): 40/72, 14/24 missions at 2/3+. The gate fails with 10 under. Two bot fixes went in after the first full pass:\n- a control the lance can capture is preferred to killing its generator (mc2_20 back to 2/3; isolated with the re-check bot on the current sim);\n- no bombing with our own structure in the blast (mc2_17 back to 3/3).\nForts still the main cause on mc2_08, 09 and 11 (0/3)."
+    },
+    {
+      "at": "2026-10-24T16:28:39+13:00",
+      "who": "conductor",
+      "msg": "issue I30 updated: note \u2014 2026-10-24 full sweep: 1/3 (seed 1 won at 1241 s; seeds 2-3 die in the base to Hunchbacks and Bushwackers at 469-779 s, before the HQ)."
+    },
+    {
+      "at": "2026-10-24T16:28:39+13:00",
+      "who": "playtester",
+      "msg": "issue I118 P2: mc2_12: lance dies by 242-283 s in the 2026-10-24 full sweep (was 388-573 s on 10-23)"
     }
   ],
   "choices": [
