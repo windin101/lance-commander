@@ -8,7 +8,7 @@
   "licence": "CC BY-NC-SA 4.0",
   "file": "as7-d4.stl"
  },
- "tris": 50707,
+ "tris": 58603,
  "textures": {
   "albedo": 2048,
   "orm": 2048,
@@ -39,14 +39,14 @@
   "HitRight": 0.167
  },
  "paint_stats": {
-  "texels": 1596607,
-  "chip_share": 0.03164773798436309,
-  "grime_mean": 0.46271374821662903,
-  "paint_share": 0.45358876667833725,
-  "glass_texels": 529,
-  "emissive_texels": 462,
-  "piping_texels": 71230,
-  "stripe_texels": 38292,
-  "band_texels": 14122
+  "texels": 1568359,
+  "chip_share": 0.03211190805166419,
+  "grime_mean": 0.46404579281806946,
+  "paint_share": 0.45417662665244374,
+  "glass_texels": 474,
+  "emissive_texels": 451,
+  "piping_texels": 71630,
+  "stripe_texels": 37443,
+  "band_texels": 13632
  }
 }
