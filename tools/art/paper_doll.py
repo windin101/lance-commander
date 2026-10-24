@@ -606,6 +606,13 @@ def main():
     over = {k: v for k, v in over.items() if not k.startswith("_")}
     files = {p.stem[:-3]: p for p in sorted((REPO / "game/assets/mechs").glob("*_hd.glb"))}
     files.update({p.stem[:-3]: p for p in sorted((REPO / "game/assets/vehicles").glob("*_hd.glb"))})
+    for u in a.units:  # a unit with no HD model (e.g. removed for licence reasons) falls back to its original model
+        if u not in files:
+            for kind in ("mechs", "vehicles"):
+                orig = REPO / "game/assets" / kind / f"{u}.glb"
+                if orig.exists():
+                    files[u] = orig
+                    break
     todo = a.units or list(files)
     OUT.mkdir(parents=True, exist_ok=True)
     jpath = OUT / "dolls.json"
