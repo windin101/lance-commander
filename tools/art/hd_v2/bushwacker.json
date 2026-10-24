@@ -59,8 +59,10 @@
   "x_shift": "v2 2026-10-23: the bbox centre sits 300 mm off the pelvis (the right gun reaches further out); hips/knees/ankles get x pinned, stl_rig averaged the hanging left gun into the left hip (x 2283)",
   "v2.seed_boxes": "the waist block below the torso twist (joint_torso, z 5.46 m in the sculpt frame) belongs to the pelvis",
   "v2.joints.joint_torso": "the waist twists about the vertical: a recessed collar drum about that axis (Lee 2026-10-24: drums and collars, not balls)",
-  "v2.canopy": "hand-marked 2026-10-24: the forward-up slope of the hump at the cockpit node",
-  "v2.joints.force": "right knee and hip pivots sit just outside the re-posed shell: a housing there anyway, or the knee has none"
+  "v2.canopy": "hand-marked 2026-10-24 on a front view: the forward face of the nose block above the guns, where the original has its window strip",
+  "v2.joints.force": "right knee and hip pivots sit just outside the re-posed shell: a housing there anyway, or the knee has none",
+  "v2.glass_key": "the original canopy: the dark teal window slot beside the red triangle, texels (13..23, 39..52) of bushwacker_0.png",
+  "v2.torso_twist": "yaw check 2026-10-24: the print turns the upper body ~29 deg against the original torso (-24.5 found, -4.5 left after one pass)"
  },
  "v2": {
   "seed_boxes": {
@@ -93,21 +95,6 @@
    }
   },
   "motion_weight": 15,
-  "canopy": {
-   "centre": [
-    0,
-    -1008,
-    6264
-   ],
-   "radius": 900,
-   "normal": [
-    0,
-    -0.7,
-    0.7
-   ],
-   "min_dot": 0.75,
-   "max_area_m2": 0.35
-  },
   "lights": [
    {
     "centre": [
@@ -115,14 +102,418 @@
      -2657,
      5308
     ],
-    "radius": 350,
+    "radius": 700,
     "normal": [
      0,
      -1,
      0
     ],
+    "min_dot": 0.7,
     "code": 100
    }
-  ]
+  ],
+  "torso_twist": -29.0,
+  "yaw_fix": {
+   "bw_lfoot": -15.0
+  },
+  "canopy_outlines": {
+   "target": [
+    0.0,
+    -1007.8,
+    6264.5
+   ],
+   "scale": 3760.3,
+   "px": 1000,
+   "views": {
+    "front": [
+     0,
+     -1,
+     0.08
+    ],
+    "front34": [
+     0.62,
+     -0.75,
+     0.25
+    ],
+    "top": [
+     0,
+     -0.2,
+     1
+    ]
+   },
+   "cams": {
+    "front": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.07974524050951004,
+      -0.9968152642250061,
+      -60.81675338745117
+     ],
+     [
+      0.0,
+      0.9968152642250061,
+      0.07974524050951004,
+      11.049179077148438
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "front34": [
+     [
+      0.6950590014457703,
+      0.3688802719116211,
+      0.6171063780784607,
+      37.02638244628906
+     ],
+     [
+      0.36888015270233154,
+      0.5537739396095276,
+      -0.7464997172355652,
+      -45.79781723022461
+     ],
+     [
+      -0.6171064972877502,
+      0.7464996576309204,
+      0.24883295595645905,
+      21.1944580078125
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "top": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.9805806875228882,
+      -0.19611607491970062,
+      -12.774807929992676
+     ],
+     [
+      0.0,
+      0.19611607491970062,
+      0.9805806875228882,
+      65.09930419921875
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   "panes": [
+    {
+     "view": "front",
+     "poly": [
+      [
+       419.0,
+       297.0
+      ],
+      [
+       426.0,
+       345.0
+      ],
+      [
+       432.0,
+       345.0
+      ],
+      [
+       439.0,
+       341.0
+      ],
+      [
+       449.0,
+       341.0
+      ],
+      [
+       457.0,
+       331.0
+      ],
+      [
+       465.0,
+       331.0
+      ],
+      [
+       472.0,
+       325.0
+      ],
+      [
+       481.0,
+       333.0
+      ],
+      [
+       566.0,
+       333.0
+      ],
+      [
+       573.0,
+       326.0
+      ],
+      [
+       575.0,
+       326.0
+      ],
+      [
+       581.0,
+       331.0
+      ],
+      [
+       587.0,
+       329.0
+      ],
+      [
+       592.0,
+       334.0
+      ],
+      [
+       603.0,
+       339.0
+      ],
+      [
+       609.0,
+       344.0
+      ],
+      [
+       612.0,
+       344.0
+      ],
+      [
+       622.0,
+       300.0
+      ],
+      [
+       621.0,
+       296.0
+      ],
+      [
+       598.0,
+       271.0
+      ],
+      [
+       447.0,
+       270.0
+      ]
+     ],
+     "src": "bushwacker_cand_front.png"
+    },
+    {
+     "view": "front34",
+     "poly": [
+      [
+       498.0,
+       254.0
+      ],
+      [
+       464.0,
+       239.0
+      ],
+      [
+       458.0,
+       238.0
+      ],
+      [
+       428.0,
+       290.0
+      ],
+      [
+       422.0,
+       297.0
+      ],
+      [
+       409.0,
+       302.0
+      ],
+      [
+       317.0,
+       353.0
+      ],
+      [
+       315.0,
+       358.0
+      ],
+      [
+       315.0,
+       386.0
+      ],
+      [
+       318.0,
+       449.0
+      ],
+      [
+       329.0,
+       436.0
+      ],
+      [
+       337.0,
+       440.0
+      ],
+      [
+       391.0,
+       412.0
+      ],
+      [
+       400.0,
+       402.0
+      ],
+      [
+       407.0,
+       400.0
+      ],
+      [
+       422.0,
+       402.0
+      ],
+      [
+       455.0,
+       382.0
+      ],
+      [
+       476.0,
+       389.0
+      ],
+      [
+       480.0,
+       392.0
+      ],
+      [
+       486.0,
+       387.0
+      ],
+      [
+       503.0,
+       365.0
+      ],
+      [
+       502.0,
+       291.0
+      ],
+      [
+       515.0,
+       276.0
+      ],
+      [
+       515.0,
+       272.0
+      ]
+     ],
+     "src": "bushwacker_cand_front34.png"
+    },
+    {
+     "view": "top",
+     "poly": [
+      [
+       432.0,
+       373.0
+      ],
+      [
+       426.0,
+       380.0
+      ],
+      [
+       427.0,
+       464.0
+      ],
+      [
+       450.0,
+       578.0
+      ],
+      [
+       465.0,
+       577.0
+      ],
+      [
+       474.0,
+       572.0
+      ],
+      [
+       483.0,
+       577.0
+      ],
+      [
+       566.0,
+       580.0
+      ],
+      [
+       574.0,
+       574.0
+      ],
+      [
+       584.0,
+       582.0
+      ],
+      [
+       591.0,
+       580.0
+      ],
+      [
+       597.0,
+       567.0
+      ],
+      [
+       629.0,
+       472.0
+      ],
+      [
+       632.0,
+       383.0
+      ],
+      [
+       624.0,
+       378.0
+      ],
+      [
+       612.0,
+       444.0
+      ],
+      [
+       605.0,
+       467.0
+      ],
+      [
+       601.0,
+       472.0
+      ],
+      [
+       450.0,
+       469.0
+      ],
+      [
+       447.0,
+       466.0
+      ],
+      [
+       441.0,
+       446.0
+      ],
+      [
+       435.0,
+       375.0
+      ]
+     ],
+     "src": "bushwacker_cand_top.png"
+    }
+   ],
+   "_from": "Lee's closed outlines (canopy_pick.py outlines), 2026-10-24"
+  }
  }
 }

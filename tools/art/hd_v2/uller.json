@@ -1,0 +1,87 @@
+{
+ "l": {
+  "hip": [
+   -240,
+   2500
+  ],
+  "knee": [
+   12,
+   1580
+  ],
+  "ankle": [
+   -1320,
+   450
+  ],
+  "x_max": 1300
+ },
+ "r": {
+  "hip": [
+   -280,
+   2500
+  ],
+  "knee": [
+   660,
+   2200
+  ],
+  "ankle": [
+   850,
+   430
+  ]
+ },
+ "arms": {},
+ "upper": [
+  {
+   "node": "ul_ruarm",
+   "x_sign": -1,
+   "ax_min": 800,
+   "z_min": 2900
+  },
+  {
+   "node": "ul_luarm",
+   "x_sign": 1,
+   "ax_min": 1100,
+   "z_min": 2100
+  },
+  {
+   "node": "ul_luarm",
+   "x_sign": 1,
+   "ax_min": 780,
+   "z_min": 2950
+  }
+ ],
+ "parts": [
+  {
+   "node": "ul_torso",
+   "from": "ul_lgun",
+   "min": [
+    -99999,
+    -99999,
+    -99999
+   ],
+   "max": [
+    99999,
+    99999,
+    99999
+   ]
+  },
+  {
+   "node": "ul_torso",
+   "from": "ul_rgun",
+   "min": [
+    -99999,
+    -99999,
+    -99999
+   ],
+   "max": [
+    99999,
+    99999,
+    99999
+   ]
+  }
+ ],
+ "scale": 1.43,
+ "v2": {
+  "stl": "Kit_Fox_V_repaired.stl"
+ },
+ "_from": "~/craft/solid/mc2/stl/uller/joints.json (the v1 fit)"
+}

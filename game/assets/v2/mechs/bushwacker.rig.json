@@ -54,6 +54,23 @@
    ]
   },
   {
+   "node": "bw_ruarm",
+   "joint": "joint_ruarm",
+   "kind": "hinge",
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
+   "axis": [
+    -0.28698617042469676,
+    -0.9537089281450127,
+    0.08987890943629637
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
    "node": "bw_luleg",
    "joint": "joint_luleg",
    "kind": "hinge",
@@ -122,6 +139,40 @@
    ]
   },
   {
+   "node": "bw_rgun",
+   "joint": "joint_rgun",
+   "kind": "hinge",
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
+   "axis": [
+    -0.09663171171305485,
+    0.9953202058965538,
+    -5.044483614602413e-06
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "joint_lmlauncher",
+   "joint": "joint_lmlauncher",
+   "kind": "hinge",
+   "radius": 0.28007360130676273,
+   "length": 0.4481177620908204,
+   "axis": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
    "node": "bw_lfoot",
    "joint": "joint_lankle",
    "kind": "hinge",
@@ -158,14 +209,14 @@
  ],
  "filler_faces": [
   [
-   51682,
-   69560
+   54134,
+   78371
   ]
  ],
  "cap_faces": [
   [
-   51682,
-   55160
+   54134,
+   59171
   ]
  ],
  "joint_pairs": [
@@ -206,8 +257,16 @@
    "bw_luarm"
   ],
   [
+   "bw_torso",
+   "bw_ruarm"
+  ],
+  [
    "bw_luarm",
    "bw_lgun"
+  ],
+  [
+   "bw_ruarm",
+   "bw_rgun"
   ]
  ],
  "contacts": [
@@ -217,34 +276,34 @@
   ],
   [
    "bw_torso",
-   "bw_rgun"
+   "bw_rlleg"
   ]
  ],
  "parts": {
-  "bw_lfoot": 4684,
-  "bw_llleg": 5232,
-  "bw_luleg": 3826,
-  "bw_rfoot": 4498,
-  "bw_rlleg": 5318,
-  "bw_ruleg": 3533,
-  "bw_hip": 3331,
-  "bw_torso": 25138,
-  "joint_lmlauncher": 0,
-  "bw_lgun": 4294,
-  "bw_luarm": 3274,
-  "bw_rgun": 6432,
-  "bw_ruarm": 0
+  "bw_lfoot": 4734,
+  "bw_llleg": 5230,
+  "bw_luleg": 3766,
+  "bw_rfoot": 4478,
+  "bw_rlleg": 5334,
+  "bw_ruleg": 2994,
+  "bw_hip": 6191,
+  "bw_torso": 23400,
+  "joint_lmlauncher": 3918,
+  "bw_lgun": 3176,
+  "bw_luarm": 3152,
+  "bw_rgun": 5830,
+  "bw_ruarm": 6168
  },
- "tris": 69560,
+ "tris": 78371,
  "rest_min": [
-  -2.8277033,
+  -3.0176022,
   -0.05940001434685439,
-  -3.2749106
+  -3.6030886
  ],
  "rest_extent": [
-  6.255406600000001,
+  6.3064127999999995,
   9.01242524060329,
-  6.4598212
+  7.2254895
  ],
  "height_m": 8.95,
  "texture_px": 2048

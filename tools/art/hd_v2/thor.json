@@ -1,0 +1,240 @@
+{
+ "_note": "for smn-prime4_square.stl (prep_square.py, no base cut): pelvis/torso squared, legs re-seated. Leg joints are pinned 565 mm inboard of the hip rings (MC2 hip half-width 768) so the thighs keep their place against the pelvis; the offset is along X, so the sagittal re-pose and the walk rotate about the true ring axis.",
+ "turn": false,
+ "base_cut": 0,
+ "x_shift": 126.4,
+ "l": {
+  "hip": [
+   768,
+   1419,
+   5689
+  ],
+  "knee": [
+   1721,
+   1265,
+   3306
+  ],
+  "ankle": [
+   1774,
+   2867,
+   1747
+  ],
+  "z_top": 6710,
+  "x_min": 1046,
+  "x_min_z": 4391,
+  "x_max": 3051,
+  "x_max_z": 5166
+ },
+ "r": {
+  "hip": [
+   -768,
+   1419,
+   5679
+  ],
+  "knee": [
+   -1193,
+   -574,
+   3776
+  ],
+  "ankle": [
+   -1561,
+   -404,
+   1728
+  ],
+  "z_top": 6710,
+  "x_min": 1046,
+  "x_min_z": 4391,
+  "x_max": 3099,
+  "x_max_z": 5020
+ },
+ "pelvis_top": 6710,
+ "arms": {},
+ "parts": [
+  {
+   "node": "th_hip",
+   "min": [
+    -1065,
+    -9000,
+    4000
+   ],
+   "max": [
+    1065,
+    9000,
+    6710
+   ]
+  },
+  {
+   "node": "th_torso",
+   "min": [
+    -2470,
+    -9000,
+    6710
+   ],
+   "max": [
+    2566,
+    9000,
+    13000
+   ]
+  },
+  {
+   "node": "th_larm",
+   "min": [
+    2566,
+    -9000,
+    7393
+   ],
+   "max": [
+    5500,
+    9000,
+    13000
+   ]
+  },
+  {
+   "node": "th_lgun",
+   "min": [
+    2518,
+    -9000,
+    4000
+   ],
+   "max": [
+    6000,
+    9000,
+    7393
+   ]
+  },
+  {
+   "node": "th_rarm",
+   "min": [
+    -6000,
+    -9000,
+    8216
+   ],
+   "max": [
+    -2470,
+    9000,
+    13000
+   ]
+  },
+  {
+   "node": "th_rgun",
+   "min": [
+    -6000,
+    -9000,
+    4000
+   ],
+   "max": [
+    -3196,
+    9000,
+    8216
+   ]
+  },
+  {
+   "node": "th_rgun",
+   "min": [
+    -6000,
+    -9000,
+    4000
+   ],
+   "max": [
+    -2470,
+    -488,
+    8216
+   ]
+  }
+ ],
+ "upper_joints": {
+  "joint_lgun": [
+   3099,
+   286,
+   7393
+  ],
+  "joint_rgun": [
+   -3971,
+   93,
+   8265
+  ]
+ },
+ "cores": [
+  {
+   "node": "th_luleg",
+   "min": [
+    1626,
+    685,
+    3748
+   ],
+   "max": [
+    2578,
+    2021,
+    5541
+   ]
+  },
+  {
+   "node": "th_llleg",
+   "min": [
+    1470,
+    464,
+    1457
+   ],
+   "max": [
+    2714,
+    2013,
+    2498
+   ]
+  },
+  {
+   "node": "th_ruleg",
+   "min": [
+    -2440,
+    853,
+    3933
+   ],
+   "max": [
+    -1517,
+    2233,
+    5348
+   ]
+  },
+  {
+   "node": "th_rlleg",
+   "min": [
+    -2748,
+    1074,
+    1462
+   ],
+   "max": [
+    -1460,
+    2550,
+    2479
+   ]
+  },
+  {
+   "node": "th_hip",
+   "min": [
+    -761,
+    683,
+    5031
+   ],
+   "max": [
+    744,
+    1967,
+    6222
+   ]
+  },
+  {
+   "node": "th_torso",
+   "min": [
+    -1475,
+    486,
+    6050
+   ],
+   "max": [
+    1525,
+    2086,
+    7750
+   ]
+  }
+ ],
+ "_cores_note": "cores: the 25-75 % vertex box of each part in the rest pose, minus the rig's shift (-25, -1486, 750)",
+ "v2": {},
+ "_from": "~/craft/solid/mc2/stl/thor/joints.json (the v1 fit)"
+}

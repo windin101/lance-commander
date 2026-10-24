@@ -77,6 +77,81 @@ def joint_axes(glb):
     return out
 
 
+def part_yaws(parts_pts, og, ob, step=2.0, span=45.0):
+    """Per part name: (best yaw in degrees about the vertical that turns the part onto the original's same-named part,
+    error at 0, error at best). Both point sets are centred and scaled to the same RMS radius, so only the orientation
+    is compared; chamfer both ways on subsamples."""
+    pts, uv, own = R.original_samples(og, ob, per_tri=30)
+    mm = np.c_[pts[:, 0], -pts[:, 2], pts[:, 1]] * 1000.0
+    on = np.array([og["nodes"][o].get("name", "") for o in own])
+    out = {}
+    for nm, q in parts_pts.items():
+        o = mm[on == nm]
+        if len(o) < 50 or len(q) < 50:
+            continue
+        qc = q - q.mean(0); oc = o - o.mean(0)
+        oc = oc * np.sqrt((qc ** 2).sum(1).mean() / max((oc ** 2).sum(1).mean(), 1e-9))
+        to, rng = cKDTree(oc), np.random.default_rng(0)
+        qs = qc[rng.choice(len(qc), min(4000, len(qc)), replace=False)]
+        os_ = oc[rng.choice(len(oc), min(4000, len(oc)), replace=False)]
+        def err(d):
+            a_ = np.radians(d); Rz = np.array([[np.cos(a_), -np.sin(a_), 0], [np.sin(a_), np.cos(a_), 0], [0, 0, 1]])
+            qr = qs @ Rz.T
+            return to.query(qr)[0].mean() + cKDTree(qr).query(os_)[0].mean()
+        cands = np.arange(-span, span + 1e-6, step)
+        es = np.array([err(d) for d in cands])
+        b = cands[es.argmin()]
+        fine = np.arange(b - step, b + step + 1e-6, 0.5)
+        ef = np.array([err(d) for d in fine])
+        out[nm] = (float(fine[ef.argmin()]), float(err(0.0)), float(ef.min()))
+    return out
+
+
+def correct_part_yaws(cap, xf, over, names_list, only=None, pivots_mm=None):
+    """The yaw check (v2.1, 2026-10-24): a printed kit can be posed with its torso or feet turned against the rest of
+    it (the Bushwacker's torso and feet by about 30 degrees). Each part's re-posed points are compared with the
+    original part; a part off by more than min_deg whose turned fit is clearly better (err_best < 0.9 err_0) is turned
+    back about the vertical through its own centre. J.json v2.yaw_fix: {part: degrees} pins, {part: 0} skips."""
+    T, owner = cap["T"], np.asarray(cap["owner"])[:len(cap["T"])]
+    Cn = T.mean(1)
+    pts = {}
+    for node, M in xf.items():
+        m = owner == node
+        if m.sum() > 50:
+            pts[names_list[node]] = Cn[m] @ M[:3, :3].T + M[:3, 3]
+    v2 = over.get("v2", {})
+    yaws = part_yaws(pts, cap["og"], cap["ob"])
+    pins = v2.get("yaw_fix", {})
+    report = {}
+    for node, M in list(xf.items()):
+        nm = names_list[node]
+        if nm not in yaws and nm not in pins:
+            continue
+        if only is not None and node not in only and nm not in pins:
+            if nm in yaws:
+                report[nm] = {"yaw": round(yaws[nm][0], 1), "err0": round(yaws[nm][1], 1), "err": round(yaws[nm][2], 1), "applied": False}
+            continue
+        d, e0, e1 = yaws.get(nm, (0.0, 1.0, 1.0))
+        ok = abs(d) >= float(v2.get("yaw_min_deg", 4.0)) and e1 < float(v2.get("yaw_gain", 0.93)) * e0 \
+            and abs(d) < 44.0   # a best turn at the search limit is a shape mismatch, not a pose
+        if nm in pins:
+            d, ok = float(pins[nm]), float(pins[nm]) != 0.0
+        report[nm] = {"yaw": round(d, 1), "err0": round(e0, 1), "err": round(e1, 1), "applied": bool(ok)}
+        if not ok:
+            continue
+        if pivots_mm is not None and nm in pivots_mm:
+            c = np.asarray(pivots_mm[nm], float)   # about the part's own joint (an ankle stays on its ankle)
+        else:
+            c = pts[nm].mean(0)
+        a_ = np.radians(d); Rz = np.eye(4)
+        Rz[:3, :3] = [[np.cos(a_), -np.sin(a_), 0], [np.sin(a_), np.cos(a_), 0], [0, 0, 1]]
+        Tc = np.eye(4); Tc[:3, 3] = c; Ti = np.eye(4); Ti[:3, 3] = -c
+        xf[node] = Tc @ Rz @ Ti @ M
+    print("  yaw check: " + ", ".join(f"{k} {v['yaw']:+.1f} ({v['err0']:.0f}->{v['err']:.0f})" + (" FIXED" if v["applied"] else "")
+                                       for k, v in report.items()))
+    return xf, report
+
+
 def square_pelvis(cap, xf):
     """Make every leg joint's parent and child agree on the pivot in the rest pose (v2.1). stl_rig gives both legs
     the mean bone lengths and keeps the skeleton's hips, so a yawed or uneven sculpt pelvis lands its sockets up to
@@ -145,7 +220,7 @@ def square_pelvis(cap, xf):
 
 
 # ---------------------------------------------------------------------------------------------------------- fit
-def stage_fit(a, work):
+def run_stl_rig(a, joints_path):
     cap = {}
 
     def capture(og, ob, pos, normals, uv, owner, tris, slots, dest, mech):
@@ -153,12 +228,60 @@ def stage_fit(a, work):
     orig_write = S.write
     S.write = capture
     argv = sys.argv
-    sys.argv = ["stl_rig.py", a.mech, a.stl, "--joints", a.joints, "--folder", a.folder]
+    sys.argv = ["stl_rig.py", a.mech, a.stl, "--joints", str(joints_path), "--folder", a.folder]
     try:
         S.main()
     finally:
         sys.argv = argv
         S.write = orig_write
+    return cap
+
+
+def torso_twist_pass(a, work, cap):
+    """If the sculpt's upper body is turned against the original torso (the yaw check, v2.1), rerun stl_rig with its
+    own "twist" (the upper body turned back before it maps the arm joints), the config's upper-body coordinates turned
+    the same way. Writes <work>/joints_twisted.json and returns the new capture, or None."""
+    over = json.loads(Path(a.joints).read_text())
+    v2 = over.get("v2", {})
+    if over.get("twist") or v2.get("torso_twist") == 0:
+        return None
+    og = cap["og"]; names_l = [n.get("name", "") for n in og["nodes"]]
+    T, owner = cap["T"], np.asarray(cap["owner"])[:len(cap["T"])]
+    tor = names_l.index("bw_torso") if False else None
+    torso_part = S.part_under(og, cap["names"], "joint_torso")
+    if torso_part is None or (owner == torso_part).sum() < 50:
+        return None
+    pts = {names_l[torso_part]: T.mean(1)[owner == torso_part] + np.asarray(cap["shift"], float)}
+    d, e0, e1 = part_yaws(pts, og, cap["ob"])[names_l[torso_part]]
+    if "torso_twist" in v2:
+        d = float(v2["torso_twist"])
+    elif not (abs(d) >= float(v2.get("yaw_min_deg", 4.0)) and e1 < float(v2.get("yaw_gain", 0.93)) * e0 and abs(d) < 44):
+        print(f"  torso yaw check: {d:+.1f} deg ({e0:.0f}->{e1:.0f}), no twist")
+        return None
+    zc = max(cap["J"][s_]["hip"][2] for s_ in "lr") + 0.05 * cap["H"]
+    c_, s_ = np.cos(np.radians(d)), np.sin(np.radians(d))
+    rot = lambda p_: [p_[0] * c_ - p_[1] * s_, p_[0] * s_ + p_[1] * c_] + list(p_[2:])
+    o2 = json.loads(json.dumps(over))
+    sc = float(over.get("scale", 1.0))
+    o2["twist"] = {"deg": d, "z": zc / sc, "keep": v2.get("twist_keep", [])}   # keep: boxes that stay put (a gun already forward)
+    for key in ("upper_joints", "arm_tips"):
+        for k_, p_ in o2.get(key, {}).items():
+            o2[key][k_] = rot(p_)
+    for box in o2.get("parts", []):   # boxes can't turn exactly: their centres turn, sizes stay
+        cmin, cmax = np.asarray(box["min"], float), np.asarray(box["max"], float); cc = (cmin + cmax) / 2
+        cr = np.asarray(rot(list(cc)), float)
+        box["min"], box["max"] = (cmin - cc + cr).tolist(), (cmax - cc + cr).tolist()
+    jp = work / "joints_twisted.json"
+    jp.write_text(json.dumps(o2, indent=1))
+    print(f"  torso yaw check: {d:+.1f} deg ({e0:.0f}->{e1:.0f}): stl_rig rerun with twist about z > {zc:.0f} mm")
+    return run_stl_rig(a, jp)
+
+
+def stage_fit(a, work):
+    cap = run_stl_rig(a, a.joints)
+    cap2 = torso_twist_pass(a, work, cap)
+    if cap2 is not None:
+        cap = cap2
     over = cap["over"]
     T, nt = cap["T"], len(cap["T"])
     owner = np.asarray(cap["owner"])[:nt]
@@ -178,6 +301,15 @@ def stage_fit(a, work):
         xf[int(node)] = M
     if over.get("v2", {}).get("square_pelvis", True) and "joint_hip" in names and "joint_torso" in names:
         xf = square_pelvis(cap, xf)
+    names_l = [n.get("name", "") for n in og["nodes"]]
+    # end parts only: a foot turns about its ankle without moving any joint; a turned thigh or shin would pull its
+    # child joint off the skeleton (reported, left alone); the upper body was handled by torso_twist_pass
+    feet, piv_ft = set(), {}
+    for s_ in "lr":
+        fnode = S.part_under(og, cap["names"], cap["legs"][s_][-1], f"joint_{s_}foot")
+        if fnode is not None:
+            feet.add(int(fnode)); piv_ft[names_l[fnode]] = np.asarray(cap["tgt"][s_]["ankle"], float)
+    xf, yaw_report = correct_part_yaws(cap, xf, over, names_l, only=feet, pivots_mm=piv_ft)
     # pivots: every skinned part's joint, in the sculpt frame (legs: the sculpt's own joint points)
     W2 = R.world_matrices(og)
     parent = {c: i for i, n in enumerate(og["nodes"]) for c in n.get("children", [])}
@@ -212,7 +344,7 @@ def stage_fit(a, work):
         "k": float(cap["k"]), "cut": (float(cap["cut"]) if cap.get("cut") else None), "over": json.loads(json.dumps(over, default=float)),
         "xform": {str(k): v.tolist() for k, v in xf.items()}, "pivots": {str(k): v for k, v in piv.items()},
         "node_names": [n.get("name", "") for n in og["nodes"]], "parent": {str(k): v for k, v in parent.items()},
-        "axes": axes,
+        "axes": axes, "yaw_check": yaw_report,
         "legs": {s: {"joints": list(legs[s]), "points": {kk: np.asarray(J[s][kk], float).tolist() for kk in KEYS}}
                  for s in "lr"}, "keys": list(KEYS),
     }, indent=1))
@@ -257,7 +389,7 @@ def stage_fitglb(a, work):
         "mech": a.mech, "stl": a.stl, "joints": a.joints, "kind": "glb", "H": float(T[..., 2].max()), "nt": int(len(T)),
         "xform": {str(k): np.eye(4).tolist() for k in set(owner.tolist())}, "pivots": {str(k): v for k, v in piv.items()},
         "node_names": names, "parent": {str(k): v for k, v in parent.items()}, "legs": legs, "keys": ["hip", "knee", "ankle"],
-        "axes": axes, "over": {}}, indent=1))
+        "axes": axes, "yaw_check": {}, "over": {}}, indent=1))
     print(f"fitglb: {len(T)} tris from {Path(a.stl).name}, {len(piv)} parts -> {work}")
 
 
@@ -307,6 +439,7 @@ def stage_lowpoly(a, work):
     over = json.loads(Path(fit["joints"]).read_text()) if Path(fit["joints"]).exists() else {}
     N = corner_normals(P, F, part, float(over.get("v2", {}).get("smooth_deg", 35.0)))
     np.savez_compressed(work / "rest.npz", P=P, F=F, part=part, kind=np.zeros(len(F), int), N=N, P_sculpt=P)
+    (work / "rest_preglass.npz").unlink(missing_ok=True)
     names = fit["node_names"]
     (work / "rest.json").write_text(json.dumps({"actuators": [], "joint_pairs": [], "contacts": [],
                                                 "parts": sorted(set(part.tolist())),
@@ -719,6 +852,27 @@ def simple_polygon(P2):
     return True
 
 
+def ribbon_cap(lp, Lp, e1):
+    """Close a strung-out or folded loop by stitching its two sides together: split it at its extremes along its main
+    axis and zip the two chains by arc length. Every triangle joins nearby points across the loop, so no fan spikes."""
+    t = (Lp - Lp.mean(0)) @ e1
+    i0, i1 = int(t.argmin()), int(t.argmax())
+    n = len(lp)
+    A = [(i0 + k) % n for k in range((i1 - i0) % n + 1)]
+    B = [(i0 - k) % n for k in range((i0 - i1) % n + 1)]
+    def arc(ch):
+        d = np.r_[0, np.cumsum(np.linalg.norm(np.diff(Lp[ch], axis=0), axis=1))]
+        return d / max(d[-1], 1e-9)
+    sa, sb = arc(A), arc(B)
+    tris, i, j = [], 0, 0
+    while i < len(A) - 1 or j < len(B) - 1:
+        if j >= len(B) - 1 or (i < len(A) - 1 and sa[i + 1] <= sb[j + 1]):
+            tris.append((lp[A[i]], lp[A[i + 1]], lp[B[j]])); i += 1
+        else:
+            tris.append((lp[A[i]], lp[B[j + 1]], lp[B[j]])); j += 1
+    return np.array(tris, int).reshape(-1, 3)
+
+
 def cap_loops(Vp, Fp, skip, max_dev=0.08):
     """Close every open boundary loop of a part (Vp, Fp) with a cap ear-clipped on the loop's best-fit plane, wound
     to face out of the part. skip(points) -> True for loops that a housing already covers. Returns cap faces."""
@@ -737,7 +891,16 @@ def cap_loops(Vp, Fp, skip, max_dev=0.08):
         # only a nearly flat loop gets a cap: ear-clipping a jagged, folded seam loop gives spikes that stand out of
         # the shell and read as shards in motion; an unclosed loop shows the shader's dark interior instead
         P2 = np.c_[(Lp - c) @ e1, (Lp - c) @ e2]
-        if s_[2] / np.sqrt(len(Lp)) > max_dev * rad or not simple_polygon(P2):
+        rr = np.linalg.norm(Lp - c, axis=1)
+        strung = rr.max() > 2.2 * rr.mean()   # a long, strung-out loop: a cone over it fans into spikes
+        if strung or s_[2] / np.sqrt(len(Lp)) > max_dev * rad or not simple_polygon(P2):
+            t3 = ribbon_cap(lp, Lp, e1)
+            fn = np.cross(Vp[t3[:, 1]] - Vp[t3[:, 0]], Vp[t3[:, 2]] - Vp[t3[:, 0]]).sum(0)
+            if fn @ (c - Vp[np.unique(Fp)].mean(0)) < 0:
+                t3 = t3[:, [0, 2, 1]]
+            caps.append(t3)
+            continue
+        elif False:
             # folded or non-planar loop: a cone to an apex inside the part (toward the part's middle), no projection
             inward = Vp[np.unique(Fp)].mean(0) - c
             inward /= np.linalg.norm(inward) + 1e-9
@@ -785,6 +948,7 @@ def stage_segment(a, work):
     fn = fn / (np.linalg.norm(fn, axis=1, keepdims=True) + 1e-12)
     # initial labels: stl_rig's part of the nearest split triangle
     lab = own_fit[cKDTree(T_fit.mean(1)).query(C)[1]].astype(int)
+    lab_v1 = lab.copy()
     fa, fb, va, vb = face_adjacency(F)
     elen = np.linalg.norm(V[va] - V[vb], axis=1)
     # dihedral: concave if the neighbour's centroid lies in front of this face
@@ -831,6 +995,11 @@ def stage_segment(a, work):
     core = np.isin(lab, upper) & (dist_b > float(v2.get("core", 0.04)) * H)
     for n_ in upper:
         m_ = core & (lab == n_) & (seed < 0)
+        if m_.sum() < 30:   # a thin part (an upper arm) has no core at 4 % of the height: seed its most inner faces
+            own_ = np.flatnonzero((lab == n_) & (seed < 0))
+            if len(own_):
+                m_ = np.zeros(nf, bool)
+                m_[own_[np.argsort(-dist_b[own_])[:max(30, len(own_) // 4)]]] = True
         seed[m_] = n_
     for n_, box in ((names.index(k), b) for k, b in v2.get("seed_boxes", {}).items()):
         for b in box:  # config: extra seeds, game-frame boxes in the sculpt frame [x0, y0, z0, x1, y1, z1]
@@ -894,7 +1063,9 @@ def stage_segment(a, work):
         m_ = (C >= rule["min"]).all(1) & (C <= rule["max"]).all(1)       # sculpt frame (labels.npz), optional "from"
         if "from" in rule:
             m_ &= lab == names.index(rule["from"])
-        lab[m_] = names.index(rule["part"])
+        # "part": "v1" gives the faces back to stl_rig's (the v1 model's) part: for a piece the regrowth carried
+        # across a fused contact (Werewolf: shin plates the hanging hand touches in the print went to the arm)
+        lab[m_] = lab_v1[m_] if rule["part"] == "v1" else names.index(rule["part"])
         print(f"  assign: {int(m_.sum())} faces -> {rule['part']}")
     # cuts: every pair of parts that share edges; the child is the deeper joint in the skeleton (siblings: the higher pivot)
     def jdepth(node):
@@ -1101,10 +1272,18 @@ def stage_segment(a, work):
         # every other open loop (contacts the print fused: a plate pressed on a thigh, an arm on a hip) gets a cap,
         # so parts that move apart show closed surfaces, not holes
         mine = [(implicit(k_, c_, ax, R_, L_)) for pp, ch, jn, k_, c_, ax, R_, L_, reach in plan if node in (pp, ch)]
-        on_housing = lambda Q: any(np.abs(f(Q)).max() < 0.004 * H for f in mine)   # wholly on a housing: it covers
+        on_housing = lambda Q: False   # cap every loop: one lying on a housing is hidden in it anyway, a partial one isn't
         capf = np.zeros((0, 3), int)
         if v2.get("caps", True):
             capf, Vp = cap_loops(Vp, Fp, on_housing)
+            if len(capf) and v2.get("cap_inside_test", True):
+                # a cap fills a cut through solid material, so it lies inside the watertight sculpt; a cap triangle
+                # whose centre is outside it is a shard standing out of the armour: drop it (sculpt frame test)
+                Mx = xform.get(node, np.eye(4)); Mi = np.linalg.inv(Mx)
+                cc = Vp[capf].mean(1) @ Mi[:3, :3].T + Mi[:3, 3]
+                ins = inside_test(cc, V[F])
+                far = cKDTree(C).query(cc)[0] > float(v2.get("cap_out_tol", 0.015)) * H   # just outside a surface is fine
+                capf = capf[ins | ~far]
         Fall = np.r_[Fp, capf]
         used2 = np.unique(Fall.ravel())
         remap2 = -np.ones(len(Vp), int); remap2[used2] = np.arange(len(used2))
@@ -1128,6 +1307,7 @@ def stage_segment(a, work):
     fnc /= np.linalg.norm(fnc, axis=1, keepdims=True) + 1e-12
     N[capm] = fnc[:, None, :]
     np.savez_compressed(work / "rest.npz", P=Pr, F=Fo, part=part, kind=kind, N=N, P_sculpt=P)
+    (work / "rest_preglass.npz").unlink(missing_ok=True)
     (work / "rest.json").write_text(json.dumps({"actuators": actuators, "joint_pairs": [[names[p_], names[c_]] for p_, c_ in sorted(joint_pairs)],
                                                 "contacts": [[names[p_], names[c_]] for p_, c_ in cuts if (p_, c_) not in joint_pairs], "parts": sorted(set(part.tolist())),
                                                 "part_names": {str(k): names[k] for k in set(part.tolist())}}, indent=1))
@@ -1259,6 +1439,24 @@ def stage_paint(a, work):
     szone = classify_original(scol)
     oname = np.array([og["nodes"][i].get("name", "") for i in sown])
     tz = np.full((res, res), -1)
+    tglass = np.zeros((res, res), bool)   # the texel maps onto the original's canopy glass (v2.1: glass from the original)
+    gk = v2.get("glass_key", {})
+    def glass_texel(rgb, suv_):
+        """Original canopy colours: inside a glass_uv_box (texels of the original texture) if the mech gives one,
+        and dark or teal/cyan, never a pure team channel."""
+        r_, g_, b_ = (rgb[:, i].astype(int) for i in range(3))
+        pure = ((r_ == 0) & (g_ == 0)) | ((r_ == 0) & (b_ == 0)) | ((g_ == 0) & (b_ == 0))
+        dark = np.maximum(np.maximum(r_, g_), b_) < int(gk.get("dark_max", 45))
+        teal = (g_ > r_ + 12) & (b_ > r_ + 12) & (np.abs(g_ - b_) < 70)
+        ok = (dark | teal) & ~(pure & ~dark)
+        if gk.get("uv_boxes"):
+            px_ = suv_ * [tw, th]
+            inb = np.zeros(len(rgb), bool)
+            for x0, y0, x1, y1 in gk["uv_boxes"]:
+                inb |= (px_[:, 0] >= x0) & (px_[:, 0] < x1) & (px_[:, 1] >= y0) & (px_[:, 1] < y1)
+            ok &= inb
+        return ok
+    sglass = glass_texel(scol, suv)
     ys, xs = np.nonzero(cover)
     tpart = part[fid[ys, xs]]
     for pn in np.unique(tpart):
@@ -1278,6 +1476,7 @@ def stage_paint(a, work):
         qn = q if fit.get("kind") in ("rigid", "glb") else lo_o + (q - lo_v) / np.maximum(hi_v - lo_v, 1) * (hi_o - lo_o)
         _, k = cKDTree(spts_mm[sm]).query(qn)
         tz[ys[m], xs[m]] = szone[sm][k]
+        tglass[ys[m], xs[m]] = sglass[sm][k]
     # 2. per face, then per panel: area-weighted majority, so zone edges follow the sculpt's own panel lines
     nz = len(ZONES)
     fz = np.zeros((len(F), nz))
@@ -1474,14 +1673,54 @@ def stage_paint(a, work):
     for k_, v_ in node_mm.items():
         if k_.lower().startswith("spot_") or k_.lower().startswith("light"):
             gl_code[(np.linalg.norm(Cf - v_, axis=1) < 0.025 * Hm) & (kind == 0)] = 100
-    cr_ = v2.get("canopy")   # hand-marked canopy: faces near a point facing a direction, in panels under max_area
-    if cr_:
-        dn = np.asarray(cr_.get("normal", [0, -0.7, 0.7]), float); dn /= np.linalg.norm(dn)
-        m_ = (np.linalg.norm(Cf - np.asarray(cr_["centre"], float), axis=1) < float(cr_.get("radius", 900))) & \
-             (fn @ dn > float(cr_.get("min_dot", 0.75))) & (kind == 0)
-        m_ &= pid_area[pid] < float(cr_.get("max_area_m2", 0.35)) * 1e6
+    # canopy glass from the original (v2.1, 2026-10-24): a face is glass where most of its texels map onto the
+    # original's canopy colours, within reach of the cockpit node (stray dark or blue paint elsewhere stays paint)
+    gcount = np.zeros(len(F)); tcount = np.zeros(len(F))
+    np.add.at(tcount, fid[cover], 1.0)
+    np.add.at(gcount, fid[cover & tglass], 1.0)
+    share = gcount / np.maximum(tcount, 1)
+    gfaces = (share >= float(gk.get("share", 0.5))) & (kind == 0)
+    if cockpit is not None and fit.get("kind") != "rigid":
+        gfaces &= np.linalg.norm(Cf - cockpit, axis=1) < float(gk.get("reach", 0.12)) * Hm
+    if gk.get("frontmost", False) and gfaces.any() and fit.get("kind") != "rigid":
+        # the texel mapping says roughly where the window is (x, z); the pane itself is the frontmost forward-facing
+        # surface there, so take that window and project it forward onto the sculpt (a bounds mapping drifts along
+        # the nose, the window doesn't)
+        gx = np.percentile(Cf[gfaces, 0], [10, 90]); gz = np.percentile(Cf[gfaces, 2], [10, 90])
+        pad = float(gk.get("pad", 0.01)) * Hm
+        fwd_ = np.array([0, -1.0, 0])
+        win = (Cf[:, 0] > gx[0] - pad) & (Cf[:, 0] < gx[1] + pad) & (Cf[:, 2] > gz[0] - pad) & (Cf[:, 2] < gz[1] + pad) \
+            & (fn @ fwd_ > float(gk.get("min_dot", 0.35))) & (kind == 0)
+        if win.any():
+            cell = float(gk.get("cell", 0.012)) * Hm
+            key_ = np.floor(np.c_[Cf[:, 0], Cf[:, 2]] / cell).astype(int)
+            front = np.zeros(len(F), bool)
+            idx = np.flatnonzero(win)
+            ky = {}
+            for i_ in idx:
+                k_ = (key_[i_, 0], key_[i_, 1])
+                if k_ not in ky or Cf[i_, 1] < Cf[ky[k_], 1]:
+                    ky[k_] = i_
+            ymin = np.array([Cf[i_, 1] for i_ in ky.values()])
+            for i_ in idx:
+                k_ = (key_[i_, 0], key_[i_, 1])
+                if Cf[i_, 1] < Cf[ky[k_], 1] + float(gk.get("depth", 0.012)) * Hm:
+                    front[i_] = True
+            gfaces = front
+    if gk.get("from_original", False):   # the texel transfer (off: sculpt shapes differ from the originals)
+        gl_code[gfaces] = 255
+    if "glass" in z.files:   # Lee's outlines (stage glass)
         gl_code[gl_code == 255] = 0
-        gl_code[m_] = 255
+        gl_code[np.asarray(z["glass"], bool)] = 255
+    cp_ = None if "glass" in z.files else v2.get("canopy_patches")   # Lee's / the coordinator's pick: planar patches (sharp edges at deg) holding the points
+    if cp_:
+        pidc = panels(P, F, part * 4 + np.minimum(kind, 3), float(cp_.get("deg", 20)))
+        sculpt_ = np.flatnonzero(kind == 0)
+        tc = cKDTree(Cf[sculpt_])
+        want = {int(pidc[sculpt_[tc.query(np.asarray(q, float))[1]]]) for q in cp_["points"]}
+        gl_code[gl_code == 255] = 0
+        gl_code[np.isin(pidc, list(want)) & (kind == 0)] = 255
+    np.save(work / "glass_faces.npy", np.flatnonzero(gl_code == 255))
     for lt in v2.get("lights", []):   # {"centre": [..], "radius": mm, "code": 100 light | 190 lens, "normal"?: [..]}
         m_ = (np.linalg.norm(Cf - np.asarray(lt["centre"], float), axis=1) < float(lt.get("radius", 250))) & (kind == 0)
         if "normal" in lt:
@@ -1540,6 +1779,193 @@ def stage_paint(a, work):
     alb = np.where(decal[..., None] > 0.5, 0.85, alb)
     Image.fromarray(dilate((np.clip(alb, 0, 1) * 255).astype(np.uint8), cover)).save(work / "preview_albedo.png")
     print(f"paint: mask.png detail.png normal.png preview_albedo.png ({res} px) -> {work}")
+
+
+# -------------------------------------------------------------------------------------------------------- glass
+def ortho_camera(target, d, up_top):
+    """Blender's camera for canopy_pick.py's views: at target + 60 m along d, -Z toward the target, its Y toward world
+    Z (or world Y for the top view, track_quat('-Z', 'Y')). Returns (pos, right, camup) in mm."""
+    d = np.asarray(d, float); d /= np.linalg.norm(d)
+    pos = np.asarray(target, float) + d * 60000.0
+    f = -d
+    upw = np.array([0, 1.0, 0]) if up_top else np.array([0, 0, 1.0])
+    camup = upw - (upw @ f) * f
+    camup /= np.linalg.norm(camup)
+    right = np.cross(f, camup)
+    return pos, right, camup
+
+
+def clip_implicit_src(Vp, Fp, f):
+    """clip_implicit, also returning for each output face the index of the input face it came from."""
+    s_ = f(Vp) >= 0
+    fs = s_[Fp]
+    mixed = fs.any(1) & ~fs.all(1)
+    if not mixed.any():
+        return Vp, Fp, np.arange(len(Fp))
+    V2, F2 = clip_implicit(Vp, Fp, f)
+    src = np.r_[np.flatnonzero(~mixed), np.tile(np.flatnonzero(mixed), 3)]
+    return V2, F2, src
+
+
+def stage_glass(a, work):
+    """Canopy glass from Lee's outlines (v2.canopy_outlines, canopy_pick.py outlines): each pane polygon is in the
+    image space of one canopy_pick view. A pane that covers most of the sculpt's own planar patches takes those patches
+    whole (snap); otherwise the outline is knifed into the mesh (a conforming split, so it stays watertight) and the
+    visible faces inside it become the pane. Writes the result into rest.npz ("glass" per face)."""
+    fit = json.loads((work / "fit.json").read_text())
+    over = json.loads(Path(fit["joints"]).read_text()) if Path(fit["joints"]).exists() else {}
+    co = over.get("v2", {}).get("canopy_outlines")
+    # always start from the segment stage's mesh (rest_preglass.npz), so a rerun doesn't knife an already knifed mesh
+    pre = work / "rest_preglass.npz"
+    if not pre.exists():   # stage_segment deletes it whenever it writes a new rest.npz
+        import shutil
+        shutil.copy2(work / "rest.npz", pre)
+    z = dict(np.load(pre))
+    z.pop("glass", None)
+    P, F, part, kind = z["P"], z["F"], z["part"], z["kind"]
+    if not co:
+        z["glass"] = np.zeros(len(F), bool); np.savez_compressed(work / "rest.npz", **z); print("glass: no outlines"); return
+    H = float(P[:, 2].max())
+    tgt = np.asarray(co["target"], float); scale = float(co["scale"]); px = float(co.get("px", 1000))
+    from matplotlib.path import Path as MPath
+    def cam_of(view):
+        if "cams" in co:   # Blender's own matrices (canopy_pick.py): its track_quat roll isn't the textbook look-at
+            M = np.asarray(co["cams"][view], float)
+            return M[:3, 3] * 1000.0, M[:3, 0], M[:3, 1]
+        return ortho_camera(tgt, co["views"][view], view == "top")
+    def uv_of(X, cam):
+        pos, right, camup = cam
+        return np.c_[((X - pos) @ right / scale + 0.5) * px, (0.5 - (X - pos) @ camup / scale) * px]
+    def depth_of(X, cam):
+        pos, right, camup = cam
+        return (X - pos) @ np.cross(camup, right)   # distance in front of the camera (-Z is forward: right x up = +Z back)
+    def visible_inside(P, F, kind, poly, cam, d_dir):
+        C = P[F].mean(1)
+        n = np.cross(P[F[:, 1]] - P[F[:, 0]], P[F[:, 2]] - P[F[:, 0]])
+        n /= np.linalg.norm(n, axis=1, keepdims=True) + 1e-12
+        uv = uv_of(C, cam)
+        inside = MPath(poly).contains_points(uv) & (n @ d_dir > 0.05) & (kind == 0)
+        idx = np.flatnonzero(inside)
+        if not len(idx):
+            return np.zeros(len(F), bool)
+        dep = depth_of(C[idx], cam)
+        # visibility: nothing camera-facing within a few pixels in front of it (frontmost layer)
+        pl = np.asarray(poly, float); lo_, hi_ = pl.min(0) - 8, pl.max(0) + 8
+        allf = np.flatnonzero((n @ d_dir > 0.05) & (uv >= lo_).all(1) & (uv <= hi_).all(1))
+        tr = cKDTree(uv[allf]); dall = depth_of(C[allf], cam)
+        vis = np.array([dep[k] <= dall[tr.query_ball_point(uv[i], 6)].min() + 0.015 * H for k, i in enumerate(idx)])
+        out = np.zeros(len(F), bool); out[idx[vis]] = True
+        return out
+    pid = panels(P, F, part * 4 + np.minimum(kind, 3), 20.0)
+    A = np.linalg.norm(np.cross(P[F[:, 1]] - P[F[:, 0]], P[F[:, 2]] - P[F[:, 0]]), axis=1) / 2
+    snap, knife = set(), []
+    for pane in co["panes"]:
+        cam = cam_of(pane["view"]); d_dir = np.asarray(co["views"][pane["view"]], float); d_dir /= np.linalg.norm(d_dir)
+        ins = visible_inside(P, F, kind, pane["poly"], cam, d_dir)
+        if not ins.any():
+            continue
+        pp = np.unique(pid[ins])
+        cov = np.array([A[ins & (pid == q)].sum() / A[pid == q].sum() for q in pp])
+        big = A[ins].sum()
+        main = [q for q, c in zip(pp, cov) if A[ins & (pid == q)].sum() > 0.05 * big]
+        if main and all(cov[list(pp).index(q)] >= 0.7 for q in main):
+            snap.update(main)
+        else:
+            knife.append((pane, cam, d_dir))
+    glass = np.isin(pid, list(snap)) & (kind == 0)
+    nk = 0
+    for pane, cam, d_dir in knife:
+        poly = np.asarray(pane["poly"], float)
+        mp = MPath(poly)
+        def f2(X):
+            uv = uv_of(X, cam)
+            dd = np.full(len(uv), np.inf)
+            for i in range(len(poly)):   # distance to each edge segment
+                a_, b_ = poly[i], poly[(i + 1) % len(poly)]
+                ab = b_ - a_
+                t_ = np.clip(((uv - a_) @ ab) / max(ab @ ab, 1e-9), 0, 1)
+                dd = np.minimum(dd, np.linalg.norm(uv - (a_ + t_[:, None] * ab), axis=1))
+            return np.where(mp.contains_points(uv), -dd, dd) - 0.25
+        nf0 = len(F)
+        P, F, src = clip_implicit_src(P, F, f2)
+        part, kind, glass = part[src], kind[src], glass[src]
+        nk += len(F) - nf0
+    if knife:
+        # which knifed faces are the pane: a real face-ID render per view of the cut mesh, and every face whose visible
+        # pixels lie (mostly) inside a pane outline of that view
+        sys.path.insert(0, str(ROOT / "tools/art"))
+        import canopy_pick as CP
+        from PIL import Image
+        from matplotlib.path import Path as MPath2
+        ids = np.arange(1, len(F) + 1)
+        Cc = np.c_[(ids >> 16) & 255, (ids >> 8) & 255, ids & 255] / 255.0
+        Cc = np.where(Cc <= 0.04045, Cc / 12.92, ((Cc + 0.055) / 1.055) ** 2.4)
+        np.savez(work / "_glass_fid.npz", P=P, F=F, C=Cc, target=tgt, scale=scale, label_pts=tgt[None])
+        CP.run_blender(work / "_glass_fid.npz", work / "_glass_fid", "id")
+        yy, xx = np.mgrid[0:int(px), 0:int(px)]
+        pix = np.c_[xx.ravel() + 0.5, yy.ravel() + 0.5]
+        for view in sorted({p_["view"] for p_, _, _ in knife}):
+            a_ = np.asarray(Image.open(work / f"_glass_fid_{view}.png").convert("RGB")).astype(int)
+            fid = (((a_[..., 0] << 16) | (a_[..., 1] << 8) | a_[..., 2]) - 1).ravel()
+            ok = (fid >= 0) & (fid < len(F))
+            vis = np.bincount(fid[ok], minlength=len(F))
+            inside = np.zeros(len(pix), bool)
+            for p_, _, _ in knife:
+                if p_["view"] == view:
+                    inside |= MPath2(np.asarray(p_["poly"], float)).contains_points(pix)
+            inn = np.bincount(fid[ok & inside], minlength=len(F))
+            glass |= (vis >= 2) & (inn >= 0.6 * vis) & (kind == 0)
+    # strays: a glass island far from the others and tiny (a sliver seen through a gap) is not a pane
+    gi = np.flatnonzero(glass)
+    if len(gi):
+        key = np.unique(np.round(P, 1), axis=0, return_inverse=True)[1].ravel()
+        Fk = key[F[gi]]
+        e = np.r_[Fk[:, [0, 1]], Fk[:, [1, 2]], Fk[:, [2, 0]]]
+        nv = key.max() + 1
+        G = coo_matrix((np.ones(len(e)), (e[:, 0], e[:, 1])), shape=(nv, nv))
+        _, comp = connected_components(G, directed=False)
+        fc = comp[Fk[:, 0]]
+        Ag = np.linalg.norm(np.cross(P[F[gi, 1]] - P[F[gi, 0]], P[F[gi, 2]] - P[F[gi, 0]]), axis=1) / 2
+        ca = np.bincount(fc, weights=Ag)
+        cc = np.array([P[F[gi[fc == c]]].reshape(-1, 3).mean(0) if (fc == c).any() else np.zeros(3) for c in range(len(ca))])
+        # keep the islands chained to the largest one (each within 0.06 H of a kept island's surface); a big face that
+        # shows only a few pixels inside an outline through a gap can sit metres away and still carry real area
+        from scipy.spatial import cKDTree as KD_
+        isl = [c for c in range(len(ca)) if (fc == c).any()]
+        pts = {c: P[F[gi[fc == c]]].reshape(-1, 3) for c in isl}
+        # seed: the island nearest the cockpit (outline target), not the largest (Urbanmech: a 3 m-off stray was 49 %)
+        big = [c for c in isl if ca[c] >= 0.03 * Ag.sum()] or isl
+        seed = min(big, key=lambda c: np.linalg.norm(pts[c] - tgt, axis=1).min())
+        kept, todo = {seed}, set(isl) - {seed}
+        grew = True
+        while grew and todo:
+            tree = KD_(np.concatenate([pts[c] for c in kept]))
+            near = {c for c in todo if tree.query(pts[c], k=1)[0].min() < 0.06 * H}
+            grew = bool(near)
+            kept |= near
+            todo -= near
+        drop = np.isin(fc, sorted(todo))
+        glass[gi[drop]] = False
+        if drop.any():
+            print(f"  glass: dropped {int(drop.sum())} stray faces")
+    # zero-area triangles (knife slivers on a collinear seam) hang Blender's Smart UV Project for good (2026-10-24:
+    # 112 of them, 40+ min at full CPU, no output); they cover nothing, so drop them
+    Ar = np.linalg.norm(np.cross(P[F[:, 1]] - P[F[:, 0]], P[F[:, 2]] - P[F[:, 0]]), axis=1) / 2
+    keep = Ar > 1e-3
+    if not keep.all():
+        print(f"  glass: dropped {int((~keep).sum())} zero-area triangles")
+        F, part, kind, glass = F[keep], part[keep], kind[keep], glass[keep]
+    z.update(P=P, F=F, part=part, kind=kind, glass=glass,
+             N=corner_normals(P, F, part * 4 + np.minimum(kind, 3), float(over.get("v2", {}).get("smooth_deg", 35.0))))
+    capm = kind == 1
+    if capm.any():
+        fnc = np.cross(P[F[capm, 1]] - P[F[capm, 0]], P[F[capm, 2]] - P[F[capm, 0]])
+        fnc /= np.linalg.norm(fnc, axis=1, keepdims=True) + 1e-12
+        z["N"][capm] = fnc[:, None, :]
+    np.savez_compressed(work / "rest.npz", **z)
+    np.save(work / "glass_faces.npy", np.flatnonzero(glass))
+    print(f"glass: {len(co['panes'])} outlines, {len(snap)} patches snapped, {len(knife)} knifed (+{nk} tris), "
+          f"{int(glass.sum())} glass faces")
 
 
 # -------------------------------------------------------------------------------------------------------- write
