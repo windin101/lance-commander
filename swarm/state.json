@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T16:28:39+13:00",
+  "updated": "2026-10-24T17:00:39+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -1878,8 +1878,8 @@
       "phase": 8,
       "status": "open",
       "created": "2026-10-24T16:28:39+13:00",
-      "updated": "2026-10-24T16:28:39+13:00",
-      "note": null
+      "updated": "2026-10-24T17:00:39+13:00",
+      "note": "2026-10-24 A/B and bisect.\n- Bot ruled out: the turrets-era bot (8134bbb) and the re-check bot (8923172) give identical results on the current sim, 242/253/283 s.\n- Slew ruled out: --rule=slew=false gives 258/249/290 s.\n- Bisect over sim commits in a worktree, mc2_12 seed 1: 8134bbb 480 s; 84471a7 480 s; 98ef2a4 (I102 group moves and attack positions) 253 s; 05481d0 262 s.\n- Confirmed on HEAD: --rule=attack_goals=false gives 406/297/530 s.\nCause: the calcMoveGoal port (pursuing attackers walk to a goal on the optimal-range ring with LOS and re-pick when the target moves 2 cells). Damage taken (485-622) and dealt (743-1307) are the same either way: the fight just runs faster, both sides at their optimal range with clear shots.\nThe port matches mover.cpp:4364-4900 and FIRERANGE_DEFAULT -> getOptimalFireRange (mover.cpp:5888-5918), so this is a faithful rule that made mc2_12 harder for this lance, not a port bug. Reclassified as balance/bot: a 205 t, 0 RP, 4-mech lance vs Enfields. Left open for the bot (fight from cover or captured turrets) or Lee's balance call."
     }
   ],
   "coverage": {
@@ -1986,11 +1986,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "game-art",
-      "msg": "issue I71 P3: HD urbanmech: look call"
-    },
     {
       "at": "2026-10-20T06:15:30+13:00",
       "who": "game-art",
@@ -2985,6 +2980,11 @@
       "at": "2026-10-24T16:28:39+13:00",
       "who": "playtester",
       "msg": "issue I118 P2: mc2_12: lance dies by 242-283 s in the 2026-10-24 full sweep (was 388-573 s on 10-23)"
+    },
+    {
+      "at": "2026-10-24T17:00:39+13:00",
+      "who": "conductor",
+      "msg": "issue I118 updated: note \u2014 2026-10-24 A/B and bisect.\n- Bot ruled out: the turrets-era bot (8134bbb) and the re-check bot (8923172) give identical results on the current sim, 242/253/283 s.\n- Slew ruled out: --rule=slew=false gives 258/249/290 s.\n- Bisect over sim commits in a worktree, mc2_12 seed 1: 8134bbb 480 s; 84471a7 480 s; 98ef2a4 (I102 group moves and attack positions) 253 s; 05481d0 262 s.\n- Confirmed on HEAD: --rule=attack_goals=false gives 406/297/530 s.\nCause: the calcMoveGoal port (pursuing attackers walk to a goal on the optimal-range ring with LOS and re-pick when the target moves 2 cells). Damage taken (485-622) and dealt (743-1307) are the same either way: the fight just runs faster, both sides at their optimal range with clear shots.\nThe port matches mover.cpp:4364-4900 and FIRERANGE_DEFAULT -> getOptimalFireRange (mover.cpp:5888-5918), so this is a faithful rule that made mc2_12 harder for this lance, not a port bug. Reclassified as balance/bot: a 205 t, 0 RP, 4-mech lance vs Enfields. Left open for the bot (fight from cover or captured turrets) or Lee's balance call."
     }
   ],
   "choices": [
