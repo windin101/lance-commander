@@ -173,7 +173,13 @@ const STRIKE_GUARD_M := 70.0  # no air strike this close to our own units or a t
 ## objective area does. Tried on mc2_18 (hold at its bay after the 3 recaptures, 2026-10-24): the
 ## waves' groups 3-4 only come once group 2 is dead (mc2_18.abl:368-391), and group 2 wrecks the
 ## city out of reach of a hold, so it stalled to 1800 s; not used.
-const HOLD_PLANS := {"mc2_17": {"objective": 2, "radius": 200.0, "quiet": 180.0}}
+## - mc2_22: "Stay in the corner and tease patrols into the turrets ... if you use the corner they
+##   won't bother you" [KC]; "Lure the Catapults into the dell ... send one mech out as decoy" [CB].
+##   The compound's guards attack only what comes within 300 m of their post (mc2_22_EC1_*.abl
+##   setTargetPriority MOVER 300), so the lance holds the drop and a decoy brings them in, while
+##   an air strike puts the northern turret line to sleep.
+const HOLD_PLANS := {"mc2_17": {"objective": 2, "radius": 200.0, "quiet": 180.0},
+	"mc2_22": {"at_start": true, "radius": 120.0, "quiet": 45.0, "watch": 450.0, "decoy": true}}
 ## Stealth missions: the walkthroughs avoid the patrols rather than fight them, and work some
 ## objectives out of the designer's order (docs/research/original-missions.md).
 ## - mc2_14 (solo Lao Hu): "take the airport first" (its turret controls, bay and the sensor
@@ -344,13 +350,50 @@ func _orders(sm: SimMission) -> void:
 			_hold_quiet = w.time
 			if _verbose:
 				print("t=%6.1f  HOLD reached (%.0f, %.0f)" % [w.time, _hold_at.x, _hold_at.y])
-		if not threats.is_empty() or w.units.any(func(u): return _armed_enemy(u) and u.awake \
-				and u.position.distance_to(_hold_at) <= _hold_r + 700.0):
+		var watch := _hold_watch
+		var waiting := w.units.filter(func(u): return _armed_enemy(u) and u.awake and u.is_mover() \
+			and u.position.distance_to(_hold_at) <= _hold_r + watch)
+		if not threats.is_empty() or not waiting.is_empty():
 			_hold_quiet = w.time
 		elif w.time - _hold_quiet >= _hold_q:
 			if _verbose:
 				print("t=%6.1f  HOLD over: quiet for %.0f s" % [w.time, _hold_q])
 			_hold_at = null
+		if _hold_at != null and _hold_decoy and threats.is_empty() and not waiting.is_empty():
+			# "Leave the team in place and send one mech out as decoy" [CB]: the fastest sound mech
+			# walks to just inside the nearest guard's reach and comes back with it in tow
+			var ok := lance.filter(func(m): return m is SimMech and _health(m) > 0.6)
+			ok.sort_custom(func(a, b): return a.run_speed > b.run_speed)
+			waiting.sort_custom(func(a, b): return a.position.distance_to(_hold_at) < b.position.distance_to(_hold_at))
+			var d: SimUnit = ok[0] if not ok.is_empty() else null
+			var lure: SimUnit = null
+			var spot := Vector2.ZERO
+			for e in waiting:  # the nearest guard that can be lured without walking into a fort's arcs
+				if d == null or float(_lure_tries.get(e.id, 0.0)) > 90.0:
+					continue
+				var p: Vector2 = w.map.nearest_walkable(e.position + (_hold_at - e.position).normalized() * 260.0, d.hover)
+				if _covering(w, p).is_empty():
+					lure = e
+					spot = p
+					break
+			if lure == null:
+				# nothing left to lure out: the rest stay at their posts, so get on with the mission
+				if _verbose:
+					print("t=%6.1f  HOLD over: no guard left to lure out (%d waiting)" % [w.time, waiting.size()])
+				_hold_at = null
+			else:
+				_lure_tries[lure.id] = float(_lure_tries.get(lure.id, 0.0)) + 3.0
+				if d.distance_to(spot) > 25.0 \
+						and (d.order != SimWorld.Order.MOVE or (_goal.get(d.id, Vector2.INF) as Vector2).distance_to(spot) > 30.0):
+					_order(sm, d, "move", spot)
+					_goal[d.id] = spot
+					if _verbose and w.time - _avoid_said >= 20.0:
+						_avoid_said = w.time
+						print("t=%6.1f  DECOY %s toward %s at %.0f m" % [w.time, d.name, lure.name, lure.position.distance_to(_hold_at)])
+				for m in lance:
+					if m != d and m.distance_to(_hold_at) > 40.0 and (m.order != SimWorld.Order.MOVE or m.path.is_empty()):
+						_order(sm, m, "move", w.map.nearest_walkable(_hold_at, m.hover))
+				return
 	if _stealth:
 		# A patrol that hasn't turned on us is avoided; only what is shooting at us (or guards
 		# what we must take) is fought.
@@ -610,7 +653,10 @@ var _hold_at = null  # Vector2: the base a HOLD_PLANS mission holds, until it ha
 var _hold_r := 0.0
 var _hold_q := 0.0
 var _hold_reached := false
-var _hold_pending := {}  # a HOLD_PLANS entry waiting on its "after" objectives
+var _hold_pending := {}
+var _hold_watch := 700.0  # enemies awake this far beyond the hold radius keep it going
+var _lure_tries := {}  # enemy id -> seconds a decoy has spent trying to draw it out
+var _hold_decoy := false  # HOLD_PLANS "decoy": one mech lures the waiting guards to the hold  # a HOLD_PLANS entry waiting on its "after" objectives
 var _hold_quiet := 0.0
 
 
@@ -1286,6 +1332,37 @@ func _use_support(sm: SimMission, lance: Array, centre: Vector2, threats: Array)
 		if _support(sm, "repair_truck", drop):
 			return
 	var striking := s.pending.filter(func(p): return p["kind"] == "strike" and int(p.get("team", 0)) == sm.player_team)
+	# Switch a fort off from outside it: an air strike (3 x 15 at the centre) destroys a generator
+	# or control of 45 DmgLevel or less, and its turrets go to sleep (bldng.cpp:903-913,
+	# turret.cpp:620-633). For a root under its own guns that the lance would otherwise have to
+	# walk into (mc2_22's drop is boxed in by two turret lines: "First disable or capture the
+	# northern defenses. THEN use that to get out" [KC]).
+	if s.can_call("air_strike") and s.rp - int(SimSupport.COSTS["air_strike"]) >= reserve and w.time - _last_strike >= 12.0:
+		var roots := {}
+		for t in _enemy_turrets(w):
+			if t.position.distance_to(centre) > 500.0 or t.parent == null:
+				continue
+			var root: SimStructure = t.parent
+			if root.parent != null and not root.parent.is_destroyed() and root.parent.awake:
+				root = root.parent
+			if root.is_destroyed() or root.team == 0 or root.damage_level > 3.0 * SimSupport.STRIKE_DAMAGE:
+				continue
+			roots[root] = int(roots.get(root, 0)) + 1
+		var pick: SimStructure = null
+		for r in roots:
+			if _covering(w, r.position).is_empty() or int(roots[r]) < 3:
+				continue  # walkable to, or too small a fort to spend a strike on
+			if w.units.any(func(u): return u.team == 0 and u.exists and not u.is_destroyed() and u.position.distance_to(r.position) <= STRIKE_GUARD_M):
+				continue
+			if striking.any(func(p): return (p["at"] as Vector2).distance_to(r.position) < 30.0):
+				continue
+			if pick == null or int(roots[r]) > int(roots[pick]):
+				pick = r
+		if pick != null and _support(sm, "air_strike", pick.position):
+			_last_strike = w.time
+			if _verbose:
+				print("t=%6.1f  FORT STRIKE on %s (%d turrets hang on it)" % [w.time, pick.name, roots[pick]])
+			return
 	if s.can_call("air_strike") and s.rp - int(SimSupport.COSTS["air_strike"]) >= reserve and threats.size() >= 2 \
 			and w.time - _last_strike >= 12.0:
 		var keep := w.units.filter(func(u): return u.exists and not u.is_destroyed() and (u.team == 0 \
@@ -1353,6 +1430,12 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	_hold_pending = {}
 	if plan.has("after"):
 		_hold_pending = plan
+	_hold_watch = float(plan.get("watch", 700.0))
+	_hold_decoy = bool(plan.get("decoy", false))
+	if plan.has("at_start"):
+		_hold_at = _centre(_lance(sm.world))
+		_hold_r = float(plan["radius"])
+		_hold_q = float(plan["quiet"])
 	for obj in sm.objectives.objectives:
 		if not plan.is_empty() and int(obj["index"]) == int(plan.get("objective", -1)):
 			for c in obj["conditions"]:
