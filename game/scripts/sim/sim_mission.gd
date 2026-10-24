@@ -228,6 +228,11 @@ func _add_structures(mission: String) -> void:
 			s.tower_sensor_m = float(t.get("sensor_range", -1.0))
 			s.can_refit = bool(t.get("can_refit", false))
 			s.mech_bay = bool(t.get("mech_bay", false))
+			s.explosion_damage = float(t.get("explosion_damage", 0.0))
+			s.explosion_radius_m = float(t.get("explosion_radius", 0.0)) * WORLD_UNIT_M
+			if int(o.get("damage", 0)) & 0x0f and s.damage_level < INF:
+				s.damage = s.damage_level  # placed destroyed: setDamage, no blast (objmgr.cpp:1171-1173)
+				s.status = SimUnit.Status.DESTROYED
 		s.object_type = int(o["type"])
 		s.object_index = index
 		# the placement's team (mc2_06's own HQ is team 0); allies (2) join the player's team and
@@ -238,6 +243,8 @@ func _add_structures(mission: String) -> void:
 		s.facing = float(o["rotation"])
 		var cell := world.map.cell_of(s.position)
 		s.part_id = 4096 + cell.y * 720 + cell.x  # abl-natives.md 1.5
+		if s.is_destroyed():
+			s.reported_disabled = true  # placed destroyed: no death event and no blast
 		world.add_unit(s)
 		if cls == 1 and not by_cell.has(cell):
 			by_cell[cell] = s

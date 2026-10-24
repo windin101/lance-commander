@@ -401,6 +401,16 @@ KC: "Liao also tends to send you on UNSUPPORTED missions, meaning you have minim
   - In the remake, the two repair bays and all the turret forts are inert, so this really is no-support. The
     original is not: it has two bays to repair at.
   - The Powered Armor tops our damage table (183), which matches the guides' warning.
+  - **Update 2026-10-24:**
+    - The bays and forts work, and destroyed buildings now explode (I115), which brings back the
+      fuel-tank tactic.
+    - The bot follows the guides' order (`ROUTE_PLANS`): the dropship first, shooting the fuel and
+      pipe tanks under the Thor and Ryoken; then WF#3, the bay, the sensor control and WF#1. It
+      kills a fort's generator before an objective under its guns (the HPG AC turrets hang on the
+      2 NE-crater generators), and it doesn't chase targets into enemy arcs.
+    - Result: 3 of 6 objectives every seed (was 0-1), but no win yet. The losses come from
+      Gauss-fort head kills, the HPG turrets and patrols, with no repair once the lance is far
+      from the dropship bay.
 - **Sourcing:** well-sourced.
 
 ### mc2_14 Covert Ops: Orbital (solo mech)

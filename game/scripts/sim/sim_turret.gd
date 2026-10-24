@@ -18,8 +18,6 @@ var attack_m := 0.0  # AttackRadius (it replaces the extent radius, turret.cpp:2
 var yaw_rate := 20.0  # MaxTurretYawRate, degrees per second
 var turret_yaw := 0.0  # the gun's heading, degrees (0 = north, clockwise)
 var little_extent_m := 7.0  # LittleExtent: blasts must reach this close (carnage.cpp:400-420)
-var explosion_damage := 0.0
-var explosion_radius_m := 0.0
 var active := true  # getAwake(): false once the control is lost, for good
 var can_fire_time := INF  # when the pop-up has opened (INF: closed)
 var gun_target: SimUnit = null  # targetWID

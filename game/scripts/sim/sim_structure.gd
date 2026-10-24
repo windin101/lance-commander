@@ -12,6 +12,8 @@ var extent_m := 0.0
 var parent: SimStructure = null  # control building (turret.cpp:551, bldng.cpp:878-890)
 var control := false  # parent of turrets: a capturable control building (objmgr.cpp:970-981)
 var tower_sensor_m := -1.0  # a team sensor (sensor towers), metres (bldng.cpp:1266)
+var explosion_damage := 0.0  # BuildingData ExplosionDamage: its blast when destroyed (bldng.cpp:205-211, 1476-1488)
+var explosion_radius_m := 0.0
 var can_refit := false  # CanRefit (repair bay pool = DmgLevel - damage, bldng.h:372)
 var mech_bay := false  # MechBay: repairs mechs (tacordr.cpp:1087)
 var refit_buddy: SimUnit = null  # the unit being repaired here (refitBuddyWID)
