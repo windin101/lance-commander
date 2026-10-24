@@ -144,6 +144,8 @@ var _cap_stall := {}  # unit id -> checks it stood still on a capture order
 var _cap_trace := -INF  # --trace: last capture report
 var _fight_trace := -INF  # --trace: last fight report
 var _lull_trace := -INF  # --trace: last repair-lull report
+var _fort_keep := false  # ROUTE_PLANS "fort_keep": stick to the fort job begun (mc2_11; cost mc2_08 4/6 -> 2/6 as a default)
+var _fort_last := {}  # the fort job being worked (hysteresis, see _fort_job)
 var _side: SimUnit = null  # the capture on the way (RP building, turret control, bay) being worked
 var _ignore := {}  # unit id -> until when the stall watch leaves it alone
 var _stall_dealt := 0.0
@@ -205,6 +207,7 @@ const STEALTH_PLANS := {"mc2_14": {"first": [6]}}
 const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true},
 	"mc2_18": {"first": [2, 3, 4], "arcs": true, "rp_reserve": 12000},
 	"mc2_08": {"rp_reserve": 6000},
+	"mc2_11": {"ecm_first": true, "rp_reserve": 6000, "arcs": true, "fort_keep": true},
 	"mc2_24": {"via": [Vector2(600.0, -1100.0), Vector2(1150.0, -400.0), Vector2(1250.0, 500.0), Vector2(1150.0, 900.0)],
 		"first": [4], "run_out": true},
 	"mc2_23": {"spare": 0, "prep_at": Vector2(620.0, -830.0), "prep_guns": 2, "rp_reserve": 24000,
@@ -213,6 +216,11 @@ const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true},
 ## the lance's own ground (mines have no team check, support-powers.md 3.5). mc2_23: KC spends the
 ## 36k on "several minelayers" around the western road and the starport's NW edge; the waves come
 ## in from the west edge.
+## - mc2_11: "ECM mech kills the two sensor towers while the others wait outside sensor range"
+##   [KC, SOE, BK]: a sensor net that, if tripped, sends Jagermechs and Drillsons (their brains
+##   attack anything the team senses within 525 m, mc2_11_EC1_Grp2.abl:27-28). "ecm_first": the
+##   mech with a working ECM suite (no sensor signature) goes alone for the enemy sensor towers
+##   while the rest hold outside the towers' sensor radius.
 ## - mc2_08: no RP at the start, 5 RP buildings (50k): "try to use no more than one repair truck
 ##   for the whole mission" [KC, CB]; a truck's worth is kept from salvage and strikes. (Not a
 ##   default: on mc2_03 the same reserve cost 6/6 -> 1/6, its salvaged mechs fight for it.)
@@ -354,6 +362,8 @@ func _orders(sm: SimMission) -> void:
 	if lance.is_empty():
 		return
 	var centre := _centre(lance)
+	for m in lance:
+		m.avoid_mines = true  # a player steers round the minefields on the map (SimMap.find_path)
 	for m in lance:  # don't chase a runner (e.g. a hovercraft over water) across the map
 		if m.order == SimWorld.Order.ATTACK and m.order_target and m.distance_to(m.order_target.position) > ENGAGE_M * 1.5:
 			_order(sm, m, "stop", null)
@@ -537,6 +547,8 @@ func _orders(sm: SimMission) -> void:
 								_order(sm, m, "move", spot2)
 								_goal[m.id] = spot2
 						return
+	if _ecm_first and threats.is_empty() and _ecm_run(sm, lance, centre):
+		return
 	var task := _task(sm, lance, centre)
 	if _trace:
 		var key := "%s %s" % [task.get("kind", "-"), (task["target"] as SimUnit).name if task.has("target") else str(task.get("area", ""))]
@@ -634,6 +646,7 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 	if sm.abl:
 		var fort := _fort_job(sm, lance, centre)
 		if not fort.is_empty():
+			_fort_last = fort
 			return fort
 	# Resource Points: a player takes the RP buildings and ordnance trucks near the route
 	# (support-powers.md 1); support powers need them, and several missions start with 0 RP.
@@ -644,7 +657,7 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 			and (u.resource_points > 0 or (u is SimStructure and (u.control or (u.can_refit and u.mech_bay) \
 				or u.name.contains("SensorControl")))) \
 			and u.position.distance_to(centre) <= (700.0 if u.resource_points > 0 else 450.0) \
-			and (_path_ok(sm, lance[0], u) or _capture_path_ok(sm, lance[0], u)))
+			and (_path_ok(sm, lance[0], u) or _capture_path_ok(sm, lance[0], u) or _jump_reach(sm, lance, u) != null))
 		# keep the one already started (a group walk is slow; without this the lance swayed
 		# between it and the next objective at the edge of the radius)
 		if _side and is_instance_valid(_side) and not rp_t.has(_side) and sm.abl.can_capture(_side, 0) \
@@ -717,6 +730,7 @@ var _stealth := false  # a STEALTH_PLANS mission: patrols are avoided
 var _first: Array = []  # ... and these objectives are worked first
 var _avoid_said := -INF
 var _quiet_spot = null  # Vector2: the last place the stealth bot stood with no enemy in sight or fort arc
+var _ecm_first := false  # ROUTE_PLANS "ecm_first": the ECM mech kills the sensor towers alone first
 var _run_out := false  # ROUTE_PLANS "run_out": the extraction is a run, not a fight
 var _follow := -1  # ROUTE_PLANS "follow": a neutral team the lance walks in behind
 var _follow_since := -1.0
@@ -826,6 +840,47 @@ func _prepare(sm: SimMission, lance: Array, centre: Vector2) -> bool:
 	return false
 
 
+## The ECM run (ROUTE_PLANS "ecm_first"): the ECM mech attacks the nearest working enemy sensor
+## tower while the others stay outside every tower's sensor radius. False once no tower is left
+## (or there is no ECM mech), so the mission goes on. True while it gave this tick's orders.
+func _ecm_run(sm: SimMission, lance: Array, centre: Vector2) -> bool:
+	var w := sm.world
+	var towers := w.units.filter(func(u): return u is SimStructure and not (u is SimTurret) and u.exists \
+		and SimWorld.hostile(u.team, 0) and (u as SimStructure).tower_sensor_m >= 100.0 and u.sensor_works())  # real sensor towers, not controls' 1 m
+	var ecm := lance.filter(func(m): return m is SimMech and m.has_ecm())
+	if towers.is_empty() or ecm.is_empty():
+		if _verbose:
+			print("t=%6.1f  ECM run over: %d towers left, %d ECM mechs" % [w.time, towers.size(), ecm.size()])
+		_ecm_first = false
+		return false
+	var e: SimUnit = ecm[0]
+	towers.sort_custom(func(a, b): return a.position.distance_to(e.position) < b.position.distance_to(e.position))
+	var t: SimStructure = towers[0]
+	if not (e.order == SimWorld.Order.ATTACK and e.order_target == t):
+		_order(sm, e, "attack", t)
+		if _verbose:
+			print("t=%6.1f  ECM %s goes for %s at %.0f m (%d towers)" % [w.time, e.name, t.name, e.distance_to(t.position), towers.size()])
+	var rest := lance.filter(func(m): return m != e)
+	if rest.is_empty():
+		return true
+	var rc := _centre(rest)
+	var near: SimStructure = null
+	for tw in towers:
+		if rest.any(func(m): return m.distance_to(tw.position) <= tw.tower_sensor_m + 60.0):
+			if near == null or tw.position.distance_to(rc) < near.position.distance_to(rc):
+				near = tw
+	if near != null:
+		var spot: Vector2 = w.map.nearest_walkable(near.position + (rc - near.position).normalized() * (near.tower_sensor_m + 130.0))
+		_group_move(sm, rest, rc, spot, 25.0)
+	else:
+		for m in rest:
+			if m.order == SimWorld.Order.MOVE and m.path.size() > 0 and (_goal.get(m.id, Vector2.INF) as Vector2).distance_to(e.position) < 1.0:
+				pass
+			if m.order != SimWorld.Order.HOLD and m.order != SimWorld.Order.ATTACK:
+				_order(sm, m, "stop", null)
+	return true
+
+
 ## Every mech runs straight to its own spot around the point, no waiting for the slow ones (a
 ## chase: a mech that stops for the rest is caught).
 func _run_to(sm: SimMission, units: Array, at: Vector2) -> void:
@@ -925,6 +980,38 @@ func _capture_path_ok(sm: SimMission, from: SimUnit, u: SimUnit) -> bool:
 		c = [sm.world.time, sm.world.map.find_path(from.position, goal, from.hover).size() > 0]
 		_paths[key] = c
 	return c[1]
+
+
+## A jumper's launch spot for a target with no walking path (an island RP building: "A jumper is
+## required for the island RP building", mc2_08; "Jump-capture the island RP", mc2_11): the
+## nearest walkable cell the lance can reach within the jumper's range of the capture goal, or
+## null. Cached 30 s per target.
+func _jump_reach(sm: SimMission, lance: Array, u: SimUnit) -> Variant:
+	var key := -100000 - u.id
+	var c: Array = _paths.get(key, [-INF, null])
+	if sm.world.time - float(c[0]) <= 30.0:
+		return c[1]
+	var w := sm.world
+	var spot = null
+	var jumper: SimMech = null
+	for m in lance:
+		if m is SimMech and m.can_jump() and (jumper == null or m.jump_range() > jumper.jump_range()):
+			jumper = m
+	if jumper != null:
+		var goal: Vector2 = sm.abl._capture_goal(jumper, u) if sm.abl else u.position
+		var reach: float = jumper.jump_range() * 0.9
+		var best := INF
+		for k in 16:
+			for r in [reach * 0.5, reach * 0.75, reach]:
+				var p: Vector2 = w.map.nearest_walkable(goal + Vector2.from_angle(TAU * k / 16.0) * r, false, 3)
+				if p.distance_to(goal) > reach:
+					continue
+				var d := p.distance_to(jumper.position)
+				if d < best and not w.map.find_path(jumper.position, p, false).is_empty():
+					best = d
+					spot = p
+	_paths[key] = [w.time, spot]
+	return spot
 
 
 ## Targets with a walking path first, then the nearest.
@@ -1165,8 +1252,27 @@ func _capture(sm: SimMission, units: Array, centre: Vector2, t: SimUnit) -> void
 			# Jump-capture under the guns: "jump in and land next to the control building, hit
 			# capture" [KC] (docs/research/original-missions.md, mc2_14).
 			var spot: Vector2 = w.map.nearest_walkable(t.position + (capturer.position - t.position).normalized() * 20.0, capturer.hover)
+			var goal: Vector2 = sm.abl._capture_goal(capturer, t)
+			var no_path := w.map.cell_of(goal) != w.map.cell_of(capturer.position) and w.map.find_path(capturer.position, goal, capturer.hover).is_empty()
 			if capturer.order == SimWorld.Order.JUMP:
 				pass
+			elif no_path:
+				# across water or a wall: a jumper walks to its launch spot and jumps in
+				var jumpers := mechs.filter(func(m): return m.can_jump())
+				var launch = _jump_reach(sm, units, t)
+				if jumpers.is_empty() or launch == null:
+					_cap_skip[t.id] = w.time + 180.0  # nobody can get there
+					return
+				capturer = jumpers[0]
+				var jm: SimMech = capturer
+				var at_launch: Vector2 = w.map.nearest_walkable(goal, capturer.hover)
+				if capturer.distance_to(goal) <= jm.jump_range() * 0.95 and w.jump_refusal(capturer, at_launch) == "":
+					_order(sm, capturer, "jump", at_launch)
+					if _verbose:
+						print("t=%6.1f  JUMP %s over to %s (no path)" % [w.time, capturer.name, t.name])
+				elif capturer.order != SimWorld.Order.MOVE or (_goal.get(capturer.id, Vector2.INF) as Vector2).distance_to(launch) > 10.0:
+					_order(sm, capturer, "move", launch)
+					_goal[capturer.id] = launch
 			elif capturer.distance_to(t.position) > 60.0 and not _covering(w, t.position).is_empty() \
 					and w.jump_refusal(capturer, spot) == "":
 				_order(sm, capturer, "jump", spot)
@@ -1269,6 +1375,16 @@ func _covering(w: SimWorld, p: Vector2) -> Array:
 ## turret itself (structures are always hit).
 func _fort_job(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 	var w := sm.world
+	# keep the fort job already started while its target stands and is near: the 300 m test
+	# flipped on and off as the lance walked, and it swayed between a control and an RP truck
+	# for 140 s on mc2_11
+	if _fort_keep and not _fort_last.is_empty():
+		var ft: SimUnit = _fort_last["target"]
+		var ok := ft != null and ft.exists and not ft.is_destroyed() and ft.position.distance_to(centre) <= 450.0 \
+			and (ft.team != 0 if _fort_last["kind"] == "attack" else sm.abl.can_capture(ft, 0) and float(_cap_skip.get(ft.id, -INF)) < w.time)
+		if ok:
+			return _fort_last
+		_fort_last = {}
 	var near := _enemy_turrets(w).filter(func(t): return t.position.distance_to(centre) <= 300.0)
 	if near.is_empty():
 		return {}
@@ -1648,6 +1764,9 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	_via = (rp_plan.get("via", []) as Array).duplicate()
 	_follow = int(rp_plan.get("follow", -1))
 	_run_out = bool(rp_plan.get("run_out", false))
+	_ecm_first = bool(rp_plan.get("ecm_first", false))
+	_fort_keep = bool(rp_plan.get("fort_keep", false))
+	_fort_last = {}
 	_follow_since = -1.0
 	_prep_at = rp_plan.get("prep_at")
 	_prep_guns = int(rp_plan.get("prep_guns", 0))

@@ -31,7 +31,8 @@ var warrior_index := 0  # FIT Pilot = [Warrior<n>]
 var variant := 0  # chassis CSV variant index (mechs)
 var pilot_profile := ""  # warrior profile (e.g. pmwflash): the campaign pilot
 var exists := true  # FIT Exists: a non-existent object is invisible to the sim and to ABL
-var removed := false  # ABL objectRemove took it off the mover list (Mission::removeMover -> freeMover, objmgr.cpp:597-606)
+var removed := false
+var avoid_mines := false  # the player's hand on the map: this unit's paths go round laid mines (SimMap.find_path)  # ABL objectRemove took it off the mover list (Mission::removeMover -> freeMover, objmgr.cpp:597-606)
 var awake := true  # FIT Active
 var ejected := false  # the pilot left (coreEject): the unit is inert
 var capturable := false  # CAPTURABLE: by type, or named by a capture objective (capture-and-objectives.md A1)

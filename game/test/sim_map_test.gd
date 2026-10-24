@@ -109,3 +109,22 @@ func test_mover_starting_off_map_drives_in() -> void:
 	assert_bool(m.cell_flag(m.cell_of(goal), "offmap") == 0).is_true()
 	assert_int(m.find_path(from, goal).size()).is_greater(0)
 	assert_int(m.find_path(goal, from).size()).is_equal(0)
+
+
+## A unit the player steers (SimUnit.avoid_mines) paths round laid mines; everyone else walks
+## straight through, as the original's pathfinder does (MCLib/Move.cpp:4391, avoidMines unread).
+func test_avoid_mines_paths_round_a_minefield() -> void:
+	var map := SimMap.load_mission("mc2_01")
+	var start := map.nearest_walkable(Vector2(499.2, -380.0))
+	var goal := map.nearest_walkable(start + Vector2(0, 120.0))
+	var plain := map.find_path(start, goal)
+	assert_bool(plain.size() > 3).is_true()
+	var mid: Vector2i = map.cell_of(plain[plain.size() / 2])
+	for dx in range(-6, 7):  # a line of mines across the plain path
+		map.set_mine(mid + Vector2i(dx, 0), 1)
+	var safe := map.find_path(start, goal, false, true)
+	assert_bool(safe.size() > 0).is_true()
+	for p in safe:
+		assert_int(map.mine_at(map.cell_of(p))).is_not_equal(1)
+	var through := map.find_path(start, goal)
+	assert_bool(Array(through).any(func(p): return map.mine_at(map.cell_of(p)) == 1)).is_true()

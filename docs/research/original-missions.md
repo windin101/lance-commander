@@ -343,6 +343,19 @@ KC: "Liao also tends to send you on UNSUPPORTED missions, meaning you have minim
 - **Bot note:**
   - The bot's mechs walk into the net. The design intends one ECM mech to go first.
   - It also intends the lance to grow by 5 salvaged mechs mid-mission; the bot gets "one truck".
+  - **Update 2026-10-24:**
+    - The bot now plays the opening (`ROUTE_PLANS` mc2_11 `ecm_first`). The ECM mech (a Men Shen)
+      kills both sensor towers alone, by about 190 s, while the rest wait outside the towers'
+      550 m radius.
+    - It captures the 5 RP buildings and salvages the yard mechs.
+    - It routes its lance round the map's minefields (`SimUnit.avoid_mines`, a player-side path
+      option; the original's pathfinder never avoids mines, MCLib/Move.cpp:4391). It hits 0 mines,
+      against 5 before.
+    - It holds fire positions rather than chasing into fort arcs.
+    - The island RP building is out of reach: the nearest walkable cell is 171 m from it, and
+      jump range is 128 m.
+    - Result: still 0/3. The lance reaches the Steiner Weapons Facility in 1 of 3 seeds, then the
+      LRM pop-up and autocannon forts and the Steiner HQ guard (Zeus, Highlander) finish it.
 - **Sourcing:** well-sourced.
 
 ### mc2_12 Mobile Intercept: Killdeer (no RP at start)
