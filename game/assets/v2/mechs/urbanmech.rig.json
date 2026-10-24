@@ -1,0 +1,240 @@
+{
+ "model": "urbanmech.glb",
+ "made_by": "tools/art/hd_v2.py",
+ "actuators": [
+  {
+   "node": "um_torso",
+   "joint": "joint_torso",
+   "kind": "hinge",
+   "radius": 0.22064128255859375,
+   "length": 0.35302605209375004,
+   "axis": [
+    0.00031774317415192156,
+    0.9999662372085002,
+    -0.008211180326176681
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "um_rgun",
+   "joint": "joint_ruarm",
+   "kind": "hinge",
+   "radius": 0.22064128255859375,
+   "length": 0.35302605209375004,
+   "axis": [
+    -0.9999999983895633,
+    5.616580994234542e-05,
+    -8.140949511095528e-06
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "um_luleg",
+   "joint": "joint_luleg",
+   "kind": "hinge",
+   "radius": 0.22064128255859375,
+   "length": 0.35302605209375004,
+   "axis": [
+    -0.9998496142899855,
+    -0.017100982051066593,
+    0.0028818773493104453
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "um_ruleg",
+   "joint": "joint_ruleg",
+   "kind": "hinge",
+   "radius": 0.22064128255859375,
+   "length": 0.35302605209375004,
+   "axis": [
+    -0.9996594495411216,
+    0.025738993058391068,
+    -0.0042999045898539515
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "um_lgun",
+   "joint": "joint_luarm",
+   "kind": "hinge",
+   "radius": 0.22064128255859375,
+   "length": 0.35302605209375004,
+   "axis": [
+    -0.9999999975394122,
+    6.942780195294983e-05,
+    -1.0047686063607335e-05
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "um_llleg",
+   "joint": "joint_llleg",
+   "kind": "hinge",
+   "radius": 0.22064128255859375,
+   "length": 0.35302605209375004,
+   "axis": [
+    -1.0,
+    -1.8797123205211762e-09,
+    -1.1482680277761956e-09
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "um_rlleg",
+   "joint": "joint_rlleg",
+   "kind": "hinge",
+   "radius": 0.22064128255859375,
+   "length": 0.35302605209375004,
+   "axis": [
+    -1.0,
+    -7.472523411237462e-10,
+    -2.2144431873203423e-10
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "joint_rtoe",
+   "joint": "joint_rtoe",
+   "kind": "ball",
+   "radius": 0.22064128255859375,
+   "length": 0.0,
+   "axis": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "joint_ltoe",
+   "joint": "joint_ltoe",
+   "kind": "ball",
+   "radius": 0.22064128255859375,
+   "length": 0.0,
+   "axis": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  }
+ ],
+ "filler_faces": [
+  [
+   88875,
+   108937
+  ]
+ ],
+ "cap_faces": [
+  [
+   88875,
+   91949
+  ]
+ ],
+ "joint_pairs": [
+  [
+   "um_rlleg",
+   "joint_rtoe"
+  ],
+  [
+   "um_ruleg",
+   "um_rlleg"
+  ],
+  [
+   "um_llleg",
+   "joint_ltoe"
+  ],
+  [
+   "um_luleg",
+   "um_llleg"
+  ],
+  [
+   "um_hip",
+   "um_ruleg"
+  ],
+  [
+   "um_hip",
+   "um_luleg"
+  ],
+  [
+   "um_hip",
+   "um_torso"
+  ],
+  [
+   "um_torso",
+   "um_rgun"
+  ],
+  [
+   "um_torso",
+   "um_lgun"
+  ]
+ ],
+ "contacts": [
+  [
+   "um_torso",
+   "um_luleg"
+  ]
+ ],
+ "parts": {
+  "joint_rtoe": 8854,
+  "um_rlleg": 9300,
+  "um_ruleg": 4292,
+  "joint_ltoe": 5978,
+  "um_llleg": 12033,
+  "um_luleg": 5570,
+  "um_hip": 7330,
+  "um_torso": 38938,
+  "um_rgun": 8988,
+  "um_lgun": 7654
+ },
+ "tris": 108937,
+ "rest_min": [
+  -1.8332497362782687,
+  -0.0013412040421167148,
+  -0.8904273487660112
+ ],
+ "rest_extent": [
+  3.724893833038947,
+  7.108989788055714,
+  3.284493948766011
+ ],
+ "height_m": 7.11,
+ "texture_px": 2048
+}

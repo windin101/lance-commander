@@ -135,6 +135,10 @@ def main():
     ap.add_argument("--max-pen", type=float, default=0.25)
     ap.add_argument("--filler-tail", type=int, default=0)
     ap.add_argument("--anims", default="")
+    ap.add_argument("--baseline", help="the v1 model's pose-test JSON: penetration is gated per part and animation at "
+                    "its value + --pen-margin, never above --pen-ceiling (Lee 2026-10-24)")
+    ap.add_argument("--pen-margin", type=float, default=0.02)
+    ap.add_argument("--pen-ceiling", type=float, default=0.35)
     ap.add_argument("--pose", help="ANIM@T: write the posed mesh to --pose-out (.npz) and stop")
     ap.add_argument("--pose-out")
     ap.add_argument("--debug", help="ANIM@T (as printed, e.g. Idle@2.83): mark that pose's open seams in --pose-out")
@@ -337,6 +341,7 @@ def main():
                 if gap > r["gap_max"]:
                     r["gap_max"], r["gap_at"] = gap, f"{name}@{t:.2f}"
                 r["pen_p95"] = max(r["pen_p95"], pen)
+                r.setdefault("pen_by_anim", {})[name] = max(r.get("pen_by_anim", {}).get(name, 0.0), pen)
                 if name in LOCO:
                     r["loco_gap_max"] = max(r["loco_gap_max"], gap)
                     r["loco_pen_p95"] = max(r["loco_pen_p95"], pen)
@@ -346,17 +351,34 @@ def main():
         bad = (dbg_gap[I] > 0.05).any(1)
         np.savez(a.pose_out, P=Pz, F=I, part=np.array(joints)[fdom], kind=np.where(bad, 3, np.where(filler, 1, 0)), N=np.repeat(Fn[:, None], 3, 1))
         print(f"debug {a.debug}: {int(bad.sum())} faces at open seams -> {a.pose_out}")
+    base = json.loads(Path(a.baseline).read_text()) if a.baseline and Path(a.baseline).exists() else None
     fail = []
     print(f"{Path(a.glb).name}: {nt} tris, {len(seam)} seamed parts, {len(anims)} animations x {a.samples} samples")
     print(f"  {'part':18s} {'hole p95':>8s} {'sep p95':>8s} {'loco':>7s} {'joint':>7s} {'pen p95':>8s} {'loco':>7s}  worst hole")
     for n, r in sorted(res.items(), key=lambda x: -x[1].get("loco_sep_p95", 0)):
         # the gate: locomotion animations (falls and get-ups are reported, not gated): no holes, no plate lifting off
         # its partner by more than --max-gap, no new interpenetration outside the housings deeper than --max-pen
-        bad = r.get("loco_gap_p95", 0) > a.max_gap or r["loco_pen_p95"] > a.max_pen   # separation is reported, not gated (Lee 2026-10-24)
+        bad = r.get("loco_gap_p95", 0) > a.max_gap   # separation is reported, not gated (Lee 2026-10-24)
+        if base:   # penetration against the v1 model, per part and animation: v1 + margin, never above the ceiling
+            bj = base.get("joints", {}).get(n, {}).get("pen_by_anim", {})
+            worst = []
+            for an_, v in r.get("pen_by_anim", {}).items():
+                if an_ not in LOCO:
+                    continue
+                lim = min(bj.get(an_, a.max_pen - a.pen_margin) + a.pen_margin, a.pen_ceiling)
+                if v > lim:
+                    worst.append(f"{an_} {v:.3f}>{lim:.3f}")
+            r["pen_over"] = worst
+            bad = bad or bool(worst)
+        else:
+            bad = bad or r["loco_pen_p95"] > a.max_pen
         if bad:
             fail.append(n)
         print(f"  {n:18s} {r.get('gap_p95', 0):8.3f} {r.get('sep_p95', 0):8.3f} {r.get('loco_sep_p95', 0):7.3f} {r.get('loco_joint_sep_p95', 0):7.3f} {r['pen_p95']:8.3f} "
               f"{r['loco_pen_p95']:7.3f}  {r['gap_at']}" + ("  FAIL" if bad else ""))
+    for n, r in res.items():
+        if r.get("pen_over"):
+            print(f"  {n}: penetration over the v1 baseline: {', '.join(r['pen_over'][:4])}")
     out = {"model": str(a.glb), "tris": nt, "max_gap": a.max_gap, "max_pen": a.max_pen, "joints": res, "fail": fail}
     if a.json:
         Path(a.json).write_text(json.dumps(out, indent=1))

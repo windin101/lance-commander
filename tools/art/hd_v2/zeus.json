@@ -1,0 +1,130 @@
+{
+ "turn": false,
+ "base_cut": 0,
+ "x_shift": 950,
+ "pivot": [
+  0,
+  1100
+ ],
+ "yaw": -5,
+ "twist": {
+  "deg": -10,
+  "z": 5700
+ },
+ "l": {
+  "hip": [
+   300,
+   5250
+  ],
+  "knee": [
+   -250,
+   3000
+  ],
+  "ankle": [
+   333,
+   1716
+  ]
+ },
+ "r": {
+  "hip": [
+   100,
+   5250
+  ],
+  "knee": [
+   -120,
+   2750
+  ],
+  "ankle": [
+   1000,
+   1735
+  ]
+ },
+ "upper_joints": {
+  "joint_luarm": [
+   2800,
+   227,
+   9270
+  ],
+  "joint_lgun": [
+   4000,
+   500,
+   7590
+  ],
+  "joint_ruarm": [
+   -2800,
+   500,
+   9140
+  ],
+  "joint_rgun": [
+   -3200,
+   0,
+   7140
+  ]
+ },
+ "arms": {},
+ "upper": [
+  {
+   "node": "ze_torso",
+   "z_min": 5729,
+   "ax_max": 2150
+  },
+  {
+   "node": "ze_ruarm",
+   "x_sign": -1,
+   "ax_min": 2150,
+   "z_min": 7900
+  },
+  {
+   "node": "ze_rgun",
+   "x_sign": -1,
+   "ax_min": 2150,
+   "z_min": 5800,
+   "z_max": 7900
+  },
+  {
+   "node": "ze_luarm",
+   "x_sign": 1,
+   "ax_min": 2150,
+   "z_min": 7850
+  },
+  {
+   "node": "ze_lgun",
+   "x_sign": 1,
+   "ax_min": 2150,
+   "z_min": 5800,
+   "z_max": 7850
+  }
+ ],
+ "cores": [
+  {
+   "node": "ze_torso",
+   "min": [
+    -2350,
+    -300,
+    8400
+   ],
+   "max": [
+    -1850,
+    900,
+    9500
+   ]
+  },
+  {
+   "node": "ze_torso",
+   "min": [
+    1850,
+    -300,
+    8500
+   ],
+   "max": [
+    2350,
+    900,
+    9600
+   ]
+  }
+ ],
+ "v2": {
+  "stl": "ZEU-6A.stl"
+ },
+ "_from": "~/craft/solid/mc2/stl/zeus/joints.json (the v1 fit)"
+}

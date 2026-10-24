@@ -1,0 +1,116 @@
+{
+ "turn": false,
+ "twist": {
+  "deg": 13,
+  "z": 4650
+ },
+ "l": {
+  "hip": [
+   -270,
+   4250
+  ],
+  "knee": [
+   -1300,
+   3000
+  ],
+  "ankle": [
+   -950,
+   1060
+  ]
+ },
+ "r": {
+  "hip": [
+   1090,
+   4210
+  ],
+  "knee": [
+   280,
+   2770
+  ],
+  "ankle": [
+   1100,
+   1040
+  ]
+ },
+ "arms": {},
+ "upper": [
+  {
+   "node": "jm_torso",
+   "z_min": 4700
+  },
+  {
+   "node": "jm_luarm",
+   "x_sign": 1,
+   "z_min": 6450,
+   "z_max": 8150,
+   "y_max": -400,
+   "ax_min": 1800
+  },
+  {
+   "node": "jm_luarm",
+   "x_sign": 1,
+   "z_min": 6450,
+   "z_max": 8150,
+   "y_min": -400,
+   "y_max": 1250,
+   "ax_min": 1900
+  },
+  {
+   "node": "jm_luarm",
+   "x_sign": 1,
+   "z_min": 6450,
+   "z_max": 8150,
+   "y_min": 1250,
+   "ax_min": 2230
+  },
+  {
+   "node": "jm_ruarm",
+   "x_sign": -1,
+   "z_min": 6450,
+   "z_max": 8150,
+   "y_max": -400,
+   "ax_min": 1800
+  },
+  {
+   "node": "jm_ruarm",
+   "x_sign": -1,
+   "z_min": 6450,
+   "z_max": 8150,
+   "y_min": -400,
+   "y_max": 1250,
+   "ax_min": 1900
+  },
+  {
+   "node": "jm_ruarm",
+   "x_sign": -1,
+   "z_min": 6450,
+   "z_max": 8150,
+   "y_min": 1250,
+   "ax_min": 2230
+  }
+ ],
+ "upper_joints": {
+  "joint_luarm": [
+   1900,
+   500,
+   7200
+  ],
+  "joint_lgun": [
+   2250,
+   -3100,
+   7150
+  ],
+  "joint_ruarm": [
+   -1900,
+   500,
+   7200
+  ],
+  "joint_rgun": [
+   -2750,
+   -3100,
+   7150
+  ]
+ },
+ "v2": {},
+ "_from": "~/craft/solid/mc2/stl/jaegermech/joints.json (the v1 fit)"
+}

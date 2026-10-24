@@ -1,0 +1,212 @@
+{
+ "model": "werewolf.glb",
+ "made_by": "tools/art/hd_v2.py",
+ "actuators": [
+  {
+   "node": "ww_torso",
+   "joint": "joint_torso",
+   "kind": "hinge",
+   "radius": 0.23606336141479495,
+   "length": 0.37770137826367195,
+   "axis": [
+    -0.9250372104596908,
+    0.3537388577304741,
+    0.13847375129060766
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "ww_larm",
+   "joint": "joint_luarm",
+   "kind": "hinge",
+   "radius": 0.23606336141479495,
+   "length": 0.37770137826367195,
+   "axis": [
+    -0.9860473566426066,
+    -0.1255191766451802,
+    0.1093414228572335
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "ww_rarm",
+   "joint": "joint_ruarm",
+   "kind": "hinge",
+   "radius": 0.23606336141479495,
+   "length": 0.37770137826367195,
+   "axis": [
+    0.9929638087479002,
+    0.08113941570729734,
+    0.08625120135709316
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "ww_rmleg",
+   "joint": "joint_rmleg",
+   "kind": "hinge",
+   "radius": 0.23606336141479495,
+   "length": 0.37770137826367195,
+   "axis": [
+    -1.0,
+    4.713483139128021e-10,
+    -3.4301667268691333e-10
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "ww_rlleg",
+   "joint": "joint_rlleg",
+   "kind": "hinge",
+   "radius": 0.23606336141479495,
+   "length": 0.37770137826367195,
+   "axis": [
+    -1.0,
+    -5.057278892216413e-10,
+    -3.3055178029971667e-10
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "ww_rfoot",
+   "joint": "joint_rankle",
+   "kind": "hinge",
+   "radius": 0.23606336141479495,
+   "length": 0.37770137826367195,
+   "axis": [
+    -0.9931409179943327,
+    0.1165357647526472,
+    -0.00951485884760034
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "node": "ww_lfoot",
+   "joint": "joint_lankle",
+   "kind": "hinge",
+   "radius": 0.23606336141479495,
+   "length": 0.37770137826367195,
+   "axis": [
+    -0.9937316699609069,
+    -0.11092791462304734,
+    -0.01386960252095128
+   ],
+   "centre": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  }
+ ],
+ "filler_faces": [
+  [
+   90176,
+   103872
+  ]
+ ],
+ "cap_faces": [
+  [
+   90176,
+   92094
+  ]
+ ],
+ "joint_pairs": [
+  [
+   "ww_llleg",
+   "ww_lfoot"
+  ],
+  [
+   "ww_lmleg",
+   "ww_llleg"
+  ],
+  [
+   "luleg",
+   "ww_lmleg"
+  ],
+  [
+   "ww_rlleg",
+   "ww_rfoot"
+  ],
+  [
+   "ww_rmleg",
+   "ww_rlleg"
+  ],
+  [
+   "ww_ruleg",
+   "ww_rmleg"
+  ],
+  [
+   "ww_hips",
+   "ww_torso"
+  ],
+  [
+   "ww_torso",
+   "ww_rarm"
+  ],
+  [
+   "ww_torso",
+   "ww_larm"
+  ]
+ ],
+ "contacts": [
+  [
+   "luleg",
+   "ww_llleg"
+  ],
+  [
+   "ww_ruleg",
+   "ww_rlleg"
+  ]
+ ],
+ "parts": {
+  "ww_lfoot": 2653,
+  "ww_llleg": 9315,
+  "ww_lmleg": 0,
+  "luleg": 3988,
+  "ww_rfoot": 2572,
+  "ww_rlleg": 10223,
+  "ww_rmleg": 2205,
+  "ww_ruleg": 4045,
+  "ww_hips": 4303,
+  "ww_rarm": 17796,
+  "ww_larm": 20040,
+  "ww_torso": 26732
+ },
+ "tris": 103872,
+ "rest_min": [
+  -2.865628424027749,
+  -0.04199636206118031,
+  -1.5436564000000002
+ ],
+ "rest_extent": [
+  6.021206637500766,
+  7.15212576464503,
+  4.4875434
+ ],
+ "height_m": 7.11,
+ "texture_px": 2048
+}

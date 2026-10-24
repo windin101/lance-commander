@@ -1,0 +1,42 @@
+{
+ "turn": false,
+ "l": {
+  "hip": [
+   650,
+   187,
+   3700
+  ],
+  "knee": [
+   1575,
+   3540
+  ],
+  "ankle": [
+   680,
+   650
+  ],
+  "z_top": 4400,
+  "x_min": 450
+ },
+ "r": {
+  "hip": [
+   -650,
+   -645,
+   3510
+  ],
+  "knee": [
+   120,
+   2690
+  ],
+  "ankle": [
+   -2040,
+   680
+  ],
+  "z_top": 4400,
+  "x_min": 450,
+  "x_min_low": -350
+ },
+ "v2": {
+  "torso_twist": -49
+ },
+ "_from": "~/craft/solid/mc2/stl/shadowcat/joints.json (the v1 fit)"
+}
