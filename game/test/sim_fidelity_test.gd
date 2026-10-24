@@ -555,3 +555,18 @@ func test_team_two_is_neutral_to_the_player() -> void:
 	assert_bool(seen.has(ours)).is_false()
 	assert_bool(seen.has(foe)).is_true()
 	assert_bool(world.enemies_of(ours).has(rebel)).is_false()
+
+
+## A mech that loses both legs is incapacitated: its pilot ejects and it is disabled
+## (mech.cpp:3422-3433, warrior.cpp:4760-4765, 6913-6925, mover.cpp:7125-7146).
+func test_a_mech_with_both_legs_gone_ejects() -> void:
+	_flat_world()
+	var m := _target_mech(Vector2.ZERO)
+	m.awake = true
+	m.damage_state[SimMech.Body.LLEG] = SimMech.DamageState.DESTROYED
+	world.step()
+	assert_bool(m.is_disabled()).is_false()  # one leg: crippled, still in the fight
+	m.damage_state[SimMech.Body.RLEG] = SimMech.DamageState.DESTROYED
+	world.step()
+	assert_bool(m.ejected).is_true()
+	assert_bool(m.is_disabled()).is_true()
