@@ -75,9 +75,42 @@ def stage_segment(cfg, work):
     return _finish_segment(cfg, work, P, F, fa, fb, ev, ang, concave, lab, names)
 
 
+def regrow(cfg, P, F, fa, fb, dist, ang, concave, lab, names, Cn):
+    """seg.regrow: {"segments": {part: [[a, b], ...] sculpt mm}, "core_ratio", "crease"}: the faces now owned by
+    those parts are re-labelled among them by crease-aware geodesic growth from cores near each part's bone
+    segments (the v2 labels' leg cuts ran through the armour on the Urbanmech, 2026-10-25)."""
+    rg = cfg.get("seg", {}).get("regrow")
+    if not rg:
+        return lab
+    import v3_mech as M
+    parts = list(rg["segments"])
+    ids = np.array([names.index(p_) for p_ in parts])
+    sel = np.isin(lab, ids)
+    D = np.stack([np.min([M.seg_dist(Cn, np.asarray(a, float), np.asarray(b, float)) for a, b in rg["segments"][p_]], axis=0)
+                  for p_ in parts], 1)
+    s_ = np.sort(D, 1)
+    core = sel & (s_[:, 0] < float(rg.get("core_ratio", 0.5)) * s_[:, 1])
+    li = ids[D.argmin(1)]
+    beta = float(rg.get("crease", 2.5))
+    ok = sel[fa] & sel[fb]
+    cost = dist * np.where(concave & (ang > np.radians(20)), np.exp(beta * ang), 1.0) + 1e-3
+    n = len(F)
+    G = coo_matrix((np.r_[cost[ok], cost[ok]], (np.r_[fa[ok], fb[ok]], np.r_[fb[ok], fa[ok]])), shape=(n, n)).tocsr()
+    src = np.flatnonzero(core)
+    _, _, srcs = dijkstra(G, directed=False, indices=src, min_only=True, return_predecessors=True)
+    lab = lab.copy()
+    m = sel & (srcs >= 0)
+    lab[m] = li[srcs[m]]
+    print(f"  regrow: {int(sel.sum())} faces among {parts}")
+    return lab
+
+
 def _finish_segment(cfg, work, P, F, fa, fb, ev, ang, concave, lab, names):
     sg = cfg.get("seg", {})
     Cn = P[F].mean(1)
+    if sg.get("regrow"):
+        dist = np.linalg.norm(Cn[fa] - Cn[fb], axis=1)
+        lab = regrow(cfg, P, F, fa, fb, dist, ang, concave, lab, names, Cn)
     # snap to the kit's part lines: patches bounded by sharp concave creases take their majority label whole
     lab = snap_patches(F, P, fa, fb, ang, concave, lab, np.radians(sg.get("patch_crease_deg", 25)),
                        sg.get("patch_majority", 0.6))
@@ -447,6 +480,39 @@ def skirt(V, F, loop, depth, rings=2):
     return np.concatenate(newV), np.array(newF), prev
 
 
+def cone_cap(V, loop, pts, rings=4):
+    """Close a loop by a cone to the nearest joint pivot (inside the part near its seam), in rings so the shading
+    is smooth: unlike a soap film over a twisted loop, it stays inside the armour instead of spiking out of it."""
+    import hd_v2 as H
+    Q = V[loop]; c = Q.mean(0)
+    mu = Q.mean(0); w, vec = np.linalg.eigh(np.cov((Q - mu).T)); n = vec[:, 0]
+    dev = float(np.abs((Q - mu) @ n).max())
+    if dev < 25.0:
+        return cap_loop(V, loop)
+    p = pts[np.argmin(np.linalg.norm(pts - c, axis=1))]
+    m = len(loop)
+    newV, F_ = [], []
+    prev = np.asarray(loop); base = len(V)
+    for r in range(1, rings):
+        t = r / rings
+        ring = base + (r - 1) * m + np.arange(m)
+        newV.append(Q + (p - Q) * t)
+        for k in range(m):
+            a, b = prev[k], prev[(k + 1) % m]; a2, b2 = ring[k], ring[(k + 1) % m]
+            F_ += [[b, a, a2], [b, a2, b2]]
+        prev = ring
+    tip = base + (rings - 1) * m
+    newV.append(p[None])
+    for k in range(m):
+        F_.append([prev[(k + 1) % m], prev[k], tip])
+    F_ = np.array(F_)
+    # orientation as cap_loop: against the part's own boundary edge direction
+    a_, b_ = loop[0], loop[1]
+    if any(f_[k] == a_ and f_[(k + 1) % 3] == b_ for f_ in F_ for k in range(3)):
+        F_ = F_[:, ::-1]
+    return F_, dev, True, np.concatenate(newV)
+
+
 def cap_loop(V, loop):
     """Faces closing one boundary loop (wound to face out of the part: reversed against the loop's direction),
     triangulated in the loop's best-fit plane. Returns (faces into V, planarity deviation mm, simple)."""
@@ -573,6 +639,7 @@ def stage_joints(cfg, work):
                 continue
         acts.append(a)
     Vs, Fs, parts, kinds, srcs = [], [], [], [], []
+    rest_pts = np.array(list(rest.values()), float)
     nv = 0
     report = {"parts": {}, "actuators": []}
     for part in M.PARTS:
@@ -599,10 +666,15 @@ def stage_joints(cfg, work):
         for loop in boundary_loops(Fp):
             if on_act(V[loop]):
                 continue        # lies on an actuator: the actuator closes it
+            if cfg.get("caps") == "none":
+                ncap += 1; devs.append(0); continue   # left open: the shader shades the inside dark
             nV_, sf, outer = skirt(V, Fp, loop, depth) if depth > 0 else (np.zeros((0, 3)), np.zeros((0, 3), int), loop)
             V = np.r_[V, nV_]
             skF.append(sf)
-            cf, dev, simple, nV_ = cap_loop(V, outer)
+            if cfg.get("cone_caps"):
+                cf, dev, simple, nV_ = cone_cap(V, outer, rest_pts)
+            else:
+                cf, dev, simple, nV_ = cap_loop(V, outer)
             V = np.r_[V, nV_]
             capF.append(cf); ncap += 1; devs.append(dev); nonsimple += (not simple)
         capF = [s_ for s_ in skF if len(s_)] + capF
@@ -1378,3 +1450,39 @@ def canopy_check(cfg, work, out, size=700):
         sheet.paste(Image.open(work / f"cc_{v}.png").convert("RGB"), (i * size, 30)); d.text((i * size + 8, 8), names[v], fill=(255, 255, 255))
     sheet.save(out)
     return int(gl.sum()) if gl is not None else 0
+
+
+def stage_canopy(cfg, work):
+    """Lee's canopy outlines -> glass: every review/v3-<mech>/outline_sheets/sheet_<view>.png that carries blue
+    strokes is added to cfg glass_outlines (written back to the config), then paint + write, and canopy_check.png
+    plus a zoom on the glass in the review folder."""
+    import v3_paint as VP
+    from PIL import Image
+    mech = cfg["name"]
+    R = Path(f"/mnt/nvme1n1p1/mc2-rework/review/v3-{mech}")
+    outs = []
+    for f in sorted((R / "outline_sheets").glob("sheet_*.png")):
+        a = np.asarray(Image.open(f).convert("RGB")).astype(int)
+        blue = (a[..., 2] > 90) & (a[..., 2] - a[..., 0] > 50) & (a[..., 2] - a[..., 1] > 40)
+        if blue.sum() > 30:
+            outs.append({"png": str(f), "view": f.stem[len("sheet_"):]})
+    if not outs:
+        print("  canopy: no outlines drawn yet"); return
+    p = Path(cfg["_path"]); d = json.loads(p.read_text())
+    d["glass_outlines"] = outs; d["glass_from_v2"] = False
+    p.write_text(json.dumps(d, indent=1))
+    cfg.update(glass_outlines=outs, glass_from_v2=False)
+    VP._PATCH_CACHE.clear()
+    VP.stage_paint(cfg, work)
+    stage_write(cfg, work)
+    n = canopy_check(cfg, work, R / "canopy_check.png")
+    z = np.load(work / "sculpt.npz"); g = VP.glass_faces_v3(cfg, work)
+    c = z["P"][z["F"][g]].reshape(-1, 3).mean(0).astype(int)
+    span = int(max(1500, np.ptp(z["P"][z["F"][g]].reshape(-1, 3), 0).max() * 2.2))
+    C.blender("views", work / "cc_col.npz", work / "ccz", "--views", "front,q34,side", "--size", "800",
+              "--centre", f"{c[0]},{c[1]},{c[2]}", "--span", str(span))
+    s = Image.new("RGB", (2400, 800))
+    for i, v in enumerate(("front", "q34", "side")):
+        s.paste(Image.open(work / f"ccz_{v}.png").convert("RGB"), (i * 800, 0))
+    s.save(R / "canopy_check_zoom.png")
+    print(f"  canopy: {len(outs)} outlined views, {n} glass faces -> {R / 'canopy_check.png'}")

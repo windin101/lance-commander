@@ -219,6 +219,7 @@ Tools: `tools/art/v3/v3_mech.py` (stages fit, segment, joints, lowpoly, bake, pa
 | `v3/mechs/bushwacker.*` | Syllogy, "BSW-X1, X2 & S2 Bushwacker for Battletech", Printables 1863885, `bsw-x1-4.stl` (CC BY-NC-SA 4.0) | `tools/art/v3/bushwacker.json`: fit and part labels from the v2 work (`from_v2`, the pelvis-squared, torso-yawed v2 fit), canopy carried over from Lee's v2 outline (`glass_from_v2`), actuators auto-sized (5 dropped where the pivot is outside the armour), seed 11 | 27.0k tris, 13 parts, 98 px/m |
 | `v3/mechs/werewolf.*` | UnrestedGuy, "Werewolf Battlemech", Thingiverse 6992277, `B-Werewolf004.stl` (CC BY-NC-SA 4.0) | `tools/art/v3/werewolf.json`: from the v2 work, canopy from v2, seed 13 | 44.0k tris, 12 parts, 104 px/m |
 | `v3/mechs/urbanmech.*` | Syllogy, "UM-R60 Urbanmech for Battletech", Printables 1864017, `um-r60-4.stl` (CC BY-NC-SA 4.0) | `tools/art/v3/urbanmech.json`: from the v2 work, canopy from v2, bake cage 80 mm / ray 350 mm, seed 13 | 54.3k tris, 10 parts, 140 px/m |
+| `v3/mechs/jaegermech.*` | Syllogy, "JM6-S4 Jagermech for Battletech", Printables 1863950, `jm6-s4.stl` (CC BY-NC-SA 4.0) | `tools/art/v3/jaegermech.json`: from the v2 work, weapons as whole kit parts (both twin-autocannon arms), canopy back-projected from Lee's outlines (2026-10-25), seed 17 | 44.9k tris |
 
 Weapons are marked as whole geometry (`weapons` in each config: a whole rigid part, or a volume snapped to the
 sculpt's flat panels; `outlines` back-projects blue outlines drawn on the `sheets` stage's aligned views). The

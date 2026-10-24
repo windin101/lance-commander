@@ -9,7 +9,7 @@ shader_type spatial;
 //   camo_tex    object-space pattern fields R/G/B (large/medium/small blotches), A exposure for mission dust/snow
 // Paint: final = mix(albedo.rgb, scheme colour * shade, albedo.a). Paint is a matte dielectric; chips (albedo.a = 0)
 // keep the bright steel and its metal/roughness flip from orm_tex.
-render_mode depth_draw_opaque, cull_back;
+render_mode depth_draw_opaque, cull_disabled;   // open part seams show their inside, shaded as a dark interior
 
 uniform sampler2D albedo_tex : source_color, hint_default_white, filter_linear_mipmap_anisotropic;
 uniform sampler2D orm_tex : hint_default_white, filter_linear_mipmap_anisotropic;
@@ -113,6 +113,9 @@ void fragment() {
 	col *= mix(1.0, 0.22, scorch);
 	rough = mix(rough, 0.95, scorch * 0.7);
 	metal *= 1.0 - scorch * 0.7;
+	if (!FRONT_FACING) {   // the inside of a part's shell, seen through an open seam
+		col = vec3(0.025, 0.025, 0.028); metal = 0.2; rough = 0.8; emit = vec3(0.0);
+	}
 	ALBEDO = col;
 	METALLIC = metal;
 	ROUGHNESS = rough;

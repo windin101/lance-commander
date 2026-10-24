@@ -614,7 +614,7 @@ def outline_faces(work, png, view):
     from PIL import Image
     from scipy import ndimage as ndi
     a = np.asarray(Image.open(png).convert("RGB")).astype(int)
-    blue = (a[..., 2] > 150) & (a[..., 2] - a[..., 0] > 80) & (a[..., 2] - a[..., 1] > 40)
+    blue = (a[..., 2] > 90) & (a[..., 2] - a[..., 0] > 50) & (a[..., 2] - a[..., 1] > 40)   # Lee's strokes are dark blue too
     filled = ndi.binary_fill_holes(ndi.binary_closing(blue, iterations=2)) & ~blue
     fid = np.asarray(Image.open(work / f"sheetfid_{view}.png").convert("RGB")).astype(int)
     if fid.shape[:2] != a.shape[:2]:
@@ -627,7 +627,8 @@ def outline_faces(work, png, view):
     pcomp, parea, _, _ = sculpt_panels(work)
     pv = np.bincount(pcomp, weights=vis, minlength=len(parea)); ph = np.bincount(pcomp, weights=hit, minlength=len(parea))
     pick = (pv > 0) & (ph >= 0.5 * pv)
-    return pick[pcomp]
+    # plus faces mostly inside the outline themselves: a small recessed lens can share a panel with its frame
+    return pick[pcomp] | ((vis > 0) & (hit >= 0.6 * vis))
 
 
 def glass_faces_v3(cfg, work):
@@ -659,8 +660,18 @@ def glass_faces_v3(cfg, work):
             T = P[F]; A = 0.5 * np.linalg.norm(np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0]), axis=1)
             frac = np.bincount(pcomp, weights=A * hit, minlength=len(parea)) / np.maximum(parea, 1e-9)
             out = (frac >= 0.5)[pcomp]
+            if cfg.get("glass_mode") == "direct":   # curved canopies (Urbanmech dome slits): the outline's faces
+                out = hit.copy()                       # themselves plus small facets they mostly cover: continuous
+                small = parea / 1e6 < float(cfg.get("glass_panel_max_m2", 0.05))
+                out |= ((frac >= 0.3) & small)[pcomp]
     for o in cfg.get("glass_outlines", []):
         m = outline_faces(work, Path(o["png"]).expanduser(), o["view"])
         out = m if out is None else (out | m)
+    if cfg.get("glass_outlines") and out is not None:   # smooth the outline's edge: no saw-tooth on faceted domes
+        import v3_stages as S
+        fa, fb = S.face_graph(P, F)[:2]
+        for _ in range(int(cfg.get("glass_smooth", 2))):
+            cnt = np.bincount(fa, weights=out[fb], minlength=len(F)) + np.bincount(fb, weights=out[fa], minlength=len(F))
+            out = out | (cnt >= 2)    # fill notches only: never drops a small outlined lens
     _PATCH_CACHE[key] = out
     return out
