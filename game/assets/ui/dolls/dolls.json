@@ -1,0 +1,3732 @@
+{
+ "units": {
+  "aerospotter": {
+   "kind": "vehicle",
+   "size": [
+    112,
+    252
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 6504,
+     "centroid": [
+      53.1,
+      48.0
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3378,
+     "centroid": [
+      36.4,
+      123.8
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 3117,
+     "centroid": [
+      79.1,
+      125.3
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 7342,
+     "centroid": [
+      59.2,
+      202.6
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "ambulance": {
+   "kind": "vehicle",
+   "size": [
+    143,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 10341,
+     "centroid": [
+      71.6,
+      45.1
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 4563,
+     "centroid": [
+      39.2,
+      127.2
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 4859,
+     "centroid": [
+      99.6,
+      127.2
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 10927,
+     "centroid": [
+      70.4,
+      206.2
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "anubis": {
+   "kind": "mech",
+   "size": [
+    180,
+    255
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 467,
+     "centroid": [
+      86.6,
+      43.4
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 2985,
+     "centroid": [
+      87.3,
+      99.1
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1752,
+     "centroid": [
+      64.1,
+      50.0
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1770,
+     "centroid": [
+      109.0,
+      50.5
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1545,
+     "centroid": [
+      34.1,
+      79.6
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1565,
+     "centroid": [
+      139.2,
+      79.4
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 3905,
+     "centroid": [
+      46.3,
+      190.0
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 3986,
+     "centroid": [
+      131.7,
+      189.8
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "apc": {
+   "kind": "vehicle",
+   "size": [
+    138,
+    246
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 9094,
+     "centroid": [
+      66.5,
+      49.4
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 4208,
+     "centroid": [
+      41.4,
+      124.7
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 3995,
+     "centroid": [
+      96.1,
+      125.2
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 8692,
+     "centroid": [
+      70.4,
+      199.2
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "armoredcar": {
+   "kind": "vehicle",
+   "size": [
+    136,
+    251
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 8964,
+     "centroid": [
+      68.1,
+      48.7
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 4126,
+     "centroid": [
+      40.0,
+      124.1
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 4065,
+     "centroid": [
+      94.6,
+      123.8
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 8798,
+     "centroid": [
+      66.4,
+      198.6
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "atlas": {
+   "kind": "mech",
+   "size": [
+    217,
+    252
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1101,
+     "centroid": [
+      110.4,
+      26.8
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 3891,
+     "centroid": [
+      108.6,
+      85.5
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 2405,
+     "centroid": [
+      78.8,
+      62.4
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 2358,
+     "centroid": [
+      142.1,
+      66.6
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 4031,
+     "centroid": [
+      35.1,
+      63.8
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 3778,
+     "centroid": [
+      179.1,
+      57.3
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 4473,
+     "centroid": [
+      86.0,
+      190.1
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4818,
+     "centroid": [
+      131.8,
+      184.1
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "bloodasp": {
+   "kind": "mech",
+   "size": [
+    229,
+    256
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1284,
+     "centroid": [
+      114.5,
+      32.9
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 5013,
+     "centroid": [
+      114.8,
+      80.8
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1799,
+     "centroid": [
+      67.4,
+      59.1
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1708,
+     "centroid": [
+      161.6,
+      59.5
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2320,
+     "centroid": [
+      36.8,
+      68.9
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 2327,
+     "centroid": [
+      191.2,
+      69.4
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 5214,
+     "centroid": [
+      61.0,
+      179.0
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 5207,
+     "centroid": [
+      167.0,
+      179.3
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "bushwacker": {
+   "kind": "mech",
+   "size": [
+    177,
+    239
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 988,
+     "centroid": [
+      95.7,
+      23.0
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 2142,
+     "centroid": [
+      96.2,
+      70.4
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1574,
+     "centroid": [
+      71.4,
+      53.8
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 2400,
+     "centroid": [
+      126.2,
+      56.9
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2110,
+     "centroid": [
+      38.1,
+      91.6
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1805,
+     "centroid": [
+      153.3,
+      69.1
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 4565,
+     "centroid": [
+      50.5,
+      176.8
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4675,
+     "centroid": [
+      104.5,
+      171.0
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "cargotruck": {
+   "kind": "vehicle",
+   "size": [
+    67,
+    255
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 4391,
+     "centroid": [
+      32.0,
+      45.0
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 2232,
+     "centroid": [
+      19.7,
+      125.6
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 2071,
+     "centroid": [
+      46.3,
+      125.4
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 4469,
+     "centroid": [
+      34.0,
+      208.6
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "catapult": {
+   "kind": "mech",
+   "size": [
+    174,
+    256
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 824,
+     "centroid": [
+      85.0,
+      70.1
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 2174,
+     "centroid": [
+      86.5,
+      110.0
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1861,
+     "centroid": [
+      52.4,
+      114.7
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1599,
+     "centroid": [
+      118.6,
+      111.2
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 4599,
+     "centroid": [
+      26.3,
+      58.4
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 4686,
+     "centroid": [
+      145.5,
+      58.8
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 5022,
+     "centroid": [
+      49.9,
+      197.7
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4811,
+     "centroid": [
+      124.4,
+      197.2
+     ]
+    }
+   },
+   "overrides": [
+    "joints"
+   ]
+  },
+  "centipede": {
+   "kind": "vehicle",
+   "size": [
+    110,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 6012,
+     "centroid": [
+      54.9,
+      58.2
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3226,
+     "centroid": [
+      30.5,
+      126.3
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 3173,
+     "centroid": [
+      79.8,
+      126.5
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 6388,
+     "centroid": [
+      55.2,
+      209.8
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 1464,
+     "centroid": [
+      55.2,
+      171.1
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "cyclops": {
+   "kind": "mech",
+   "size": [
+    193,
+    220
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1340,
+     "centroid": [
+      100.4,
+      25.9
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 4343,
+     "centroid": [
+      96.0,
+      82.0
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1405,
+     "centroid": [
+      62.4,
+      41.4
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1796,
+     "centroid": [
+      137.5,
+      47.5
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2482,
+     "centroid": [
+      30.2,
+      76.7
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1694,
+     "centroid": [
+      165.5,
+      87.4
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 4005,
+     "centroid": [
+      57.4,
+      161.0
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4059,
+     "centroid": [
+      134.0,
+      156.8
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "drillson": {
+   "kind": "vehicle",
+   "size": [
+    215,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 14093,
+     "centroid": [
+      109.2,
+      55.7
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 6661,
+     "centroid": [
+      52.8,
+      129.3
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 6777,
+     "centroid": [
+      159.7,
+      129.3
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 10881,
+     "centroid": [
+      103.4,
+      206.8
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 3338,
+     "centroid": [
+      104.6,
+      170.0
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "enfield": {
+   "kind": "mech",
+   "size": [
+    162,
+    238
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 514,
+     "centroid": [
+      82.2,
+      21.3
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 2652,
+     "centroid": [
+      83.3,
+      68.8
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 932,
+     "centroid": [
+      58.3,
+      51.6
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 754,
+     "centroid": [
+      106.7,
+      50.5
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1060,
+     "centroid": [
+      25.7,
+      66.2
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 716,
+     "centroid": [
+      134.4,
+      59.2
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 3516,
+     "centroid": [
+      49.3,
+      167.0
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 3497,
+     "centroid": [
+      112.5,
+      167.9
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "flea": {
+   "kind": "mech",
+   "size": [
+    189,
+    256
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1585,
+     "centroid": [
+      82.4,
+      27.5
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 5264,
+     "centroid": [
+      82.1,
+      78.6
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1186,
+     "centroid": [
+      40.2,
+      38.2
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 2598,
+     "centroid": [
+      133.4,
+      54.1
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1329,
+     "centroid": [
+      17.0,
+      36.3
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1429,
+     "centroid": [
+      170.2,
+      40.2
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 6904,
+     "centroid": [
+      36.3,
+      169.4
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 7430,
+     "centroid": [
+      129.6,
+      166.3
+     ]
+    }
+   },
+   "overrides": [
+    "arms_from_body"
+   ]
+  },
+  "fueltruck": {
+   "kind": "vehicle",
+   "size": [
+    118,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 8119,
+     "centroid": [
+      58.5,
+      50.4
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3944,
+     "centroid": [
+      33.1,
+      132.6
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 3936,
+     "centroid": [
+      83.9,
+      132.8
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 7274,
+     "centroid": [
+      58.6,
+      206.2
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "harasser": {
+   "kind": "vehicle",
+   "size": [
+    195,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 8179,
+     "centroid": [
+      100.5,
+      46.0
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3196,
+     "centroid": [
+      59.8,
+      139.4
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 2618,
+     "centroid": [
+      147.4,
+      143.6
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 10280,
+     "centroid": [
+      99.6,
+      204.3
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 11277,
+     "centroid": [
+      96.6,
+      107.1
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "heavycopter": {
+   "kind": "copter",
+   "size": [
+    113,
+    255
+   ],
+   "view": "plan",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1323,
+     "centroid": [
+      54.6,
+      51.8
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 1961,
+     "centroid": [
+      56.9,
+      127.4
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 895,
+     "centroid": [
+      37.2,
+      104.5
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 957,
+     "centroid": [
+      75.8,
+      105.9
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1004,
+     "centroid": [
+      14.3,
+      106.7
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 922,
+     "centroid": [
+      98.6,
+      103.9
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 767,
+     "centroid": [
+      46.4,
+      216.1
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 1289,
+     "centroid": [
+      68.9,
+      217.4
+     ]
+    }
+   },
+   "overrides": [
+    "size"
+   ]
+  },
+  "hetzer": {
+   "kind": "vehicle",
+   "size": [
+    183,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 13094,
+     "centroid": [
+      94.2,
+      52.5
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 6094,
+     "centroid": [
+      49.9,
+      131.5
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 5954,
+     "centroid": [
+      130.2,
+      130.5
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 11600,
+     "centroid": [
+      86.2,
+      205.8
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "highlander": {
+   "kind": "mech",
+   "size": [
+    175,
+    217
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1279,
+     "centroid": [
+      99.5,
+      20.5
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 3399,
+     "centroid": [
+      97.8,
+      72.1
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1396,
+     "centroid": [
+      61.5,
+      41.7
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1927,
+     "centroid": [
+      137.1,
+      37.0
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2254,
+     "centroid": [
+      34.1,
+      69.3
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 991,
+     "centroid": [
+      149.8,
+      59.0
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 4377,
+     "centroid": [
+      62.5,
+      153.5
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4482,
+     "centroid": [
+      137.9,
+      153.1
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "hollander": {
+   "kind": "mech",
+   "size": [
+    187,
+    255
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 583,
+     "centroid": [
+      107.2,
+      21.8
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 5819,
+     "centroid": [
+      98.7,
+      88.3
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 3037,
+     "centroid": [
+      60.8,
+      49.5
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1089,
+     "centroid": [
+      138.2,
+      51.8
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 867,
+     "centroid": [
+      19.8,
+      74.7
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 882,
+     "centroid": [
+      165.4,
+      74.6
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 3787,
+     "centroid": [
+      44.8,
+      180.8
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 3760,
+     "centroid": [
+      140.5,
+      181.0
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "hunchback": {
+   "kind": "mech",
+   "size": [
+    171,
+    224
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 544,
+     "centroid": [
+      99.1,
+      17.2
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 3244,
+     "centroid": [
+      93.1,
+      68.2
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 2542,
+     "centroid": [
+      64.0,
+      48.0
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1923,
+     "centroid": [
+      125.9,
+      42.5
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1466,
+     "centroid": [
+      29.0,
+      68.3
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1620,
+     "centroid": [
+      147.9,
+      71.2
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 4281,
+     "centroid": [
+      52.5,
+      159.9
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4470,
+     "centroid": [
+      121.4,
+      158.1
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "hunter": {
+   "kind": "vehicle",
+   "size": [
+    171,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 11364,
+     "centroid": [
+      85.0,
+      46.8
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 2948,
+     "centroid": [
+      25.7,
+      128.9
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 2925,
+     "centroid": [
+      143.8,
+      128.7
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 8527,
+     "centroid": [
+      85.1,
+      212.7
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 11140,
+     "centroid": [
+      84.9,
+      152.1
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "infantry": {
+   "kind": "humanoid",
+   "size": [
+    193,
+    207
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 3043,
+     "centroid": [
+      63.7,
+      119.4
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 1900,
+     "centroid": [
+      35.8,
+      150.4
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 1660,
+     "centroid": [
+      97.3,
+      150.4
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 2968,
+     "centroid": [
+      67.1,
+      180.3
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 3875,
+     "centroid": [
+      130.3,
+      75.6
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "jaegermech": {
+   "kind": "mech",
+   "size": [
+    179,
+    240
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1133,
+     "centroid": [
+      91.7,
+      28.3
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 2998,
+     "centroid": [
+      96.5,
+      88.9
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 3188,
+     "centroid": [
+      55.0,
+      56.9
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 2813,
+     "centroid": [
+      121.4,
+      57.0
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 732,
+     "centroid": [
+      18.2,
+      45.4
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1007,
+     "centroid": [
+      155.9,
+      45.2
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 5805,
+     "centroid": [
+      47.8,
+      168.5
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 5179,
+     "centroid": [
+      128.2,
+      177.9
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "jeep": {
+   "kind": "vehicle",
+   "size": [
+    153,
+    254
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 10215,
+     "centroid": [
+      71.8,
+      45.8
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 5276,
+     "centroid": [
+      43.5,
+      124.2
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 5036,
+     "centroid": [
+      108.0,
+      124.8
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 10616,
+     "centroid": [
+      76.7,
+      204.7
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "laohu": {
+   "kind": "mech",
+   "size": [
+    221,
+    253
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1455,
+     "centroid": [
+      97.0,
+      26.7
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 4302,
+     "centroid": [
+      100.4,
+      76.5
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1243,
+     "centroid": [
+      60.3,
+      41.2
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 3190,
+     "centroid": [
+      148.3,
+      49.8
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2063,
+     "centroid": [
+      26.3,
+      51.6
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1888,
+     "centroid": [
+      195.7,
+      52.7
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 6651,
+     "centroid": [
+      60.9,
+      174.8
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 5560,
+     "centroid": [
+      157.6,
+      164.9
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "legion": {
+   "kind": "vehicle",
+   "size": [
+    204,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 14364,
+     "centroid": [
+      101.5,
+      44.6
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3449,
+     "centroid": [
+      29.3,
+      119.2
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 4094,
+     "centroid": [
+      172.1,
+      122.3
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 13039,
+     "centroid": [
+      102.7,
+      210.9
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 12025,
+     "centroid": [
+      97.1,
+      136.3
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "lrmc": {
+   "kind": "vehicle",
+   "size": [
+    197,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 12332,
+     "centroid": [
+      98.0,
+      53.5
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 1920,
+     "centroid": [
+      27.6,
+      115.8
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 1914,
+     "centroid": [
+      168.5,
+      115.5
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 8896,
+     "centroid": [
+      97.8,
+      223.6
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 17807,
+     "centroid": [
+      97.5,
+      153.2
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "madcat": {
+   "kind": "mech",
+   "size": [
+    199,
+    256
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1552,
+     "centroid": [
+      99.0,
+      45.5
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 3938,
+     "centroid": [
+      99.0,
+      89.4
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 3376,
+     "centroid": [
+      48.0,
+      41.2
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 3344,
+     "centroid": [
+      150.2,
+      40.9
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2148,
+     "centroid": [
+      20.2,
+      104.3
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 2145,
+     "centroid": [
+      177.6,
+      104.6
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 5770,
+     "centroid": [
+      55.8,
+      184.2
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 5659,
+     "centroid": [
+      140.7,
+      184.4
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "mediumcopter": {
+   "kind": "copter",
+   "size": [
+    131,
+    198
+   ],
+   "view": "plan",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 999,
+     "centroid": [
+      65.1,
+      31.4
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 1320,
+     "centroid": [
+      65.0,
+      92.5
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1003,
+     "centroid": [
+      51.1,
+      84.2
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 941,
+     "centroid": [
+      79.0,
+      81.8
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1688,
+     "centroid": [
+      23.9,
+      69.3
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1671,
+     "centroid": [
+      106.1,
+      70.1
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 544,
+     "centroid": [
+      60.7,
+      162.0
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 283,
+     "centroid": [
+      68.9,
+      155.5
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "menshen": {
+   "kind": "mech",
+   "size": [
+    140,
+    256
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 669,
+     "centroid": [
+      68.9,
+      12.3
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 3817,
+     "centroid": [
+      70.5,
+      62.0
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1292,
+     "centroid": [
+      37.1,
+      50.0
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1220,
+     "centroid": [
+      103.5,
+      50.3
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 432,
+     "centroid": [
+      16.5,
+      74.1
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 401,
+     "centroid": [
+      123.0,
+      74.1
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 2556,
+     "centroid": [
+      26.8,
+      163.4
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 2451,
+     "centroid": [
+      112.6,
+      163.1
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "minelayer": {
+   "kind": "vehicle",
+   "size": [
+    137,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 7026,
+     "centroid": [
+      66.8,
+      47.6
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3965,
+     "centroid": [
+      37.5,
+      109.3
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 3881,
+     "centroid": [
+      98.8,
+      109.6
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 9071,
+     "centroid": [
+      68.8,
+      180.7
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "mobilehq": {
+   "kind": "vehicle",
+   "size": [
+    151,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 10240,
+     "centroid": [
+      77.4,
+      52.5
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3743,
+     "centroid": [
+      36.5,
+      139.0
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 4925,
+     "centroid": [
+      109.8,
+      131.6
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 10433,
+     "centroid": [
+      74.7,
+      205.9
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 1608,
+     "centroid": [
+      55.4,
+      105.5
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "mog": {
+   "kind": "vehicle",
+   "size": [
+    244,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 15245,
+     "centroid": [
+      123.8,
+      46.4
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 5722,
+     "centroid": [
+      44.8,
+      125.7
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 5968,
+     "centroid": [
+      199.3,
+      125.7
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 12420,
+     "centroid": [
+      123.3,
+      215.2
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 13424,
+     "centroid": [
+      121.5,
+      144.3
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "monsoon": {
+   "kind": "vehicle",
+   "size": [
+    175,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 10597,
+     "centroid": [
+      87.4,
+      51.1
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 2747,
+     "centroid": [
+      37.8,
+      120.3
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 2536,
+     "centroid": [
+      138.6,
+      122.4
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 8071,
+     "centroid": [
+      85.3,
+      209.1
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 8438,
+     "centroid": [
+      88.6,
+      151.7
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "ordnancetruck": {
+   "kind": "vehicle",
+   "size": [
+    115,
+    252
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 5855,
+     "centroid": [
+      57.0,
+      54.2
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3727,
+     "centroid": [
+      33.9,
+      129.9
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 3498,
+     "centroid": [
+      79.9,
+      130.6
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 7865,
+     "centroid": [
+      57.0,
+      206.2
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "partisan": {
+   "kind": "vehicle",
+   "size": [
+    188,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 13659,
+     "centroid": [
+      96.3,
+      46.6
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3552,
+     "centroid": [
+      43.5,
+      113.7
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 3775,
+     "centroid": [
+      145.0,
+      114.0
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 6367,
+     "centroid": [
+      91.5,
+      221.5
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 13766,
+     "centroid": [
+      90.8,
+      167.3
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "poweredarmor": {
+   "kind": "humanoid",
+   "size": [
+    201,
+    208
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 4166,
+     "centroid": [
+      84.1,
+      116.4
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 1980,
+     "centroid": [
+      56.3,
+      147.6
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 1735,
+     "centroid": [
+      120.8,
+      147.1
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 5112,
+     "centroid": [
+      87.6,
+      180.2
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 7030,
+     "centroid": [
+      125.6,
+      96.9
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "poweredarmor_mech": {
+   "kind": "mech",
+   "size": [
+    251,
+    256
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1220,
+     "centroid": [
+      117.6,
+      25.5
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 5259,
+     "centroid": [
+      108.2,
+      86.3
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 444,
+     "centroid": [
+      75.7,
+      82.0
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 4921,
+     "centroid": [
+      165.8,
+      68.4
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 7230,
+     "centroid": [
+      46.6,
+      104.8
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 5908,
+     "centroid": [
+      203.4,
+      117.8
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 6395,
+     "centroid": [
+      92.4,
+      195.1
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 5921,
+     "centroid": [
+      151.5,
+      198.2
+     ]
+    }
+   },
+   "overrides": [
+    "_why",
+    "arms_from_body"
+   ]
+  },
+  "raven": {
+   "kind": "mech",
+   "size": [
+    189,
+    241
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1542,
+     "centroid": [
+      94.0,
+      26.5
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 4516,
+     "centroid": [
+      96.5,
+      77.4
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 2214,
+     "centroid": [
+      52.3,
+      53.4
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1090,
+     "centroid": [
+      128.9,
+      43.4
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1643,
+     "centroid": [
+      23.1,
+      31.4
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1359,
+     "centroid": [
+      156.7,
+      53.3
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 4187,
+     "centroid": [
+      41.7,
+      167.0
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4360,
+     "centroid": [
+      146.1,
+      164.7
+     ]
+    }
+   },
+   "overrides": [
+    "arms_from_body"
+   ]
+  },
+  "repairtruck": {
+   "kind": "vehicle",
+   "size": [
+    119,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 8080,
+     "centroid": [
+      58.3,
+      48.0
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3970,
+     "centroid": [
+      33.3,
+      127.3
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 4022,
+     "centroid": [
+      84.0,
+      127.5
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 8773,
+     "centroid": [
+      58.9,
+      207.3
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "ryoken": {
+   "kind": "mech",
+   "size": [
+    212,
+    232
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 591,
+     "centroid": [
+      103.8,
+      32.9
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 3745,
+     "centroid": [
+      104.8,
+      96.2
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1009,
+     "centroid": [
+      82.8,
+      66.1
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 732,
+     "centroid": [
+      127.8,
+      78.3
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 4088,
+     "centroid": [
+      46.7,
+      58.2
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 4013,
+     "centroid": [
+      157.1,
+      55.5
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 3718,
+     "centroid": [
+      47.3,
+      166.1
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 3680,
+     "centroid": [
+      153.6,
+      165.6
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "shadowcat": {
+   "kind": "mech",
+   "size": [
+    193,
+    230
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 424,
+     "centroid": [
+      101.9,
+      19.9
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 2394,
+     "centroid": [
+      100.1,
+      70.8
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 2147,
+     "centroid": [
+      71.1,
+      45.3
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1145,
+     "centroid": [
+      124.2,
+      36.7
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2393,
+     "centroid": [
+      39.1,
+      54.0
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 2125,
+     "centroid": [
+      156.6,
+      39.6
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 5537,
+     "centroid": [
+      49.7,
+      154.3
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4925,
+     "centroid": [
+      137.7,
+      161.7
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "shayu": {
+   "kind": "mech",
+   "size": [
+    200,
+    255
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 729,
+     "centroid": [
+      103.6,
+      27.3
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 4154,
+     "centroid": [
+      102.8,
+      85.7
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 2610,
+     "centroid": [
+      68.0,
+      54.0
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1936,
+     "centroid": [
+      135.7,
+      52.6
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2470,
+     "centroid": [
+      23.0,
+      60.5
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 2493,
+     "centroid": [
+      176.5,
+      60.5
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 6056,
+     "centroid": [
+      57.4,
+      179.1
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 5924,
+     "centroid": [
+      142.6,
+      180.0
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "shootist": {
+   "kind": "mech",
+   "size": [
+    180,
+    236
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1010,
+     "centroid": [
+      92.7,
+      27.5
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 3385,
+     "centroid": [
+      89.7,
+      77.5
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1772,
+     "centroid": [
+      55.5,
+      38.0
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1569,
+     "centroid": [
+      127.9,
+      38.0
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2391,
+     "centroid": [
+      25.3,
+      61.4
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 2368,
+     "centroid": [
+      152.2,
+      72.9
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 4156,
+     "centroid": [
+      68.9,
+      173.0
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4866,
+     "centroid": [
+      121.8,
+      167.7
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "starslayer": {
+   "kind": "mech",
+   "size": [
+    164,
+    241
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 923,
+     "centroid": [
+      88.6,
+      30.0
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 3706,
+     "centroid": [
+      87.2,
+      89.5
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 2425,
+     "centroid": [
+      57.0,
+      55.9
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1270,
+     "centroid": [
+      120.3,
+      43.0
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1046,
+     "centroid": [
+      22.1,
+      55.5
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 600,
+     "centroid": [
+      144.7,
+      56.4
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 2535,
+     "centroid": [
+      43.0,
+      175.7
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 2532,
+     "centroid": [
+      123.0,
+      175.9
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "storm": {
+   "kind": "vehicle",
+   "size": [
+    151,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 9921,
+     "centroid": [
+      75.1,
+      51.7
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3871,
+     "centroid": [
+      35.1,
+      123.5
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 3745,
+     "centroid": [
+      115.5,
+      123.1
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 6217,
+     "centroid": [
+      82.8,
+      213.1
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 7738,
+     "centroid": [
+      68.0,
+      173.0
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "swarmlrmc": {
+   "kind": "vehicle",
+   "size": [
+    118,
+    255
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 7603,
+     "centroid": [
+      57.6,
+      47.8
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3394,
+     "centroid": [
+      33.1,
+      122.1
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 3335,
+     "centroid": [
+      83.4,
+      122.4
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 3021,
+     "centroid": [
+      59.8,
+      216.4
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 7252,
+     "centroid": [
+      58.1,
+      196.1
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "thor": {
+   "kind": "mech",
+   "size": [
+    191,
+    256
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 698,
+     "centroid": [
+      84.6,
+      24.6
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 5015,
+     "centroid": [
+      93.1,
+      91.2
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1631,
+     "centroid": [
+      60.8,
+      57.5
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 2240,
+     "centroid": [
+      126.3,
+      64.1
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2654,
+     "centroid": [
+      28.6,
+      89.0
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 2057,
+     "centroid": [
+      167.6,
+      87.9
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 5940,
+     "centroid": [
+      56.6,
+      180.8
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 5617,
+     "centroid": [
+      138.7,
+      182.1
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "trooptransport": {
+   "kind": "vehicle",
+   "size": [
+    131,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 8333,
+     "centroid": [
+      64.1,
+      50.8
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 4950,
+     "centroid": [
+      34.9,
+      125.9
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 4841,
+     "centroid": [
+      95.4,
+      126.1
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 9985,
+     "centroid": [
+      65.4,
+      207.8
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "truck": {
+   "kind": "vehicle",
+   "size": [
+    130,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 8038,
+     "centroid": [
+      64.6,
+      46.3
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 3994,
+     "centroid": [
+      39.0,
+      121.2
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 3846,
+     "centroid": [
+      91.0,
+      121.2
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 9894,
+     "centroid": [
+      64.5,
+      202.1
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 0,
+     "centroid": null
+    }
+   },
+   "overrides": []
+  },
+  "uller": {
+   "kind": "mech",
+   "size": [
+    187,
+    253
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 595,
+     "centroid": [
+      83.9,
+      98.1
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 2097,
+     "centroid": [
+      96.6,
+      132.7
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 529,
+     "centroid": [
+      63.4,
+      124.6
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1417,
+     "centroid": [
+      112.9,
+      116.3
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2047,
+     "centroid": [
+      33.4,
+      136.8
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 6617,
+     "centroid": [
+      151.9,
+      74.0
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 3621,
+     "centroid": [
+      60.7,
+      194.2
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 2565,
+     "centroid": [
+      113.0,
+      204.6
+     ]
+    }
+   },
+   "overrides": [
+    "ct_frac"
+   ]
+  },
+  "urbanmech": {
+   "kind": "mech",
+   "size": [
+    141,
+    207
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 700,
+     "centroid": [
+      68.8,
+      18.1
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 1878,
+     "centroid": [
+      67.7,
+      64.8
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1163,
+     "centroid": [
+      45.9,
+      47.5
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 1427,
+     "centroid": [
+      89.9,
+      46.4
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 721,
+     "centroid": [
+      24.2,
+      43.5
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1264,
+     "centroid": [
+      117.3,
+      44.4
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 4251,
+     "centroid": [
+      30.5,
+      137.1
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 3869,
+     "centroid": [
+      112.1,
+      142.1
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "vedette": {
+   "kind": "vehicle",
+   "size": [
+    151,
+    256
+   ],
+   "view": "plan",
+   "locations": {
+    "front": {
+     "index": 0,
+     "pixels": 9099,
+     "centroid": [
+      75.9,
+      66.8
+     ]
+    },
+    "left": {
+     "index": 1,
+     "pixels": 1597,
+     "centroid": [
+      17.2,
+      143.9
+     ]
+    },
+    "right": {
+     "index": 2,
+     "pixels": 1558,
+     "centroid": [
+      132.8,
+      143.3
+     ]
+    },
+    "rear": {
+     "index": 3,
+     "pixels": 4955,
+     "centroid": [
+      73.0,
+      222.9
+     ]
+    },
+    "turret": {
+     "index": 4,
+     "pixels": 12294,
+     "centroid": [
+      75.3,
+      155.3
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "vulture": {
+   "kind": "mech",
+   "size": [
+    180,
+    228
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 863,
+     "centroid": [
+      96.8,
+      19.6
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 3272,
+     "centroid": [
+      92.6,
+      65.9
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 1468,
+     "centroid": [
+      62.6,
+      32.6
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 883,
+     "centroid": [
+      121.8,
+      41.5
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1913,
+     "centroid": [
+      29.1,
+      58.7
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1539,
+     "centroid": [
+      150.6,
+      63.8
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 4094,
+     "centroid": [
+      47.8,
+      150.3
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4498,
+     "centroid": [
+      136.2,
+      154.0
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "werewolf": {
+   "kind": "mech",
+   "size": [
+    213,
+    255
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1340,
+     "centroid": [
+      109.9,
+      30.0
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 3718,
+     "centroid": [
+      112.0,
+      82.4
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 2683,
+     "centroid": [
+      59.2,
+      49.6
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 2468,
+     "centroid": [
+      164.7,
+      43.6
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1561,
+     "centroid": [
+      28.2,
+      79.0
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 3003,
+     "centroid": [
+      177.3,
+      90.4
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 6025,
+     "centroid": [
+      74.3,
+      180.1
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 5463,
+     "centroid": [
+      152.2,
+      186.9
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "wolfhound": {
+   "kind": "mech",
+   "size": [
+    163,
+    241
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 1243,
+     "centroid": [
+      85.4,
+      27.4
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 2128,
+     "centroid": [
+      84.9,
+      71.7
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 684,
+     "centroid": [
+      55.0,
+      46.6
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 976,
+     "centroid": [
+      111.0,
+      55.9
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 2068,
+     "centroid": [
+      28.0,
+      69.1
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 2219,
+     "centroid": [
+      140.4,
+      52.3
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 3104,
+     "centroid": [
+      60.5,
+      172.2
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4447,
+     "centroid": [
+      109.2,
+      160.8
+     ]
+    }
+   },
+   "overrides": []
+  },
+  "zeus": {
+   "kind": "mech",
+   "size": [
+    149,
+    246
+   ],
+   "view": "behind",
+   "locations": {
+    "head": {
+     "index": 0,
+     "pixels": 551,
+     "centroid": [
+      70.6,
+      23.7
+     ]
+    },
+    "ctorso": {
+     "index": 1,
+     "pixels": 4562,
+     "centroid": [
+      71.5,
+      76.0
+     ]
+    },
+    "ltorso": {
+     "index": 2,
+     "pixels": 574,
+     "centroid": [
+      32.6,
+      43.1
+     ]
+    },
+    "rtorso": {
+     "index": 3,
+     "pixels": 486,
+     "centroid": [
+      111.2,
+      41.3
+     ]
+    },
+    "larm": {
+     "index": 4,
+     "pixels": 1831,
+     "centroid": [
+      18.6,
+      56.7
+     ]
+    },
+    "rarm": {
+     "index": 5,
+     "pixels": 1802,
+     "centroid": [
+      124.0,
+      55.1
+     ]
+    },
+    "lleg": {
+     "index": 6,
+     "pixels": 4445,
+     "centroid": [
+      42.2,
+      175.5
+     ]
+    },
+    "rleg": {
+     "index": 7,
+     "pixels": 4433,
+     "centroid": [
+      99.6,
+      176.0
+     ]
+    }
+   },
+   "overrides": []
+  }
+ },
+ "_about": "Paper-doll index masks from tools/art/paper_doll.py. <unit>_doll.png: R = location index, A = 0 outside. Mechs: SimMech.Body order, seen from behind (pilot's view, the mech's left on the left); the rear doll is the same mask with Armor RCTORSO/RLTORSO/RRTORSO on locations 1/2/3. Vehicles, infantry and powered armour: SimVehicle.Section order, plan view, forward up. Copters: SimMech order, plan view. centroid = [x, y] in mask pixels."
+}

@@ -27,34 +27,34 @@ Shared Source release's mech models and textures, so they carry that release's E
 |---|---|---|---|---|---|
 | Anubis (`anubis`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Anubis Battlemech" by UnrestedGuy, https://www.thingiverse.com/thing:7387482, CC BY-NC-SA 4.0; notice in `anubis_hd.LICENSE.md`, 125014 tris |
 | Atlas (`atlas`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "AS7-D Atlas for Battletech" by Syllogy, https://www.printables.com/model/1863870, CC BY-NC-SA 4.0; notice in `atlas_hd.LICENSE.md`, 185538 tris |
-| BloodAsp (`bloodasp`) | 7 | 1234 | no | 0.431 m | approved; render zoom 1.25 |
+| BloodAsp (`bloodasp`) | removed | | | | **Removed 2026-10-24:** Hunyuan3D's licence does not apply in the UK, EU or South Korea, so its output is not kept in the public repo. The game falls back to the original model until an in-house model replaces it. |
 | Bushwacker (`bushwacker`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "BSW-X1, X2 & S2 Bushwacker for Battletech" by Syllogy, https://www.printables.com/model/1863885, CC BY-NC-SA 4.0; notice in `bushwacker_hd.LICENSE.md`, 114618 tris |
 | Catapult (`catapult`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "CPLT-C1 Catapult Alternative Art for Battletech" by Syllogy, https://www.printables.com/model/1863887, CC BY-NC-SA 4.0; notice in `catapult_hd.LICENSE.md`, 159648 tris |
 | Cyclops (`cyclops`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "CP-10-Z Cyclops for Battletech" by Syllogy, https://www.printables.com/model/1863895, CC BY-NC-SA 4.0; notice in `cyclops_hd.LICENSE.md`, 114240 tris |
-| Enfield (`enfield`) | 8 | 4242 | no | 0.458 m | approved |
+| Enfield (`enfield`) | removed | | | | **Removed 2026-10-24:** Hunyuan3D's licence does not apply in the UK, EU or South Korea, so its output is not kept in the public repo. The game falls back to the original model until an in-house model replaces it. |
 | Flea (`flea`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "FLE-4 Flea for Battletech" by Syllogy, https://www.printables.com/model/1863913, CC BY-NC-SA 4.0; notice in `flea_hd.LICENSE.md`, 119176 tris |
 | Heavy copter (`heavycopter`) | adapted | adapted | n/a | 0.696 m (fitted) | approved; "Balac VTOL" by RGriffin65, https://www.thingiverse.com/thing:6758723, CC BY-SA 4.0; notice in `heavycopter_hd.LICENSE.md`, 39675 tris |
 | Highlander (`highlander`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "HGN-732 Highlander for Battletech" by Syllogy, https://www.printables.com/model/1863932, CC BY-NC-SA 4.0; notice in `highlander_hd.LICENSE.md`, 115710 tris |
-| Hollander (`hollander`) | 7 | 1234 (default, inferred) | no | 0.409 m | approved |
+| Hollander (`hollander`) | removed | | | | **Removed 2026-10-24:** Hunyuan3D's licence does not apply in the UK, EU or South Korea, so its output is not kept in the public repo. The game falls back to the original model until an in-house model replaces it. |
 | Hunchback (`hunchback`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "HBK-4G Hunchback for Battletech" by Syllogy, https://www.printables.com/model/1863925, CC BY-NC-SA 4.0; notice in `hunchback_hd.LICENSE.md`, 115502 tris |
 | JaegerMech (`jaegermech`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "JM6-S4 Jagermech for Battletech" by Syllogy, https://www.printables.com/model/1863950, CC BY-NC-SA 4.0; notice in `jaegermech_hd.LICENSE.md`, 131402 tris |
 | LaoHu (`laohu`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Lao Hu Battlemech" by UnrestedGuy, https://www.thingiverse.com/thing:6505435, CC BY-NC-SA 4.0; notice in `laohu_hd.LICENSE.md`, 183846 tris |
 | MadCat (`madcat`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Timberwolf Prime, aka Madcat for Battletech" by Syllogy, https://www.printables.com/model/1864016, CC BY-NC-SA 4.0; notice in `madcat_hd.LICENSE.md`, 139446 tris |
 | Medium copter (`mediumcopter`) | adapted | adapted | n/a | 0.846 m (fitted) | approved; "Hawk Moth" by RGriffin65, https://www.thingiverse.com/thing:6599138, CC BY-SA 4.0; notice in `mediumcopter_hd.LICENSE.md`, 39740 tris |
-| Menshen (`menshen`) | 7 | 1234 (default, inferred) | no | 0.411 m | approved; automatic orientation check misleading (the concept faces left); front checked by eye |
+| Menshen (`menshen`) | removed | | | | **Removed 2026-10-24:** Hunyuan3D's licence does not apply in the UK, EU or South Korea, so its output is not kept in the public repo. The game falls back to the original model until an in-house model replaces it. |
 | Raven (`raven`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "RVN-1X Raven for Battletech" by Syllogy, https://www.printables.com/model/1863995, CC BY-NC-SA 4.0; notice in `raven_hd.LICENSE.md`, 103582 tris |
 | Ryoken (`ryoken`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Stormcrow Prime, AKA Ryoken for Battletech" by Syllogy, https://www.printables.com/model/1863997, CC BY-NC-SA 4.0; notice in `ryoken_hd.LICENSE.md`, 70736 tris |
 | Shadowcat (`shadowcat`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Shadowcat Prime for Battletech" by Syllogy, https://www.printables.com/model/1863998, CC BY-NC-SA 4.0; notice in `shadowcat_hd.LICENSE.md`, 108266 tris |
 | ShaYu (`shayu`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Sha Yu Battlemech" by UnrestedGuy, https://www.thingiverse.com/thing:6498513, CC BY-NC-SA 4.0; notice in `shayu_hd.LICENSE.md`, 158624 tris |
 | Shootist (`shootist`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Shootist Battlemech" by UnrestedGuy, https://www.thingiverse.com/thing:7263860, CC BY-NC-SA 4.0; notice in `shootist_hd.LICENSE.md`, 136513 tris |
-| Starslayer (`starslayer`) | 8 | 1234 | no | 0.518 m | approved |
+| Starslayer (`starslayer`) | removed | | | | **Removed 2026-10-24:** Hunyuan3D's licence does not apply in the UK, EU or South Korea, so its output is not kept in the public repo. The game falls back to the original model until an in-house model replaces it. |
 | Thor (`thor`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Summoner Prime, AKA Thor for Battletech" by Syllogy, https://www.printables.com/model/1864004, CC BY-NC-SA 4.0; notice in `thor_hd.LICENSE.md`, 129304 tris |
 | Uller (`uller`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "BattleTech Kit Fox (Uller) Alt Config V" by MiniHulkMechs, https://www.thingiverse.com/thing:6431420, CC BY-NC-SA 4.0; notice in `uller_hd.LICENSE.md`, 205852 tris |
 | UrbanMech (`urbanmech`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "UM-R60 Urbanmech for Battletech" by Syllogy, https://www.printables.com/model/1864017, CC BY-NC-SA 4.0; notice in `urbanmech_hd.LICENSE.md`, 139270 tris |
 | Vulture (`vulture`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; Syllogy, 'Mad Dog Prime, aka Vulture for Battletech' (printables.com/model/1863972), CC BY-NC-SA 4.0; notice in `vulture_hd.LICENSE.md`, 48694 tris |
 | Werewolf (`werewolf`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Werewolf Battlemech" by UnrestedGuy, https://www.thingiverse.com/thing:6992277, CC BY-NC-SA 4.0; notice in `werewolf_hd.LICENSE.md`, 165021 tris |
 | Wolfhound (`wolfhound`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "WFL-1-P Wolfhound for Battletech" by Syllogy, https://www.printables.com/model/1864059, CC BY-NC-SA 4.0; notice in `wolfhound_hd.LICENSE.md`, 109232 tris |
-| Zeus (`zeus`) | adapted | adapted | n/a | exact (rigged on the skeleton) | approved; "Zeus ZEU-6A" by ChewiewookTheVindicator, https://www.thingiverse.com/thing:7089967, CC BY-SA 4.0; notice in `zeus_hd.LICENSE.md`, 126781 tris |
+| Zeus (`zeus`) | removed | | | | **Removed 2026-10-24:** the source's CC BY-SA label was not valid (a kitbash of CC BY-NC-SA parts and a part of unknown licence). The game falls back to the original model until Syllogy's ZEU-5T replaces it. |
 
 Fit, turn and concept seed come from `original/hd/<mech>/provenance.json` (written by `hd_mech.py` since 2026-10-19; the 13 rows above were backfilled with a step-4-only re-fit, nothing reinstalled). Mesh seed 1234 is the tool default and is inferred, not logged, for every mech whose step 3 ran before the change. "redo" rows are installed and in the game until their issue is fixed.
 
@@ -135,13 +135,13 @@ When destroyed, a building swaps to the original `_dam` model.
 
 | Building | Concept seed | Mesh seed | Fit (chamfer) | Note |
 |---|---|---|---|---|
-| Quonset | 7 | 1234 | 0.25 m | |
-| Quonset2 | 7 | 1234 | 1.5 m | keeps the roof dish |
-| Portable | 7 | 1234 | 0.95 m | |
-| GenericMilitary | 9 | 4242 | 2.4 m | seed 7 painted two buildings; seed 8 cropped the tower; seed 9 with mesh seed 1234 meshed a smear |
-| GeodesicDome | 7 | 1234 | 0.40 m | |
-| Hangar | 7 | 1234 | 3.0 m (38 m building) | the concept adds a roof mast; robust bounds absorb it |
-| LookoutTower | 7 | 1234 | 0.36 m | |
+| Quonset | removed | | | **Removed 2026-10-24** (Hunyuan3D licence territory clause); the CAD rebuild is used. |
+| Quonset2 | removed | | | **Removed 2026-10-24** (Hunyuan3D licence territory clause); the CAD rebuild is used. |
+| Portable | removed | | | **Removed 2026-10-24** (Hunyuan3D licence territory clause); the CAD rebuild is used. |
+| GenericMilitary | removed | | | **Removed 2026-10-24** (Hunyuan3D licence territory clause); the CAD rebuild is used. |
+| GeodesicDome | removed | | | **Removed 2026-10-24** (Hunyuan3D licence territory clause); the CAD rebuild is used. |
+| Hangar | removed | | | **Removed 2026-10-24** (Hunyuan3D licence territory clause); the CAD rebuild is used. |
+| LookoutTower | removed | | | **Removed 2026-10-24** (Hunyuan3D licence territory clause); the CAD rebuild is used. |
 
 Each orientation was checked by eye against the original's front view. Mechs are nearly symmetric front to back, so the 3D fit alone can land backwards; use `--turn` if it does.
 
