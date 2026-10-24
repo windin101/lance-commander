@@ -83,7 +83,7 @@ func update(world: SimWorld, dt: float) -> void:
 		return
 	# targetWID: dropped when disabled, friendly or out of the radius (turret.cpp:595-607); the
 	# collision pass then takes the closest enemy mech or vehicle inside it (turret.cpp:238-316)
-	if gun_target and (gun_target.is_disabled() or not gun_target.exists or gun_target.team == team \
+	if gun_target and (gun_target.is_disabled() or not gun_target.exists or not SimWorld.hostile(gun_target.team, team) \
 			or gun_target.position.distance_to(position) > attack_m):
 		gun_target = null
 	# The original's collision pass offers the closest enemy every frame; the port looks every
@@ -100,7 +100,7 @@ func update(world: SimWorld, dt: float) -> void:
 func _acquire(world: SimWorld) -> void:
 	var best_d := gun_target.position.distance_to(position) if gun_target else INF
 	for o in world.movers():
-		if not o.exists or o.is_disabled() or o.team == team or o.team < 0:
+		if not o.exists or o.is_disabled() or not SimWorld.hostile(o.team, team) or o.team < 0:
 			continue
 		var d := o.position.distance_to(position)
 		if d <= attack_m and d < best_d:

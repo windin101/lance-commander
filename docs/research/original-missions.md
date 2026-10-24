@@ -796,6 +796,16 @@ KC: "Major Kelly and Baxter hand you the tough jobs but advanced mechs are plent
   - The bot dies at 349–564 s with 0 of 3 primaries done, apparently fighting at the front.
   - Players go round to the east breach, which is why "the hidden fuel-truck trigger for the rebel attack (I30)"
     matters: the rebels are the designed way in.
+  - **Update 2026-10-24:**
+    - Found and fixed I117: the rebels (team 2) and the player shot each other. In single player
+      they are neutral to each other (mission.cpp:1632-1647) and both enemies of team 1.
+    - The script starts the rebels 10 s in; destroying the 4 fuel trucks starts their mech attack
+      (mc2_24.abl:270-289).
+    - The bot (`ROUTE_PLANS` mc2_24) goes round the main gate's turrets to the east and comes in
+      behind the rebel breach. It takes the HQ and Renard. Once only the extraction is left, every
+      survivor runs for it without detours ("RUN ... for extraction" [KC]).
+    - Result: 2/4 wins (was 0/3). Following the rebel group itself was tried and dropped: they go
+      south into the gate defences.
 - **Sourcing:** well-sourced.
 
 ---

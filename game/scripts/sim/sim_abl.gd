@@ -444,7 +444,7 @@ func can_capture(t: SimUnit, team: int) -> bool:
 ## (near = false) the capturer's team must also see it; on arrival it needn't.
 func capture_blocker(t: SimUnit, capturer: SimUnit, near: bool) -> SimUnit:
 	for m in world.units:
-		if not m.is_mover() or not m.exists or m.hulk or m.team == capturer.team or m.is_disabled() or not m.awake:
+		if not m.is_mover() or not m.exists or m.hulk or not SimWorld.hostile(m.team, capturer.team) or m.is_disabled() or not m.awake:
 			continue
 		if m.num_weapons == 0 or m.position.distance_to(t.position) > BLOCK_CAPTURE_M:
 			continue
@@ -638,7 +638,7 @@ func is_contact(team: int, m: SimUnit) -> bool:
 func meets(viewer: SimUnit, m: SimUnit, criteria: int) -> bool:
 	if not is_contact(viewer.team, m):
 		return false
-	if criteria & C_ENEMY and m.team == viewer.team:
+	if criteria & C_ENEMY and not SimWorld.hostile(m.team, viewer.team):  # isEnemy (Team::relations)
 		return false
 	if criteria & C_NOT_DISABLED and m.is_disabled():
 		return false
@@ -1431,7 +1431,7 @@ func _request_help(enemy_id: int, friend_c: Vector2, friend_r: float, enemy_c: V
 		return
 	var me := current.unit
 	var enemy := obj(enemy_id)
-	if enemy == null or not enemy.is_mover() or enemy.team == me.team:
+	if enemy == null or not enemy.is_mover() or not SimWorld.hostile(enemy.team, me.team):
 		return
 	var helpers := []
 	for m in world.units:

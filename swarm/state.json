@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T14:51:05+13:00",
+  "updated": "2026-10-24T15:07:10+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -732,10 +732,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 3 1800 --mission=mc2_24 --damage --targets --cues",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:45:22+13:00",
-      "updated": "2026-10-24T13:41:47+13:00",
-      "note": "Still 0/3, but the fuel-truck hidden objective now completes in 2 of 3 seeds (the issue said never). The lance still dies at the front gate by 222-467 s to Highlanders, Bushwackers and the LRM and Long Tom turrets, losing 3 mechs in the first 100 s every seed. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+      "updated": "2026-10-24T15:07:10+13:00",
+      "note": "2026-10-24 mc2_24 pass: 2/4 wins (seeds 1 and 4 at 837/778 s; was 0/3). Port check found I117 (rebels and player hostile). The rebel attack starts 10 s in, and the fuel trucks trigger their mech attack (mc2_24.abl:270-289); the fuel-truck objective now completes. Bot (ROUTE_PLANS mc2_24):\n- 'via' route east round the main gate turrets to the rebel breach;\n- HQ and Renard;\n- 'run_out': once only the extraction is left, every survivor runs for it.\nSeeds 2 and 3 die in the base at 779/469 s."
     },
     {
       "id": "I31",
@@ -1854,6 +1854,19 @@
       "created": "2026-10-24T14:43:37+13:00",
       "updated": "2026-10-24T14:43:37+13:00",
       "note": "can_capture requires awake for structures. Test: support_test test_a_control_without_its_generator_sleeps_and_cannot_be_taken (mc2_22)."
+    },
+    {
+      "id": "I117",
+      "sev": "P1",
+      "title": "mc2_24 rebels (team 2) and the player shot each other: the single-player team relations were not ported",
+      "detail": "Mission::init sets the single-player relation table: teams 0 and 2 are NEUTRAL to each other, and every other pair is ENEMY (mission.cpp:1632-1647; FRIENDLY 0 / NEUTRAL 1 / ENEMY 2, dteam.h). isEnemy reads it (Team.h:190-199, mover.cpp:2697-2715). The sim treated any other team as hostile, so mc2_24's rebels (the only team-2 movers in the campaign) and the lance fought at the east breach. SimWorld.hostile(a, b) now ports the table, and auto-targeting (enemies_of), turret acquisition, ABL contact criteria (C_ENEMY), help requests and capture blockers use it.",
+      "repro": null,
+      "owner": "programmer",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T15:07:09+13:00",
+      "updated": "2026-10-24T15:07:10+13:00",
+      "note": "Test: sim_fidelity_test test_team_two_is_neutral_to_the_player; full suite passes."
     }
   ],
   "coverage": {
@@ -1960,21 +1973,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T20:35:42+13:00",
-      "who": "conductor",
-      "msg": "decision D5 queued for Lee: 13 Syllogy adaptations are installed locally (3 approved, 10 for your look call). How to proceed?"
-    },
-    {
-      "at": "2026-10-19T21:02:02+13:00",
-      "who": "lee",
-      "msg": "decision D5 answered: fix the tool and re-run"
-    },
-    {
-      "at": "2026-10-19T21:02:05+13:00",
-      "who": "conductor",
-      "msg": "decided C34: Re-run all 17 Syllogy adaptations on the fixed stl_rig (4769137) \u2014 The seam defaults changed for every mech, so the 3 earlier approvals are rebuilt too; agents may not edit shared tools this time"
-    },
     {
       "at": "2026-10-20T06:15:30+13:00",
       "who": "conductor",
@@ -2959,6 +2957,21 @@
       "at": "2026-10-24T14:51:05+13:00",
       "who": "conductor",
       "msg": "issue I29 updated: note \u2014 2026-10-24 mc2_23 pass. Port check: the reinforcement trigger matches mc2_23.abl:207-215 (both groups come 3 s after objective 0); the group make-up (3 Werewolf/Razorback, 4 Highlander, 2 Hunchback, 1 Hollander) matches the guides within their spread. Bot (ROUTE_PLANS mc2_23, KC's 'PREPARE a proper reception'):\n- 24k RP kept back until ready;\n- objective 0's starport force killed strongest-first, the weakest spared;\n- at the dropship bays: repair, then 2-3 Long Toms placed 130 m behind;\n- then the spared target is released and the lance holds the spot.\nLong Toms placed 60 m off had shelled our own Catapult, hence the 130 m.\nResult: still 0/3. Reception ready and obj 0 done in 2/3 seeds (622/736 s), but the lance has lost 2-3 of 6 at the starport by then, and the 10-mech wave finishes it at 1008-1120 s; seed 3 dies at the starport by 456 s. Left: minelayers (the bot has no minelayer use yet) and teasing the starport mechs out a few at a time."
+    },
+    {
+      "at": "2026-10-24T15:07:09+13:00",
+      "who": "programmer",
+      "msg": "issue I117 P1: mc2_24 rebels (team 2) and the player shot each other: the single-player team relations were not ported"
+    },
+    {
+      "at": "2026-10-24T15:07:10+13:00",
+      "who": "conductor",
+      "msg": "issue I117 fixed: Test: sim_fidelity_test test_team_two_is_neutral_to_the_player; full suite passes."
+    },
+    {
+      "at": "2026-10-24T15:07:10+13:00",
+      "who": "conductor",
+      "msg": "issue I30 fixed: 2026-10-24 mc2_24 pass: 2/4 wins (seeds 1 and 4 at 837/778 s; was 0/3). Port check found I117 (rebels and player hostile). The rebel attack starts 10 s in, and the fuel trucks trigger their mech attack (mc2_24.abl:270-289); the fuel-truck objective now completes. Bot (ROUTE_PLANS mc2_24):\n- 'via' route east round the main gate turrets to the rebel breach;\n- HQ and Renard;\n- 'run_out': once only the extraction is left, every survivor runs for it.\nSeeds 2 and 3 die in the base at 779/469 s."
     }
   ],
   "choices": [
