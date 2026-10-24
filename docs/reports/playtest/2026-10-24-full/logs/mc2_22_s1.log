@@ -1,0 +1,71 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_22
+force: campaign 6 units 380 t of 380 t, RP 16000: Mad Cat Prime(pmwrooster), Mad Cat Prime(pmwmother), Shootist Prime(pmwghost), Catapult Prime(pmwscooter), Vulture Prime(pmwbubba), Wolfhound Prime(pmwvenom)
+ABL pilots: 70
+t=   0.1  SUPPORT air_strike (-1318, -764) rp_left=9000
+t=   0.1  FORT STRIKE on LiaoTurretGenerator.fit (13 turrets hang on it)
+t=   0.1  HOLD reached (-1182, -1207)
+t=   0.1  DECOY Wolfhound toward Partisan at 405 m
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LRMTurret 
+t=   7.4  TURRET_DOWN LRMTurret 
+t=   7.4  TURRET_DOWN LRMTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=  21.5  DECOY Wolfhound toward Partisan at 363 m
+t=  48.5  DECOY Wolfhound toward Lrmcarrier at 420 m
+t=  71.0  LOST Wolfhound (disabled, armour 41%, heat 0, ejected false, pilot 0.0 wounds, last hit by MenShen)
+t=  91.4  DECOY Madcat toward Lrmcarrier at 420 m
+t= 113.1  DECOY Madcat toward Partisan at 371 m
+t= 137.9  DECOY Madcat toward Partisan at 343 m
+t= 168.9  DECOY Madcat toward Lrmcarrier at 420 m
+t= 193.7  DECOY Madcat toward Lrmcarrier at 420 m
+t= 224.7  DECOY Madcat toward Lrmcarrier at 420 m
+t= 288.7  HOLD over: no guard left to lure out (1 waiting)
+t= 345.7  SUPPORT repair_truck (-1119, -766) rp_left=3000
+t= 368.6  REPAIR_DONE Catapult 
+t= 385.2  CAPTURED Vulture LiaoTurretControl.fit
+t= 405.1  CAPTURED Catapult OrdnanceTruckProp
+t= 405.8  CAPTURED Madcat OrdnanceTruckProp
+t= 408.7  SUPPORT salvage_craft Wolfhound rp_left=1000
+t= 488.5  REPAIR_DONE Madcat 
+t= 504.7  PULLBACK Wolfhound at 21%
+t= 506.0  LOST Wolfhound (destroyed, armour 11%, heat 0, ejected false, pilot 0.0 wounds, last hit by MenShen)
+t= 511.2  LOST Madcat (disabled, armour 88%, heat 0, ejected false, pilot 0.0 wounds, last hit by Catapult)
+t= 527.7  LOST Shootist (disabled, armour 24%, heat 0, ejected false, pilot 1.0 wounds, last hit by Starslayer)
+t= 551.8  LOST Vulture (disabled, armour 11%, heat 0, ejected false, pilot 0.0 wounds, last hit by MenShen)
+t= 572.5  LOST Madcat (disabled, armour 52%, heat 12, ejected false, pilot 1.0 wounds, last hit by MenShen)
+t= 591.4  LOST Catapult (disabled, armour 86%, heat 0, ejected false, pilot 0.0 wounds, last hit by MenShen)
+t= 622.0  harness: no armed lance unit left since t=592 (only support vehicles); scored LOST (I13)
+seed 1 end t=622 result=LOST  player alive 1  enemies alive 42
+damage to lance: 1002 from 31 attackers; hits by location (0 head .. 10 rear RT): { 1: 50, 3: 46, 5: 42, 4: 44, 8: 28, 7: 61, 2: 44, 6: 47, 10: 12, 0: 2, 9: 8 }
+damage by lance: 2836; kills 21
+       279  MenShen (mech)
+       165  Swarmlrmc (vehicle)
+       153  Starslayer (mech)
+       122  LargePulseCannonTurret (vehicle)
+        90  LRMTurret (vehicle)
+        88  LaoHu (mech)
+        86  Catapult (mech)
+        20  Partisan (vehicle)
+  obj 0 P: open  Destroy the Liao Elite Guard
+  obj 1 P: open  Destroy the Liao Palace
+  obj 2 P: gated  Move all surviving Mechs to Extraction Point
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_22_EC1_LRM:start": 1, "mc2_22_EC1_LRM:attack": 1, "mc2_22_EC2_Heavy_Shutdown:baseonalert": 1, "mc2_22_EC2_Heavy_Shutdown:attack": 1, "mc2_22_EC2_Medium_Shutdown:baseattack": 1, "mc2_22_EC2_Medium_Shutdown:attack": 3, "mc2_22_EC2_Light_Shutdown:baseattack": 4, "mc2_22_EC3_Boss:start": 1, "mc2_22_EC3_Guards:start": 4, "mc2_22_EC1_Mech_center_1:attack": 1, "mc2_22_EC1_Mech_center_2:attack": 1, "mc2_22_EC1_Mech_left:attack": 3, "mc2_22_EC1_Mech_right:attack": 3, "mc2_22_EC1_Veh_Left:attack": 2, "mc2_22_EC1_VEH_right:attack": 2, "mc2_22_EC2_ForestShutDown_West:start": 3, "mc2_22_EC2_ForestShutDown_EAST:start": 3, "mc2_22_EC2_Forest_Spotters:start": 2, "mc2_22_EC2_Light_Patrol_WEST:attack": 3, "mc2_22_EC2_Light_Patrol_east:baseonalert": 3, "mc2_22_EC3_Guard2:start": 2, "mc2_22_EC2_ForestE_Patrol:start": 5, "mc2_22_EC2_ForesW_Patrol:start": 3, "mc2_22_EC2_swarm:baseattack": 2, "mc2_22_EC2_swarm:attack": 1, "mc2_22_EC4_Ambush_lrm:start": 4, "mc2_22_EC4_Ambush:start": 2, "mc2_22_EC4_Spotter:start": 2, "PBrain:": 5, "pbrain:": 2 }
+enemy pilots that moved >20 m: 40 / 71
+
+--- stderr ---
+WARNING: 1066 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

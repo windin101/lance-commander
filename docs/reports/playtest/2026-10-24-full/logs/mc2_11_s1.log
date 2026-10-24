@@ -1,0 +1,75 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_11
+force: campaign 3 units 160 t of 160 t, RP 0: Men Shen Prime(pmwsteel), Men Shen Prime(pmwclaymore), Starslayer Prime(pmwworm)
+ABL pilots: 38
+t=   0.1  capture target Jagermech destroyed by ?
+t=   0.1  capture target ShadowCat destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Enfield destroyed by ?
+t=   0.1  capture target Jagermech destroyed by ?
+t= 230.2  CAPTURED MenShen DavionTurretControl.fit
+t= 270.8  CAPTURED MenShen OrdnanceTruckProp
+t= 450.7  BOMB Starslayer shoots SmallFuelTank under ["Enfield"]
+t= 489.8  CAPTURED MenShen DavionTurretControl.fit
+t= 512.5  CAPTURED MenShen DavionTurretControl.fit
+t= 520.8  CAPTURED Starslayer DavionTurretControl.fit
+t= 573.7  JUMP Starslayer to capture DavionTurretControl.fit
+t= 576.8  CAPTURED Starslayer DavionTurretControl.fit
+t= 585.0  CAPTURED MenShen DavionTurretControl.fit
+t= 611.7  CAPTURED MenShen DavionTurretControl.fit
+t= 656.7  CAPTURED MenShen DavionTurretControl.fit
+t= 669.5  CAPTURED MenShen DavionSensorControl.fit
+t= 697.8  CAPTURED MenShen RepairBay
+t= 699.7  BAY Starslayer -> RepairBay (408 m)
+t= 758.4  LOST MenShen (disabled, armour 28%, heat 0, ejected false, pilot 0.0 wounds, last hit by MediumAutoCannonTurret)
+t= 792.9  REPAIR_DONE Starslayer RepairBay
+t= 795.7  BAY MenShen -> RepairBay (36 m)
+t= 811.1  REPAIR_DONE MenShen RepairBay
+t= 821.6  CAPTURED MenShen DavionTurretControl.fit
+t= 830.3  CAPTURED MenShen WeaponsFacility
+t= 830.3  objective done: 1 - Capture Davion Weapons Facility
+t= 879.5  CAPTURED Starslayer S_TurretControl
+t= 909.8  LOST MenShen (disabled, armour 28%, heat 5, ejected false, pilot 4.0 wounds, last hit by Shootist)
+t= 918.7  FALLBACK 2 threats (dps 26 vs 4, health 57%) to (-282, 1123)
+t= 946.7  LOST Starslayer (disabled, armour 26%, heat 0, ejected false, pilot 2.0 wounds, last hit by LRMPopup)
+t= 951.7  MISSION LOST
+seed 1 end t=952 result=LOST  player alive 0  enemies alive 11
+damage to lance: 712 from 40 attackers; hits by location (0 head .. 10 rear RT): { 2: 41, 3: 24, 6: 24, 5: 30, 4: 30, 1: 33, 0: 9, 7: 19, 8: 5, 9: 1 }
+damage by lance: 1584; kills 20
+       192  MediumAutoCannonTurret (vehicle)
+       189  LRMPopup (vehicle)
+        85  Enfield (mech)
+        48  Wolfhound (mech)
+        47  Shootist (mech)
+        38  Jagermech (mech)
+        30  LRMTurret (vehicle)
+        30  Explosion (blast)
+        24  Drillson (vehicle)
+        20  Centipede (vehicle)
+  obj 0 s: open  a - Capture RP Buildings at Davion Installation
+  obj 1 s: open  b - Salvage Davion 'Mechs at salvage yard
+  obj 2 P: done  1 - Capture Davion Weapons Facility
+  obj 3 P: open  2 - Capture Steiner Weapons Facility
+  obj 4 P: open  3 - Capture Steiner HQ Building
+  obj 5 P: gated  4 - Extract at Steiner Drop Ship Pad
+  obj 6 s hidden: open  hidden objective for sensor towers
+  obj 7 s hidden: done  hidden objective for sensor control
+  obj 8 s hidden: open  bool 01
+  obj 9 s hidden: open  bool 02
+  obj 10 s hidden: open  bool 03
+  obj 11 s hidden: open  bool 04
+  obj 12 s hidden: open  bool 05
+  obj 13 s hidden: done  bool 06
+  obj 14 s hidden: done  Hidden Trigger for Salvage VO
+  obj 15 s hidden: done  Start of mission wav file
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_11_EC1_grp4:attack": 2, "mc2_11_EC1_Grp2:attack": 2, "mc2_11_dred:start": 14, "mc2_11_EC2_grp1:attack2": 1, "mc2_11_EC2_grp2:attack": 1, "mc2_11_EC3_grp2:attack": 2, "mc2_11_EC3_grp3:attack": 1, "mc2_11_EC2_grp4:amok": 1, "mc2_11_EC2_grp3:attack": 1, "mc2_11_ec4_grp4:attack": 1, "mc2_11_ec1_grp1:attack": 2, "mc2_11_EC3_grp1:attack": 2, "mc2_11_EC1_Grp3:attack": 2, "mc2_11_EC1_grpwav:attack": 1, "mc2_11_dred_lrm:attack": 1, "DredAttack01:start": 1, "PBrain:": 3 }
+enemy pilots that moved >20 m: 19 / 38
+
+--- stderr ---
+WARNING: 776 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

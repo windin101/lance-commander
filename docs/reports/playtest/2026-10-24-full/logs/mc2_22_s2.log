@@ -1,0 +1,106 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_22
+force: campaign 6 units 380 t of 380 t, RP 16000: Mad Cat Prime(pmwrooster), Mad Cat Prime(pmwmother), Shootist Prime(pmwghost), Catapult Prime(pmwscooter), Vulture Prime(pmwbubba), Wolfhound Prime(pmwvenom)
+ABL pilots: 70
+t=   0.1  SUPPORT air_strike (-1318, -764) rp_left=9000
+t=   0.1  FORT STRIKE on LiaoTurretGenerator.fit (13 turrets hang on it)
+t=   0.1  HOLD reached (-1182, -1207)
+t=   0.1  DECOY Wolfhound toward Partisan at 405 m
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=   7.4  TURRET_DOWN LRMTurret 
+t=   7.4  TURRET_DOWN LRMTurret 
+t=   7.4  TURRET_DOWN LRMTurret 
+t=   7.4  TURRET_DOWN LargePulseCannonTurret 
+t=  21.5  DECOY Wolfhound toward Partisan at 363 m
+t=  51.5  DECOY Wolfhound toward Lrmcarrier at 420 m
+t=  78.1  LOST Wolfhound (destroyed, armour 25%, heat 4, ejected false, pilot 0.0 wounds, last hit by MenShen)
+t=  97.6  DECOY Madcat toward Lrmcarrier at 420 m
+t= 141.0  DECOY Madcat toward Partisan at 418 m
+t= 165.8  DECOY Madcat toward Partisan at 344 m
+t= 212.3  DECOY Madcat toward Catapult at 327 m
+t= 249.5  SUPPORT repair_truck (-1047, -1088) rp_left=3000
+t= 249.5  DECOY Madcat toward Lrmcarrier at 420 m
+t= 281.1  REPAIR_DONE Madcat 
+t= 297.7  HOLD over: no guard left to lure out (1 waiting)
+t= 299.1  REPAIR_DONE Vulture 
+t= 374.7  CAPTURED Madcat LiaoTurretControl.fit
+t= 390.2  CAPTURED Shootist OrdnanceTruckProp
+t= 390.8  CAPTURED Vulture OrdnanceTruckProp
+t= 393.7  SUPPORT salvage_craft Catapult rp_left=1000
+t= 468.5  REPAIR_DONE Madcat 
+t= 480.7  PULLBACK Catapult at 25%
+t= 486.7  BOMB Shootist shoots FuelTruckProp under ["MenShen"]
+t= 486.7  BOMB Madcat shoots FuelTruckProp under ["MenShen"]
+t= 487.3  LOST Catapult (disabled, armour 3%, heat 0, ejected false, pilot 0.0 wounds, last hit by Catapult)
+t= 554.3  REPAIR_DONE Shootist 
+t= 558.4  CAPTURED Vulture OrdnanceTruckProp
+t= 558.8  CAPTURED Madcat OrdnanceTruckProp
+t= 575.1  REPAIR_DONE Madcat 
+t= 582.7  SUPPORT artillery_piece (-82, -632) rp_left=1000
+t= 602.5  LOST Shootist (disabled, armour 28%, heat 6, ejected false, pilot 6.0 wounds, last hit by MenShen)
+t= 635.7  REPAIR_DONE Madcat 
+t= 635.8  LOST Repairtruck (disabled, armour 100%, heat 0, ejected false, pilot 0.0 wounds, last hit by -)
+t= 636.7  BOMB Madcat shoots FuelTruckProp under ["MenShen", "MenShen"]
+t= 636.7  BOMB Vulture shoots FuelTruckProp under ["MenShen", "MenShen"]
+t= 651.7  BOMB Vulture shoots FuelTruckProp under ["MenShen"]
+t= 651.7  BOMB Madcat shoots FuelTruckProp under ["MenShen"]
+t= 654.7  PULLBACK Vulture at 21%
+t= 678.8  CAPTURED Madcat RepairBay
+t= 681.7  PULLBACK Vulture at 21%
+t= 681.7  BAY Vulture -> RepairBay (214 m)
+t= 684.0  CAPTURED Madcat OrdnanceTruckProp
+t= 684.8  CAPTURED Madcat OrdnanceTruckProp
+t= 687.7  SUPPORT repair_truck (-81, -431) rp_left=3000
+t= 697.3  CAPTURED Madcat OrdnanceTruckProp
+t= 706.5  REPAIR_DONE Vulture RepairBay
+t= 706.6  REPAIR_DONE Vulture 
+t= 729.7  SUPPORT air_strike (311, 431) rp_left=0
+t= 729.7  FORT STRIKE on LiaoTurretGenerator.fit (3 turrets hang on it)
+t= 736.8  TURRET_DOWN LargePulseCannonTurret 
+t= 736.8  TURRET_DOWN LargePulseCannonTurret 
+t= 736.8  TURRET_DOWN LargePulseCannonTurret 
+t= 736.8  TURRET_DOWN LargePulseCannonTurret 
+t= 736.8  TURRET_DOWN LargePulseCannonTurret 
+t= 736.9  TURRET_DOWN LargePulseCannonTurret 
+t= 807.7  PULLBACK Madcat at 21%
+t= 817.0  LOST Madcat (destroyed, armour 8%, heat 5, ejected false, pilot 1.0 wounds, last hit by Catapult)
+t= 817.3  LOST Catapult (disabled, armour 55%, heat 8, ejected false, pilot 0.0 wounds, last hit by Anubis)
+t= 837.7  FALLBACK 11 threats (dps 36 vs 10, health 55%) to (384, 503)
+t= 843.6  LOST Madcat (disabled, armour 22%, heat 0, ejected false, pilot 4.0 wounds, last hit by Swarmlrmc)
+t= 846.4  LOST Vulture (disabled, armour 30%, heat 0, ejected false, pilot 1.0 wounds, last hit by Cyclops)
+t= 877.0  harness: no armed lance unit left since t=847 (only support vehicles); scored LOST (I13)
+seed 2 end t=877 result=LOST  player alive 2  enemies alive 24
+damage to lance: 1718 from 56 attackers; hits by location (0 head .. 10 rear RT): { 5: 97, 3: 67, 6: 66, 1: 83, 2: 66, 4: 91, 9: 22, 7: 73, 0: 12, 10: 24, 8: 18 }
+damage by lance: 5054; kills 39
+       411  Catapult (mech)
+       400  MenShen (mech)
+       173  Anubis (mech)
+       136  Starslayer (mech)
+       114  LaoHu (mech)
+       108  Raven (mech)
+        95  Cyclops (mech)
+        76  LargePulseCannonTurret (vehicle)
+        66  LRMTurret (vehicle)
+        57  Swarmlrmc (vehicle)
+  obj 0 P: open  Destroy the Liao Elite Guard
+  obj 1 P: open  Destroy the Liao Palace
+  obj 2 P: gated  Move all surviving Mechs to Extraction Point
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_22_EC1_LRM:start": 1, "mc2_22_EC1_LRM:attack": 1, "mc2_22_EC2_Heavy_Shutdown:attack": 2, "mc2_22_EC2_Medium_Shutdown:attack": 4, "mc2_22_EC2_Light_Shutdown:attack": 4, "mc2_22_EC3_Boss:start": 1, "mc2_22_EC3_Guards:attack": 2, "mc2_22_EC3_Guards:start": 2, "pbrain:attack": 1, "mc2_22_EC1_Mech_center_2:attack": 1, "mc2_22_EC1_Mech_left:attack": 3, "mc2_22_EC1_Mech_right:attack": 3, "mc2_22_EC1_Veh_Left:attack": 2, "mc2_22_EC1_VEH_right:attack": 2, "mc2_22_EC2_ForestShutDown_West:start": 3, "mc2_22_EC2_ForestShutDown_EAST:start": 3, "mc2_22_EC2_Forest_Spotters:start": 2, "mc2_22_EC2_Light_Patrol_WEST:attack": 3, "mc2_22_EC2_Light_Patrol_east:attack": 3, "mc2_22_EC3_Guard2:start": 2, "mc2_22_EC2_ForestE_Patrol:attack": 5, "mc2_22_EC2_ForesW_Patrol:start": 3, "mc2_22_EC2_swarm:attack": 3, "mc2_22_EC4_Ambush_lrm:gotopalace": 4, "mc2_22_EC4_Ambush:gotopalace": 2, "mc2_22_EC4_Spotter:start": 2, "PBrain:": 6, "pbrain:": 1 }
+enemy pilots that moved >20 m: 54 / 71
+
+--- stderr ---
+WARNING: 1070 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,43 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_01
+force: fit 3 units 140 t of 190 t, RP 22000: Razorback Prime(pmwflash), Bushwacker Prime(pmwhacksaw), Bushwacker Prime(pmwlongshot)
+ABL pilots: 29
+t=  18.4  objective done: 1. Investigate Abandoned Airfield
+t=  21.5  SUPPORT air_strike (806, 73) rp_left=15000
+t=  22.0  objective done: 2. Destroy Hangar
+t=  24.5  SUPPORT artillery_piece (605, -168) rp_left=7000
+t=  81.5  objective done: 3. Destroy Bandit Patrol
+t=  92.1  objective done: 4. Repair and Proceed to North Island
+t= 136.3  objective done: 5. Locate and Destroy Bandits
+t= 181.2  LOST Werewolf (disabled, armour 29%, heat 0, ejected false, pilot 0.0 wounds, last hit by Starslayer)
+t= 249.5  SUPPORT repair_truck (-461, 80) rp_left=1000
+t= 264.9  objective done: 6. Move All 'Mechs to Extraction Point
+t= 269.9  MISSION WON
+seed 1 end t=270 result=WON  player alive 4  enemies alive 0
+damage to lance: 264 from 16 attackers; hits by location (0 head .. 10 rear RT): { 2: 10, 1: 17, 3: 14, 5: 11, 7: 8, 6: 18, 4: 16, 9: 2, 10: 2, 8: 4, 0: 1 }
+damage by lance: 608; kills 21
+       108  Starslayer (mech)
+        72  Harasser (vehicle)
+        51  Lrmcarrier (vehicle)
+        24  Urbanmech (mech)
+         8  Centipede (vehicle)
+  obj 0 P: done  1. Investigate Abandoned Airfield
+  obj 1 P: done  2. Destroy Hangar
+  obj 2 P: done  3. Destroy Bandit Patrol
+  obj 3 P: done  4. Repair and Proceed to North Island
+  obj 4 P: done  5. Locate and Destroy Bandits
+  obj 5 P: done  6. Move All 'Mechs to Extraction Point
+  obj 6 s hidden: done  Hidden Objective to Popup Move to Large Island O
+  obj 7 s hidden: done  Hidden Objective for Starslayer to Powerup
+  obj 8 s hidden: done  Hidden Trigger for VO when Starslayer Lance Dies
+abl errors: []
+abl natives missing: []
+brain end states: { "PBrain:": 3, "mc2_01_Pat1_1:attack": 2, "mc2_01_Pat2:attack": 1, "mc2_01_Pat4:attack": 2, "mc2_01_Starslayer:attack": 1, "mc2_01_Pat1_2:attack": 2, "mc2_01_Pat1:attack": 2, "mc2_01_Pat2_2:attack": 1, "mc2_01_LRMs:attack": 5, "mc2_01_infantry_ambush:ambush": 4, "mc2_01_infantry_ambush:attack1": 1, "mc2_01_infantry_ambush2:ambush": 2, "mc2_01_infantry_ambush2:attack1": 1, "mc2_01_Urbies:attack": 2 }
+enemy pilots that moved >20 m: 27 / 29
+
+--- stderr ---
+WARNING: 195 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 14 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

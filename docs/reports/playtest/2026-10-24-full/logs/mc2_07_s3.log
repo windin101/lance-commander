@@ -1,0 +1,48 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_07
+force: campaign 3 units 200 t of 200 t, RP 6000: Zeus Prime(pmwsteel), Shootist Prime(pmwmeat), Hunchback Prime(pmwworm)
+ABL pilots: 55
+t= 108.0  LOST Zeus (disabled, armour 40%, heat 0, ejected false, pilot 0.0 wounds, last hit by MenShen)
+t= 162.7  SUPPORT repair_truck (498, 469) rp_left=0
+t= 168.1  CAPTURED Hunchback LiaoTurretControl.fit
+t= 183.1  CAPTURED Hunchback LiaoTurretControl.fit
+t= 186.8  REPAIR_DONE Shootist 
+t= 187.0  CAPTURED Hunchback RepairBay
+t= 198.4  CAPTURED Shootist LiaoHQ.fit
+t= 198.4  objective done: 1. Capture Liao Headquarters
+t= 341.7  REPAIR_DONE Hunchback 
+t= 451.8  REPAIR_DONE Shootist 
+t= 489.7  JUMP Hunchback to capture BTurretControl.fit
+t= 492.8  CAPTURED Hunchback BTurretControl.fit
+t= 499.7  objective done: 2. Destroy Processing Plant
+t= 503.0  REPAIR_DONE Hunchback 
+t= 516.8  objective done: 3. Extract All Surviving 'Mechs
+t= 521.8  MISSION WON
+seed 3 end t=522 result=WON  player alive 3  enemies alive 13
+damage to lance: 520 from 28 attackers; hits by location (0 head .. 10 rear RT): { 7: 20, 5: 17, 1: 27, 3: 37, 4: 24, 6: 22, 10: 9, 9: 6, 2: 19, 8: 11, 0: 3 }
+damage by lance: 1044; kills 38
+       174  Catapult (mech)
+       152  MenShen (mech)
+        78  Vedette (vehicle)
+        36  LargePulseCannonTurret (vehicle)
+        21  Storm (vehicle)
+        18  Lrmcarrier (vehicle)
+        13  Infantry (vehicle)
+        12  SRMTurret (vehicle)
+         8  Centipede (vehicle)
+         8  guntower (vehicle)
+  obj 0 P: done  1. Capture Liao Headquarters
+  obj 1 P: done  2. Destroy Processing Plant
+  obj 2 P: done  3. Extract All Surviving 'Mechs
+  obj 3 s: open  Destroy All Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_07_E3_LRMs:attack": 2, "mc2_07_E3_Mix_Pat:attack": 2, "mc2_07_E2_NCV1_FTs:start": 2, "mc2_07_E2_NCV1_TT1:start": 2, "mc2_07_E2_NCV1_TT2:start": 1, "mc2_07_E2_NCV1_TT3:start": 1, "mc2_07_E2_LRM:attack": 1, "mc2_07_E2_NCV1_CT1:start": 2, "mc2_07_E2_NCV1_CT2:start": 1, "mc2_07_E2_NCV1_ET1:start": 1, "mc2_07_E2_Storm:attack": 1, "mc2_07_E3_Cent1:attack": 1, "mc2_07_E1_Ved1:start": 1, "mc2_07_E1_Ved2:start": 1, "mc2_07_E3_Mix_Guards:attack": 7, "mc2_07_E2_Cata:attack": 1, "mc2_07_E3_Menshen1:attack": 1, "mc2_07_E3_Ved1:attack": 1, "mc2_07_E2_Lao:attack": 1, "mc2_07_E2_infantry1:attack": 8, "mc2_07_E2_infantry2:building_retreat": 7, "mc2_07_E2_infantry:start": 1, "mc2_07_E1_Fire:start": 1, "mc2_07_E1_infantry3:start": 2, "mc2_07_E3_Menshen2:attack": 1, "mc2_07_E1_NCV1_Minelayer1:start": 1, "mc2_07_E1_NCV1_Minelayer2:start": 1, "PBrain:": 3 }
+enemy pilots that moved >20 m: 42 / 55
+
+--- stderr ---
+WARNING: 458 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

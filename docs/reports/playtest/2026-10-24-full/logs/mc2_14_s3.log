@@ -1,0 +1,217 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_14
+force: campaign 1 units 75 t of 75 t, RP 0: Lao Hu Prime(pmwsteel)
+ABL pilots: 36
+t=  43.2  CAPTURED LaoHu MeetHall
+t=  43.2  objective done: Contact the Liao Operative
+t= 121.8  CAPTURED LaoHu S_TurretControl
+t= 140.2  CAPTURED LaoHu S_TurretControl
+t= 152.2  CAPTURED LaoHu S_SensorControl
+t= 152.2  objective done: Capture Airport Sensor Control
+t= 163.9  CAPTURED LaoHu S_TurretControl
+t= 182.1  CAPTURED LaoHu RepairBay
+t= 184.4  BAY LaoHu -> RepairBay (36 m)
+t= 196.1  REPAIR_DONE LaoHu RepairBay
+t= 255.7  AVOID 1 patrol units (nearest Hunchback at 271 m, avoided 3 s, speed 12.0, in arcs true/true)
+t= 258.7  JUMP LaoHu to capture S_TurretControl
+t= 267.7  JUMP LaoHu to capture S_TurretControl
+t= 273.7  JUMP LaoHu to capture S_TurretControl
+t= 276.8  CAPTURED LaoHu S_TurretControl
+t= 288.7  AVOID 1 patrol units (nearest Hunchback at 181 m, avoided 21 s, speed 12.0, in arcs true/true)
+t= 312.7  LURE 2 to our turrets at (621, 156) (dps 6 vs 5, health 59%)
+t= 315.7  FALLBACK 2 threats (dps 9 vs 5, health 57%) to (654, 72)
+t= 339.7  BAY LaoHu -> RepairBay (1249 m)
+t= 389.3  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Vedette)
+t= 429.5  REPAIR_DONE LaoHu RepairBay
+t= 515.3  CAPTURED LaoHu S_TurretControl
+t= 526.2  CAPTURED LaoHu S_TurretControl
+t= 536.6  CAPTURED LaoHu RepairBay
+t= 548.6  objective done: Destroy Orbital Gun Alpha
+t= 582.7  AVOID 2 patrol units (nearest Harasser at 229 m, avoided 3 s, speed 0.0, in arcs false/false)
+t= 603.7  AVOID 2 patrol units (nearest Harasser at 268 m, avoided 15 s, speed 9.0, in arcs false/false)
+t= 627.7  AVOID 2 patrol units (nearest Harasser at 292 m, avoided 30 s, speed 9.0, in arcs false/false)
+t= 651.7  AVOID 2 patrol units (nearest Harasser at 301 m, avoided 45 s, speed 0.0, in arcs false/false)
+t= 675.7  AVOID 2 patrol units (nearest Harasser at 313 m, avoided 57 s, speed 0.0, in arcs false/false)
+t= 717.0  objective done: Destroy Mobile Orbital Gun Omega
+t= 822.7  AVOID 1 patrol units (nearest Lrmcarrier at 289 m, avoided 3 s, speed 9.0, in arcs true/true)
+t= 852.7  JUMP LaoHu to capture S_TurretControl
+t= 855.8  CAPTURED LaoHu S_TurretControl
+t= 869.9  CAPTURED LaoHu S_TurretControl
+t= 876.7  AVOID 2 patrol units (nearest Hollander at 308 m, avoided 3 s, speed 12.0, in arcs false/true)
+t= 906.7  BAY LaoHu -> RepairBay (866 m)
+t= 912.7  BAY LaoHu -> RepairBay (871 m)
+t= 924.7  AVOID 2 patrol units (nearest Hollander at 303 m, avoided 9 s, speed 12.0, in arcs false/true)
+t= 927.7  BAY LaoHu -> RepairBay (944 m)
+t=1009.5  REPAIR_DONE LaoHu RepairBay
+t=1107.5  CAPTURED LaoHu S_TurretControl
+t=1175.6  JUMP LaoHu to capture S_TurretControl
+t=1178.8  CAPTURED LaoHu S_TurretControl
+t=1198.1  objective done: Destroy Orbital Gun Beta
+t=1231.4  AVOID 2 patrol units (nearest Hollander at 266 m, avoided 15 s, speed 12.0, in arcs false/true)
+t=1253.1  AVOID 1 patrol units (nearest Hollander at 286 m, avoided 30 s, speed 12.0, in arcs false/true)
+t=1277.9  AVOID 1 patrol units (nearest Hollander at 288 m, avoided 42 s, speed 0.0, in arcs false/true)
+t=1299.6  AVOID 1 patrol units (nearest Hollander at 304 m, avoided 45 s, speed 12.0, in arcs false/true)
+t=1324.4  AVOID 2 patrol units (nearest Hollander at 262 m, avoided 57 s, speed 12.0, in arcs false/true)
+t=1346.1  AVOID 1 patrol units (nearest Hollander at 269 m, avoided 66 s, speed 12.0, in arcs false/true)
+t=1374.0  AVOID 1 patrol units (nearest Hollander at 251 m, avoided 81 s, speed 12.0, in arcs false/true)
+t=1398.8  AVOID 2 patrol units (nearest Hollander at 273 m, avoided 87 s, speed 12.0, in arcs false/true)
+t=1423.6  AVOID 2 patrol units (nearest Hollander at 257 m, avoided 99 s, speed 12.0, in arcs false/true)
+t=1445.3  AVOID 1 patrol units (nearest Hollander at 244 m, avoided 108 s, speed 12.0, in arcs false/true)
+t=1470.1  AVOID 1 patrol units (nearest Hollander at 306 m, avoided 123 s, speed 12.0, in arcs false/true)
+t=1494.9  AVOID 1 patrol units (nearest Hunter at 305 m, avoided 27 s, speed 0.0, in arcs false/true)
+t=1519.7  AVOID 1 patrol units (nearest Hollander at 302 m, avoided 141 s, speed 12.0, in arcs false/true)
+t=1544.5  AVOID 1 patrol units (nearest Hollander at 252 m, avoided 150 s, speed 12.0, in arcs false/true)
+t=1566.2  AVOID 1 patrol units (nearest Hollander at 273 m, avoided 162 s, speed 12.0, in arcs false/true)
+t=1587.9  AVOID 1 patrol units (nearest Hunter at 308 m, avoided 30 s, speed 9.0, in arcs false/true)
+t=1612.7  AVOID 1 patrol units (nearest Hollander at 291 m, avoided 177 s, speed 0.0, in arcs false/true)
+t=1637.5  AVOID 2 patrol units (nearest Hollander at 282 m, avoided 186 s, speed 0.0, in arcs false/true)
+t=1659.2  AVOID 1 patrol units (nearest Hollander at 316 m, avoided 204 s, speed 12.0, in arcs false/true)
+t=1680.9  AVOID 1 patrol units (nearest Hollander at 311 m, avoided 213 s, speed 12.0, in arcs false/true)
+t=1702.6  AVOID 1 patrol units (nearest Hollander at 307 m, avoided 225 s, speed 12.0, in arcs false/true)
+t=1736.7  AVOID 2 patrol units (nearest Hollander at 260 m, avoided 240 s, speed 0.0, in arcs false/true)
+t=1758.4  LURE 5 to our turrets at (-755, -311) (dps 8 vs 5, health 75%)
+t=1783.2  LURE 4 to our turrets at (-755, -311) (dps 6 vs 5, health 74%)
+t=1808.0  LURE 4 to our turrets at (-755, -311) (dps 6 vs 4, health 66%)
+t=1829.7  LURE 4 to our turrets at (-755, -311) (dps 7 vs 4, health 63%)
+t=1854.5  LURE 3 to our turrets at (-755, -311) (dps 4 vs 3, health 57%)
+t=1879.3  LURE 3 to our turrets at (-755, -311) (dps 6 vs 3, health 48%)
+t=1904.1  BAY LaoHu -> RepairBay (1066 m)
+t=1973.7  REPAIR_DONE LaoHu RepairBay
+t=1973.8  LOST RepairBay (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by -)
+t=1975.4  BAY LaoHu -> RepairBay (1599 m)
+t=1990.9  LURE 2 to our turrets at (135, -654) (dps 5 vs 3, health 47%)
+t=2003.3  BAY LaoHu -> RepairBay (1247 m)
+t=2086.2  REPAIR_DONE LaoHu RepairBay
+t=2152.1  AVOID 2 patrol units (nearest Attack Copter at 246 m, avoided 3 s, speed 12.0, in arcs false/false)
+t=2173.8  AVOID 2 patrol units (nearest Attack Copter at 291 m, avoided 18 s, speed 12.0, in arcs false/false)
+t=2201.7  AVOID 2 patrol units (nearest Attack Copter at 269 m, avoided 27 s, speed 0.0, in arcs false/false)
+t=2223.4  AVOID 2 patrol units (nearest Attack Copter at 313 m, avoided 42 s, speed 0.0, in arcs false/false)
+t=2257.5  AVOID 2 patrol units (nearest Attack Copter at 275 m, avoided 54 s, speed 0.0, in arcs false/false)
+t=2282.3  AVOID 2 patrol units (nearest Attack Copter at 273 m, avoided 69 s, speed 12.0, in arcs false/false)
+t=2307.1  AVOID 2 patrol units (nearest Attack Copter at 318 m, avoided 81 s, speed 12.0, in arcs false/false)
+t=2331.9  AVOID 2 patrol units (nearest Attack Copter at 254 m, avoided 96 s, speed 12.0, in arcs false/false)
+t=2353.6  AVOID 2 patrol units (nearest Attack Copter at 284 m, avoided 108 s, speed 0.0, in arcs false/false)
+t=2375.3  AVOID 2 patrol units (nearest Attack Copter at 313 m, avoided 117 s, speed 12.0, in arcs false/false)
+t=2400.1  AVOID 2 patrol units (nearest Attack Copter at 304 m, avoided 132 s, speed 12.0, in arcs false/false)
+t=2428.0  AVOID 2 patrol units (nearest Attack Copter at 304 m, avoided 141 s, speed 0.0, in arcs false/false)
+t=2452.8  AVOID 2 patrol units (nearest Attack Copter at 284 m, avoided 156 s, speed 12.0, in arcs false/false)
+t=2474.5  AVOID 2 patrol units (nearest Attack Copter at 296 m, avoided 165 s, speed 12.0, in arcs false/false)
+t=2499.3  AVOID 2 patrol units (nearest Attack Copter at 254 m, avoided 177 s, speed 12.0, in arcs false/false)
+t=2521.0  AVOID 2 patrol units (nearest Attack Copter at 294 m, avoided 189 s, speed 0.0, in arcs false/false)
+t=2545.8  AVOID 2 patrol units (nearest Attack Copter at 271 m, avoided 198 s, speed 12.0, in arcs false/false)
+t=2570.6  AVOID 2 patrol units (nearest Attack Copter at 288 m, avoided 213 s, speed 12.0, in arcs false/false)
+t=2598.5  AVOID 2 patrol units (nearest Attack Copter at 251 m, avoided 222 s, speed 12.0, in arcs false/false)
+t=2620.2  AVOID 2 patrol units (nearest Attack Copter at 278 m, avoided 237 s, speed 12.0, in arcs false/false)
+t=2651.2  AVOID 2 patrol units (nearest Attack Copter at 315 m, avoided 249 s, speed 0.0, in arcs false/false)
+t=2676.0  AVOID 2 patrol units (nearest Attack Copter at 280 m, avoided 264 s, speed 12.0, in arcs false/false)
+t=2707.0  AVOID 2 patrol units (nearest Attack Copter at 315 m, avoided 276 s, speed 0.0, in arcs false/false)
+t=2731.8  AVOID 2 patrol units (nearest Attack Copter at 281 m, avoided 291 s, speed 12.0, in arcs false/false)
+t=2759.7  AVOID 2 patrol units (nearest Attack Copter at 317 m, avoided 303 s, speed 12.0, in arcs false/false)
+t=2781.4  AVOID 2 patrol units (nearest Attack Copter at 304 m, avoided 315 s, speed 12.0, in arcs false/false)
+t=2809.3  AVOID 2 patrol units (nearest Attack Copter at 289 m, avoided 327 s, speed 12.0, in arcs false/false)
+t=2831.0  AVOID 2 patrol units (nearest Attack Copter at 245 m, avoided 336 s, speed 12.0, in arcs false/false)
+t=2855.8  AVOID 2 patrol units (nearest Attack Copter at 309 m, avoided 351 s, speed 12.0, in arcs false/false)
+t=2877.5  AVOID 2 patrol units (nearest Attack Copter at 270 m, avoided 357 s, speed 0.0, in arcs false/false)
+t=2899.2  AVOID 2 patrol units (nearest Attack Copter at 313 m, avoided 372 s, speed 0.0, in arcs false/false)
+t=2933.3  AVOID 2 patrol units (nearest Attack Copter at 268 m, avoided 384 s, speed 0.0, in arcs false/false)
+t=2955.0  AVOID 2 patrol units (nearest Attack Copter at 311 m, avoided 399 s, speed 0.0, in arcs false/false)
+t=2989.1  AVOID 2 patrol units (nearest Attack Copter at 271 m, avoided 411 s, speed 0.0, in arcs false/false)
+t=3010.8  AVOID 2 patrol units (nearest Attack Copter at 312 m, avoided 426 s, speed 0.0, in arcs false/false)
+t=3044.9  AVOID 2 patrol units (nearest Attack Copter at 275 m, avoided 438 s, speed 0.0, in arcs false/false)
+t=3069.7  AVOID 2 patrol units (nearest Attack Copter at 273 m, avoided 453 s, speed 12.0, in arcs false/false)
+t=3094.5  AVOID 2 patrol units (nearest Attack Copter at 317 m, avoided 465 s, speed 12.0, in arcs false/false)
+t=3119.3  AVOID 2 patrol units (nearest Attack Copter at 249 m, avoided 477 s, speed 12.0, in arcs false/false)
+t=3141.0  AVOID 2 patrol units (nearest Attack Copter at 302 m, avoided 489 s, speed 0.0, in arcs false/false)
+t=3162.7  AVOID 2 patrol units (nearest Attack Copter at 237 m, avoided 495 s, speed 12.0, in arcs false/false)
+t=3184.4  AVOID 2 patrol units (nearest Attack Copter at 296 m, avoided 510 s, speed 12.0, in arcs false/false)
+t=3209.2  AVOID 2 patrol units (nearest Attack Copter at 294 m, avoided 519 s, speed 12.0, in arcs false/false)
+t=3230.9  AVOID 2 patrol units (nearest Attack Copter at 291 m, avoided 531 s, speed 12.0, in arcs false/false)
+t=3255.7  AVOID 2 patrol units (nearest Attack Copter at 281 m, avoided 543 s, speed 12.0, in arcs false/false)
+t=3277.4  AVOID 2 patrol units (nearest Attack Copter at 288 m, avoided 552 s, speed 12.0, in arcs false/false)
+t=3299.1  AVOID 2 patrol units (nearest Attack Copter at 264 m, avoided 564 s, speed 12.0, in arcs false/false)
+t=3320.8  AVOID 2 patrol units (nearest Attack Copter at 304 m, avoided 573 s, speed 12.0, in arcs false/false)
+t=3342.5  AVOID 2 patrol units (nearest Attack Copter at 290 m, avoided 585 s, speed 12.0, in arcs false/false)
+t=3367.3  AVOID 2 patrol units (nearest Attack Copter at 272 m, avoided 597 s, speed 7.4, in arcs false/false)
+t=3389.0  AVOID 2 patrol units (nearest Attack Copter at 297 m, avoided 606 s, speed 12.0, in arcs false/false)
+t=3410.7  AVOID 2 patrol units (nearest Attack Copter at 266 m, avoided 618 s, speed 12.0, in arcs false/false)
+t=3432.4  AVOID 2 patrol units (nearest Attack Copter at 294 m, avoided 627 s, speed 12.0, in arcs false/false)
+t=3454.1  AVOID 2 patrol units (nearest Attack Copter at 297 m, avoided 639 s, speed 12.0, in arcs false/false)
+t=3478.9  AVOID 2 patrol units (nearest Attack Copter at 271 m, avoided 651 s, speed 0.0, in arcs false/false)
+t=3500.6  AVOID 2 patrol units (nearest Attack Copter at 233 m, avoided 657 s, speed 12.0, in arcs false/false)
+t=3522.3  AVOID 2 patrol units (nearest Attack Copter at 295 m, avoided 672 s, speed 12.0, in arcs false/false)
+t=3547.1  AVOID 2 patrol units (nearest Attack Copter at 298 m, avoided 681 s, speed 12.0, in arcs false/false)
+t=3568.8  AVOID 2 patrol units (nearest Attack Copter at 267 m, avoided 693 s, speed 12.0, in arcs false/false)
+t=3590.5  AVOID 2 patrol units (nearest Attack Copter at 302 m, avoided 705 s, speed 0.0, in arcs false/false)
+t=3612.2  AVOID 2 patrol units (nearest Attack Copter at 280 m, avoided 711 s, speed 12.0, in arcs false/false)
+t=3637.0  AVOID 2 patrol units (nearest Attack Copter at 271 m, avoided 726 s, speed 12.0, in arcs false/false)
+t=3658.7  AVOID 2 patrol units (nearest Attack Copter at 308 m, avoided 735 s, speed 12.0, in arcs false/false)
+t=3680.4  AVOID 2 patrol units (nearest Attack Copter at 287 m, avoided 747 s, speed 12.0, in arcs false/false)
+t=3705.2  AVOID 2 patrol units (nearest Attack Copter at 276 m, avoided 759 s, speed 12.0, in arcs false/false)
+t=3726.9  AVOID 2 patrol units (nearest Attack Copter at 293 m, avoided 768 s, speed 12.0, in arcs false/false)
+t=3748.6  AVOID 2 patrol units (nearest Attack Copter at 265 m, avoided 780 s, speed 12.0, in arcs false/false)
+t=3770.3  AVOID 2 patrol units (nearest Attack Copter at 298 m, avoided 789 s, speed 12.0, in arcs false/false)
+t=3792.0  AVOID 2 patrol units (nearest Attack Copter at 294 m, avoided 801 s, speed 12.0, in arcs false/false)
+t=3816.8  AVOID 2 patrol units (nearest Attack Copter at 271 m, avoided 813 s, speed 0.0, in arcs false/false)
+t=3838.5  AVOID 2 patrol units (nearest Attack Copter at 301 m, avoided 822 s, speed 12.0, in arcs false/false)
+t=3860.2  AVOID 2 patrol units (nearest Attack Copter at 267 m, avoided 834 s, speed 12.0, in arcs false/false)
+t=3881.9  AVOID 2 patrol units (nearest Attack Copter at 313 m, avoided 843 s, speed 12.0, in arcs false/false)
+t=3906.7  AVOID 2 patrol units (nearest Attack Copter at 264 m, avoided 855 s, speed 12.0, in arcs false/false)
+t=3928.4  AVOID 2 patrol units (nearest Attack Copter at 302 m, avoided 867 s, speed 0.0, in arcs false/false)
+t=3950.1  AVOID 2 patrol units (nearest Attack Copter at 238 m, avoided 873 s, speed 12.0, in arcs false/false)
+t=3971.8  AVOID 2 patrol units (nearest Attack Copter at 297 m, avoided 888 s, speed 12.0, in arcs false/false)
+t=3996.6  AVOID 2 patrol units (nearest Attack Copter at 293 m, avoided 897 s, speed 12.0, in arcs false/false)
+t=4018.3  AVOID 2 patrol units (nearest Attack Copter at 292 m, avoided 909 s, speed 12.0, in arcs false/false)
+t=4043.1  AVOID 2 patrol units (nearest Attack Copter at 280 m, avoided 921 s, speed 12.0, in arcs false/false)
+t=4064.8  AVOID 2 patrol units (nearest Attack Copter at 289 m, avoided 930 s, speed 12.0, in arcs false/false)
+t=4086.5  AVOID 2 patrol units (nearest Attack Copter at 264 m, avoided 942 s, speed 12.0, in arcs false/false)
+t=4107.8  AVOID 2 patrol units (nearest Attack Copter at 309 m, avoided 951 s, speed 12.0, in arcs false/false)
+t=4128.8  AVOID 2 patrol units (nearest Attack Copter at 299 m, avoided 963 s, speed 12.0, in arcs false/false)
+t=4152.8  AVOID 2 patrol units (nearest Attack Copter at 294 m, avoided 975 s, speed 0.0, in arcs false/false)
+t=4176.8  AVOID 2 patrol units (nearest Attack Copter at 269 m, avoided 984 s, speed 12.0, in arcs false/false)
+t=4200.8  AVOID 2 patrol units (nearest Attack Copter at 282 m, avoided 999 s, speed 12.0, in arcs false/false)
+t=4224.8  AVOID 2 patrol units (nearest Attack Copter at 312 m, avoided 1008 s, speed 0.0, in arcs false/false)
+t=4248.8  AVOID 2 patrol units (nearest Attack Copter at 305 m, avoided 1023 s, speed 0.0, in arcs false/false)
+t=4275.8  AVOID 2 patrol units (nearest Attack Copter at 310 m, avoided 1035 s, speed 12.0, in arcs false/false)
+t=4296.8  AVOID 2 patrol units (nearest Attack Copter at 304 m, avoided 1050 s, speed 12.0, in arcs false/false)
+t=4320.8  AVOID 2 patrol units (nearest Attack Copter at 277 m, avoided 1062 s, speed 0.0, in arcs false/false)
+t=4344.8  AVOID 2 patrol units (nearest Attack Copter at 267 m, avoided 1071 s, speed 12.0, in arcs false/false)
+t=4368.8  AVOID 2 patrol units (nearest Attack Copter at 266 m, avoided 1086 s, speed 12.0, in arcs false/false)
+t=4389.8  AVOID 2 patrol units (nearest Attack Copter at 306 m, avoided 1095 s, speed 12.0, in arcs false/false)
+t=4410.8  AVOID 2 patrol units (nearest Attack Copter at 286 m, avoided 1107 s, speed 12.0, in arcs false/false)
+t=4434.8  AVOID 2 patrol units (nearest Attack Copter at 262 m, avoided 1119 s, speed 0.0, in arcs false/false)
+t=4455.8  AVOID 2 patrol units (nearest Attack Copter at 307 m, avoided 1128 s, speed 12.0, in arcs false/false)
+t=4479.8  AVOID 2 patrol units (nearest Attack Copter at 311 m, avoided 1143 s, speed 12.0, in arcs false/false)
+seed 3 end t=4500 result=PLAYING  player alive 1  enemies alive 2
+damage to lance: 588 from 37 attackers; hits by location (0 head .. 10 rear RT): { 1: 20, 5: 16, 2: 16, 3: 19, 6: 20, 4: 19, 7: 16, 0: 11, 10: 5, 8: 3, 9: 5 }
+damage by lance: 1560; kills 33
+       222  MediumAutoCannonTurret (vehicle)
+        78  Hunchback (mech)
+        70  Hollander (mech)
+        61  Werewolf (mech)
+        54  SRMTurret (vehicle)
+        48  Hunter (vehicle)
+        24  Vedette (vehicle)
+        16  LaoHu (mech)
+         8  Harasser (vehicle)
+         4  Monsoon (vehicle)
+  obj 0 P: done  Contact the Liao Operative
+  obj 1 P: done  Destroy Orbital Gun Alpha
+  obj 2 P: done  Destroy Orbital Gun Beta
+  obj 3 P: open  Destroy Orbital Gun Gamma
+  obj 4 P: done  Destroy Mobile Orbital Gun Omega
+  obj 5 P: gated  Move to the Extraction Point
+  obj 6 s: done  Capture Airport Sensor Control
+  obj 7 s: open  Destroy Fuel Supplies at Resupply Depot
+  obj 8 s: open  Capture Communications Array
+  obj 9 s: open  Destroy all Enemy Units
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_14_patrol8:attack": 1, "mc2_14_patrol1:attack": 1, "mc2_14_patrol2:attack": 2, "mc2_14_static1:attack": 10, "mc2_14_patrol3:attack": 1, "mc2_14_patrol4:attack": 2, "mc2_14_patrol5:attack": 2, "mc2_14_patrol6:attack": 1, "mc2_14_patrol7:attack": 1, "mc2_14_patrol15:attack": 2, "mc2_14_patrol16:attack": 2, "mc2_14_patrol9:attack": 1, "mc2_14_MOG_patrol:start": 1, "mc2_14_patrol10:start": 2, "mc2_14_patrol11:start": 2, "mc2_14_patrol12:attack": 2, "mc2_14_patrol13:start": 1, "mc2_14_patrol14:attack": 1, "PBrain:": 1 }
+enemy pilots that moved >20 m: 36 / 36
+
+--- stderr ---
+WARNING: 913 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,63 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_16
+force: campaign 5 units 320 t of 320 t, RP 16000: Lao Hu Prime(pmwsteel), Lao Hu Prime(pmwclaymore), Shootist Prime(pmwworm), Catapult Prime(pmwmeat), Raven Prime(pmwpalerider)
+ABL pilots: 51
+t=   6.2  SUPPORT air_strike (-875, -610) rp_left=9000
+t=  22.4  CAPTURED LaoHu DavionSensorControl.fit
+t=  22.4  objective done: 1. Capture Sensor Control
+t=  46.6  CAPTURED Raven DavionTurretControl.fit
+t=  50.5  CAPTURED Raven RepairBay
+t= 108.7  CAPTURED Raven DavionTurretControl.fit
+t= 166.3  LOST Raven (disabled, armour 28%, heat 0, ejected false, pilot 0.0 wounds, last hit by Centipede)
+t= 208.1  objective done: 2. Destroy All Base Defenders
+t= 209.2  SUPPORT repair_truck (-841, 839) rp_left=3000
+t= 224.6  CAPTURED LaoHu DavionTurretControl.fit
+t= 269.8  REPAIR_DONE Catapult 
+t= 275.9  CAPTURED LaoHu DavionTurretControl.fit
+t= 293.3  CAPTURED Shootist DavionTurretControl.fit
+t= 293.3  objective done: a. Capture All Main Base Davion Turret Controls
+t= 303.0  CAPTURED LaoHu RepairBay
+t= 450.7  PULLBACK Shootist at 29%
+t= 456.7  BAY Shootist -> RepairBay (881 m)
+t= 480.0  REPAIR_DONE LaoHu 
+t= 483.2  CAPTURED Catapult DavionTurretControl.fit
+t= 563.7  REPAIR_DONE Shootist 
+t= 648.9  REPAIR_DONE Catapult 
+t= 669.0  REPAIR_DONE LaoHu 
+t= 674.8  REPAIR_DONE LaoHu 
+t= 717.3  objective done: 3. Destroy All Reinforcements
+t= 772.3  CAPTURED LaoHu DavionHQ.fit
+t= 772.3  objective done: 4. Capture Davion Base HQ
+t= 801.5  objective done: 5. Move All Surviving Mechs to Extraction Point
+t= 806.5  MISSION WON
+seed 2 end t=807 result=WON  player alive 5  enemies alive 0
+damage to lance: 710 from 44 attackers; hits by location (0 head .. 10 rear RT): { 2: 31, 4: 31, 3: 30, 6: 33, 5: 30, 10: 4, 1: 31, 7: 28, 8: 3, 0: 4 }
+damage by lance: 2289; kills 42
+       138  MediumAutoCannonTurret (vehicle)
+       103  Vulture (mech)
+        72  ShadowCat (mech)
+        72  Lrmcarrier (vehicle)
+        58  Madcat (mech)
+        56  Wolfhound (mech)
+        32  Drillson (vehicle)
+        28  Jagermech (mech)
+        28  Centipede (vehicle)
+        20  Harasser (vehicle)
+  obj 0 P: done  1. Capture Sensor Control
+  obj 1 P: done  2. Destroy All Base Defenders
+  obj 2 P: done  3. Destroy All Reinforcements
+  obj 3 P: done  4. Capture Davion Base HQ
+  obj 4 P: done  5. Move All Surviving Mechs to Extraction Point
+  obj 5 s: done  a. Capture All Main Base Davion Turret Controls
+  obj 6 s: open  b. Capture All Main Base Davion Gate Controls
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_16_NorthPatrol:attack": 1, "mc2_16_SensorGuard:attack": 2, "mc2_16_SensorPatrol:attack": 2, "mc2_16_1stMain:attack": 3, "mc2_16_BaseGuard:attack": 8, "mc2_16_BasePatrol2:attack": 2, "mc2_16_1stMain_lrm:attack": 1, "mc2_16_BaseGuard_lrm:attack": 1, "mc2_16_2ndMain_part:attack": 1, "mc2_16_2ndMain2:base1patrol": 2, "mc2_16_2ndMain:attack": 1, "mc2_16_3rdMain:attack": 3, "mc2_16_3rdMain_lrm:attack": 1, "mc2_16_BasePatrol3:attack": 1, "mc2_16_1stEast2:base1patrol": 2, "mc2_16_1stEast:attack": 3, "mc2_16_2ndEast:attack": 1, "mc2_16_2ndEast2:base1patrol": 3, "mc2_16_3rdEast:attack": 2, "mc2_16_3rdEast2:base1patrol": 1, "mc2_16_4thMain:attack": 2, "mc2_16_BaseGuard2:attack": 1, "mc2_16_BaseGuard3_lrm:attack": 2, "PBrain:": 5 }
+enemy pilots that moved >20 m: 49 / 51
+
+--- stderr ---
+WARNING: 491 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

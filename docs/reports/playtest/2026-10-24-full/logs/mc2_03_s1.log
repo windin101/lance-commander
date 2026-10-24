@@ -1,0 +1,62 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_03
+force: campaign 3 units 190 t of 190 t, RP 16000: Shootist Prime(pmwmeat), Shootist Prime(pmwworm), Hunchback Prime(pmwpalerider)
+ABL pilots: 37
+t=  68.1  SUPPORT artillery_piece (-352, -605) rp_left=8000
+t=  96.0  BOMB Shootist shoots PipeTank under ["Flea"]
+t=  98.7  objective done: 1. Destroy Turret Generators at Checkpoint
+t=  98.8  TURRET_DOWN MediumAutoCannonTurret 
+t=  98.8  TURRET_DOWN MediumAutoCannonTurret 
+t=  98.9  TURRET_DOWN MediumAutoCannonTurret 
+t=  98.9  TURRET_DOWN MediumAutoCannonTurret 
+t=  98.9  TURRET_DOWN MediumAutoCannonTurret 
+t=  99.1  BOMB Shootist shoots FuelTruckProp under ["Urbanmech", "Flea"]
+t= 120.5  objective done: 2. Destroy Enemies at Checkpoint
+t= 120.8  SUPPORT repair_truck (-298, -116) rp_left=2000
+t= 141.2  REPAIR_DONE Hunchback 
+t= 160.0  REPAIR_DONE Shootist 
+t= 172.8  CAPTURED Hunchback OrdnanceTruckProp
+t= 173.6  CAPTURED Hunchback OrdnanceTruckProp
+t= 176.6  SUPPORT salvage_craft Flea rp_left=0
+t= 177.5  REPAIR_DONE Shootist 
+t= 200.7  REPAIR_DONE Flea 
+t= 238.7  CAPTURED Shootist Mobilehq
+t= 238.7  objective done: 3. Capture HQ Vehicle
+t= 356.1  PULLBACK Flea at 23%
+t= 357.6  LOST Flea (destroyed, armour 10%, heat 0, ejected false, pilot 1.0 wounds, last hit by Flea)
+t= 390.9  CAPTURED Hunchback BTurretControl.fit
+t= 400.4  CAPTURED Shootist WeaponsFacility
+t= 400.4  objective done: 4. Capture Weapon Facility
+t= 419.6  REPAIR_DONE Shootist 
+t= 509.4  REPAIR_DONE Hunchback 
+t= 509.5  LOST Repairtruck (disabled, armour 100%, heat 0, ejected false, pilot 0.0 wounds, last hit by -)
+t= 528.0  objective done: 5. Defeat Bandit Counterattack
+t= 533.0  MISSION WON
+seed 1 end t=533 result=WON  player alive 5  enemies alive 2
+damage to lance: 714 from 32 attackers; hits by location (0 head .. 10 rear RT): { 5: 30, 1: 29, 2: 28, 6: 35, 3: 38, 8: 9, 9: 7, 10: 8, 7: 35, 4: 17, 0: 5 }
+damage by lance: 1244; kills 30
+       250  Explosion (blast)
+       122  Flea (mech)
+       106  SRMTurret (vehicle)
+        76  Starslayer (mech)
+        64  Urbanmech (mech)
+        30  Vedette (vehicle)
+        24  MediumAutoCannonTurret (vehicle)
+        24  Lrmcarrier (vehicle)
+        18  Harasser (vehicle)
+  obj 0 P: done  1. Destroy Turret Generators at Checkpoint
+  obj 1 P: done  2. Destroy Enemies at Checkpoint
+  obj 2 P: done  3. Capture HQ Vehicle
+  obj 3 P: done  4. Capture Weapon Facility
+  obj 4 P: done  5. Defeat Bandit Counterattack
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_03_dred:attack": 2, "pbrain:attack": 1, "mc2_03_dred1:attack": 1, "mc2_03_turretguard:attack": 2, "mc2_03_dred2:attack": 1, "mc2_03_CNVhq:base1patrol": 1, "mc2_03_Cnv_grd_01:base1escort": 2, "mc2_03_Cnv_grd_02:base1escort": 2, "mc2_03_CNV:base1patrol": 1, "mc2_03_CNV_RT:base1patrol": 1, "mc2_03_CNV_FT:base1patrol": 1, "mc2_03_patrol_01:attack": 1, "mc2_03_BaseG_Shutdown:attack": 2, "mc2_03_weapfacgrd:attack": 1, "mc2_03_patrol_02:attack": 1, "mc2_03_patrol_03:attack": 1, "mc2_03_patrol_04:attack": 1, "mc2_03_Reinf_G1_2:attack": 2, "mc2_03_Reinf_G1_1:attack": 2, "mc2_03_Reinf_G2_1:attack": 2, "mc2_03_Reinf_G2_2:attack": 2, "mc2_03_Reinf_G1_3:attack": 2, "mc2_03_powered_armor:start": 1, "mc2_03_RP_trucks:start": 1, "PBrain:": 3, "pbrain:": 1 }
+enemy pilots that moved >20 m: 32 / 38
+
+--- stderr ---
+WARNING: 420 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
