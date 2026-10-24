@@ -1,0 +1,226 @@
+{
+ "_doc": "v3 settings for the cyclops (tools/art/v3/v3_mech.py), fit and labels from the v2 work on the same sculpt.",
+ "name": "cyclops",
+ "folder": "mechs",
+ "stl": "/home/leeo/craft/solid/mc2/stl/cyclops/cp-10-z4.stl",
+ "source": {
+  "title": "CP-10-Z Cyclops for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863895",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "cp-10-z4.stl"
+ },
+ "k": 223.608032044205,
+ "base_glb": "game/assets/mechs/cyclops.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/cyclops",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 40000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 3143,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "cy_lfoot": 1.0,
+   "cy_rgun": 0.95,
+   "cy_llleg": 1.0,
+   "cy_ruarm": 0.95,
+   "cy_lankle": 1.0,
+   "cy_lgun": 0.95,
+   "cy_rfoot": 1.0,
+   "cy_rankle": 1.0,
+   "cy_rlleg": 1.0,
+   "cy_luarm": 0.95
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "part_region": {
+  "cy_lfoot": "feet",
+  "cy_rgun": "arms",
+  "cy_llleg": "lower_legs",
+  "cy_luleg": "upper_legs",
+  "cy_ruarm": "arms",
+  "cy_lankle": "lower_legs",
+  "cy_lgun": "arms",
+  "cy_rfoot": "feet",
+  "cy_torso": "body",
+  "cy_rankle": "lower_legs",
+  "cy_rlleg": "lower_legs",
+  "cy_luarm": "arms",
+  "cy_hip": "body",
+  "cy_ruleg": "upper_legs",
+  "joint_cy_head": "body"
+ },
+ "feet": [
+  "cy_lfoot",
+  "cy_rfoot"
+ ],
+ "joints": {
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 566,
+   "half": 736
+  },
+  "joint_rgun": {
+   "kind": "sphere",
+   "r": 622
+  },
+  "joint_lmleg": {
+   "kind": "cyl",
+   "r": 566,
+   "half": 736
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 622
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 622
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 566,
+   "half": 736
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 622
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 566,
+   "half": 736
+  },
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 880
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 566,
+   "half": 736
+  },
+  "joint_rmleg": {
+   "kind": "cyl",
+   "r": 566,
+   "half": 736
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 622
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 622
+  },
+  "joint_cy_head": {
+   "kind": "sphere",
+   "r": 622
+  }
+ },
+ "weapons": [
+  {
+   "name": "autocannon, right chest",
+   "parts": [
+    "cy_torso"
+   ],
+   "volume": {
+    "min": [
+     -2250,
+     -4000,
+     7050
+    ],
+    "max": [
+     -750,
+     600,
+     10300
+    ]
+   }
+  },
+  {
+   "name": "LRM grid, left chest",
+   "parts": [
+    "cy_torso"
+   ],
+   "volume": {
+    "min": [
+     950,
+     -4000,
+     7600
+    ],
+    "max": [
+     2050,
+     600,
+     9450
+    ]
+   }
+  },
+  {
+   "name": "SRM-4, centre chest",
+   "parts": [
+    "cy_torso"
+   ],
+   "volume": {
+    "min": [
+     -500,
+     -4000,
+     7050
+    ],
+    "max": [
+     600,
+     0,
+     8150
+    ]
+   }
+  }
+ ],
+ "glass_outlines": [
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-cyclops/outline_sheets/sheet_front.png",
+   "view": "front"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-cyclops/outline_sheets/sheet_q34.png",
+   "view": "q34"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-cyclops/outline_sheets/sheet_side.png",
+   "view": "side"
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "model": "hunchback.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "HBK-4G Hunchback for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863925",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "hbk-4g-10.stl"
+ },
+ "tris": 46473,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Walk": 0.15,
+  "Run": 0.286,
+  "STtoWK": 0.089,
+  "WKtoST": 0.085,
+  "WKtoRN": 0.233,
+  "RNtoWK": 0.168,
+  "LimpLeft": 0.276,
+  "LimpRight": 0.135,
+  "ParkToStand": 0.391,
+  "StandToPark": 0.457,
+  "Jump": 0.338,
+  "FallForward": 1.399,
+  "FallBackward": 2.153,
+  "GetUpFront": 1.644,
+  "GetUpBack": 2.193,
+  "HitFront": 0.054,
+  "HitBack": 0.135,
+  "HitLeft": 0.052,
+  "HitRight": 0.043
+ },
+ "paint_stats": {
+  "texels": 1915819,
+  "chip_share": 0.03524028104951459,
+  "grime_mean": 0.36633986234664917,
+  "paint_share": 0.5857280880918291,
+  "glass_texels": 17736,
+  "emissive_texels": 0,
+  "piping_texels": 116703,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

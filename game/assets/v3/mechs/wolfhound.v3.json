@@ -1,0 +1,52 @@
+{
+ "model": "wolfhound.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "WFL-1-P Wolfhound for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1864059",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "wlf-1-p1.stl"
+ },
+ "tris": 41390,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Walk": 0.266,
+  "Run": 0.338,
+  "STtoWK": 0.258,
+  "WKtoST": 0.267,
+  "WKtoRN": 0.271,
+  "RNtoWK": 0.42,
+  "LimpLeft": 0.263,
+  "LimpRight": 0.266,
+  "ParkToStand": 0.71,
+  "StandToPark": 0.71,
+  "Jump": 0.183,
+  "FallForward": 1.3,
+  "FallBackward": 0.684,
+  "GetUpFront": 1.884,
+  "GetUpBack": 0.746,
+  "HitFront": 0.036,
+  "HitBack": 0.036,
+  "HitLeft": 0.046,
+  "HitRight": 0.06
+ },
+ "paint_stats": {
+  "texels": 1926633,
+  "chip_share": 0.03733975282267043,
+  "grime_mean": 0.28902310132980347,
+  "paint_share": 0.6552140443976616,
+  "glass_texels": 35197,
+  "emissive_texels": 0,
+  "piping_texels": 126917,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

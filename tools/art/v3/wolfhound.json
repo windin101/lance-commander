@@ -1,0 +1,232 @@
+{
+ "_doc": "v3 settings for the wolfhound (tools/art/v3/v3_mech.py), fit and labels from the v2 work on the same sculpt.",
+ "name": "wolfhound",
+ "folder": "mechs",
+ "stl": "/home/leeo/craft/solid/mc2/stl/wolfhound/wlf-1-p1.stl",
+ "source": {
+  "title": "WFL-1-P Wolfhound for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1864059",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "wlf-1-p1.stl"
+ },
+ "k": 230.14502935585517,
+ "base_glb": "game/assets/mechs/wolfhound.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/wolfhound",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 40000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 2229,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "wh_luarm": 0.95,
+   "wh_lfoot": 1.0,
+   "wh_lleg": 1.0,
+   "wh_rfoot": 1.0,
+   "wh_rlleg": 1.0,
+   "wh_rgun": 0.95,
+   "wh_ruarm": 0.95,
+   "wh_lgun": 0.95
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "part_region": {
+  "wh_luarm": "arms",
+  "wh_torso": "body",
+  "joint_head": "body",
+  "wh_lfoot": "feet",
+  "wh_lleg": "lower_legs",
+  "wh_luleg": "upper_legs",
+  "wh_rfoot": "feet",
+  "wh_rlleg": "lower_legs",
+  "wh_ruleg": "upper_legs",
+  "wh_hip": "body",
+  "wh_rgun": "arms",
+  "wh_ruarm": "arms",
+  "wh_lgun": "arms"
+ },
+ "feet": [
+  "wh_lfoot",
+  "wh_rfoot"
+ ],
+ "joints": {
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 441
+  },
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 624
+  },
+  "joint_head": {
+   "kind": "sphere",
+   "r": 441
+  },
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 401,
+   "half": 522
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 401,
+   "half": 522
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 441
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 401,
+   "half": 522
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 401,
+   "half": 522
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 441
+  },
+  "joint_rgun": {
+   "kind": "sphere",
+   "r": 441
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 441
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 441
+  }
+ },
+ "weapons": [
+  {
+   "name": "large laser, right arm",
+   "whole_parts": [
+    "wh_rgun"
+   ]
+  },
+  {
+   "name": "medium laser port 1",
+   "parts": [
+    "wh_torso"
+   ],
+   "volume": {
+    "min": [
+     -647,
+     -4000,
+     5576
+    ],
+    "max": [
+     -187,
+     0,
+     6036
+    ]
+   }
+  },
+  {
+   "name": "medium laser port 2",
+   "parts": [
+    "wh_torso"
+   ],
+   "volume": {
+    "min": [
+     -647,
+     -4000,
+     5030
+    ],
+    "max": [
+     -187,
+     0,
+     5490
+    ]
+   }
+  },
+  {
+   "name": "medium laser port 3",
+   "parts": [
+    "wh_torso"
+   ],
+   "volume": {
+    "min": [
+     -1276,
+     -4000,
+     5121
+    ],
+    "max": [
+     -816,
+     0,
+     5581
+    ]
+   }
+  },
+  {
+   "name": "medium laser port 4",
+   "parts": [
+    "wh_torso"
+   ],
+   "volume": {
+    "min": [
+     -3,
+     -4000,
+     5121
+    ],
+    "max": [
+     457,
+     0,
+     5581
+    ]
+   }
+  }
+ ],
+ "glass_outlines": [
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-wolfhound/outline_sheets/sheet_front.png",
+   "view": "front"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-wolfhound/outline_sheets/sheet_q34.png",
+   "view": "q34"
+  }
+ ]
+}

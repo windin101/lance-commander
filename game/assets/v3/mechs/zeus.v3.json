@@ -1,0 +1,50 @@
+{
+ "model": "zeus.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "ZEU-5T Zeus for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1864062",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "zeu-5t4.stl"
+ },
+ "tris": 53009,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.03,
+  "Walk": 0.217,
+  "Run": 0.698,
+  "WKtoRN": 0.696,
+  "RNtoWK": 0.694,
+  "LimpLeft": 0.896,
+  "LimpRight": 0.864,
+  "ParkToStand": 0.369,
+  "StandToPark": 0.363,
+  "Jump": 0.87,
+  "FallForward": 1.44,
+  "FallBackward": 0.479,
+  "GetUpFront": 1.56,
+  "GetUpBack": 1.004,
+  "HitFront": 0.287,
+  "HitLeft": 0.062,
+  "HitRight": 0.083
+ },
+ "paint_stats": {
+  "texels": 1751653,
+  "chip_share": 0.028863593417189363,
+  "grime_mean": 0.3201161026954651,
+  "paint_share": 0.6285548564698602,
+  "glass_texels": 20839,
+  "emissive_texels": 0,
+  "piping_texels": 163514,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

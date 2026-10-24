@@ -98,7 +98,8 @@ def stage_review(cfg, work):
         s.paste(r, (0, i * 500))
     s.save(R / "schemes_default_steiner_liao_davion_woodland.png")
     shutil.copy(G / "sch_player_z.png", R / "studio_close_v3.png")
-    shutil.copy(G / "v1_z.png", R / "studio_close_v1.png")
+    if (G / "v1_z.png").exists():   # no installed _hd for this chassis (the Zeus): the bay shots compare to the original
+        shutil.copy(G / "v1_z.png", R / "studio_close_v1.png")
     # clips and filmstrip
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", "12", "-i", str(G / "clip_t%03d.png"), "-c:v", "libx264",
                     "-pix_fmt", "yuv420p", "-crf", "18", str(R / "turntable.mp4")])

@@ -1,0 +1,53 @@
+{
+ "model": "raven.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "RVN-1X Raven for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863995",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "rvn-1x4.stl"
+ },
+ "tris": 36127,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.454,
+  "Walk": 0.903,
+  "Run": 1.413,
+  "STtoWK": 0.33,
+  "WKtoST": 0.411,
+  "WKtoRN": 1.038,
+  "RNtoWK": 1.195,
+  "LimpLeft": 0.628,
+  "LimpRight": 1.042,
+  "ParkToStand": 2.059,
+  "StandToPark": 2.053,
+  "Jump": 1.155,
+  "FallForward": 1.598,
+  "FallBackward": 1.265,
+  "GetUpFront": 1.546,
+  "GetUpBack": 1.215,
+  "HitFront": 0.676,
+  "HitBack": 0.601,
+  "HitLeft": 0.365,
+  "HitRight": 0.43
+ },
+ "paint_stats": {
+  "texels": 1967796,
+  "chip_share": 0.035590579511290805,
+  "grime_mean": 0.36910971999168396,
+  "paint_share": 0.5729658968714236,
+  "glass_texels": 39774,
+  "emissive_texels": 0,
+  "piping_texels": 125519,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

@@ -1,0 +1,53 @@
+{
+ "model": "flea.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "FLE-4 Flea for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863913",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "fle-4-5.stl"
+ },
+ "tris": 43118,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.099,
+  "Walk": 0.322,
+  "Run": 0.972,
+  "STtoWK": 0.322,
+  "WKtoST": 0.322,
+  "WKtoRN": 0.45,
+  "RNtoWK": 0.999,
+  "LimpLeft": 0.281,
+  "LimpRight": 0.448,
+  "ParkToStand": 1.918,
+  "StandToPark": 1.919,
+  "Jump": 0.761,
+  "FallForward": 3.302,
+  "FallBackward": 1.263,
+  "GetUpFront": 2.287,
+  "GetUpBack": 1.297,
+  "HitFront": 0.192,
+  "HitBack": 0.646,
+  "HitLeft": 0.212,
+  "HitRight": 0.308
+ },
+ "paint_stats": {
+  "texels": 1912799,
+  "chip_share": 0.02147847212383528,
+  "grime_mean": 0.3517742156982422,
+  "paint_share": 0.5812225957876389,
+  "glass_texels": 99353,
+  "emissive_texels": 0,
+  "piping_texels": 172054,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

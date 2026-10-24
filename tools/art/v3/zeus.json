@@ -1,0 +1,499 @@
+{
+ "_doc": "v3 settings for the Zeus (ZEU-5T, Syllogy). Own fit: pivots read off mm-grid views of the sculpt.",
+ "name": "zeus",
+ "folder": "mechs",
+ "stl": "~/craft/solid/mc2/stl/zeus5t/zeu-5t4.stl",
+ "source": {
+  "title": "ZEU-5T Zeus for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1864062",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "zeu-5t4.stl"
+ },
+ "k": 215.49714941374737,
+ "base_glb": "game/assets/mechs/zeus.glb",
+ "max_edge_mm": 120,
+ "pivots": {
+  "joint_root": [
+   -600,
+   1500,
+   6300
+  ],
+  "joint_hip": [
+   -600,
+   1500,
+   6300
+  ],
+  "joint_torso": [
+   -600,
+   1500,
+   7000
+  ],
+  "joint_luleg": [
+   755,
+   1730,
+   5970
+  ],
+  "joint_llleg": [
+   1140,
+   930,
+   4050
+  ],
+  "joint_lankle": [
+   1740,
+   1470,
+   1270
+  ],
+  "joint_lfoot": [
+   1740,
+   -400,
+   100
+  ],
+  "joint_ruleg": [
+   -1955,
+   1730,
+   5970
+  ],
+  "joint_rlleg": [
+   -2450,
+   900,
+   4050
+  ],
+  "joint_rankle": [
+   -2700,
+   1560,
+   1270
+  ],
+  "joint_rfoot": [
+   -2700,
+   -200,
+   100
+  ],
+  "joint_ruarm": [
+   -2700,
+   900,
+   9450
+  ],
+  "joint_rgun": [
+   -3500,
+   1000,
+   7700
+  ],
+  "joint_rhand": [
+   -3900,
+   -3300,
+   7300
+  ],
+  "joint_luarm": [
+   1900,
+   1800,
+   9300
+  ],
+  "joint_lgun": [
+   2700,
+   1800,
+   7900
+  ],
+  "joint_lhand": [
+   4300,
+   -1400,
+   7300
+  ]
+ },
+ "parts": {
+  "ze_hip": {
+   "joint": "joint_hip",
+   "pivot": "joint_hip",
+   "aim": null
+  },
+  "ze_torso": {
+   "joint": "joint_torso",
+   "pivot": "joint_torso",
+   "aim": null,
+   "parent": "ze_hip"
+  },
+  "ze_ruarm": {
+   "joint": "joint_ruarm",
+   "pivot": "joint_ruarm",
+   "aim": null,
+   "parent": "ze_torso"
+  },
+  "ze_rgun": {
+   "joint": "joint_rgun",
+   "pivot": "joint_rgun",
+   "aim": null,
+   "parent": "ze_ruarm"
+  },
+  "ze_luarm": {
+   "joint": "joint_luarm",
+   "pivot": "joint_luarm",
+   "aim": null,
+   "parent": "ze_torso"
+  },
+  "ze_lgun": {
+   "joint": "joint_lgun",
+   "pivot": "joint_lgun",
+   "aim": null,
+   "parent": "ze_luarm"
+  },
+  "ze_ruleg": {
+   "joint": "joint_ruleg",
+   "pivot": "joint_ruleg",
+   "aim": "joint_rlleg",
+   "parent": "ze_hip"
+  },
+  "ze_rlleg": {
+   "joint": "joint_rlleg",
+   "pivot": "joint_rlleg",
+   "aim": "joint_rankle",
+   "hinge": "ze_ruleg",
+   "parent": "ze_ruleg"
+  },
+  "ze_rfoot": {
+   "joint": "joint_rankle",
+   "pivot": "joint_rankle",
+   "aim": null,
+   "parent": "ze_rlleg"
+  },
+  "ze_luleg": {
+   "joint": "joint_luleg",
+   "pivot": "joint_luleg",
+   "aim": "joint_llleg",
+   "parent": "ze_hip"
+  },
+  "ze_llleg": {
+   "joint": "joint_llleg",
+   "pivot": "joint_llleg",
+   "aim": "joint_lankle",
+   "hinge": "ze_luleg",
+   "parent": "ze_luleg"
+  },
+  "ze_lfoot": {
+   "joint": "joint_lankle",
+   "pivot": "joint_lankle",
+   "aim": null,
+   "parent": "ze_llleg"
+  }
+ },
+ "joint_pivot": {
+  "joint_root": "joint_root",
+  "joint_hip": "joint_hip",
+  "joint_torso": "joint_torso",
+  "joint_luleg": "joint_luleg",
+  "joint_llleg": "joint_llleg",
+  "joint_lankle": "joint_lankle",
+  "joint_lfoot": "joint_lfoot",
+  "joint_ruleg": "joint_ruleg",
+  "joint_rlleg": "joint_rlleg",
+  "joint_rankle": "joint_rankle",
+  "joint_rfoot": "joint_rfoot",
+  "joint_ruarm": "joint_ruarm",
+  "joint_rgun": "joint_rgun",
+  "joint_rhand": "joint_rhand",
+  "joint_luarm": "joint_luarm",
+  "joint_lgun": "joint_lgun",
+  "joint_lhand": "joint_lhand"
+ },
+ "segments": {
+  "ze_hip": [
+   [
+    "joint_ruleg",
+    "joint_luleg"
+   ],
+   [
+    "joint_hip",
+    [
+     -600,
+     1500,
+     5400
+    ]
+   ]
+  ],
+  "ze_torso": [
+   [
+    "joint_torso",
+    [
+     -600,
+     1300,
+     10800
+    ]
+   ],
+   [
+    [
+     -2200,
+     1300,
+     9000
+    ],
+    [
+     1600,
+     1300,
+     9000
+    ]
+   ]
+  ],
+  "ze_ruarm": [
+   [
+    "joint_ruarm",
+    "joint_rgun"
+   ]
+  ],
+  "ze_rgun": [
+   [
+    "joint_rgun",
+    "joint_rhand"
+   ]
+  ],
+  "ze_luarm": [
+   [
+    "joint_luarm",
+    "joint_lgun"
+   ]
+  ],
+  "ze_lgun": [
+   [
+    "joint_lgun",
+    "joint_lhand"
+   ]
+  ],
+  "ze_ruleg": [
+   [
+    "joint_ruleg",
+    "joint_rlleg"
+   ]
+  ],
+  "ze_rlleg": [
+   [
+    "joint_rlleg",
+    "joint_rankle"
+   ]
+  ],
+  "ze_rfoot": [
+   [
+    "joint_rankle",
+    "joint_rfoot"
+   ],
+   [
+    [
+     -2700,
+     -200,
+     200
+    ],
+    [
+     -2700,
+     2900,
+     200
+    ]
+   ]
+  ],
+  "ze_luleg": [
+   [
+    "joint_luleg",
+    "joint_llleg"
+   ]
+  ],
+  "ze_llleg": [
+   [
+    "joint_llleg",
+    "joint_lankle"
+   ]
+  ],
+  "ze_lfoot": [
+   [
+    "joint_lankle",
+    "joint_lfoot"
+   ],
+   [
+    [
+     1740,
+     -400,
+     200
+    ],
+    [
+     1740,
+     3000,
+     200
+    ]
+   ]
+  ]
+ },
+ "part_region": {
+  "ze_hip": "body",
+  "ze_torso": "body",
+  "ze_ruarm": "arms",
+  "ze_luarm": "arms",
+  "ze_rgun": "arms",
+  "ze_lgun": "arms",
+  "ze_ruleg": "upper_legs",
+  "ze_luleg": "upper_legs",
+  "ze_rlleg": "lower_legs",
+  "ze_llleg": "lower_legs",
+  "ze_rfoot": "feet",
+  "ze_lfoot": "feet"
+ },
+ "feet": [
+  "ze_lfoot",
+  "ze_rfoot"
+ ],
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300,
+  "boxes": [
+   {
+    "part": "ze_torso",
+    "min": [
+     -2350,
+     -4000,
+     6500
+    ],
+    "max": [
+     1500,
+     4000,
+     12000
+    ],
+    "from": [
+     "ze_ruarm",
+     "ze_luarm"
+    ],
+    "_why": "chest sides belong to the torso, not the shoulders"
+   },
+   {
+    "part": "ze_ruarm",
+    "min": [
+     -6000,
+     -1000,
+     8150
+    ],
+    "max": [
+     -2000,
+     4000,
+     12000
+    ],
+    "from": [
+     "ze_rgun"
+    ],
+    "_why": "upper arm above the elbow rides the shoulder, not the gun"
+   }
+  ]
+ },
+ "lowpoly": {
+  "faces": 45000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "joints": {
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 800
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 550
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 550
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 500,
+   "half": 600
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 500,
+   "half": 600
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 450,
+   "half": 600
+  },
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 450,
+   "half": 600
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 550
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 550
+  },
+  "joint_rgun": {
+   "kind": "sphere",
+   "r": 450
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 450
+  }
+ },
+ "wear": {
+  "seed": 19,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 3000,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "ze_rlleg": 1.0,
+   "ze_llleg": 1.0,
+   "ze_rfoot": 1.0,
+   "ze_lfoot": 1.0
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "weapons": [
+  {
+   "name": "rotary gun, right forearm",
+   "whole_parts": [
+    "ze_rgun"
+   ]
+  },
+  {
+   "name": "laser gun, left forearm",
+   "whole_parts": [
+    "ze_lgun"
+   ]
+  }
+ ],
+ "glass_outlines": [
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-zeus/outline_sheets/sheet_front.png",
+   "view": "front"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-zeus/outline_sheets/sheet_q34.png",
+   "view": "q34"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-zeus/outline_sheets/sheet_top.png",
+   "view": "top"
+  }
+ ],
+ "glass_from_v2": false
+}

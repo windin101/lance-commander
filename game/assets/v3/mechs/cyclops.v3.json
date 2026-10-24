@@ -1,0 +1,53 @@
+{
+ "model": "cyclops.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "CP-10-Z Cyclops for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863895",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "cp-10-z4.stl"
+ },
+ "tris": 48942,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.183,
+  "Walk": 0.771,
+  "Run": 0.977,
+  "STtoWK": 0.763,
+  "WKtoST": 0.554,
+  "WKtoRN": 0.991,
+  "RNtoWK": 0.753,
+  "LimpLeft": 0.558,
+  "LimpRight": 0.553,
+  "ParkToStand": 1.532,
+  "StandToPark": 1.844,
+  "Jump": 1.004,
+  "FallForward": 1.989,
+  "FallBackward": 2.93,
+  "GetUpFront": 2.144,
+  "GetUpBack": 3.804,
+  "HitFront": 0.305,
+  "HitBack": 0.186,
+  "HitLeft": 0.547,
+  "HitRight": 0.765
+ },
+ "paint_stats": {
+  "texels": 1893799,
+  "chip_share": 0.02376651376413231,
+  "grime_mean": 0.3289892077445984,
+  "paint_share": 0.6209233398053331,
+  "glass_texels": 31566,
+  "emissive_texels": 0,
+  "piping_texels": 129097,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}
