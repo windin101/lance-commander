@@ -753,6 +753,18 @@ KC: "Major Kelly and Baxter hand you the tough jobs but advanced mechs are plent
   - The bot fights everything as it meets it: 32–40 kills with 28–41 left. It has no mines, artillery or bays.
   - Also, the reinforcement trigger is the last starport LRM carrier. A bot that kills everything in reach
     triggers the waves early, before it has repaired.
+  - **Update 2026-10-24:**
+    - The trigger is as the script has it: both reinforcement groups come 3 s after objective 0 is
+      done (mc2_23.abl:207-215).
+    - The bot now prepares a reception (`ROUTE_PLANS` mc2_23):
+      - it keeps 24k RP back;
+      - it kills the starport force strongest-first and spares the weakest;
+      - it gathers at the dropship bays, repairs, and places Long Toms behind itself;
+      - then it releases the spared target and holds there.
+    - Result: the reception is ready and objective 0 is done in 2/3 seeds, but still 0/3. The
+      lance has lost 2-3 of its 6 mechs at the starport by then, and the 10-mech wave (4
+      Highlanders) finishes it.
+    - Not done yet: KC's minelayers, and teasing the starport mechs out a few at a time.
 - **Sourcing:** well-sourced.
 
 ### mc2_24 Operation Goliath

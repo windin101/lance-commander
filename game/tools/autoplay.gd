@@ -197,7 +197,14 @@ const STEALTH_PLANS := {"mc2_14": {"first": [6]}}
 ## - mc2_18: "Recapture HQ, power and sensor control" first (the secondaries "are worth a lot")
 ##   [KC, BK, CB]: objectives 2 (HQ, by the drop), 3 (power generator), 4 (sensor control).
 const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true},
-	"mc2_18": {"first": [2, 3, 4], "arcs": true}}
+	"mc2_18": {"first": [2, 3, 4], "arcs": true},
+	"mc2_23": {"spare": 0, "prep_at": Vector2(620.0, -830.0), "prep_guns": 3, "rp_reserve": 24000}}
+## - mc2_23: "The trick is to PREPARE a proper reception for the reinforcements BEFORE they
+##   arrive" [KC]. The two reinforcement waves come 3 s after objective 0 (the starport force) is
+##   done (mc2_23.abl:207-215), so "spare" leaves the last of its targets alive. Meanwhile the
+##   lance takes the bays by the dropships, repairs, and puts Long Toms at "prep_at" ("3 artillery
+##   pieces" [KC]; "4 Long Toms by each repair bay" [BK]), with RP kept back for them
+##   ("rp_reserve"). Then it kills the last target and holds there.
 const AVOID_M := 360.0  # stealth: an unengaged patrol this close is walked away from
 
 
@@ -331,8 +338,21 @@ func _orders(sm: SimMission) -> void:
 			_order(sm, m, "stop", null)
 	var threats := w.units.filter(func(u): return _armed_enemy(u) and float(_ignore.get(u.id, -INF)) < w.time \
 		and lance.any(func(m): return m.distance_to(u.position) <= ENGAGE_M))
+	if _spare >= 0 and not _ready:
+		var left := []
+		for c in sm.objectives.objectives[_spare]["conditions"]:
+			var u: SimUnit = c.get("unit")
+			if u != null and u.exists and not SimObjectives.dead(u):
+				left.append(u)
+		_spared = left[0] if left.size() == 1 else null
+		if left.size() == 1 and _verbose and w.time - _avoid_said >= 60.0:
+			_avoid_said = w.time
+			print("t=%6.1f  SPARE %s: the last target of objective %d, kept until the reception is ready" % [w.time, left[0].name, _spare])
+	threats = threats.filter(func(u): return u != _spared)
 	_stall_watch(sm, threats)
 	_use_support(sm, lance, centre, threats)
+	if _spared != null and threats.is_empty() and _prepare(sm, lance, centre):
+		return
 	if not _hold_pending.is_empty() and (_hold_pending["after"] as Array).all(func(i): return int(sm.objectives.objectives[i]["status"]) != 0):
 		_hold_at = _hold_pending["at"]
 		_hold_r = float(_hold_pending["radius"])
@@ -645,6 +665,15 @@ var _stealth := false  # a STEALTH_PLANS mission: patrols are avoided
 var _first: Array = []  # ... and these objectives are worked first
 var _avoid_said := -INF
 var _quiet_spot = null  # Vector2: the last place the stealth bot stood with no enemy in sight or fort arc
+var _spare := -1  # ROUTE_PLANS "spare": the objective whose last target is left alive until ready
+var _spared: SimUnit = null
+var _prep_at = null
+var _prep_guns := 0
+var _rp_reserve := 0
+var _prepping := false
+var _ready := false
+var _fort_strike := true  # --no-fort-strike: no air strike on a fort's generator (A/B)
+var _bombs := true  # --no-bombs: no shooting explosive buildings under enemies (A/B)
 var _arcs := false  # ROUTE_PLANS "arcs": no chasing into enemy forts' arcs
 var _held := {}  # unit id -> its attack order fires from where it stands
 var _moved := {}  # unit id -> last time the stealth bot saw it moving
@@ -658,6 +687,46 @@ var _hold_watch := 700.0  # enemies awake this far beyond the hold radius keep i
 var _lure_tries := {}  # enemy id -> seconds a decoy has spent trying to draw it out
 var _hold_decoy := false  # HOLD_PLANS "decoy": one mech lures the waiting guards to the hold  # a HOLD_PLANS entry waiting on its "after" objectives
 var _hold_quiet := 0.0
+
+
+## The reception before the last spared target dies: the lance gathers at "prep_at", repairs
+## (bays, trucks), Long Toms go down there, then the target is released and the lance holds the
+## spot for the waves. True while preparing (this tick's orders are given).
+func _prepare(sm: SimMission, lance: Array, centre: Vector2) -> bool:
+	var w := sm.world
+	var at: Vector2 = _prep_at if _prep_at != null else centre
+	if centre.distance_to(at) > 120.0:
+		_group_move(sm, lance, centre, at, 30.0)
+		return true
+	var s: SimSupport = sm.support
+	var guns := w.units.filter(func(u): return u.team == 0 and u.model == "artillerypiece" and u.exists and not u.is_disabled())
+	if s != null and guns.size() < _prep_guns and s.can_call("artillery_piece") and not s.delivering:
+		_prepping = true
+		var k := guns.size()
+		# behind the lance from the waves (they come from the west edge), out of its own blasts'
+		# way (a Long Tom 60 m off had shelled our Catapult)
+		var spot: Vector2 = w.map.nearest_walkable(at + Vector2(130.0, -50.0 + 50.0 * k))
+		_support(sm, "artillery_piece", spot)
+		_prepping = false
+		return true
+	var hurt := lance.filter(func(m): return m is SimMech and _health(m) < 0.85 and SimSupport.needs_refit(m) \
+		and (_bay_for(sm, m) != null or not _trucks(sm).is_empty() or (s != null and s.rp >= int(SimSupport.COSTS["repair_truck"]))))
+	if not hurt.is_empty() or (s != null and s.delivering):
+		_repair_lull(sm, lance, {})
+		for m in hurt:
+			_to_bay(sm, m)
+		return true
+	_ready = true
+	if _verbose:
+		print("t=%6.1f  READY: %d guns at (%.0f, %.0f), lance repaired; releasing %s" % [w.time, guns.size(), at.x, at.y, _spared.name])
+	_hold_at = at
+	_hold_r = 220.0
+	_hold_q = 150.0
+	_hold_reached = true
+	_hold_quiet = w.time
+	_hold_watch = 900.0
+	_spared = null
+	return false
 
 
 ## Every mech runs straight to its own spot around the point, no waiting for the slow ones (a
@@ -708,12 +777,20 @@ func _obj_task(sm: SimMission, obj: Dictionary, lance: Array, centre: Vector2) -
 			return {"kind": "move", "area": c["center"], "radius": float(c["radius"])}
 		elif c.get("unit") != null:
 			var t: SimUnit = c["unit"]
-			if t.is_disabled() or t.team == 0 or not t.exists:
+			if t == _spared or t.is_disabled() or t.team == 0 or not t.exists:
 				continue  # already ours (e.g. mc2_06 "protect" = capture own HQ), or not there yet
 			units.append([t, kind])
 	if units.is_empty():
 		return {}
 	units.sort_custom(func(a, b): return _closer(sm, lance[0], centre, a[0], b[0]))
+	if int(obj["index"]) == _spare and not _ready and units.size() > 1:
+		# leave the weakest for last: it is the one to spare ("leave one LRM carrier alive" [KC, CB])
+		var weakest: Array = units[0]
+		for u in units:
+			if _dps(u[0]) + _hp(u[0]) / 50.0 < _dps(weakest[0]) + _hp(weakest[0]) / 50.0:
+				weakest = u
+		units.erase(weakest)
+		units.append(weakest)
 	for u in units:  # finish the one already started
 		if u[0] == _cur_target:
 			units = [u]
@@ -834,7 +911,7 @@ func _fight(sm: SimMission, fighters: Array, threats: Array) -> void:
 	# inside a blast that reaches none of ours is worth the nearest gun's volley ("blow the fuel
 	# tanks on the Thor and Ryoken as they charge", mc2_13; "use its fuel tanks on the pursuers",
 	# mc2_17; ammo dumps on the Hunchbacks, mc2_14).
-	var bomb := _bomb_for(sm, fighters, threats)
+	var bomb := _bomb_for(sm, fighters, threats) if _bombs else null
 	if bomb != null:
 		fighters.sort_custom(func(a, b): return a.distance_to(bomb.position) < b.distance_to(bomb.position))
 		want[fighters[0]] = bomb
@@ -1281,6 +1358,9 @@ func _health(m: SimUnit) -> float:
 
 
 func _support(sm: SimMission, kind: String, target: Variant) -> bool:
+	if _spare >= 0 and not _ready and kind != "repair_truck" and not (kind == "artillery_piece" and _prepping) \
+			and sm.support.rp - int(SimSupport.COSTS.get(kind, 0)) < _rp_reserve:
+		return false  # RP kept for the reception (ROUTE_PLANS "rp_reserve")
 	if not sm.support.call_power(kind, target):
 		return false
 	if _verbose:
@@ -1337,7 +1417,7 @@ func _use_support(sm: SimMission, lance: Array, centre: Vector2, threats: Array)
 	# turret.cpp:620-633). For a root under its own guns that the lance would otherwise have to
 	# walk into (mc2_22's drop is boxed in by two turret lines: "First disable or capture the
 	# northern defenses. THEN use that to get out" [KC]).
-	if s.can_call("air_strike") and s.rp - int(SimSupport.COSTS["air_strike"]) >= reserve and w.time - _last_strike >= 12.0:
+	if _fort_strike and s.can_call("air_strike") and s.rp - int(SimSupport.COSTS["air_strike"]) >= reserve and w.time - _last_strike >= 12.0:
 		var roots := {}
 		for t in _enemy_turrets(w):
 			if t.position.distance_to(centre) > 500.0 or t.parent == null:
@@ -1420,10 +1500,19 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	var o := sm.objectives
 	var next_order := 0.0
 	_trace = "--trace" in args
+	_fort_strike = not ("--no-fort-strike" in args)
+	_bombs = not ("--no-bombs" in args)
 	_stealth = STEALTH_PLANS.has(mission)
 	_quiet_spot = null
 	_first = STEALTH_PLANS.get(mission, ROUTE_PLANS.get(mission, {})).get("first", [])
 	_arcs = bool(ROUTE_PLANS.get(mission, {}).get("arcs", false))
+	var rp_plan: Dictionary = ROUTE_PLANS.get(mission, {})
+	_spare = int(rp_plan.get("spare", -1))
+	_prep_at = rp_plan.get("prep_at")
+	_prep_guns = int(rp_plan.get("prep_guns", 0))
+	_rp_reserve = int(rp_plan.get("rp_reserve", 0))
+	_spared = null
+	_ready = false
 	var plan: Dictionary = HOLD_PLANS.get(mission, {})
 	_hold_at = null
 	_hold_reached = false
