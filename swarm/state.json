@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T17:00:39+13:00",
+  "updated": "2026-10-24T17:05:11+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -758,10 +758,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 300 --mission=mc2_06 --damage --targets",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:49:02+13:00",
-      "updated": "2026-10-19T16:49:02+13:00",
-      "note": null
+      "updated": "2026-10-24T17:05:05+13:00",
+      "note": "Cause proven at the issue's commit 1f3769a (mc2_06 s1, probe of every impact/strike/support): the bot's own air strike, called at t=57.6 19 m from S_SensorControl, landed at t=64.5 (three 15-pt strike hits, from -1, form strike) and destroyed it. Friendly fire on buildings is the original's rule, so not a port bug. Already fixed in the bot: _use_support now keeps strikes STRIKE_GUARD_M away from capturable targets. Today (HEAD + working tree) mc2_06 s1-3: captured at t=86.1/87.1/81.1, strikes 800+ m away; mc2_22 s1-3 300 s: no capture target destroyed."
     },
     {
       "id": "I33",
@@ -771,10 +771,10 @@
       "repro": "godot --headless --path game -s res://tools/autoplay.gd -- 1 1800 --mission=mc2_11 --damage",
       "owner": "playtester",
       "phase": 7,
-      "status": "open",
+      "status": "fixed",
       "created": "2026-10-19T16:49:02+13:00",
-      "updated": "2026-10-19T16:49:02+13:00",
-      "note": null
+      "updated": "2026-10-24T17:05:11+13:00",
+      "note": "Explained, not nondeterminism: the end count is sim_abl.pilots.size(), which grows mid-run with add_pilot for each delivered unit (sim_support _spawn_mech) and each salvaged mech (_salvage); how many the bot salvages or calls depends on the seed's fight. Today mc2_11 s1-3: start 38, end 38/38/38 (no salvage in these runs). Side bug filed as I119: salvage leaves the enemy brain's old Pilot in the list."
     },
     {
       "id": "I34",
@@ -1811,10 +1811,10 @@
       "repro": "python3 -I tools/playtest_sweep.py --missions mc2_17 --seeds 3 (the 2026-10-24 crash log is in the session scratchpad, s6-17/logs/mc2_17_s3.log; the rerun did not crash)",
       "owner": "programmer",
       "phase": 8,
-      "status": "open",
+      "status": "wontfix",
       "created": "2026-10-24T13:30:12+13:00",
-      "updated": "2026-10-24T13:30:12+13:00",
-      "note": null
+      "updated": "2026-10-24T17:05:06+13:00",
+      "note": "Not reproducible; no ABL recursion problem. The crash's GDScript stack is 21 frames deep (2 ABL call levels: _execute -> state -> call -> _read -> _slot); the repeating C++ frames are just the VM's 4 frames per GDScript call. It faulted on a plain dictionary lookup (abl_runtime.gd:505 f.unit[_eternals]). Two reruns of mc2_17 s3 to t=520 today: no crash, identical results. Same boot: kernel BUG: Bad page state/Bad page cache at 12:50, 12:54, 13:00 (pfn 0x219160-4, kcompactd0/kwin), 25-35 min after the 12:25 crash, i.e. physical page corruption on the workstation that boot; the segfault is most likely that, not the game. ASan/valgrind not practical (official binary, 440 s of sim). Suggest a memtest / looking at the Bad page source if more random crashes appear."
     },
     {
       "id": "I114",
@@ -1880,6 +1880,19 @@
       "created": "2026-10-24T16:28:39+13:00",
       "updated": "2026-10-24T17:00:39+13:00",
       "note": "2026-10-24 A/B and bisect.\n- Bot ruled out: the turrets-era bot (8134bbb) and the re-check bot (8923172) give identical results on the current sim, 242/253/283 s.\n- Slew ruled out: --rule=slew=false gives 258/249/290 s.\n- Bisect over sim commits in a worktree, mc2_12 seed 1: 8134bbb 480 s; 84471a7 480 s; 98ef2a4 (I102 group moves and attack positions) 253 s; 05481d0 262 s.\n- Confirmed on HEAD: --rule=attack_goals=false gives 406/297/530 s.\nCause: the calcMoveGoal port (pursuing attackers walk to a goal on the optimal-range ring with LOS and re-pick when the target moves 2 cells). Damage taken (485-622) and dealt (743-1307) are the same either way: the fight just runs faster, both sides at their optimal range with clear shots.\nThe port matches mover.cpp:4364-4900 and FIRERANGE_DEFAULT -> getOptimalFireRange (mover.cpp:5888-5918), so this is a faithful rule that made mc2_12 harder for this lance, not a port bug. Reclassified as balance/bot: a 205 t, 0 RP, 4-mech lance vs Enfields. Left open for the bot (fight from cover or captured turrets) or Lee's balance call."
+    },
+    {
+      "id": "I119",
+      "sev": "P3",
+      "title": "Salvaged mech keeps its old enemy Pilot in SimAbl.pilots",
+      "detail": "SimAbl.add_pilot appends a new pbrain Pilot but never drops the unit's previous one, so after _salvage the list has two entries for the unit (checked: mc2_11 Jagermech, mc2_11_dred + pbrain). Effects are small: isTeamCapturing iterates pilots and can see the dead brain's order with the unit now on team 0; BRAIN_STAGGER and the autoplay end report count it. Fix (sim_abl.gd add_pilot, before pilots.append): if u.brain is Pilot: pilots.erase(u.brain)",
+      "repro": "load mc2_11, disable an enemy mech, sm.support._salvage(m): count pilots whose unit is m -> 2",
+      "owner": "sim",
+      "phase": 8,
+      "status": "open",
+      "created": "2026-10-24T17:05:06+13:00",
+      "updated": "2026-10-24T17:05:06+13:00",
+      "note": null
     }
   ],
   "coverage": {
@@ -1986,31 +1999,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "game-art",
-      "msg": "issue I72 P3: HD zeus: look call"
-    },
-    {
-      "at": "2026-10-20T06:15:30+13:00",
-      "who": "game-art",
-      "msg": "issue I73 P3: HD werewolf: look call"
-    },
-    {
-      "at": "2026-10-20T06:29:56+13:00",
-      "who": "gate",
-      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
-    },
-    {
-      "at": "2026-10-20T06:32:22+13:00",
-      "who": "gate",
-      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
-    },
-    {
-      "at": "2026-10-20T06:34:08+13:00",
-      "who": "conductor",
-      "msg": "decision D6 queued for Lee: HD look calls for 30 adapted models (review page https://claude.ai/artifact/WjgV9VSnBsRhxv1A1APJgJ)"
-    },
     {
       "at": "2026-10-20T06:34:17+13:00",
       "who": "lee",
@@ -2985,6 +2973,31 @@
       "at": "2026-10-24T17:00:39+13:00",
       "who": "conductor",
       "msg": "issue I118 updated: note \u2014 2026-10-24 A/B and bisect.\n- Bot ruled out: the turrets-era bot (8134bbb) and the re-check bot (8923172) give identical results on the current sim, 242/253/283 s.\n- Slew ruled out: --rule=slew=false gives 258/249/290 s.\n- Bisect over sim commits in a worktree, mc2_12 seed 1: 8134bbb 480 s; 84471a7 480 s; 98ef2a4 (I102 group moves and attack positions) 253 s; 05481d0 262 s.\n- Confirmed on HEAD: --rule=attack_goals=false gives 406/297/530 s.\nCause: the calcMoveGoal port (pursuing attackers walk to a goal on the optimal-range ring with LOS and re-pick when the target moves 2 cells). Damage taken (485-622) and dealt (743-1307) are the same either way: the fight just runs faster, both sides at their optimal range with clear shots.\nThe port matches mover.cpp:4364-4900 and FIRERANGE_DEFAULT -> getOptimalFireRange (mover.cpp:5888-5918), so this is a faithful rule that made mc2_12 harder for this lance, not a port bug. Reclassified as balance/bot: a 205 t, 0 RP, 4-mech lance vs Enfields. Left open for the bot (fight from cover or captured turrets) or Lee's balance call."
+    },
+    {
+      "at": "2026-10-24T17:05:05+13:00",
+      "who": "conductor",
+      "msg": "issue I32 fixed: Cause proven at the issue's commit 1f3769a (mc2_06 s1, probe of every impact/strike/support): the bot's own air strike, called at t=57.6 19 m from S_SensorControl, landed at t=64.5 (three 15-pt strike hits, from -1, form strike) and destroyed it. Friendly fire on buildings is the original's rule, so not a port bug. Already fixed in the bot: _use_support now keeps strikes STRIKE_GUARD_M away from capturable targets. Today (HEAD + working tree) mc2_06 s1-3: captured at t=86.1/87.1/81.1, strikes 800+ m away; mc2_22 s1-3 300 s: no capture target destroyed."
+    },
+    {
+      "at": "2026-10-24T17:05:05+13:00",
+      "who": "conductor",
+      "msg": "issue I33 fixed: Explained, not nondeterminism: the end count is sim_abl.pilots.size(), which grows mid-run with add_pilot for each delivered unit (sim_support _spawn_mech) and each salvaged mech (_salvage), and how many the bot salvages/calls depends on the seed's fight. Today mc2_11 s1-3 start 38, end 38/38/38 (no salvage in these runs). Side bug found and filed separately (I-next): salvage leaves the enemy brain's old Pilot in the list (2 entries for one unit)."
+    },
+    {
+      "at": "2026-10-24T17:05:06+13:00",
+      "who": "sim",
+      "msg": "issue I119 P3: Salvaged mech keeps its old enemy Pilot in SimAbl.pilots"
+    },
+    {
+      "at": "2026-10-24T17:05:06+13:00",
+      "who": "conductor",
+      "msg": "issue I113 wontfix: Not reproducible; no ABL recursion problem. The crash's GDScript stack is 21 frames deep (2 ABL call levels: _execute -> state -> call -> _read -> _slot); the repeating C++ frames are just the VM's 4 frames per GDScript call. It faulted on a plain dictionary lookup (abl_runtime.gd:505 f.unit[_eternals]). Two reruns of mc2_17 s3 to t=520 today: no crash, identical results. Same boot: kernel BUG: Bad page state/Bad page cache at 12:50, 12:54, 13:00 (pfn 0x219160-4, kcompactd0/kwin), 25-35 min after the 12:25 crash, i.e. physical page corruption on the workstation that boot; the segfault is most likely that, not the game. ASan/valgrind not practical (official binary, 440 s of sim). Suggest a memtest / looking at the Bad page source if more random crashes appear."
+    },
+    {
+      "at": "2026-10-24T17:05:11+13:00",
+      "who": "conductor",
+      "msg": "issue I33 updated: note \u2014 Explained, not nondeterminism: the end count is sim_abl.pilots.size(), which grows mid-run with add_pilot for each delivered unit (sim_support _spawn_mech) and each salvaged mech (_salvage); how many the bot salvages or calls depends on the seed's fight. Today mc2_11 s1-3: start 38, end 38/38/38 (no salvage in these runs). Side bug filed as I119: salvage leaves the enemy brain's old Pilot in the list."
     }
   ],
   "choices": [
