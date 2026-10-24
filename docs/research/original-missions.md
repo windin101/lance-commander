@@ -591,6 +591,13 @@ KC: "Major Kelly and Baxter hand you the tough jobs but advanced mechs are plent
 - **Difficulty:** moderate. "Defend" is an ongoing objective [KC].
 - **Losses/time:** no SR record.
 - **Bot note:** matches the README (I25): hold the bridges, don't hunt across the city.
+  - **Update 2026-10-24:**
+    - The waves chain as in the script (mc2_18.abl:357-391). 25 kills start group 0, and group 1
+      follows 70 s later. Each later group comes only once the one before it is dead.
+    - The bot retakes the HQ, the power generator and the sensor control first, in the guides'
+      order. It ranks the aerospotter first in fights and doesn't chase into enemy arcs.
+    - Result: all three secondaries in 2/3 seeds, with 50-53 kills and 10 enemies left, but still
+      0/3. A hold at the bay stalled: group 2 roams the city out of its reach.
 - **Sourcing:** well-sourced.
 
 ### mc2_19 Mobile Assault: Mt. Cho

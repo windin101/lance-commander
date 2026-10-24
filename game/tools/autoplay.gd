@@ -169,6 +169,10 @@ const STRIKE_GUARD_M := 70.0  # no air strike this close to our own units or a t
 ## quiet for `quiet` seconds.
 ## - mc2_17: "As soon as the cutscene stops, RUN for that Steiner base to the east" [KC, BK];
 ##   capture its 2 turret controls and 2 repair bays and hold through the waves (Lee, 2026-10-24).
+## "after": [objectives] delays a hold until they are decided; "at" names the point when no
+## objective area does. Tried on mc2_18 (hold at its bay after the 3 recaptures, 2026-10-24): the
+## waves' groups 3-4 only come once group 2 is dead (mc2_18.abl:368-391), and group 2 wrecks the
+## city out of reach of a hold, so it stalled to 1800 s; not used.
 const HOLD_PLANS := {"mc2_17": {"objective": 2, "radius": 200.0, "quiet": 180.0}}
 ## Stealth missions: the walkthroughs avoid the patrols rather than fight them, and work some
 ## objectives out of the designer's order (docs/research/original-missions.md).
@@ -184,7 +188,10 @@ const STEALTH_PLANS := {"mc2_14": {"first": [6]}}
 ##   "The Gauss Turret bases are incredibly deadly ... should be avoided at all costs" [SOE]:
 ##   "arcs" keeps the lance from chasing a target into an enemy fort's arcs (it fires from where
 ##   it stands instead). Not a default: on mc2_03 it cost 4/4 -> 0/4 (2026-10-24).
-const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true}}
+## - mc2_18: "Recapture HQ, power and sensor control" first (the secondaries "are worth a lot")
+##   [KC, BK, CB]: objectives 2 (HQ, by the drop), 3 (power generator), 4 (sensor control).
+const ROUTE_PLANS := {"mc2_13": {"first": [4, 3, 1, 0, 2], "arcs": true},
+	"mc2_18": {"first": [2, 3, 4], "arcs": true}}
 const AVOID_M := 360.0  # stealth: an unengaged patrol this close is walked away from
 
 
@@ -320,6 +327,13 @@ func _orders(sm: SimMission) -> void:
 		and lance.any(func(m): return m.distance_to(u.position) <= ENGAGE_M))
 	_stall_watch(sm, threats)
 	_use_support(sm, lance, centre, threats)
+	if not _hold_pending.is_empty() and (_hold_pending["after"] as Array).all(func(i): return int(sm.objectives.objectives[i]["status"]) != 0):
+		_hold_at = _hold_pending["at"]
+		_hold_r = float(_hold_pending["radius"])
+		_hold_q = float(_hold_pending["quiet"])
+		_hold_pending = {}
+		if _verbose:
+			print("t=%6.1f  HOLD from now at (%.0f, %.0f)" % [w.time, _hold_at.x, _hold_at.y])
 	if _hold_at != null:
 		threats = threats.filter(func(u): return u.position.distance_to(_hold_at) <= _hold_r + 200.0)
 		if not _hold_reached:
@@ -596,6 +610,7 @@ var _hold_at = null  # Vector2: the base a HOLD_PLANS mission holds, until it ha
 var _hold_r := 0.0
 var _hold_q := 0.0
 var _hold_reached := false
+var _hold_pending := {}  # a HOLD_PLANS entry waiting on its "after" objectives
 var _hold_quiet := 0.0
 
 
@@ -747,6 +762,8 @@ func _fight(sm: SimMission, fighters: Array, threats: Array) -> void:
 			d = minf(d, m.distance_to(t.position))
 		var s := (_dps(t) + 0.5) / (_hp(t) + 30.0) * (1.5 if t is SimMech else 1.0)
 		s /= 1.0 + maxf(0.0, d - 180.0) / 120.0
+		if t is SimVehicle and t.model == "aerospotter":
+			s *= 4.0  # it calls a large strike every 10 s on whoever it targets (I114); kill it first
 		if not _covering(sm.world, t.position).is_empty():
 			s *= 0.25  # under an enemy fort's guns: let it come out (I99; holding the lance out of the
 			# arcs as well cost mc2_03 4/4 -> 0/4 in an A/B, 2026-10-24: it dithered on the edge)
@@ -806,7 +823,10 @@ func _fight(sm: SimMission, fighters: Array, threats: Array) -> void:
 					print("t=%6.1f  BOMB %s shoots %s under %s" % [sm.world.time, m.name, t.name,
 						threats.filter(func(e): return e is SimMech and e.distance_to(t.position) <= bomb.explosion_radius_m * 0.8).map(func(e): return e.name)])
 			continue
-		var hold := _arcs and _covering(sm.world, m.position).is_empty() and not _covering(sm.world, t.position).is_empty()
+		# (only while it can reach the target from where it stands: holding short of range stalled
+		# mc2_18 on a capture guard for 15 minutes)
+		var hold: bool = _arcs and _covering(sm.world, m.position).is_empty() and not _covering(sm.world, t.position).is_empty() \
+			and m.distance_to(t.position) <= sm.world.attack_range(m)
 		if cur != null and score.has(cur) and score[cur] >= 0.7 * score[t] and bool(_held.get(m.id, false)) == hold:
 			continue
 		if cur != t or bool(_held.get(m.id, false)) != hold:
@@ -859,7 +879,12 @@ func _capture(sm: SimMission, units: Array, centre: Vector2, t: SimUnit) -> void
 				_order(sm, m, "attack", guards[0])
 		return
 	if t.distance_to(centre) > ENGAGE_M:
-		_group_move(sm, units, centre, t.position, 30.0)
+		var stuck := _group_move(sm, units, centre, t.position, 30.0)
+		if not stuck.is_empty():
+			# the walk to the target's side was refused (no path to that spot): send the capture
+			# order itself, which finds its own way in (mc2_18 stood 15 min at 327 m)
+			_order(sm, stuck[0], "capture", t)
+			_stuck.erase(stuck[0].id)
 		return
 	var capturer: SimUnit = null
 	for m in units:
@@ -1325,8 +1350,11 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	var plan: Dictionary = HOLD_PLANS.get(mission, {})
 	_hold_at = null
 	_hold_reached = false
+	_hold_pending = {}
+	if plan.has("after"):
+		_hold_pending = plan
 	for obj in sm.objectives.objectives:
-		if not plan.is_empty() and int(obj["index"]) == int(plan["objective"]):
+		if not plan.is_empty() and int(obj["index"]) == int(plan.get("objective", -1)):
 			for c in obj["conditions"]:
 				if c.has("center"):
 					_hold_at = c["center"]

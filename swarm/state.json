@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T14:14:18+13:00",
+  "updated": "2026-10-24T14:34:06+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -669,8 +669,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-24T13:41:47+13:00",
-      "note": "Still 0/3, but the lance now kills 37-53 (max 22 before), so the 25-kill trigger fires. It still never retakes the HQ, power generator or sensor control, and is worn down by 971-1094 s by Sha Yu, LRM turrets and the Lao Hu. Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+      "updated": "2026-10-24T14:34:06+13:00",
+      "note": "2026-10-24 mc2_18 pass. Port check: the wave chain matches mc2_18.abl:357-391. Obj 11 (25 kills) starts group 0, group 1 follows 70 s later, and groups 2-4 each wait for the one before to die (obj 5-7). Bot (ROUTE_PLANS mc2_18):\n- secondaries first, in the guides' order: HQ, power generator, sensor control;\n- aerospotters ranked x4 in focus fire (their strikes did 270 to the lance in one run, now counted, I114);\n- no chasing into enemy arcs, holding fire only while in range;\n- a capture whose walk is refused now sends the capture order itself (it had stood 15 min at 327 m).\nA hold at the bay after the recaptures stalled (group 2 wrecks the city out of reach), so it was dropped. Result: 0/3 still. The 3 secondaries are done in 2/3 seeds, with 50-53 kills and 10 enemies left at the end (1073-4275 damage dealt); seed 1 dies by 346 s on the way to the power generator. Repair is the gap: the city's bay gets destroyed and the RP goes on early strikes."
     },
     {
       "id": "I26",
@@ -1949,11 +1949,6 @@
   "log": [
     {
       "at": "2026-10-19T19:50:34+13:00",
-      "who": "conductor",
-      "msg": "issue I59 fixed: vulture replaced by the adapted Syllogy model (CC BY-NC-SA 4.0), rigged by tools/art/stl_rig.py"
-    },
-    {
-      "at": "2026-10-19T19:50:34+13:00",
       "who": "lee",
       "msg": "decision D4 answered: add the adapted Syllogy model with the attribution CC BY-NC-SA 4.0 requires (credit, link, licence link, changes listed, adaptation under the same licence, no endorsement)"
     },
@@ -2946,6 +2941,11 @@
       "at": "2026-10-24T14:14:18+13:00",
       "who": "conductor",
       "msg": "issue I21 updated: note \u2014 2026-10-24 mc2_14 pass. Port check: no new gap. The fuel-tank and ammo-dump blasts (I115) now exist, but the bot's bomb rule didn't fire here. Bot changes: when outgunned with no captured fort strong enough (fort dps + ours < theirs), it breaks contact back to the last quiet spot instead of luring. Guards standing at their posts (not moved for 30 s) are no longer avoided; avoiding them for good had stalled it short of Gun Beta for 15 minutes. Results: 1800 s cap, 3/3 alive (no win in time). 4000 s cap: seed 3 WON at 3943 s (all objectives), seed 2 alive with 5 enemies left, seed 1 lost at 2102 s with 3 left. The mission is winnable by the stealth line but takes about an hour; the sweep cap of 1800 s scores it PLAYING. Leaving open: about an hour for 1 win in 3."
+    },
+    {
+      "at": "2026-10-24T14:34:06+13:00",
+      "who": "conductor",
+      "msg": "issue I25 updated: note \u2014 2026-10-24 mc2_18 pass. Port check: the wave chain matches mc2_18.abl:357-391. Obj 11 (25 kills) starts group 0, group 1 follows 70 s later, and groups 2-4 each wait for the one before to die (obj 5-7). Bot (ROUTE_PLANS mc2_18):\n- secondaries first, in the guides' order: HQ, power generator, sensor control;\n- aerospotters ranked x4 in focus fire (their strikes did 270 to the lance in one run, now counted, I114);\n- no chasing into enemy arcs, holding fire only while in range;\n- a capture whose walk is refused now sends the capture order itself (it had stood 15 min at 327 m).\nA hold at the bay after the recaptures stalled (group 2 wrecks the city out of reach), so it was dropped. Result: 0/3 still. The 3 secondaries are done in 2/3 seeds, with 50-53 kills and 10 enemies left at the end (1073-4275 damage dealt); seed 1 dies by 346 s on the way to the power generator. Repair is the gap: the city's bay gets destroyed and the RP goes on early strikes."
     }
   ],
   "choices": [
