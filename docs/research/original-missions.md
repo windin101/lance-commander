@@ -711,6 +711,20 @@ KC: "Major Kelly and Baxter hand you the tough jobs but advanced mechs are plent
   - That supports the README's suspicion that the early Partisan or patrol aggression is a **remake/game issue**.
     Run the probe the README proposes (`--shots=200`).
   - Separately, the bot has no turrets or artillery for the chokepoint fight the mission is built around.
+  - **Update 2026-10-24:**
+    - The early rush is not a port bug. The compound's guards (mc2_22_EC1_*.abl) guard their posts
+      and attack only movers within 300 m (`setTargetPriority(1, TARGET_PRIORITY_MOVER, 0, 300, ...)`).
+      The drop is 400 m or more from them, as KC says ("if you use the corner they won't bother
+      you"). The bot was simply walking into them.
+    - Found and fixed I116: a building whose generator is destroyed sleeps and can't be captured
+      (bldng.cpp:1046).
+    - The bot now plays this line (`HOLD_PLANS` mc2_22):
+      - at t=0 it air-strikes the northern line's generator (13 turrets hang on it);
+      - it holds the drop and sends a decoy out to draw the guards in;
+      - it starts the mission once nothing more can be drawn out without walking into a fort's arcs.
+    - Result: the lance lives to 622-877 s (was 169-230), with 21-45 kills (was 9-11). The turrets
+      are no longer the top killers. Still 0/3: the Men Shen, Catapult and Elite Guard (Cyclops,
+      Swarm LRMs) finish it.
 - **Sourcing:** well-sourced on tactics. Nothing sourced on t=0 behaviour.
 
 ### mc2_23 Liberate: Starport

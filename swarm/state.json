@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T14:34:06+13:00",
+  "updated": "2026-10-24T14:43:37+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -669,8 +669,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-24T14:34:06+13:00",
-      "note": "2026-10-24 mc2_18 pass. Port check: the wave chain matches mc2_18.abl:357-391. Obj 11 (25 kills) starts group 0, group 1 follows 70 s later, and groups 2-4 each wait for the one before to die (obj 5-7). Bot (ROUTE_PLANS mc2_18):\n- secondaries first, in the guides' order: HQ, power generator, sensor control;\n- aerospotters ranked x4 in focus fire (their strikes did 270 to the lance in one run, now counted, I114);\n- no chasing into enemy arcs, holding fire only while in range;\n- a capture whose walk is refused now sends the capture order itself (it had stood 15 min at 327 m).\nA hold at the bay after the recaptures stalled (group 2 wrecks the city out of reach), so it was dropped. Result: 0/3 still. The 3 secondaries are done in 2/3 seeds, with 50-53 kills and 10 enemies left at the end (1073-4275 damage dealt); seed 1 dies by 346 s on the way to the power generator. Repair is the gap: the city's bay gets destroyed and the RP goes on early strikes."
+      "updated": "2026-10-24T14:34:52+13:00",
+      "note": "To do (coordinator, 2026-10-24): the bot should spend RP on repairs before early strikes, and protect the city's repair bay (it gets destroyed mid-mission). To be picked up again after mc2_24."
     },
     {
       "id": "I26",
@@ -708,8 +708,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-24T13:41:47+13:00",
-      "note": "Still 0/3, lance dead by 169-230 s. The Large Pulse Cannon and LRM turret lines plus the guards inside the start area engage as soon as the lance moves for the turret control. Holding the corner (KC) made no contact in 1800 s. It needs a better opening (I99). Re-check sweep docs/reports/playtest/2026-10-24-recheck (2026-10-24)."
+      "updated": "2026-10-24T14:43:37+13:00",
+      "note": "2026-10-24 mc2_22 pass. Port check: the start-area rush is not a port bug; the guards (mc2_22_EC1_*.abl) guard their posts and attack only within 300 m. Fixed I116 (sleeping buildings could be captured). Bot (HOLD_PLANS mc2_22, KC and CB's corner line):\n- an air strike on a fort's generator from outside its guns (generic, 'FORT STRIKE': forts of 3+ turrets whose root is under its own guns; the northern line's 13 turrets go to sleep at t=7);\n- the lance holds the drop while the fastest sound mech decoys guards in;\n- the hold ends when nothing more can be lured without entering a fort's arcs.\nResult: still 0/3, but the lance lives to 622-877 s (was 169-230) with 21-45 kills (was 9-11). The turrets are off the top of the damage table; Men Shen, Catapults and the Elite Guard (Cyclops, Swarm LRMs) finish it. Regression: mc2_03 2/3 in a recheck (4/4 earlier this session before I115/I116 and the fort strike), mc2_13 0/3."
     },
     {
       "id": "I29",
@@ -1841,6 +1841,19 @@
       "created": "2026-10-24T14:03:50+13:00",
       "updated": "2026-10-24T14:03:50+13:00",
       "note": "SimStructure.explosion_damage/radius from the type, blast via SimWorld.explosion (5-point chunks to movers, chains to nearby tanks). Test: support_test test_a_destroyed_fuel_tank_blows_up_on_whoever_is_near. Regression check mc2_01/06/10/17: 12/12 wins."
+    },
+    {
+      "id": "I116",
+      "sev": "P2",
+      "title": "A sleeping building (its generator destroyed) could still be captured",
+      "detail": "Building::isCaptureable requires getAwake() (bldng.cpp:1046), and a building whose parent is destroyed, disabled or asleep goes to sleep (bldng.cpp:903-913). SimAbl.can_capture didn't check awake, so a turret control whose generator had been destroyed could still be captured.",
+      "repro": null,
+      "owner": "programmer",
+      "phase": 8,
+      "status": "fixed",
+      "created": "2026-10-24T14:43:37+13:00",
+      "updated": "2026-10-24T14:43:37+13:00",
+      "note": "can_capture requires awake for structures. Test: support_test test_a_control_without_its_generator_sleeps_and_cannot_be_taken (mc2_22)."
     }
   ],
   "coverage": {
@@ -1947,26 +1960,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-19T19:50:34+13:00",
-      "who": "lee",
-      "msg": "decision D4 answered: add the adapted Syllogy model with the attribution CC BY-NC-SA 4.0 requires (credit, link, licence link, changes listed, adaptation under the same licence, no endorsement)"
-    },
-    {
-      "at": "2026-10-19T19:51:13+13:00",
-      "who": "gate",
-      "msg": "phase 7 gate PASSED: tests_green=ok, hd_provenance=ok, import_size=ok, provenance_table_current=ok"
-    },
-    {
-      "at": "2026-10-19T19:52:34+13:00",
-      "who": "release-engineer",
-      "msg": "issue I63 P2: Release builds must carry the CC BY-NC-SA credit for the Vulture"
-    },
-    {
-      "at": "2026-10-19T20:06:20+13:00",
-      "who": "conductor",
-      "msg": "decided C33: Adapt all 17 matching Syllogy CC BY-NC-SA models (one variant each, MC2-closest) with the general stl_rig.py; one game-art agent per mech reads and corrects joints from shaded diagnostics, renders, judges; up to 3 rounds \u2014 Lee: pull all of them and run them through the process; auto knee detection is off by 400-600 mm on armoured legs, so a human-style read per mech is required"
-    },
     {
       "at": "2026-10-19T20:35:42+13:00",
       "who": "conductor",
@@ -2946,6 +2939,26 @@
       "at": "2026-10-24T14:34:06+13:00",
       "who": "conductor",
       "msg": "issue I25 updated: note \u2014 2026-10-24 mc2_18 pass. Port check: the wave chain matches mc2_18.abl:357-391. Obj 11 (25 kills) starts group 0, group 1 follows 70 s later, and groups 2-4 each wait for the one before to die (obj 5-7). Bot (ROUTE_PLANS mc2_18):\n- secondaries first, in the guides' order: HQ, power generator, sensor control;\n- aerospotters ranked x4 in focus fire (their strikes did 270 to the lance in one run, now counted, I114);\n- no chasing into enemy arcs, holding fire only while in range;\n- a capture whose walk is refused now sends the capture order itself (it had stood 15 min at 327 m).\nA hold at the bay after the recaptures stalled (group 2 wrecks the city out of reach), so it was dropped. Result: 0/3 still. The 3 secondaries are done in 2/3 seeds, with 50-53 kills and 10 enemies left at the end (1073-4275 damage dealt); seed 1 dies by 346 s on the way to the power generator. Repair is the gap: the city's bay gets destroyed and the RP goes on early strikes."
+    },
+    {
+      "at": "2026-10-24T14:34:52+13:00",
+      "who": "conductor",
+      "msg": "issue I25 updated: note \u2014 To do (coordinator, 2026-10-24): the bot should spend RP on repairs before early strikes, and protect the city's repair bay (it gets destroyed mid-mission). To be picked up again after mc2_24."
+    },
+    {
+      "at": "2026-10-24T14:43:37+13:00",
+      "who": "programmer",
+      "msg": "issue I116 P2: A sleeping building (its generator destroyed) could still be captured"
+    },
+    {
+      "at": "2026-10-24T14:43:37+13:00",
+      "who": "conductor",
+      "msg": "issue I116 fixed: can_capture requires awake for structures. Test: support_test test_a_control_without_its_generator_sleeps_and_cannot_be_taken (mc2_22)."
+    },
+    {
+      "at": "2026-10-24T14:43:37+13:00",
+      "who": "conductor",
+      "msg": "issue I28 updated: note \u2014 2026-10-24 mc2_22 pass. Port check: the start-area rush is not a port bug; the guards (mc2_22_EC1_*.abl) guard their posts and attack only within 300 m. Fixed I116 (sleeping buildings could be captured). Bot (HOLD_PLANS mc2_22, KC and CB's corner line):\n- an air strike on a fort's generator from outside its guns (generic, 'FORT STRIKE': forts of 3+ turrets whose root is under its own guns; the northern line's 13 turrets go to sleep at t=7);\n- the lance holds the drop while the fastest sound mech decoys guards in;\n- the hold ends when nothing more can be lured without entering a fort's arcs.\nResult: still 0/3, but the lance lives to 622-877 s (was 169-230) with 21-45 kills (was 9-11). The turrets are off the top of the damage table; Men Shen, Catapults and the Elite Guard (Cyclops, Swarm LRMs) finish it. Regression: mc2_03 2/3 in a recheck (4/4 earlier this session before I115/I116 and the fort strike), mc2_13 0/3."
     }
   ],
   "choices": [

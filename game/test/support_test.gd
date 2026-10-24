@@ -330,3 +330,24 @@ func test_a_destroyed_fuel_tank_blows_up_on_whoever_is_near() -> void:
 	assert_int(blasts).is_equal(6)  # 30 damage in chunks of 5 (carnage.cpp:349-367)
 	assert_float(_armour(m) + m.internal.reduce(func(a, b): return a + b, 0.0)).is_less_equal(before - 29.0)
 	assert_float(_armour(far)).is_equal(far_before)
+
+
+## A turret control whose generator is destroyed goes to sleep with its turrets, and a sleeping
+## building can't be captured (bldng.cpp:903-913, 1046; turret.cpp:620-633).
+func test_a_control_without_its_generator_sleeps_and_cannot_be_taken() -> void:
+	var q := SimMission.load_mission(GameData, "mc2_22", 1)
+	var ctl: SimStructure = null
+	for u in q.world.units:
+		if u is SimTurret and u.parent != null and u.parent.parent != null:
+			ctl = u.parent
+			break
+	assert_object(ctl).is_not_null()
+	assert_bool(q.abl.can_capture(ctl, 0)).is_true()
+	var gen: SimStructure = ctl.parent
+	gen.take_hit(q.world.rules, q.world.rng, gen.damage_level + 1.0, 0, 143, 0.0)
+	for i in 3:
+		q.step()
+	assert_bool(ctl.awake).is_false()
+	var turrets := q.world.units.filter(func(u): return u is SimTurret and u.parent == ctl)
+	assert_bool(not turrets.is_empty() and turrets.all(func(t): return not t.active)).is_true()
+	assert_bool(q.abl.can_capture(ctl, 0)).is_false()

@@ -434,8 +434,10 @@ func _same_order(p: Pilot, o: Dictionary) -> bool:
 func can_capture(t: SimUnit, team: int) -> bool:
 	# Mechs can't be taken by a capture order (only salvaged), so "capture or destroy"
 	# a mech means disable it (A1).
+	# a building must also be awake: one whose parent (a generator) is destroyed or asleep sleeps
+	# and can't be taken (Building::canBeCaptured, bldng.cpp:1046; bldng.cpp:903-913)
 	return t != null and not (t is SimMech) and t.capturable and t.exists and t.team != team \
-		and not t.is_destroyed() and not t.hulk
+		and not t.is_destroyed() and not t.hulk and (not (t is SimStructure) or t.awake)
 
 
 ## An armed, awake, enemy mover within 75 m of the target, or null. Before arrival
