@@ -6,7 +6,7 @@
     "engine": "godot4"
   },
   "created": "2026-10-19T15:02:19+13:00",
-  "updated": "2026-10-24T18:27:06+13:00",
+  "updated": "2026-10-24T18:54:54+13:00",
   "phase": {
     "current": 8,
     "status": "running"
@@ -708,8 +708,8 @@
       "phase": 7,
       "status": "open",
       "created": "2026-10-19T16:45:21+13:00",
-      "updated": "2026-10-24T14:43:37+13:00",
-      "note": "2026-10-24 mc2_22 pass. Port check: the start-area rush is not a port bug; the guards (mc2_22_EC1_*.abl) guard their posts and attack only within 300 m. Fixed I116 (sleeping buildings could be captured). Bot (HOLD_PLANS mc2_22, KC and CB's corner line):\n- an air strike on a fort's generator from outside its guns (generic, 'FORT STRIKE': forts of 3+ turrets whose root is under its own guns; the northern line's 13 turrets go to sleep at t=7);\n- the lance holds the drop while the fastest sound mech decoys guards in;\n- the hold ends when nothing more can be lured without entering a fort's arcs.\nResult: still 0/3, but the lance lives to 622-877 s (was 169-230) with 21-45 kills (was 9-11). The turrets are off the top of the damage table; Men Shen, Catapults and the Elite Guard (Cyclops, Swarm LRMs) finish it. Regression: mc2_03 2/3 in a recheck (4/4 earlier this session before I115/I116 and the fort strike), mc2_13 0/3."
+      "updated": "2026-10-24T18:54:54+13:00",
+      "note": "2026-10-24 pass 2: 2/6 over seeds 1-6 (s1 W 1089, s3 W 1067). The RP-building capture fix (I99) lets the lance take the compound's RP and salvage. New 'prep_before' plan option (mc2_22: objective 0, the Elite Guard): repair, and up to 3 Long Toms behind the lance before going for it. Reserving 16k RP for the guns starved the salvage and gave 0/6, so there is no reserve. Losses are to the Elite Guard's Swarm-LRM Catapults (900-1100 damage)."
     },
     {
       "id": "I29",
@@ -1618,8 +1618,8 @@
       "phase": 8,
       "status": "open",
       "created": "2026-10-23T19:56:32+13:00",
-      "updated": "2026-10-24T16:14:30+13:00",
-      "note": "PARKED 2026-10-24 by Lee: even in game the v2 textures (mechs, vehicles, terrain) look terrible; all game assets and textures need redoing. Fix everything else first, then return with a fresh approach (bake-off proposed: clean stylised vs AI-painted from refs; terrain as tiled CC0 PBR by terrain class). v2 stays behind --art-v2."
+      "updated": "2026-10-24T18:40:37+13:00",
+      "note": "2026-10-24 Lee approved the new plan (memory mc2-art-plan-2026-10-24; research in /mnt/nvme1n1p1/mc2-rework/plan-research/): pipeline A bake-and-paint on CC sculpts, MW5/MWO style, gaps modelled in-house, Atlas pilot first. Hunyuan output and the mislabelled Zeus removed (b1ecbbc)."
     },
     {
       "id": "I99",
@@ -2012,16 +2012,6 @@
     }
   ],
   "log": [
-    {
-      "at": "2026-10-20T06:34:18+13:00",
-      "who": "conductor",
-      "msg": "issue I69 fixed: Lee approved the look (D6, 2026-10-20)"
-    },
-    {
-      "at": "2026-10-20T06:34:18+13:00",
-      "who": "conductor",
-      "msg": "issue I70 updated: title, note \u2014 Lee D6 2026-10-20: redo"
-    },
     {
       "at": "2026-10-20T06:34:18+13:00",
       "who": "conductor",
@@ -3011,6 +3001,16 @@
       "at": "2026-10-24T18:27:06+13:00",
       "who": "conductor",
       "msg": "issue I99 updated: note \u2014 2026-10-24 mc2_11 pass. Port check: the sensor net works as in the original (the Grp2 brains attack anything the team senses within 525 m; ECM gives no signature, Contact.cpp:257-350). Bot:\n- ECM run: the Men Shen kills both towers alone by about 190 s while the others wait outside 550 m;\n- fort-job hysteresis: it had swayed 140 s between a control and an ordnance truck;\n- jump-capture across water or walls (a jumper walks to a launch spot and jumps in), and targets with no walking path count as reachable if a jumper can launch to them;\n- player units path round laid mines (SimUnit.avoid_mines; the original's pathfinder doesn't, so the AI keeps walking through them): 0 mine hits, was 5;\n- arcs discipline on mc2_11.\nResult: 0/3 (625/1271/1144 s). The Steiner Weapons Facility is taken in 1 seed; LRM pop-up and AC forts, then the Steiner HQ guard, finish the lance. The island RP is 171 m from the nearest walkable cell, beyond the 128 m jump range."
+    },
+    {
+      "at": "2026-10-24T18:40:37+13:00",
+      "who": "conductor",
+      "msg": "issue I98 updated: note \u2014 2026-10-24 Lee approved the new plan (memory mc2-art-plan-2026-10-24; research in /mnt/nvme1n1p1/mc2-rework/plan-research/): pipeline A bake-and-paint on CC sculpts, MW5/MWO style, gaps modelled in-house, Atlas pilot first. Hunyuan output and the mislabelled Zeus removed (b1ecbbc)."
+    },
+    {
+      "at": "2026-10-24T18:54:54+13:00",
+      "who": "conductor",
+      "msg": "issue I28 updated: note \u2014 2026-10-24 pass 2: 2/6 over seeds 1-6 (s1 W 1089, s3 W 1067). The RP-building capture fix (I99) lets the lance take the compound's RP and salvage. New 'prep_before' plan option (mc2_22: objective 0, the Elite Guard): repair, and up to 3 Long Toms behind the lance before going for it. Reserving 16k RP for the guns starved the salvage and gave 0/6, so there is no reserve. Losses are to the Elite Guard's Swarm-LRM Catapults (900-1100 damage)."
     }
   ],
   "choices": [
