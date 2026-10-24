@@ -1,0 +1,14 @@
+{
+ "commit": "30e6aa1",
+ "dirty": [],
+ "scripts_diff_sha1": "da39a3ee5e",
+ "bot_sha1": "0a690b9f46",
+ "seeds": [
+  1,
+  2,
+  3
+ ],
+ "max_seconds": 1800,
+ "bot_args": [],
+ "jobs": 2
+}

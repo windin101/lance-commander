@@ -1,0 +1,74 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_23
+force: campaign 5 units 300 t of 300 t, RP 36000: Mad Cat Prime(pmwrooster), Shootist Prime(pmwmother), Catapult Prime(pmwghost), Vulture Prime(pmwscooter), Razorback Prime(pmwbubba)
+ABL pilots: 90
+t=  12.4  SUPPORT air_strike (-772, 969) rp_left=29000
+t=  15.5  SUPPORT artillery_piece (-1024, 1055) rp_left=21000
+t=  39.5  SUPPORT salvage_craft Werewolf rp_left=11000
+t=  51.5  SUPPORT salvage_craft Hunchback rp_left=1000
+t= 142.7  objective done: b. Clear Out Patrols Around Town to Free Rebels
+t= 255.4  ALLY LOST Centipede (destroyed, armour 70%, heat 0, ejected false, pilot 0.0 wounds, last hit by Swarmlrmc)
+t= 264.1  ALLY LOST Lrmcarrier (destroyed, armour 67%, heat 0, ejected false, pilot 0.0 wounds, last hit by Swarmlrmc)
+t= 266.8  ALLY LOST Centipede (destroyed, armour 80%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 273.7  PULLBACK Werewolf at 30%
+t= 275.2  ALLY LOST Vedette (destroyed, armour 56%, heat 0, ejected false, pilot 0.0 wounds, last hit by Swarmlrmc)
+t= 275.5  ALLY LOST Vedette (destroyed, armour 78%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 282.3  ALLY LOST Centipede (destroyed, armour 80%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 289.0  ALLY LOST Lrmcarrier (destroyed, armour 78%, heat 0, ejected false, pilot 0.0 wounds, last hit by Storm)
+t= 299.3  ALLY LOST Vedette (destroyed, armour 72%, heat 0, ejected false, pilot 0.0 wounds, last hit by Monsoon)
+t= 301.8  CAPTURED Werewolf RepairBay
+t= 303.7  PULLBACK Werewolf at 26%
+t= 303.7  BAY Werewolf -> RepairBay (243 m)
+t= 309.1  ALLY LOST Lrmcarrier (destroyed, armour 78%, heat 0, ejected false, pilot 0.0 wounds, last hit by Harasser)
+t= 501.6  LOST Madcat (disabled, armour 34%, heat 39, ejected false, pilot 6.0 wounds, last hit by Hollander)
+t= 663.7  STALL no damage for 150 s: leaving 3 threats for 120 s
+t= 666.7  BAY Hunchback -> RepairBay (77 m)
+t= 683.1  REPAIR_DONE Hunchback RepairBay
+t= 684.7  BAY Shootist -> RepairBay (121 m)
+t= 708.0  REPAIR_DONE Shootist RepairBay
+t= 708.7  BAY Werewolf -> RepairBay (252 m)
+t= 730.7  REPAIR_DONE Werewolf RepairBay
+t= 743.7  CAPTURED Werewolf RepairBay
+t= 773.2  objective done: 1. Clear Out Steiner Forces at Starport
+t= 795.7  LOST Werewolf (disabled, armour 49%, heat 0, ejected false, pilot 0.0 wounds, last hit by MediumAutoCannonTurret)
+t= 804.8  LOST Werewolf (disabled, armour 29%, heat 0, ejected false, pilot 0.0 wounds, last hit by MediumAutoCannonTurret)
+t= 812.3  LOST Hunchback (disabled, armour 48%, heat 4, ejected false, pilot 1.0 wounds, last hit by Heavy Copter)
+t= 818.1  LOST Artillery Piece (destroyed, armour 48%, heat 0, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t= 849.5  LOST Vulture (disabled, armour 40%, heat 0, ejected false, pilot 0.0 wounds, last hit by Bushwacker)
+t= 852.7  PULLBACK Shootist at 29%
+t= 855.7  BAY Shootist -> RepairBay (863 m)
+t= 856.5  LOST Shootist (disabled, armour 11%, heat 0, ejected false, pilot 1.0 wounds, last hit by Bushwacker)
+t= 888.7  JUMP Catapult to capture S_TurretControl
+t= 891.8  CAPTURED Catapult S_TurretControl
+t= 891.8  LOST Catapult (disabled, armour 42%, heat 0, ejected false, pilot 1.0 wounds, last hit by MediumAutoCannonTurret)
+t= 896.8  MISSION LOST
+seed 3 end t=897 result=LOST  player alive 0  enemies alive 26
+damage to lance: 1128 from 28 attackers; hits by location (0 head .. 10 rear RT): { 2: 50, 7: 34, 1: 45, 5: 38, 6: 27, 4: 48, 3: 44, 10: 13, 9: 17, 8: 9, 0: 27 }
+damage by lance: 3302; kills 45
+       368  Bushwacker (mech)
+       264  MediumAutoCannonTurret (vehicle)
+       132  Werewolf (mech)
+        93  Zeus (mech)
+        78  Atlas (mech)
+        62  Heavy Copter (mech)
+        51  Lrmcarrier (vehicle)
+        50  Hollander (mech)
+        28  Storm (vehicle)
+         2  Partisan (vehicle)
+  obj 0 P: done  1. Clear Out Steiner Forces at Starport
+  obj 1 P: open  2. Eliminate Steiner Reinforcements
+  obj 2 s: open  a. Capture Sensor Control
+  obj 3 s: done  b. Clear Out Patrols Around Town to Free Rebels
+  obj 4 s: open  c. Destroy Steiner Dropships
+  obj 5 s: open  d. Capture Steiner Mobile HQ Vehicle
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_23_Starport_Mechs_South2:attack": 2, "pbrain:attack": 2, "mc2_23_EC1_Razors:attack": 1, "mc2_23_EC1_razor1:attack": 1, "mc2_23_EC1_LRms:attack": 5, "mc2_23_EC2_Bridge_Guards:start": 2, "mc2_23_Base1_Mechs:start": 2, "mc2_23_EC2_razor_recap_sens:attack": 1, "mc2_23_EC2_razor_recap_sens:runtosensors": 1, "mc2_23_EC2_Water_Guards:attack": 2, "mc2_23_Lakeside_patrol2:start": 1, "mc2_23_Lakeside_patrol1:attack": 2, "mc2_23_Lakeside_patrol2:attack": 1, "mc2_23_Town_chopper1:attack": 1, "mc2_23_Town_chopper2:attack": 1, "mc2_23_Town_chopper3:attack": 1, "mc2_23_Westside_patrol1:patroltostarport": 2, "mc2_23_Westside_patrol2:patroltostarport": 2, "mc2_23_Southside_patrol1:attack": 3, "mc2_23_Southside_patrol2:attack": 2, "mc2_23_Southbase_BushG:attack": 1, "mc2_23_Southbase_Cnv_grd:base1escort": 1, "mc2_23_Southbase_chopper2:attack": 1, "mc2_23_Southbase_chopper1:attack": 1, "mc2_23_Southbase_CNV:start": 2, "mc2_23_Starport_Mechs_North2:attack": 1, "mc2_23_Starport_Mechs_North1:attack": 1, "mc2_23_Starport_Mechs_South1:attack": 1, "mc2_23_Starport_LRMs:attack": 9, "mc2_23_Starport_Mechs_East2:attack": 1, "mc2_23_Starport_Mechs_East1:attack": 2, "mc2_23_dropship_ambush_east:attack": 1, "mc2_23_dropship_ambush_north:start": 2, "mc2_23_dropship_ambush_south:start": 2, "mc2_23_dropship_ambush_east:start": 1, "mc2_23_Rif1_Mechs_Jump:start": 3, "mc2_23_Rif2_Mechs_Town:start": 3, "mc2_23_Rif3_Mechs_Starport:start": 4, "mc2_23_Resource_Trucks:start": 4, "mc2_23_Reb_vehs:attack": 3, "mc2_23_Reb_vehs3:attack": 3, "mc2_23_Reb_vehs2:attack": 3, "PBrain:": 5, "pbrain:": 2 }
+enemy pilots that moved >20 m: 52 / 92
+
+--- stderr ---
+WARNING: 765 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,139 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_18
+force: campaign 5 units 320 t of 320 t, RP 16000: Lao Hu Prime(pmwsteel), Lao Hu Prime(pmwclaymore), Shootist Prime(pmwworm), Catapult Prime(pmwmeat), Wolfhound Prime(pmwpalerider)
+ABL pilots: 72
+t=  32.0  SUPPORT air_strike (-686, -781) rp_left=9000
+t=  71.3  SUPPORT repair_truck (-811, -773) rp_left=3000
+t=  73.7  CAPTURED Shootist DavionTurretControl.fit
+t= 154.5  REPAIR_DONE LaoHu 
+t= 218.4  LOST Repairtruck (destroyed, armour 55%, heat 0, ejected false, pilot 0.0 wounds, last hit by LRMTurret)
+t= 238.7  JUMP Wolfhound to capture DavionTurretControl.fit
+t= 240.9  LOST Wolfhound (disabled, armour 20%, heat 0, ejected false, pilot 1.0 wounds, last hit by LRMTurret)
+t= 241.8  JUMP LaoHu to capture DavionTurretControl.fit
+t= 245.0  CAPTURED LaoHu DavionTurretControl.fit
+t= 259.6  CAPTURED LaoHu OrdnanceTruckProp
+t= 260.2  SUPPORT repair_truck (-404, -39) rp_left=1000
+t= 284.0  REPAIR_DONE LaoHu 
+t= 300.3  REPAIR_DONE LaoHu 
+t= 316.3  REPAIR_DONE Catapult 
+t= 323.3  CAPTURED Shootist RepairBay
+t= 326.3  CAPTURED Catapult OrdnanceTruckProp
+t= 330.1  CAPTURED Catapult OrdnanceTruckProp
+t= 330.3  REPAIR_DONE Shootist 
+t= 362.2  SUPPORT air_strike (209, -610) rp_left=2000
+t= 484.4  CAPTURED Catapult DavionTurretControl.fit
+t= 509.9  CAPTURED Shootist DavionTurretControl.fit
+t= 586.4  REPAIR_DONE LaoHu 
+t= 586.5  LOST Repairtruck (disabled, armour 100%, heat 0, ejected false, pilot 0.0 wounds, last hit by -)
+t= 622.9  LOST LRMTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Lrmcarrier)
+t= 645.3  LOST LaoHu (disabled, armour 29%, heat 10, ejected false, pilot 0.0 wounds, last hit by Werewolf)
+t= 660.6  LOST LRMTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 666.6  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 672.2  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 672.8  LOST MediumAutoCannonTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 674.3  LOST DavionTurretControl.fit (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 674.4  TURRET_DOWN LRMTurret 
+t= 674.4  TURRET_DOWN LRMTurret 
+t= 674.4  TURRET_DOWN MediumAutoCannonTurret 
+t= 674.4  TURRET_DOWN MediumAutoCannonTurret 
+t= 674.4  TURRET_DOWN MediumAutoCannonTurret 
+t= 674.4  TURRET_DOWN MediumAutoCannonTurret 
+t= 674.6  LOST LRMTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Attack Copter)
+t= 678.8  LOST LiaoTurretGenerator.fit (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 681.5  LOST LookoutTower (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 719.5  LOST LaoHu (disabled, armour 33%, heat 10, ejected false, pilot 1.0 wounds, last hit by Hollander)
+t= 727.7  LOST RepairBay (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 735.8  LOST OrdnanceTruckProp (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 736.0  LOST OrdnanceTruckProp (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 736.3  LOST OrdnanceTruckProp (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 747.3  LOST LookoutTower (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 752.2  ALLY LOST City6StoryC (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 755.7  ALLY LOST City4StoryC (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 756.3  ALLY LOST City6StoryA (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 759.5  ALLY LOST City6StoryC (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Attack Copter)
+t= 761.5  ALLY LOST City4StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 765.5  ALLY LOST City6StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 767.3  ALLY LOST City2StoryC (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 769.0  ALLY LOST City2StoryC (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 771.7  ALLY LOST City2StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 774.3  ALLY LOST City4StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 777.2  ALLY LOST City2StoryA (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 780.8  ALLY LOST City2StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 783.0  ALLY LOST City8StoryC (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 785.4  ALLY LOST City6StoryA (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 786.8  ALLY LOST City4StoryC (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 789.7  ALLY LOST City8StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 790.0  ALLY LOST City4StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 791.7  ALLY LOST City2StoryC (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Attack Copter)
+t= 792.6  ALLY LOST City6StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 795.0  ALLY LOST City8StoryA (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 796.0  ALLY LOST City2StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 798.5  ALLY LOST City2StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 802.0  ALLY LOST City4StoryC (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 803.3  ALLY LOST City2StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 804.0  ALLY LOST CivStorageA (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 812.8  ALLY LOST City2StoryB (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 813.5  ALLY LOST FactorySm (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Attack Copter)
+t= 814.7  ALLY LOST ValveStation (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 816.5  LOST LookoutTower (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Hunchback)
+t= 819.7  ALLY LOST ProcessingPlant (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 869.3  LOST LookoutTower (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 883.3  LOST LRMTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 887.0  LOST LiaoTurretGenerator.fit (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 887.1  TURRET_DOWN LRMTurret 
+t= 887.1  TURRET_DOWN LRMTurret 
+t= 887.1  TURRET_DOWN LRMTurret 
+t= 888.8  ALLY LOST 2CivLiving (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 890.7  LOST LRMTurret (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Hunchback)
+t= 891.7  ALLY LOST SingleCivLivingA (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by LaoHu)
+t= 892.5  LOST DavionTurretControl.fit (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 896.0  ALLY LOST 2StoryCivLiving (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 903.2  ALLY LOST FactorySm (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 907.1  ALLY LOST 2StoryCivLiving (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Attack Copter)
+t= 914.8  LOST LookoutTower (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 915.7  ALLY LOST SingleCivLivingA (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Attack Copter)
+t= 916.5  ALLY LOST 2CivLiving (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 920.7  ALLY LOST WasteProcessor (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 925.5  ALLY LOST WasteProcessor (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 933.0  ALLY LOST FactoryMd (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 936.0  ALLY LOST ProcessingPlant (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 946.5  ALLY LOST FactoryMd (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by ShaYu)
+t= 955.6  LOST Catapult (disabled, armour 20%, heat 0, ejected false, pilot 2.0 wounds, last hit by MenShen)
+t= 990.3  LOST Shootist (disabled, armour 45%, heat 4, ejected false, pilot 6.0 wounds, last hit by MenShen)
+t= 995.3  MISSION LOST
+seed 1 end t=995 result=LOST  player alive 0  enemies alive 13
+damage to lance: 2180 from 66 attackers; hits by location (0 head .. 10 rear RT): { 6: 47, 7: 58, 2: 58, 4: 54, 1: 72, 8: 12, 5: 56, 3: 70, 0: 258, 10: 7, 9: 6 }
+damage by lance: 4266; kills 53
+       490  ShaYu (mech)
+       268  LaoHu (mech)
+       187  MenShen (mech)
+       174  LRMTurret (vehicle)
+       126  Shootist (mech)
+       114  MediumAutoCannonTurret (vehicle)
+       103  Raven (mech)
+        94  SRMTurret (vehicle)
+        92  Starslayer (mech)
+        85  Hunchback (mech)
+  obj 0 P: open  1. Defend City from Liao and Steiner Forces
+  obj 1 P: open  2. Destroy all Liao/Steiner Forces
+  obj 2 s: open  a. Recapture Davion Headquarters
+  obj 3 s: open  b. Recapture the City's Power Generator
+  obj 4 s: open  c. Recapture Davion Sensor Control
+  obj 5 s hidden: open  Hidden Object To kill group 1
+  obj 6 s hidden: done  Hidden Objective to Kill Group2
+  obj 7 s hidden: open  Hidden Objective to Kill Group 3
+  obj 8 s hidden: done  Hidden Objective To Kill Group 4
+  obj 9 s hidden: done  Hidden Objective to Trigger Group Sneaky
+  obj 10 s hidden: done  Hidden Objective that Triggers Objectives to app
+  obj 11 s hidden: done  Hidden Objective when the player kills 25 enemie
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_18_Grp1_Mechs:look4play": 4, "mc2_18_Grp1_Veh:attack": 1, "mc2_18_Grp1_Veh:look4play": 1, "mc2_18_Grp2_Mechs:start": 3, "mc2_18_Grp2_Mechs:attack": 1, "mc2_18_Grp3_Mechs:baseassault": 6, "mc2_18_Grp2_Veh:attack": 4, "mc2_18_Grp4_Mechs:start": 5, "mc2_18_sneaky_mech:attack": 2, "mc2_18_sneaky_mech:baseassault": 2, "mc2_18_Gpatrol_Veh:attack": 2, "mc2_18_guard_Veh:attack": 3, "mc2_18_Grp0_Veh:baseassault": 3, "mc2_18_Grp0_Veh:attack": 2, "mc2_18_guard_PD_mech:attack": 4, "mc2_18_patrol_1:attack": 1, "mc2_18_guard_Low:attack": 2, "mc2_18_guard_High:attack": 4, "mc2_18_Gpatrol_Mechs:attack": 2, "mc2_18_guard_LOW:start": 3, "mc2_18_guard_LOW:attack": 4, "mc2_18_guard_HIGH:attack": 3, "mc2_18_patrol_lake2:attack": 2, "mc2_18_patrol_lake:attack": 1, "mc2_18_patrol_4:attack": 1, "mc2_18_patrol_2:attack": 1, "PBrain:": 5 }
+enemy pilots that moved >20 m: 61 / 72
+
+--- stderr ---
+WARNING: 902 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

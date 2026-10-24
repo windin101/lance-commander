@@ -1,0 +1,50 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_06
+force: campaign 4 units 255 t of 260 t, RP 25000: Zeus Prime(pmwsteel), Shootist Prime(pmwmeat), Shootist Prime(pmwworm), Hollander Prime(pmwpalerider)
+ABL pilots: 48
+t=  29.7  CAPTURED Hollander OrdnanceTruckProp
+t=  31.8  CAPTURED Hollander OrdnanceTruckProp
+t=  33.5  SUPPORT sensor_probe (-164, 109) rp_left=31000
+t= 128.6  SUPPORT repair_truck (188, 680) rp_left=25000
+t= 136.4  CAPTURED Shootist S_TurretControl
+t= 136.4  objective done: b - Capture the Turret Control at Road Checkpoint.
+t= 139.1  CAPTURED Shootist OrdnanceTruckProp
+t= 141.1  CAPTURED Shootist OrdnanceTruckProp
+t= 147.2  SUPPORT air_strike (175, 1153) rp_left=26000
+t= 148.2  REPAIR_DONE Hollander 
+t= 150.3  SUPPORT artillery_piece (255, 799) rp_left=18000
+t= 159.6  SUPPORT air_strike (218, 1227) rp_left=11000
+t= 162.7  SUPPORT artillery_piece (255, 996) rp_left=3000
+t= 410.8  REPAIR_DONE Shootist 
+t= 429.7  PULLBACK Hollander at 29%
+t= 442.4  objective done: 1. Protect the Base Headquarters
+t= 442.4  objective done: 2. Destroy all attacking Liao forces.
+t= 447.4  MISSION WON
+seed 3 end t=447 result=WON  player alive 7  enemies alive 0
+damage to lance: 476 from 32 attackers; hits by location (0 head .. 10 rear RT): { 4: 16, 6: 23, 1: 16, 7: 16, 3: 17, 2: 17, 5: 18, 0: 3, 10: 1, 8: 2 }
+damage by lance: 1991; kills 38
+       146  ShaYu (mech)
+       119  Storm (vehicle)
+        70  Starslayer (mech)
+        54  Lrmcarrier (vehicle)
+        40  Catapult (mech)
+        33  LRMTurret (vehicle)
+        12  Attack Copter (mech)
+         2  Drillson (vehicle)
+  obj 0 P: done  1. Protect the Base Headquarters
+  obj 1 P: done  2. Destroy all attacking Liao forces.
+  obj 2 s: open  a - Capture Steiner Sensor Control.
+  obj 3 s: done  b - Capture the Turret Control at Road Checkpoin
+  obj 4 s hidden: done  Hidden OBJ to Trigger Wave 2
+  obj 5 s hidden: done  Hidden Objective to Trigger Wave3
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_06_wv1_Guard2:spawnin": 4, "mc2_06_wv1_2a_lrm:attack": 3, "mc2_06_wv1_2a:attack": 3, "mc2_06_wv1_1a:attack": 4, "mc2_06_wv1_Guard:attack": 4, "mc2_06_wv2_3a:attack": 5, "mc2_06_wv2_Guard2:attack": 2, "mc2_06_wv2_2a:attack": 4, "mc2_06_wv3_2a:attack": 4, "mc2_06_wv3_Guard:spawnin": 1, "mc2_06_wv3_Guard:base1escort": 1, "mc2_06_wv3_Guard:attack": 1, "mc2_06_wv3_1a:spawn": 2, "mc2_06_wv3_1a:attack": 2, "mc2_06_wv1_2b:attack": 1, "mc2_06_out_Guard:attack": 3, "PBrain:": 4 }
+enemy pilots that moved >20 m: 47 / 48
+
+--- stderr ---
+WARNING: 626 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

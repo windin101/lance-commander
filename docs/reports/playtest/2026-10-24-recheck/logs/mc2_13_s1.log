@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_13
+force: campaign 4 units 230 t of 230 t, RP 0: Shootist Prime(pmwsteel), Catapult Prime(pmwclaymore), Men Shen Prime(pmwworm), Sha Yu Prime(pmwmeat)
+ABL pilots: 48
+t= 117.0  LOST ShaYu (disabled, armour 22%, heat 6, ejected false, pilot 2.0 wounds, last hit by Storm)
+t= 162.4  CAPTURED Shootist DavionTurretControl.fit
+t= 173.8  CAPTURED Catapult DavionTurretControl.fit
+t= 207.0  CAPTURED MenShen DavionTurretControl.fit
+t= 261.7  FALLBACK 3 threats (dps 16 vs 10, health 45%) to (-29, 643)
+t= 270.7  PULLBACK MenShen at 30%
+t= 315.7  PULLBACK MenShen at 30%
+t= 321.7  FALLBACK 1 threats (dps 10 vs 6, health 38%) to (68, 506)
+t= 339.0  LOST Shootist (disabled, armour 6%, heat 0, ejected false, pilot 2.0 wounds, last hit by MediumAutoCannonTurret)
+t= 345.7  PULLBACK MenShen at 30%
+t= 390.7  FALLBACK 3 threats (dps 11 vs 3, health 30%) to (71, 529)
+t= 392.3  LOST Catapult (disabled, armour 14%, heat 9, ejected false, pilot 0.0 wounds, last hit by Enfield)
+t= 450.7  FALLBACK 3 threats (dps 11 vs 1, health 28%) to (226, 593)
+t= 459.3  LOST MenShen (disabled, armour 17%, heat 0, ejected false, pilot 1.0 wounds, last hit by Enfield)
+t= 464.3  MISSION LOST
+seed 1 end t=464 result=LOST  player alive 0  enemies alive 29
+damage to lance: 772 from 24 attackers; hits by location (0 head .. 10 rear RT): { 3: 11, 5: 21, 2: 20, 4: 24, 1: 10, 0: 5, 6: 19, 7: 16, 9: 8, 10: 5, 8: 5 }
+damage by lance: 1182; kills 15
+       300  MediumAutoCannonTurret (vehicle)
+       224  Storm (vehicle)
+       120  GaussTurret (vehicle)
+       117  Enfield (mech)
+         6  Uller (mech)
+         4  Poweredarmor (vehicle)
+  obj 0 P: open  Destroy Both HPG Station
+  obj 1 P: open  Capture Weapons Facility #1
+  obj 2 P: open  Capture Weapons Facility #2
+  obj 3 P: open  Capture Weapons Facility #3
+  obj 4 P: open  Destroy Davion Dropship
+  obj 5 P: gated  Move all Surviving 'Mechs to Extraction Point
+  obj 6 s hidden: open  Super Secret Hidden OBJ to track if you kill the
+abl errors: []
+abl natives missing: []
+brain end states: { "mc2_13_Enfield_S:attack": 1, "mc2_13_WFac2_Veh_1:attack": 1, "mc2_13_WFac2_Veh_2:attack": 1, "mc2_13_Enfield_N:attack": 1, "mc2_13_WFac1_PWARM:attack": 5, "mc2_13_WFac1_PWARM_1:start": 16, "mc2_13_PowerGen_Mech_1:start": 2, "mc2_13_SpacePort_Clan_Thor:start": 1, "mc2_13_SpacePort_Clan_1:start": 1, "mc2_13_Enfield_TC:start": 1, "mc2_13_OutPatl_Grp1_Lead:start": 1, "mc2_13_OutPatl_Grp1_Escort:escortinglead": 2, "mc2_13_MISC_Storms:start": 1, "mc2_13_Crat_W_Patrol:start": 2, "mc2_13_Crat_N_Patrol:start": 2, "mc2_13_Crat_E_Patrol:attack": 2, "mc2_13_MISC_Storms:attack": 4, "PBrain:": 4 }
+enemy pilots that moved >20 m: 30 / 48
+
+--- stderr ---
+WARNING: 539 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 15 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

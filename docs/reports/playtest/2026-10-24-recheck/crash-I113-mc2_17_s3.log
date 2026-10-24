@@ -1,0 +1,144 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mission mc2_17
+force: campaign 6 units 350 t of 350 t, RP 0: Shootist Prime(pmwsteel), Shootist Prime(pmwclaymore), Catapult Prime(pmwworm), Men Shen Prime(pmwmeat), Men Shen Prime(pmwpalerider), Raven Prime(pmwtwitch)
+ABL pilots: 62
+t=   3.0  objective done: Escort Jason Cho to Rendezvous Location
+t= 130.2  objective done: Sec: Take Control of Steiner Base
+t= 148.2  HOLD reached (397, -235)
+t= 148.5  CAPTURED Raven S_TurretControl
+t= 151.4  CAPTURED Shootist S_TurretControl
+t= 156.5  CAPTURED Raven RepairBay
+t= 158.3  CAPTURED MenShen RepairBay
+t= 242.5  LOST LRMPopup (destroyed, armour 0%, heat 0, ejected false, pilot -, last hit by Zeus)
+t= 295.7  BAY MenShen -> RepairBay (249 m)
+t= 326.5  REPAIR_DONE MenShen RepairBay
+t= 328.7  BAY Raven -> RepairBay (199 m)
+t= 409.7  BAY MenShen -> RepairBay (300 m)
+t= 440.2  REPAIR_DONE MenShen RepairBay
+
+--- stderr ---
+
+================================================================
+handle_crash: Program crashed with signal 11
+Engine version: Godot Engine v4.7.2.stable.official (ed1daf0bf001b61586d9930840f2f1394092c079)
+Dumping the backtrace. Please include this when reporting the bug on: https://github.com/godotengine/godot/issues
+Load address: 400000
+
+[1] 7feed103e6f0 (libc.so.6+3e6f0) - /usr/lib/libc.so.6(+0x3e6f0) [0x7feed103e6f0]
+[2] 468dee6 (main+428dee6) - godot() [0x468dee6]
+[3] afe390 (main+6fe390) - godot() [0xafe390]
+[4] 9380de (main+5380de) - godot() [0x9380de]
+[5] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[6] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[7] af6c08 (main+6f6c08) - godot() [0xaf6c08]
+[8] 9380de (main+5380de) - godot() [0x9380de]
+[9] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[10] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[11] af6c08 (main+6f6c08) - godot() [0xaf6c08]
+[12] 9380de (main+5380de) - godot() [0x9380de]
+[13] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[14] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[15] af6c08 (main+6f6c08) - godot() [0xaf6c08]
+[16] 9380de (main+5380de) - godot() [0x9380de]
+[17] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[18] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[19] af6c08 (main+6f6c08) - godot() [0xaf6c08]
+[20] 9380de (main+5380de) - godot() [0x9380de]
+[21] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[22] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[23] af6c08 (main+6f6c08) - godot() [0xaf6c08]
+[24] 9380de (main+5380de) - godot() [0x9380de]
+[25] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[26] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[27] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[28] 9380de (main+5380de) - godot() [0x9380de]
+[29] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[30] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[31] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[32] 9380de (main+5380de) - godot() [0x9380de]
+[33] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[34] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[35] af6c08 (main+6f6c08) - godot() [0xaf6c08]
+[36] 9380de (main+5380de) - godot() [0x9380de]
+[37] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[38] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[39] af6c08 (main+6f6c08) - godot() [0xaf6c08]
+[40] 9380de (main+5380de) - godot() [0x9380de]
+[41] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[42] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[43] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[44] 9380de (main+5380de) - godot() [0x9380de]
+[45] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[46] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[47] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[48] 9380de (main+5380de) - godot() [0x9380de]
+[49] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[50] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[51] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[52] 9380de (main+5380de) - godot() [0x9380de]
+[53] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[54] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[55] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[56] 9380de (main+5380de) - godot() [0x9380de]
+[57] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[58] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[59] af6c08 (main+6f6c08) - godot() [0xaf6c08]
+[60] 9380de (main+5380de) - godot() [0x9380de]
+[61] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[62] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[63] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[64] 9380de (main+5380de) - godot() [0x9380de]
+[65] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[66] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[67] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[68] 9380de (main+5380de) - godot() [0x9380de]
+[69] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[70] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[71] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[72] 9380de (main+5380de) - godot() [0x9380de]
+[73] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[74] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[75] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[76] 9380de (main+5380de) - godot() [0x9380de]
+[77] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[78] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[79] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[80] 9380de (main+5380de) - godot() [0x9380de]
+[81] 48f70b5 (main+44f70b5) - godot() [0x48f70b5]
+[82] 46ada1b (main+42ada1b) - godot() [0x46ada1b]
+[83] b1c5b8 (main+71c5b8) - godot() [0xb1c5b8]
+[84] 960066 (main+560066) - godot() [0x960066]
+[85] 9606ec (main+5606ec) - godot() [0x9606ec]
+[86] 49489af (main+45489af) - godot() [0x49489af]
+[87] 58d466 (main+18d466) - godot() [0x58d466]
+[88] 42bf87 (main+2bf87) - godot() [0x42bf87]
+[89] 7feed1027781 (libc.so.6+27781) - /usr/lib/libc.so.6(+0x27781) [0x7feed1027781]
+[90] 7feed10278b9 (libc.so.6+278b9) - /usr/lib/libc.so.6(__libc_start_main+0x89) [0x7feed10278b9]
+[91] 48a6da (main+8a6da) - godot() [0x48a6da]
+-- END OF C++ BACKTRACE --
+================================================================
+GDScript backtrace (most recent call first):
+    [0] _slot (res://scripts/abl/abl_runtime.gd:505)
+    [1] _read (res://scripts/abl/abl_runtime.gd:518)
+    [2] _eval (res://scripts/abl/abl_runtime.gd:576)
+    [3] _call (res://scripts/abl/abl_runtime.gd:449)
+    [4] _eval (res://scripts/abl/abl_runtime.gd:591)
+    [5] _exec (res://scripts/abl/abl_runtime.gd:350)
+    [6] _exec_block (res://scripts/abl/abl_runtime.gd:344)
+    [7] _call_declared (res://scripts/abl/abl_runtime.gd:491)
+    [8] _call (res://scripts/abl/abl_runtime.gd:442)
+    [9] _call_stmt (res://scripts/abl/abl_runtime.gd:419)
+    [10] _exec (res://scripts/abl/abl_runtime.gd:352)
+    [11] _exec_block (res://scripts/abl/abl_runtime.gd:344)
+    [12] _call_declared (res://scripts/abl/abl_runtime.gd:491)
+    [13] _execute (res://scripts/abl/abl_runtime.gd:328)
+    [14] execute (res://scripts/abl/abl_runtime.gd:87)
+    [15] _pilot_tick (res://scripts/sim/sim_abl.gd:178)
+    [16] think (res://scripts/sim/sim_abl.gd:105)
+    [17] step (res://scripts/sim/sim_world.gd:230)
+    [18] step (res://scripts/sim/sim_mission.gd:140)
+    [19] _play (res://tools/autoplay.gd:1100)
+    [20] _init (res://tools/autoplay.gd:48)
+-- END OF GDSCRIPT BACKTRACE --
+================================================================
