@@ -241,8 +241,13 @@ class SupportTile:
 		v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(v)
 		var t := kit.label(title, "display500", 0.8, UiStyle.HUD_INK, true, 0.06)
-		t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		t.custom_minimum_size.x = kit.em(2.9)  # six tiles share the row (support tab, controlGui.cpp:80-115)
+		t.autowrap_mode = TextServer.AUTOWRAP_WORD  # break between words only, never "STRIK E"
+		var f := t.get_theme_font("font")
+		var fs := t.get_theme_font_size("font_size")
+		var widest := 0.0
+		for w in title.to_upper().split(" ", false):
+			widest = maxf(widest, f.get_string_size(w, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x)
+		t.custom_minimum_size.x = maxf(kit.em(2.9), ceilf(widest))  # six tiles share the row (support tab, controlGui.cpp:80-115)
 		v.add_child(t)
 		v.add_child(kit.label(CommandPanel.thousands(cost), "mono", 0.9, UiStyle.HUD_DIM))
 
