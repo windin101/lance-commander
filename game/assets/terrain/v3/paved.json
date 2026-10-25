@@ -1,0 +1,34 @@
+{
+ "layers": [
+  {
+   "slot": "concrete",
+   "id": "Concrete024",
+   "tile_m": 2.0,
+   "mean_albedo": [
+    134.4,
+    134.4,
+    134.4
+   ]
+  },
+  {
+   "slot": "asphalt",
+   "id": "Asphalt015",
+   "tile_m": 2.5,
+   "mean_albedo": [
+    114.5,
+    114.5,
+    114.5
+   ]
+  },
+  {
+   "slot": "track",
+   "id": "Gravel022",
+   "tile_m": 1.5,
+   "mean_albedo": [
+    120.5,
+    120.5,
+    120.5
+   ]
+  }
+ ]
+}

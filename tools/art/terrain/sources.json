@@ -1,0 +1,179 @@
+{
+ "Concrete012": {
+  "source": "Concrete 012 (Concrete012) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Concrete012",
+  "tile_cm": null
+ },
+ "Concrete034": {
+  "source": "Concrete 034 (Concrete034) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Concrete034",
+  "tile_cm": 110
+ },
+ "Grass001": {
+  "source": "Grass 001 (Grass001) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Grass001",
+  "tile_cm": 140
+ },
+ "Grass003": {
+  "source": "Grass 003 (Grass003) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Grass003",
+  "tile_cm": 140
+ },
+ "Grass004": {
+  "source": "Grass 004 (Grass004) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Grass004",
+  "tile_cm": 140
+ },
+ "Gravel022": {
+  "source": "Gravel022 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Gravel022"
+ },
+ "Gravel024": {
+  "source": "Gravel 024 (Gravel024) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Gravel024",
+  "tile_cm": 150
+ },
+ "Gravel039": {
+  "source": "Gravel 039 (Gravel039) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Gravel039",
+  "tile_cm": 240
+ },
+ "Gravel040": {
+  "source": "Gravel 040 (Gravel040) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Gravel040",
+  "tile_cm": null
+ },
+ "Gravel043": {
+  "source": "Gravel 043 (Gravel043) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Gravel043",
+  "tile_cm": 160
+ },
+ "Ground003": {
+  "source": "Ground 003 (Ground003) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground003",
+  "tile_cm": null
+ },
+ "Ground013": {
+  "source": "Ground 013 (Ground013) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground013",
+  "tile_cm": null
+ },
+ "Ground015": {
+  "source": "Ground 015 (Ground015) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground015",
+  "tile_cm": null
+ },
+ "Ground018": {
+  "source": "Ground 018 (Ground018) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground018",
+  "tile_cm": null
+ },
+ "Ground023": {
+  "source": "Ground 023 (Ground023) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground023",
+  "tile_cm": null
+ },
+ "Ground024": {
+  "source": "Ground 024 (Ground024) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground024",
+  "tile_cm": null
+ },
+ "Ground036": {
+  "source": "Ground 036 (Ground036) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground036",
+  "tile_cm": null
+ },
+ "Ground037": {
+  "source": "Ground 037 (Ground037) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground037",
+  "tile_cm": 210
+ },
+ "Ground041": {
+  "source": "Ground 041 (Ground041) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground041",
+  "tile_cm": null
+ },
+ "Ground051": {
+  "source": "Ground 051 (Ground051) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground051",
+  "tile_cm": 200
+ },
+ "Ground054": {
+  "source": "Ground 054 (Ground054) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground054",
+  "tile_cm": 350
+ },
+ "Ground062S": {
+  "source": "Ground 062 S (Ground062S) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground062S",
+  "tile_cm": 160
+ },
+ "Ground068": {
+  "source": "Ground 068 (Ground068) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground068",
+  "tile_cm": null
+ },
+ "Ground072": {
+  "source": "Ground 072 (Ground072) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground072",
+  "tile_cm": 175
+ },
+ "Ground093C": {
+  "source": "Ground 093 C (Ground093C) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground093C",
+  "tile_cm": null
+ },
+ "Ground099": {
+  "source": "Ground 099 (Ground099) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground099",
+  "tile_cm": null
+ },
+ "Ground100": {
+  "source": "Ground 100 (Ground100) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground100",
+  "tile_cm": null
+ },
+ "Ground106": {
+  "source": "Ground 106 (Ground106) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground106",
+  "tile_cm": 250
+ },
+ "Ground109": {
+  "source": "Ground 109 (Ground109) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground109",
+  "tile_cm": 280
+ },
+ "Ground110": {
+  "source": "Ground 110 (Ground110) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground110",
+  "tile_cm": 210
+ },
+ "Moss002": {
+  "source": "Moss 002 (Moss002) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Moss002",
+  "tile_cm": null
+ },
+ "Rock012": {
+  "source": "Rock 012 (Rock012) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock012",
+  "tile_cm": null
+ },
+ "Rock022": {
+  "source": "Rock 022 (Rock022) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock022",
+  "tile_cm": null
+ },
+ "Rock030": {
+  "source": "Rock 030 (Rock030) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock030",
+  "tile_cm": null
+ },
+ "Rock031": {
+  "source": "Rock 031 (Rock031) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock031",
+  "tile_cm": null
+ },
+ "Rock035": {
+  "source": "Rock 035 (Rock035) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock035",
+  "tile_cm": null
+ },
+ "Rock036": {
+  "source": "Rock 036 (Rock036) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock036",
+  "tile_cm": null
+ },
+ "Rock050": {
+  "source": "Rock 050 (Rock050) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock050",
+  "tile_cm": null
+ },
+ "Rock060": {
+  "source": "Rock 060 (Rock060) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock060",
+  "tile_cm": null
+ },
+ "Rock061": {
+  "source": "Rock 061 (Rock061) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock061",
+  "tile_cm": null
+ },
+ "Snow006": {
+  "source": "Snow 006 (Snow006) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Snow006",
+  "tile_cm": 250
+ },
+ "Snow010A": {
+  "source": "Snow 010 A (Snow010A) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Snow010A",
+  "tile_cm": null
+ },
+ "Snow014": {
+  "source": "Snow 014 (Snow014) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Snow014",
+  "tile_cm": null
+ },
+ "Concrete024": {
+  "source": "Concrete024 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Concrete024"
+ },
+ "Asphalt015": {
+  "source": "Asphalt015 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Asphalt015"
+ }
+}

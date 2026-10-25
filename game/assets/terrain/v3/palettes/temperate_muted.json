@@ -1,0 +1,94 @@
+{
+ "palette": "temperate_muted",
+ "layers": [
+  {
+   "slot": "ground",
+   "id": "Ground003",
+   "tile_m": 2.0,
+   "mean_albedo": [
+    130.9,
+    125.1,
+    75.0
+   ],
+   "mean_roughness": 0.684
+  },
+  {
+   "slot": "ground2",
+   "id": "Grass003",
+   "tile_m": 1.4,
+   "mean_albedo": [
+    65.1,
+    73.3,
+    29.9
+   ],
+   "mean_roughness": 0.286
+  },
+  {
+   "slot": "rock",
+   "id": "Rock050",
+   "tile_m": 3.0,
+   "mean_albedo": [
+    89.6,
+    88.9,
+    86.3
+   ],
+   "mean_roughness": 0.565
+  },
+  {
+   "slot": "cliff",
+   "id": "Rock030",
+   "tile_m": 3.0,
+   "mean_albedo": [
+    79.4,
+    76.7,
+    69.6
+   ],
+   "mean_roughness": 0.693
+  },
+  {
+   "slot": "scree",
+   "id": "Gravel022",
+   "tile_m": 1.5,
+   "mean_albedo": [
+    127.3,
+    122.9,
+    111.4
+   ],
+   "mean_roughness": 0.463
+  },
+  {
+   "slot": "dust",
+   "id": "Ground054",
+   "tile_m": 3.5,
+   "mean_albedo": [
+    155.7,
+    138.7,
+    109.6
+   ],
+   "mean_roughness": 0.665
+  },
+  {
+   "slot": "forest",
+   "id": "Ground023",
+   "tile_m": 2.0,
+   "mean_albedo": [
+    103.5,
+    89.9,
+    75.1
+   ],
+   "mean_roughness": 0.472
+  },
+  {
+   "slot": "wet",
+   "id": "Ground051",
+   "tile_m": 2.0,
+   "mean_albedo": [
+    99.3,
+    82.9,
+    59.8
+   ],
+   "mean_roughness": 0.681
+  }
+ ],
+ "sources": "ambientCG.com, CC0 1.0 (tools/art/terrain/sources.json)"
+}

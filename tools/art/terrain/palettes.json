@@ -1,0 +1,118 @@
+{
+ "_doc": "Biome palettes for the v3 terrain (T2, LAN-67). One per map. Slots follow terrain_splat.py CLASSES: ground, ground2, rock, cliff, scree, dust, forest, wet. All layers ambientCG CC0 1.0 (https://docs.ambientcg.com/license/); sources.json beside the downloaded maps records each. Chosen to the style notes (plan section 10): one restrained hue per map, variation in value and roughness.",
+ "slots": [
+  "ground",
+  "ground2",
+  "rock",
+  "cliff",
+  "scree",
+  "dust",
+  "forest",
+  "wet"
+ ],
+ "biomes": {
+  "temperate": {
+   "ground": "Ground037",
+   "ground2": "Grass004",
+   "rock": "Rock050",
+   "cliff": "Rock030",
+   "scree": "Gravel022",
+   "dust": "Ground054",
+   "forest": "Ground023",
+   "wet": "Ground051"
+  },
+  "arid": {
+   "ground": "Ground054",
+   "ground2": "Ground062S",
+   "rock": "Rock061",
+   "cliff": "Rock060",
+   "scree": "Gravel039",
+   "dust": "Ground093C",
+   "forest": "Ground072",
+   "wet": "Ground100"
+  },
+  "snow": {
+   "ground": "Snow006",
+   "ground2": "Snow014",
+   "rock": "Rock022",
+   "cliff": "Rock030",
+   "scree": "Gravel043",
+   "dust": "Snow010A",
+   "forest": "Ground036",
+   "wet": "Ground024"
+  },
+  "volcanic": {
+   "ground": "Ground099",
+   "ground2": "Ground036",
+   "rock": "Rock035",
+   "cliff": "Rock031",
+   "scree": "Gravel024",
+   "dust": "Gravel040",
+   "forest": "Ground015",
+   "wet": "Ground018"
+  },
+  "industrial": {
+   "ground": "Ground109",
+   "ground2": "Ground106",
+   "rock": "Rock050",
+   "cliff": "Rock030",
+   "scree": "Ground110",
+   "dust": "Concrete034",
+   "forest": "Ground023",
+   "wet": "Ground024"
+  },
+  "jungle": {
+   "ground": "Grass001",
+   "ground2": "Moss002",
+   "rock": "Rock036",
+   "cliff": "Rock012",
+   "scree": "Ground068",
+   "dust": "Ground106",
+   "forest": "Ground041",
+   "wet": "Ground051"
+  },
+  "temperate_muted": {
+   "ground": "Ground003",
+   "ground2": "Grass003",
+   "rock": "Rock050",
+   "cliff": "Rock030",
+   "scree": "Gravel022",
+   "dust": "Ground054",
+   "forest": "Ground023",
+   "wet": "Ground051"
+  },
+  "industrial_grimy": {
+   "ground": "Ground109",
+   "ground2": "Ground013",
+   "rock": "Rock050",
+   "cliff": "Rock030",
+   "scree": "Ground110",
+   "dust": "Concrete012",
+   "forest": "Ground023",
+   "wet": "Ground024"
+  },
+  "lunar": {
+   "ground": "Gravel030",
+   "ground2": "Gravel043",
+   "rock": "Rock027",
+   "cliff": "Rock016",
+   "scree": "Gravel040",
+   "dust": "Rock025",
+   "forest": "Gravel043",
+   "wet": "Rock022"
+  }
+ },
+ "maps": {
+  "mc2_01": {
+   "palette": "temperate_muted",
+   "approved": "Lee, 2026-10-25 (temperate with duller grass: Ground003 + Grass003 for Ground037 + Grass004)"
+  },
+  "mc2_14": {
+   "palette": "industrial_grimy",
+   "approved": "Lee, 2026-10-25 (industrial with a grimier concrete: Concrete012, L 54, for Concrete034); ground2 Ground106 -> Ground013 (greyer, drier) in the T3 fix pass (coordinator, 2026-10-25: 'a dry industrial site, not a Mars surface')"
+  }
+ },
+ "_notes": {
+  "lunar": "2026-10-26: for mc2_13 (lunar regolith): neutral greys only, chroma < 1.5, value spread L 31-69"
+ }
+}
