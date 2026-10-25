@@ -15,16 +15,139 @@
  "max_edge_mm": 120,
  "pivots": {},
  "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/urbanmech",
- "glass_from_v2": true,
+ "glass_from_v2": false,
  "auto_actuators": true,
  "seg": {
   "patch_majority": 0.85,
-  "min_island": 300
+  "min_island": 300,
+  "regrow": {
+   "segments": {
+    "um_luleg": [
+     [
+      [
+       917,
+       -20,
+       2640
+      ],
+      [
+       1103,
+       -850,
+       1780
+      ]
+     ]
+    ],
+    "um_llleg": [
+     [
+      [
+       1103,
+       -850,
+       1780
+      ],
+      [
+       1113,
+       -700,
+       760
+      ]
+     ]
+    ],
+    "joint_ltoe": [
+     [
+      [
+       1113,
+       -700,
+       760
+      ],
+      [
+       1113,
+       -2113,
+       323
+      ]
+     ],
+     [
+      [
+       1113,
+       -700,
+       260
+      ],
+      [
+       1113,
+       -2113,
+       0
+      ]
+     ]
+    ],
+    "um_ruleg": [
+     [
+      [
+       -695,
+       280,
+       2720
+      ],
+      [
+       -723,
+       560,
+       1750
+      ]
+     ]
+    ],
+    "um_rlleg": [
+     [
+      [
+       -723,
+       560,
+       1750
+      ],
+      [
+       -822,
+       1340,
+       870
+      ]
+     ]
+    ],
+    "joint_rtoe": [
+     [
+      [
+       -822,
+       1340,
+       870
+      ],
+      [
+       -822,
+       -73,
+       433
+      ]
+     ],
+     [
+      [
+       -822,
+       1340,
+       370
+      ],
+      [
+       -822,
+       -73,
+       0
+      ]
+     ]
+    ]
+   },
+   "core_ratio": 0.8,
+   "crease": 2.5,
+   "_why": "v2's leg cuts ran through the thigh armour (cap shards at the front of the thighs)"
+  },
+  "regrow_keep": [
+   [
+    "um_llleg",
+    "um_luleg"
+   ]
+  ],
+  "_regrow_keep_why": "2026-10-25 Lee: the left shin peeled away in the walk; the regrow had moved the top of the shin block (2669 faces, 1.7 m2) to the thigh"
  },
  "lowpoly": {
-  "faces": 40000,
+  "faces": 400000,
   "padding": 4,
-  "minor_scale": 0.5
+  "minor_scale": 0.5,
+  "_why": "2026-10-25: collapse crumpled the dome and legs into shards (seen in the canopy check); no decimation beyond merge + 1 deg planar dissolve (~95k tris)"
  },
  "wear": {
   "seed": 13,
@@ -145,5 +268,46 @@
  "bake": {
   "cage_m": 0.08,
   "ray_m": 0.35
- }
+ },
+ "caps": "none",
+ "plane_seams": [
+  {
+   "upper": "um_llleg",
+   "lower": "joint_ltoe",
+   "z": 760
+  },
+  {
+   "upper": "um_rlleg",
+   "lower": "joint_rtoe",
+   "z": 870
+  }
+ ],
+ "cap_parts": [
+  "joint_ltoe",
+  "joint_rtoe",
+  "um_llleg",
+  "um_rlleg",
+  "um_luleg",
+  "um_ruleg"
+ ],
+ "skirt_mm": 0,
+ "_cap_parts_note": "2026-10-25: shin/foot seams on the ankle planes, flat loops capped as decks (the open seams showed the hollow print)",
+ "glass_outlines": [
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-urbanmech/outline_drawn/sheet_front.png",
+   "view": "front"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-urbanmech/outline_drawn/sheet_q34.png",
+   "view": "q34"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-urbanmech/outline_drawn/sheet_rside.png",
+   "view": "rside"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-urbanmech/outline_drawn/sheet_side.png",
+   "view": "side"
+  }
+ ]
 }

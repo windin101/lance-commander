@@ -116,7 +116,14 @@ def _finish_segment(cfg, work, P, F, fa, fb, ev, ang, concave, lab, names):
     Cn = P[F].mean(1)
     if sg.get("regrow") or sg.get("regrow_legs"):
         dist = np.linalg.norm(Cn[fa] - Cn[fb], axis=1)
+        lab0 = lab.copy()
         lab = regrow(cfg, P, F, fa, fb, dist, ang, concave, lab, names, Cn)
+        # regrow_keep: [[from, to], ...]: faces the input labels gave `from` that the regrow moved to `to` go back to
+        # `from` (Urbanmech 2026-10-25: the regrow gave the top of the left shin block to the thigh, so it peeled off)
+        for a_, b_ in sg.get("regrow_keep", []):
+            back = (lab0 == names.index(a_)) & (lab == names.index(b_))
+            lab[back] = names.index(a_)
+            print(f"  regrow_keep {a_} <- {b_}: {int(back.sum())} faces")
     # snap to the kit's part lines: patches bounded by sharp concave creases take their majority label whole
     lab = snap_patches(F, P, fa, fb, ang, concave, lab, np.radians(sg.get("patch_crease_deg", 25)),
                        sg.get("patch_majority", 0.6))
