@@ -1,15 +1,18 @@
 extends GdUnitTestSuite
-## HD rework v3 dev switch (tools/art/v3): off by default; on, MechView takes res://assets/v3/ models with the v3
+## HD rework v3 switch (tools/art/v3): on by default since 2026-10-25; on, MechView takes res://assets/v3/ models with the v3
 ## shader and a scheme.
 
 
 func after_test() -> void:
+	ArtV3.enabled = ArtV3._detect()
+
+
+func test_switch_is_on_by_default() -> void:
+	assert_bool(ArtV3._detect()).is_true()  # the test runner passes no --no-art-v3
+	var was := ArtV3.enabled
 	ArtV3.enabled = false
-
-
-func test_switch_is_off_by_default() -> void:
-	assert_bool(ArtV3.enabled).is_false()
 	assert_str(ArtV3.model_path("mechs", "atlas")).is_equal("")
+	ArtV3.enabled = was
 
 
 func test_mech_view_takes_the_v3_model_and_shader() -> void:

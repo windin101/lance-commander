@@ -2,8 +2,13 @@ extends GdUnitTestSuite
 ## HD rework (v2) dev switch: off by default; on, the loaders take res://assets/v2/ models with the v2 shaders.
 
 
+func before_test() -> void:
+	ArtV3.enabled = false  # v3 is the default and outranks v2
+
+
 func after_test() -> void:
 	ArtV2.enabled = false
+	ArtV3.enabled = ArtV3._detect()
 
 
 func test_switch_is_off_by_default() -> void:

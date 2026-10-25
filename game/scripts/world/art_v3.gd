@@ -1,9 +1,9 @@
 class_name ArtV3
 extends RefCounted
-## Dev switch for the HD rework v3 (Pipeline A, 2026-10-24: tools/art/v3/v3_mech.py), models staged under
+## Switch for the HD rework v3 (Pipeline A, 2026-10-24: tools/art/v3/v3_mech.py), models staged under
 ## res://assets/v3/<mechs|vehicles>/<name>.glb with baked textures <name>_{albedo,orm,normal,ids,camo}.png.
-## Off by default; v1 stays what players see until Lee approves. On with the user argument --art-v3, the environment
-## variable MC2_ART_V3=1, or [art] v3=true in user://dev.cfg; --no-art-v3 forces it off. With it on, MechView and
+## On by default since 2026-10-25 (Lee). Off with the user argument --no-art-v3, the environment variable
+## MC2_ART_V3=0, or [art] v3=false in user://dev.cfg; --art-v3 / MC2_ART_V3=1 force it on. With it on, MechView and
 ## MechStage take a v3 model where one exists (before v2 and v1), paint it with res://shaders/unit_v3.gdshader, and
 ## the pilot scenes (Mech Bay, Mech Lab, missions) get the v3 lighting: sun shadows, sky ambient and reflections,
 ## reflection probes, SSAO, the AgX tonemapper and TAA.
@@ -14,14 +14,14 @@ static var _mats := {}
 
 static func _detect() -> bool:
 	var args := OS.get_cmdline_user_args()
-	if args.has("--no-art-v3"):
+	if args.has("--no-art-v3") or OS.get_environment("MC2_ART_V3") == "0":
 		return false
 	if args.has("--art-v3") or OS.get_environment("MC2_ART_V3") == "1":
 		return true
 	var cfg := ConfigFile.new()
 	if cfg.load("user://dev.cfg") == OK:
-		return bool(cfg.get_value("art", "v3", false))
-	return false
+		return bool(cfg.get_value("art", "v3", true))
+	return true  # the default since 2026-10-25 (Lee); units without a v3 model keep their v1/v2 art
 
 
 ## The staged v3 model for folder/name, or "" (switch off, or no v3 model).
