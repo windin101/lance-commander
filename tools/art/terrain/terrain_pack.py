@@ -22,6 +22,7 @@ import numpy as np
 from PIL import Image
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
 ROOT = HERE.parents[2]
 DST = ROOT / "game/assets/terrain/v3"
 MAT = Path("/mnt/nvme1n1p1/mc2-rework/terrain/materials")
@@ -98,6 +99,73 @@ def pack_palette(name, slots, order, meta, res):
                                                 "sources": "ambientCG.com, CC0 1.0 (tools/art/terrain/sources.json)"}, indent=1))
 
 
+def mask2(m, kind, o):
+    """mask2.png (8-bit, 2 m/px like the splat): where a mixed map uses its second palette. "snow": the ORIGINAL
+    colour map's snow (blue-white: L* > 42, chroma < 16, b* < 3) as seen in the burn-in, by local coverage over ~12 m,
+    so only the painted snowfields turn white."""
+    from scipy.ndimage import gaussian_filter, binary_opening
+    import delight as D
+    img = np.asarray(Image.open(ROOT / f"game/assets/maps/{m}/burnin.jpg").convert("RGB")).astype(float)
+    lab = D.srgb_to_lab(gaussian_filter(img, (2, 2, 0)))
+    if kind != "snow":
+        raise SystemExit(f"mask2 kind {kind} not known")
+    # snow reads blue-white against the map's warm ground even in burnt shadow: low or negative b*, low chroma
+    sn = (lab[..., 0] > 42) & (np.hypot(lab[..., 1], lab[..., 2]) < 16) & (lab[..., 2] < 3)
+    sn = binary_opening(sn, iterations=1)
+    n = sn.shape[0]
+    cov = gaussian_filter(sn.astype(float), 10.0)       # snowfields are patchy: coverage over ~20 m decides
+    # natural shapes: warp the coverage field with low-frequency noise (+-12 px) so the original's per-quad steps
+    # don't survive as rectangles, then soften the edge
+    rng = np.random.default_rng(abs(hash(m)) % 2**32)
+    from scipy.ndimage import map_coordinates
+    wx = gaussian_filter(rng.standard_normal((n, n)), 24); wy = gaussian_filter(rng.standard_normal((n, n)), 24)
+    wx *= 12 / (wx.std() + 1e-9); wy *= 12 / (wy.std() + 1e-9)
+    yy, xx = np.mgrid[0:n, 0:n].astype(float)
+    cov = map_coordinates(cov, [yy + wy, xx + wx], order=1, mode="nearest")
+    det = gaussian_filter(rng.standard_normal((n, n)), 3) ; det /= det.std() + 1e-9
+    w = np.clip((cov + 0.06 * det - 0.22) / 0.25, 0, 1)
+    # less on steep ground, none on the paved cement grid (light drifting only)
+    t = json.loads((ROOT / f"game/data/maps/{m}/terrain.json").read_text())
+    side_m = t["vertices_per_side"] * t["world_units_per_vertex"] * t["meters_per_world_unit"]
+    H, wpx = D.heights(t["elevation"], t["vertices_per_side"], t["world_units_per_vertex"], n)
+    gy, gx = np.gradient(gaussian_filter(H * t["meters_per_world_unit"], 2.0), wpx * t["meters_per_world_unit"])
+    slope = np.degrees(np.arctan(np.hypot(gx, gy)))
+    w *= np.clip(1.0 - (slope - 25.0) / 20.0, 0.15, 1.0)
+    V = t["vertices_per_side"]
+    cem = np.isin(np.asarray(t["terrain_type"]).reshape(V, V), [10, 13, 14, 15, 16, 17, 18, 19, 20]).astype(float)
+    from scipy.ndimage import zoom
+    # off the paving in irregular drifts: distance from the paved quads, with a noise-warped edge (no rectangles)
+    from scipy.ndimage import distance_transform_edt
+    pv = zoom(cem, n / V, order=1)[:n, :n] > 0.6
+    dist_m = (distance_transform_edt(~pv) - distance_transform_edt(pv)) * (side_m / n)
+    edge_noise = gaussian_filter(rng.standard_normal((n, n)), 5); edge_noise *= 5.0 / (edge_noise.std() + 1e-9)
+    w_free = w.copy()
+    drift = np.clip((dist_m + edge_noise + 1.0) / 4.0, 0.0, 1.0)
+    w *= 0.15 + 0.85 * drift
+    # G: how much snow lies beside the paving (the snow it would have without the paving, over ~12 m); the shader
+    # drifts that much onto the cement edge in irregular tongues (apron_sdf distance + noise), so the stepped quad
+    # outline of the paving doesn't read as a rectangle cut out of a snowfield
+    g = np.clip(gaussian_filter(w_free * (dist_m > 0), 6.0) / np.maximum(gaussian_filter((dist_m > 0).astype(float), 6.0), 0.05), 0, 1)
+    g *= np.clip(1.0 - (-dist_m - 4.0) / 10.0, 0, 1)    # only near the paving edge
+    Image.fromarray((np.dstack([w, g, np.zeros_like(w)]) * 255).astype(np.uint8), "RGB").save(o / "mask2.png")
+    (o / "mask2.png.import").write_text(IMPORT_2D.format(mode=0, mip="true"))
+    print(f"  mask2 ({kind}): {w.mean() * 100:.1f} % of the map")
+
+
+def albedo_gain(m, pal, P):
+    """Keep the map's overall value (2026-10-26: lunar and grass maps came out washed out and pale): the palette's
+    expected albedo luminance (layer means weighted by the map's class shares) against the original colour map's mean
+    luminance x 1.35 (the burn-in is lit, mean N.L about 0.75), clamped 0.55..1.15. Hue is never touched."""
+    lin = lambda c: np.where(c <= 0.04045, c / 12.92, ((c + 0.055) / 1.055) ** 2.4)
+    y = lambda rgb: float(lin(np.asarray(rgb, float) / 255) @ [0.2126, 0.7152, 0.0722])
+    sp = json.loads((WORK / m / "splat_stats.json").read_text())["classes_share"]
+    layers = {l["slot"]: l for l in json.loads((DST / "palettes" / f"{pal}.json").read_text())["layers"]}
+    exp = sum(sp[k] * y(layers[k]["mean_albedo"]) for k in sp)
+    img = np.asarray(Image.open(ROOT / f"game/assets/maps/{m}/burnin.jpg").convert("RGB").resize((256, 256))).reshape(-1, 3)
+    orig = float(np.mean(lin(img / 255.0) @ [0.2126, 0.7152, 0.0722])) * 1.35
+    return round(float(np.clip(orig / max(exp, 1e-4), 0.55, 1.15)), 3)
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("maps", nargs="+"); ap.add_argument("--res", type=int, default=1024)
     a = ap.parse_args()
@@ -115,7 +183,15 @@ def main():
         rel = np.clip(lo / lo.reshape(-1, 3).mean(0), 0.6, 1.6)
         Image.fromarray(np.clip(rel * 127.5, 0, 255).astype(np.uint8)).save(o / "tint.png")
         (o / "tint.png.import").write_text(IMPORT_2D.format(mode=0, mip="true"))
-        (o / "terrain_v3.json").write_text(json.dumps({"map": m, "palette": pal, "approved": P["maps"][m].get("approved")}, indent=1))
+        info = {"map": m, "palette": pal, "relief_strength": float(P["maps"][m].get("relief_strength", 1.0 if pal == "lunar" else 2.0)), "approved": P["maps"][m].get("approved"), "albedo_gain": float(P["maps"][m].get("albedo_gain", 1.0)),
+                "albedo_gain_suggested": albedo_gain(m, pal, P)}   # a hint only: water and burnt shadow bias it low
+        pal2 = P["maps"][m].get("palette2")
+        if pal2:   # a mixed map: a second palette where mask2.png says so (same class slots, blended by the mask)
+            if pal2 not in done:
+                pack_palette(pal2, P["biomes"][pal2], P["slots"], meta, a.res); done.add(pal2)
+            mask2(m, P["maps"][m].get("mask2", "snow"), o)
+            info["palette2"] = pal2
+        (o / "terrain_v3.json").write_text(json.dumps(info, indent=1))
         print(m, pal, "->", o)
 
 

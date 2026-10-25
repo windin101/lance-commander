@@ -481,6 +481,9 @@ func _lighting(cam_block: Dictionary, fit_data: Dictionary = {}) -> void:
 	var sun := DirectionalLight3D.new()
 	sun.name = "Sun"
 	sun.light_color = _rgb(cam_block, "Light", Color(1, 1, 0.88))
+	if TerrainV3.enabled:  # T3 review (Lee, option a): warm sunset suns soften toward neutral for everything v3-lit
+		sun.light_color = TerrainV3.soften_light(sun.light_color)
+		sun.light_angular_distance = 1.2  # soft penumbra: the lit ground's 25.6 m triangles cast stair-stepped shadow edges
 	sun.shadow_enabled = true
 	sun.directional_shadow_max_distance = 800.0
 	add_child(sun)
@@ -489,6 +492,7 @@ func _lighting(cam_block: Dictionary, fit_data: Dictionary = {}) -> void:
 	var ground := terrain.get_node_or_null("Ground") as MeshInstance3D
 	if ground and ground.material_override is ShaderMaterial:
 		(ground.material_override as ShaderMaterial).set_shader_parameter("sun_dir", to_light)
+		(ground.material_override as ShaderMaterial).set_shader_parameter("light_chroma", TerrainV3.chroma(sun.light_color.srgb_to_linear()))
 	var env := Environment.new()
 	env.background_mode = Environment.BG_SKY
 	env.sky = Sky.new()
@@ -532,6 +536,21 @@ func _lighting(cam_block: Dictionary, fit_data: Dictionary = {}) -> void:
 	if ArtV3.enabled:  # HD rework v3 pilot lighting (dev switch): AgX, sky ambient/reflections, SSAO, TAA, a probe
 		ArtV3.dress_environment(env, 1.0)
 		ArtV3.dress_viewport(get_viewport())
+	if TerrainV3.enabled and ResourceLoader.exists(pano_path):  # T3 fix pass: a sunset sky must not tint everything orange
+		var sky_img := (load(pano_path) as Texture2D).get_image()
+		if sky_img.is_compressed():
+			sky_img.decompress()
+		sky_img.resize(16, 8)
+		var acc := Color(0, 0, 0)
+		for y in 8:
+			for x in 16:
+				acc += sky_img.get_pixel(x, y)
+		TerrainV3.soften_environment(env, acc / 128.0)
+	if TerrainV3.enabled:  # brighter v3 lighting on dim, low-sun maps (exposure + ambient fill), the same for every v3-lit thing
+		var lift := TerrainV3.exposure_for(_rgb(cam_block, "Light", Color(1, 1, 0.88)), float(cam_block.get("LightDirPitch", 50.0)))
+		env.tonemap_exposure *= lift.x
+		env.ambient_light_energy *= lift.y
+		print("terrain v3 light: exposure x%.2f, ambient x%.2f" % [lift.x, lift.y])
 	_env = env
 	_update_haze()
 	var we := WorldEnvironment.new()

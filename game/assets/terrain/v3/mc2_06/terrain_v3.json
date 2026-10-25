@@ -1,0 +1,9 @@
+{
+ "map": "mc2_06",
+ "palette": "temperate_muted",
+ "relief_strength": 2.0,
+ "approved": "Lee, 2026-10-26 (batch 1, LAN-73): mixed, temperate_muted on the grassland, snow only where the original is snowy",
+ "albedo_gain": 1.0,
+ "albedo_gain_suggested": 0.905,
+ "palette2": "snow"
+}

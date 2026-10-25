@@ -23,19 +23,27 @@ func build(sim_map: SimMap, texture_dir: String) -> void:
 	var ground := MeshInstance3D.new()
 	ground.name = "Ground"
 	ground.mesh = _ground_mesh()
-	var mat := ShaderMaterial.new()
-	mat.shader = load("res://shaders/terrain.gdshader")
-	mat.set_shader_parameter("colour_map", load(texture_dir.path_join("burnin.jpg")))
-	var detail_path := texture_dir.path_join("detail.tga")
-	if ResourceLoader.exists(detail_path):
-		mat.set_shader_parameter("detail_map", load(detail_path))
-	mat.set_shader_parameter("rock_noise", _noise_texture(false, 256, 0.02))
+	var mat := _v3_material(texture_dir.get_file()) if TerrainV3.enabled else null
+	var v3 := mat != null
+	if not v3:
+		mat = ShaderMaterial.new()
+		mat.shader = load("res://shaders/terrain.gdshader")
+		mat.set_shader_parameter("colour_map", load(texture_dir.path_join("burnin.jpg")))
+		var detail_path := texture_dir.path_join("detail.tga")
+		if ResourceLoader.exists(detail_path):
+			mat.set_shader_parameter("detail_map", load(detail_path))
+		mat.set_shader_parameter("rock_noise", _noise_texture(false, 256, 0.02))
+		_ground_detail(mat)
 	_overlay_layer(mat)
-	_ground_detail(mat)
 	ground.material_override = mat
 	# The colour map already carries the hills' own shading and cast shadows (burn-in): the ground must
 	# not shadow itself again. It still receives the shadows of everything standing on it.
+	# The v3 ground is lit (no burn-in on screen), so its hills cast their own shadows.
+	# v3: the coarse 25.6 m mesh's own cast shadows came out as stair-stepped black bands; the recovered relief map
+	# (relief.py, from the burn-in's smooth shading) carries the hills' dark sides instead, so the ground casts none
 	ground.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	if OS.get_cmdline_user_args().has("--no-terrain-draw"):  # dev: perf isolation of the terrain pass
+		ground.visible = false
 	ground.layers = 1 | 2  # layer 2: ground marks (DecalsView) project only onto the terrain
 	add_child(ground)
 	var skirt := MeshInstance3D.new()
@@ -44,7 +52,13 @@ func build(sim_map: SimMap, texture_dir: String) -> void:
 	skirt.material_override = mat
 	skirt.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	skirt.layers = 1 | 2
+	skirt.visible = ground.visible
 	add_child(skirt)
+	if v3 and not OS.get_cmdline_user_args().has("--no-terrain-dress"):
+		var dress := TerrainDressV3.new()
+		dress.name = "DressV3"
+		add_child(dress)
+		dress.build(map, texture_dir.get_file(), _v3_layers)
 	if map.water_level_m > -100.0:
 		var w := _water(texture_dir)
 		add_child(w)
@@ -195,6 +209,21 @@ func _overlay_layer(mat: ShaderMaterial) -> void:
 		weight.set_pixel(col, row, Color(w, 0.0, 0.0))
 	mat.set_shader_parameter("overlay_atlas", load(stem + ext))
 	mat.set_shader_parameter("overlay_index", ImageTexture.create_from_image(idx))
+	var mk_path := "res://assets/terrain/v3/markings.json"
+	if TerrainV3.enabled and FileAccess.file_exists(mk_path) and not OS.get_cmdline_user_args().has("--old-paving"):
+		# T7b: vector markings (tools/art/terrain/markings.py), a compact atlas indexed by its own cell per quad
+		var mk: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(mk_path))
+		var remap: Dictionary = mk["remap"]
+		var idx3 := Image.create(n, n, false, Image.FORMAT_RF)
+		for i in mini(n * n, ov.size()):
+			var cell := int(slots.get(str(int(ov[i])), -1))
+			idx3.set_pixel(i % n, i / n, Color(float(remap.get(str(cell), -1)) + 1.0, 0, 0))
+		mat.set_shader_parameter("markings", load("res://assets/terrain/v3/markings.png"))
+		mat.set_shader_parameter("markings_index", ImageTexture.create_from_image(idx3))
+		mat.set_shader_parameter("mk_cols", float(mk["cols"]))
+		mat.set_shader_parameter("mk_tile", float(mk["tile"]))
+		mat.set_shader_parameter("mk_pad", float(mk["pad"]))
+		mat.set_shader_parameter("mk_spread", float(mk["spread_m"]))
 	mat.set_shader_parameter("cement_weight", ImageTexture.create_from_image(weight))
 	mat.set_shader_parameter("atlas_cols", float(info["cols"]))
 	mat.set_shader_parameter("atlas_tile", float(info["tile"]))
@@ -315,3 +344,96 @@ func _water_skirt_mesh() -> ArrayMesh:
 		st.add_index(b2); st.add_index(a + 1); st.add_index(b2 + 1)
 	st.generate_normals()
 	return st.commit()
+
+
+## Terrain v3 (T3, LAN-68; TerrainV3.enabled): the lit PBR ground from res://assets/terrain/v3/<map>/ and its
+## palette arrays (tools/art/terrain/terrain_pack.py). null when the map has no v3 data (the v1 ground is used).
+const V3_WET := 7
+var _v3_layers: Array = []
+
+
+func _v3_material(map_name: String) -> ShaderMaterial:
+	var dir := "res://assets/terrain/v3/%s" % map_name
+	if not FileAccess.file_exists(dir.path_join("terrain_v3.json")):
+		return null
+	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(dir.path_join("terrain_v3.json")))
+	var pal := String(info["palette"])
+	var pdir := "res://assets/terrain/v3/palettes"
+	var pinfo: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(pdir.path_join(pal + ".json")))
+	_v3_layers = pinfo["layers"]
+	var mat := ShaderMaterial.new()
+	mat.shader = load("res://shaders/terrain_v3.gdshader")
+	var splat: Texture2D = load(dir.path_join("splat.png"))
+	mat.set_shader_parameter("splat", splat)
+	mat.set_shader_parameter("splat_px", float(splat.get_width()))
+	mat.set_shader_parameter("tint", load(dir.path_join("tint.png")))
+	mat.set_shader_parameter("layers_ah", load(pdir.path_join(pal + "_ah.webp")))
+	mat.set_shader_parameter("layers_nr", load(pdir.path_join(pal + "_nr.webp")))
+	mat.set_shader_parameter("variation", _noise_texture(false, 256, 0.05))
+	mat.set_shader_parameter("map_side_m", map.vertex_m * map.vertices_per_side)
+	var tiles := PackedFloat32Array()
+	var means := PackedVector3Array()
+	var rough := PackedFloat32Array()
+	var albs := PackedFloat32Array()
+	var i := 0
+	for l in pinfo["layers"]:
+		tiles.append(float(l["tile_m"]))
+		var c: Array = l["mean_albedo"]
+		var lin := Color(float(c[0]) / 255.0, float(c[1]) / 255.0, float(c[2]) / 255.0).srgb_to_linear()
+		means.append(Vector3(lin.r, lin.g, lin.b))
+		rough.append(0.55 if i == V3_WET else 1.0)   # wet: smoother and darker
+		albs.append(0.75 if i == V3_WET else 1.0)
+		i += 1
+	mat.set_shader_parameter("tile_m", tiles)
+	mat.set_shader_parameter("albedo_gain", float(info.get("albedo_gain", 1.0)))
+	if FileAccess.file_exists(dir.path_join("relief.png.import")) and not OS.get_cmdline_user_args().has("--no-relief"):
+		mat.set_shader_parameter("relief", load(dir.path_join("relief.png")))
+		mat.set_shader_parameter("has_relief", true)
+		mat.set_shader_parameter("relief_strength", float(info.get("relief_strength", 1.0)))
+		if FileAccess.file_exists(dir.path_join("ripple.png.import")):
+			mat.set_shader_parameter("ripple", load(dir.path_join("ripple.png")))
+			mat.set_shader_parameter("has_ripple", true)
+		for a in OS.get_cmdline_user_args():
+			if a.begins_with("--relief-strength="):
+				mat.set_shader_parameter("relief_strength", float(a.split("=")[1]))
+			if a.begins_with("--ao-strength="):
+				mat.set_shader_parameter("ao_strength", float(a.split("=")[1]))
+	if info.has("palette2") and FileAccess.file_exists(dir.path_join("mask2.png.import")):  # a mixed map
+		var pal2 := String(info["palette2"])
+		var p2: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(pdir.path_join(pal2 + ".json")))
+		var t2 := PackedFloat32Array()
+		var m2 := PackedVector3Array()
+		for l in p2["layers"]:
+			t2.append(float(l["tile_m"]))
+			var c2: Array = l["mean_albedo"]
+			var lin2 := Color(float(c2[0]) / 255.0, float(c2[1]) / 255.0, float(c2[2]) / 255.0).srgb_to_linear()
+			m2.append(Vector3(lin2.r, lin2.g, lin2.b))
+		mat.set_shader_parameter("layers2_ah", load(pdir.path_join(pal2 + "_ah.webp")))
+		mat.set_shader_parameter("layers2_nr", load(pdir.path_join(pal2 + "_nr.webp")))
+		mat.set_shader_parameter("tile2_m", t2)
+		mat.set_shader_parameter("mean2_albedo", m2)
+		mat.set_shader_parameter("mask2", load(dir.path_join("mask2.png")))
+		mat.set_shader_parameter("has_p2", true)
+		print("terrain v3: second palette %s by mask2" % pal2)
+	var vdir := "res://assets/terrain/v3"
+	if FileAccess.file_exists(vdir.path_join("paved.json")) and not OS.get_cmdline_user_args().has("--old-paving"):
+		var pv: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(vdir.path_join("paved.json")))
+		var pt := PackedFloat32Array()
+		for l in pv["layers"]:
+			pt.append(float(l["tile_m"]))
+		mat.set_shader_parameter("paved_ah", load(vdir.path_join("paved_ah.webp")))
+		mat.set_shader_parameter("paved_nr", load(vdir.path_join("paved_nr.webp")))
+		mat.set_shader_parameter("paved_tile_m", pt)
+		mat.set_shader_parameter("paved_v3", true)
+		var ap := dir.path_join("apron_sdf.png")
+		if ResourceLoader.exists(ap):
+			mat.set_shader_parameter("apron_sdf", load(ap))
+			mat.set_shader_parameter("apron_on", true)
+	mat.set_shader_parameter("mean_albedo", means)
+	mat.set_shader_parameter("rough_scale", rough)
+	mat.set_shader_parameter("albedo_scale", albs)
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--terrain-debug="):
+			mat.set_shader_parameter("debug_view", int(a.split("=")[1]))
+	print("terrain v3: %s, palette %s" % [map_name, pal])
+	return mat

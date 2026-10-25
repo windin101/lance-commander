@@ -20,11 +20,16 @@
   "tile_cm": 140
  },
  "Gravel022": {
-  "source": "Gravel022 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Gravel022"
+  "source": "Gravel 022 (Gravel022) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Gravel022",
+  "tile_cm": 150
  },
  "Gravel024": {
   "source": "Gravel 024 (Gravel024) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Gravel024",
   "tile_cm": 150
+ },
+ "Gravel030": {
+  "source": "Gravel 030 (Gravel030) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Gravel030",
+  "tile_cm": 200
  },
  "Gravel039": {
   "source": "Gravel 039 (Gravel039) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Gravel039",
@@ -126,8 +131,20 @@
   "source": "Rock 012 (Rock012) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock012",
   "tile_cm": null
  },
+ "Rock016": {
+  "source": "Rock 016 (Rock016) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock016",
+  "tile_cm": null
+ },
  "Rock022": {
   "source": "Rock 022 (Rock022) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock022",
+  "tile_cm": null
+ },
+ "Rock025": {
+  "source": "Rock 025 (Rock025) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock025",
+  "tile_cm": null
+ },
+ "Rock027": {
+  "source": "Rock 027 (Rock027) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rock027",
   "tile_cm": null
  },
  "Rock030": {
@@ -169,11 +186,5 @@
  "Snow014": {
   "source": "Snow 014 (Snow014) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Snow014",
   "tile_cm": null
- },
- "Concrete024": {
-  "source": "Concrete024 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Concrete024"
- },
- "Asphalt015": {
-  "source": "Asphalt015 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Asphalt015"
  }
 }

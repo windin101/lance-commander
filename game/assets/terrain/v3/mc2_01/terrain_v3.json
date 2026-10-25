@@ -1,5 +1,8 @@
 {
  "map": "mc2_01",
  "palette": "temperate_muted",
- "approved": "Lee, 2026-10-25 (temperate with duller grass: Ground003 + Grass003 for Ground037 + Grass004)"
+ "relief_strength": 2.0,
+ "approved": "Lee, 2026-10-25 (temperate with duller grass: Ground003 + Grass003 for Ground037 + Grass004)",
+ "albedo_gain": 1.0,
+ "albedo_gain_suggested": 1.128
 }

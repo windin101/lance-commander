@@ -110,9 +110,34 @@
   "mc2_14": {
    "palette": "industrial_grimy",
    "approved": "Lee, 2026-10-25 (industrial with a grimier concrete: Concrete012, L 54, for Concrete034); ground2 Ground106 -> Ground013 (greyer, drier) in the T3 fix pass (coordinator, 2026-10-25: 'a dry industrial site, not a Mars surface')"
+  },
+  "mc2_04": {
+   "palette": "temperate_muted",
+   "approved": "Lee, 2026-10-26 (batch 1, LAN-73)",
+   "albedo_gain": 0.75
+  },
+  "mc2_05": {
+   "palette": "temperate_muted",
+   "approved": "Lee, 2026-10-26 (batch 1, LAN-73); night map"
+  },
+  "mc2_06": {
+   "palette": "temperate_muted",
+   "palette2": "snow",
+   "mask2": "snow",
+   "approved": "Lee, 2026-10-26 (batch 1, LAN-73): mixed, temperate_muted on the grassland, snow only where the original is snowy"
+  },
+  "mc2_09": {
+   "palette": "arid",
+   "approved": "Lee, 2026-10-26 (batch 1, LAN-73)"
+  },
+  "mc2_13": {
+   "palette": "lunar",
+   "approved": "Lee, 2026-10-26 (batch 1, LAN-73)",
+   "albedo_gain": 0.5
   }
  },
  "_notes": {
   "lunar": "2026-10-26: for mc2_13 (lunar regolith): neutral greys only, chroma < 1.5, value spread L 31-69"
- }
+ },
+ "_albedo_gain": "per-map albedo_gain (2026-10-26): set by eye where the palette reads washed out against the map (default 1.0)"
 }

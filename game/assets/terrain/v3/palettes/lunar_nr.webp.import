@@ -1,0 +1,29 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://cxy4i3dv8ssku"
+path.bptc="res://.godot/imported/lunar_nr.webp-9f112db6c9c7f06ddec727b2c152cfe5.bptc.ctexarray"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://assets/terrain/v3/palettes/lunar_nr.webp"
+dest_files=["res://.godot/imported/lunar_nr.webp-9f112db6c9c7f06ddec727b2c152cfe5.bptc.ctexarray"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=true
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=8

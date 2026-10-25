@@ -127,6 +127,16 @@ def run(m, out):
     sc[..., 6] = gaussian_filter(binary_dilation(forest, iterations=2).astype(float), 2.0) * (1 - steep) * 1.1
     shore = binary_dilation(deep | shallow, iterations=6) & ~deep
     sc[..., 7] = gaussian_filter((shallow | shore).astype(float), 2.0) * 1.0 + smooth01(-dL, 4, 12) * 0.25 * (1 - steep)
+    # curvature from erosion.py (procedural relief), subtle: rock on convex ridges, scree/sediment in gullies
+    cp = Path(out) / m / "curvature.npy"
+    if cp.exists():
+        cv = np.load(cp).astype(float)
+        if cv.shape[0] != n:
+            cv = zoom(cv, n / cv.shape[0], order=1)[:n, :n]
+        cv = gaussian_filter(cv, 1.0)
+        ridge = smooth01(cv, 0.25, 0.9) * smooth01(slope, 10, 25); gully = smooth01(-cv, 0.25, 0.9) * smooth01(slope, 6, 20)
+        sc[..., 2] += 0.28 * ridge
+        sc[..., 4] += 0.25 * gully
     order = np.argsort(-sc, axis=-1)
     c1, c2 = order[..., 0], order[..., 1]
     s1 = np.take_along_axis(sc, c1[..., None], -1)[..., 0]; s2 = np.take_along_axis(sc, c2[..., None], -1)[..., 0]
