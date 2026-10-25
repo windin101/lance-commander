@@ -1291,8 +1291,10 @@ def stage_write(cfg, work):
             "paint_stats": stats}
     (dst / f"{mech}.v3.json").write_text(json.dumps(side, indent=1))
     src = cfg["source"]
-    (dst / f"{mech}.LICENSE.md").write_text(LICENSE.format(mech=mech, title=src["title"], author=src["author"],
-                                                           url=src["url"], cfg=Path(cfg["_path"]).name))
+    lic = LICENSE.format(mech=mech, title=src["title"], author=src["author"], url=src["url"], cfg=Path(cfg["_path"]).name)
+    if src.get("notes"):   # source-specific notes (kitbash parents, licence decisions), from the config
+        lic += "\n## Notes on the source\n\n" + src["notes"].strip() + "\n"
+    (dst / f"{mech}.LICENSE.md").write_text(lic)
     print(f"write: {dst / (mech + '.glb')} ({info['tris']} tris), textures {sizes}")
 
 

@@ -1,0 +1,49 @@
+{
+ "model": "vulture.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Mad Dog Prime, aka Vulture for Battletech",
+  "author": "Syllogy",
+  "url": "https://www.printables.com/model/1863972-mad-dog-prime-aka-vulture-for-battletech-syllogy",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "mdd-prime5.stl"
+ },
+ "tris": 42876,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.226,
+  "Walk": 0.899,
+  "Run": 1.054,
+  "LimpLeft": 0.924,
+  "LimpRight": 0.865,
+  "ParkToStand": 0.577,
+  "StandToPark": 0.578,
+  "Jump": 0.825,
+  "FallForward": 1.375,
+  "FallBackward": 1.088,
+  "GetUpFront": 1.473,
+  "GetUpBack": 1.228,
+  "HitFront": 0.699,
+  "HitBack": 0.368,
+  "HitLeft": 0.197,
+  "HitRight": 0.308
+ },
+ "paint_stats": {
+  "texels": 1808348,
+  "chip_share": 0.031185369187789077,
+  "grime_mean": 0.3346182405948639,
+  "paint_share": 0.6248758535414644,
+  "glass_texels": 20081,
+  "emissive_texels": 0,
+  "piping_texels": 133050,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

@@ -1,0 +1,7 @@
+{
+ "l": {"hip": [200, 4150], "knee": [250, 2400], "ankle": [-2150, 850]},
+ "r": {"hip": [150, 4150], "knee": [1900, 3650], "ankle": [2000, 950]},
+ "base_cut": 0,
+ "v2": {"stl": "mdd-prime5.stl"},
+ "_v3_note": "2026-10-25: first stl_rig joints for the Vulture (v1 was rigged by tools/art/stl_rig_vulture.py); start values are v1's STL_J, re-read below from the fitted sculpt"
+}

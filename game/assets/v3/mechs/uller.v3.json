@@ -1,0 +1,54 @@
+{
+ "model": "uller.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "BattleTech Kit Fox (Uller) Alt Config V",
+  "author": "MiniHulkMechs",
+  "url": "https://www.thingiverse.com/thing:6431420",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "Kit_Fox_V_repaired.stl",
+  "notes": "The source is a kitbash. Per its README, the torso and legs are by Syllogy (\"Kit Fox Prime, aka Uller for Battletech\", https://www.printables.com/model/1863957, CC BY-NC-SA 4.0), and the Arrow IV launcher is by MKHand_Industries, from \"Urbanmech Builder\" (https://cults3d.com/en/3d-model/game/urbanmech-builder).\n\n**The Arrow IV launcher's licence is unverified.** Cults3D could not be checked automatically, and MiniHulkMechs' CC BY-NC-SA 4.0 grant may not cover that part. On 2026-10-25 Lee (project owner) decided to keep this kitbash with that part's licence unverified. If the launcher's licence turns out not to allow this use, swap in Syllogy's Kit Fox Prime."
+ },
+ "tris": 136467,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.405,
+  "Walk": 0.619,
+  "Run": 0.629,
+  "STtoWK": 0.619,
+  "WKtoST": 0.614,
+  "WKtoRN": 0.635,
+  "RNtoWK": 0.639,
+  "LimpLeft": 0.428,
+  "LimpRight": 0.41,
+  "ParkToStand": 0.465,
+  "StandToPark": 0.466,
+  "Jump": 0.476,
+  "FallForward": 0.872,
+  "FallBackward": 1.49,
+  "GetUpFront": 0.807,
+  "GetUpBack": 1.867,
+  "HitFront": 0.49,
+  "HitBack": 0.407,
+  "HitLeft": 0.584,
+  "HitRight": 0.576
+ },
+ "paint_stats": {
+  "texels": 984607,
+  "chip_share": 0.04709188539183654,
+  "grime_mean": 0.45491698384284973,
+  "paint_share": 0.48684398953084834,
+  "glass_texels": 877,
+  "emissive_texels": 0,
+  "piping_texels": 29145,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

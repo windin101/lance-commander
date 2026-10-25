@@ -6,7 +6,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 mech = sys.argv[1]
-work = Path(f"/mnt/nvme1n1p1/mc2-rework/work/{mech}")
+import os
+work = Path(os.environ.get("V3_WORK") or f"/mnt/nvme1n1p1/mc2-rework/work/{mech}")   # V3_WORK: a refit (e.g. <mech>_k2)
 f = json.loads((work / "fit.json").read_text())
 stl = Path(f["stl"])
 src = {}

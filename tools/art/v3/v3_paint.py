@@ -769,7 +769,7 @@ def glass_texels(cfg, work, XS, src):
     for o in cfg.get("glass_outlines", []):
         png = Path(o["png"]).expanduser(); v = o["view"]
         meta = json.loads((png.parent / "sheet.json").read_text())
-        mask = outline_mask(png)
+        mask = outline_mask(png, erode=int(cfg.get("glass_erode_px", 1)))   # 0 for slits a few px wide (Uller)
         fid = np.asarray(Image.open(work / f"sheetfid_{v}.png").convert("RGB")).astype(np.int64)
         ids = (fid[..., 0] << 16) + (fid[..., 1] << 8) + fid[..., 2] - 1
         H, W = mask.shape
@@ -793,6 +793,11 @@ def glass_texels(cfg, work, XS, src):
                 d = np.abs(((XS[k] - P_[F_[fk, 0]]) * Tn[fk]).sum(1))
                 vis[k] |= good & (d < tol)
         out |= inside & vis
+    if cfg.get("glass_mirror_x") and out.any():   # a symmetric canopy outlined on one side only (Uller, 2026-10-25):
+        from scipy.spatial import cKDTree        # also glass where the texel's mirror across x = 0 is glass
+        Xm = XS * np.array([-1.0, 1.0, 1.0])
+        d, _ = cKDTree(XS[out]).query(Xm, distance_upper_bound=float(cfg.get("glass_mirror_tol_mm", 30)))
+        out |= np.isfinite(d)
     out = clean_texel_mask(out, work, int(cfg.get("glass_close_px", 2)))
     print(f"  glass (texel knife): {int(out.sum())} texels from {len(cfg.get('glass_outlines', []))} outlined views")
     return out

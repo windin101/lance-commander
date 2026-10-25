@@ -1,0 +1,176 @@
+{
+ "_doc": "v3 settings for the uller (tools/art/v3/v3_mech.py), fit and labels from the v2 work on the same sculpt.",
+ "name": "uller",
+ "folder": "mechs",
+ "stl": "/home/leeo/craft/solid/mc2/stl/uller/Kit_Fox_V_repaired.stl",
+ "source": {
+  "title": "BattleTech Kit Fox (Uller) Alt Config V",
+  "author": "MiniHulkMechs",
+  "url": "https://www.thingiverse.com/thing:6431420",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "Kit_Fox_V_repaired.stl",
+  "notes": "The source is a kitbash. Per its README, the torso and legs are by Syllogy (\"Kit Fox Prime, aka Uller for Battletech\", https://www.printables.com/model/1863957, CC BY-NC-SA 4.0), and the Arrow IV launcher is by MKHand_Industries, from \"Urbanmech Builder\" (https://cults3d.com/en/3d-model/game/urbanmech-builder).\n\n**The Arrow IV launcher's licence is unverified.** Cults3D could not be checked automatically, and MiniHulkMechs' CC BY-NC-SA 4.0 grant may not cover that part. On 2026-10-25 Lee (project owner) decided to keep this kitbash with that part's licence unverified. If the launcher's licence turns out not to allow this use, swap in Syllogy's Kit Fox Prime."
+ },
+ "k": 192.72955271549029,
+ "base_glb": "game/assets/mechs/uller.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/uller_k2",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300,
+  "regrow_legs": true,
+  "boxes": [
+   {
+    "part": "ul_rlleg",
+    "min": [
+     -3000,
+     -5000,
+     800
+    ],
+    "max": [
+     0,
+     5000,
+     3000
+    ],
+    "from": [
+     "ul_rfoot"
+    ],
+    "_why": "the right shin's rear plate (z 0.7-1.9 m) is shin, not foot"
+   }
+  ]
+ },
+ "lowpoly": {
+  "faces": 400000,
+  "padding": 4,
+  "minor_scale": 0.5,
+  "_why": "2026-10-25: this kitbash is a soup of overlapping shells; Blender's collapse crumples it into shards at any ratio (torso, feet), so no part is decimated beyond merge + 1 deg planar dissolve (~130k tris)"
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 2249,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "ul_luarm": 0.95,
+   "ul_rfoot": 1.0,
+   "ul_rlleg": 1.0,
+   "ul_lfoot": 1.0,
+   "ul_llleg": 1.0,
+   "ul_ruarm": 0.95
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "part_region": {
+  "ul_luarm": "arms",
+  "ul_torso": "body",
+  "ul_rfoot": "feet",
+  "ul_rlleg": "lower_legs",
+  "ul_ruleg": "upper_legs",
+  "ul_lfoot": "feet",
+  "ul_llleg": "lower_legs",
+  "ul_luleg": "upper_legs",
+  "ul_hip": "body",
+  "ul_ruarm": "arms"
+ },
+ "feet": [
+  "ul_rfoot",
+  "ul_lfoot"
+ ],
+ "joints": {
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 445
+  },
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 630
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 405,
+   "half": 526
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 405,
+   "half": 526
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 445
+  },
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 405,
+   "half": 526
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 405,
+   "half": 526
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 445
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 445
+  }
+ },
+ "weapons": [
+  {
+   "name": "missile launcher, right arm",
+   "whole_parts": [
+    "ul_ruarm"
+   ]
+  },
+  {
+   "name": "gun arm, left",
+   "whole_parts": [
+    "ul_luarm"
+   ]
+  }
+ ],
+ "glass_outlines": [
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-uller/outline_drawn/sheet_front.png",
+   "view": "front"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-uller/outline_drawn/sheet_q34.png",
+   "view": "q34"
+  }
+ ],
+ "glass_mode": "texel",
+ "_glass_mode_why": "three tiny eye slits: the texel knife follows Lee's line; whole-patch snapping made lumps and lost the left slit",
+ "glass_erode_px": 0,
+ "glass_mirror_x": true,
+ "_glass_mirror_why": "Lee outlined the visor slit's left side in the 3/4 view; the right side is only seen edge-on, so it is mirrored"
+}

@@ -1,0 +1,89 @@
+{
+ "l": {
+  "hip": [
+   -237,
+   2572
+  ],
+  "knee": [
+   12,
+   1662
+  ],
+  "ankle": [
+   -1305,
+   545
+  ],
+  "x_max": 1285
+ },
+ "r": {
+  "hip": [
+   -277,
+   2572
+  ],
+  "knee": [
+   652,
+   2275
+  ],
+  "ankle": [
+   840,
+   525
+  ]
+ },
+ "arms": {},
+ "upper": [
+  {
+   "node": "ul_ruarm",
+   "x_sign": -1,
+   "ax_min": 791,
+   "z_min": 2967
+  },
+  {
+   "node": "ul_luarm",
+   "x_sign": 1,
+   "ax_min": 1087,
+   "z_min": 2176
+  },
+  {
+   "node": "ul_luarm",
+   "x_sign": 1,
+   "ax_min": 771,
+   "z_min": 3016
+  }
+ ],
+ "parts": [
+  {
+   "node": "ul_torso",
+   "from": "ul_lgun",
+   "min": [
+    -99999,
+    -99999,
+    -99999
+   ],
+   "max": [
+    99999,
+    99999,
+    99999
+   ]
+  },
+  {
+   "node": "ul_torso",
+   "from": "ul_rgun",
+   "min": [
+    -99999,
+    -99999,
+    -99999
+   ],
+   "max": [
+    99999,
+    99999,
+    99999
+   ]
+  }
+ ],
+ "scale": 1.43,
+ "v2": {
+  "stl": "Kit_Fox_V_repaired.stl"
+ },
+ "_from": "~/craft/solid/mc2/stl/uller/joints.json (the v1 fit)",
+ "base_cut": 0,
+ "_v3_note": "2026-10-25: copy of tools/art/hd_v2/uller.json with base_cut 0 (the auto base cut, 1.70, took the bottom 330 mm of every foot; the kit has no base); coordinates converted to the toes-kept frame (p' = 0.9885 p + 100 mm z)"
+}
