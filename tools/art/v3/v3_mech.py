@@ -340,7 +340,7 @@ def stage_fit(cfg, work, _orig=None):
     xf = {names[int(k)]: np.array(v) for k, v in f["xform"].items()}
     # ground: lowest foot point on z = 0
     drop = min((V[np.unique(F[np.array([names[i] for i in li]) == p_])] @ xf[p_][:3, :3].T + xf[p_][:3, 3])[:, 2].min()
-               for p_ in cfg.get("feet", []))
+               for p_ in cfg.get("feet", [])) if cfg.get("feet") else 0.0   # rigid units: stl_hd's fit is final
     rest = {k: (v - [0, 0, drop]).tolist() for k, v in rest.items()}
     for p_ in xf:
         xf[p_][2, 3] -= drop

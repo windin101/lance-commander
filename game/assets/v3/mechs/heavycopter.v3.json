@@ -1,0 +1,32 @@
+{
+ "model": "heavycopter.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Balac VTOL",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:6758723",
+  "licence": "CC BY-SA 4.0",
+  "file": "Balac_VTOL.stl + Balac_Rotor_VTOL.stl"
+ },
+ "tris": 39998,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 1200837,
+  "chip_share": 0.038380729441214755,
+  "grime_mean": 0.3501453399658203,
+  "paint_share": 0.5883912637601939,
+  "glass_texels": 23900,
+  "emissive_texels": 0,
+  "piping_texels": 124829,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

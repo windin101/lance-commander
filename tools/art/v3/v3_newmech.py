@@ -9,7 +9,7 @@ mech = sys.argv[1]
 import os
 work = Path(os.environ.get("V3_WORK") or f"/mnt/nvme1n1p1/mc2-rework/work/{mech}")   # V3_WORK: a refit (e.g. <mech>_k2)
 f = json.loads((work / "fit.json").read_text())
-stl = Path(f["stl"])
+stl = Path(f["stl"][0] if isinstance(f["stl"], list) else f["stl"])   # rigid units may list several kit files
 src = {}
 for cand in (stl.parent / "source.json", Path(sys.argv[2]) if len(sys.argv) > 2 else None):
     if cand and cand.exists():
@@ -52,6 +52,9 @@ for part, p in M.PARTS.items():
     else:
         joints[j] = {"kind": "sphere", "r": round(r * 1.1)}
 d.pop("_path_tmp")
+if f.get("kind") == "rigid":   # tools/art/v3/v3_rigid.py: no skeleton, parts ride their own nodes; nothing to house
+    reg = {p_: "body" for p_ in M.PARTS}; feet, joints = [], {}
+    d.update({"rigid": True, "auto_actuators": False})
 d.update({"part_region": reg, "feet": feet, "joints": joints})
 d["wear"]["exposure"] = exp
 (HERE / f"{mech}.json").write_text(json.dumps(d, indent=1))

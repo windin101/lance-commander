@@ -1,0 +1,32 @@
+{
+ "model": "mediumcopter.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Hawk Moth",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:6599138",
+  "licence": "CC BY-SA 4.0",
+  "file": "Hawk_Moth_I.stl"
+ },
+ "tris": 39999,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 2077943,
+  "chip_share": 0.028047930092403882,
+  "grime_mean": 0.3477718234062195,
+  "paint_share": 0.5681431107590535,
+  "glass_texels": 26091,
+  "emissive_texels": 0,
+  "piping_texels": 69996,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

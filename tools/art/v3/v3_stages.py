@@ -54,6 +54,27 @@ def stage_segment(cfg, work):
             if "from" in ov:
                 m &= np.isin(lab, [names.index(f_) for f_ in ov["from"]])
             lab[m] = names.index(ov["part"])
+        if cfg.get("rigid"):   # rigid units: stl_hd's per-part labels (mounted kit pieces) are final, no snapping
+            # seg.whole_shells [{"part", "min", "max"}]: every connected shell of the kit lying wholly in the box goes
+            # to the part (a rotor's blades: stl_hd's nearest-part skin gave blades over the hull to the hull, 2026-10-25)
+            if sg.get("whole_shells"):
+                from scipy.sparse import coo_matrix
+                from scipy.sparse.csgraph import connected_components
+                nv = len(P)
+                _, vc = connected_components(coo_matrix((np.ones(3 * len(F)), (F.ravel(), np.roll(F, 1, 1).ravel())),
+                                                        shape=(nv, nv)), directed=False)
+                sh = vc[F[:, 0]]
+                for ws in sg["whole_shells"]:
+                    inb = np.all((P[F].reshape(-1, 3) >= ws["min"]) & (P[F].reshape(-1, 3) <= ws["max"]), 1).reshape(-1, 3).all(1)
+                    out = np.bincount(sh, weights=~inb, minlength=sh.max() + 1)
+                    take = (out == 0)[sh]
+                    print(f"  whole_shells {ws['part']}: {len(np.unique(sh[take]))} shells, {int((take & (lab != names.index(ws['part']))).sum())} faces moved")
+                    lab[take] = names.index(ws["part"])
+            names_arr = np.array(names)
+            np.savez(work / "labels.npz", lab=names_arr[lab], names=names_arr)
+            print("segment:", ", ".join(f"{n} {int((lab == i).sum())}" for i, n in enumerate(names)))
+            preview_labels(P, F, names_arr[lab], work / "seg", names)
+            return
         return _finish_segment(cfg, work, P, F, fa, fb, ev, ang, concave, lab, names)
     lab0, D, names = M.nearest_bone_labels(P, F, cfg, return_d=True)
     s = np.sort(D, 1)
@@ -892,6 +913,8 @@ def ground_fix(rig, cfg, rest_P, rest_F, rest_part):
     """Per root translation key: move the root up or down so the lower foot sole is as high above the ground as the
     original's lower foot at that key (the sculpt's thigh and shin lengths differ from the original's, so the
     original's root height would sink or lift the stance foot). Returns {anim: max |correction| m}."""
+    if cfg.get("rigid") or not cfg.get("feet", True):   # rigid units (copters, vehicles): the original's flight keys stand
+        return {}
     import pose_test as PT
     import hd_rig as R
     g0, b0 = R.load_glb(str(C.ROOT / cfg["base_glb"]))
@@ -1061,7 +1084,7 @@ def cap_visibility(cfg, work, anims=("Walk", "Run", "Idle"), samples=6, yaws=(0,
     durs = rig.durations()
     out, per_part = {}, np.zeros(len(names))
     views = ",".join(f"rts{y}" for y in yaws)
-    for an in anims:
+    for an in [a_ for a_ in anims if a_ in durs]:   # copters have no Jump or GetUp
         cap = act = tot = 0
         for t in np.linspace(0, durs[an], samples, endpoint=False):
             Q = pose_mesh(rig, z["P"], z["F"], z["part"], an, t)
@@ -1299,6 +1322,9 @@ def stage_write(cfg, work):
     (dst / f"{mech}.v3.json").write_text(json.dumps(side, indent=1))
     src = cfg["source"]
     lic = LICENSE.format(mech=mech, title=src["title"], author=src["author"], url=src["url"], cfg=Path(cfg["_path"]).name)
+    if src.get("licence", "CC BY-NC-SA 4.0") == "CC BY-SA 4.0":   # RGriffin65's kits (copters, vehicles)
+        lic = (lic.replace("Attribution-NonCommercial-ShareAlike 4.0", "Attribution-ShareAlike 4.0")
+                  .replace("CC BY-NC-SA 4.0", "CC BY-SA 4.0").replace("licenses/by-nc-sa/4.0", "licenses/by-sa/4.0"))
     if src.get("notes"):   # source-specific notes (kitbash parents, licence decisions), from the config
         lic += "\n## Notes on the source\n\n" + src["notes"].strip() + "\n"
     (dst / f"{mech}.LICENSE.md").write_text(lic)
