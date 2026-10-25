@@ -1,0 +1,53 @@
+{
+ "model": "laohu.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Lao Hu Battlemech",
+  "author": "UnrestedGuy",
+  "url": "https://www.thingiverse.com/thing:6505435",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "B-Lao-Hu2B.stl"
+ },
+ "tris": 46728,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.227,
+  "Walk": 0.467,
+  "Run": 0.633,
+  "STtoWK": 0.467,
+  "WKtoST": 0.467,
+  "WKtoRN": 0.566,
+  "RNtoWK": 0.604,
+  "LimpLeft": 1.25,
+  "LimpRight": 1.305,
+  "ParkToStand": 0.178,
+  "StandToPark": 0.178,
+  "Jump": 1.375,
+  "FallForward": 1.201,
+  "FallBackward": 0.781,
+  "GetUpFront": 1.135,
+  "GetUpBack": 1.18,
+  "HitFront": 0.21,
+  "HitBack": 0.212,
+  "HitLeft": 0.242,
+  "HitRight": 0.179
+ },
+ "paint_stats": {
+  "texels": 1800862,
+  "chip_share": 0.06923517737616763,
+  "grime_mean": 0.3850286602973938,
+  "paint_share": 0.5256110684772071,
+  "glass_texels": 10396,
+  "emissive_texels": 0,
+  "piping_texels": 178296,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

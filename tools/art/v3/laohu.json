@@ -1,0 +1,260 @@
+{
+ "_doc": "v3 settings for the laohu (tools/art/v3/v3_mech.py), fit and labels from the v2 work on the same sculpt.",
+ "name": "laohu",
+ "folder": "mechs",
+ "stl": "/home/leeo/craft/solid/mc2/stl/laohu/B-Lao-Hu2B.stl",
+ "source": {
+  "title": "Lao Hu Battlemech",
+  "author": "UnrestedGuy",
+  "url": "https://www.thingiverse.com/thing:6505435",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "B-Lao-Hu2B.stl"
+ },
+ "k": 242.0742710870032,
+ "base_glb": "game/assets/mechs/laohu.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/laohu_k2",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300,
+  "regrow_legs": true,
+  "boxes": [
+   {
+    "part": "gh_lfoot",
+    "min": [
+     300,
+     3850,
+     1100
+    ],
+    "max": [
+     3000,
+     4800,
+     2300
+    ],
+    "from": [
+     "gh_llleg"
+    ],
+    "_why": "the raised rear toe of the tilted left foot is foot, not shin"
+   }
+  ]
+ },
+ "lowpoly": {
+  "faces": 40000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 2643,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "gh_luarm": 0.95,
+   "gh_lfoot": 1.0,
+   "gh_llleg": 1.0,
+   "gh_rfoot": 1.0,
+   "gh_rlleg": 1.0,
+   "gh_ruarm": 0.95,
+   "gh_lgun": 0.95
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "part_region": {
+  "gh_luarm": "arms",
+  "gh_torso": "body",
+  "gh_lfoot": "feet",
+  "gh_llleg": "lower_legs",
+  "gh_luleg": "upper_legs",
+  "gh_rfoot": "feet",
+  "gh_rlleg": "lower_legs",
+  "gh_ruleg": "upper_legs",
+  "gh_hip": "body",
+  "gh_ruarm": "arms",
+  "gh_lgun": "arms"
+ },
+ "feet": [
+  "gh_lfoot",
+  "gh_rfoot"
+ ],
+ "joints": {
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 740
+  },
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 476,
+   "half": 619
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 476,
+   "half": 619
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 476,
+   "half": 619
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 476,
+   "half": 619
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 523
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 523
+  }
+ },
+ "weapons": [
+  {
+   "name": "arm cannon, right",
+   "whole_parts": [
+    "gh_ruarm"
+   ]
+  },
+  {
+   "name": "gun, left forearm",
+   "parts": [
+    "gh_lgun"
+   ],
+   "volume": {
+    "min": [
+     2269,
+     -4932,
+     6260
+    ],
+    "max": [
+     5031,
+     2466,
+     8824
+    ]
+   }
+  },
+  {
+   "name": "LRM grid, left chest",
+   "parts": [
+    "gh_torso"
+   ],
+   "volume": {
+    "min": [
+     296,
+     -1825,
+     8677
+    ],
+    "max": [
+     2022,
+     -480,
+     10304
+    ]
+   },
+   "inside": 0.5,
+   "_note": "2026-10-25 refit (toes kept): box converted to the new frame, back face -493 -> -480 so the selection matches the approved one (0.02 m2 missing, 0.04 m2 extra)"
+  }
+ ],
+ "_from_v2_note": "refit 2026-10-25 with tools/art/v3/laohu_v2joints.json (base_cut 0: the auto base cut took the toes)",
+ "glass_outlines": [
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-laohu/outline_drawn/sheet_front.png",
+   "view": "front"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-laohu/outline_drawn/sheet_q34.png",
+   "view": "q34"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-laohu/outline_drawn/sheet_rside.png",
+   "view": "rside"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-laohu/outline_drawn/sheet_side.png",
+   "view": "side"
+  },
+  {
+   "png": "/mnt/nvme1n1p1/mc2-rework/review/v3-laohu/outline_drawn/sheet_top.png",
+   "view": "top"
+  }
+ ],
+ "plane_seams": [
+  {
+   "upper": "gh_rlleg",
+   "lower": "gh_rfoot",
+   "z": 1150
+  },
+  {
+   "upper": "gh_llleg",
+   "lower": "gh_lfoot",
+   "n": [
+    0,
+    -1200,
+    1700
+   ],
+   "_why": "the left shin is tilted ~35 deg: the plane is perpendicular to knee->ankle, through the ankle ball, so the raised rear toe stays on the foot",
+   "lower_boxes": [
+    {
+     "min": [
+      300,
+      650,
+      -10
+     ],
+     "max": [
+      3000,
+      1900,
+      1000
+     ],
+     "_why": "front toe block: the tilted plane would slice its top off"
+    }
+   ]
+  }
+ ],
+ "cap_parts": [
+  "gh_rfoot",
+  "gh_lfoot",
+  "gh_rlleg",
+  "gh_llleg"
+ ],
+ "skirt_mm": 0,
+ "_cap_parts_note": "2026-10-25 Lee: feet broken (fins, see-through). The shin/foot seam is the ankle plane (sculpt z: right 1150, left 1426), clipped exactly on both parts; the flat ends are capped as decks; the shin side plates below it ride the foot"
+}

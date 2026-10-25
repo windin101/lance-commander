@@ -1,0 +1,164 @@
+{
+ "yaw": -90,
+ "pivot": [
+  0,
+  0
+ ],
+ "l": {
+  "hip": [
+   1000,
+   5100
+  ],
+  "knee": [
+   -300,
+   3150
+  ],
+  "ankle": [
+   -200,
+   1000
+  ]
+ },
+ "r": {
+  "hip": [
+   1200,
+   5300
+  ],
+  "knee": [
+   1250,
+   2950
+  ],
+  "ankle": [
+   2650,
+   1150
+  ],
+  "x_max": 2000,
+  "x_max_z": 4950
+ },
+ "arms": {},
+ "upper_joints": {
+  "joint_luarm": [
+   2250,
+   1600,
+   7750
+  ],
+  "joint_lgun": [
+   2700,
+   300,
+   7000
+  ],
+  "joint_ruarm": [
+   -2300,
+   1700,
+   7600
+  ],
+  "joint_rgun": [
+   -2600,
+   2000,
+   5700
+  ]
+ },
+ "upper": [
+  {
+   "node": "sh_torso",
+   "z_min": 5720,
+   "ax_max": 1850
+  }
+ ],
+ "parts": [
+  {
+   "node": "sh_luarm",
+   "min": [
+    1850,
+    350,
+    5000
+   ],
+   "max": [
+    5000,
+    5000,
+    11000
+   ]
+  },
+  {
+   "node": "sh_lgun",
+   "min": [
+    1850,
+    -6000,
+    6000
+   ],
+   "max": [
+    5000,
+    350,
+    7800
+   ]
+  },
+  {
+   "node": "sh_ruarm",
+   "min": [
+    -5000,
+    -6000,
+    6450
+   ],
+   "max": [
+    -1850,
+    5000,
+    11000
+   ]
+  },
+  {
+   "node": "sh_rgun",
+   "min": [
+    -5000,
+    -6000,
+    4800
+   ],
+   "max": [
+    -1850,
+    5000,
+    6450
+   ]
+  },
+  {
+   "node": "sh_torso",
+   "min": [
+    1800,
+    -6000,
+    8350
+   ],
+   "max": [
+    2500,
+    5000,
+    11000
+   ]
+  },
+  {
+   "node": "sh_torso",
+   "min": [
+    -2560,
+    -6000,
+    8300
+   ],
+   "max": [
+    -1800,
+    5000,
+    11000
+   ]
+  },
+  {
+   "node": "sh_hip",
+   "min": [
+    1400,
+    800,
+    5200
+   ],
+   "max": [
+    1850,
+    2400,
+    5719
+   ]
+  }
+ ],
+ "v2": {},
+ "_from": "~/craft/solid/mc2/stl/shootist/joints.json (the v1 fit)",
+ "_v3_note": "2026-10-25: legs re-read from mm-grid side views of the fitted sculpt; the v1 left knee was 1.6 m behind the knee disc (1.4 m seam opening in the walk); base_cut 0: stl_rig's auto base cut (2.26) took the toes, there is no display base",
+ "base_cut": 0
+}

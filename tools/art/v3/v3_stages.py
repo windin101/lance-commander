@@ -80,12 +80,16 @@ def regrow(cfg, P, F, fa, fb, dist, ang, concave, lab, names, Cn):
     those parts are re-labelled among them by crease-aware geodesic growth from cores near each part's bone
     segments (the v2 labels' leg cuts ran through the armour on the Urbanmech, 2026-10-25)."""
     rg = cfg.get("seg", {}).get("regrow")
+    if cfg.get("seg", {}).get("regrow_legs"):
+        rg = auto_leg_regrow(cfg)
     if not rg:
         return lab
     import v3_mech as M
     parts = list(rg["segments"])
     ids = np.array([names.index(p_) for p_ in parts])
     sel = np.isin(lab, ids)
+    if rg.get("below_z") is not None:   # faces of other parts low on the legs (v2 mislabels) join the pool
+        sel |= Cn[:, 2] < float(rg["below_z"])
     D = np.stack([np.min([M.seg_dist(Cn, np.asarray(a, float), np.asarray(b, float)) for a, b in rg["segments"][p_]], axis=0)
                   for p_ in parts], 1)
     s_ = np.sort(D, 1)
@@ -101,6 +105,8 @@ def regrow(cfg, P, F, fa, fb, dist, ang, concave, lab, names, Cn):
     lab = lab.copy()
     m = sel & (srcs >= 0)
     lab[m] = li[srcs[m]]
+    un = sel & (srcs < 0)              # separate shells no core reaches: the nearest leg bone
+    lab[un] = li[un]
     print(f"  regrow: {int(sel.sum())} faces among {parts}")
     return lab
 
@@ -108,7 +114,7 @@ def regrow(cfg, P, F, fa, fb, dist, ang, concave, lab, names, Cn):
 def _finish_segment(cfg, work, P, F, fa, fb, ev, ang, concave, lab, names):
     sg = cfg.get("seg", {})
     Cn = P[F].mean(1)
-    if sg.get("regrow"):
+    if sg.get("regrow") or sg.get("regrow_legs"):
         dist = np.linalg.norm(Cn[fa] - Cn[fb], axis=1)
         lab = regrow(cfg, P, F, fa, fb, dist, ang, concave, lab, names, Cn)
     # snap to the kit's part lines: patches bounded by sharp concave creases take their majority label whole
@@ -642,15 +648,57 @@ def stage_joints(cfg, work):
     rest_pts = np.array(list(rest.values()), float)
     nv = 0
     report = {"parts": {}, "actuators": []}
+    # plane_seams (2026-10-25, Lee: broken feet): the shin/foot boundary becomes one horizontal sculpt-frame plane
+    # (default through the ankle pivot). Every face of the pair that reaches across the plane goes to both parts and
+    # each is clipped exactly onto the plane, so the two surfaces meet without a sliver and each end is a flat loop
+    # that cap_parts closes as a deck (the ankle drum sits on the seam).
+    seam_of = {}
+    Pz = P[F][:, :, 2]
+    for ps in cfg.get("plane_seams", []):
+        up, lo = ps["upper"], ps["lower"]
+        # plane: "p" (default the lower part's pivot, or z only via "z") and "n" pointing to the upper part (default
+        # +Z; a tilted shin wants the knee-to-ankle axis, Lao Hu's left leg)
+        p0 = np.asarray(ps.get("p", cfg["pivots"][M.PARTS[lo]["joint"]]), float).copy()
+        if "z" in ps:
+            p0[2] = float(ps["z"])
+        nn = np.asarray(ps.get("n", [0, 0, 1]), float); nn /= np.linalg.norm(nn)
+        dv = (P - p0) @ nn
+        dF = dv[F]
+        # "r": only within r of the axis through p0 along n (a plane through a tilted ankle would slice the toes)
+        lat = np.linalg.norm((P - p0) - dv[:, None] * nn, axis=1)
+        inv = lat < float(ps.get("r", 1e9))
+        inF = inv[F].all(1)
+        # "lower_boxes": sculpt boxes (a toe block the plane would slice) that belong wholly to the lower part
+        lb = ps.get("lower_boxes", [])
+        boxv = np.zeros(len(P), bool)
+        for b in lb:
+            boxv |= np.all((P >= b["min"]) & (P <= b["max"]), axis=1)
+        boxF = np.all((P[F].mean(1)[:, None, :] >= np.array([b["min"] for b in lb])[None]) &
+                      (P[F].mean(1)[:, None, :] <= np.array([b["max"] for b in lb])[None]), axis=2).any(1) if lb else np.zeros(len(F), bool)
+        pair = np.isin(lab, [up, lo])
+        rr = float(ps.get("r", 1e9))
+        seam_of[up] = (pair & ~boxF & ((inF & (dF.max(1) > 0)) | (~inF & (lab == up))), p0, nn, 1.0, rr, boxv, -1.0)
+        seam_of[lo] = (pair & (boxF | (inF & (dF.min(1) < 0)) | (~inF & (lab == lo))), p0, nn, -1.0, rr, boxv, 1.0)
     for part in M.PARTS:
-        m = lab == part
+        m = seam_of[part][0] if part in seam_of else lab == part
         if not m.any():
             continue
         used = np.unique(F[m])
         remap = -np.ones(len(P), int); remap[used] = np.arange(len(used))
-        V = P[used] @ xf[part][:3, :3].T + xf[part][:3, 3]
         Fp = remap[F[m]]
         sp = np.flatnonzero(m)
+        Vs_ = P[used]
+        if part in seam_of:   # sculpt frame: drop what lies on the other part's side of the plane
+            p0, nn, sg, rr, boxv, bsg = seam_of[part][1:]
+            lbs = [b for ps_ in cfg.get("plane_seams", []) if part in (ps_["upper"], ps_["lower"]) for b in ps_.get("lower_boxes", [])]
+            def fpl(X, p0=p0, nn=nn, sg=sg, rr=rr, lbs=lbs, bsg=bsg):
+                d_ = (X - p0) @ nn
+                f_ = np.where(np.linalg.norm((X - p0) - d_[:, None] * nn, axis=1) < rr, sg * d_, 1.0)
+                for b in lbs:   # inside a lower box: the lower part keeps it whole, the upper part drops it
+                    f_ = np.where(np.all((X >= b["min"]) & (X <= b["max"]), axis=1), bsg * (np.abs(f_) + 1.0), f_)
+                return f_
+            Vs_, Fp, _, sp = clip_outside(Vs_, Fp, fpl, src=sp)
+        V = Vs_ @ xf[part][:3, :3].T + xf[part][:3, 3]
         mine = [a for a in acts if part in (a["parent"], a["child"])]
         for a in mine:
             V, Fp, _, sp = clip_outside(V, Fp, actuator_f(a), src=sp)
@@ -666,8 +714,14 @@ def stage_joints(cfg, work):
         for loop in boundary_loops(Fp):
             if on_act(V[loop]):
                 continue        # lies on an actuator: the actuator closes it
-            if cfg.get("caps") == "none":
+            if cfg.get("caps") == "none" and part not in cfg.get("cap_parts", []):
                 ncap += 1; devs.append(0); continue   # left open: the shader shades the inside dark
+            if cfg.get("caps") == "none":   # a cap_parts loop: only flat ones (plane clips, decks); a soap film over a
+                Q = V[loop] - V[loop].mean(0)          # jagged seam crumples (Sha Yu shins, 2026-10-25)
+                if np.abs(Q @ np.linalg.svd(Q, full_matrices=False)[2][2]).max() > float(cfg.get("cap_max_dev_mm", 25)):
+                    ncap += 1; devs.append(0); continue
+            # cap_parts (2026-10-25, Lee: "you can see into the inside of the foot"): these parts' open loops are
+            # closed even with caps "none", so a tilted foot or shin shows a closed end, not the hollow print
             nV_, sf, outer = skirt(V, Fp, loop, depth) if depth > 0 else (np.zeros((0, 3)), np.zeros((0, 3), int), loop)
             V = np.r_[V, nV_]
             skF.append(sf)
@@ -1627,3 +1681,26 @@ def stage_glassdensity(cfg, work):
     sc = np.where(gl, float(cfg.get("glass_uv_scale", 2.5)), 1.0)
     np.save(work / "uv_scale.npy", sc)
     print(f"  glass density: {int(gl.sum())} low faces at x{sc.max():.1f}")
+
+
+def auto_leg_regrow(cfg):
+    """Leg regrow segments from the pivots: thigh hip->knee, shin knee->ankle, foot ankle->toe plus a ground strip."""
+    import v3_mech as M
+    pv = {k: np.asarray(v, float) for k, v in cfg["pivots"].items()}
+    segs = {}
+    for side in "lr":
+        need = [f"joint_{side}uleg", f"joint_{side}lleg", f"joint_{side}ankle"]
+        if not all(n in pv for n in need):
+            return None
+        part = {d["joint"]: p_ for p_, d in M.PARTS.items()}
+        hip, knee, ank = (pv[n] for n in need)
+        toe = pv.get(f"joint_{side}foot", ank + [0, -1500, -ank[2] + 200])
+        segs[part[f"joint_{side}uleg"]] = [[hip.tolist(), knee.tolist()]]
+        segs[part[f"joint_{side}lleg"]] = [[knee.tolist(), ank.tolist()]]
+        g0 = [toe[0], toe[1], 150.0]; g1 = [ank[0], ank[1] + (ank[1] - toe[1]) * 0.5, 150.0]
+        foot = part.get(f"joint_{side}ankle") or part.get(f"joint_{side}foot")   # some rigs hang the foot on joint_*foot
+        if foot is None:
+            return None
+        segs[foot] = [[ank.tolist(), toe.tolist()], [g0, g1]]
+    knee_z = min(pv["joint_llleg"][2], pv["joint_rlleg"][2])
+    return {"segments": segs, "core_ratio": float(cfg["seg"].get("regrow_core", 0.8)), "crease": 2.5, "below_z": knee_z}

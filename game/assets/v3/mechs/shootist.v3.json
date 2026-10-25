@@ -1,0 +1,52 @@
+{
+ "model": "shootist.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Shootist Battlemech",
+  "author": "UnrestedGuy",
+  "url": "https://www.thingiverse.com/thing:7263860",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "B-Shootist8A.stl"
+ },
+ "tris": 44694,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Walk": 0.565,
+  "Run": 0.879,
+  "STtoWK": 0.555,
+  "WKtoST": 0.565,
+  "WKtoRN": 0.807,
+  "RNtoWK": 0.766,
+  "LimpLeft": 0.269,
+  "LimpRight": 0.149,
+  "ParkToStand": 0.351,
+  "StandToPark": 0.493,
+  "Jump": 0.503,
+  "FallForward": 2.6,
+  "FallBackward": 4.266,
+  "GetUpFront": 3.136,
+  "GetUpBack": 4.179,
+  "HitFront": 0.142,
+  "HitBack": 0.071,
+  "HitLeft": 0.201,
+  "HitRight": 0.108
+ },
+ "paint_stats": {
+  "texels": 1960496,
+  "chip_share": 0.03685801960320245,
+  "grime_mean": 0.4166129529476166,
+  "paint_share": 0.511773551182966,
+  "glass_texels": 2023,
+  "emissive_texels": 0,
+  "piping_texels": 169257,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

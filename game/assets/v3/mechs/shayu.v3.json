@@ -1,0 +1,53 @@
+{
+ "model": "shayu.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Sha Yu Battlemech",
+  "author": "UnrestedGuy",
+  "url": "https://www.thingiverse.com/thing:6498513",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "B-Sha-Yu2B.stl"
+ },
+ "tris": 43092,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.105,
+  "Walk": 0.117,
+  "Run": 0.177,
+  "STtoWK": 0.089,
+  "WKtoST": 0.086,
+  "WKtoRN": 0.217,
+  "RNtoWK": 0.14,
+  "LimpLeft": 0.219,
+  "LimpRight": 0.216,
+  "ParkToStand": 0.097,
+  "StandToPark": 0.07,
+  "Jump": 0.38,
+  "FallForward": 0.445,
+  "FallBackward": 0.615,
+  "GetUpFront": 0.277,
+  "GetUpBack": 0.277,
+  "HitFront": 0.211,
+  "HitBack": 0.334,
+  "HitLeft": 0.152,
+  "HitRight": 0.108
+ },
+ "paint_stats": {
+  "texels": 2104201,
+  "chip_share": 0.034277618915683435,
+  "grime_mean": 0.4763851463794708,
+  "paint_share": 0.4794328108388885,
+  "glass_texels": 5323,
+  "emissive_texels": 0,
+  "piping_texels": 288449,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

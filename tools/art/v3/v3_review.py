@@ -114,7 +114,10 @@ def stage_review(cfg, work):
     S.weapons_check(cfg, work, out=R / "weapons_check.png", textured=[G / f"wc_{v}.png" for v in ("front", "q34", "side", "rside", "top")])
     S.canopy_check(cfg, work, R / "canopy_check.png")
     import v3_paint as VP
-    VP.make_sheets(work, R / "outline_sheets")   # plain aligned sheets (front, 3/4, sides, top) for blue outlines
+    if (R / "outline_sheets" / ".locked").exists():   # Lee is drawing on them: never re-render (2026-10-25)
+        print("  outline_sheets locked, left alone")
+    else:
+        VP.make_sheets(work, R / "outline_sheets")   # plain aligned sheets (front, 3/4, sides, top) for blue outlines
     breakdown(cfg, work, R)
     for f in ("pose_test.md", "pose_test.json"):
         if (work / f).exists():

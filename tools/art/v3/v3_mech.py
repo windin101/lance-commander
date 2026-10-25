@@ -299,13 +299,25 @@ def v2_setup(cfg):
                 par_part = names[kids[0]]; break
             pj = parent.get(pj)
         parts[nm] = {"joint": jn, "pivot": jn, "aim": None, "parent": par_part}
+        rp = rest.get(jn, gl_to_mm(Wm[gn.index(jn)][:3, 3]))
+        Mi = np.linalg.inv(M_)
+        pivots[jn] = (Mi[:3, :3] @ rp + Mi[:3, 3]).tolist()
+    # every skeleton joint in the sculpt frame through the part that carries it (hand/foot tips included)
+    for jn_, rp in rest.items():
+        if jn_ in pivots:
+            continue
+        i = names.index(jn_) if jn_ in names else None
+        while i is not None and str(i) not in f["xform"] and not any(d_["joint"] == names[i] for d_ in parts.values()):
+            i = parent.get(i)
+        carrier = next((nm_ for nm_, d_ in parts.items() if i is not None and d_["joint"] == names[i]), None)
+        if carrier is None:
+            continue
+        Mi = np.linalg.inv(np.array(f["xform"][str(names.index(carrier))]))
+        pivots[jn_] = (Mi[:3, :3] @ np.asarray(rp) + Mi[:3, 3]).tolist()
     hip_part = next((p_ for p_, d in parts.items() if d["joint"] == "joint_hip"), None)
     for p_, d in parts.items():   # the torso twists against the pelvis (siblings under joint_root)
         if d["parent"] is None and d["joint"] != "joint_hip":
             d["parent"] = hip_part
-        rp = rest.get(jn, gl_to_mm(Wm[gn.index(jn)][:3, 3]))
-        Mi = np.linalg.inv(M_)
-        pivots[jn] = (Mi[:3, :3] @ rp + Mi[:3, 3]).tolist()
     return parts, pivots, rest, f
 
 

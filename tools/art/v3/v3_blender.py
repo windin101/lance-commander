@@ -127,6 +127,8 @@ def lowpoly():
     for p in np.unique(part):
         for k in np.unique(kind[part == p]):
             m = (part == p) & (kind == k)
+            # a face that repeats a vertex index hangs from_pydata (Sha Yu's right foot, 2026-10-25): drop it
+            m &= (F[:, 0] != F[:, 1]) & (F[:, 1] != F[:, 2]) & (F[:, 0] != F[:, 2])
             used = np.unique(F[m]); remap = -np.ones(len(P), int); remap[used] = np.arange(len(used))
             me = bpy.data.meshes.new(f"p{p}k{k}")
             me.from_pydata(P[used].tolist(), [], remap[F[m]].tolist())

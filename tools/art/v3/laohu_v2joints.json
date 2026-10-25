@@ -1,0 +1,177 @@
+{
+ "yaw": -90,
+ "l": {
+  "hip": [
+   1095,
+   5885
+  ],
+  "knee": [
+   1263,
+   3123
+  ],
+  "ankle": [
+   2466,
+   1426
+  ],
+  "z_top": 6802,
+  "x_min": 986,
+  "x_min_z": 4780,
+  "not_leg": [
+   [
+    3206,
+    4637,
+    1031,
+    2412
+   ]
+  ]
+ },
+ "r": {
+  "hip": [
+   908,
+   5885
+  ],
+  "knee": [
+   -1200,
+   3600
+  ],
+  "ankle": [
+   -1350,
+   1150
+  ],
+  "z_top": 6802,
+  "x_min": 986,
+  "x_min_z": 4780
+ },
+ "arms": {},
+ "upper_joints": {
+  "joint_luarm": [
+   2614,
+   986,
+   8479
+  ],
+  "joint_lgun": [
+   2762,
+   986,
+   8479
+  ],
+  "joint_ruarm": [
+   -2713,
+   986,
+   8479
+  ]
+ },
+ "upper": [
+  {
+   "node": "gh_lgun",
+   "ax_min": 2742,
+   "z_min": 7049,
+   "x_sign": 1
+  },
+  {
+   "node": "gh_ruarm",
+   "ax_min": 2742,
+   "z_min": 7049,
+   "x_sign": -1
+  }
+ ],
+ "parts": [
+  {
+   "node": "gh_torso",
+   "from": "gh_luarm",
+   "min": [
+    -4932,
+    -4932,
+    0
+   ],
+   "max": [
+    2565,
+    4932,
+    10995
+   ]
+  },
+  {
+   "node": "gh_torso",
+   "from": "gh_luarm",
+   "min": [
+    -4932,
+    -4932,
+    0
+   ],
+   "max": [
+    4932,
+    4932,
+    7443
+   ]
+  },
+  {
+   "node": "gh_torso",
+   "from": "gh_lgun",
+   "min": [
+    -4932,
+    -4932,
+    0
+   ],
+   "max": [
+    4932,
+    4932,
+    7049
+   ]
+  },
+  {
+   "node": "gh_luleg",
+   "min": [
+    986,
+    -986,
+    5372
+   ],
+   "max": [
+    2762,
+    2762,
+    6812
+   ]
+  },
+  {
+   "node": "gh_ruleg",
+   "min": [
+    -2762,
+    -986,
+    5372
+   ],
+   "max": [
+    -986,
+    2762,
+    6812
+   ]
+  },
+  {
+   "node": "gh_lfoot",
+   "min": [
+    -395,
+    3206,
+    1031
+   ],
+   "max": [
+    3453,
+    4637,
+    2412
+   ]
+  },
+  {
+   "node": "gh_lfoot",
+   "min": [
+    -395,
+    2170,
+    0
+   ],
+   "max": [
+    395,
+    4637,
+    2412
+   ]
+  }
+ ],
+ "v2": {},
+ "_from": "~/craft/solid/mc2/stl/laohu/joints.json (the v1 fit)",
+ "base_cut": 0,
+ "_v3_note": "2026-10-25: copy of tools/art/hd_v2/laohu.json with base_cut 0 (the auto base cut, 1.81, took the toes); every coordinate converted to the toes-kept frame (p' = 0.9865 p + 143 mm z); right knee and ankle re-read from mm-grid views (v1 had them 1.1-1.25 m behind the joints)"
+}
