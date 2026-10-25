@@ -13,6 +13,7 @@ repo's generated art) once, and per map game/assets/terrain/v3/<map>/decals.json
 Scatter (rocks, debris, bushes, grass tufts) is placed at run time from the splat (terrain_dress_v3.gd), seeded.
 """
 import json
+import zlib
 import sys
 from pathlib import Path
 
@@ -84,7 +85,7 @@ def run(m):
     bit = lambda k: ((cells >> cb[k][0]) & cb[k][1]) > 0
     road, deep, forest = bit("road"), bit("deep"), bit("forest")
     cm = side / nc
-    rng = np.random.default_rng(abs(hash(m)) % 2**32)
+    rng = np.random.default_rng(zlib.crc32(m.encode()))  # str hash() is salted per process
     out = []
     to_sim = lambda r, c: (-half + (c + 0.5) * cm, half - (r + 0.5) * cm)
     # tracks: beside the road, along it

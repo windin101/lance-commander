@@ -1,0 +1,8 @@
+{
+ "map": "mc2_10",
+ "palette": "moorland",
+ "relief_strength": 2.0,
+ "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator: moorland; pitch 180 is a grazing day sun, not night",
+ "albedo_gain": 0.33,
+ "albedo_gain_suggested": 0.574
+}

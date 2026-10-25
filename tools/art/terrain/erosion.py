@@ -19,6 +19,7 @@ and /mnt/nvme1n1p1/mc2-rework/terrain/<map>/detail.npy (metres) + erosion_check.
 import argparse
 import json
 import sys
+import zlib
 from pathlib import Path
 
 import numpy as np
@@ -144,7 +145,7 @@ def washboard(detail):
     return float((coh > 0.8)[strong].mean())
 
 
-def run(m, droplets):
+def run(m, droplets, biome_override=None):
     t = json.loads((ROOT / f"game/data/maps/{m}/terrain.json").read_text())
     V, wupv, mpu = t["vertices_per_side"], t["world_units_per_vertex"], t["meters_per_world_unit"]
     side = V * wupv * mpu; n = int(round(side / PX_M))
@@ -152,7 +153,9 @@ def run(m, droplets):
     Hc = gaussian_filter(Hc * mpu, 5.0)                      # smooth the 25.6 m triangle facets
     P = json.loads((HERE / "palettes.json").read_text())["maps"].get(m, {})
     pal = P.get("palette", "temperate"); biome = "lunar" if pal == "lunar" else "arid" if pal == "arid" else "snow" if pal == "snow" else "default"
-    rng = np.random.default_rng(abs(hash(m)) % 2**32)
+    if biome_override:                                       # a proposal run, before Lee has picked the palette
+        biome = biome_override
+    rng = np.random.default_rng(zlib.crc32(m.encode()))  # str hash() is salted per process
     slope = np.hypot(*np.gradient(Hc, PX_M))                 # rise per metre
     relief_amp = np.clip(slope * 10.0 + 1.5, 1.5, 6.0)       # rolling ground on flats, more relief on slopes (m)
     seed = fbm(rng, n, (3, 8, 20, 40), (0.06, 0.25, 0.6, 0.8)) * relief_amp
@@ -235,6 +238,7 @@ def run(m, droplets):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("maps", nargs="+"); ap.add_argument("--droplets", type=int, default=400000)
+    ap.add_argument("--biome", choices=["default", "lunar", "arid", "snow"], help="override the biome palettes.json implies")
     a = ap.parse_args()
     for m_ in a.maps:
-        run(m_, a.droplets)
+        run(m_, a.droplets, a.biome)

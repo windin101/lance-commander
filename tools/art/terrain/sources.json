@@ -67,6 +67,10 @@
   "source": "Ground 024 (Ground024) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground024",
   "tile_cm": null
  },
+ "Ground029": {
+  "source": "Ground 029 (Ground029) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground029",
+  "tile_cm": null
+ },
  "Ground036": {
   "source": "Ground 036 (Ground036) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground036",
   "tile_cm": null
@@ -122,6 +126,10 @@
  "Ground110": {
   "source": "Ground 110 (Ground110) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground110",
   "tile_cm": 210
+ },
+ "Ground112": {
+  "source": "Ground 112 (Ground112) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Ground112",
+  "tile_cm": 420
  },
  "Moss002": {
   "source": "Moss 002 (Moss002) by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Moss002",

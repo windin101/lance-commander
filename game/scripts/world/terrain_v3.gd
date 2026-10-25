@@ -79,9 +79,15 @@ static func exposure_for(sun: Color, pitch_deg: float) -> Vector2:
 	if OS.get_cmdline_user_args().has("--no-v3-exposure"):
 		return Vector2.ONE
 	var p := fposmod(pitch_deg, 360.0)
-	if (p <= 2.0 or p >= 178.0 or maxf(sun.r, sun.g) < 0.5) and not OS.get_cmdline_user_args().has("--no-night-cap"):   # night: the old formula read sin(270) as a dim sun and lifted x4
+	# Night is a dim sun (moonlight keys: mc2_05, 21, 23) or one below the horizon (pitch 182..358, 270 in the originals).
+	# A bright sun at pitch 0 or 180 (mc2_10, mc2_19) is a grazing DAY sun: mission_view builds it at an elevation of
+	# asin(0.2 / |(cos, 0.2, sin)|) (about 11 deg), so the key uses that, not sin(180) = 0 (which read as night and left
+	# mc2_10, white sun and ambient 192, under the night cap with a flat dark ground).
+	var below_horizon := p > 182.0 and p < 358.0
+	if (below_horizon or maxf(sun.r, sun.g) < 0.5) and not OS.get_cmdline_user_args().has("--no-night-cap"):   # night: the old formula read sin(270) as a dim sun and lifted x4
 		return Vector2(NIGHT_MAX_LIFT, NIGHT_MAX_LIFT)
 	var lum := sun.r * 0.2126 + sun.g * 0.7152 + sun.b * 0.0722
-	var key := maxf(lum * maxf(sin(deg_to_rad(absf(pitch_deg))), 0.12), 0.02)
+	var elev := maxf(absf(sin(deg_to_rad(pitch_deg))), 0.2)   # the same floor mission_view puts on the sun's height
+	var key := maxf(lum * elev, 0.02)
 	var lift := clampf(pow(EXPOSURE_REF_KEY / key, EXPOSURE_GAMMA), 1.0, EXPOSURE_MAX_LIFT)
 	return Vector2(pow(lift, 0.85), pow(lift, AMBIENT_FILL))

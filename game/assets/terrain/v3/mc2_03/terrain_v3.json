@@ -1,0 +1,9 @@
+{
+ "map": "mc2_03",
+ "palette": "moorland",
+ "relief_strength": 2.0,
+ "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator: moorland (frost slot Ground029, moss slot Ground013); mixed with snow only on the original's white ridge patches (5.7 % of the map), Lee 2026-10-26 via coordinator",
+ "albedo_gain": 0.35,
+ "albedo_gain_suggested": 0.55,
+ "palette2": "snow"
+}

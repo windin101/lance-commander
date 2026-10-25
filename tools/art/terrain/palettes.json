@@ -100,6 +100,26 @@
    "dust": "Rock025",
    "forest": "Gravel043",
    "wet": "Rock022"
+  },
+  "moorland": {
+   "ground": "Ground109",
+   "ground2": "Ground013",
+   "rock": "Rock050",
+   "cliff": "Rock030",
+   "scree": "Ground112",
+   "dust": "Ground029",
+   "forest": "Ground023",
+   "wet": "Ground024"
+  },
+  "industrial_grimy_dirt": {
+   "ground": "Ground109",
+   "ground2": "Ground013",
+   "rock": "Rock050",
+   "cliff": "Rock030",
+   "scree": "Ground110",
+   "dust": "Ground106",
+   "forest": "Ground023",
+   "wet": "Ground024"
   }
  },
  "maps": {
@@ -134,10 +154,57 @@
    "palette": "lunar",
    "approved": "Lee, 2026-10-26 (batch 1, LAN-73)",
    "albedo_gain": 0.5
+  },
+  "mc2_02": {
+   "palette": "temperate_muted",
+   "palette2": "snow",
+   "mask2": "snow",
+   "mask2_params": {
+    "l_min": 32,
+    "chroma_max": 22,
+    "b_max": 8,
+    "cov_sigma": 12,
+    "cov_lo": 0.15,
+    "cov_span": 0.3
+   },
+   "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator: mixed, temperate_muted on the grassland, snow where the original is snowy; mask widened to the whole band (19 % of the map, not 8 %)",
+   "albedo_gain": 0.38
+  },
+  "mc2_03": {
+   "palette": "moorland",
+   "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator: moorland (frost slot Ground029, moss slot Ground013); mixed with snow only on the original's white ridge patches (5.7 % of the map), Lee 2026-10-26 via coordinator",
+   "palette2": "snow",
+   "mask2": "snow",
+   "mask2_params": {
+    "l_min": 34,
+    "chroma_max": 20,
+    "b_max": 6,
+    "cov_sigma": 8,
+    "cov_lo": 0.12,
+    "cov_span": 0.25
+   },
+   "albedo_gain": 0.35
+  },
+  "mc2_07": {
+   "palette": "temperate_muted",
+   "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator",
+   "albedo_gain": 0.65
+  },
+  "mc2_08": {
+   "palette": "industrial_grimy_dirt",
+   "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator",
+   "albedo_gain": 0.6
+  },
+  "mc2_10": {
+   "palette": "moorland",
+   "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator: moorland; pitch 180 is a grazing day sun, not night",
+   "albedo_gain": 0.33
   }
  },
  "_notes": {
-  "lunar": "2026-10-26: for mc2_13 (lunar regolith): neutral greys only, chroma < 1.5, value spread L 31-69"
+  "lunar": "2026-10-26: for mc2_13 (lunar regolith): neutral greys only, chroma < 1.5, value spread L 31-69",
+  "moorland": "2026-10-26 (Lee approved for mc2_03, mc2_10): cold dry upland. v2 after Lee's review: frost slot Snow015 (green-speckled, tiled) -> Ground029 (pale grey-beige earth, low chroma); moss slot Ground086 (blotchy) -> Ground013 (muted grey-green heath). Ground109 ground, Ground112 scree. Extra candidates fetched, unused: Ground012, Ground039, Gravel032, Ground078, Ground086, Snow015.",
+  "industrial_grimy_dirt": "2026-10-26 (mc2_08, Lee): industrial_grimy with the dust slot Concrete012 -> Ground106 (brown dry earth with dark flecks). Concrete012 spread pale concrete over open ground; real concrete on paving comes from paved_pack, not this slot."
  },
  "_albedo_gain": "per-map albedo_gain (2026-10-26): set by eye where the palette reads washed out against the map (default 1.0)"
 }

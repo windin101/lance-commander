@@ -14,6 +14,7 @@ Per map:
 """
 import argparse
 import json
+import zlib
 import sys
 import shutil
 from pathlib import Path
@@ -99,7 +100,7 @@ def pack_palette(name, slots, order, meta, res):
                                                 "sources": "ambientCG.com, CC0 1.0 (tools/art/terrain/sources.json)"}, indent=1))
 
 
-def mask2(m, kind, o):
+def mask2(m, kind, o, prm=None):
     """mask2.png (8-bit, 2 m/px like the splat): where a mixed map uses its second palette. "snow": the ORIGINAL
     colour map's snow (blue-white: L* > 42, chroma < 16, b* < 3) as seen in the burn-in, by local coverage over ~12 m,
     so only the painted snowfields turn white."""
@@ -110,20 +111,23 @@ def mask2(m, kind, o):
     if kind != "snow":
         raise SystemExit(f"mask2 kind {kind} not known")
     # snow reads blue-white against the map's warm ground even in burnt shadow: low or negative b*, low chroma
-    sn = (lab[..., 0] > 42) & (np.hypot(lab[..., 1], lab[..., 2]) < 16) & (lab[..., 2] < 3)
+    # prm (palettes.json maps.<m>.mask2_params) widens the test for a map whose snow is dim or speckled (mc2_02:
+    # the default catches only the brightest patches, 8 % of a map whose top third is a snow band)
+    prm = prm or {}
+    sn = (lab[..., 0] > prm.get("l_min", 42)) & (np.hypot(lab[..., 1], lab[..., 2]) < prm.get("chroma_max", 16)) & (lab[..., 2] < prm.get("b_max", 3))
     sn = binary_opening(sn, iterations=1)
     n = sn.shape[0]
-    cov = gaussian_filter(sn.astype(float), 10.0)       # snowfields are patchy: coverage over ~20 m decides
+    cov = gaussian_filter(sn.astype(float), prm.get("cov_sigma", 10.0))       # snowfields are patchy: coverage over ~20 m decides
     # natural shapes: warp the coverage field with low-frequency noise (+-12 px) so the original's per-quad steps
     # don't survive as rectangles, then soften the edge
-    rng = np.random.default_rng(abs(hash(m)) % 2**32)
+    rng = np.random.default_rng(zlib.crc32(m.encode()))  # str hash() is salted per process
     from scipy.ndimage import map_coordinates
     wx = gaussian_filter(rng.standard_normal((n, n)), 24); wy = gaussian_filter(rng.standard_normal((n, n)), 24)
     wx *= 12 / (wx.std() + 1e-9); wy *= 12 / (wy.std() + 1e-9)
     yy, xx = np.mgrid[0:n, 0:n].astype(float)
     cov = map_coordinates(cov, [yy + wy, xx + wx], order=1, mode="nearest")
     det = gaussian_filter(rng.standard_normal((n, n)), 3) ; det /= det.std() + 1e-9
-    w = np.clip((cov + 0.06 * det - 0.22) / 0.25, 0, 1)
+    w = np.clip((cov + 0.06 * det - prm.get("cov_lo", 0.22)) / prm.get("cov_span", 0.25), 0, 1)
     # less on steep ground, none on the paved cement grid (light drifting only)
     t = json.loads((ROOT / f"game/data/maps/{m}/terrain.json").read_text())
     side_m = t["vertices_per_side"] * t["world_units_per_vertex"] * t["meters_per_world_unit"]
@@ -189,7 +193,7 @@ def main():
         if pal2:   # a mixed map: a second palette where mask2.png says so (same class slots, blended by the mask)
             if pal2 not in done:
                 pack_palette(pal2, P["biomes"][pal2], P["slots"], meta, a.res); done.add(pal2)
-            mask2(m, P["maps"][m].get("mask2", "snow"), o)
+            mask2(m, P["maps"][m].get("mask2", "snow"), o, P["maps"][m].get("mask2_params"))
             info["palette2"] = pal2
         (o / "terrain_v3.json").write_text(json.dumps(info, indent=1))
         print(m, pal, "->", o)
@@ -213,7 +217,7 @@ def apron_sdf(m, px_m=0.5, spread=8.0, slab_m=5.5):
     quad = np.pad(quad, ((0, 1), (0, 1)))
     f = int(round(q_m / px_m)); n = V * f; px_m = side / n
     inside = np.kron(quad, np.ones((f, f), bool))
-    rng = np.random.default_rng(abs(hash(m)) % 2**32)
+    rng = np.random.default_rng(zlib.crc32(m.encode()))  # str hash() is salted per process
     yy, xx = np.mgrid[0:n, 0:n]
     edge = inside & ~binary_erosion(inside, iterations=1)
     # missing slabs at the edge: slab cells (world x = col * px - side/2, z = row * px - side/2) touching the edge

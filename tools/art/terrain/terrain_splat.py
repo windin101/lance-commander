@@ -27,6 +27,7 @@ G = blend), wins where it is painted. splat_debug.png colours the classes over a
 """
 import argparse
 import json
+import zlib
 from pathlib import Path
 
 import numpy as np
@@ -117,7 +118,7 @@ def run(m, out):
     sc[..., 3] = vsteep * 1.3
     near_steep = gaussian_filter(steep, 6.0)
     # aprons and verges: ragged, broken edges (fBm at 4-30 m), not blobs (T3 review 2026-10-25)
-    rng = np.random.default_rng(abs(hash(m)) % 2**32)
+    rng = np.random.default_rng(zlib.crc32(m.encode()))  # str hash() is salted per process
     fbm = sum(gaussian_filter(rng.standard_normal((n, n)), s_) * (s_ ** 0.9) for s_ in (2.0, 5.0, 14.0))
     fbm = (fbm - fbm.mean()) / (fbm.std() + 1e-9)
     paved = gaussian_filter((road | cement | apron).astype(float), 3.0)

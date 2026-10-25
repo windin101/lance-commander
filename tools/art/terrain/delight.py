@@ -126,12 +126,12 @@ def fit_direction(img, H, w):
     return best[1], best[2]
 
 
-def run(mech_map, out, raw_light=False, flip=False, fit=False):
+def run(mech_map, out, raw_light=False, flip=False, fit=False, shared=False):
     t = json.loads((ROOT / f"game/data/maps/{mech_map}/terrain.json").read_text())
     cam = json.loads((ROOT / f"game/data/missions/{mech_map}.json").read_text())["Cameras"]
     fitted = None
     if fit:   # the burn-time light, fitted from the colour map itself (fit_light)
-        cam, fitted = fit_light(mech_map, raw_light)
+        cam, fitted = fit_light(mech_map, raw_light, shared=shared)
     img = np.asarray(Image.open(ROOT / f"game/assets/maps/{mech_map}/burnin.jpg").convert("RGB")).astype(float)
     n = img.shape[0]
     H, w = heights(t["elevation"], t["vertices_per_side"], t["world_units_per_vertex"], n)
@@ -196,7 +196,7 @@ def lowpass(o, alb, f, sigma=16.0):
 
 
 
-def fit_light(mech_map, raw_light=False, soft=1.5):
+def fit_light(mech_map, raw_light=False, soft=1.5, shared=False):
     """The editor's light at burn time need not be the mission's. Fit per-channel scales on the mission's Light and
     Ambient colours (and a soft shadow edge) so that the de-lit map has no shading left: across a cast-shadow edge the
     albedo is the same (core/ring match), and lit-pixel luminance is uncorrelated with N.L. Returns the fitted camera."""
@@ -217,9 +217,16 @@ def fit_light(mech_map, raw_light=False, soft=1.5):
     core = shadow & ~binary_dilation(~shadow, np.ones((7, 7), bool))
     lit = ~binary_dilation(shadow, np.ones((5, 5), bool))
     best = None
-    for ch, key in enumerate(("Red", "Green", "Blue")):
-        Lc, Ac = float(cam["Light" + key]), float(cam["Ambient" + key])
-        x = img[..., ch]
+    # shared: one (ambient, light) scale pair fitted on the channel mean and applied to all three. Independent
+    # per-channel fits went magenta on mc2_02 (snow clipped at 255 skews each channel's optimum differently).
+    keys = ("Red", "Green", "Blue")
+    for ch, key in enumerate(("Grey",) if shared else keys):
+        if shared:
+            Lc = float(np.mean([cam["Light" + k] for k in keys])); Ac = float(np.mean([cam["Ambient" + k] for k in keys]))
+            x = img.mean(-1)
+        else:
+            Lc, Ac = float(cam["Light" + key]), float(cam["Ambient" + key])
+            x = img[..., ch]
         bc = None
         for a in np.linspace(0.6, 3.0, 49):
             for l in np.linspace(0.4, 1.4, 21):
@@ -230,7 +237,8 @@ def fit_light(mech_map, raw_light=False, soft=1.5):
                 s = cr + cc
                 if bc is None or s < bc[0]:
                     bc = (s, a, l, cr, cc)
-        cam["Ambient" + key] = round(Ac * bc[1], 1); cam["Light" + key] = round(Lc * bc[2], 1)
+        for k in (keys if shared else (key,)):
+            cam["Ambient" + k] = round(float(cam["Ambient" + k]) * bc[1], 1); cam["Light" + k] = round(float(cam["Light" + k]) * bc[2], 1)
         best = (best or []) + [dict(channel=key, ambient_scale=round(bc[1], 3), light_scale=round(bc[2], 3),
                                     core_ring_err=round(bc[3], 3), corr=round(bc[4], 3))]
     return cam, best
@@ -242,6 +250,7 @@ if __name__ == "__main__":
     ap.add_argument("--raw-light", action="store_true")
     ap.add_argument("--flip-y", action="store_true")
     ap.add_argument("--fit", action="store_true", help="fit the burn-time light colours from the colour map")
+    ap.add_argument("--fit-shared", action="store_true", help="with --fit: one scale pair for all channels (keeps the light's own hue)")
     a = ap.parse_args()
     for m in a.maps:
-        print(json.dumps(run(m, a.out, a.raw_light, a.flip_y, a.fit), default=float))
+        print(json.dumps(run(m, a.out, a.raw_light, a.flip_y, a.fit, a.fit_shared), default=float))
