@@ -95,6 +95,14 @@ static func dev_sample(c: Campaign) -> String:
 	c.add_mech("urbanmech", 0, "pmwflash", 3)
 	c.add_mech("werewolf", 0, "", 0)
 	c.stores = {156: 2, 120: 1, 7: 1}
+	if OS.get_cmdline_user_args().has("--all-v3-mechs"):  # dev: every chassis with a staged v3 model, unassigned (art reviews)
+		var have := {}
+		for m in c.mechs:
+			have[m["chassis"]] = true
+		for f in DirAccess.get_files_at("res://assets/v3/mechs"):
+			var ch := f.trim_suffix(".glb")
+			if f.ends_with(".glb") and not have.has(ch):
+				c.add_mech(ch, 0, "", 0)
 	return "mc2_02"
 
 
