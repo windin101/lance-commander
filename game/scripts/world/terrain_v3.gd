@@ -1,9 +1,11 @@
 class_name TerrainV3
 extends RefCounted
-## Switch for the v3 terrain (T3, LAN-68, 2026-10-25): the lit PBR ground (res://shaders/terrain_v3.gdshader) from
-## res://assets/terrain/v3/<map>/. Off by default until Lee approves the pilot. On with the user argument
-## --terrain-v3, the environment variable MC2_TERRAIN_V3=1, or [terrain] v3=true in user://dev.cfg. Maps without v3
-## data keep the current ground either way.
+## Switch for the v3 terrain (T3, LAN-68; the default since 2026-10-26, Lee: "everything should now be main"): the lit PBR
+## ground (res://shaders/terrain_v3.gdshader) from res://assets/terrain/v3/<map>/. On by default. Off with the user
+## argument --no-terrain-v3, the environment variable MC2_TERRAIN_V3=0, or [terrain] v3=false in user://dev.cfg;
+## --terrain-v3 and MC2_TERRAIN_V3=1 force it on. Maps without v3 data keep the old ground (terrain.gdshader, which
+## stays as that fallback); all 24 missions have v3 data. While it is on, the mission's sun softening, sky/ambient
+## softening and exposure lift (mission_view.gd) apply too.
 
 static var enabled: bool = _detect()
 
@@ -16,8 +18,8 @@ static func _detect() -> bool:
 		return true
 	var cfg := ConfigFile.new()
 	if cfg.load("user://dev.cfg") == OK:
-		return bool(cfg.get_value("terrain", "v3", false))
-	return false
+		return bool(cfg.get_value("terrain", "v3", true))
+	return true
 
 
 ## How strongly a saturated mission sun is pulled toward a neutral key of the same brightness (0 = the mission's own

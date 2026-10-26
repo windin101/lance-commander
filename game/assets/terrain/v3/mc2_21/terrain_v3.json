@@ -1,0 +1,12 @@
+{
+ "map": "mc2_21",
+ "palette": "temperate_muted",
+ "relief_strength": 2.0,
+ "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted + snow_white (mixed), night",
+ "albedo_gain": 0.3,
+ "albedo_gain_suggested": 0.55,
+ "shadow_fill": 0.4,
+ "tint_strength": 1.2,
+ "snow_tint_neutral": 1.0,
+ "palette2": "snow_white"
+}

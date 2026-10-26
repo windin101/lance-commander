@@ -47,6 +47,7 @@ uniform float albedo_scale[8];
 uniform float map_side_m = 2560.0;
 uniform float splat_px = 1280.0;
 uniform float tint_strength = 0.7;
+uniform float mask2_edge = 0.0;   // > 0: sharpen the second palette's mask edge (smoothstep half-width about 0.5). A dim dusk snowfield with a soft mask edge reads as a glowing fog (mc2_19)
 uniform float snow_tint_neutral = 0.0;   // 1: the tint loses its colour under the second (snow) palette, so snow reads white-grey, not the blue of the original's burnt-in snow
 uniform float blend_depth = 0.5;
 uniform float rough_floor = 0.72;
@@ -311,7 +312,7 @@ void fragment() {
 		m2rg = texture(mask2, suv).rg;
 		if (max(m2rg.r, m2rg.g) > 0.004) {
 			ground(true, ka, kb, wb, n, tri, dist, far, alb2, nw2, r2);
-			float m2 = m2rg.r;
+			float m2 = mask2_edge > 0.0 ? smoothstep(0.5 - mask2_edge, 0.5 + mask2_edge, m2rg.r) : m2rg.r;
 			alb = mix(alb, alb2, m2); nw = normalize(mix(nw, nw2, m2)); rough = mix(rough, r2, m2);
 		}
 	}
@@ -327,7 +328,7 @@ void fragment() {
 	alb = mix(alb, vec3(dot(alb, vec3(0.3, 0.55, 0.15))) * vec3(1.02, 0.97, 0.9) * 0.85, clamp(wr, 0.0, 1.0) * wear_strength * 0.7);
 	rough = mix(rough, 0.95, wr * 0.5);
 	// pale dusty patches: lighter, greyer ground in broad noise peaks
-	float dusty = smoothstep(0.6, 0.74, texture(variation, world_pos.zx / 81.0 + 0.27).r) * (1.0 - wr);
+	float dusty = smoothstep(0.6, 0.74, texture(variation, world_pos.zx / 81.0 + 0.27).r) * (1.0 - wr) * (1.0 - m2rg.r);   // not on snow: the lighter, greyer patches read as a glowing haze on a snowfield (mc2_19)
 	alb = mix(alb, vec3(dot(alb, vec3(0.3, 0.55, 0.15))) * vec3(1.0, 0.98, 0.95) * 1.28, dusty * dusty_strength);
 	alb *= rao * albedo_gain;   // relief AO and the map's value on the ground only, before paving is laid over it
 	vec3 tn = texture(tint, suv).rgb * 2.0;   // relative to the map's mean: 1.0 = no change

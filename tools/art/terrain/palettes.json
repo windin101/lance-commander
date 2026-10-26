@@ -281,6 +281,78 @@
    "tint_strength": 1.2,
    "shadow_fill": 0.5,
    "snow_tint_neutral": 1.0
+  },
+  "mc2_19": {
+   "palette": "stony",
+   "palette2": "snow_white",
+   "mask2": "snow",
+   "mask2_params": {
+    "exposure": 4.0,
+    "l_min": 45,
+    "chroma_max": 20,
+    "b_max": -2,
+    "cov_sigma": 5,
+    "cov_lo": 0.3,
+    "cov_span": 0.05
+   },
+   "albedo_gain": 0.18,
+   "tint_strength": 1.2,
+   "snow_tint_neutral": 0.0,
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: stony + snow_white (mixed), exposure_lift 1.0 (dusk), sharpened snow edge",
+   "exposure_lift": 1.0,
+   "mask2_edge": 0.1
+  },
+  "mc2_20": {
+   "palette": "stony",
+   "palette2": "snow_white",
+   "mask2": "snow",
+   "mask2_params": {
+    "l_min": 34,
+    "chroma_max": 20,
+    "b_max": 6,
+    "cov_sigma": 10,
+    "cov_lo": 0.15,
+    "cov_span": 0.3
+   },
+   "albedo_gain": 0.5,
+   "tint_strength": 1.2,
+   "snow_tint_neutral": 1.0,
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: stony + snow_white (mixed)"
+  },
+  "mc2_21": {
+   "palette": "temperate_muted",
+   "palette2": "snow_white",
+   "mask2": "snow",
+   "mask2_params": {
+    "exposure": 4.0,
+    "l_min": 45,
+    "chroma_max": 20,
+    "b_max": -2,
+    "cov_sigma": 8,
+    "cov_lo": 0.15,
+    "cov_span": 0.3
+   },
+   "albedo_gain": 0.3,
+   "tint_strength": 1.2,
+   "snow_tint_neutral": 1.0,
+   "shadow_fill": 0.4,
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted + snow_white (mixed), night"
+  },
+  "mc2_22": {
+   "palette": "temperate_muted",
+   "albedo_gain": 0.3,
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted"
+  },
+  "mc2_23": {
+   "palette": "temperate_muted",
+   "albedo_gain": 0.2,
+   "shadow_fill": 0.4,
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted, night-like"
+  },
+  "mc2_24": {
+   "palette": "stony",
+   "albedo_gain": 0.5,
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: stony"
   }
  },
  "_notes": {

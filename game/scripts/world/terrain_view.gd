@@ -391,6 +391,7 @@ func _v3_material(map_name: String) -> ShaderMaterial:
 	if info.has("tint_strength"):
 		mat.set_shader_parameter("tint_strength", float(info["tint_strength"]))
 	mat.set_shader_parameter("snow_tint_neutral", float(info.get("snow_tint_neutral", 0.0)))
+	mat.set_shader_parameter("mask2_edge", float(info.get("mask2_edge", 0.0)))
 	if FileAccess.file_exists(dir.path_join("relief.png.import")) and not OS.get_cmdline_user_args().has("--no-relief"):
 		mat.set_shader_parameter("relief", load(dir.path_join("relief.png")))
 		mat.set_shader_parameter("has_relief", true)

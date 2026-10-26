@@ -1,0 +1,13 @@
+{
+ "map": "mc2_19",
+ "palette": "stony",
+ "relief_strength": 2.0,
+ "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: stony + snow_white (mixed), exposure_lift 1.0 (dusk), sharpened snow edge",
+ "albedo_gain": 0.18,
+ "albedo_gain_suggested": 0.55,
+ "tint_strength": 1.2,
+ "snow_tint_neutral": 0.0,
+ "exposure_lift": 1.0,
+ "mask2_edge": 0.1,
+ "palette2": "snow_white"
+}

@@ -548,6 +548,11 @@ func _lighting(cam_block: Dictionary, fit_data: Dictionary = {}) -> void:
 		TerrainV3.soften_environment(env, acc / 128.0)
 	if TerrainV3.enabled:  # brighter v3 lighting on dim, low-sun maps (exposure + ambient fill), the same for every v3-lit thing
 		var lift := TerrainV3.exposure_for(_rgb(cam_block, "Light", Color(1, 1, 0.88)), float(cam_block.get("LightDirPitch", 50.0)))
+		var vj := "res://assets/terrain/v3/%s/terrain_v3.json" % mission
+		if FileAccess.file_exists(vj):   # per-map override (palettes.json maps.<m>.exposure_lift): a map whose original is a dark dusk, not a lit day (mc2_19: pitch 0, burn-in L* 7)
+			var vinfo: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(vj))
+			if vinfo.has("exposure_lift"):
+				lift = Vector2(float(vinfo["exposure_lift"]), float(vinfo["exposure_lift"]))
 		env.tonemap_exposure *= lift.x
 		env.ambient_light_energy *= lift.y
 		print("terrain v3 light: exposure x%.2f, ambient x%.2f" % [lift.x, lift.y])
