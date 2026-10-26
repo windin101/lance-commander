@@ -12,12 +12,16 @@ const TERRAIN_LAYER := 2
 
 var map: SimMap
 var _rng := RandomNumberGenerator.new()
+var _gain := 1.0   # the map's albedo_gain (floored): scatter follows the ground's value, or pale pebbles sit on dark ground
 
 
 func build(sim_map: SimMap, map_name: String, palette_layers: Array) -> void:
 	map = sim_map
 	_rng.seed = hash(map_name)
 	var dir := "res://assets/terrain/v3/%s" % map_name
+	if FileAccess.file_exists(dir.path_join("terrain_v3.json")):
+		var inf: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(dir.path_join("terrain_v3.json")))
+		_gain = clampf(float(inf.get("albedo_gain", 1.0)), 0.3, 1.0)
 	var means: Array[Color] = []
 	for l in palette_layers:
 		var c: Array = l["mean_albedo"]
@@ -97,7 +101,7 @@ func _put(k: Kind, p: Vector2, h: float, size: float, col: Color, var_v: float) 
 	if not k.chunks.has(key):
 		k.chunks[key] = []
 	var v := 1.0 + _rng.randf_range(-var_v, var_v)
-	k.chunks[key].append([t, Color(col.r * v, col.g * v, col.b * v)])
+	k.chunks[key].append([t, Color(col.r * v * _gain, col.g * v * _gain, col.b * v * _gain)])
 
 
 func _commit(k: Kind, name_: String) -> int:

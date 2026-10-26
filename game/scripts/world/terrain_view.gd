@@ -386,6 +386,11 @@ func _v3_material(map_name: String) -> ShaderMaterial:
 		i += 1
 	mat.set_shader_parameter("tile_m", tiles)
 	mat.set_shader_parameter("albedo_gain", float(info.get("albedo_gain", 1.0)))
+	if info.has("shadow_fill"):   # low-ambient maps: a floor of the ground's own colour in cast shadow (palettes.json maps.<m>.shadow_fill)
+		mat.set_shader_parameter("shadow_fill", float(info["shadow_fill"]))
+	if info.has("tint_strength"):
+		mat.set_shader_parameter("tint_strength", float(info["tint_strength"]))
+	mat.set_shader_parameter("snow_tint_neutral", float(info.get("snow_tint_neutral", 0.0)))
 	if FileAccess.file_exists(dir.path_join("relief.png.import")) and not OS.get_cmdline_user_args().has("--no-relief"):
 		mat.set_shader_parameter("relief", load(dir.path_join("relief.png")))
 		mat.set_shader_parameter("has_relief", true)

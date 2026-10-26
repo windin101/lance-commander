@@ -1,0 +1,10 @@
+{
+ "map": "mc2_17",
+ "palette": "stony",
+ "relief_strength": 2.0,
+ "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: stony",
+ "albedo_gain": 0.17,
+ "albedo_gain_suggested": 0.577,
+ "shadow_fill": 0.5,
+ "tint_strength": 1.7
+}

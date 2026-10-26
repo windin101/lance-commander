@@ -1,0 +1,12 @@
+{
+ "map": "mc2_18",
+ "palette": "temperate_muted",
+ "relief_strength": 2.0,
+ "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: mixed, temperate_muted + snow where the original is snowy",
+ "albedo_gain": 0.095,
+ "albedo_gain_suggested": 0.55,
+ "shadow_fill": 0.5,
+ "tint_strength": 1.2,
+ "snow_tint_neutral": 1.0,
+ "palette2": "snow_white"
+}

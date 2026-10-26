@@ -188,7 +188,10 @@ def main():
         Image.fromarray(np.clip(rel * 127.5, 0, 255).astype(np.uint8)).save(o / "tint.png")
         (o / "tint.png.import").write_text(IMPORT_2D.format(mode=0, mip="true"))
         info = {"map": m, "palette": pal, "relief_strength": float(P["maps"][m].get("relief_strength", 1.0 if pal == "lunar" else 2.0)), "approved": P["maps"][m].get("approved"), "albedo_gain": float(P["maps"][m].get("albedo_gain", 1.0)),
-                "albedo_gain_suggested": albedo_gain(m, pal, P)}   # a hint only: water and burnt shadow bias it low
+                "albedo_gain_suggested": albedo_gain(m, pal, P)}
+        for k in ("shadow_fill", "tint_strength", "snow_tint_neutral"):   # optional per-map shader parameters (palettes.json maps.<m>)
+            if k in P["maps"][m]:
+                info[k] = float(P["maps"][m][k])   # a hint only: water and burnt shadow bias it low
         pal2 = P["maps"][m].get("palette2")
         if pal2:   # a mixed map: a second palette where mask2.png says so (same class slots, blended by the mask)
             if pal2 not in done:

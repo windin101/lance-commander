@@ -47,6 +47,7 @@ uniform float albedo_scale[8];
 uniform float map_side_m = 2560.0;
 uniform float splat_px = 1280.0;
 uniform float tint_strength = 0.7;
+uniform float snow_tint_neutral = 0.0;   // 1: the tint loses its colour under the second (snow) palette, so snow reads white-grey, not the blue of the original's burnt-in snow
 uniform float blend_depth = 0.5;
 uniform float rough_floor = 0.72;
 uniform float shadow_fill = 0.05;   // a floor of the ground's own colour in deep cast shadow (airless maps: mc2_13 went pure black)
@@ -330,6 +331,7 @@ void fragment() {
 	alb = mix(alb, vec3(dot(alb, vec3(0.3, 0.55, 0.15))) * vec3(1.0, 0.98, 0.95) * 1.28, dusty * dusty_strength);
 	alb *= rao * albedo_gain;   // relief AO and the map's value on the ground only, before paving is laid over it
 	vec3 tn = texture(tint, suv).rgb * 2.0;   // relative to the map's mean: 1.0 = no change
+	tn = mix(tn, vec3(dot(tn, vec3(0.3, 0.55, 0.15))), clamp(m2rg.r * snow_tint_neutral, 0.0, 1.0));
 	alb *= mix(vec3(1.0), tn, tint_strength);
 	// overlays and cement, as terrain.gdshader
 	if (paved_v3 && apron_on) {
@@ -405,7 +407,12 @@ void fragment() {
 					vec4 tah, tnr;
 					detiled_p(world_pos.xz / paved_tile_m[2], 2.0, tah, tnr);
 					float ta = mk.a * (0.8 + 0.4 * texture(variation, world_pos.xz / 5.0).r);
-					alb = mix(alb, tah.rgb * 0.9, clamp(ta, 0.0, 1.0));
+					// dirt/gravel track: the biome's own ground (already scaled by the map's gain) lifted a little for compaction and warmed,
+					// with the gravel layer's detail only as a value variation. The raw ambientCG gravel was a pale grey ribbon, un-darkened by the gain.
+					float tdet = clamp(dot(tah.rgb, vec3(0.3, 0.55, 0.15)) / 0.22, 0.55, 1.6);
+					vec3 tcol = alb * vec3(3.3, 2.8, 2.1) * (0.62 + 0.38 * tdet);   // compacted dry earth reads about 3x the ground's value, warm: the original's tracks are clearly lighter than their surround
+					tcol *= mix(1.0, 0.62, smoothstep(0.12, 0.35, dot(alb, vec3(0.3, 0.55, 0.15))));   // on snow a track is darker than its surround
+					alb = mix(alb, tcol, clamp(ta, 0.0, 1.0));
 					rough = mix(rough, 0.95, ta);
 					// asphalt
 					vec4 aah, anr;

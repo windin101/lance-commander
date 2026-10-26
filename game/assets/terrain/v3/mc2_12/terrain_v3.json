@@ -1,0 +1,10 @@
+{
+ "map": "mc2_12",
+ "palette": "temperate_muted",
+ "relief_strength": 2.0,
+ "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: temperate_muted",
+ "albedo_gain": 0.13,
+ "albedo_gain_suggested": 0.55,
+ "shadow_fill": 0.5,
+ "tint_strength": 1.2
+}
