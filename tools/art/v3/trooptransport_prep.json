@@ -1,0 +1,102 @@
+{
+ "_doc": "LANCE-19 batch 6: Heavy Track APC (Pfelpensson), tracked, no turret.",
+ "unit": "trooptransport",
+ "hull": "heavy_apc",
+ "tracks": {
+  "mode": "loop",
+  "xlo": 1250.0,
+  "xhi": 1800.0,
+  "thick": 650.0,
+  "off": 0.0,
+  "zmax": 1350.0,
+  "node_x_m": 1.5,
+  "circles": [
+   [
+    -3000,
+    520,
+    520
+   ],
+   [
+    -1950,
+    300,
+    300
+   ],
+   [
+    -700,
+    300,
+    300
+   ],
+   [
+    550,
+    300,
+    300
+   ],
+   [
+    1800,
+    300,
+    300
+   ],
+   [
+    3050,
+    520,
+    520
+   ]
+  ],
+  "xin": 1250.0,
+  "pitch_mm": 220.0,
+  "n_links": 2,
+  "gap_y": 0.0,
+  "col_w": [
+   550.0,
+   550.0,
+   130.0,
+   130.0
+  ]
+ },
+ "wheels": {
+  "x0": 1650.0,
+  "x1": 1880.0,
+  "pad": 10.0,
+  "seg": 36,
+  "list": [
+   [
+    -3000,
+    520,
+    520
+   ],
+   [
+    -1950,
+    300,
+    300
+   ],
+   [
+    -700,
+    300,
+    300
+   ],
+   [
+    550,
+    300,
+    300
+   ],
+   [
+    1800,
+    300,
+    300
+   ],
+   [
+    3050,
+    520,
+    520
+   ]
+  ]
+ },
+ "require_meshes": [],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 1.5,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 6, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in trooptransport_veh.json). Parts split by `tools/art/v3/veh_prep.py` (trooptransport_prep.json). Welded at 3 mm and planar-dissolved at 1.5 degrees, collapse only above 80k faces a part (no Blender collapse on shell soup). Own-geometry wheels (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) where there are wheels; they are part of the derivative. TRACKED: the kit (Pfelpensson's Heavy Track APC, CC BY 4.0) is a solid hull on a flat track skirt, so the belts `track_l`/`track_r` are the lower side slab (faces within 130 mm of the closed belt path; strip 2 x 220 mm) and the six wheels a side are own geometry on its outer face. No turret (the original has none)."
+}

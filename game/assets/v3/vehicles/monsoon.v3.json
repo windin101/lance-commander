@@ -1,0 +1,33 @@
+{
+ "model": "monsoon.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Saracen, Scimitar, and Saladin Hovertanks",
+  "author": "UnrestedGuy",
+  "url": "https://www.thingiverse.com/thing:7255716",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "B-Saracen.stl, Scimitar_Standard_Turret.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 6, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in monsoon_veh.json). Parts split by `tools/art/v3/veh_prep.py` (monsoon_prep.json). Welded at 3 mm and planar-dissolved at 1.5 degrees, collapse only above 80k faces a part (no Blender collapse on shell soup). Own-geometry wheels (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) where there are wheels; they are part of the derivative. HOVER: no wheels or tracks. Kit: the Saracen hover chassis (`B-Saracen.stl`, baseless) with the Scimitar Standard turret (`Scimitar_Standard_Turret.stl`), as in the approved v1 build: MC2's Monsoon is a 25 t hover tank with one turret and short flamers, and the Scimitar chassis-and-turret pair is the closest of the three variants in the set (Saracen, Scimitar, Saladin); the turret's long main gun is left off (as in v1). The original's two engine nodes (`Engine1`, `Engine02`) are merged into the hull (the kit's side nacelles are static). The turret `Monsoon_Turret` turns about its neck ring."
+ },
+ "tris": 17028,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 2610943,
+  "chip_share": 0.021988224178007717,
+  "grime_mean": 0.42068740725517273,
+  "paint_share": 0.6229182329909155,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 209638,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "drop": [
+  6
+ ],
+ "mount": [
+  {
+   "comp": [
+    1,
+    2,
+    3,
+    8,
+    9
+   ],
+   "node": "Monsoon_Turret",
+   "lift": -0.2,
+   "rot": -90
+  }
+ ],
+ "no_icp": true,
+ "_from": "original/hd/monsoon/provenance.json joints (the approved v1 fit), 2026-10-31; no_icp (LANCE-19)"
+}

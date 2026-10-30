@@ -1,0 +1,46 @@
+{
+ "model": "trooptransport.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Packrat, APCs and Heavy APCs for use with Battletech",
+  "author": "Pfelpensson",
+  "url": "https://www.thingiverse.com/thing:4592096",
+  "licence": "CC BY 4.0",
+  "file": "Heavy_Track_APC_repaired.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 6, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in trooptransport_veh.json). Parts split by `tools/art/v3/veh_prep.py` (trooptransport_prep.json). Welded at 3 mm and planar-dissolved at 1.5 degrees, collapse only above 80k faces a part (no Blender collapse on shell soup). Own-geometry wheels (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) where there are wheels; they are part of the derivative. TRACKED: the kit (Pfelpensson's Heavy Track APC, CC BY 4.0) is a solid hull on a flat track skirt, so the belts `track_l`/`track_r` are the lower side slab (faces within 130 mm of the closed belt path; strip 2 x 220 mm) and the six wheels a side are own geometry on its outer face. No turret (the original has none)."
+ },
+ "tris": 32338,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 2680495,
+  "chip_share": 0.0269591997000554,
+  "grime_mean": 0.37017250061035156,
+  "paint_share": 0.646956998614062,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 168539,
+  "stripe_texels": 0,
+  "band_texels": 0
+ },
+ "tracks": {
+  "track_l": [
+   0.875977,
+   0.123047,
+   0.44
+  ],
+  "track_r": [
+   0.875977,
+   0.123047,
+   0.44
+  ]
+ },
+ "tracks_note": "both belts share one tread strip (v0, v_len, belt_m): veh_lowpoly.py maps each belt's arclength modulo belt_m (2 link pitches) into it, track_l in the left half of the atlas strip, track_r in the right; v increases toward the rear on the visible ground run"
+}

@@ -1,0 +1,36 @@
+{
+ "_doc": "LANCE-19 batch 6: Monsoon hover tank (UnrestedGuy Saracen hull + Scimitar Standard turret, v1 kit).",
+ "unit": "monsoon",
+ "hull": "TankH",
+ "merge": {
+  "Engine1": "TankH",
+  "Engine02": "TankH"
+ },
+ "nodes": {
+  "Monsoon_Turret": [
+   0,
+   440,
+   1300
+  ],
+  "weapon_01": [
+   -230,
+   -1000,
+   2100
+  ],
+  "weapon_02": [
+   230,
+   -1000,
+   2100
+  ]
+ },
+ "require_meshes": [
+  "Monsoon_Turret"
+ ],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 1.5,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 6, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in monsoon_veh.json). Parts split by `tools/art/v3/veh_prep.py` (monsoon_prep.json). Welded at 3 mm and planar-dissolved at 1.5 degrees, collapse only above 80k faces a part (no Blender collapse on shell soup). Own-geometry wheels (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) where there are wheels; they are part of the derivative. HOVER: no wheels or tracks. Kit: the Saracen hover chassis (`B-Saracen.stl`, baseless) with the Scimitar Standard turret (`Scimitar_Standard_Turret.stl`), as in the approved v1 build: MC2's Monsoon is a 25 t hover tank with one turret and short flamers, and the Scimitar chassis-and-turret pair is the closest of the three variants in the set (Saracen, Scimitar, Saladin); the turret's long main gun is left off (as in v1). The original's two engine nodes (`Engine1`, `Engine02`) are merged into the hull (the kit's side nacelles are static). The turret `Monsoon_Turret` turns about its neck ring."
+}
