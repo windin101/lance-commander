@@ -83,6 +83,92 @@ def make_wheel(R, w, seg=36):
     return V, F
 
 
+def _orient(V, F):
+    """Outward winding for a closed shell (positive signed volume)."""
+    V = np.asarray(V, float); F = np.asarray(F)
+    T = V[F]
+    if np.einsum("ij,ij->i", T[:, 0], np.cross(T[:, 1], T[:, 2])).sum() < 0:
+        F = F[:, ::-1]
+    return V, F
+
+
+def _loft(loops, caps=True):
+    """Closed shell from a stack of equal-length vertex loops (counter-clockwise from above), bottom and top capped by fans."""
+    n = len(loops[0]); V = [p for lp in loops for p in lp]; F = []
+    for a in range(len(loops) - 1):
+        for j in range(n):
+            j2 = (j + 1) % n
+            p, q, r, s = a * n + j, a * n + j2, (a + 1) * n + j2, (a + 1) * n + j
+            F += [(p, q, r), (p, r, s)]
+    if caps:
+        for lp_i, flip in ((0, True), (len(loops) - 1, False)):
+            c = len(V); V.append(tuple(np.mean(loops[lp_i], axis=0)))
+            for j in range(n):
+                j2 = (j + 1) % n
+                F.append((c, lp_i * n + j2, lp_i * n + j) if flip else (c, lp_i * n + j, lp_i * n + j2))
+    return _orient(V, F)
+
+
+def _rect(cx, cy, z, L, W):
+    """Corner loop of an axis-aligned rectangle (L along y, W along x), counter-clockwise from above."""
+    return [(cx - W / 2, cy - L / 2, z), (cx + W / 2, cy - L / 2, z), (cx + W / 2, cy + L / 2, z), (cx - W / 2, cy + L / 2, z)]
+
+
+def make_container(cx, cy, z0, L, W, H, taper=0.22, bevel=70.0, rib_pitch=330.0, rib=34.0, cast=150.0):
+    """A cargo container, OUR OWN geometry (LANCE-19 ordnance truck): a tapering box with a bevelled top edge, vertical ribs on both long
+    sides and both ends, door seam frames on the +y end and eight corner castings. Returns (V mm, F). z0 = its base."""
+    Lt, Wt = L * (1 - taper * 0.6), W * (1 - taper)
+    body_top = z0 + H - bevel
+    loops = [_rect(cx, cy, z0, L, W), _rect(cx, cy, body_top, Lt, Wt), _rect(cx, cy, z0 + H, Lt - 2 * bevel, Wt - 2 * bevel)]
+    parts = [_loft(loops)]
+
+    def side_at(t, sign_axis, axis):
+        """Point of the sloped wall at height fraction t, offset from the box centre along `axis` (0 = x, 1 = y)."""
+        half = ((W if axis == 0 else L) / 2) * (1 - t) + ((Wt if axis == 0 else Lt) / 2) * t
+        return sign_axis * half
+
+    def bar(axis, sgn, off):                         # a slanted rib on a wall: axis 0 = long side (x wall), 1 = end (y wall)
+        tt = (body_top - z0) / H
+        pts = []
+        for t, z in ((0.0, z0 + 40.0), (1.0, body_top - 20.0)):
+            f = (z - z0) / (body_top - z0)
+            wall = side_at(f, sgn, axis)
+            for dn in (0.0, rib):
+                for dw in (-45.0, 45.0):
+                    if axis == 0:
+                        pts.append((cx + wall + sgn * dn, cy + off + dw, z))
+                    else:
+                        pts.append((cx + off + dw, cy + wall + sgn * dn, z))
+        # pts order: bottom (dn0 dw-, dn0 dw+, dn1 dw-, dn1 dw+), top (same)
+        b = pts[:4]; t_ = pts[4:]
+        loop_b = [b[0], b[1], b[3], b[2]]; loop_t = [t_[0], t_[1], t_[3], t_[2]]
+        return _loft([loop_b, loop_t])
+    n_long = int(L // rib_pitch)
+    for k in range(n_long):
+        off = -L / 2 + (k + 0.5) * L / n_long
+        for sgn in (1, -1):
+            parts.append(bar(0, sgn, off))
+    n_end = int(W // rib_pitch)
+    for k in range(n_end):
+        off = -W / 2 + (k + 0.5) * W / n_end
+        for sgn in (1, -1):
+            parts.append(bar(1, sgn, off * (1 - taper * 0.5)))
+    # door seam frame on the +y end: two tall bars either side of the centre line, a horizontal one at mid height
+    for off in (-24.0, 24.0):
+        parts.append(bar(1, 1, off))
+    # corner castings
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            for z, f in ((z0, 0.0), (z0 + H - cast - bevel, 1.0)):
+                hx = (W / 2 if f == 0.0 else Wt / 2) - cast * 0.2; hy = (L / 2 if f == 0.0 else Lt / 2) - cast * 0.2
+                lo = (cx + sx * hx - cast / 2, cy + sy * hy - cast / 2, z)
+                parts.append(_loft([_rect(lo[0] + cast / 2, lo[1] + cast / 2, lo[2], cast, cast), _rect(lo[0] + cast / 2, lo[1] + cast / 2, lo[2] + cast, cast, cast)]))
+    Vs, Fs, off = [], [], 0
+    for V_, F_ in parts:
+        Vs.append(V_); Fs.append(F_ + off); off += len(V_)
+    return np.concatenate(Vs), np.concatenate(Fs)
+
+
 def wheel_x(cfg, w):
     """(x0, x1) of one wheel: the entry's own [y, z, r, x0, x1] when it has them (a half-track's front wheel and its track wheels
     differ in width), else the shared wheels.x0 / x1."""
@@ -312,6 +398,12 @@ def main(unit=None):
                 names.append(f"wheel_{sname}{i}")
                 V2.append(Vw); F2.append(Fw + off); lab2.append(np.full(len(Fw), len(names) - 1)); off += len(Vw)
                 axles[names[-1]] = [sign * (wx0 + wx1) / 2, y, zc, rad]
+    off_ = sum(len(v_) for v_ in V2)
+    for ex in cfg.get("extras", []):          # "extras": own-geometry hull additions, e.g. {"kind": "container", "x", "y", "z0", "len", "wid", "h"} mm
+        assert ex["kind"] == "container", ex
+        Vc, Fc = make_container(ex.get("x", 0.0), ex["y"], ex["z0"], ex["len"], ex["wid"], ex["h"], ex.get("taper", 0.22))
+        V2.append(Vc); F2.append(Fc + off_); lab2.append(np.full(len(Fc), hull)); off_ += len(Vc)
+        print(f"extra container at y {ex['y']}: {len(Fc)} faces")
     V, F, lab = np.concatenate(V2), np.concatenate(F2), np.concatenate(lab2)
     lift = float(cfg.get("lift_mm", 0.0))     # ground contact: the whole vehicle (geometry, axles, node tree) moves up by this
     if lift:

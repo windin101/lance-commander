@@ -217,6 +217,11 @@ def texel_sources(work):
     return cover, fid.ravel()[cover.ravel()], h, src, hkind
 
 
+def hidden_fix(low_kind, hkind):
+    """Texels that are not the visible outer surface (actuators, rays that hit the inside)."""
+    return (low_kind != 0) | (hkind > 0)
+
+
 def classify_texels(cfg, work, part_name, low_kind, src, hkind, XS, N):
     """Zone (0 paint, 1 piping, 2 bare metal, 3 glass, 4 emissive), region, stripe and band per texel, decided per
     sculpt panel (crease-bounded patch) so every zone edge lies on one of the kit's own panel lines."""
@@ -358,6 +363,13 @@ def stage_paint(cfg, work):
             fr[mm_] = np.hypot(XS[mm_, 1] - ay_, XS[mm_, 2] - az_) / rad_
         rubber = isw & (fr >= 0.65)
         steel_w = isw & ~rubber
+    # cfg "fixed_colour" (LANCE-19, ordnance truck containers): [{"min": [x, y, z], "max": [x, y, z], "colour": [r, g, b] sRGB 0..1,
+    # "rough": 0.6}]: texels whose sculpt-frame position lies in the box are bare (no team colour, alpha 0) in that colour.
+    fixed = np.zeros(len(zone), bool); fixed_col = np.zeros((len(zone), 3), np.float32); fixed_rough = np.full(len(zone), 0.6, np.float32)
+    for fc in cfg.get("fixed_colour", []):
+        inb = np.all((XS >= np.asarray(fc["min"], float)) & (XS <= np.asarray(fc["max"], float)), 1) & ~hidden_fix(low_kind, hkind)
+        fixed |= inb; fixed_col[inb] = srgb_to_lin(np.asarray(fc["colour"], float)); fixed_rough[inb] = float(fc.get("rough", 0.6))
+    zone[fixed] = 2
     w = cfg.get("wear", {})
     seed = int(w.get("seed", 7))
     height = X[:, 2]
@@ -419,11 +431,13 @@ def stage_paint(cfg, work):
     shade *= 1.0 + float(w.get("edge_lighten", 0.22)) * convex          # worn, lighter paint along exposed edges
     bm = zone == 2
     rgb[bm] = gunmetal * (0.8 + 0.4 * n_mid[bm, None])
+    rgb[fixed] = fixed_col[fixed] * (0.85 + 0.3 * n_mid[fixed, None])
     rgb[rubber] = srgb_to_lin([0.085, 0.085, 0.09]) * (0.8 + 0.4 * n_mid[rubber, None])
     rgb[steel_w] = gunmetal * (0.55 + 0.3 * n_mid[steel_w, None])
     rgb[interior] = interior_c
     alpha[bm] = 0
     rough[bm] = 0.36 + 0.2 * n_mid[bm]; metal[bm] = 0.85
+    rough[fixed] = fixed_rough[fixed]; metal[fixed] = 0.1
     rough[rubber] = 0.86 + 0.1 * n_mid[rubber]; metal[rubber] = 0.0
     rough[steel_w] = 0.5 + 0.2 * n_mid[steel_w]; metal[steel_w] = 0.7
     rough[interior] = 0.7; metal[interior] = 0.25

@@ -1,0 +1,33 @@
+{
+ "model": "ordnancetruck.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Utility Truck",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:6831725",
+  "licence": "CC BY-SA 4.0",
+  "file": "utility_truck.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 3, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in ordnancetruck_veh.json). The kit's fused hull was split by `tools/art/v3/veh_prep.py` (ordnancetruck_prep.json). The wheels (`wheel_l0`..) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the CC BY-SA 4.0 derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above 80k faces a part (no collapse on the shell-soup Hunter route; these hulls are clean). WHEELED, 2 axles (the original has 4 and two red cargo containers; the kit is a plain utility truck with a flat bed). The front pair is under `steer_l0`/`steer_r0`. No turret or gun."
+ },
+ "tris": 83168,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 1848497,
+  "chip_share": 0.009644051356318134,
+  "grime_mean": 0.5427085757255554,
+  "paint_share": 0.32026992740588706,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 125149,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

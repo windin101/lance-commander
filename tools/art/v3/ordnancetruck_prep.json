@@ -1,0 +1,52 @@
+{
+ "_doc": "LANCE-19 batch 3: Utility Truck (RGriffin65) as the ordnance truck; 2 axles, front steers.",
+ "unit": "ordnancetruck",
+ "hull": "ordnancetruck",
+ "wheels": {
+  "x0": 1650.0,
+  "x1": 2380.0,
+  "pad": 10.0,
+  "seg": 36,
+  "steer": [
+   0
+  ],
+  "list": [
+   [
+    -2920,
+    900,
+    900
+   ],
+   [
+    3880,
+    900,
+    900
+   ]
+  ]
+ },
+ "require_meshes": [],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 3.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 3, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in ordnancetruck_veh.json). The kit's fused hull was split by `tools/art/v3/veh_prep.py` (ordnancetruck_prep.json). The wheels (`wheel_l0`..) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the CC BY-SA 4.0 derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above 80k faces a part (no collapse on the shell-soup Hunter route; these hulls are clean). WHEELED, 2 axles (the original has 4 and two red cargo containers; the kit is a plain utility truck with a flat bed). The front pair is under `steer_l0`/`steer_r0`. Two red cargo containers (LANCE-19, Lee 2026-10-31) are OWN GEOMETRY (`veh_prep.py` `make_container`: a tapering bevelled box with ribs, door-seam bars and corner castings, sized from the 2001 model's containers and set on the kit's bed), static parts of the hull; their colour is fixed red (`fixed_colour` in ordnancetruck.json), not team colour. No turret or gun.",
+ "extras": [
+  {
+   "kind": "container",
+   "y": 2250.0,
+   "z0": 2780.0,
+   "len": 2150.0,
+   "wid": 3000.0,
+   "h": 1650.0
+  },
+  {
+   "kind": "container",
+   "y": 4650.0,
+   "z0": 2780.0,
+   "len": 2150.0,
+   "wid": 3000.0,
+   "h": 1650.0
+  }
+ ]
+}
