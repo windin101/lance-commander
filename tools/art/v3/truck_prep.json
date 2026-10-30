@@ -1,0 +1,39 @@
+{
+ "_doc": "LANCE-19 batch 3: Flatbed Truck (RGriffin65); 3 axles, front steers.",
+ "unit": "truck",
+ "hull": "emptytruck",
+ "wheels": {
+  "x0": 1900.0,
+  "x1": 2650.0,
+  "pad": 10.0,
+  "seg": 36,
+  "steer": [
+   0
+  ],
+  "list": [
+   [
+    -2700,
+    825,
+    825
+   ],
+   [
+    1950,
+    825,
+    825
+   ],
+   [
+    3850,
+    825,
+    825
+   ]
+  ]
+ },
+ "require_meshes": [],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 3.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 3, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in truck_veh.json). The kit's fused hull was split by `tools/art/v3/veh_prep.py` (truck_prep.json). The wheels (`wheel_l0`..) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the CC BY-SA 4.0 derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above 80k faces a part (no collapse on the shell-soup Hunter route; these hulls are clean). WHEELED, 3 axles (the original has 4). The front pair is under `steer_l0`/`steer_r0`. No turret or gun."
+}

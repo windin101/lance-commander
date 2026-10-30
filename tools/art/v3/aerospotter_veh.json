@@ -1,0 +1,14 @@
+{
+ "place": [
+  {
+   "comp": 1,
+   "move": [
+    8.1,
+    18.05,
+    7.5
+   ]
+  }
+ ],
+ "no_icp": true,
+ "_from": "original/hd/aerospotter/provenance.json joints (the approved v1 fit), 2026-10-31; no_icp added (LANCE-19)"
+}

@@ -1,0 +1,58 @@
+{
+ "parts_box": [
+  {
+   "node": "Srmc",
+   "min": [
+    -10,
+    -1,
+    -10
+   ],
+   "max": [
+    10,
+    2.3,
+    10
+   ]
+  },
+  {
+   "node": "srmc_turret",
+   "min": [
+    -0.78,
+    1.85,
+    -3.3
+   ],
+   "max": [
+    0.78,
+    2.3,
+    -1.75
+   ]
+  },
+  {
+   "node": "SRM_Pack",
+   "min": [
+    -3,
+    2.3,
+    -6
+   ],
+   "max": [
+    3,
+    7,
+    -0.6
+   ]
+  },
+  {
+   "node": "Srmc",
+   "min": [
+    -10,
+    -1,
+    -0.6
+   ],
+   "max": [
+    10,
+    7,
+    10
+   ]
+  }
+ ],
+ "no_icp": true,
+ "_from": "original/hd/swarmlrmc/provenance.json joints (the approved v1 fit), 2026-10-31; no_icp added (LANCE-19)"
+}

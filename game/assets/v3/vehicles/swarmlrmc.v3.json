@@ -1,0 +1,50 @@
+{
+ "model": "swarmlrmc.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Semi-Modular Weapons Carrier",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:7123873",
+  "licence": "CC BY-SA 4.0",
+  "file": "hull.stl, launcher.stl (cut from Semi-Modular_Weapons_Carrier_SRM.stl)",
+  "notes": "Vehicle rework (LANCE-19 batch 3, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in swarmlrmc_veh.json). The kit's fused hull was split by `tools/art/v3/veh_prep.py` (swarmlrmc_prep.json). The wheels (`wheel_l0`..) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the CC BY-SA 4.0 derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above 80k faces a part (no collapse on the shell-soup Hunter route; these hulls are clean). HALF-TRACK kit (v1's `hull.stl` and `launcher.stl`, made from the SRM variant): one front wheel pair (under `steer_l0`/`steer_r0`) and rear belts (`track_l`, `track_r`: the faces within 120 mm of the closed belt path round the five track wheels; tread strip 2 x 205 mm), where MC2's swarm LRM carrier is a 6-wheel truck. Turntable `srmc_turret`, launcher rack `SRM_Pack` as the gun (`gun_pitch` [-25, 20] about its rear hinge, from the kit's raised rest pose); one launcher as in the original."
+ },
+ "tris": 182394,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 1399752,
+  "chip_share": 0.031052643611153976,
+  "grime_mean": 0.6782187223434448,
+  "paint_share": 0.26136915682206563,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 129515,
+  "stripe_texels": 0,
+  "band_texels": 0
+ },
+ "tracks": {
+  "track_l": [
+   0.875977,
+   0.123047,
+   0.41
+  ],
+  "track_r": [
+   0.875977,
+   0.123047,
+   0.41
+  ]
+ },
+ "tracks_note": "both belts share one tread strip (v0, v_len, belt_m): veh_lowpoly.py maps each belt's arclength modulo belt_m (2 link pitches) into it, track_l in the left half of the atlas strip, track_r in the right; v increases toward the rear on the visible ground run",
+ "gun_pitch": [
+  -25,
+  20
+ ]
+}

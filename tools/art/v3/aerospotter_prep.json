@@ -1,0 +1,79 @@
+{
+ "_doc": "LANCE-19 batch 3: C3 Mobile Radar Command Unit (RGriffin65) as the aerospotter; WHEELED 5-axle kit, radar turntable `radar` spins.",
+ "unit": "aerospotter",
+ "hull": "AeroSpotter",
+ "split": [
+  {
+   "from": "AeroSpotter",
+   "new": "radar",
+   "node_parent": "AeroSpotter",
+   "min": [
+    -3000,
+    300,
+    3100
+   ],
+   "max": [
+    3000,
+    4800,
+    6500
+   ]
+  }
+ ],
+ "nodes": {
+  "radar": [
+   44,
+   1835,
+   3100
+  ]
+ },
+ "wheels": {
+  "x0": 1750.0,
+  "x1": 2420.0,
+  "pad": 10.0,
+  "seg": 36,
+  "steer": [
+   0
+  ],
+  "list": [
+   [
+    -4558,
+    740,
+    740
+   ],
+   [
+    -2994,
+    740,
+    740
+   ],
+   [
+    -58,
+    740,
+    740
+   ],
+   [
+    1434,
+    740,
+    740
+   ],
+   [
+    3070,
+    740,
+    740
+   ]
+  ]
+ },
+ "require_meshes": [
+  "radar"
+ ],
+ "sidecar": {
+  "spin": {
+   "radar": 30
+  }
+ },
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 3.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 3, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in aerospotter_veh.json). The kit's fused hull was split by `tools/art/v3/veh_prep.py` (aerospotter_prep.json). The wheels (`wheel_l0`..) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the CC BY-SA 4.0 derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above 80k faces a part (no collapse on the shell-soup Hunter route; these hulls are clean). WHEELED, 5 axles: MC2's aerospotter is a TRACKED radar vehicle, the approved v1 source is RGriffin65's wheeled C3 Mobile Radar Command Unit and is kept (Lee to judge). The radar turntable, platform and antenna array above z 3100 are the part `radar` on a new node under the hull, pivot on the turntable axis (44, 1835 mm); the sidecar's `spin` turns it at 30 deg/s (written from aerospotter_prep.json). The front axle is under `steer_l0`/`steer_r0`."
+}

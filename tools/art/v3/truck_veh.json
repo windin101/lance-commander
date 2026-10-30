@@ -1,0 +1,5 @@
+{
+ "yaw": 90,
+ "no_icp": true,
+ "_from": "original/hd/truck/provenance.json joints (the approved v1 fit), 2026-10-31; no_icp added (LANCE-19)"
+}

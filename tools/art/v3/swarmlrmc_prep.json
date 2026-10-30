@@ -1,0 +1,145 @@
+{
+ "_doc": "LANCE-19 batch 3: Semi-Modular Weapons Carrier (SRM variant, via the v1 hull.stl / launcher.stl) as the swarm LRM carrier: a HALF-TRACK kit (front wheels, rear tracks).",
+ "unit": "swarmlrmc",
+ "hull": "Srmc",
+ "tracks": {
+  "mode": "loop",
+  "xlo": 1300.0,
+  "xhi": 1870.0,
+  "thick": 120.0,
+  "off": 60.0,
+  "zmax": 1300.0,
+  "node_x_m": 1.58,
+  "circles": [
+   [
+    18,
+    780,
+    490
+   ],
+   [
+    830,
+    496,
+    376
+   ],
+   [
+    1674,
+    496,
+    376
+   ],
+   [
+    2502,
+    496,
+    376
+   ],
+   [
+    3350,
+    792,
+    380
+   ]
+  ],
+  "xin": 1300.0,
+  "pitch_mm": 205.0,
+  "n_links": 2,
+  "gap_y": 227.5,
+  "col_w": [
+   570.0,
+   570.0,
+   150.0,
+   150.0
+  ]
+ },
+ "wheels": {
+  "x0": 900.0,
+  "x1": 1750.0,
+  "pad": 10.0,
+  "seg": 36,
+  "steer": [
+   0
+  ],
+  "list": [
+   [
+    -2530,
+    880,
+    880,
+    900,
+    1750
+   ],
+   [
+    18,
+    780,
+    490,
+    1450,
+    1800
+   ],
+   [
+    830,
+    496,
+    376,
+    1450,
+    1800
+   ],
+   [
+    1674,
+    496,
+    376,
+    1450,
+    1800
+   ],
+   [
+    2502,
+    496,
+    376,
+    1450,
+    1800
+   ],
+   [
+    3350,
+    792,
+    380,
+    1450,
+    1800
+   ]
+  ]
+ },
+ "nodes": {
+  "srmc_turret": [
+   0,
+   2570,
+   1725
+  ],
+  "SRM_Pack": [
+   0,
+   4150,
+   2350
+  ],
+  "weapon_01": [
+   -950,
+   880,
+   3250
+  ],
+  "weapon_02": [
+   950,
+   880,
+   3250
+  ]
+ },
+ "require_meshes": [
+  "srmc_turret",
+  "SRM_Pack"
+ ],
+ "sidecar": {
+  "gun_pitch": [
+   -25,
+   20
+  ]
+ },
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 3.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 3, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in swarmlrmc_veh.json). The kit's fused hull was split by `tools/art/v3/veh_prep.py` (swarmlrmc_prep.json). The wheels (`wheel_l0`..) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the CC BY-SA 4.0 derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above 80k faces a part (no collapse on the shell-soup Hunter route; these hulls are clean). HALF-TRACK kit (v1's `hull.stl` and `launcher.stl`, made from the SRM variant): one front wheel pair (under `steer_l0`/`steer_r0`) and rear belts (`track_l`, `track_r`: the faces within 120 mm of the closed belt path round the five track wheels; tread strip 2 x 205 mm), where MC2's swarm LRM carrier is a 6-wheel truck. Turntable `srmc_turret`, launcher rack `SRM_Pack` as the gun (`gun_pitch` [-25, 20] about its rear hinge, from the kit's raised rest pose); one launcher as in the original.",
+ "reset_rot": [
+  "SRM_Pack"
+ ]
+}

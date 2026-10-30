@@ -83,14 +83,21 @@ def make_wheel(R, w, seg=36):
     return V, F
 
 
+def wheel_x(cfg, w):
+    """(x0, x1) of one wheel: the entry's own [y, z, r, x0, x1] when it has them (a half-track's front wheel and its track wheels
+    differ in width), else the shared wheels.x0 / x1."""
+    wc = cfg["wheels"]
+    return (float(w[3]), float(w[4])) if len(w) > 4 else (float(wc["x0"]), float(wc["x1"]))
+
+
 def wheel_width(cfg):
     return cfg["wheels"]["x1"] - cfg["wheels"]["x0"]
 
 
-def wheel_world(cfg, side, y, z, V):
+def wheel_world(cfg, side, y, z, V, x0=None):
     """The wheel placed on its axle: side +1 (track_l, +X) is the local frame as is, side -1 turned half a turn about
     the vertical axis (a rotation, so the shared UVs keep their handedness)."""
-    W = V + np.array([cfg["wheels"]["x0"], 0, 0])
+    W = V + np.array([cfg["wheels"]["x0"] if x0 is None else x0, 0, 0])
     if side < 0:
         W = W * np.array([-1.0, -1.0, 1.0])
     return W + np.array([0.0, y, 0.0]) + np.array([0, 0, z])
@@ -106,9 +113,11 @@ def wheel_geometry(cfg, name, lifted=False):
     itself, but veh_lowpoly builds the wheels afresh, so it must lift them too or they sit off their axle node (LANCE-19 fix)."""
     wc = cfg["wheels"]
     side = 1 if name.startswith("wheel_l") else -1
-    y, z, rad = wc["list"][int(name[7:])][:3]
-    Vw, Fw = make_wheel(rad, wheel_width(cfg), wc.get("seg", 36))
-    Vw_ = wheel_world(cfg, side, y, z, Vw)
+    ent = wc["list"][int(name[7:])]
+    y, z, rad = ent[:3]
+    x0, x1 = wheel_x(cfg, ent)
+    Vw, Fw = make_wheel(rad, x1 - x0, wc.get("seg", 36))
+    Vw_ = wheel_world(cfg, side, y, z, Vw, x0)
     if lifted:
         Vw_ = Vw_ + np.array([0.0, 0.0, float(cfg.get("lift_mm", 0.0))])
     return Vw_, Fw
@@ -282,9 +291,11 @@ def main(unit=None):
         Cc = V[F[m]].mean(1)
         drop = np.zeros(len(m), bool)
         for sign in (1, -1):
-            for (y, zc, rad) in [w[:3] for w in wc["list"]]:
+            for w_ in wc["list"]:
+                y, zc, rad = w_[:3]
+                wx0, wx1 = wheel_x(cfg, w_)
                 xs = Cc[:, 0] * sign
-                drop |= ((xs > wc["x0"] - 5) & (xs < wc["x1"] + 5) & (Cc[:, 2] < wc.get("zcut", 1e9))
+                drop |= ((xs > wx0 - 5) & (xs < wx1 + 5) & (Cc[:, 2] < wc.get("zcut", 1e9))
                          & (np.hypot(Cc[:, 1] - y, Cc[:, 2] - zc) < rad + wc.get("pad", 6.0)))
         print(f"hull: {int(drop.sum())} fused wheel faces removed")
         keep = np.ones(len(F), bool); keep[m[drop]] = False
@@ -292,13 +303,15 @@ def main(unit=None):
         off = len(V)
         steer = set(wc.get("steer", []))
         for sign, sname in ((1, "l"), (-1, "r")):
-            for i, (y, zc, rad) in enumerate([w[:3] for w in wc["list"]]):
+            for i, w_ in enumerate(wc["list"]):
+                y, zc, rad = w_[:3]
+                wx0, wx1 = wheel_x(cfg, w_)
                 if i in steer:
                     names.append(f"steer_{sname}{i}"); steer_of[f"wheel_{sname}{i}"] = len(names) - 1
                 Vw, Fw = wheel_geometry(cfg, f"wheel_{sname}{i}")
                 names.append(f"wheel_{sname}{i}")
                 V2.append(Vw); F2.append(Fw + off); lab2.append(np.full(len(Fw), len(names) - 1)); off += len(Vw)
-                axles[names[-1]] = [sign * (wc["x0"] + wc["x1"]) / 2, y, zc, rad]
+                axles[names[-1]] = [sign * (wx0 + wx1) / 2, y, zc, rad]
     V, F, lab = np.concatenate(V2), np.concatenate(F2), np.concatenate(lab2)
     lift = float(cfg.get("lift_mm", 0.0))     # ground contact: the whole vehicle (geometry, axles, node tree) moves up by this
     if lift:
