@@ -1,0 +1,53 @@
+{
+ "model": "starslayer.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Starslayer (image-to-3D base sculpt from our own input renders)",
+  "author": "Tripo (paid plan, Lee's account, task d80f39f6-b1e5-4700-ba4d-36a15a2f47cd, model v3.1-20260211); design Lee Osborne / Claude",
+  "url": "",
+  "licence": "our own work, Shared Source non-commercial (design follows the MC2 Starslayer)",
+  "file": "tools/art/v3/tripo_gen.py"
+ },
+ "tris": 60698,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.085,
+  "Walk": 0.213,
+  "Run": 0.282,
+  "STtoWK": 0.175,
+  "WKtoST": 0.213,
+  "WKtoRN": 0.249,
+  "RNtoWK": 0.3,
+  "LimpLeft": 0.219,
+  "LimpRight": 0.21,
+  "ParkToStand": 0.085,
+  "StandToPark": 0.085,
+  "Jump": 0.174,
+  "FallForward": 0.286,
+  "FallBackward": 0.578,
+  "GetUpFront": 0.294,
+  "GetUpBack": 0.735,
+  "HitFront": 0.179,
+  "HitBack": 0.085,
+  "HitLeft": 0.085,
+  "HitRight": 0.085
+ },
+ "paint_stats": {
+  "texels": 2025201,
+  "chip_share": 0.025716953527082004,
+  "grime_mean": 0.25155773758888245,
+  "paint_share": 0.7274063167063417,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 8578,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

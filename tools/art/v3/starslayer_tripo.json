@@ -1,0 +1,184 @@
+{
+ "_doc": "v3 settings for the Starslayer, image-to-3D route (Tripo task d80f39f6, multiview v3.1-20260211, our own input renders). tools/art/v3/v3_mech.py starslayer_tripo ... ; output keeps the name starslayer.",
+ "name": "starslayer",
+ "folder": "mechs",
+ "stl": "image-to-3D sculpt (tools/art/v3/sculpt_prep.py output)",
+ "source": {
+  "title": "Starslayer (image-to-3D base sculpt from our own input renders)",
+  "author": "Tripo (paid plan, Lee's account, task d80f39f6-b1e5-4700-ba4d-36a15a2f47cd, model v3.1-20260211); design Lee Osborne / Claude",
+  "url": "",
+  "licence": "our own work, Shared Source non-commercial (design follows the MC2 Starslayer)",
+  "file": "tools/art/v3/tripo_gen.py"
+ },
+ "k": 1.0,
+ "base_glb": "game/assets/mechs/starslayer.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/starslayer_tripo",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300,
+  "boxes": [
+   {
+    "part": "ss_lgun",
+    "min": [
+     1950,
+     -2300,
+     6100
+    ],
+    "max": [
+     3100,
+     650,
+     7150
+    ],
+    "from": [
+     "ss_luarm"
+    ]
+   }
+  ]
+ },
+ "lowpoly": {
+  "faces": 45000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 2482,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "ss_lfoot": 1.0,
+   "joint_litoe": 1.0,
+   "joint_lotoe": 1.0,
+   "ss_llleg": 1.0,
+   "ss_rfoot": 1.0,
+   "joint_rotoe": 1.0,
+   "joint_ritoe": 1.0,
+   "ss_rlleg": 1.0,
+   "ss_ruarm": 0.95,
+   "ss_lgun": 0.95,
+   "ss_luarm": 0.95
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 300,
+    "min_aspect": 7.0,
+    "min_area_m2": 0.3
+   }
+  ]
+ },
+ "part_region": {
+  "ss_lfoot": "feet",
+  "joint_litoe": "feet",
+  "joint_lotoe": "feet",
+  "ss_llleg": "lower_legs",
+  "ss_luleg": "upper_legs",
+  "ss_rfoot": "feet",
+  "joint_rotoe": "feet",
+  "joint_ritoe": "feet",
+  "ss_rlleg": "lower_legs",
+  "ss_ruleg": "upper_legs",
+  "ss_hip": "body",
+  "ss_ruarm": "arms",
+  "ss_gun": "weapons",
+  "ss_lgun": "arms",
+  "ss_luarm": "arms",
+  "ss_torso": "body"
+ },
+ "feet": [
+  "ss_lfoot",
+  "joint_litoe",
+  "joint_lotoe",
+  "ss_rfoot",
+  "joint_rotoe",
+  "joint_ritoe"
+ ],
+ "joints": {
+  "joint_lfoot": {
+   "kind": "sphere",
+   "r": 492
+  },
+  "joint_litoe": {
+   "kind": "cyl",
+   "r": 447,
+   "half": 581
+  },
+  "joint_lotoe": {
+   "kind": "cyl",
+   "r": 447,
+   "half": 581
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 447,
+   "half": 581
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 492
+  },
+  "joint_rfoot": {
+   "kind": "sphere",
+   "r": 492
+  },
+  "joint_rotoe": {
+   "kind": "cyl",
+   "r": 125,
+   "half": 240
+  },
+  "joint_ritoe": {
+   "kind": "cyl",
+   "r": 447,
+   "half": 581
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 447,
+   "half": 581
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 492
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 492
+  },
+  "joint_rshoulder": {
+   "kind": "sphere",
+   "r": 492
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 492
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 492
+  },
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 695
+  }
+ }
+}
