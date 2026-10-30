@@ -27,7 +27,8 @@ def main(unit):
     if tc:
         t = json.loads((work / "tracks.json").read_text())
         strip = [round(t["v0"], 6), round(t["v_len"], 6), t["belt_m"]]
-        side["tracks"] = {"track_l": strip, "track_r": strip}
+        belts = [u["name"] for u in tc["units"]] if tc.get("units") else ["track_l", "track_r"]
+        side["tracks"] = {b_: strip for b_ in belts}
         side["tracks_note"] = ("both belts share one tread strip (v0, v_len, belt_m): veh_lowpoly.py maps each belt's "
                                "arclength modulo belt_m (%d link pitches) into it, track_l in the left half of the atlas "
                                "strip, track_r in the right; v increases toward the rear on the visible ground run" % t["n_links"])
@@ -38,7 +39,7 @@ def main(unit):
     g, b = R.load_glb(str(DST / f"{unit}.glb"))
     names = {n.get("name"): n for n in g["nodes"]}
     need = cfg.get("require_meshes", [])
-    for nm in need + (["track_l", "track_r"] if tc else []):
+    for nm in need + ([u["name"] for u in tc["units"]] if tc and tc.get("units") else ["track_l", "track_r"] if tc else []):
         assert nm in names and "mesh" in names[nm], f"{nm}: no mesh"
     wheels = [n["name"] for n in g["nodes"] if n.get("name", "").startswith("wheel_") and "mesh" in n]
     want = 2 * len(cfg["wheels"]["list"]) if cfg.get("wheels") else 0

@@ -122,3 +122,66 @@ func test_one_piece_hd_vehicles_get_no_rig() -> void:
 		assert_object(r).is_not_null()
 		assert_str(String(r.turret.name)).is_equal("Hunter_Turret")
 		v1.free()
+
+
+func test_split_treads_scroll_per_side() -> void:
+	# the MOG: two tread units a side, track_l0/l1 and track_r0/r1, each with its own strip
+	var root := Node3D.new()
+	_part(root, "hull", Vector3(0, 1, 0), Vector3(3, 1, 6))
+	for i in 2:
+		_part(root, "track_l%d" % i, Vector3(1.5, 0.4, -1.5 + 3.0 * i), Vector3(0.5, 0.8, 2.5))
+		_part(root, "track_r%d" % i, Vector3(-1.5, 0.4, -1.5 + 3.0 * i), Vector3(0.5, 0.8, 2.5))
+	add_child(root)
+	var strips := {}
+	for k in ["track_l0", "track_l1", "track_r0", "track_r1"]:
+		strips[k] = [0.5, 0.25, 6.0]
+	var r := VehicleRig.build(root, {"tracks": strips})
+	assert_int(r.tracks.size()).is_equal(4)
+	assert_float(r._half_track).is_equal_approx(1.5, 1e-4)
+	r.update(Vector2.ZERO, 0.0, 0.0, 60.0, Vector2.ZERO, 0.0)
+	r.update(Vector2.ZERO, 30.0, 0.0, 60.0, Vector2.ZERO, 0.1)  # on the spot, clockwise: left forward, right back
+	for t: MeshInstance3D in r.tracks:
+		var z: float = (t.get_instance_shader_parameter("track_strip") as Vector3).z
+		var left := String(t.name).begins_with("track_l")
+		assert_float(z).is_equal_approx(fposmod((r.belt.x if left else r.belt.y) / 6.0, 1.0), 1e-5)
+	assert_float(r.belt.x).is_greater(0.0)
+	assert_float(r.belt.y).is_less(0.0)
+	root.queue_free()
+
+
+func test_sidecar_spin_parts_turn_at_their_rate() -> void:
+	# the Mobile HQ's radar: named in the sidecar's "spin", turning clockwise at a constant rate, moving or not
+	var root := Node3D.new()
+	var hull := _part(root, "hull", Vector3(0, 1, 0), Vector3(3, 1, 6))
+	var dish := _part(hull, "hq_radar", Vector3(0, 1.5, 0), Vector3(1, 0.2, 1))
+	add_child(root)
+	var r := VehicleRig.build(root, {"spin": {"hq_radar": 40.0, "no_such_node": 10.0}})
+	assert_object(r).is_not_null()
+	assert_int(r.spins.size()).is_equal(1)
+	r.update(Vector2.ZERO, 0.0, 0.0, 60.0, Vector2.ZERO, 0.0)
+	r.update(Vector2.ZERO, 0.0, 0.0, 60.0, Vector2.ZERO, 2.25)  # 90 degrees clockwise: +Z swings to -X
+	assert_vector(dish.basis * Vector3.BACK).is_equal_approx(Vector3(-1, 0, 0), Vector3.ONE * 1e-4)
+	root.queue_free()
+
+
+func test_every_v3_wheel_turns_about_its_own_centre() -> void:
+	# A wheel whose mesh sits off its node origin orbits the pivot and reads as an egg (Lee, 2026-10-30: the
+	# Centipede's and Partisan's were lowered/raised by moving the mesh, not the node, 165-182 mm off centre)
+	var dir := "res://assets/v3/vehicles/"
+	for f in DirAccess.get_files_at(dir):
+		if not f.ends_with(".glb"):
+			continue
+		var m: Node3D = (load(dir + f) as PackedScene).instantiate()
+		for w in m.find_children("wheel_*", "Node3D", true, false):
+			var box := AABB()
+			var first := true
+			for mi in ([w] if w is MeshInstance3D else []) + w.find_children("*", "MeshInstance3D", true, false):
+				var bb: AABB = (mi as MeshInstance3D).get_aabb() if mi == w else (mi as MeshInstance3D).transform * (mi as MeshInstance3D).get_aabb()
+				box = bb if first else box.merge(bb)
+				first = false
+			if first:
+				continue
+			var c := box.get_center()
+			assert_float(Vector2(c.y, c.z).length()).override_failure_message(
+				"%s %s: mesh centre %s is off the pivot" % [f, w.name, c]).is_less(0.01)
+		m.free()

@@ -49,7 +49,7 @@ def setup(unit):
     K.update(unit=unit, cfg=cfg, tc=tc, work=Path(f"/mnt/nvme1n1p1/mc2-rework/v3/{unit}"), planar=lp["planar_deg"],
              weld=lp["weld_m"], budget=lp["budget"], T_MM=T_mm, N_LINKS=n_links, PITCH_MM=pitch, GAP_Y=tc.get("gap_y", 0.0),
              XIN=tc.get("xin", 0.0), SC=(STRIP_PX - 2 * PAD_PX) / T_mm,
-             COLS={k: (float(o), float(w)) for k, o, w in zip(["A", "B", "C0", "C1"], offs, cw)})
+             COLS={k: (float(o), float(w)) for k, o, w in zip(["A", "B", "C0", "C1"], offs, cw)}, cur="")
     f = json.loads((VP.WORKS / f"{unit}_tracks" / "fit.json").read_text())
     order = [f["node_names"][int(k)] for k in f["xform"]]     # M.PARTS order = increasing node index
     K["order"] = order
@@ -62,11 +62,12 @@ def setup(unit):
 
 def decimate():
     WORK = K["work"]
+    cfg_bp = K["cfg"]["lowpoly"].get("budget_parts", {})
     z = np.load(WORK / "rest.npz")
     names = K["bodies"] + K["belts"]
     keep = np.isin(z["part"], names)                       # the wheels are generated (veh_prep.make_wheel), not reduced
     pi = np.array([names.index(p) for p in z["part"][keep]])
-    budget = np.array([K["budget"] for n in names])
+    budget = np.array([cfg_bp.get(n, K["budget"]) for n in names])   # "budget_parts": a dense part reduced by collapse (MOG treads)
     np.savez(WORK / "lp_in.npz", P=z["P"], F=z["F"][keep], part=pi, kind=z["kind"][keep].copy(), budget_part=np.arange(len(names)),
              budget_faces=budget)
     C.blender("lowpoly", WORK / "lp_in.npz", WORK / "low_geo.npz", "--uv", "none", "--planar_deg", K["planar"], "--weld_m", K["weld"],
@@ -74,12 +75,21 @@ def decimate():
     print((WORK / "lowpoly.log").read_text())
 
 
+def belt_tc(name):
+    """The belt's own loop settings: tracks.units[name].circles when the unit has several belts, else the shared tracks block."""
+    tc = K["tc"]
+    for u in tc.get("units", []):
+        if u["name"] == name:
+            return dict(tc, circles=u["circles"])
+    return tc
+
+
 def belt_path(Pt):
     """The belt's centre line in the side view. Envelope mode: the lower envelope of the track part, resampled every 2 mm
     in y. Loop mode: the closed belt path round the wheels. Returns (y, z, s: arclength, tangent unit vectors, loop length
     or None)."""
     if K["tc"]["mode"] == "loop":
-        yy, zz, s, t, L = VP.loop_path(K["tc"])
+        yy, zz, s, t, L = VP.loop_path(belt_tc(K["cur"]))
         return yy, zz, s, t, L
     ys = np.arange(Pt[:, 1].min(), Pt[:, 1].max(), 10.0)
     iy = np.clip(((Pt[:, 1] - ys[0]) / 10.0).astype(int), 0, len(ys) - 1)
@@ -119,10 +129,12 @@ def clip_tri(pts, ss, lo, hi):
     return poly
 
 
-def track_uvs(Pt, Ft, sign):
+def track_uvs(Pt, Ft, sign, name):
     """Per-corner UVs (bake convention, v up) for one belt; Pt, Ft its low-poly part. Returns (P, F, uv per corner)."""
     from scipy.spatial import cKDTree
     T_MM, SC, XIN, COLS = K["T_MM"], K["SC"], K["XIN"], K["COLS"]
+    USC = K["tc"].get("u_sc", SC)       # px per mm across the belt (a wide belt gets a coarser u than SC)
+    K["cur"] = name
     yy, zz, sp, tg, loopL = belt_path(Pt)
     tree = cKDTree(np.stack([yy, zz], 1))
     _, ni = tree.query(Pt[:, 1:3])
@@ -170,7 +182,7 @@ def track_uvs(Pt, Ft, sign):
                     d = abs(pos[0]) - XIN
                 else:
                     d = np.clip(pos[2] - zz[tree.query(pos[1:3])[1]], 0, wid)
-                u = (base_u + off * SC + (6 * 4 / 4) * ("A B C0 C1".split().index(col)) + np.clip(d, 0, wid) * SC) / 2048.0
+                u = (base_u + off * USC + (6 * 4 / 4) * ("A B C0 C1".split().index(col)) + np.clip(d, 0, wid) * USC) / 2048.0
                 v = (PAD_PX + (1.0 - frac) * (STRIP_PX - 2 * PAD_PX)) / 2048.0
                 newP.append(pos); newUV.append((u, v))
             for j in range(1, len(poly) - 1):
@@ -205,18 +217,18 @@ def uv_pack():
     Ps, Fs, parts, uvs = [P], [zb["F"][~isref]], [zb["part"][~isref]], [uvb[~isref]]
     off = len(P)
     for bi, bn in enumerate(K["belts"]):
-        pi, sign = nb + bi, (1 if bn == "track_l" else -1)
+        pi, sign = nb + bi, (1 if bn.startswith("track_l") else -1)
         m = part == pi
         used = np.unique(F[m]); remap = -np.ones(len(P), int); remap[used] = np.arange(len(used))
         Pt, Ft = P[used], remap[F[m]]
-        Pn, Fn, UV, s_gap = track_uvs(Pt, Ft, sign)
+        Pn, Fn, UV, s_gap = track_uvs(Pt, Ft, sign, bn)
         key = np.round(Pn, 3)
         _, first, inv = np.unique(key, axis=0, return_index=True, return_inverse=True)
         Ps.append(Pn[first]); Fs.append(inv[Fn] + off); off += len(first)
         parts.append(np.full(len(Fn), pi)); uvs.append(UV[Fn])
         print(f"track {pi}: {len(Ft)} -> {len(Fn)} faces, {len(first)} verts")
     for k, nm in enumerate(K["wheels"]):                 # the wheels: own geometry, the shared reference UVs
-        Vw, Fw = VP.wheel_geometry(cfg, nm)
+        Vw, Fw = VP.wheel_geometry(cfg, nm, lifted=True)
         Ps.append(Vw); Fs.append(Fw + off); off += len(Vw)
         parts.append(np.full(len(Fw), nb + len(K["belts"]) + k)); uvs.append(uv_ref)
     P2 = np.concatenate(Ps)

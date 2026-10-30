@@ -12,11 +12,14 @@ extends RefCounted
 ##   gun               under the turret; pitches about the model's lateral axis (2001: TankGguns, LrmPods, ...)
 ##   wheel_*           spins about the lateral axis; radius = half its mesh's height
 ##   steer_*           a steering wheel's pivot: yaws by the steering angle (its wheel_* sits under it)
-##   track_l, track_r  belt meshes: the v3 shader scrolls their UV strip (instance uniform track_strip)
+##   track_l, track_r  belt meshes: the v3 shader scrolls their UV strip (instance uniform track_strip); a side with
+##                     several tread units names them track_l0, track_l1, ... (the MOG's four)
 ## Sidecar res://assets/v3/vehicles/<name>.v3.json, all optional:
 ##   "gun_pitch": [min, max] degrees, up positive; absent = the gun doesn't elevate
 ##   "tracks": {"track_l": [v0, v_len, belt_m], ...}: the belt's UV strip (start, height) along the tread, v increasing
 ##     the way the belt runs when driving forward, and the belt's length in metres
+##   "spin": {"hq_radar": 40, ...}: parts (by node name) that turn about the model's up axis at a constant rate,
+##     degrees per second, clockwise from above (the Mobile HQ's radar dish)
 ## The HD (_hd) and v2 vehicles are one merged hd_body mesh, so only the 2001 models (--no-hd) and v3 parts move.
 
 const LEGACY_GUNS := ["tankgguns", "mog_guns", "lrmpods", "tf_missilepods", "srm_pack", "h_biggun"]
@@ -29,11 +32,13 @@ var gun: Node3D
 var wheels: Array[Node3D] = []
 var steers: Array[Node3D] = []
 var tracks: Array[MeshInstance3D] = []
+var spins := {}  # node -> degrees per second ("spin" in the sidecar)
 var turret_yaw := 0.0  # shown, degrees (+ = clockwise), follows the sim's turret_rel at the turret rate
 var gun_pitch := 0.0  # shown, degrees (+ = up)
 var steer := 0.0  # degrees (+ = right)
 var wheel_turn := 0.0  # radians rolled by a 1 m wheel (each wheel divides by its own radius)
 var belt := Vector2.ZERO  # left, right belt travel in metres
+var spin_time := 0.0  # seconds the spinning parts have run
 
 var _rest := {}  # node -> rest Basis
 var _axis := {}  # node -> [up, lateral] in its parent's frame
@@ -60,7 +65,7 @@ static func build(model: Node3D, sidecar: Dictionary) -> VehicleRig:
 			r.steers.append(n)
 		elif low.begins_with("wheel_"):
 			r.wheels.append(n)
-		elif (low == "track_l" or low == "track_r") and n is MeshInstance3D:
+		elif (low.begins_with("track_l") or low.begins_with("track_r")) and n is MeshInstance3D:
 			r.tracks.append(n)
 	if r.turret:
 		for n in r.turret.find_children("*", "Node3D", true, false):
@@ -77,9 +82,14 @@ static func build(model: Node3D, sidecar: Dictionary) -> VehicleRig:
 		r.gun = null
 	r.wheels.assign(r.wheels.filter(_has_mesh))
 	r.turrets.assign(r.turrets.filter(_has_mesh))
-	if r.turret == null and r.turrets.is_empty() and r.wheels.is_empty() and r.tracks.is_empty():
+	var spin: Dictionary = sidecar.get("spin", {})
+	for nm in spin:
+		var n := model.find_child(String(nm), true, false) as Node3D
+		if n and _has_mesh(n):
+			r.spins[n] = float(spin[nm])
+	if r.turret == null and r.turrets.is_empty() and r.wheels.is_empty() and r.tracks.is_empty() and r.spins.is_empty():
 		return null
-	for n: Node3D in [r.turret, r.gun] + r.turrets + r.wheels + r.steers:
+	for n: Node3D in [r.turret, r.gun] + r.turrets + r.wheels + r.steers + r.spins.keys():
 		if n:
 			r._rest[n] = n.basis
 			var b := _basis_above(n, model).inverse()
@@ -101,8 +111,12 @@ static func build(model: Node3D, sidecar: Dictionary) -> VehicleRig:
 		var s: Array = strips.get(String(t.name).to_lower(), [])
 		if s.size() == 3 and float(s[1]) > 0.0 and float(s[2]) > 0.0:
 			r._strip[t] = s
-	if r.tracks.size() == 2:
-		r._half_track = maxf(absf(_model_origin(r.tracks[0], model).x - _model_origin(r.tracks[1], model).x) / 2.0, 0.3)
+	var xs := {true: [], false: []}  # left?, belt x positions
+	for t in r.tracks:
+		xs[_is_left(t)].append(_model_origin(t, model).x)
+	if not xs[true].is_empty() and not xs[false].is_empty():
+		var mean := func(a: Array) -> float: return a.reduce(func(p, q): return p + q) / a.size()
+		r._half_track = maxf(absf(mean.call(xs[true]) - mean.call(xs[false])) / 2.0, 0.3)
 	var gp: Array = sidecar.get("gun_pitch", [])
 	if gp.size() == 2:
 		r._pitch_limits = Vector2(float(gp[0]), float(gp[1]))
@@ -156,6 +170,7 @@ func update(pos: Vector2, facing: float, turret_rel: float, turret_rate: float, 
 		gun_pitch = move_toward(gun_pitch, want, 30.0 * dt)
 	elif dt > 0.0:
 		gun_pitch = move_toward(gun_pitch, 0.0, 30.0 * dt)
+	spin_time = fmod(spin_time + dt, 3600.0)
 	_pose()
 
 
@@ -170,10 +185,12 @@ func _pose() -> void:
 		_turn(w, 1, wrapf(wheel_turn / float(_radius[w]), -TAU, TAU))  # +X: the top rolls forward (+Z)
 	for s in steers:
 		_turn(s, 0, -deg_to_rad(steer))
+	for n in spins:
+		_turn(n, 0, -deg_to_rad(fmod(float(spins[n]) * spin_time, 360.0)))
 	for t in tracks:
 		var s: Array = _strip.get(t, [])
 		if not s.is_empty():
-			var left := String(t.name).to_lower() == "track_l"
+			var left := _is_left(t)
 			var scroll := fposmod((belt.x if left else belt.y) / float(s[2]), 1.0)
 			t.set_instance_shader_parameter("track_strip", Vector3(float(s[0]), float(s[1]), scroll))
 
@@ -192,6 +209,10 @@ static func _basis_above(n: Node3D, model: Node3D) -> Basis:
 			break
 		p = p.get_parent()
 	return b
+
+
+static func _is_left(t: Node) -> bool:
+	return String(t.name).to_lower().begins_with("track_l")
 
 
 static func _has_mesh(n: Node3D) -> bool:

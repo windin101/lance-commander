@@ -101,13 +101,17 @@ def wheel_names(cfg):
     return [f"wheel_{s}{i}" for s in "lr" for i in range(n)]
 
 
-def wheel_geometry(cfg, name):
-    """(V, F) in world mm for the named wheel."""
+def wheel_geometry(cfg, name, lifted=False):
+    """(V, F) in world mm for the named wheel. lifted=True adds the unit's `lift_mm` ground shift: veh_prep adds it to every vertex
+    itself, but veh_lowpoly builds the wheels afresh, so it must lift them too or they sit off their axle node (LANCE-19 fix)."""
     wc = cfg["wheels"]
     side = 1 if name.startswith("wheel_l") else -1
     y, z, rad = wc["list"][int(name[7:])][:3]
     Vw, Fw = make_wheel(rad, wheel_width(cfg), wc.get("seg", 36))
-    return wheel_world(cfg, side, y, z, Vw), Fw
+    Vw_ = wheel_world(cfg, side, y, z, Vw)
+    if lifted:
+        Vw_ = Vw_ + np.array([0.0, 0.0, float(cfg.get("lift_mm", 0.0))])
+    return Vw_, Fw
 
 
 # ---- belts ------------------------------------------------------------------------------------------------------
@@ -168,11 +172,14 @@ def classify_loop(tc, T, C, sign):
     return inx & (d < tc["thick"]) & (C[:, 2] < tc.get("zmax", 1e9))
 
 
-def place_nodes(g, nodes, reparent=None):
+def place_nodes(g, nodes, reparent=None, reset_rot=None):
     """cfg "nodes": {name: [x, y, z]}: move that node's pivot to this world position (game mm, Z up, forward -Y), keeping
     its children where they are in the world (their local translations are compensated; every ancestor must be unrotated,
     and so must the node itself, or its children's frame would turn)."""
     N = g["nodes"]
+    for n_ in N:                                       # "reset_rot": nodes whose own rotation is dropped (a gun node the kit's pose replaces)
+        if n_.get("name") in (reset_rot or []):
+            n_.pop("rotation", None)
     par = {c: i for i, n in enumerate(N) for c in n.get("children", [])}
     byname = {n.get("name"): i for i, n in enumerate(N)}
 
@@ -259,8 +266,10 @@ def main(unit=None):
     n_orig = n0 - len(new_nodes)
     tc = cfg.get("tracks")
     if tc:
-        for sign, nm in ((1, "track_l"), (-1, "track_r")):
-            sel = (classify_envelope if tc["mode"] == "envelope" else classify_loop)(tc, T, C, sign)
+        units = [(u["sign"], u["name"], dict(tc, circles=u["circles"])) for u in tc["units"]] if tc.get("units") else \
+            [(1, "track_l", tc), (-1, "track_r", tc)]       # "units": belts of their own (the MOG: track_l0, track_l1, track_r0, track_r1)
+        for sign, nm, tcu in units:
+            sel = (classify_envelope if tc["mode"] == "envelope" else classify_loop)(tcu, T, C, sign)
             names.append(nm)
             lab[m[sel]] = len(names) - 1
             print(f"{nm}: {int(sel.sum())} faces")
@@ -320,7 +329,7 @@ def main(unit=None):
         pi = [i for i, n in enumerate(g["nodes"]) if n.get("name") == parent][0]
         g["nodes"][pi].setdefault("children", []).append(len(g["nodes"]) - 1)
     if tc:
-        for nm, x in (("track_l", tc["node_x_m"]), ("track_r", -tc["node_x_m"])):
+        for nm, x in [(nm_, (1 if nm_.startswith("track_l") else -1) * tc["node_x_m"]) for nm_ in names[n0:] if nm_.startswith("track_")]:
             g["nodes"].append({"name": nm, "translation": [x, 0.0, 0.0]})
             g["nodes"][root].setdefault("children", []).append(len(g["nodes"]) - 1)
     for k in ("images", "textures", "samplers", "materials", "skins"):
@@ -343,7 +352,7 @@ def main(unit=None):
             ax, ay, az, rad = axles[nm]      # wheel nodes pivot on their axle (glTF metres, relative to the root)
             g["nodes"].append({"name": nm, "translation": (np.array([ax, az, -ay]) / 1000.0 - rt).tolist()})
             g["nodes"][root].setdefault("children", []).append(len(g["nodes"]) - 1)
-    place_nodes(g, {k: [v[0], v[1], v[2] + lift] for k, v in cfg.get("nodes", {}).items()}, cfg.get("reparent", {}))
+    place_nodes(g, {k: [v[0], v[1], v[2] + lift] for k, v in cfg.get("nodes", {}).items()}, cfg.get("reparent", {}), cfg.get("reset_rot"))
     assert [n.get("name") for n in g["nodes"][n_orig:]] == names[n_orig:], "glb node order must match fit.json node_names"
     for fn in (f"{unit}_base.glb", "skel.glb"):   # skel.glb: what v3_mech.v2_setup reads from the work dir
         R.GlbWriter(g, b).write(str(DST / fn))
