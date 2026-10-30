@@ -1,0 +1,33 @@
+{
+ "model": "cargotruck.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "SciFi Vehicle Set 2 - Medium Trucks and Buses - 6mm (Truck Scania35p)",
+  "author": "Shiaic3D",
+  "url": "https://www.printables.com/model/108619",
+  "licence": "CC BY 4.0",
+  "file": "BT-v_Truck-Scania35p-6mm.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 5, 2026-10-31), differs from the mech text above: no joints or actuators. RIGHTS: Shiaic3D, SciFi Vehicle Set 2 (Printables 108619), labelled CC BY 4.0; a remix of untraced originals, the shape after a real brand design; rights unverified; Lee accepted the risk on 2026-10-31. The fit is level (`no_icp` in cargotruck_veh.json); the kit is the v1 `scania_sub.stl` (the subdivided `BT-v_Truck-Scania35p-6mm.stl`). WHEELED: tractor and trailer in one fused hull, 5 axles (10 wheels `wheel_l0`..`wheel_r4`, OWN GEOMETRY, `make_wheel`, on axles fitted to the kit's wheel arches; the kit's wheel faces were cut from the hull; this own geometry is part of the derivative); the front pair is under `steer_l0`/`steer_r0`. The container with its red mark is part of the original model; the kit's trailer is a plain box, so no part-level change. The kit's grille carries the embossed brand name \"SCANIA\" (a real trademark): the vertices of the lettering are pressed flat onto the grille panel (`flatten` in cargotruck_prep.json, `veh_prep.py`); the shape is kept, the mark is gone. No turret or gun. Welded at 3 mm and planar-dissolved at 3 degrees."
+ },
+ "tris": 69973,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 2377731,
+  "chip_share": 0.009158311011632518,
+  "grime_mean": 0.31802693009376526,
+  "paint_share": 0.7298836579915895,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 168328,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

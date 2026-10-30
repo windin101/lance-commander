@@ -337,6 +337,11 @@ def main(unit=None):
         lab[sel] = names.index(sp["new"])
         f["xform"][str(names.index(sp["new"]))] = np.eye(4).tolist()
         print(f"split: {int(sel.sum())} faces of {sp['from']} -> {sp['new']}")
+    for fl in cfg.get("flatten", []):                      # "flatten": [{"min", "max", "y": plane}]: embossed marks (a brand name) pressed flat:
+        lo_, hi_ = np.asarray(fl["min"], float), np.asarray(fl["max"], float)   # vertices in the box in front of the plane (y < plane) move onto it
+        inb = np.all((V >= lo_) & (V <= hi_), 1) & (V[:, 1] < fl["y"])
+        V = V.copy(); V[inb, 1] = fl["y"]
+        print(f"flatten: {int(inb.sum())} vertices onto y {fl['y']}")
     for dp in cfg.get("drop_parts", []):                  # parts the unit does not have (the Harasser's second launcher)
         keep_ = lab != names.index(dp)
         print(f"drop_parts: {int((~keep_).sum())} faces of {dp}")

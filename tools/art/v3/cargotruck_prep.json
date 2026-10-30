@@ -1,0 +1,64 @@
+{
+ "_doc": "LANCE-19 batch 5: cargo truck from Shiaic3D's Scania35p (rights unverified, Lee accepted 2026-10-31); 5 axles, front steers.",
+ "unit": "cargotruck",
+ "hull": "cargotruck",
+ "wheels": {
+  "x0": 1000.0,
+  "x1": 1340.0,
+  "pad": 10.0,
+  "seg": 36,
+  "steer": [
+   0
+  ],
+  "list": [
+   [
+    -4295,
+    600,
+    600
+   ],
+   [
+    -2132,
+    600,
+    600
+   ],
+   [
+    -1132,
+    600,
+    600
+   ],
+   [
+    3805,
+    600,
+    600
+   ],
+   [
+    5055,
+    600,
+    600
+   ]
+  ]
+ },
+ "require_meshes": [],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 3.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 5, 2026-10-31), differs from the mech text above: no joints or actuators. RIGHTS: Shiaic3D, SciFi Vehicle Set 2 (Printables 108619), labelled CC BY 4.0; a remix of untraced originals, the shape after a real brand design; rights unverified; Lee accepted the risk on 2026-10-31. The fit is level (`no_icp` in cargotruck_veh.json); the kit is the v1 `scania_sub.stl` (the subdivided `BT-v_Truck-Scania35p-6mm.stl`). WHEELED: tractor and trailer in one fused hull, 5 axles (10 wheels `wheel_l0`..`wheel_r4`, OWN GEOMETRY, `make_wheel`, on axles fitted to the kit's wheel arches; the kit's wheel faces were cut from the hull; this own geometry is part of the derivative); the front pair is under `steer_l0`/`steer_r0`. The container with its red mark is part of the original model; the kit's trailer is a plain box, so no part-level change. The kit's grille carries the embossed brand name \"SCANIA\" (a real trademark): the vertices of the lettering are pressed flat onto the grille panel (`flatten` in cargotruck_prep.json, `veh_prep.py`); the shape is kept, the mark is gone. No turret or gun. Welded at 3 mm and planar-dissolved at 3 degrees.",
+ "flatten": [
+  {
+   "min": [
+    -360,
+    -5700,
+    1395
+   ],
+   "max": [
+    360,
+    -5000,
+    1560
+   ],
+   "y": -5538.0
+  }
+ ]
+}
