@@ -852,9 +852,10 @@ class Rig:
                 n["translation"] = (new_world[i] - new_world[parent[i]]).tolist()
             else:
                 n["translation"] = new_world[i].tolist()
-        self.root_delta = new_world[names.index("joint_root")] - W0[names.index("joint_root")][:3, 3]
+        has_root = "joint_root" in names   # a vehicle (LANCE-18, the Hunter) has no skeleton and no animations
+        self.root_delta = (new_world[names.index("joint_root")] - W0[names.index("joint_root")][:3, 3]) if has_root else np.zeros(3)
         self.an = PT.Animator(g, b)
-        ri = names.index("joint_root")
+        ri = names.index("joint_root") if has_root else -1
         for k, (tracks, dur) in self.an.anims.items():
             for ti, (node, path, t, v, interp) in enumerate(tracks):
                 if node == ri and path == "translation":

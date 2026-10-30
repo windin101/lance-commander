@@ -287,7 +287,7 @@ def v2_setup(cfg):
     for idx, M_ in f["xform"].items():
         idx = int(idx); nm = names[idx]
         M_ = np.array(M_)
-        j = idx if nm.startswith("joint_") else parent[idx]      # the joint the part rides
+        j = idx if nm.startswith("joint_") or idx not in parent else parent[idx]   # the joint the part rides (a vehicle's root node rides itself)
         jn = names[j]
         pj = parent.get(j)
         par_part = None

@@ -1,0 +1,8 @@
+{
+ "yaw": 90,
+ "no_icp": true,
+ "faces": 50000,
+ "drop": [3, 4, 5],
+ "mount": [{"comp": 0, "node": "Hunter_Turret", "offset": [0, 0.27]}],
+ "_from": "original/hd/hunter/provenance.json joints (the approved v1 fit), 2026-10-30"
+}

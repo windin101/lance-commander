@@ -140,7 +140,7 @@ def lowpoly():
             bpy.context.view_layer.objects.active = ob; ob.select_set(True)
             bpy.ops.object.mode_set(mode="EDIT")
             bpy.ops.mesh.select_all(action="SELECT")
-            bpy.ops.mesh.remove_doubles(threshold=0.0002)
+            bpy.ops.mesh.remove_doubles(threshold=float(opt.get("weld_m", 0.0002)))
             bpy.ops.mesh.dissolve_limited(angle_limit=math.radians(float(opt.get("planar_deg", 1.0))), delimit={"NORMAL"})
             bpy.ops.mesh.quads_convert_to_tris(quad_method="BEAUTY", ngon_method="BEAUTY")
             bpy.ops.object.mode_set(mode="OBJECT")
