@@ -1,0 +1,69 @@
+{
+ "_doc": "v3 settings for the harasser (LANCE-19): rigid vehicle, moving parts split out by tools/art/v3/veh_prep.py from harasser_prep.json (work dir harasser_tracks), fit from tools/art/v3/harasser_veh.json via v3_rigid.py.",
+ "name": "harasser",
+ "folder": "vehicles",
+ "stl": "/home/leeo/craft/solid/mc2/tv_stl/6734633/x/files/Harasser_hovercraft.stl",
+ "source": {
+  "title": "Harasser Hovercraft",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:6734633",
+  "licence": "CC BY-SA 4.0",
+  "file": "Harasser_hovercraft.stl",
+  "notes": "Vehicle rework (LANCE-19, 2026-10-30), differs from the mech text above: no joints or actuators. HOVER craft: no wheels, no tracks. The fit is level (`no_icp` in harasser_veh.json; the v1 ICP pitched the kit 12 degrees nose-down). The kit has TWO box launcher racks; MC2's Harasser has ONE small launcher pod with two weapon nodes (one turret, full traverse). Revision 2 (Lee, 2026-10-30): one launcher was removed (`drop_parts`: the v1 fit's `weapon_02` rack) and the other (`weapon_01`) re-seated on the hull's top centreline over the kit's round deck ring as the part `turret` (a node under the hull, turns about the vertical axis through the ring centre); the two muzzle nodes weapon_01 / weapon_02 are re-parented under it, one per tube row on the rack's front. The rack keeps the kit's raised pose; no `gun` part. Needle triangles left by the kit's simplification were dropped. Welded at 3 mm and planar-dissolved at 8 degrees, no collapse. (Revision 1 had both racks as `turret_l` / `turret_r`.)"
+ },
+ "k": 1.0,
+ "base_glb": "/mnt/nvme1n1p1/mc2-rework/work/harasser_tracks/harasser_base.glb",
+ "max_edge_mm": 0,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/harasser_tracks",
+ "glass_from_v2": false,
+ "auto_actuators": false,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 50000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 37,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 450,
+  "chip_scale_mm": 180,
+  "exposure": {}
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "rigid": true,
+ "part_region": {
+  "harasser": "body",
+  "turret": "body"
+ },
+ "feet": [],
+ "joints": {},
+ "bare_prefix": "wheel_"
+}

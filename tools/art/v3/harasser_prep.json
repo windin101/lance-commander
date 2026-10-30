@@ -1,0 +1,70 @@
+{
+ "_doc": "LANCE-19 batch 1 (rev 2): Harasser hovercraft (RGriffin65). No wheels or tracks. ONE launcher turret (the original's single pod): the kit's second rack is dropped, the kept one re-seated on the hull's top centreline.",
+ "unit": "harasser",
+ "hull": "harasser",
+ "drop_slivers": {
+  "min_edge": 600.0,
+  "max_alt": 30.0
+ },
+ "split": [
+  {
+   "from": "weapon_01",
+   "new": "turret",
+   "node_parent": "harasser",
+   "min": [
+    -1000000.0,
+    -1000000.0,
+    -1000000.0
+   ],
+   "max": [
+    1000000.0,
+    1000000.0,
+    1000000.0
+   ]
+  }
+ ],
+ "nodes": {
+  "turret": [
+   0,
+   660,
+   1350
+  ],
+  "weapon_01": [
+   0,
+   -340,
+   2380
+  ],
+  "weapon_02": [
+   0,
+   -300,
+   2130
+  ]
+ },
+ "reparent": {
+  "weapon_01": "turret",
+  "weapon_02": "turret"
+ },
+ "require_meshes": [
+  "turret"
+ ],
+ "sidecar": {},
+ "notes": "Vehicle rework (LANCE-19, 2026-10-30), differs from the mech text above: no joints or actuators. HOVER craft: no wheels, no tracks. The fit is level (`no_icp` in harasser_veh.json; the v1 ICP pitched the kit 12 degrees nose-down). The kit has TWO box launcher racks; MC2's Harasser has ONE small launcher pod with two weapon nodes (one turret, full traverse). Revision 2 (Lee, 2026-10-30): one launcher was removed (`drop_parts`: the v1 fit's `weapon_02` rack) and the other (`weapon_01`) re-seated on the hull's top centreline over the kit's round deck ring as the part `turret` (a node under the hull, turns about the vertical axis through the ring centre); the two muzzle nodes weapon_01 / weapon_02 are re-parented under it, one per tube row on the rack's front. The rack keeps the kit's raised pose; no `gun` part. Needle triangles left by the kit's simplification were dropped. Welded at 3 mm and planar-dissolved at 8 degrees, no collapse. (Revision 1 had both racks as `turret_l` / `turret_r`.)",
+ "lowpoly": {
+  "budget": 60000,
+  "planar_deg": 8.0,
+  "weld_m": 0.003
+ },
+ "drop_parts": [
+  "weapon_02"
+ ],
+ "shift": [
+  {
+   "parts": [
+    "turret"
+   ],
+   "dx": 1066.0,
+   "dy": 1117.0,
+   "dz": 0.0
+  }
+ ]
+}

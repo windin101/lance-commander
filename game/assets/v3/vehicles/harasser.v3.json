@@ -1,0 +1,33 @@
+{
+ "model": "harasser.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Harasser Hovercraft",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:6734633",
+  "licence": "CC BY-SA 4.0",
+  "file": "Harasser_hovercraft.stl",
+  "notes": "Vehicle rework (LANCE-19, 2026-10-30), differs from the mech text above: no joints or actuators. HOVER craft: no wheels, no tracks. The fit is level (`no_icp` in harasser_veh.json; the v1 ICP pitched the kit 12 degrees nose-down). The kit has TWO box launcher racks; MC2's Harasser has ONE small launcher pod with two weapon nodes (one turret, full traverse). Revision 2 (Lee, 2026-10-30): one launcher was removed (`drop_parts`: the v1 fit's `weapon_02` rack) and the other (`weapon_01`) re-seated on the hull's top centreline over the kit's round deck ring as the part `turret` (a node under the hull, turns about the vertical axis through the ring centre); the two muzzle nodes weapon_01 / weapon_02 are re-parented under it, one per tube row on the rack's front. The rack keeps the kit's raised pose; no `gun` part. Needle triangles left by the kit's simplification were dropped. Welded at 3 mm and planar-dissolved at 8 degrees, no collapse. (Revision 1 had both racks as `turret_l` / `turret_r`.)"
+ },
+ "tris": 78408,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 965082,
+  "chip_share": 0.012262170468416156,
+  "grime_mean": 0.5332849025726318,
+  "paint_share": 0.4670908793242439,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 78016,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}
