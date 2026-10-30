@@ -36,6 +36,18 @@ def up():
 def restart_comfy():
     pidfile = LOGS / "comfy.pid"
     port = SERVER.rsplit(":", 1)[1]
+    # Since 2026-10-30 ComfyUI runs as systemd user units pinned to a GPU (comfyui@main = 07:00.0 on 8188,
+    # comfyui@lease = 03:00.0 on 8190 via gpu-lease). Restart the unit; a hand start here would land on
+    # whatever HIP calls device 0, which is the LLM card.
+    unit = {"8188": "comfyui@main", "8190": "comfyui@lease"}.get(port)
+    if unit and subprocess.run(["systemctl", "--user", "is-active", "-q", unit]).returncode == 0:
+        subprocess.run(["systemctl", "--user", "restart", unit], check=True)
+        for _ in range(120):
+            time.sleep(5)
+            if up():
+                print(f"  ComfyUI restarted ({unit})", flush=True)
+                return
+        raise RuntimeError(f"{unit} did not come back")
     if pidfile.exists():
         try:
             os.kill(int(pidfile.read_text()), signal.SIGTERM)
