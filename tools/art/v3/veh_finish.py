@@ -36,6 +36,12 @@ def main(unit):
     for k, v in sc.items():
         side[k] = v
     (DST / f"{unit}.v3.json").write_text(json.dumps(side, indent=1))
+    cj = json.loads((HERE / f"{unit}.json").read_text())
+    if cj["source"].get("licence") == "CC BY 4.0":   # Shiaic3D's kits: v3_stages writes the NC-SA text, rewrite it for plain CC BY
+        lp = DST / f"{unit}.LICENSE.md"
+        t = (lp.read_text().replace("Attribution-NonCommercial-ShareAlike 4.0", "Attribution 4.0").replace("CC BY-NC-SA 4.0", "CC BY 4.0")
+             .replace("licenses/by-nc-sa/4.0", "licenses/by/4.0").replace("(share-alike with credit", "(with credit"))
+        lp.write_text(t)
     g, b = R.load_glb(str(DST / f"{unit}.glb"))
     names = {n.get("name"): n for n in g["nodes"]}
     need = cfg.get("require_meshes", [])

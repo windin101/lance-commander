@@ -1,0 +1,34 @@
+{
+ "_doc": "LANCE-19 batch 4: Light Wheeled APC (RGriffin65), same kit as the armoured car; 2 axles, front steers.",
+ "unit": "apc",
+ "hull": "APC",
+ "wheels": {
+  "x0": 900.0,
+  "x1": 1620.0,
+  "pad": 10.0,
+  "seg": 36,
+  "steer": [
+   0
+  ],
+  "list": [
+   [
+    -1866,
+    776,
+    673
+   ],
+   [
+    1746,
+    724,
+    653
+   ]
+  ]
+ },
+ "require_meshes": [],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 3.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 4, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in apc_veh.json). Moving parts split by `tools/art/v3/veh_prep.py` (apc_prep.json). The wheels (`wheel_*`) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above the per-part budget (no Blender collapse on shell soup). WHEELED, 2 axles (the original is a 4-wheel hexagonal-wheel APC). The SAME kit as the armoured car (`armoredcar`), at another scale. The front pair is under `steer_*` pivots. No turret or gun (the original has none)."
+}

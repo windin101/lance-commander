@@ -1,0 +1,46 @@
+{
+ "model": "minelayer.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Minelayer",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:6916656",
+  "licence": "CC BY-SA 4.0",
+  "file": "Minelayer.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 4, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in minelayer_veh.json). Moving parts split by `tools/art/v3/veh_prep.py` (minelayer_prep.json). The wheels (`wheel_*`) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above the per-part budget (no Blender collapse on shell soup). TRACKED: belts `track_l`/`track_r` (faces within 110 mm of the closed belt path round the seven wheels a side; strip 2 x 185 mm). The kit has a hexagonal tower on the deck and a rear plough arm, both static (the original is a low flat tracked hull with a tower and a plough; the rig has no part for them)."
+ },
+ "tris": 108444,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 1331781,
+  "chip_share": 0.03499599408611476,
+  "grime_mean": 0.6934946775436401,
+  "paint_share": 0.2330645954552588,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 168691,
+  "stripe_texels": 0,
+  "band_texels": 0
+ },
+ "tracks": {
+  "track_l": [
+   0.875977,
+   0.123047,
+   0.37
+  ],
+  "track_r": [
+   0.875977,
+   0.123047,
+   0.37
+  ]
+ },
+ "tracks_note": "both belts share one tread strip (v0, v_len, belt_m): veh_lowpoly.py maps each belt's arclength modulo belt_m (2 link pitches) into it, track_l in the left half of the atlas strip, track_r in the right; v increases toward the rear on the visible ground run"
+}

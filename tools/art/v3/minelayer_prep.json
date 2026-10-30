@@ -1,0 +1,112 @@
+{
+ "_doc": "LANCE-19 batch 4: Minelayer (RGriffin65), tracked; seven wheels a side.",
+ "unit": "minelayer",
+ "hull": "MineLayer",
+ "tracks": {
+  "mode": "loop",
+  "xlo": 1550.0,
+  "xhi": 2250.0,
+  "thick": 110.0,
+  "off": 50.0,
+  "zmax": 1300.0,
+  "node_x_m": 1.9,
+  "circles": [
+   [
+    -2154,
+    788,
+    344
+   ],
+   [
+    -1386,
+    492,
+    346
+   ],
+   [
+    -510,
+    496,
+    395
+   ],
+   [
+    262,
+    472,
+    379
+   ],
+   [
+    1034,
+    496,
+    395
+   ],
+   [
+    1866,
+    476,
+    373
+   ],
+   [
+    2762,
+    768,
+    425
+   ]
+  ],
+  "xin": 1550.0,
+  "pitch_mm": 185.0,
+  "n_links": 2,
+  "gap_y": 27.5,
+  "col_w": [
+   700.0,
+   700.0,
+   150.0,
+   150.0
+  ]
+ },
+ "wheels": {
+  "x0": 1650.0,
+  "x1": 1900.0,
+  "pad": 10.0,
+  "seg": 36,
+  "list": [
+   [
+    -2154,
+    788,
+    344
+   ],
+   [
+    -1386,
+    492,
+    346
+   ],
+   [
+    -510,
+    496,
+    395
+   ],
+   [
+    262,
+    472,
+    379
+   ],
+   [
+    1034,
+    496,
+    395
+   ],
+   [
+    1866,
+    476,
+    373
+   ],
+   [
+    2762,
+    768,
+    425
+   ]
+  ]
+ },
+ "require_meshes": [],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 3.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 4, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in minelayer_veh.json). Moving parts split by `tools/art/v3/veh_prep.py` (minelayer_prep.json). The wheels (`wheel_*`) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above the per-part budget (no Blender collapse on shell soup). TRACKED: belts `track_l`/`track_r` (faces within 110 mm of the closed belt path round the seven wheels a side; strip 2 x 185 mm). The kit has a hexagonal tower on the deck and a rear plough arm, both static (the original is a low flat tracked hull with a tower and a plough; the rig has no part for them)."
+}

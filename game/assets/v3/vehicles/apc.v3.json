@@ -1,0 +1,33 @@
+{
+ "model": "apc.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Light Wheeled APC",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:7358113",
+  "licence": "CC BY-SA 4.0",
+  "file": "Light_Wheeled_APC.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 4, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in apc_veh.json). Moving parts split by `tools/art/v3/veh_prep.py` (apc_prep.json). The wheels (`wheel_*`) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above the per-part budget (no Blender collapse on shell soup). WHEELED, 2 axles (the original is a 4-wheel hexagonal-wheel APC). The SAME kit as the armoured car (`armoredcar`), at another scale. The front pair is under `steer_*` pivots. No turret or gun (the original has none)."
+ },
+ "tris": 83168,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 1252982,
+  "chip_share": 0.013569229246709051,
+  "grime_mean": 0.4483824372291565,
+  "paint_share": 0.5379031781781383,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 135248,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

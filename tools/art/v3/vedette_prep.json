@@ -1,0 +1,126 @@
+{
+ "_doc": "LANCE-19 batch 4: Vedette (Shiaic3D Vedariant hull + Tank-Schrek turret), tracked.",
+ "unit": "vedette",
+ "hull": "Vedette Body",
+ "tracks": {
+  "mode": "loop",
+  "xlo": 1850.0,
+  "xhi": 2300.0,
+  "thick": 120.0,
+  "off": 0.0,
+  "zmax": 1200.0,
+  "node_x_m": 2.1,
+  "circles": [
+   [
+    -2900,
+    520,
+    500
+   ],
+   [
+    -1800,
+    350,
+    330
+   ],
+   [
+    -720,
+    350,
+    330
+   ],
+   [
+    360,
+    350,
+    330
+   ],
+   [
+    1440,
+    350,
+    330
+   ],
+   [
+    2520,
+    350,
+    330
+   ],
+   [
+    2900,
+    520,
+    500
+   ]
+  ],
+  "xin": 1850.0,
+  "pitch_mm": 220.0,
+  "n_links": 2,
+  "gap_y": 0.0,
+  "col_w": [
+   450.0,
+   450.0,
+   120.0,
+   120.0
+  ]
+ },
+ "wheels": {
+  "x0": 2060.0,
+  "x1": 2330.0,
+  "pad": 10.0,
+  "seg": 36,
+  "list": [
+   [
+    -2900,
+    520,
+    500
+   ],
+   [
+    -1800,
+    350,
+    330
+   ],
+   [
+    -720,
+    350,
+    330
+   ],
+   [
+    360,
+    350,
+    330
+   ],
+   [
+    1440,
+    350,
+    330
+   ],
+   [
+    2520,
+    350,
+    330
+   ],
+   [
+    2900,
+    520,
+    500
+   ]
+  ]
+ },
+ "nodes": {
+  "Vedette Turret": [
+   0,
+   650,
+   2050
+  ],
+  "weapon_01": [
+   0,
+   -4300,
+   2400
+  ]
+ },
+ "require_meshes": [
+  "Vedette Turret"
+ ],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 1.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 4, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in vedette_veh.json). Moving parts split by `tools/art/v3/veh_prep.py` (vedette_prep.json). The wheels (`wheel_*`) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; this own geometry is part of the derivative. Welded at 3 mm and planar-dissolved at 3 degrees, collapse only above the per-part budget (no Blender collapse on shell soup). TRACKED, low-poly 6 mm kit (hull and the Tank-Schrek turret, two STLs); the turret `Vedette Turret` turns about its ring (pivot moved to the turret body centre). Belts `track_l`/`track_r` (faces within 120 mm of the closed belt path; the kit's tracks are plain slabs, so the belt is the slab with a tread strip of 2 x 220 mm); seven wheels a side are own geometry on the slab's outer face. One long gun that is part of the turret (no `gun` part, as in the original). The planar dissolve is 1 degree because the kit is already low-poly."
+}

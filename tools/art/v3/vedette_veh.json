@@ -1,0 +1,31 @@
+{
+ "mount": [
+  {
+   "comp": 1,
+   "node": "Vedette Turret",
+   "rot": 90,
+   "offset": [
+    0,
+    0.4
+   ],
+   "lift": -0.25
+  }
+ ],
+ "parts_box": [
+  {
+   "node": "Vedette Body",
+   "min": [
+    -5,
+    -1,
+    -6
+   ],
+   "max": [
+    5,
+    2.05,
+    6
+   ]
+  }
+ ],
+ "no_icp": true,
+ "_from": "original/hd/vedette/provenance.json joints (the approved v1 fit), 2026-10-31; no_icp (LANCE-19)"
+}
