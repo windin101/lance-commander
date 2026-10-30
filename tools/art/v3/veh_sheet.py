@@ -22,6 +22,9 @@ SHOTS = {
     "wl1": dict(yaw=-90, pitch=0, fill=1.7, focus=0.12, rig={"turret": 0, "travel": 0.5}),
     "st0": dict(yaw=-90, pitch=68, fill=1.1, rig={"turret": 0, "steer": 0}),
     "st1": dict(yaw=-90, pitch=68, fill=1.1, rig={"turret": 0, "steer": 35}),
+    "sp0": dict(yaw=-35, pitch=62, fill=2.0, focus=0.8, rig={"spin_time": 0.0}),
+    "sp1": dict(yaw=-35, pitch=62, fill=2.0, focus=0.8, rig={"spin_time": 3.0}),
+    "sp2": dict(yaw=-35, pitch=62, fill=2.0, focus=0.8, rig={"spin_time": 6.0}),
     "front": dict(yaw=-5, pitch=12, fill=0.85, rig={"turret": 0}),
 }
 

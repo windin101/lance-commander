@@ -1,0 +1,241 @@
+{
+ "_doc": "LANCE-19 batch 2: Mobile Orbital Gun (RGriffin65). Turret + twin barrels (gun); the four tread units stay one static part (the rig takes two belts).",
+ "unit": "mog",
+ "hull": "MOG_Body",
+ "split": [
+  {
+   "from": "Mog_Turret",
+   "new": "Mog_Guns",
+   "node_parent": "Mog_Turret",
+   "min": [
+    -5000,
+    -10100,
+    6500
+   ],
+   "max": [
+    5000,
+    -1500,
+    10700
+   ]
+  }
+ ],
+ "nodes": {
+  "Mog_Turret": [
+   0,
+   4600,
+   4200
+  ],
+  "Mog_Guns": [
+   0,
+   -1500,
+   8300
+  ],
+  "weapon_01": [
+   -1500,
+   -10000,
+   8300
+  ],
+  "weapon_02": [
+   1500,
+   -10000,
+   8300
+  ]
+ },
+ "reparent": {
+  "weapon_01": "Mog_Guns",
+  "weapon_02": "Mog_Guns"
+ },
+ "require_meshes": [
+  "Mog_Turret",
+  "Mog_Guns"
+ ],
+ "sidecar": {
+  "gun_pitch": [
+   -5,
+   50
+  ]
+ },
+ "lowpoly": {
+  "budget": 60000,
+  "planar_deg": 8.0,
+  "weld_m": 0.003,
+  "budget_parts": {
+   "MOG_Body": 70000,
+   "track_l0": 30000,
+   "track_l1": 30000,
+   "track_r0": 30000,
+   "track_r1": 30000
+  }
+ },
+ "reset_rot": [
+  "Mog_Guns"
+ ],
+ "notes": "Vehicle rework (LANCE-19 batch 2, rev 2 2026-10-30), differs from the mech text above: no joints or actuators. TRACKED; the kit's treads are eight units (four a side: an inner and an outer column for each of the front and rear bogies). Revision 2: each bogie's inner and outer column is ONE belt part, so the model has four belts `track_l0`, `track_l1`, `track_r0`, `track_r1` (the faces within 260 mm of the closed belt path round the bogie's end wheels, over the whole belt width), each on the shared tread strip (two link pitches, 0.415 m; the belts are wide, so the strip's u resolution is coarse); `VehicleRig` takes any `track_l*`/`track_r*` mesh as a belt. The ten wheels a side (`wheel_l0`..`wheel_r9`: five a bogie, on the outer face of the outer column) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on the kit's axle caps; the kit's cap faces were cut from the hull. This own geometry is part of the CC BY-SA 4.0 derivative. The inner column's road wheels are not modelled (they are inside the belt). The two-part kit (hull+treads `Mobile_Orbital_Gun_.stl` and the stowed turret `Mobile_Orbital_Gun_turret__stowed.stl`) was fitted level (`no_icp`); the turret (`Mog_Turret`) turns about the kit's neck ring, the twin barrels (`Mog_Guns`, carved out of the turret, pivot at the dome front) elevate, `gun_pitch` [-5, 50] (no original value found). The belts and the hull are reduced by collapse (the treads are a dense 1M-face mesh), the rest by weld 3 mm + planar dissolve 8 degrees.",
+ "merge": {
+  "MOG_Treads": "MOG_Body"
+ },
+ "tracks": {
+  "mode": "loop",
+  "xlo": 3000.0,
+  "xhi": 9400.0,
+  "thick": 260.0,
+  "off": 0.0,
+  "zmax": 3200.0,
+  "node_x_m": 6.0,
+  "units": [
+   {
+    "name": "track_l0",
+    "sign": 1,
+    "circles": [
+     [
+      -8950,
+      1000,
+      1000
+     ],
+     [
+      -2430,
+      1000,
+      1000
+     ],
+     [
+      -5600,
+      1900,
+      850
+     ]
+    ]
+   },
+   {
+    "name": "track_l1",
+    "sign": 1,
+    "circles": [
+     [
+      2150,
+      1000,
+      1000
+     ],
+     [
+      8670,
+      1000,
+      1000
+     ],
+     [
+      5400,
+      1900,
+      850
+     ]
+    ]
+   },
+   {
+    "name": "track_r0",
+    "sign": -1,
+    "circles": [
+     [
+      -8950,
+      1000,
+      1000
+     ],
+     [
+      -2430,
+      1000,
+      1000
+     ],
+     [
+      -5600,
+      1900,
+      850
+     ]
+    ]
+   },
+   {
+    "name": "track_r1",
+    "sign": -1,
+    "circles": [
+     [
+      2150,
+      1000,
+      1000
+     ],
+     [
+      8670,
+      1000,
+      1000
+     ],
+     [
+      5400,
+      1900,
+      850
+     ]
+    ]
+   }
+  ],
+  "xin": 3000.0,
+  "pitch_mm": 207.5,
+  "n_links": 2,
+  "gap_y": 0.0,
+  "u_sc": 0.07,
+  "col_w": [
+   6400.0,
+   6400.0,
+   300.0,
+   300.0
+  ]
+ },
+ "wheels": {
+  "x0": 8150.0,
+  "x1": 8600.0,
+  "pad": 15.0,
+  "seg": 36,
+  "list": [
+   [
+    -8950,
+    1000,
+    420
+   ],
+   [
+    -7320,
+    1000,
+    420
+   ],
+   [
+    -5690,
+    1000,
+    420
+   ],
+   [
+    -4060,
+    1000,
+    420
+   ],
+   [
+    -2430,
+    1000,
+    420
+   ],
+   [
+    2150,
+    1000,
+    420
+   ],
+   [
+    3780,
+    1000,
+    420
+   ],
+   [
+    5410,
+    1000,
+    420
+   ],
+   [
+    7040,
+    1000,
+    420
+   ],
+   [
+    8670,
+    1000,
+    420
+   ]
+  ]
+ }
+}

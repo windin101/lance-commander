@@ -1,0 +1,81 @@
+{
+ "_doc": "LANCE-19 batch 2: Praetorian Mobile HQ (RGriffin65). Front axle steers, two rear wheels; the radar dish is a separate part.",
+ "unit": "mobilehq",
+ "hull": "HQ_Body",
+ "merge": {
+  "hq_frontwheels": "HQ_Body",
+  "hq_module": "HQ_Body"
+ },
+ "drop_slivers": {
+  "min_edge": 1000.0,
+  "max_alt": 25.0
+ },
+ "wheels": {
+  "x0": 950.0,
+  "x1": 1960.0,
+  "pad": 10.0,
+  "seg": 36,
+  "steer": [
+   0
+  ],
+  "list": [
+   [
+    -2800,
+    550,
+    550
+   ],
+   [
+    -850,
+    420,
+    420
+   ],
+   [
+    1900,
+    420,
+    420
+   ]
+  ]
+ },
+ "nodes": {
+  "hq_radarstand": [
+   675,
+   -1075,
+   3170
+  ],
+  "hq_radar": [
+   490,
+   -725,
+   4200
+  ]
+ },
+ "require_meshes": [
+  "hq_radar"
+ ],
+ "sidecar": {
+  "spin": {
+   "hq_radar": 40
+  }
+ },
+ "lowpoly": {
+  "budget": 60000,
+  "planar_deg": 8.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 2, 2026-10-30), differs from the mech text above: no joints or actuators. WHEELED. The kit's front wheels and module labels were merged into the hull, the front wheel pair and two rear wheels (`wheel_l0`..`wheel_r2`) are OWN GEOMETRY (`make_wheel`) on axles fitted to the kit; the front pair is under `steer_l0`/`steer_r0`. The radar dish and its post (`hq_radar`, on node hq_radar under the stand) is a separate part; the kit's leaning post is split at z 4200: the neck below stays with the hull, the dish and yoke above are `hq_radar`. It spins at 40 deg/s (`spin` in the sidecar, written from `mobilehq_prep.json`) about the vertical axis through the dish's own centre (490, -725 mm). Needle triangles dropped; welded at 3 mm and planar-dissolved at 8 degrees, no collapse.",
+ "split": [
+  {
+   "from": "hq_radar",
+   "new": "HQ_Body",
+   "min": [
+    -1000000.0,
+    -1000000.0,
+    -1000000.0
+   ],
+   "max": [
+    1000000.0,
+    1000000.0,
+    4200.0
+   ]
+  }
+ ]
+}

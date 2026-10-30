@@ -1,0 +1,59 @@
+{
+ "yaw": 270,
+ "parts_box": [
+  {
+   "node": "HQ_Body",
+   "min": [
+    -0.3,
+    3.3,
+    -0.4
+   ],
+   "max": [
+    2.2,
+    5.6,
+    3.5
+   ]
+  },
+  {
+   "node": "HQ_Body",
+   "min": [
+    -1.4,
+    3.3,
+    -3.5
+   ],
+   "max": [
+    0.3,
+    3.8,
+    -0.8
+   ]
+  },
+  {
+   "node": "hq_radarstand",
+   "min": [
+    -0.2,
+    3.85,
+    -0.35
+   ],
+   "max": [
+    2.1,
+    4.1,
+    1.75
+   ]
+  },
+  {
+   "node": "hq_radar",
+   "min": [
+    -0.2,
+    4.1,
+    -0.35
+   ],
+   "max": [
+    2.1,
+    5.6,
+    1.75
+   ]
+  }
+ ],
+ "no_icp": true,
+ "_from": "original/hd/mobilehq/provenance.json joints (the approved v1 fit), 2026-10-30; no_icp added (LANCE-19: the v1 ICP pitches/tilts kits)"
+}

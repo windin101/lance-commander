@@ -1,0 +1,5 @@
+{
+ "faces": 70000,
+ "no_icp": true,
+ "_from": "original/hd/fueltruck/provenance.json joints (the approved v1 fit), 2026-10-30; no_icp added (LANCE-19: the v1 ICP pitches/tilts kits)"
+}

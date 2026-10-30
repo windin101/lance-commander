@@ -1,0 +1,36 @@
+{
+ "model": "mobilehq.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Praetorian Mobile HQ",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:6599003",
+  "licence": "CC BY-SA 4.0",
+  "file": "Praetorian.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 2, 2026-10-30), differs from the mech text above: no joints or actuators. WHEELED. The kit's front wheels and module labels were merged into the hull, the front wheel pair and two rear wheels (`wheel_l0`..`wheel_r2`) are OWN GEOMETRY (`make_wheel`) on axles fitted to the kit; the front pair is under `steer_l0`/`steer_r0`. The radar dish and its post (`hq_radar`, on node hq_radar under the stand) is a separate part; it could spin about the vertical axis, but `VehicleRig` has no radar handling yet. Needle triangles dropped; welded at 3 mm and planar-dissolved at 8 degrees, no collapse."
+ },
+ "tris": 68224,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 1244325,
+  "chip_share": 0.021811825688626364,
+  "grime_mean": 0.6499139070510864,
+  "paint_share": 0.30841138770015875,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 176801,
+  "stripe_texels": 0,
+  "band_texels": 0
+ },
+ "spin": {
+  "hq_radar": 40
+ }
+}

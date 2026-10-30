@@ -57,6 +57,7 @@ func _pose_rig(r: Dictionary) -> void:
 	var t := float(r.get("travel", 0.0))
 	_rig.wheel_turn = t
 	_rig.belt = Vector2(t, t)
+	_rig.spin_time = float(r.get("spin_time", 0.0))  # seconds the "spin" parts have run
 	_rig._pose()
 
 

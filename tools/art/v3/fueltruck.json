@@ -1,0 +1,81 @@
+{
+ "_doc": "v3 settings for the fueltruck (LANCE-19): rigid vehicle, moving parts split out by tools/art/v3/veh_prep.py from fueltruck_prep.json (work dir fueltruck_tracks), fit from tools/art/v3/fueltruck_veh.json via v3_rigid.py.",
+ "name": "fueltruck",
+ "folder": "vehicles",
+ "stl": "/home/leeo/craft/solid/mc2/tv_stl/7285869/x/files/Fuel_Truck.stl",
+ "source": {
+  "title": "Fuel Truck",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:7285869",
+  "licence": "CC BY-SA 4.0",
+  "file": "Fuel_Truck.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 2, 2026-10-30), differs from the mech text above: no joints or actuators. WHEELED: the kit has 3 axles (6 wheels), MC2's fuel truck 4. The 6 wheels (`wheel_l0`..`wheel_r2`) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheels, which were cut from the hull; the front pair is under `steer_l0`/`steer_r0` pivots. This own geometry is part of the CC BY-SA 4.0 derivative. No turret or gun (the kit and the original have none). Welded at 3 mm and planar-dissolved at 8 degrees, no collapse."
+ },
+ "k": 1.0,
+ "base_glb": "/mnt/nvme1n1p1/mc2-rework/work/fueltruck_tracks/fueltruck_base.glb",
+ "max_edge_mm": 0,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/fueltruck_tracks",
+ "glass_from_v2": false,
+ "auto_actuators": false,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 50000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 43,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 450,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "wheel_l0": 1.0,
+   "wheel_l1": 1.0,
+   "wheel_l2": 1.0,
+   "wheel_r0": 1.0,
+   "wheel_r1": 1.0,
+   "wheel_r2": 1.0
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "rigid": true,
+ "part_region": {
+  "emptytruck": "body",
+  "wheel_l0": "weapons",
+  "wheel_l1": "weapons",
+  "wheel_l2": "weapons",
+  "wheel_r0": "weapons",
+  "wheel_r1": "weapons",
+  "wheel_r2": "weapons"
+ },
+ "feet": [],
+ "joints": {},
+ "bare_prefix": "wheel_"
+}

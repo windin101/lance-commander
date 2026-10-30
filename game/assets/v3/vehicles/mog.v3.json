@@ -1,0 +1,60 @@
+{
+ "model": "mog.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Mobile Orbital Gun",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:7180780",
+  "licence": "CC BY-SA 4.0",
+  "file": "Mobile_Orbital_Gun_.stl, Mobile_Orbital_Gun_turret__stowed.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 2, rev 2 2026-10-30), differs from the mech text above: no joints or actuators. TRACKED; the kit's treads are eight units (four a side: an inner and an outer column for each of the front and rear bogies). Revision 2: each bogie's inner and outer column is ONE belt part, so the model has four belts `track_l0`, `track_l1`, `track_r0`, `track_r1` (the faces within 260 mm of the closed belt path round the bogie's end wheels, over the whole belt width), each on the shared tread strip (two link pitches, 0.415 m; the belts are wide, so the strip's u resolution is coarse); `VehicleRig` takes any `track_l*`/`track_r*` mesh as a belt. The ten wheels a side (`wheel_l0`..`wheel_r9`: five a bogie, on the outer face of the outer column) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on the kit's axle caps; the kit's cap faces were cut from the hull. This own geometry is part of the CC BY-SA 4.0 derivative. The inner column's road wheels are not modelled (they are inside the belt). The two-part kit (hull+treads `Mobile_Orbital_Gun_.stl` and the stowed turret `Mobile_Orbital_Gun_turret__stowed.stl`) was fitted level (`no_icp`); the turret (`Mog_Turret`) turns about the kit's neck ring, the twin barrels (`Mog_Guns`, carved out of the turret, pivot at the dome front) elevate, `gun_pitch` [-5, 50] (no original value found). The belts and the hull are reduced by collapse (the treads are a dense 1M-face mesh), the rest by weld 3 mm + planar dissolve 8 degrees."
+ },
+ "tris": 290930,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 1298226,
+  "chip_share": 0.043213585307951004,
+  "grime_mean": 0.5508166551589966,
+  "paint_share": 0.4068459574835198,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 125993,
+  "stripe_texels": 0,
+  "band_texels": 0
+ },
+ "tracks": {
+  "track_l0": [
+   0.875977,
+   0.123047,
+   0.415
+  ],
+  "track_l1": [
+   0.875977,
+   0.123047,
+   0.415
+  ],
+  "track_r0": [
+   0.875977,
+   0.123047,
+   0.415
+  ],
+  "track_r1": [
+   0.875977,
+   0.123047,
+   0.415
+  ]
+ },
+ "tracks_note": "both belts share one tread strip (v0, v_len, belt_m): veh_lowpoly.py maps each belt's arclength modulo belt_m (2 link pitches) into it, track_l in the left half of the atlas strip, track_r in the right; v increases toward the rear on the visible ground run",
+ "gun_pitch": [
+  -5,
+  50
+ ]
+}

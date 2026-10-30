@@ -1,0 +1,39 @@
+{
+ "_doc": "LANCE-19 batch 2: Drillson Support Hover (RGriffin65). Hover: no wheels or tracks; one launcher turret.",
+ "unit": "drillson",
+ "hull": "LRMHover",
+ "merge": {
+  "TF_Missilepods": "TF_Turret"
+ },
+ "drop_slivers": {
+  "min_edge": 1000.0,
+  "max_alt": 25.0
+ },
+ "nodes": {
+  "TF_Turret": [
+   0,
+   700,
+   2800
+  ],
+  "weapon_01": [
+   -500,
+   -740,
+   3150
+  ],
+  "weapon_02": [
+   500,
+   -740,
+   3150
+  ]
+ },
+ "require_meshes": [
+  "TF_Turret"
+ ],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 60000,
+  "planar_deg": 8.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 2, 2026-10-30), differs from the mech text above: no joints or actuators. HOVER craft: no wheels or tracks. The fit is level and square (`no_icp`, yaw 90 in drillson_veh.json; the v1 fit's yaw 85 left it skewed). The kit's fused hull was split by `tools/art/v3/veh_prep.py` (drillson_prep.json) into the hull and the launcher turret (`TF_Turret`, turns about the vertical axis through its centre; the original's TF_Missilepods node has no part of its own, the kit has one launcher box). Needle triangles dropped; welded at 3 mm and planar-dissolved at 8 degrees, no collapse. The data gives the Drillson max_turret_yaw 0, so the turret only turns if the sim asks."
+}

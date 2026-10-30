@@ -1,0 +1,119 @@
+{
+ "_doc": "v3 settings for the mog (LANCE-19): rigid vehicle, moving parts split out by tools/art/v3/veh_prep.py from mog_prep.json (work dir mog_tracks), fit from tools/art/v3/mog_veh.json via v3_rigid.py.",
+ "name": "mog",
+ "folder": "vehicles",
+ "stl": "/home/leeo/craft/solid/mc2/tv_stl/7180780/x/files/Mobile_Orbital_Gun_.stl",
+ "source": {
+  "title": "Mobile Orbital Gun",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:7180780",
+  "licence": "CC BY-SA 4.0",
+  "file": "Mobile_Orbital_Gun_.stl, Mobile_Orbital_Gun_turret__stowed.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 2, rev 2 2026-10-30), differs from the mech text above: no joints or actuators. TRACKED; the kit's treads are eight units (four a side: an inner and an outer column for each of the front and rear bogies). Revision 2: each bogie's inner and outer column is ONE belt part, so the model has four belts `track_l0`, `track_l1`, `track_r0`, `track_r1` (the faces within 260 mm of the closed belt path round the bogie's end wheels, over the whole belt width), each on the shared tread strip (two link pitches, 0.415 m; the belts are wide, so the strip's u resolution is coarse); `VehicleRig` takes any `track_l*`/`track_r*` mesh as a belt. The ten wheels a side (`wheel_l0`..`wheel_r9`: five a bogie, on the outer face of the outer column) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on the kit's axle caps; the kit's cap faces were cut from the hull. This own geometry is part of the CC BY-SA 4.0 derivative. The inner column's road wheels are not modelled (they are inside the belt). The two-part kit (hull+treads `Mobile_Orbital_Gun_.stl` and the stowed turret `Mobile_Orbital_Gun_turret__stowed.stl`) was fitted level (`no_icp`); the turret (`Mog_Turret`) turns about the kit's neck ring, the twin barrels (`Mog_Guns`, carved out of the turret, pivot at the dome front) elevate, `gun_pitch` [-5, 50] (no original value found). The belts and the hull are reduced by collapse (the treads are a dense 1M-face mesh), the rest by weld 3 mm + planar dissolve 8 degrees."
+ },
+ "k": 1.0,
+ "base_glb": "/mnt/nvme1n1p1/mc2-rework/work/mog_tracks/mog_base.glb",
+ "max_edge_mm": 0,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/mog_tracks",
+ "glass_from_v2": false,
+ "auto_actuators": false,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 50000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 53,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 450,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "track_l0": 1.0,
+   "track_l1": 1.0,
+   "track_r0": 1.0,
+   "track_r1": 1.0,
+   "wheel_l0": 1.0,
+   "wheel_l1": 1.0,
+   "wheel_l2": 1.0,
+   "wheel_l3": 1.0,
+   "wheel_l4": 1.0,
+   "wheel_l5": 1.0,
+   "wheel_l6": 1.0,
+   "wheel_l7": 1.0,
+   "wheel_l8": 1.0,
+   "wheel_l9": 1.0,
+   "wheel_r0": 1.0,
+   "wheel_r1": 1.0,
+   "wheel_r2": 1.0,
+   "wheel_r3": 1.0,
+   "wheel_r4": 1.0,
+   "wheel_r5": 1.0,
+   "wheel_r6": 1.0,
+   "wheel_r7": 1.0,
+   "wheel_r8": 1.0,
+   "wheel_r9": 1.0
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "rigid": true,
+ "part_region": {
+  "MOG_Body": "body",
+  "Mog_Turret": "body",
+  "Mog_Guns": "body",
+  "track_l0": "weapons",
+  "track_l1": "weapons",
+  "track_r0": "weapons",
+  "track_r1": "weapons",
+  "wheel_l0": "weapons",
+  "wheel_l1": "weapons",
+  "wheel_l2": "weapons",
+  "wheel_l3": "weapons",
+  "wheel_l4": "weapons",
+  "wheel_l5": "weapons",
+  "wheel_l6": "weapons",
+  "wheel_l7": "weapons",
+  "wheel_l8": "weapons",
+  "wheel_l9": "weapons",
+  "wheel_r0": "weapons",
+  "wheel_r1": "weapons",
+  "wheel_r2": "weapons",
+  "wheel_r3": "weapons",
+  "wheel_r4": "weapons",
+  "wheel_r5": "weapons",
+  "wheel_r6": "weapons",
+  "wheel_r7": "weapons",
+  "wheel_r8": "weapons",
+  "wheel_r9": "weapons"
+ },
+ "feet": [],
+ "joints": {},
+ "bare_prefix": "wheel_"
+}

@@ -1,0 +1,78 @@
+{
+ "yaw": 90,
+ "mount": [
+  {
+   "comp": 5,
+   "node": "TF_Turret"
+  }
+ ],
+ "parts_box": [
+  {
+   "node": "LRMHover",
+   "min": [
+    -10,
+    -1,
+    -10
+   ],
+   "max": [
+    10,
+    2.775,
+    10
+   ]
+  },
+  {
+   "node": "LRMHover",
+   "min": [
+    -10,
+    -1,
+    0.7
+   ],
+   "max": [
+    10,
+    10,
+    10
+   ]
+  },
+  {
+   "node": "LRMHover",
+   "min": [
+    -10,
+    -1,
+    -10
+   ],
+   "max": [
+    -0.9,
+    10,
+    10
+   ]
+  },
+  {
+   "node": "LRMHover",
+   "min": [
+    0.9,
+    -1,
+    -10
+   ],
+   "max": [
+    10,
+    10,
+    10
+   ]
+  },
+  {
+   "node": "LRMHover",
+   "min": [
+    -0.5,
+    2.7,
+    -0.6
+   ],
+   "max": [
+    -0.05,
+    2.785,
+    -0.4
+   ]
+  }
+ ],
+ "no_icp": true,
+ "_from": "original/hd/drillson/provenance.json joints (the approved v1 fit), 2026-10-30; no_icp added (LANCE-19: the v1 ICP pitches/tilts kits); yaw 85 -> 90 (v1's 5 degree skew left the hull off-axis)"
+}

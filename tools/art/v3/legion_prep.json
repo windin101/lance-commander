@@ -1,0 +1,172 @@
+{
+ "_doc": "LANCE-19 batch 2: Legion MBT (RGriffin65), tracked. Wheel circles read off the skirt cut-outs of the level fit.",
+ "unit": "legion",
+ "hull": "legion",
+ "split": [
+  {
+   "from": "Legion_turret",
+   "new": "gun",
+   "node_parent": "Legion_turret",
+   "min": [
+    -2500,
+    -5400,
+    3700
+   ],
+   "max": [
+    2500,
+    -2450,
+    5000
+   ]
+  }
+ ],
+ "tracks": {
+  "mode": "loop",
+  "xlo": 2650.0,
+  "xhi": 4450.0,
+  "thick": 140.0,
+  "off": 125.0,
+  "zmax": 1300.0,
+  "node_x_m": 3.55,
+  "circles": [
+   [
+    -6200,
+    705,
+    470
+   ],
+   [
+    -4760,
+    705,
+    470
+   ],
+   [
+    -3290,
+    705,
+    470
+   ],
+   [
+    -1815,
+    705,
+    470
+   ],
+   [
+    -310,
+    705,
+    470
+   ],
+   [
+    1130,
+    705,
+    470
+   ],
+   [
+    3320,
+    980,
+    250
+   ]
+  ],
+  "xin": 2700.0,
+  "pitch_mm": 220.0,
+  "n_links": 2,
+  "gap_y": 0.0,
+  "col_w": [
+   1750.0,
+   1750.0,
+   200.0,
+   200.0
+  ]
+ },
+ "wheels": {
+  "x0": 2750.0,
+  "x1": 3750.0,
+  "pad": 10.0,
+  "seg": 36,
+  "list": [
+   [
+    -6200,
+    705,
+    470
+   ],
+   [
+    -4760,
+    705,
+    470
+   ],
+   [
+    -3290,
+    705,
+    470
+   ],
+   [
+    -1815,
+    705,
+    470
+   ],
+   [
+    -310,
+    705,
+    470
+   ],
+   [
+    1130,
+    705,
+    470
+   ],
+   [
+    3320,
+    980,
+    250
+   ]
+  ]
+ },
+ "nodes": {
+  "Legion_turret": [
+   -520,
+   -300,
+   3740
+  ],
+  "gun": [
+   0,
+   -2450,
+   4300
+  ],
+  "weapon_01": [
+   -100,
+   -5170,
+   4270
+  ],
+  "weapon_02": [
+   -500,
+   -2500,
+   4400
+  ],
+  "weapon_03": [
+   500,
+   -2500,
+   4400
+  ],
+  "weapon_04": [
+   2900,
+   -1000,
+   4500
+  ]
+ },
+ "reparent": {
+  "weapon_01": "gun"
+ },
+ "require_meshes": [
+  "Legion_turret",
+  "gun"
+ ],
+ "sidecar": {
+  "gun_pitch": [
+   -5,
+   25
+  ]
+ },
+ "lowpoly": {
+  "budget": 90000,
+  "planar_deg": 1.5,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 2, 2026-10-30), differs from the mech text above: no joints or actuators. TRACKED. The kit's hull was split by `tools/art/v3/veh_prep.py` (legion_prep.json) into the hull, the turret (`Legion_turret`, turns about its dome centre), the two big barrels with their small flanking ones (`gun`, a node the original lacks: weapon_01 re-parented under it; the original's weapon_02..04 are side pods on the turret and stay on it) and two track belts (the faces within 140 mm of the closed belt path round the wheels). The 7 wheels a side (`wheel_l0`..`wheel_r6`: 6 road wheels and the rear sprocket) are OWN GEOMETRY (`make_wheel`) on axles fitted to the skirt cut-outs; the kit's wheel faces were cut from the hull. Belts on a tread strip of two link pitches (0.44 m). welded at 3 mm and planar-dissolved at 1.5 degrees (8 degrees collapsed the big hull plates into crumpled sheets), collapse only above 90k faces a part."
+}

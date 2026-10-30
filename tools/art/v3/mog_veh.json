@@ -1,0 +1,15 @@
+{
+ "yaw": 90,
+ "mount": [
+  {
+   "comp": 0,
+   "node": "Mog_Turret",
+   "offset": [
+    0,
+    3.8
+   ]
+  }
+ ],
+ "no_icp": true,
+ "_from": "original/hd/mog/provenance.json joints (the approved v1 fit), 2026-10-30; no_icp added (LANCE-19: the v1 ICP pitches/tilts kits)"
+}
