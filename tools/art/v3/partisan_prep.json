@@ -1,0 +1,196 @@
+{
+ "_doc": "LANCE-19 batch 1: Partisan heavy tank (RGriffin65). Wheel half-discs and belts read off a side view of the level fit, inner faces only (x < 3200).",
+ "unit": "partisan",
+ "hull": "Partisan Body",
+ "drop_slivers": {
+  "min_edge": 1000.0,
+  "max_alt": 25.0
+ },
+ "split": [
+  {
+   "from": "Partisan Turret",
+   "new": "gun",
+   "node_parent": "Partisan Turret",
+   "min": [
+    2400,
+    -4300,
+    3300
+   ],
+   "max": [
+    3700,
+    -600,
+    4800
+   ]
+  },
+  {
+   "from": "Partisan Turret",
+   "new": "gun",
+   "node_parent": "Partisan Turret",
+   "min": [
+    -3700,
+    -4300,
+    3300
+   ],
+   "max": [
+    -2400,
+    -600,
+    4800
+   ]
+  }
+ ],
+ "tracks": {
+  "mode": "loop",
+  "xlo": 1450.0,
+  "xhi": 3250.0,
+  "thick": 110.0,
+  "off": 100.0,
+  "zmax": 620.0,
+  "node_x_m": 2.35,
+  "circles": [
+   [
+    -3850,
+    480,
+    440
+   ],
+   [
+    -2550,
+    480,
+    440
+   ],
+   [
+    -1250,
+    480,
+    440
+   ],
+   [
+    50,
+    480,
+    440
+   ],
+   [
+    1350,
+    480,
+    440
+   ],
+   [
+    2650,
+    480,
+    440
+   ],
+   [
+    3950,
+    480,
+    440
+   ]
+  ],
+  "xin": 1500.0,
+  "pitch_mm": 242.5,
+  "n_links": 2,
+  "gap_y": -52.5,
+  "col_w": [
+   1700.0,
+   1700.0,
+   200.0,
+   200.0
+  ]
+ },
+ "wheels": {
+  "x0": 1550.0,
+  "x1": 3150.0,
+  "zcut": 500.0,
+  "pad": 12.0,
+  "seg": 36,
+  "list": [
+   [
+    -3850,
+    480,
+    452
+   ],
+   [
+    -2550,
+    480,
+    452
+   ],
+   [
+    -1250,
+    480,
+    452
+   ],
+   [
+    50,
+    480,
+    452
+   ],
+   [
+    1350,
+    480,
+    452
+   ],
+   [
+    2650,
+    480,
+    452
+   ],
+   [
+    3950,
+    480,
+    452
+   ]
+  ]
+ },
+ "nodes": {
+  "Partisan Turret": [
+   0,
+   1875,
+   2540
+  ],
+  "gun": [
+   0,
+   -700,
+   4000
+  ],
+  "weapon_03": [
+   3000,
+   -4250,
+   4300
+  ],
+  "weapon_04": [
+   3000,
+   -4250,
+   3700
+  ],
+  "weapon_01": [
+   -3000,
+   -4250,
+   4300
+  ],
+  "weapon_02": [
+   -3000,
+   -4250,
+   3700
+  ]
+ },
+ "reparent": {
+  "weapon_01": "gun",
+  "weapon_02": "gun",
+  "weapon_03": "gun",
+  "weapon_04": "gun"
+ },
+ "require_meshes": [
+  "Partisan Turret",
+  "gun"
+ ],
+ "sidecar": {
+  "gun_pitch": [
+   -5,
+   30
+  ]
+ },
+ "lowpoly": {
+  "budget": 60000,
+  "planar_deg": 8.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19, 2026-10-30), differs from the mech text above: no joints or actuators. The fit is level and raised 165 mm so the belts rest on the ground (`no_icp` in partisan_veh.json; the v1 ICP pitched the kit). The kit's fused hull was split by `tools/art/v3/veh_prep.py` (partisan_prep.json) into the hull, the turret (`Partisan Turret`, turns about the vertical axis; its pivot moved to the centre of the kit's turret ring), the four barrels (`gun`, a node the original model lacks: the weapon nodes were re-parented under it; the barrels elevate about the turret's trunnion line) and two track belts (`track_l`, `track_r`: the faces within 110 mm of the closed belt path round the wheels). The seven wheels a side (`wheel_l0`..`wheel_r6`) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's half discs, which were cut from the hull. This own geometry is part of the CC BY-SA 4.0 derivative. 3,404 needle triangles left by the kit's simplification were dropped. Welded at 3 mm and planar-dissolved at 8 degrees, no collapse; belts on a tread strip of two link pitches (0.485 m) by `veh_lowpoly.py`.",
+ "lift_mm": 165.0
+}

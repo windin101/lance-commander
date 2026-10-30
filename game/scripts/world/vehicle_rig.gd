@@ -7,6 +7,8 @@ extends RefCounted
 ##
 ## Node names (case-insensitive), as the art pipeline emits them:
 ##   turret            yaws about the model's up axis (the 2001 models' "*turret*" nodes count too)
+##   turret_*          further independent turrets (a twin mount whose halves sit apart, the Harasser's two launchers): they
+##                     yaw with the first, each about its own origin; only a mesh-carrying node moves
 ##   gun               under the turret; pitches about the model's lateral axis (2001: TankGguns, LrmPods, ...)
 ##   wheel_*           spins about the lateral axis; radius = half its mesh's height
 ##   steer_*           a steering wheel's pivot: yaws by the steering angle (its wheel_* sits under it)
@@ -22,6 +24,7 @@ const MAX_STEER := 35.0  # degrees
 const STEER_SMOOTH := 8.0  # 1/s: steering follows the curve, not the frame-to-frame jitter
 
 var turret: Node3D
+var turrets: Array[Node3D] = []  # extra turrets ("turret_*"), each turning about its own origin like `turret`
 var gun: Node3D
 var wheels: Array[Node3D] = []
 var steers: Array[Node3D] = []
@@ -49,7 +52,9 @@ static func build(model: Node3D, sidecar: Dictionary) -> VehicleRig:
 	var r := VehicleRig.new()
 	for n in model.find_children("*", "Node3D", true, false):
 		var low := String(n.name).to_lower()
-		if r.turret == null and (low == "turret" or low.contains("turret")):
+		if low.begins_with("turret_"):
+			r.turrets.append(n)
+		elif r.turret == null and (low == "turret" or low.contains("turret")):
 			r.turret = n
 		elif low.begins_with("steer_"):
 			r.steers.append(n)
@@ -71,9 +76,10 @@ static func build(model: Node3D, sidecar: Dictionary) -> VehicleRig:
 	if r.gun and not _has_mesh(r.gun):
 		r.gun = null
 	r.wheels.assign(r.wheels.filter(_has_mesh))
-	if r.turret == null and r.wheels.is_empty() and r.tracks.is_empty():
+	r.turrets.assign(r.turrets.filter(_has_mesh))
+	if r.turret == null and r.turrets.is_empty() and r.wheels.is_empty() and r.tracks.is_empty():
 		return null
-	for n: Node3D in [r.turret, r.gun] + r.wheels + r.steers:
+	for n: Node3D in [r.turret, r.gun] + r.turrets + r.wheels + r.steers:
 		if n:
 			r._rest[n] = n.basis
 			var b := _basis_above(n, model).inverse()
@@ -156,6 +162,8 @@ func update(pos: Vector2, facing: float, turret_rel: float, turret_rate: float, 
 func _pose() -> void:
 	if turret:
 		_turn(turret, 0, -deg_to_rad(turret_yaw))
+	for t in turrets:
+		_turn(t, 0, -deg_to_rad(turret_yaw))
 	if gun:
 		_turn(gun, 1, -deg_to_rad(gun_pitch))  # +X: up is -angle (Y -> Z is +)
 	for w in wheels:

@@ -343,6 +343,21 @@ def stage_paint(cfg, work):
             Mi = np.linalg.inv(np.array(fit["xform"][p]))
             XS[m] = X[m] @ Mi[:3, :3].T + Mi[:3, 3]
     zone, region, interior, stripe, band, pipe_ok, patch = classify_texels(cfg, work, part_name, low_kind, src, hkind, XS, N)
+    # cfg "bare_prefix" (vehicles, LANCE-19): parts whose name starts with it (the own-geometry wheels) take no team colour:
+    # the tyre (the drum, its chamfers and the outer sidewall ring: side-view radius >= 0.65 of the wheel's) is dark rubber,
+    # the rest (recess, hub, bolts) bare dark steel. Axle centres and radii come from the unit's axles.json (veh_prep.py).
+    rubber = np.zeros(len(zone), bool)
+    steel_w = np.zeros(len(zone), bool)
+    if cfg.get("bare_prefix"):
+        axl = json.loads((Path(cfg["from_v2"]) / "axles.json").read_text())
+        isw = np.char.startswith(np.asarray(part_name, str), cfg["bare_prefix"])
+        zone[isw] = 2
+        fr = np.zeros(len(zone), np.float32)
+        for nm, (ax_, ay_, az_, rad_) in axl.items():
+            mm_ = part_name == nm
+            fr[mm_] = np.hypot(XS[mm_, 1] - ay_, XS[mm_, 2] - az_) / rad_
+        rubber = isw & (fr >= 0.65)
+        steel_w = isw & ~rubber
     w = cfg.get("wear", {})
     seed = int(w.get("seed", 7))
     height = X[:, 2]
@@ -377,6 +392,7 @@ def stage_paint(cfg, work):
     dust = smoothstep(float(w.get("dust_height_mm", 3200)), 150.0, height) * (0.4 + 0.6 * n_mid) * dust_amt
     dust = np.maximum(dust, smoothstep(0.75, 0.95, N[:, 2]) * smoothstep(0.4, 0.8, n_big) * 0.3 * dust_amt)
     dust = np.clip(dust, 0, 0.8)
+    dust[rubber] *= 0.25
     soot = np.zeros(n_, np.float32)
     for s_ in w.get("soot", []):
         d = np.linalg.norm(XS - np.asarray(s_["p"], float), axis=1)
@@ -403,12 +419,16 @@ def stage_paint(cfg, work):
     shade *= 1.0 + float(w.get("edge_lighten", 0.22)) * convex          # worn, lighter paint along exposed edges
     bm = zone == 2
     rgb[bm] = gunmetal * (0.8 + 0.4 * n_mid[bm, None])
+    rgb[rubber] = srgb_to_lin([0.085, 0.085, 0.09]) * (0.8 + 0.4 * n_mid[rubber, None])
+    rgb[steel_w] = gunmetal * (0.55 + 0.3 * n_mid[steel_w, None])
     rgb[interior] = interior_c
     alpha[bm] = 0
     rough[bm] = 0.36 + 0.2 * n_mid[bm]; metal[bm] = 0.85
+    rough[rubber] = 0.86 + 0.1 * n_mid[rubber]; metal[rubber] = 0.0
+    rough[steel_w] = 0.5 + 0.2 * n_mid[steel_w]; metal[steel_w] = 0.7
     rough[interior] = 0.7; metal[interior] = 0.25
     # metal edges catch light too: bright worn rims on housings
-    rim = convex * (zone == 2) * ~interior * 0.6
+    rim = convex * (zone == 2) * ~interior * ~rubber * 0.6
     rgb = rgb * (1 - rim[:, None]) + steel_bright * rim[:, None] * 0.8
     ch = chip > 0
     rgb = np.where(ch[:, None], steel_bright * (0.85 + 0.3 * n_chip[:, None]), rgb)

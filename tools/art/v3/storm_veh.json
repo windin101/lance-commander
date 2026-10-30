@@ -1,0 +1,30 @@
+{
+ "mount": [
+  {
+   "comp": [
+    1,
+    2,
+    3
+   ],
+   "node": "TankGTurret"
+  }
+ ],
+ "parts_box": [
+  {
+   "node": "TankG",
+   "min": [
+    -1.6,
+    1.2,
+    -4.0
+   ],
+   "max": [
+    1.6,
+    2.7,
+    3.0
+   ]
+  }
+ ],
+ "_from": "original/hd/storm/provenance.json joints (the approved v1 fit), 2026-10-30",
+ "no_icp": true,
+ "_note": "no_icp added 2026-10-30 (LANCE-19): the v1 ICP pitched the kit 2-15 deg; the v3 fit keeps the sculpt level like the Hunter's"
+}

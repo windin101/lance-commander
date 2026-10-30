@@ -1,0 +1,46 @@
+{
+ "parts_box": [
+  {
+   "node": "lrmc2",
+   "min": [
+    -3,
+    -1,
+    -4
+   ],
+   "max": [
+    3,
+    2.36,
+    4
+   ]
+  },
+  {
+   "node": "lrmc_turret",
+   "min": [
+    -1.0,
+    1.95,
+    -1.55
+   ],
+   "max": [
+    1.0,
+    2.4,
+    0.3
+   ]
+  },
+  {
+   "node": "LrmPods",
+   "min": [
+    -3,
+    2.4,
+    -2.5
+   ],
+   "max": [
+    3,
+    4.5,
+    1.27
+   ]
+  }
+ ],
+ "_from": "original/hd/lrmc/provenance.json joints (the approved v1 fit), 2026-10-30",
+ "no_icp": true,
+ "_note": "no_icp added 2026-10-30 (LANCE-19): the v1 ICP pitched the kit 2-15 deg; the v3 fit keeps the sculpt level like the Hunter's"
+}

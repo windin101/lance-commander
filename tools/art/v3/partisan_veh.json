@@ -1,0 +1,39 @@
+{
+ "drop": [
+  1,
+  3
+ ],
+ "mount": [
+  {
+   "comp": [
+    2,
+    4,
+    5,
+    6
+   ],
+   "node": "Partisan Turret",
+   "offset": [
+    -0.1,
+    1.63
+   ]
+  }
+ ],
+ "parts_box": [
+  {
+   "node": "Partisan Body",
+   "min": [
+    -6,
+    -1,
+    -8
+   ],
+   "max": [
+    6,
+    2.54,
+    8
+   ]
+  }
+ ],
+ "_from": "original/hd/partisan/provenance.json joints (the approved v1 fit), 2026-10-30",
+ "no_icp": true,
+ "_note": "no_icp added 2026-10-30 (LANCE-19): the v1 ICP pitched the kit 2-15 deg; the v3 fit keeps the sculpt level like the Hunter's"
+}

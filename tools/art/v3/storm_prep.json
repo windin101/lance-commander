@@ -1,0 +1,176 @@
+{
+ "_doc": "LANCE-19 batch 1: Storm heavy tank (RGriffin65). Wheel circles read off a side view of the level fit.",
+ "unit": "storm",
+ "hull": "TankG",
+ "merge": {
+  "TankGTreads": "TankG"
+ },
+ "drop_slivers": {
+  "min_edge": 1000.0,
+  "max_alt": 25.0
+ },
+ "split": [
+  {
+   "from": "TankGTurret",
+   "new": "TankGguns",
+   "min": [
+    -1100,
+    -2000,
+    2500
+   ],
+   "max": [
+    1100,
+    1250,
+    4100
+   ]
+  }
+ ],
+ "shift": [
+  {
+   "parts": [
+    "TankGTurret",
+    "TankGguns"
+   ],
+   "dy": -2650.0,
+   "dz": -400.0
+  }
+ ],
+ "tracks": {
+  "mode": "loop",
+  "xlo": 1400.0,
+  "xhi": 2600.0,
+  "thick": 100.0,
+  "off": 65.0,
+  "zmax": 900.0,
+  "node_x_m": 2.0,
+  "circles": [
+   [
+    -4650,
+    670,
+    535
+   ],
+   [
+    -3345,
+    670,
+    535
+   ],
+   [
+    -2040,
+    670,
+    535
+   ],
+   [
+    -735,
+    670,
+    535
+   ],
+   [
+    570,
+    670,
+    535
+   ],
+   [
+    1875,
+    670,
+    535
+   ],
+   [
+    3180,
+    670,
+    535
+   ]
+  ],
+  "xin": 1400.0,
+  "pitch_mm": 212.5,
+  "n_links": 2,
+  "gap_y": -97.5,
+  "col_w": [
+   1200.0,
+   1200.0,
+   160.0,
+   160.0
+  ]
+ },
+ "wheels": {
+  "x0": 1500.0,
+  "x1": 2550.0,
+  "zcut": 1000.0,
+  "pad": 10.0,
+  "seg": 36,
+  "list": [
+   [
+    -4650,
+    670,
+    545
+   ],
+   [
+    -3345,
+    670,
+    545
+   ],
+   [
+    -2040,
+    670,
+    545
+   ],
+   [
+    -735,
+    670,
+    545
+   ],
+   [
+    570,
+    670,
+    545
+   ],
+   [
+    1875,
+    670,
+    545
+   ],
+   [
+    3180,
+    670,
+    545
+   ]
+  ]
+ },
+ "nodes": {
+  "TankGTurret": [
+   0,
+   -100,
+   2450
+  ],
+  "TankGguns": [
+   0,
+   -1250,
+   2950
+  ],
+  "weapon_01": [
+   -550,
+   -4480,
+   2950
+  ],
+  "weapon_02": [
+   550,
+   -4480,
+   2950
+  ]
+ },
+ "require_meshes": [
+  "TankGTurret",
+  "TankGguns"
+ ],
+ "sidecar": {
+  "gun_pitch": [
+   -5,
+   25
+  ]
+ },
+ "lowpoly": {
+  "budget": 60000,
+  "planar_deg": 8.0,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19, 2026-10-30), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in storm_veh.json; the v1 ICP tilted the kit). The kit's fused hull was split by `tools/art/v3/veh_prep.py` (storm_prep.json) into the hull (the kit's tread label merged in), the turret (`TankGTurret`, turns about the vertical axis; re-seated on the hull ring, because the v1 mount had centred its long barrels on the model's turret pivot and floated it 2.7 m aft), the barrels with their housings (`TankGguns`, the gun: elevates about the housing centre) and two track belts (`track_l`, `track_r`: the faces within 100 mm of the closed belt path round the wheels). The seven wheels a side (`wheel_l0`..`wheel_r6`) are OWN GEOMETRY (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) on axles fitted to the kit's wheel circles; the kit's wheel faces were cut from the hull. This own geometry is part of the CC BY-SA 4.0 derivative. 7,701 needle triangles left on the turret by the kit's simplification were dropped. Welded at 3 mm and planar-dissolved at 8 degrees, no collapse; belts on a tread strip of two link pitches (0.425 m) by `veh_lowpoly.py`."
+}

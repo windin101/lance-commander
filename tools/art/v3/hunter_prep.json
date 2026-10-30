@@ -1,0 +1,82 @@
+{
+ "_doc": "veh_prep.py / veh_lowpoly.py / veh_finish.py settings for the Hunter (LANCE-18), as hunter_prep.py's constants were. Wheel axles (y, z, radius mm) were fitted to the kit's lower wheel arcs.",
+ "unit": "hunter",
+ "hull": "Hunter",
+ "tracks": {
+  "mode": "envelope",
+  "xlo": 690.0,
+  "xhi": 1510.0,
+  "y0": -3000.0,
+  "y1": 1850.0,
+  "thick": 96.0,
+  "zmax": 520.0,
+  "node_x_m": 1.12,
+  "xin": 770.0,
+  "pitch_mm": 220.0,
+  "n_links": 2,
+  "gap_y": -1842.5,
+  "col_w": [
+   700.0,
+   700.0,
+   140.0,
+   140.0
+  ]
+ },
+ "wheels": {
+  "x0": 795.0,
+  "x1": 1445.0,
+  "zcut": 305.0,
+  "pad": 6.0,
+  "seg": 36,
+  "list": [
+   [
+    -1978.0,
+    357.0,
+    266.0
+   ],
+   [
+    -1435.0,
+    357.0,
+    266.0
+   ],
+   [
+    -874.0,
+    357.0,
+    266.0
+   ],
+   [
+    -272.0,
+    357.0,
+    266.0
+   ],
+   [
+    272.0,
+    357.0,
+    266.0
+   ],
+   [
+    832.0,
+    357.0,
+    266.0
+   ],
+   [
+    -2615.0,
+    430.0,
+    215.0
+   ],
+   [
+    1397.0,
+    482.0,
+    215.0
+   ]
+  ]
+ },
+ "lowpoly": {
+  "budget": 60000,
+  "planar_deg": 8.0,
+  "weld_m": 0.003
+ },
+ "require_meshes": [
+  "Hunter_Turret"
+ ]
+}
