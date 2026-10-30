@@ -24,6 +24,7 @@ var _next_weapon := 0
 var _paint_name := ""  # paint-mask name: "<model>_hd" for HD models
 var smoke_nodes: Array[Node3D] = []
 var _weapon_node: Dictionary = {}  # weapon inventory index -> Node3D (fixed at load, as the original)
+var rig: VehicleRig  # turret, gun, wheels and tracks of a ground vehicle (null: mechs, infantry, one-piece models)
 var bounds := AABB(Vector3(-3, 0, -3), Vector3(6, 10, 6))  # model bounds in this node's frame, for effects
 
 
@@ -72,6 +73,12 @@ func setup(sim_mech: SimUnit, sim_map: SimMap) -> void:
 			if n:
 				smoke_nodes.append(n)
 		_assign_weapon_nodes(types)
+	elif not (mech is SimMech) and not (player and player.has_animation("Walk")):
+		var vside := {}
+		var vside_path := "res://assets/v3/vehicles/%s.v3.json" % mech.model
+		if path.begins_with("res://assets/v3/") and FileAccess.file_exists(vside_path):
+			vside = JSON.parse_string(FileAccess.get_file_as_string(vside_path))
+		rig = VehicleRig.build(model, vside)
 	ring = MeshInstance3D.new()
 	var torus := TorusMesh.new()
 	var radius := 5.5 if mech is SimMech else (1.6 if mech.tonnage < 5 else 3.6)
@@ -121,6 +128,12 @@ func sync(alpha: float) -> void:
 	if mech.is_disabled():
 		_wreck()
 		return
+	if rig:
+		var aim := Vector2.ZERO
+		var t := mech.current_target
+		if t != null and is_instance_valid(t):
+			aim = Vector2(map.height_at(t.position) + 2.0 - ground, pos.distance_to(t.position))
+		rig.update(pos, facing, mech.turret_rel, mech.turret_rate, aim, get_process_delta_time() if is_inside_tree() else 0.0)
 	_animate()
 
 
@@ -184,6 +197,7 @@ func _wreck() -> void:
 		return
 	var path := _asset_path("_wreck_forward.glb" if mech is SimMech else "_wreck.glb")
 	if ResourceLoader.exists(path):
+		rig = null
 		model.queue_free()
 		model = load(path).instantiate()
 		add_child(model)

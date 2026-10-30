@@ -40,6 +40,8 @@ uniform vec3 dust_colour : source_color = vec3(0.56, 0.5, 0.4);
 uniform float scorch : hint_range(0.0, 1.0) = 0.0;   // 1 = wreck
 uniform float detail_scale = 2.0;     // micro-detail tiles per UV unit x 100 (see MechPaint: px/m of the atlas)
 uniform float detail_strength = 0.0;  // the Mech Bay/Lab turns it up; 0 in the field
+// A vehicle track belt (VehicleRig): its UV strip (v0, v length) and scroll in belt lengths; length 0 = not a track
+instance uniform vec3 track_strip = vec3(0.0);
 
 vec3 srgb(vec3 c) { return pow(c, vec3(2.2)); }
 
@@ -77,11 +79,15 @@ vec3 camo(int pat, vec3 n, vec3 base, float aa) {
 }
 
 void fragment() {
-	vec4 a = texture(albedo_tex, UV);
-	vec4 orm = texture(orm_tex, UV);
-	int rid = int(texture(ids_tex, UV).r * 255.0 + 0.5) / 16;
-	vec4 idl = texture(ids_lin_tex, UV);
-	vec4 cm = texture(camo_tex, UV);
+	vec2 uv = UV;
+	if (track_strip.y > 0.0) {
+		uv.y = track_strip.x + fract((UV.y - track_strip.x) / track_strip.y - track_strip.z) * track_strip.y;
+	}
+	vec4 a = texture(albedo_tex, uv);
+	vec4 orm = texture(orm_tex, uv);
+	int rid = int(texture(ids_tex, uv).r * 255.0 + 0.5) / 16;
+	vec4 idl = texture(ids_lin_tex, uv);
+	vec4 cm = texture(camo_tex, uv);
 	float paint_a = rid < 8 ? a.a : 0.0;
 	int r = clamp(rid, 0, 7);
 	vec3 paint = region_colour[r];
@@ -122,9 +128,9 @@ void fragment() {
 	SPECULAR = rid == 9 ? 0.9 : 0.5;
 	AO = orm.r;
 	AO_LIGHT_AFFECT = 0.15;
-	vec3 nm = texture(normal_tex, UV).rgb;
+	vec3 nm = texture(normal_tex, uv).rgb;
 	if (detail_strength > 0.0) {
-		vec3 d = texture(detail_tex, UV * detail_scale * 100.0).rgb * 2.0 - 1.0;
+		vec3 d = texture(detail_tex, uv * detail_scale * 100.0).rgb * 2.0 - 1.0;
 		vec3 b = nm * 2.0 - 1.0;
 		b.xy += d.xy * detail_strength;
 		nm = normalize(b) * 0.5 + 0.5;
