@@ -3528,7 +3528,7 @@
 					0.35
 				],
 				[
-					0.8,
+					2.2,
 					"black_smoke",
 					0.4
 				]
@@ -3536,13 +3536,13 @@
 			"column": {
 				"life": 45.0,
 				"rate": 5.0,
-				"size": 4.5,
+				"size": 2.8,
 				"wind": [
 					1.6,
 					0.6
 				]
 			},
-			"burn": 14.0
+			"burn": 6.0
 		},
 		"vehicle": {
 			"sequence": [
@@ -3552,7 +3552,7 @@
 					0.5
 				],
 				[
-					0.35,
+					1.8,
 					"black_smoke",
 					0.4
 				]
@@ -3560,13 +3560,13 @@
 			"column": {
 				"life": 30.0,
 				"rate": 3.5,
-				"size": 3.2,
+				"size": 2.0,
 				"wind": [
 					1.6,
 					0.6
 				]
 			},
-			"burn": 10.0
+			"burn": 5.0
 		},
 		"building": {
 			"sequence": [

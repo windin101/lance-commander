@@ -42,6 +42,7 @@ uniform float detail_scale = 2.0;     // micro-detail tiles per UV unit x 100 (s
 uniform float detail_strength = 0.0;  // the Mech Bay/Lab turns it up; 0 in the field
 // A vehicle track belt (VehicleRig): its UV strip (v0, v length) and scroll in belt lengths; length 0 = not a track
 instance uniform vec3 track_strip = vec3(0.0);
+instance uniform float ember = 1.0;   // wreck variants: embers cool from 1 to 0.25 over 90 s (MechView)
 
 vec3 srgb(vec3 c) { return pow(c, vec3(2.2)); }
 
@@ -116,7 +117,14 @@ void fragment() {
 	} else if (rid == 10) {
 		emit = lens_colour * emissive_energy;
 	}
+	float burn = 1.0 - COLOR.r;   // wreck variants (tools/art/v3/wreck_mesh.py): COLOR_0.r = 1 - burn, .g = 0 on the interior; plain meshes are white
+	float inner = 1.0 - COLOR.g;
 	col *= mix(1.0, 0.22, scorch);
+	col *= mix(1.0, 0.1, burn);           // scorch: near black (#0D0D0D) at the impacts
+	col = mix(col, srgb(vec3(0.227, 0.169, 0.133)), inner);   // breach interior: cable / rust #3A2B22
+	rough = mix(rough, 0.95, max(burn * 0.8, inner));
+	metal *= 1.0 - max(burn * 0.6, inner * 0.5);
+	emit += srgb(vec3(1.0, 0.478, 0.184)) * (inner * 1.3 + smoothstep(0.95, 1.0, burn) * 1.0) * ember;   // embers #FF7A2F
 	rough = mix(rough, 0.95, scorch * 0.7);
 	metal *= 1.0 - scorch * 0.7;
 	if (!FRONT_FACING) {   // the inside of a part's shell, seen through an open seam

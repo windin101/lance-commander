@@ -34,10 +34,15 @@ func test_mech_view_takes_the_v3_model_and_shader() -> void:
 	var player: AnimationPlayer = v.model.find_child("AnimationPlayer", true, false)
 	for a in ["Idle", "Walk", "FallForward"]:
 		assert_bool(player.has_animation(a)).is_true()
+	var before := v.model
 	u.status = SimUnit.Status.DESTROYED
 	v.sync(1.0)
-	var burnt := (mis[0] as MeshInstance3D).material_override as ShaderMaterial
-	assert_float(float(burnt.get_shader_parameter("scorch"))).is_equal(1.0)
+	if MechView.v3_wreck_path("atlas_v3", "mechs", "atlas") != "":
+		assert_bool(v.model != before).is_true()  # the destroyed variant (tools/art/v3/wreck_mesh.py) replaces the model
+		assert_object(v.player).is_null()
+	else:
+		var burnt := (mis[0] as MeshInstance3D).material_override as ShaderMaterial
+		assert_float(float(burnt.get_shader_parameter("scorch"))).is_equal(1.0)
 	v.queue_free()
 
 
@@ -50,3 +55,35 @@ func test_scheme_regions_reach_the_shader() -> void:
 	assert_float(float(mat.get_shader_parameter("band_on"))).is_equal(1.0)
 	ArtV3.set_scheme(mat, PaintScheme.named("bandits"))
 	assert_int(int(mat.get_shader_parameter("pattern"))).is_equal(PaintScheme.PATTERNS.find("arkab"))
+
+
+func test_wreck_variant_path() -> void:
+	# a v3 unit with a <name>_wreck.glb gets it; a non-v3 paint name or a unit without one keeps the scorched freeze
+	assert_str(MechView.v3_wreck_path("atlas_hd", "mechs", "atlas")).is_equal("")
+	assert_str(MechView.v3_wreck_path("zzzz_v3", "mechs", "zzzz")).is_equal("")
+	if ResourceLoader.exists("res://assets/v3/mechs/atlas_wreck.glb"):
+		assert_str(MechView.v3_wreck_path("atlas_v3", "mechs", "atlas")).is_equal("res://assets/v3/mechs/atlas_wreck.glb")
+		var root: Node = load("res://assets/v3/mechs/atlas_wreck.glb").instantiate()
+		var mis: Array = root.find_children("*", "MeshInstance3D", true, false)
+		assert_int(mis.size()).is_greater(14)  # the parts plus plates, frame and debris
+		var arrays: Array = (mis[0] as MeshInstance3D).mesh.surface_get_arrays(0)
+		assert_bool(arrays[Mesh.ARRAY_COLOR] != null).is_true()  # the burn
+		root.free()
+
+
+func test_every_wreck_variant_loads_with_burn_and_a_parent() -> void:
+	# tools/art/v3/wreck_mesh.py: <name>_wreck.glb beside its model, same atlases, burn in COLOR_0, wheels/tracks renamed wrecked_*
+	for folder in ["mechs", "vehicles"]:
+		var dir := "res://assets/v3/%s/" % folder
+		for f in DirAccess.get_files_at(dir):
+			if not f.ends_with("_wreck.glb"):
+				continue
+			var parent := f.replace("_wreck.glb", ".glb")
+			assert_bool(ResourceLoader.exists(dir + parent)).override_failure_message(f + " has no parent model").is_true()
+			var root: Node = (load(dir + f) as PackedScene).instantiate()
+			var mis: Array = root.find_children("*", "MeshInstance3D", true, false)
+			assert_int(mis.size()).override_failure_message(f).is_greater(5)
+			assert_array(root.find_children("wheel_*", "Node3D", true, false)).override_failure_message(f + ": a baked wheel keeps its rig name").is_empty()
+			var arrays: Array = (mis[0] as MeshInstance3D).mesh.surface_get_arrays(0)
+			assert_bool(arrays[Mesh.ARRAY_COLOR] != null).override_failure_message(f + " carries no burn").is_true()
+			root.free()

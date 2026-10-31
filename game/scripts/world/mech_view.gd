@@ -20,6 +20,10 @@ var ring: MeshInstance3D
 var selected := false: set = set_selected
 var _anim := ""
 var _wrecked := false
+const WRECK_SMOKE_S := 90.0
+var _wreck_clock := -1.0
+var _wreck_meshes: Array = []
+var _wreck_smoke: Array = []
 var _next_weapon := 0
 var _paint_name := ""  # paint-mask name: "<model>_hd" for HD models
 var smoke_nodes: Array[Node3D] = []
@@ -186,6 +190,18 @@ func _wreck() -> void:
 		return
 	_wrecked = true
 	ring.visible = false
+	# v3 units with a destroyed variant (tools/art/v3/wreck_mesh.py: <name>_wreck.glb, already posed on the last frame of
+	# FallForward for mechs, the rest pose for vehicles): swap it in, nothing animates. Without one, the freeze below.
+	var wreck_path := v3_wreck_path(_paint_name, "mechs" if mech is SimMech else "vehicles", mech.model)
+	if wreck_path != "":
+		rig = null
+		model.queue_free()
+		model = load(wreck_path).instantiate()
+		add_child(model)
+		_paint(model)
+		player = null
+		_burn_wreck()
+		return
 	# HD mechs: fall over with their own animation, freeze on the last frame, scorch.
 	if (_paint_name.ends_with("_hd") or _paint_name.ends_with("_v2") or _paint_name.ends_with("_v3")) and player and player.has_animation("FallForward"):
 		var fall := player.get_animation("FallForward")
@@ -208,6 +224,60 @@ func _wreck() -> void:
 		add_child(model)
 		_paint(model, mech.model)  # wrecks are still the original models
 		player = null
+
+
+## A burning hulk (style guide 8.7): smoke from every wounded spot for WRECK_SMOKE_S, the embers cooling over the same time.
+func _burn_wreck() -> void:
+	_wreck_clock = 0.0
+	for mi in model.find_children("*", "MeshInstance3D", true, false):
+		_wreck_meshes.append(mi)
+	for n in model.find_children("wreck_smoke_*", "Node3D", true, false):
+		var p := CPUParticles3D.new()
+		p.amount = 14
+		p.lifetime = 4.0
+		p.direction = Vector3.UP
+		p.spread = 18.0
+		p.initial_velocity_min = 1.2
+		p.initial_velocity_max = 2.2
+		p.gravity = Vector3(0, 0.4, 0)
+		p.scale_amount_min = 0.5
+		p.scale_amount_max = 1.4
+		var sphere := SphereMesh.new()
+		sphere.radius = 0.5
+		sphere.height = 1.0
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = Color(0.1, 0.1, 0.1, 0.45)
+		mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		sphere.material = mat
+		p.mesh = sphere
+		n.add_child(p)
+		_wreck_smoke.append(p)
+	set_process(true)
+
+
+func _process(delta: float) -> void:
+	if _wreck_clock < 0.0:
+		return
+	_wreck_clock += delta
+	var e := lerpf(1.0, 0.25, clampf(_wreck_clock / WRECK_SMOKE_S, 0.0, 1.0))
+	for mi in _wreck_meshes:
+		if is_instance_valid(mi):
+			(mi as MeshInstance3D).set_instance_shader_parameter("ember", e)
+	if _wreck_clock > WRECK_SMOKE_S:
+		for p in _wreck_smoke:
+			p.emitting = false
+		if _wreck_clock > WRECK_SMOKE_S + 5.0:
+			_wreck_clock = -1.0
+			set_process(false)
+
+
+## The v3 destroyed variant of a unit, or "" (not a v3 model, or none made: the scorched freeze stays).
+static func v3_wreck_path(paint_name: String, folder: String, model: String) -> String:
+	if not paint_name.ends_with("_v3"):
+		return ""
+	var p := "res://assets/v3/%s/%s_wreck.glb" % [folder, model]
+	return p if ResourceLoader.exists(p) else ""
 
 
 func _wreck_v3_vehicle() -> void:

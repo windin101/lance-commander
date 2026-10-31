@@ -27,8 +27,23 @@ func _ready() -> void:
 	add_child(view)
 	if args.has("fort"):
 		_fort.call_deferred(view)
+	if args.has("wreck"):  # --wreck=<model>: destroy the first unit of that model and frame it (wreck art checks)
+		_wreck.call_deferred(view, String(args["wreck"]))
 	if args.has("cam-view"):  # --cam-view=yaw,pitch,distance after the view has set itself up (scenery shots)
 		_cam_view.call_deferred(view, String(args["cam-view"]).split(","))
+
+
+func _wreck(view: Node, model: String) -> void:
+	await get_tree().process_frame
+	for u in view.world.units:
+		if u.model == model and view.views.has(u.id):
+			u.status = SimUnit.Status.DESTROYED
+			view.views[u.id].visible = true
+			view.views[u.id].sync(1.0)
+			if view.camera is RtsCamera:
+				(view.camera as RtsCamera).limits = false
+				(view.camera as RtsCamera).focus = Vector3(u.position.x, view.world.map.height_at(u.position), -u.position.y)
+			return
 
 
 func _cam_view(view: Node, v: PackedStringArray) -> void:

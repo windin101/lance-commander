@@ -96,6 +96,12 @@ func test_a_destroyed_v3_vehicle_keeps_its_model_burnt() -> void:
 	assert_object(v.rig).is_not_null()
 	u.status = SimUnit.Status.DESTROYED
 	v.sync(1.0)
+	if MechView.v3_wreck_path("hunter_v3", "vehicles", "hunter") != "":
+		# a destroyed variant exists (tools/art/v3/wreck_mesh.py): it is swapped in, burn baked into its vertices
+		assert_bool(v.model != before).is_true()
+		assert_object(v.rig).is_null()
+		v.queue_free()
+		return
 	assert_object(v.model).is_same(before)
 	assert_object(v.rig).is_null()
 	var mi := v.model.find_children("*", "MeshInstance3D", true, false)[0] as MeshInstance3D
