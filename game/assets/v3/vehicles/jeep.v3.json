@@ -1,0 +1,33 @@
+{
+ "model": "jeep.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "SciFi Vehicle Set 1 - Cars - 6mm (ORV 1.04)",
+  "author": "Shiaic3D",
+  "url": "https://www.printables.com/model/108620",
+  "licence": "CC BY 4.0",
+  "file": "BT-v_ORV-6mm_1.04.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 7, 2026-10-31), differs from the mech text above: no joints or actuators. RIGHTS: Shiaic3D, SciFi Vehicle Set 1 (Printables 108620, the ORV 1.04 file), labelled CC BY 4.0; part of a set that includes remixes of untraced originals; rights unverified; Lee accepted the risk on 2026-10-31. The fit is level (`no_icp`; v1 had no joints). WHEELED, 2 axles, 4 OWN GEOMETRY wheels (`make_wheel`) on axles fitted to the kit's wheel arches (kit wheel faces cut from the hull; part of the derivative), the front pair under `steer_*`. No turret or gun. No brand marks found on the mesh. Welded at 3 mm, planar-dissolved at 1.5 degrees."
+ },
+ "tris": 8833,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 2185083,
+  "chip_share": 0.038380235441857355,
+  "grime_mean": 0.42212823033332825,
+  "paint_share": 0.5785601736867662,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 165421,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

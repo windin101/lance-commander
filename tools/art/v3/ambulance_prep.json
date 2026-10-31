@@ -1,0 +1,55 @@
+{
+ "_doc": "LANCE-19 batch 6: Small Military Car (HBS) (Shiaic3D) as the ambulance; 3 axles, front steers; neutral medical marking.",
+ "unit": "ambulance",
+ "hull": "Ambulance",
+ "wheels": {
+  "x0": 1250.0,
+  "x1": 1900.0,
+  "pad": 10.0,
+  "seg": 36,
+  "steer": [
+   0
+  ],
+  "list": [
+   [
+    -2820,
+    650,
+    650
+   ],
+   [
+    480,
+    650,
+    650
+   ],
+   [
+    2130,
+    650,
+    650
+   ]
+  ]
+ },
+ "require_meshes": [],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 1.5,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 6, 2026-10-31), differs from the mech text above: no joints or actuators. The fit is level (`no_icp` in ambulance_veh.json). Parts split by `tools/art/v3/veh_prep.py` (ambulance_prep.json). Welded at 3 mm and planar-dissolved at 1.5 degrees, collapse only above 80k faces a part (no Blender collapse on shell soup). Own-geometry wheels (`make_wheel`: tyre drum, recessed rim, hub boss, bolts) where there are wheels; they are part of the derivative. WHEELED, 3 axles, front pair under `steer_*` pivots. Red cross emblem (protected under the Geneva Conventions) used as in the 2001 original; Lee accepted the risk on 2026-10-31: a red cross on a white circle on both sides and the roof, painted as fixed colours (`fixed_colour` in ambulance.json, not team colour). No turret. The roof's vent louvres under the white disc are pressed flat (`flatten` axis z) so the roof disc reads clean.",
+ "flatten": [
+  {
+   "axis": "z",
+   "min": [
+    -780,
+    850,
+    2380
+   ],
+   "max": [
+    780,
+    2150,
+    2560
+   ],
+   "plane": 2470.0
+  }
+ ]
+}

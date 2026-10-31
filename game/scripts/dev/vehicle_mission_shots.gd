@@ -35,6 +35,26 @@ func _run(view: Node) -> void:
 	cam.yaw_deg = float(_args.get("yaw", 20.0))
 	cam.pitch_deg = float(_args.get("pitch", 40.0))
 	cam.distance = float(_args.get("dist", 40.0))
+	if _args.has("place"):  # emplaced objects are not units: put the model on the ground next to the first unit and shoot that
+		var model_name := String(_args["place"])
+		var u0: SimUnit = w.units[0]
+		var spot: Vector2 = u0.position + Vector2(18, 0)
+		var path := ArtV3.model_path("vehicles", model_name)
+		if path == "":
+			path = "res://assets/vehicles/%s.glb" % model_name
+		var inst: Node3D = (load(path) as PackedScene).instantiate()
+		view.add_child(inst)
+		inst.position = TerrainView.to_3d(spot, w.map.height_at(spot))
+		if path.begins_with("res://assets/v3/"):
+			MechPaint.apply_scheme(inst, model_name + "_v3", PaintScheme.player(), "vehicles")
+		else:
+			MechPaint.apply_scheme(inst, model_name, PaintScheme.player(), "vehicles")
+		cam.pan_to(spot)
+		for i in 40:
+			await get_tree().process_frame
+		get_viewport().get_texture().get_image().save_png("%s_%s.png" % [_args.get("out", "/tmp/vms"), model_name])
+		get_tree().quit()
+		return
 	for m in String(_args.get("models", "lrmc")).split(","):
 		var found: Array = w.units.filter(func(u): return u.model == m)
 		if found.is_empty():

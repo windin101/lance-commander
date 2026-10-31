@@ -1,0 +1,70 @@
+{
+ "_doc": "v3 settings for the artillerypiece (LANCE-19): rigid vehicle, moving parts split out by tools/art/v3/veh_prep.py from artillerypiece_prep.json (work dir artillerypiece_tracks), fit from tools/art/v3/artillerypiece_veh.json via v3_rigid.py.",
+ "name": "artillerypiece",
+ "folder": "vehicles",
+ "stl": "/home/leeo/craft/solid/mc2/tv_stl/6974839/x/files/Artillery_gun_trailer_deployed.stl",
+ "source": {
+  "title": "Long Tom Mobile Artillery LT-MOB-95",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:6974839",
+  "licence": "CC BY-SA 4.0",
+  "file": "Artillery_gun_trailer_deployed.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 7, 2026-10-31), differs from the mech text above: no joints or actuators. STATIC emplaced gun (the data gives artillerypiece max_velocity 0, 360 degree turret): RGriffin65's Long Tom Mobile Artillery, the DEPLOYED gun trailer (`Artillery_gun_trailer_deployed.stl`; the stowed trailer and the tractor are not used). No v1 fit existed: the kit was fitted from scratch by `tools/art/v3/v3_rigid.py` (level, `no_icp`, yaw 90 from the search). The kit's fused hull, trailer and tracks stay one static part; the cradle (`Artillery_Turret`, turns about the vertical axis through the barrel) and the barrel (`H_BigGun`, the gun: pitches about the trunnion) were cut out by box in `veh_prep.py` (artillerypiece_prep.json). `gun_pitch` [-25, 20] degrees about the kit's raised rest pose (about 48 degrees; the 2001 model rests at about 35). No wheels or belts: the piece never moves. The hull is reduced by collapse (budget 35k, xatlas on 90k faces ran over 17 minutes; a 2.3M-face kit), the cradle and barrel by weld 3 mm + planar dissolve. Revision 2 (Lee): the kit's tracks and road-wheel shells (z < 1090 m outside the centre spine) were REMOVED and replaced by OUR OWN track shells (`make_slab`: a round-ended prism with bevelled edges, two a side) with static own-geometry road wheels (`make_wheel`) on their outer faces (`extras` in artillerypiece_prep.json); the piece never moves. Loose fragments (shells of up to 5000 faces, such as the kit's tow-bar bits) are dropped (`drop_small_shells`). The hull is reduced by collapse to 25k faces."
+ },
+ "k": 1.0,
+ "base_glb": "/mnt/nvme1n1p1/mc2-rework/work/artillerypiece_tracks/artillerypiece_base.glb",
+ "max_edge_mm": 0,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/artillerypiece_tracks",
+ "glass_from_v2": false,
+ "auto_actuators": false,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 50000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 113,
+  "chips": 1.0,
+  "grime": 0.55,
+  "grime_opacity": 0.55,
+  "dirt_patches": 0.15,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.35,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 450,
+  "chip_scale_mm": 180,
+  "exposure": {}
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "rigid": true,
+ "part_region": {
+  "ArtilleryPiece": "body",
+  "Artillery_Turret": "body",
+  "H_BigGun": "body"
+ },
+ "feet": [],
+ "joints": {},
+ "bare_prefix": "wheel_"
+}

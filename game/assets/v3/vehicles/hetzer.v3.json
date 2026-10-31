@@ -1,0 +1,33 @@
+{
+ "model": "hetzer.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Hetzer (LRM) for battletech",
+  "author": "PrysmaTheMagical",
+  "url": "https://www.thingiverse.com/thing:6459522",
+  "licence": "CC BY-SA 4.0",
+  "file": "LRM_Hetzer.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 9, 2026-10-31), differs from the mech text above: no joints or actuators. RIGHTS: PrysmaTheMagical, \"Hetzer (LRM) for battletech\" (Thingiverse 6459522), labelled CC BY-SA 4.0; built from two Cults3D models of unverified licence; rights unverified; Lee accepted the risk on 2026-10-31. The fit is level (`no_icp`, v1 yaw 270). WHEELED, 2 axles, 4 OWN GEOMETRY wheels (`make_wheel`) on the kit's wheel arches (kit wheel faces cut from the hull), front pair under `steer_*`. The kit carries LRM tube banks fixed on the hull top; the original has one cannon and max_turret_yaw 0, so no turret or gun part. Welded at 3 mm, planar-dissolved at 1.5 degrees, collapse above 80k faces. "
+ },
+ "tris": 19850,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 2503977,
+  "chip_share": 0.013004911786330306,
+  "grime_mean": 0.3608700931072235,
+  "paint_share": 0.6479220855463129,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 201485,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

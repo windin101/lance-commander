@@ -1,0 +1,34 @@
+{
+ "_doc": "LANCE-19 batch 7: ORV 1.04 (Shiaic3D) as the jeep; 2 axles, front steers.",
+ "unit": "jeep",
+ "hull": "jeep",
+ "wheels": {
+  "x0": 980.0,
+  "x1": 1335.0,
+  "pad": 10.0,
+  "seg": 36,
+  "steer": [
+   0
+  ],
+  "list": [
+   [
+    -1970,
+    375,
+    400
+   ],
+   [
+    1430,
+    375,
+    400
+   ]
+  ]
+ },
+ "require_meshes": [],
+ "sidecar": {},
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 1.5,
+  "weld_m": 0.003
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 7, 2026-10-31), differs from the mech text above: no joints or actuators. RIGHTS: Shiaic3D, SciFi Vehicle Set 1 (Printables 108620, the ORV 1.04 file), labelled CC BY 4.0; part of a set that includes remixes of untraced originals; rights unverified; Lee accepted the risk on 2026-10-31. The fit is level (`no_icp`; v1 had no joints). WHEELED, 2 axles, 4 OWN GEOMETRY wheels (`make_wheel`) on axles fitted to the kit's wheel arches (kit wheel faces cut from the hull; part of the derivative), the front pair under `steer_*`. No turret or gun. No brand marks found on the mesh. Welded at 3 mm, planar-dissolved at 1.5 degrees."
+}

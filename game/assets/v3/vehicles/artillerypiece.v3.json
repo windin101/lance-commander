@@ -1,0 +1,37 @@
+{
+ "model": "artillerypiece.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Long Tom Mobile Artillery LT-MOB-95",
+  "author": "RGriffin65",
+  "url": "https://www.thingiverse.com/thing:6974839",
+  "licence": "CC BY-SA 4.0",
+  "file": "Artillery_gun_trailer_deployed.stl",
+  "notes": "Vehicle rework (LANCE-19 batch 7, 2026-10-31), differs from the mech text above: no joints or actuators. STATIC emplaced gun (the data gives artillerypiece max_velocity 0, 360 degree turret): RGriffin65's Long Tom Mobile Artillery, the DEPLOYED gun trailer (`Artillery_gun_trailer_deployed.stl`; the stowed trailer and the tractor are not used). No v1 fit existed: the kit was fitted from scratch by `tools/art/v3/v3_rigid.py` (level, `no_icp`, yaw 90 from the search). The kit's fused hull, trailer and tracks stay one static part; the cradle (`Artillery_Turret`, turns about the vertical axis through the barrel) and the barrel (`H_BigGun`, the gun: pitches about the trunnion) were cut out by box in `veh_prep.py` (artillerypiece_prep.json). `gun_pitch` [-25, 20] degrees about the kit's raised rest pose (about 48 degrees; the 2001 model rests at about 35). No wheels or belts: the piece never moves. The hull is reduced by collapse (budget 35k, xatlas on 90k faces ran over 17 minutes; a 2.3M-face kit), the cradle and barrel by weld 3 mm + planar dissolve. Revision 2 (Lee): the kit's tracks and road-wheel shells (z < 1090 m outside the centre spine) were REMOVED and replaced by OUR OWN track shells (`make_slab`: a round-ended prism with bevelled edges, two a side) with static own-geometry road wheels (`make_wheel`) on their outer faces (`extras` in artillerypiece_prep.json); the piece never moves. Loose fragments (shells of up to 5000 faces, such as the kit's tow-bar bits) are dropped (`drop_small_shells`). The hull is reduced by collapse to 25k faces."
+ },
+ "tris": 46630,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 2236607,
+  "chip_share": 0.014777741462849754,
+  "grime_mean": 0.22896338999271393,
+  "paint_share": 0.9714603414904809,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 77972,
+  "stripe_texels": 0,
+  "band_texels": 0
+ },
+ "gun_pitch": [
+  -25,
+  20
+ ]
+}

@@ -363,11 +363,17 @@ def stage_paint(cfg, work):
             fr[mm_] = np.hypot(XS[mm_, 1] - ay_, XS[mm_, 2] - az_) / rad_
         rubber = isw & (fr >= 0.65)
         steel_w = isw & ~rubber
-    # cfg "fixed_colour" (LANCE-19, ordnance truck containers): [{"min": [x, y, z], "max": [x, y, z], "colour": [r, g, b] sRGB 0..1,
+    # cfg "fixed_colour" (LANCE-19, ordnance truck containers): [{"min": [x, y, z], "max": [x, y, z] (or "disc": {centre, radius, axis, depth}), "colour": [r, g, b] sRGB 0..1,
     # "rough": 0.6}]: texels whose sculpt-frame position lies in the box are bare (no team colour, alpha 0) in that colour.
     fixed = np.zeros(len(zone), bool); fixed_col = np.zeros((len(zone), 3), np.float32); fixed_rough = np.full(len(zone), 0.6, np.float32)
     for fc in cfg.get("fixed_colour", []):
-        inb = np.all((XS >= np.asarray(fc["min"], float)) & (XS <= np.asarray(fc["max"], float)), 1) & ~hidden_fix(low_kind, hkind)
+        if "disc" in fc:   # round region: {"disc": {"centre": [x, y, z], "radius": r, "axis": "x"|"y"|"z", "depth": [lo, hi]?}}
+            dc = fc["disc"]; ax = "xyz".index(dc.get("axis", "z")); pl = [i for i in range(3) if i != ax]
+            dd = np.linalg.norm(XS[:, pl] - np.asarray(dc["centre"], float)[pl], axis=1)
+            lo_, hi_ = dc.get("depth", [-1e12, 1e12])
+            inb = (dd <= float(dc["radius"])) & (XS[:, ax] >= lo_) & (XS[:, ax] <= hi_) & ~hidden_fix(low_kind, hkind)
+        else:
+            inb = np.all((XS >= np.asarray(fc["min"], float)) & (XS <= np.asarray(fc["max"], float)), 1) & ~hidden_fix(low_kind, hkind)
         fixed |= inb; fixed_col[inb] = srgb_to_lin(np.asarray(fc["colour"], float)); fixed_rough[inb] = float(fc.get("rough", 0.6))
     zone[fixed] = 2
     w = cfg.get("wear", {})

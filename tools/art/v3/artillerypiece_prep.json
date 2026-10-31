@@ -1,0 +1,217 @@
+{
+ "_doc": "LANCE-19 batch 7: Long Tom deployed gun trailer as MC2's artillery piece; static.",
+ "unit": "artillerypiece",
+ "hull": "ArtilleryPiece",
+ "merge": {
+  "Artillery_Turret": "ArtilleryPiece",
+  "H_BigGun": "ArtilleryPiece",
+  "Object01": "ArtilleryPiece"
+ },
+ "split": [
+  {
+   "from": "ArtilleryPiece",
+   "new": "H_BigGun",
+   "min": [
+    -1500,
+    -4650,
+    1750
+   ],
+   "max": [
+    1500,
+    700,
+    7500
+   ]
+  },
+  {
+   "from": "ArtilleryPiece",
+   "new": "Artillery_Turret",
+   "min": [
+    -1500,
+    700,
+    2210
+   ],
+   "max": [
+    1500,
+    1500,
+    7500
+   ]
+  }
+ ],
+ "nodes": {
+  "Artillery_Turret": [
+   0,
+   1000,
+   2300
+  ],
+  "H_BigGun": [
+   0,
+   1000,
+   2300
+  ],
+  "weapon_01": [
+   0,
+   -4500,
+   6850
+  ]
+ },
+ "reset_rot": [
+  "H_BigGun"
+ ],
+ "require_meshes": [
+  "Artillery_Turret",
+  "H_BigGun"
+ ],
+ "sidecar": {
+  "gun_pitch": [
+   -25,
+   20
+  ]
+ },
+ "lowpoly": {
+  "budget": 80000,
+  "planar_deg": 3.0,
+  "weld_m": 0.003,
+  "budget_parts": {
+   "ArtilleryPiece": 25000
+  }
+ },
+ "notes": "Vehicle rework (LANCE-19 batch 7, 2026-10-31), differs from the mech text above: no joints or actuators. STATIC emplaced gun (the data gives artillerypiece max_velocity 0, 360 degree turret): RGriffin65's Long Tom Mobile Artillery, the DEPLOYED gun trailer (`Artillery_gun_trailer_deployed.stl`; the stowed trailer and the tractor are not used). No v1 fit existed: the kit was fitted from scratch by `tools/art/v3/v3_rigid.py` (level, `no_icp`, yaw 90 from the search). The kit's fused hull, trailer and tracks stay one static part; the cradle (`Artillery_Turret`, turns about the vertical axis through the barrel) and the barrel (`H_BigGun`, the gun: pitches about the trunnion) were cut out by box in `veh_prep.py` (artillerypiece_prep.json). `gun_pitch` [-25, 20] degrees about the kit's raised rest pose (about 48 degrees; the 2001 model rests at about 35). No wheels or belts: the piece never moves. The hull is reduced by collapse (budget 35k, xatlas on 90k faces ran over 17 minutes; a 2.3M-face kit), the cradle and barrel by weld 3 mm + planar dissolve. Revision 2 (Lee): the kit's tracks and road-wheel shells (z < 1090 m outside the centre spine) were REMOVED and replaced by OUR OWN track shells (`make_slab`: a round-ended prism with bevelled edges, two a side) with static own-geometry road wheels (`make_wheel`) on their outer faces (`extras` in artillerypiece_prep.json); the piece never moves. Loose fragments (shells of up to 5000 faces, such as the kit's tow-bar bits) are dropped (`drop_small_shells`). The hull is reduced by collapse to 25k faces.",
+ "drop_boxes": [
+  {
+   "part": "ArtilleryPiece",
+   "min": [
+    700,
+    -7000,
+    -10
+   ],
+   "max": [
+    2300,
+    4000,
+    1090
+   ]
+  },
+  {
+   "part": "ArtilleryPiece",
+   "min": [
+    -2300,
+    -7000,
+    -10
+   ],
+   "max": [
+    -700,
+    4000,
+    1090
+   ]
+  }
+ ],
+ "drop_small_shells": [
+  {
+   "part": "ArtilleryPiece",
+   "max_faces": 700
+  },
+  {
+   "part": "H_BigGun",
+   "max_faces": 1500
+  },
+  {
+   "part": "Artillery_Turret",
+   "max_faces": 300
+  }
+ ],
+ "extras": [
+  {
+   "kind": "slab",
+   "x0": 780,
+   "x1": 2040,
+   "y0": -4250,
+   "y1": -1000,
+   "z0": 0,
+   "z1": 1080,
+   "bevel": 80,
+   "mirror": true
+  },
+  {
+   "kind": "wheel",
+   "x0": 2020,
+   "x1": 2170,
+   "y": -3700,
+   "z": 470,
+   "r": 360,
+   "mirror": true
+  },
+  {
+   "kind": "wheel",
+   "x0": 2020,
+   "x1": 2170,
+   "y": -2900,
+   "z": 470,
+   "r": 360,
+   "mirror": true
+  },
+  {
+   "kind": "wheel",
+   "x0": 2020,
+   "x1": 2170,
+   "y": -2100,
+   "z": 470,
+   "r": 360,
+   "mirror": true
+  },
+  {
+   "kind": "wheel",
+   "x0": 2020,
+   "x1": 2170,
+   "y": -1400,
+   "z": 470,
+   "r": 360,
+   "mirror": true
+  },
+  {
+   "kind": "slab",
+   "x0": 780,
+   "x1": 2040,
+   "y0": -450,
+   "y1": 2800,
+   "z0": 0,
+   "z1": 1080,
+   "bevel": 80,
+   "mirror": true
+  },
+  {
+   "kind": "wheel",
+   "x0": 2020,
+   "x1": 2170,
+   "y": 150,
+   "z": 470,
+   "r": 360,
+   "mirror": true
+  },
+  {
+   "kind": "wheel",
+   "x0": 2020,
+   "x1": 2170,
+   "y": 950,
+   "z": 470,
+   "r": 360,
+   "mirror": true
+  },
+  {
+   "kind": "wheel",
+   "x0": 2020,
+   "x1": 2170,
+   "y": 1750,
+   "z": 470,
+   "r": 360,
+   "mirror": true
+  },
+  {
+   "kind": "wheel",
+   "x0": 2020,
+   "x1": 2170,
+   "y": 2450,
+   "z": 470,
+   "r": 360,
+   "mirror": true
+  }
+ ]
+}

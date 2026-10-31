@@ -169,6 +169,28 @@ def make_container(cx, cy, z0, L, W, H, taper=0.22, bevel=70.0, rib_pitch=330.0,
     return np.concatenate(Vs), np.concatenate(Fs)
 
 
+def make_slab(x0, x1, y0, y1, z0, z1, bevel=70.0, n=16):
+    """A track shell, OUR OWN geometry (LANCE-19): a stadium (round-ended) prism along x, edges bevelled. y0..y1 / z0..z1 is its
+    side-view box, x0..x1 its thickness. Returns (V mm, F)."""
+    r = (z1 - z0) / 2.0
+    cz = (z0 + z1) / 2.0
+    pts = []
+    for k in range(n + 1):                    # front (y0) semicircle, bottom to top
+        a = -np.pi / 2 - np.pi * k / n
+        pts.append((y0 + r + r * np.cos(a), cz + r * np.sin(a)))
+    for k in range(n + 1):                    # rear (y1) semicircle, top to bottom
+        a = np.pi / 2 - np.pi * k / n
+        pts.append((y1 - r + r * np.cos(a), cz + r * np.sin(a)))
+    pts = np.array(pts)
+    cen = np.array([(y0 + y1) / 2.0, cz])
+
+    def ring(x, inset):
+        q = cen + (pts - cen) * np.clip(1 - inset / np.maximum(np.linalg.norm(pts - cen, axis=1, keepdims=True), 1.0), 0, 1)
+        return [(x, py, pz) for py, pz in q]
+    loops = [ring(x0, bevel), ring(x0 + bevel, 0.0), ring(x1 - bevel, 0.0), ring(x1, bevel)]
+    return _loft(loops)
+
+
 def wheel_x(cfg, w):
     """(x0, x1) of one wheel: the entry's own [y, z, r, x0, x1] when it has them (a half-track's front wheel and its track wheels
     differ in width), else the shared wheels.x0 / x1."""
@@ -339,9 +361,30 @@ def main(unit=None):
         print(f"split: {int(sel.sum())} faces of {sp['from']} -> {sp['new']}")
     for fl in cfg.get("flatten", []):                      # "flatten": [{"min", "max", "y": plane}]: embossed marks (a brand name) pressed flat:
         lo_, hi_ = np.asarray(fl["min"], float), np.asarray(fl["max"], float)   # vertices in the box in front of the plane (y < plane) move onto it
+        if fl.get("axis") == "z":                          # "axis": "z": a panel pressed flat from both sides onto z = plane (a roof's vent louvres)
+            inb = np.all((V >= lo_) & (V <= hi_), 1)
+            V = V.copy(); V[inb, 2] = fl["plane"]
+            print(f"flatten: {int(inb.sum())} vertices onto z {fl['plane']}")
+            continue
         inb = np.all((V >= lo_) & (V <= hi_), 1) & (V[:, 1] < fl["y"])
         V = V.copy(); V[inb, 1] = fl["y"]
         print(f"flatten: {int(inb.sum())} vertices onto y {fl['y']}")
+    for db in cfg.get("drop_boxes", []):                   # "drop_boxes": [{"part", "min", "max"}]: faces of the part whose centroid lies in the box
+        Cc_ = V[F].mean(1)
+        sel_ = (lab == names.index(db["part"])) & np.all(Cc_ >= np.asarray(db["min"], float), 1) & np.all(Cc_ <= np.asarray(db["max"], float), 1)
+        print(f"drop_boxes: {int(sel_.sum())} faces of {db['part']}")
+        F, lab = F[~sel_], lab[~sel_]
+    sss = cfg.get("drop_small_shells") or []                # "drop_small_shells": {"part", "max_faces"} or a list of them: loose bits (floating fragments)
+    for ss in (sss if isinstance(sss, list) else [sss]):
+        from scipy.sparse import coo_matrix
+        from scipy.sparse.csgraph import connected_components
+        pm = lab == names.index(ss["part"]); Fh = F[pm]
+        g_ = coo_matrix((np.ones(3 * len(Fh)), (Fh.ravel(), np.roll(Fh, 1, 1).ravel())), shape=(len(V), len(V)))
+        _, vc_ = connected_components(g_, directed=False); sh_ = vc_[Fh[:, 0]]; cn_ = np.bincount(sh_)
+        small_ = (cn_ <= ss["max_faces"])[sh_]
+        print(f"drop_small_shells: {int(small_.sum())} faces in {int(np.unique(sh_[small_]).size)} shells")
+        keep_ = np.ones(len(F), bool); keep_[np.where(pm)[0][small_]] = False
+        F, lab = F[keep_], lab[keep_]
     for dp in cfg.get("drop_parts", []):                  # parts the unit does not have (the Harasser's second launcher)
         keep_ = lab != names.index(dp)
         print(f"drop_parts: {int((~keep_).sum())} faces of {dp}")
@@ -405,10 +448,20 @@ def main(unit=None):
                 axles[names[-1]] = [sign * (wx0 + wx1) / 2, y, zc, rad]
     off_ = sum(len(v_) for v_ in V2)
     for ex in cfg.get("extras", []):          # "extras": own-geometry hull additions, e.g. {"kind": "container", "x", "y", "z0", "len", "wid", "h"} mm
-        assert ex["kind"] == "container", ex
-        Vc, Fc = make_container(ex.get("x", 0.0), ex["y"], ex["z0"], ex["len"], ex["wid"], ex["h"], ex.get("taper", 0.22))
-        V2.append(Vc); F2.append(Fc + off_); lab2.append(np.full(len(Fc), hull)); off_ += len(Vc)
-        print(f"extra container at y {ex['y']}: {len(Fc)} faces")
+        if ex["kind"] == "slab":                       # own-geometry track shell (and its mirror image)
+            Vc, Fc = make_slab(ex["x0"], ex["x1"], ex["y0"], ex["y1"], ex["z0"], ex["z1"], ex.get("bevel", 70.0))
+            parts_ = [(Vc, Fc)] + ([_orient(Vc * np.array([-1.0, 1.0, 1.0]), Fc)] if ex.get("mirror") else [])
+        elif ex["kind"] == "wheel":                    # static own-geometry road wheel (a hull detail, not a wheel_* part)
+            Vw_, Fw_ = make_wheel(ex["r"], ex["x1"] - ex["x0"], 36)
+            Vw_ = Vw_ + np.array([ex["x0"], ex["y"], ex["z"]])
+            parts_ = [(Vw_, Fw_)] + ([_orient(Vw_ * np.array([-1.0, 1.0, 1.0]), Fw_)] if ex.get("mirror") else [])
+        else:
+            assert ex["kind"] == "container", ex
+            Vc, Fc = make_container(ex.get("x", 0.0), ex["y"], ex["z0"], ex["len"], ex["wid"], ex["h"], ex.get("taper", 0.22))
+            parts_ = [(Vc, Fc)]
+        for Vc, Fc in parts_:
+            V2.append(Vc); F2.append(Fc + off_); lab2.append(np.full(len(Fc), hull)); off_ += len(Vc)
+        print(f"extra {ex['kind']}: {sum(len(f_) for _, f_ in parts_)} faces")
     V, F, lab = np.concatenate(V2), np.concatenate(F2), np.concatenate(lab2)
     lift = float(cfg.get("lift_mm", 0.0))     # ground contact: the whole vehicle (geometry, axles, node tree) moves up by this
     if lift:
