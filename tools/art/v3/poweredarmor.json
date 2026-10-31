@@ -1,0 +1,122 @@
+{
+ "_doc": "v3 settings for the powered armour (LANCE-19): hd_v2 fit+segment work dir (poweredarmor), loose shells under 150 faces dropped from labels.npz; mech path with auto actuators. (stl_rig's own labels as identity-pose parts were tried: the legs detached in the walk.)",
+ "name": "poweredarmor",
+ "folder": "vehicles",
+ "stl": "/home/leeo/craft/solid/mc2/tv_stl/5215239/x/files/Standing_01.stl",
+ "source": {
+  "title": "Irontold Hawkish Battle Armor (American Mecha)",
+  "author": "maggiweber",
+  "url": "https://www.thingiverse.com/thing:5215239",
+  "licence": "CC BY 4.0",
+  "file": "Standing_01.stl",
+  "notes": "Powered armour rework (LANCE-19, 2026-10-31): a SimVehicle with a mech-style skeleton (joint_* with Walk and Run). The approved v1 fit (`stl_rig.py` with ~/craft/solid/mc2/stl/poweredarmor/joints.json, the Standing_01 sculpt) was recaptured by `hd_v2.py poweredarmor --steps fit,segment --folder vehicles`, then built through the mech path (`v3_mech.py`): rigid parts per original node with modelled joint actuators."
+ },
+ "k": 180.6418472468218,
+ "base_glb": "/mnt/nvme1n1p1/mc2-rework/work/poweredarmor/skel.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/poweredarmor",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 40000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 139,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 536,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "joint_rgun": 0.95,
+   "joint_lgun": 0.95,
+   "pa_lfoot": 1.0,
+   "pa_lleg": 1.0,
+   "pa_rfoot": 1.0,
+   "pa_rlleg": 1.0
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 220,
+    "min_aspect": 3.5,
+    "min_area_m2": 0.05
+   }
+  ]
+ },
+ "part_region": {
+  "joint_rgun": "arms",
+  "joint_lgun": "arms",
+  "pa_torso": "body",
+  "pa_lfoot": "feet",
+  "pa_lleg": "lower_legs",
+  "pa_luleg": "upper_legs",
+  "pa_rfoot": "feet",
+  "pa_rlleg": "lower_legs",
+  "pa_ruleg": "upper_legs"
+ },
+ "feet": [],
+ "joints": {
+  "joint_rgun": {
+   "kind": "sphere",
+   "r": 106
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 106
+  },
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 150
+  },
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 97,
+   "half": 126
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 97,
+   "half": 126
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 106
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 97,
+   "half": 126
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 97,
+   "half": 126
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 106
+  }
+ }
+}

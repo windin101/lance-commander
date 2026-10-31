@@ -1,0 +1,33 @@
+{
+ "model": "poweredarmor.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Irontold Hawkish Battle Armor (American Mecha)",
+  "author": "maggiweber",
+  "url": "https://www.thingiverse.com/thing:5215239",
+  "licence": "CC BY 4.0",
+  "file": "Standing_01.stl",
+  "notes": "Powered armour rework (LANCE-19, 2026-10-31): a SimVehicle with a mech-style skeleton (joint_* with Walk and Run). The approved v1 fit (`stl_rig.py` with ~/craft/solid/mc2/stl/poweredarmor/joints.json, the Standing_01 sculpt) was recaptured by `hd_v2.py poweredarmor --steps fit,segment --folder vehicles`, then built through the mech path (`v3_mech.py`): rigid parts per original node with modelled joint actuators."
+ },
+ "tris": 42483,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 2454553,
+  "chip_share": 0.06711690478877416,
+  "grime_mean": 0.557314932346344,
+  "paint_share": 0.39233212727531247,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 101701,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}
