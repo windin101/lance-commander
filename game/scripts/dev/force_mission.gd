@@ -35,6 +35,7 @@ func _ready() -> void:
 
 func _wreck(view: Node, model: String) -> void:
 	await get_tree().process_frame
+	await get_tree().process_frame
 	for u in view.world.units:
 		if u.model == model and view.views.has(u.id):
 			u.status = SimUnit.Status.DESTROYED
@@ -42,6 +43,9 @@ func _wreck(view: Node, model: String) -> void:
 			view.views[u.id].sync(1.0)
 			if view.camera is RtsCamera:
 				(view.camera as RtsCamera).limits = false
+				(view.camera as RtsCamera).following = null   # the camera follows the lance by default
+				if view.compass:
+					view.compass.enabled = false   # the ground compass arrow at the focus covers the wreck
 				(view.camera as RtsCamera).focus = Vector3(u.position.x, view.world.map.height_at(u.position), -u.position.y)
 			return
 

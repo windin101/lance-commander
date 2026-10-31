@@ -41,6 +41,7 @@ def main():
     ap.add_argument("names", nargs="+")
     ap.add_argument("--out", default="/mnt/nvme1n1p1/mc2-rework/wreck/batch")
     ap.add_argument("--no-gen", action="store_true")
+    ap.add_argument("--near-only", action="store_true", help="skip the 240 m view")
     a = ap.parse_args()
     O = Path(a.out); O.mkdir(parents=True, exist_ok=True)
     if not a.no_gen:
@@ -62,7 +63,7 @@ def main():
             if n not in vm:
                 continue
             mission, lance = vm[n], "--lance=atlas:pmwhacksaw"
-        for tag, cam in (("near", "-,58,110"), ("far", "-,58,240")):
+        for tag, cam in (("near", "-,58,110"), ("far", "-,58,240"))[:1 if a.near_only else 2]:
             godot("--path", "game", "res://scenes/dev_force_mission.tscn", "--", "--art-v3", f"--mission={mission}", lance,
                   "--player-scheme=player_default", f"--wreck={n}", f"--cam-view={cam}", "--no-hud", f"--screenshot={O}/mis_{n}_{tag}.png",
                   "--size=1280x720", "--frames=240")

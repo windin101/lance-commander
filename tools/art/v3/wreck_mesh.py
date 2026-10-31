@@ -219,7 +219,7 @@ def dent(p, amp, freq, seed, mask=None):
     p.recompute_normals()
 
 
-def debris_from(parts, centre, radius, count, seed, ground_y=0.0, ring=(2.5, 7.0), keep_away=None):
+def debris_from(parts, centre, radius, count, seed, ground_y=0.0, ring=(2.5, 7.0), keep_away=None, rscale=1.0):
     """Armour fragments: patches of real surface cut from the parts near `centre` and thrown onto the ground."""
     rng = np.random.default_rng(seed)
     out = []
@@ -232,7 +232,7 @@ def debris_from(parts, centre, radius, count, seed, ground_y=0.0, ring=(2.5, 7.0
         if len(cand) < 50:
             continue
         c = cen[rng.choice(cand)]
-        r = rng.uniform(0.22, 0.5)
+        r = rng.uniform(0.22, 0.5) * rscale
         sel = np.linalg.norm(cen - c, axis=1) < r
         if sel.sum() < 6:
             continue
@@ -338,48 +338,88 @@ def recipe_mech(parts, uv_dark, seed, chain, torso, shoulder_hint=None):
     return extra
 
 
-def recipe_vehicle(parts, uv_dark, seed, hull, turret, tracks, wheels, detach=()):
-    """turret may be None (trucks, jeeps): the hull is then breached and burnt, wheels knocked about.  detach: other parts to throw (radars)."""
+def recipe_vehicle(parts, uv_dark, seed, hull, turret, tracks, wheels, detach=(), weapons=()):
+    """A vehicle blown apart: the turret (or, with none, the cab: the front third of the hull) thrown several metres and turned over,
+    the hull listing nose-down, a large breach in its roof with the roof peeled up over an interior frame, a track thrown out or
+    wheels knocked off and scattered, a wide debris field.  Burn stays moderate so the paint still shows (scorched, not black)."""
     up = np.array([0, 1.0, 0])
     sc, ground = unit_scale(parts)
-    H = parts[hull]
-    hull_c = H.V.mean(0)
     rng = np.random.default_rng(seed)
+    H = parts[hull]
+    ext = H.V.max(0) - H.V.min(0)
+    lax = 0 if ext[0] > ext[2] else 2          # the long horizontal axis
+    wax = 2 - lax
+    length, width = float(ext[lax]), float(ext[wax])
+    hull_c = H.V.mean(0)
+    fwd = np.zeros(3); fwd[lax] = 1.0            # "front" = the + end of the long axis
+    lat = np.zeros(3); lat[wax] = 1.0
     extra = []
-    side = np.array([np.cos(rng.uniform(0, 6.28)), 0, 0.0]); side[2] = np.sqrt(max(0, 1 - side[0] ** 2)) * rng.choice([-1, 1])
-    thrown = ([parts[turret]] if turret else []) + [parts[n] for n in detach if n in parts]
-    for k, Tu in enumerate(thrown):
-        tc = Tu.V.mean(0)
-        sd = np.array([np.cos(rng.uniform(0, 6.28)), 0, 0]); sd[2] = rng.choice([-1, 1]) * np.sqrt(max(0, 1 - sd[0] ** 2))
-        flip = rot_axis(np.cross(up, sd), np.radians(150 if k == 0 else 60)) @ rot_axis(up, rng.uniform(0, 6.28))
-        Tu.apply(xform(flip, t=hull_c + sd * (5.5 + 1.5 * k) * sc - tc, about=tc))
-        Tu.V[:, 1] += ground + 0.05 - Tu.V[:, 1].min()
-        Tu.burn = np.clip(Tu.burn + 0.6, 0, 1)
-        dent(Tu, 0.05 * sc, 1.5, seed + 3)
-    extra_ex = set([turret] if turret else []) | set(detach)
-    sites = pick_sites(parts, extra_ex | set(tracks) | set(wheels), 4, 1.8 * sc, seed + 2, ground)
+    thrown_names = set(detach) | set(weapons) | ({turret} if turret else set())
+    thrown = [parts[n] for n in thrown_names if n in parts]
+    if not turret:                              # no turret: the cab / front superstructure goes
+        c = H.centroids()[:, lax]
+        mask = c > H.V[:, lax].min() + 0.62 * length
+        cab = sub_part(H, mask, hull + "_cab")
+        drop_faces(H, mask)
+        cab.burn = cab.burn + 0.3
+        parts[hull + "_cab"] = cab
+        thrown = [cab] + thrown
+    # 1. nose-down list of the body (hull, wheels, tracks stay together)
+    body = [p for n, p in parts.items() if p not in thrown]
+    M = xform(rot_axis(lat, np.radians(-9 * (1 if lax == 0 else -1) * 1.0)) @ rot_axis(fwd, np.radians(rng.choice([-1, 1]) * 5)), about=hull_c)
+    for p in body:
+        p.apply(M)
+    ymin = min(p.V[:, 1].min() for p in body)
+    for p in body:
+        p.V[:, 1] += ground - ymin
+    hull_c = H.V.mean(0)
+    # 2. the thrown group: turret + guns / cab: several metres out, turned over
+    gc = np.concatenate([p.V for p in thrown]).mean(0) if thrown else hull_c
+    ang = rng.uniform(0, 2 * np.pi)
+    dist = length * 0.7 + 4.0 * sc
+    sd = np.zeros(3); sd[lax] = np.cos(ang) * 0.7; sd[wax] = np.sin(ang) * np.sign(np.sin(ang) or 1.0); sd /= np.linalg.norm(sd)
+    flip = rot_axis(np.cross(up, sd), np.radians(rng.uniform(140, 175) if turret else rng.uniform(70, 110))) @ rot_axis(up, rng.uniform(0, 6.28))
+    T = xform(flip, t=hull_c + sd * dist - gc, about=gc)
+    for p in thrown:
+        p.apply(T)
+    if thrown:
+        ym = min(p.V[:, 1].min() for p in thrown)
+        for p in thrown:
+            p.V[:, 1] += ground + 0.05 - ym
+            p.burn = np.clip(p.burn + 0.35, 0, 0.8)
+            dent(p, 0.06 * sc, 1.5, seed + 3)
+    # 3. a large breach through the roof (peeled up), plus two more on the deck
     wounds = []
+    sites = pick_sites({hull: H}, set(), 3, 0.45 * width, seed + 2, ground)
     for k, (nm, c) in enumerate(sites):
-        r = rng.uniform(1.0, 1.5) * sc
-        extra += blow_open(parts[nm], c, r, up, seed + 20 + k, uv_dark, rng.uniform(25, 40), depth=0.5 * r)
+        r = (rng.uniform(0.30, 0.40) if k == 0 else rng.uniform(0.18, 0.26)) * width
+        extra += blow_open(H, c, r, up, seed + 20 + k, uv_dark, rng.uniform(45, 60) if k == 0 else rng.uniform(30, 45), depth=0.6 * r)
         wounds.append(c)
-    dent(H, 0.04 * sc, 1.4, seed + 5)
+    dent(H, 0.05 * sc, 1.4, seed + 5)
+    # 4. tracks thrown out, or wheels knocked off and scattered
     tn = [n for n in tracks if n in parts]
-    if tn:
-        tr = parts[tn[0]]
-        c = tr.V.mean(0); sd = np.sign(c[0] - hull_c[0]) or 1.0
-        tr.apply(xform(rot_axis([0, 0, 1], np.radians(18 * sd)), t=np.array([sd * 2.2 * sc, 0, rng.uniform(-1.5, 1.5)]), about=c))
+    for k, n in enumerate(tn):
+        tr = parts[n]
+        c = tr.V.mean(0); sd2 = np.sign(c[wax] - hull_c[wax]) or 1.0
+        out = lat * sd2
+        a2 = 28 if k == 0 else 10
+        tr.apply(xform(rot_axis(fwd, np.radians(a2 * sd2)), t=out * (width * (0.9 if k == 0 else 0.25)) + fwd * rng.uniform(-1, 1) * length * 0.2, about=c))
         tr.V[:, 1] += ground + 0.03 - tr.V[:, 1].min()
-        tr.V += tr.N * (0.1 * noise3(tr.V, 1.0, seed + 8))[:, None]; tr.recompute_normals()
-        tr.burn = np.clip(tr.burn + 0.6, 0, 1)
-    for k, n in enumerate([w for w in wheels if w in parts]):
-        if k % 3 == 0:
+        tr.V += tr.N * (0.12 * sc * noise3(tr.V, 1.0, seed + 8))[:, None]; tr.recompute_normals()
+        tr.burn = np.clip(tr.burn + 0.4, 0, 0.8)
+    wn = [w for w in wheels if w in parts]
+    for k, n in enumerate(wn):
+        if k % 2 == 0 or not tn:
             w = parts[n]; c = w.V.mean(0)
-            w.apply(xform(rot_axis(rng.normal(size=3), rng.uniform(0.3, 1.2)), t=np.array([rng.uniform(-3, 3) * sc, 0, rng.uniform(-3, 3) * sc]), about=c))
+            far = rng.uniform(0.6, 1.6) * length
+            ang3 = rng.uniform(0, 6.28)
+            w.apply(xform(rot_axis(rng.normal(size=3), rng.uniform(0.4, 1.4)), t=np.array([np.cos(ang3) * far, 0, np.sin(ang3) * far]), about=c))
             w.V[:, 1] += ground + 0.03 - w.V[:, 1].min()
-            w.burn = np.clip(w.burn + 0.5, 0, 1)
-    extra += debris_from([H], wounds[0] if wounds else hull_c, 3.5 * sc, 14, seed + 9, ground_y=ground, ring=(2.0 * sc, 9.0 * sc))
-    burn_field(list(parts.values()) + extra, wounds, 3.0 * sc, 0.6, seed)
+            w.burn = np.clip(w.burn + 0.3, 0, 0.8)
+    # 5. a wide debris field
+    extra += debris_from([H] + ([parts[hull + "_cab"]] if not turret else []), wounds[0] if wounds else hull_c, 0.8 * length, 28, seed + 9,
+                         ground_y=ground, ring=(0.5 * length, 2.4 * length), rscale=max(1.0, 0.9 * sc))
+    burn_field([p for p in parts.values()] + extra, wounds, 0.35 * length, 0.28, seed)
     return extra
 
 
@@ -419,7 +459,8 @@ def plan_vehicle(name, names, parts):
     turret = c["turret"] if "turret" in c else next((n for n in names if re.search(r"turret", n, re.I)), None)
     hull = c.get("hull") or max((n for n in names if n != turret and n not in tracks and n not in wheels and n not in c.get("detach", [])
                                  and not re.search(r"gun|pack|pods|radar", n, re.I)), key=lambda n: len(parts[n].F))
-    return hull, turret, tracks, wheels, c.get("detach", [])
+    weapons = [n for n in names if n not in (hull, turret) and n not in tracks and n not in wheels and re.search(r"gun|pack|pods|launcher|missile|barrel", n, re.I)]
+    return hull, turret, tracks, wheels, c.get("detach", []), weapons
 
 
 # --------------------------------------------------------------------------------------------------- writing
@@ -488,12 +529,12 @@ def main():
             sh = parts[torso].V[np.argmin(np.linalg.norm(parts[torso].V - top, axis=1))]
         extra = recipe_mech(parts, uv_dark, seed, chain, torso, sh)
     else:
-        hull, turret, tracks, wheels, detach = plan_vehicle(a.name, names, parts)
-        print("hull", hull, "turret", turret, "tracks", len(tracks), "wheels", len(wheels), "detach", detach)
-        extra = recipe_vehicle(parts, uv_dark, seed, hull, turret, tracks, wheels, detach)
+        hull, turret, tracks, wheels, detach, weapons = plan_vehicle(a.name, names, parts)
+        print("hull", hull, "turret", turret, "tracks", len(tracks), "wheels", len(wheels), "detach", detach, "weapons", weapons)
+        extra = recipe_vehicle(parts, uv_dark, seed, hull, turret, tracks, wheels, detach, weapons)
     out = Path(a.out) if a.out else d / f"{a.name}_wreck.glb"
     allp = list(parts.values()) + extra
-    check(allp, parts, extra, tuple(chain) if a.folder == "mechs" else tuple(([turret] if turret else []) + list(detach)))
+    check(allp, parts, extra, tuple(chain) if a.folder == "mechs" else tuple(([turret] if turret else [hull + "_cab"]) + list(detach)))
     write_glb(g, allp, out)
     print("wrote", out, len(allp), "meshes", sum(len(p.F) for p in allp), "tris")
 
