@@ -1,0 +1,53 @@
+{
+ "model": "anubis.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Anubis (image-to-3D base sculpt from our own input renders)",
+  "author": "Tripo (paid plan, Lee's account, task 0d643b92-ee0a-4907-91dc-595f8993c445, model v3.1-20260211); design Lee Osborne / Claude",
+  "url": "",
+  "licence": "our own work, Shared Source non-commercial (design follows the MC2 Anubis)",
+  "file": "tools/art/v3/tripo_gen.py"
+ },
+ "tris": 62180,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.113,
+  "Walk": 0.202,
+  "Run": 0.6,
+  "STtoWK": 0.409,
+  "WKtoST": 0.203,
+  "WKtoRN": 0.413,
+  "RNtoWK": 0.206,
+  "LimpLeft": 0.65,
+  "LimpRight": 0.109,
+  "ParkToStand": 0.117,
+  "StandToPark": 0.117,
+  "Jump": 0.686,
+  "FallForward": 0.492,
+  "FallBackward": 0.698,
+  "GetUpFront": 0.562,
+  "GetUpBack": 0.462,
+  "HitFront": 0.27,
+  "HitBack": 0.12,
+  "HitLeft": 0.118,
+  "HitRight": 0.12
+ },
+ "paint_stats": {
+  "texels": 1874219,
+  "chip_share": 0.03792619752547594,
+  "grime_mean": 0.3330037295818329,
+  "paint_share": 0.6323839423247763,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 6883,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

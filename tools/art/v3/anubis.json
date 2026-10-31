@@ -1,0 +1,182 @@
+{
+ "_doc": "v3 settings for the Anubis, image-to-3D route (Tripo task 0d643b92, multiview v3.1-20260211, our own input renders of the in-house blockout).",
+ "name": "anubis",
+ "folder": "mechs",
+ "stl": "image-to-3D sculpt (tools/art/v3/sculpt_prep.py output)",
+ "source": {
+  "title": "Anubis (image-to-3D base sculpt from our own input renders)",
+  "author": "Tripo (paid plan, Lee's account, task 0d643b92-ee0a-4907-91dc-595f8993c445, model v3.1-20260211); design Lee Osborne / Claude",
+  "url": "",
+  "licence": "our own work, Shared Source non-commercial (design follows the MC2 Anubis)",
+  "file": "tools/art/v3/tripo_gen.py"
+ },
+ "k": 1.0,
+ "base_glb": "game/assets/mechs/anubis.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/anubis_tripo",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 45000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 2038,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "AN_rgun": 0.95,
+   "AN_ruarm": 0.95,
+   "AN_lgun": 0.95,
+   "AN_luarm": 0.95,
+   "AN_lfoot": 1.0,
+   "joint_AN_litoe": 1.0,
+   "joint_AN_lotoe": 1.0,
+   "AN_llleg": 1.0,
+   "AN_luleg2": 1.0,
+   "AN_rfoot": 1.0,
+   "joint_AN_rotoe": 1.0,
+   "joint_AN_ritoe": 1.0,
+   "AN_rlleg": 1.0,
+   "AN_ruleg2": 1.0
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 300,
+    "min_aspect": 7.0,
+    "min_area_m2": 0.3
+   }
+  ]
+ },
+ "part_region": {
+  "AN_torso": "body",
+  "AN_rgun": "arms",
+  "AN_ruarm": "arms",
+  "AN_lgun": "arms",
+  "AN_luarm": "arms",
+  "AN_lfoot": "feet",
+  "joint_AN_litoe": "feet",
+  "joint_AN_lotoe": "feet",
+  "AN_llleg": "lower_legs",
+  "AN_luleg2": "lower_legs",
+  "AN_luleg": "upper_legs",
+  "AN_rfoot": "feet",
+  "joint_AN_rotoe": "feet",
+  "joint_AN_ritoe": "feet",
+  "AN_rlleg": "lower_legs",
+  "AN_ruleg2": "lower_legs",
+  "AN_ruleg": "upper_legs",
+  "AN_hip": "body"
+ },
+ "feet": [
+  "AN_lfoot",
+  "joint_AN_litoe",
+  "joint_AN_lotoe",
+  "AN_rfoot",
+  "joint_AN_rotoe",
+  "joint_AN_ritoe"
+ ],
+ "joints": {
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 571
+  },
+  "joint_rgun": {
+   "kind": "sphere",
+   "r": 404
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 404
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 404
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 404
+  },
+  "joint_lanke": {
+   "kind": "sphere",
+   "r": 404
+  },
+  "joint_AN_litoe": {
+   "kind": "cyl",
+   "r": 367,
+   "half": 477
+  },
+  "joint_AN_lotoe": {
+   "kind": "cyl",
+   "r": 367,
+   "half": 477
+  },
+  "joint_llleg2": {
+   "kind": "cyl",
+   "r": 367,
+   "half": 477
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 367,
+   "half": 477
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 404
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 367,
+   "half": 477
+  },
+  "joint_AN_rotoe": {
+   "kind": "cyl",
+   "r": 367,
+   "half": 477
+  },
+  "joint_AN_ritoe": {
+   "kind": "cyl",
+   "r": 367,
+   "half": 477
+  },
+  "joint_rlleg2": {
+   "kind": "cyl",
+   "r": 367,
+   "half": 477
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 367,
+   "half": 477
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 404
+  }
+ }
+}
