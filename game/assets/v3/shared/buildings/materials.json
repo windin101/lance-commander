@@ -94,5 +94,29 @@
   ],
   "mean_roughness": 120.9,
   "metal": 248.0
+ },
+ "wood": {
+  "source": "Planks023A by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Planks023A",
+  "tile_m": 2.0,
+  "use": "weathered grey-brown planks: hut cladding, timber frames, decks",
+  "mean_albedo": [
+   89.0,
+   78.9,
+   69.6
+  ],
+  "mean_roughness": 216.5,
+  "metal": 0.1
+ },
+ "boards": {
+  "source": "Planks008 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Planks008",
+  "tile_m": 1.5,
+  "use": "vertical boards: board-and-batten walls, fences",
+  "mean_albedo": [
+   148.9,
+   135.5,
+   102.6
+  ],
+  "mean_roughness": 133.2,
+  "metal": 0.0
  }
 }

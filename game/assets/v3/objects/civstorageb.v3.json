@@ -1,0 +1,52 @@
+{
+ "app": "civstorageb",
+ "made_by": "tools/art/v3/bld_family.py",
+ "source_dims": "sawtooth shed 6.2 x 14.7 m, 5.33 m (tools/cad/civstorageb_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 6345,
+   "tris_lod1": 1657,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.02,
+    0.0,
+    -11.63
+   ],
+   "bounds_max": [
+    3.4,
+    5.49,
+    3.8
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 7509,
+   "tris_lod1": 2251,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.02,
+    0.0,
+    -11.63
+   ],
+   "bounds_max": [
+    7.7,
+    5.49,
+    3.8
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3972,
+   "tris_lod1": 920,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.0,
+    -0.65,
+    -14.08
+   ],
+   "bounds_max": [
+    6.0,
+    2.66,
+    5.91
+   ]
+  }
+ }
+}

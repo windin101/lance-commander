@@ -10,7 +10,7 @@ const DIR := "res://assets/v3/shared/buildings/"
 ## material -> [tile metres, metalness scale]; mirrors materials.json (tools/art/v3/bld_materials.py)
 const LIB := {
 	"paint": [2.0, 0.0], "steel": [1.5, 0.35], "galv": [1.5, 0.2], "concrete": [2.0, 0.0], "concrete_dark": [2.0, 0.0],
-	"grate": [0.8, 0.3], "rust": [1.5, 0.2], "corrugated": [1.0, 0.15],
+	"grate": [0.8, 0.3], "rust": [1.5, 0.2], "corrugated": [1.0, 0.15], "wood": [2.0, 0.0], "boards": [1.5, 0.0],
 }
 ## decal atlas cells (tools/art/v3/bld_trim.py CELLS), for callers that lay decals out in code
 const DECAL_CELLS := {"panel": 0, "diamond": 1, "id_plate": 2, "hatch": 3, "arrow": 4, "streak_a": 5, "streak_b": 6, "oil": 7,
@@ -65,21 +65,39 @@ static func material(name: String) -> ShaderMaterial:
 			mat.set_shader_parameter("ar_tex", load(DIR + "trim_ar.png"))
 			mat.set_shader_parameter("nm_tex", load(DIR + "trim_nm.png"))
 		else:
+			var alias := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint"}
+			if alias.has(name):
+				tex = alias[name]
+			if name == "glass":  # dark glossy glazing: the steel set, tinted, no metal
+				tex = "steel"
+				mat.set_shader_parameter("base_tint", Color(0.1, 0.15, 0.2))
 			if name == "interior":
 				mat.set_shader_parameter("mode", 3)
 				tex = "rust"
 			var cfg: Array = LIB.get(tex, [2.0, 0.0])
 			mat.set_shader_parameter("tile_m", float(cfg[0]))
-			mat.set_shader_parameter("metal_k", float(cfg[1]))
+			mat.set_shader_parameter("metal_k", 0.0 if name == "glass" else float(cfg[1]))
 			mat.set_shader_parameter("contrast", 0.85 if tex == "paint" else 1.0)
 			mat.set_shader_parameter("desat", 0.95 if tex == "galv" else 0.0)
 			if tex == "galv":
 				mat.set_shader_parameter("base_tint", Color(0.95, 0.9, 0.84))
 			if tex == "corrugated":
-				mat.set_shader_parameter("base_tint", Color(1.3, 1.15, 0.98))
 				mat.set_shader_parameter("lined", 1.0)
 				mat.set_shader_parameter("normal_depth", 0.6)
-			if tex == "paint":
+				mat.set_shader_parameter("rib_axis", 1.0)
+				mat.set_shader_parameter("rib_pitch", 0.45 if name == "roofing" else 0.3)
+				mat.set_shader_parameter("rust_k", 0.5 if name == "roofing" else 0.3)
+				mat.set_shader_parameter("base_tint", Color(0.95, 0.93, 0.9) if name == "roofing" else Color(1.05, 1.03, 1.0))
+			if name == "lapwood":
+				mat.set_shader_parameter("rib_axis", 2.0)
+				mat.set_shader_parameter("rib_pitch", 0.22)
+				mat.set_shader_parameter("rib_dark", 0.62)
+				mat.set_shader_parameter("rib_gap", 0.75)
+				mat.set_shader_parameter("base_tint", Color(1.0, 0.92, 0.84))
+			if name == "silo":
+				mat.set_shader_parameter("base_tint", Color(0.92, 0.84, 0.72))
+				mat.set_shader_parameter("rust_k", 0.35)
+			if tex == "paint" and name != "silo":
 				mat.set_shader_parameter("base_tint", Color(0.9, 0.88, 0.84))
 			mat.set_shader_parameter("ar_tex", load(DIR + tex + "_ar.webp"))
 			mat.set_shader_parameter("nm_tex", load(DIR + tex + "_nm.webp"))

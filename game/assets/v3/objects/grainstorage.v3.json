@@ -1,0 +1,52 @@
+{
+ "app": "grainstorage",
+ "made_by": "tools/art/v3/bld_family.py",
+ "source_dims": "hall x -4.17..12.68 with four silos, 15.16 m (tools/cad/grainstorage_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 20638,
+   "tris_lod1": 8524,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.62,
+    0.0,
+    -9.84
+   ],
+   "bounds_max": [
+    13.34,
+    15.38,
+    4.38
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 33589,
+   "tris_lod1": 13152,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.47,
+    0.0,
+    -12.13
+   ],
+   "bounds_max": [
+    13.25,
+    15.38,
+    4.38
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 17290,
+   "tris_lod1": 9192,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.74,
+    0.0,
+    -11.72
+   ],
+   "bounds_max": [
+    19.25,
+    9.12,
+    9.0
+   ]
+  }
+ }
+}

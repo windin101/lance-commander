@@ -18,6 +18,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bld_kit import Ctx, round_tank, lid_profile, uref, axis_angle, cell_uv, K, TAU  # noqa: E402
 from bld_mesh import Builder, rot_y, unit  # noqa: E402
+import bld_sheds  # noqa: E402  (detail pass: the sheds and the grain store)
 
 ROOT = Path(__file__).resolve().parents[3]
 LOD_M = 80.0
@@ -541,10 +542,10 @@ MEMBERS = {
     "pipetank": (tank_pipe, "octagonal tank r 4.7 on a pedestal, pipe to x 12.78, 12.44 m (tools/cad/pipetank_cad.py)"),
     "liquidstorage": (tank_liquid, "decagonal tank 9.1 m, stair tower +z, roof bridge, 12.57 m (tools/cad/liquidstorage_cad.py)"),
     "watertower": (tank_water, "open four-leg stand, tank r 2.65 to 8.83, lid 9.37 m (tools/cad/watertower_cad.py)"),
-    "grainstorage": (grain, "hall x -4.17..12.68 with four silos, 15.16 m (tools/cad/grainstorage_cad.py)"),
-    "civstoragea": (shed_a, "7.7 x 11 m triple-gable shed, 4.2 m (tools/cad/civstoragea_cad.py)"),
-    "civstorageb": (shed_b, "sawtooth shed 6.2 x 14.7 m, 5.33 m (tools/cad/civstorageb_cad.py)"),
-    "civstoragec": (shed_c, "stilt cabin 4.5 x 3.4 m, 6.07 m (tools/cad/civstoragec_cad.py)"),
+    "grainstorage": (bld_sheds.grain, "hall x -4.17..12.68 with four silos, 15.16 m (tools/cad/grainstorage_cad.py)"),
+    "civstoragea": (bld_sheds.shed_a, "7.7 x 11 m triple-gable shed, 4.2 m (tools/cad/civstoragea_cad.py)"),
+    "civstorageb": (bld_sheds.shed_b, "sawtooth shed 6.2 x 14.7 m, 5.33 m (tools/cad/civstorageb_cad.py)"),
+    "civstoragec": (bld_sheds.shed_c, "stilt cabin 4.5 x 3.4 m, 6.07 m (tools/cad/civstoragec_cad.py)"),
 }
 
 

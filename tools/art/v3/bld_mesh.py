@@ -214,17 +214,25 @@ class Builder:
         if not tris:
             return
         T = np.array(tris, float)
-        def P_(u, v, off=0.0):
+        e = 1e-3
+        def n0(u, v):
+            du = pos(u + e, v) - pos(u - e, v); dv = pos(u, v + e) - pos(u, v - e)
+            n = np.cross(du, dv)
+            return n / (np.linalg.norm(n, axis=-1, keepdims=True) + 1e-12)
+        def posd(u, v):
             p = pos(u, v)
             if disp is not None:
-                p = p + disp(u, v, keep(u, v) if keep is not None else np.ones_like(u))[..., None] * nrm(u, v)
-            return p + off * nrm(u, v)
-        e = 1e-3
+                u = np.asarray(u, float); v = np.asarray(v, float)
+                kk = keep(u, v) if keep is not None else np.ones_like(u)
+                p = p + np.asarray(disp(u, v, kk))[..., None] * n0(u, v)
+            return p
         def nrm(u, v):
-            du = pos(u + e, v) - pos(u - e, v); dv = pos(u, v + e) - pos(u, v - e)
+            du = posd(u + e, v) - posd(u - e, v); dv = posd(u, v + e) - posd(u, v - e)
             n = np.cross(du, dv)
             n = n / (np.linalg.norm(n, axis=-1, keepdims=True) + 1e-12)
             return -n if flip else n
+        def P_(u, v, off=0.0):
+            return posd(u, v) + off * nrm(u, v)
         Pp = P_(T[..., 0], T[..., 1]); Nn = nrm(T[..., 0], T[..., 1])
         Uv = uv(T[..., 0], T[..., 1]) if uv is not None else T
         m = len(T)

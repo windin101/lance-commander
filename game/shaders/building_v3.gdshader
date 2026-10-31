@@ -20,6 +20,12 @@ uniform vec3 base_tint : source_color = vec3(1.0);
 uniform vec3 tint : source_color = vec3(0.86, 0.66, 0.1);
 uniform float tint_amount = 1.0;
 uniform float wear = 1.0;
+uniform float rib_axis = 0.0;    // 1: ribs vary along UV.x (corrugated), 2: along UV.y (lap boards); the LOD1 read of cladding geometry
+uniform float rib_pitch = 0.3;
+uniform float rib_dark = 0.5;
+uniform float rib_gap = 0.0;     // dark gap line between boards
+uniform float rust_k = 0.0;      // rust staining on weathered metal
+uniform vec3 rust_col : source_color = vec3(0.42, 0.2, 0.09);
 uniform float desat = 0.0;        // pulls a tinted scan (blue galvanising) toward grey
 uniform float contrast = 1.0;   // pulls a high-contrast scan (chipped paint) toward its mean for an intact look
 uniform float dust : hint_range(0.0, 1.0) = 0.2;
@@ -100,6 +106,22 @@ void fragment() {
 		float tm = vcol.r * tint_amount;
 		col = mix(col, tint * (0.3 + 0.7 * dot(col, vec3(0.333))), tm);
 		// grime: dirt climbing from the ground, run-off streaks, baked run-off below ledges (vertex G) and baked AO (vertex A)
+		if (rib_axis > 0.5) {
+			float cc = rib_axis < 1.5 ? UV.x : UV.y;
+			float q = cc / rib_pitch;
+			float ph = fract(q);
+			float amp = 1.0 - smoothstep(0.3, 0.7, fwidth(q));        // fades with distance instead of aliasing
+			float rib = 0.5 + 0.5 * cos(6.2831853 * ph);
+			float shade = mix(1.0, mix(rib_dark, 1.12, rib), amp);
+			col *= shade;
+			ao *= mix(1.0, mix(0.7, 1.0, rib), amp);
+			col *= 1.0 - rib_gap * smoothstep(0.86, 1.0, ph) * amp;
+		}
+		if (rust_k > 0.0) {
+			float rz = smoothstep(0.42, 0.78, g1 + (1.0 - ao) * 0.35 + vcol.g * 0.6);
+			col = mix(col, rust_col * (0.6 + 0.8 * g2), clamp(rust_k * rz, 0.0, 0.9));
+			rough = mix(rough, 0.85, rust_k * rz);
+		}
 		float ground = 1.0 - smoothstep(0.0, 9.0, mpos.y);
 		float ang = atan(mpos.z, mpos.x);
 		float streak = smoothstep(0.4, 0.8, texture(grunge_tex, vec2(ang * 3.0, mpos.y * 0.03)).g);

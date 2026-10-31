@@ -49,7 +49,8 @@ func test_damage_swaps_then_destroy_swaps() -> void:
 	view.queue_free()
 
 
-const STORAGE_FAMILY := ["largefueltank", "smallfueltank", "pipetank", "liquidstorage", "watertower"]  # grainstorage and civstorage a-c: rework pending
+const STORAGE_FAMILY := ["largefueltank", "smallfueltank", "pipetank", "liquidstorage", "watertower", "grainstorage",
+	"civstoragea", "civstorageb", "civstoragec"]
 
 
 func test_storage_family_has_three_states_with_two_lods() -> void:

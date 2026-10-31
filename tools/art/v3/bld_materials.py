@@ -34,6 +34,8 @@ LIB = {
     "grate": ("DiamondPlate008C", 0.8, "diamond tread plate: walkways, stair treads"),
     "rust": ("Rust009", 1.5, "corroded steel: wrecks, exposed interiors"),
     "corrugated": ("CorrugatedSteel009", 1.0, "corrugated cladding: sheds, silos, hoods"),
+    "wood": ("Planks023A", 2.0, "weathered grey-brown planks: hut cladding, timber frames, decks"),
+    "boards": ("Planks008", 1.5, "vertical boards: board-and-batten walls, fences"),
 }
 
 

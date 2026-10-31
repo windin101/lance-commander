@@ -1,0 +1,52 @@
+{
+ "app": "civstoragec",
+ "made_by": "tools/art/v3/bld_family.py",
+ "source_dims": "stilt cabin 4.5 x 3.4 m, 6.07 m (tools/cad/civstoragec_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 3342,
+   "tris_lod1": 786,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.69,
+    -0.01,
+    -3.79
+   ],
+   "bounds_max": [
+    2.57,
+    6.16,
+    3.97
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 5000,
+   "tris_lod1": 1134,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.69,
+    -0.01,
+    -4.7
+   ],
+   "bounds_max": [
+    6.0,
+    6.16,
+    3.97
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1854,
+   "tris_lod1": 636,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.5,
+    0.0,
+    -6.6
+   ],
+   "bounds_max": [
+    4.5,
+    3.32,
+    3.62
+   ]
+  }
+ }
+}

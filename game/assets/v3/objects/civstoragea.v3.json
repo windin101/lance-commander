@@ -1,0 +1,52 @@
+{
+ "app": "civstoragea",
+ "made_by": "tools/art/v3/bld_family.py",
+ "source_dims": "7.7 x 11 m triple-gable shed, 4.2 m (tools/cad/civstoragea_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 8886,
+   "tris_lod1": 1428,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.08,
+    0.0,
+    -6.78
+   ],
+   "bounds_max": [
+    4.08,
+    4.35,
+    6.39
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 9307,
+   "tris_lod1": 1866,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.08,
+    0.0,
+    -6.78
+   ],
+   "bounds_max": [
+    7.7,
+    4.36,
+    6.39
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3534,
+   "tris_lod1": 798,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.0,
+    0.0,
+    -8.19
+   ],
+   "bounds_max": [
+    6.0,
+    2.79,
+    7.8
+   ]
+  }
+ }
+}

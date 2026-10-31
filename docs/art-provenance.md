@@ -370,5 +370,12 @@ Storage family rollout (2026-10-31): `tools/art/v3/bld_family.py` + `bld_kit.py`
 | `.../pipetank{,_damaged,_destroyed}.glb` | Pipe-head tank on a pedestal, flanged pipe and end block | `bld_family.py pipetank` | same |
 | `.../liquidstorage{,_damaged,_destroyed}.glb` | Liquid storage tank, stair tower, roof bridge | `bld_family.py liquidstorage` | same |
 | `.../watertower{,_damaged,_destroyed}.glb` | Water tower on an open four-leg stand | `bld_family.py watertower` | same |
+| `.../grainstorage{,_damaged,_destroyed}.glb` | Grain store: hall and four round silos | `bld_family.py grainstorage` | same |
+| `.../civstoragea{,_damaged,_destroyed}.glb` | Triple-gable storage shed | `bld_family.py civstoragea` | same |
+| `.../civstorageb{,_damaged,_destroyed}.glb` | Sawtooth storage shed | `bld_family.py civstorageb` | same |
+| `.../civstoragec{,_damaged,_destroyed}.glb` | Stilt storage hut | `bld_family.py civstoragec` | same |
 
 Library note: metalness of the ambientCG sets is scaled in `BuildingV3.LIB` (steel 0.35, galvanised 0.2, corrugated 0.15, grate 0.3, rust 0.2). Full scanned metalness read near black under the mission light and blue under the sky.
+
+Detail pass on the sheds and the grain store (2026-10-31): `tools/art/v3/bld_sheds.py` (civstoragea/b/c, grainstorage) replaces the first-pass shed code in `bld_family.py`: LOD0 cladding geometry (corrugated ribs 0.3 m, lap boards 0.2 m, standing-seam roof sheets), cut openings with reveals, framed roller doors and glazing, eaves, gutters, downpipes, torn openings with thickness and curled edges over a dark interior with frame members, sagging roof sheets, collapsed wrecks. Two library materials added, both ambientCG CC0 1.0: `wood` = Planks023A (https://ambientcg.com/view?id=Planks023A), `boards` = Planks008 (https://ambientcg.com/view?id=Planks008); `glass` is the steel set tinted dark.
+
