@@ -1,0 +1,52 @@
+{
+ "app": "meethall",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "barrel-vault hall with two low wings",
+ "states": {
+  "intact": {
+   "tris_lod0": 11934,
+   "tris_lod1": 1466,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.22,
+    0.0,
+    -11.0
+   ],
+   "bounds_max": [
+    12.2,
+    12.73,
+    11.0
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 12270,
+   "tris_lod1": 2090,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.2,
+    0.0,
+    -11.0
+   ],
+   "bounds_max": [
+    12.5,
+    12.73,
+    11.0
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 8786,
+   "tris_lod1": 2512,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.27,
+    -0.66,
+    -11.94
+   ],
+   "bounds_max": [
+    14.51,
+    3.74,
+    10.63
+   ]
+  }
+ }
+}

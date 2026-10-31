@@ -1,0 +1,52 @@
+{
+ "app": "greenhouse",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "glazed greenhouse, ridge roof fans",
+ "states": {
+  "intact": {
+   "tris_lod0": 752,
+   "tris_lod1": 360,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.5,
+    0.0,
+    -9.4
+   ],
+   "bounds_max": [
+    2.7,
+    4.18,
+    9.4
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 764,
+   "tris_lod1": 372,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.5,
+    0.0,
+    -9.4
+   ],
+   "bounds_max": [
+    2.7,
+    4.75,
+    9.4
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 840,
+   "tris_lod1": 312,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.0,
+    -0.08,
+    -9.26
+   ],
+   "bounds_max": [
+    2.94,
+    2.4,
+    9.94
+   ]
+  }
+ }
+}

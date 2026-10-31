@@ -1,0 +1,52 @@
+{
+ "app": "2storycivliving",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "two-storey teal block with an annex",
+ "states": {
+  "intact": {
+   "tris_lod0": 1474,
+   "tris_lod1": 512,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.8,
+    -0.0,
+    -12.14
+   ],
+   "bounds_max": [
+    4.13,
+    7.24,
+    2.8
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1946,
+   "tris_lod1": 986,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.98,
+    -0.0,
+    -12.24
+   ],
+   "bounds_max": [
+    3.8,
+    7.24,
+    2.8
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3238,
+   "tris_lod1": 1030,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.55,
+    -0.73,
+    -12.39
+   ],
+   "bounds_max": [
+    4.26,
+    2.96,
+    2.4
+   ]
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "app": "city4storyc",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "4-storey city block, variant c",
+ "states": {
+  "intact": {
+   "tris_lod0": 5300,
+   "tris_lod1": 528,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.5,
+    -0.0,
+    -11.2
+   ],
+   "bounds_max": [
+    8.2,
+    15.84,
+    7.5
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 7146,
+   "tris_lod1": 1868,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.5,
+    -0.0,
+    -11.2
+   ],
+   "bounds_max": [
+    8.2,
+    15.95,
+    7.5
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 5342,
+   "tris_lod1": 2384,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.89,
+    -0.81,
+    -13.38
+   ],
+   "bounds_max": [
+    9.59,
+    7.45,
+    8.89
+   ]
+  }
+ }
+}

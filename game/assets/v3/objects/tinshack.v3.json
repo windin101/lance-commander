@@ -1,0 +1,52 @@
+{
+ "app": "tinshack",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "tin shed with a long mono-pitch roof and chimney",
+ "states": {
+  "intact": {
+   "tris_lod0": 3866,
+   "tris_lod1": 236,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.6,
+    0.0,
+    -3.72
+   ],
+   "bounds_max": [
+    11.9,
+    9.0,
+    11.62
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 3808,
+   "tris_lod1": 696,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.6,
+    0.0,
+    -3.72
+   ],
+   "bounds_max": [
+    11.9,
+    9.0,
+    11.62
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1996,
+   "tris_lod1": 686,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.2,
+    -0.53,
+    -3.88
+   ],
+   "bounds_max": [
+    12.35,
+    2.71,
+    11.2
+   ]
+  }
+ }
+}

@@ -493,6 +493,9 @@ func _lighting(cam_block: Dictionary, fit_data: Dictionary = {}) -> void:
 	var sun := DirectionalLight3D.new()
 	sun.name = "Sun"
 	sun.light_color = _rgb(cam_block, "Light", Color(1, 1, 0.88))
+	var night_key := fposmod(float(cam_block.get("LightDirPitch", 50.0)), 360.0)
+	BuildingV3.set_map_gain(mission)
+	BuildingV3.set_night((night_key > 182.0 and night_key < 358.0) or maxf(sun.light_color.r, sun.light_color.g) < 0.5)  # lit windows at night (building_v3 wglass)
 	if TerrainV3.enabled:  # T3 review (Lee, option a): warm sunset suns soften toward neutral for everything v3-lit
 		sun.light_color = TerrainV3.soften_light(sun.light_color)
 		sun.light_angular_distance = 1.2  # soft penumbra: the lit ground's 25.6 m triangles cast stair-stepped shadow edges

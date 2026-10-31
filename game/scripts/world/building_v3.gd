@@ -18,10 +18,15 @@ const DECAL_CELLS := {"panel": 0, "diamond": 1, "id_plate": 2, "hatch": 3, "arro
 
 ## --no-building-v3 (or MC2_BUILDING_V3=0) keeps the v1/v2 art for buildings alone, for before/after shots with the rest of v3 on.
 static var enabled: bool = not (OS.get_cmdline_user_args().has("--no-building-v3") or OS.get_environment("MC2_BUILDING_V3") == "0")
-const ALIAS := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint", "hullsheet": "corrugated", "hullclean": "corrugated", "seamroof": "corrugated", "roofclean": "corrugated", "hangarroof": "corrugated", "finroof": "corrugated", "facade": "concrete", "wallconc": "concrete", "wallconc2": "concrete", "palesheet": "corrugated", "darkboards": "boards", "palewood": "boards", "darksheet": "corrugated", "wallfacade": "concrete", "sandbag": "concrete", "wallpost_s": "concrete", "wallpost_l": "concrete", "wallpost_d": "concrete", "brick": "concrete", "palepaint": "paint", "tealpaint": "paint", "pipegreen": "paint", "slate": "paint", "palecorr": "corrugated", "safetyyellow": "paint", "machgrey": "paint", "bandgreen": "paint", "bandorange": "paint", "tankgrey": "paint", "roofdark": "paint", "lightcorr": "corrugated"}  # model material name -> library set (see tools/art/v3/bld_*.py)
+const ALIAS := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint", "hullsheet": "corrugated", "hullclean": "corrugated", "seamroof": "corrugated", "roofclean": "corrugated", "hangarroof": "corrugated", "finroof": "corrugated", "facade": "concrete", "wallconc": "concrete", "wallconc2": "concrete", "palesheet": "corrugated", "darkboards": "boards", "palewood": "boards", "darksheet": "corrugated", "wallfacade": "concrete", "sandbag": "concrete", "wallpost_s": "concrete", "wallpost_l": "concrete", "wallpost_d": "concrete", "brick": "concrete", "palepaint": "paint", "tealpaint": "paint", "pipegreen": "paint", "slate": "paint", "palecorr": "corrugated", "safetyyellow": "paint", "machgrey": "paint", "bandgreen": "paint", "bandorange": "paint", "tankgrey": "paint", "roofdark": "paint", "lightcorr": "corrugated", "brickcity": "concrete", "greybrick": "concrete", "whitecity": "concrete", "facadeblue": "concrete", "facadegreen": "concrete", "tealwall": "paint", "tinroof": "corrugated", "wglass": "steel"}  # model material name -> library set (see tools/art/v3/bld_*.py)
 const TINTS := {"brick": Color(0.46, 0.3, 0.27), "palepaint": Color(0.7, 0.74, 0.76), "tealpaint": Color(0.5, 0.7, 0.74), "pipegreen": Color(0.66, 0.8, 0.74),
 	"slate": Color(0.045, 0.06, 0.07), "palecorr": Color(0.52, 0.56, 0.58), "safetyyellow": Color(1.02, 0.84, 0.26), "machgrey": Color(0.46, 0.54, 0.6),
-	"bandgreen": Color(0.32, 0.62, 0.4), "bandorange": Color(0.95, 0.5, 0.2), "tankgrey": Color(0.52, 0.57, 0.57), "roofdark": Color(0.045, 0.055, 0.065), "lightcorr": Color(0.86, 0.91, 0.94)}  # industrial family (bld_industry.py): per-name tint on the shared set  # model material name -> library set (see tools/art/v3/bld_*.py)
+	"bandgreen": Color(0.32, 0.62, 0.4), "bandorange": Color(0.95, 0.5, 0.2), "tankgrey": Color(0.52, 0.57, 0.57), "roofdark": Color(0.045, 0.055, 0.065), "lightcorr": Color(0.86, 0.91, 0.94),
+	"brickcity": Color(0.66, 0.4, 0.36), "greybrick": Color(0.58, 0.61, 0.63), "whitecity": Color(0.82, 0.86, 0.88), "facadeblue": Color(0.5, 0.6, 0.72), "facadegreen": Color(0.46, 0.6, 0.57),
+	"tealwall": Color(0.36, 0.52, 0.56), "tinroof": Color(0.5, 0.52, 0.5)}  # industrial family (bld_industry.py): per-name tint on the shared set  # model material name -> library set (see tools/art/v3/bld_*.py)
+## The mission snow value (unit_weather.json) is tuned for the units. A building roof faces straight up, so the full value turned every flat
+## roof near-white on mc2_18 (snow 0.45, a dark dusk map whose ground is bare): buildings take this share of it.
+const SNOW_K := 0.06
 const LOD_M := 80.0  # keep in step with LOD_M in tools/art/v3/bld_tanks.py
 static var _mats := {}
 static var tint := Color(0.86, 0.66, 0.1)  # the faction tint where the model marks it (vertex colour R)
@@ -38,10 +43,10 @@ static func model_path(app: String, state := "") -> String:
 ## properties, not mesh ones, so every INSTANCE needs them (dress() runs once, on a probe that is then freed: before this
 ## was split out, placed models drew both levels at every distance).
 static func set_lods(root: Node) -> void:
-	for mi in root.find_children("lod?", "MeshInstance3D", true, false):
-		if mi.name == "lod0":
+	for mi in root.find_children("lod*", "MeshInstance3D", true, false):  # lod0 / lod1, or lod0_<part> / lod1_<part> in a model with moving parts (bld_turrets.py)
+		if mi.name.begins_with("lod0"):
 			(mi as GeometryInstance3D).visibility_range_end = LOD_M
-		elif mi.name == "lod1":
+		elif mi.name.begins_with("lod1"):
 			(mi as GeometryInstance3D).visibility_range_begin = LOD_M
 
 
@@ -61,7 +66,7 @@ static func dress(root: Node) -> void:
 
 ## Does a material name a model carries (resource_name "bv3_<name>") resolve to a library set or a special shader?
 static func resolves(name: String) -> bool:
-	return name in ["trim", "decal", "chain", "glass", "interior"] or ALIAS.has(name) or LIB.has(name)
+	return name in ["trim", "decal", "chain", "glass", "interior", "wglass"] or ALIAS.has(name) or LIB.has(name)
 
 
 static func material(name: String) -> ShaderMaterial:
@@ -88,6 +93,10 @@ static func material(name: String) -> ShaderMaterial:
 		else:
 			if ALIAS.has(name):
 				tex = ALIAS[name]
+			if name == "wglass":  # facade window glass: near black and matte, so windows read dark at the RTS camera; lit at night
+				tex = "steel"
+				mat.set_shader_parameter("base_tint", Color(0.03, 0.04, 0.05))
+				mat.set_shader_parameter("rough_add", 0.55)
 			if name == "glass":  # dark glossy glazing: the steel set, tinted, no metal
 				tex = "steel"
 				mat.set_shader_parameter("base_tint", Color(0.1, 0.15, 0.2))
@@ -96,7 +105,7 @@ static func material(name: String) -> ShaderMaterial:
 				tex = "rust"
 			var cfg: Array = LIB.get(tex, [2.0, 0.0])
 			mat.set_shader_parameter("tile_m", float(cfg[0]))
-			mat.set_shader_parameter("metal_k", 0.0 if name == "glass" else float(cfg[1]))
+			mat.set_shader_parameter("metal_k", 0.0 if (name == "glass" or name == "wglass") else float(cfg[1]))
 			mat.set_shader_parameter("contrast", 0.85 if tex == "paint" else 1.0)
 			mat.set_shader_parameter("desat", 0.95 if tex == "galv" else 0.0)
 			if tex == "galv":
@@ -165,13 +174,18 @@ static func material(name: String) -> ShaderMaterial:
 			mat.set_shader_parameter("grunge_tex", load("res://assets/v2/shared/grunge.png"))
 		mat.set_shader_parameter("tint", tint)
 		mat.set_shader_parameter("dust", MechPaint.env_dust)
-		mat.set_shader_parameter("snow", MechPaint.env_snow)
+		mat.set_shader_parameter("snow", MechPaint.env_snow * SNOW_K)
 		mat.set_shader_parameter("dust_colour", MechPaint.env_dust_colour)
+	if night:
+		mat.set_shader_parameter("night_lift", NIGHT_LIFT)
+	mat.set_shader_parameter("map_gain", map_gain)
 	if TINTS.has(name):  # last, so the set's own defaults (paint's warm grey) don't win
 		mat.set_shader_parameter("base_tint", TINTS[name])
 		mat.set_shader_parameter("contrast", 0.5)  # calm the set's speckle: wear is placed, not sprayed (style guide 1.2)
-		mat.set_shader_parameter("rib_axis", 1.0 if (name == "palecorr" or name == "lightcorr") else 0.0)
-		if name == "palecorr" or name == "lightcorr":
+		if name == "slate" or name == "roofdark":
+			mat.set_shader_parameter("rough_add", 0.6)  # roofs do not mirror a low sun
+		mat.set_shader_parameter("rib_axis", 1.0 if (name == "palecorr" or name == "lightcorr" or name == "tinroof") else 0.0)
+		if name == "palecorr" or name == "lightcorr" or name == "tinroof":
 			mat.set_shader_parameter("rib_pitch", 0.3)
 	_mats[name] = mat
 	return mat
@@ -184,11 +198,35 @@ static func set_environment(dust: float, snow: float, colour: Color) -> void:
 			continue
 		var m: ShaderMaterial = _mats[k]
 		m.set_shader_parameter("dust", dust)
-		m.set_shader_parameter("snow", snow)
+		m.set_shader_parameter("snow", snow * SNOW_K)
 		m.set_shader_parameter("dust_colour", colour)
 
 
 ## A whole-model burn on top of the vertex burn (0..1): the wreck states bake theirs, this is for hit flashes.
+## Night: the window glass (material wglass) lights up, dim amber on a hash of the window cell (style guide 10: dim amber windows at night).
+static var night := false
+
+const NIGHT_LIFT := 1.9
+## Per-mission albedo gain for v3 buildings (measured: v3 against the original on building crops, tools in bld/ind/dim_check.sh). Day maps stay 1.
+const MAP_GAIN := {"mc2_19": 1.45, "mc2_23": 1.3, "mc2_05": 0.72, "mc2_18": 0.85, "mc2_21": 0.78}
+static var map_gain := 1.0
+
+
+static func set_map_gain(mission: String) -> void:
+	map_gain = float(MAP_GAIN.get(mission, 1.0))
+	for k in _mats:
+		(_mats[k] as ShaderMaterial).set_shader_parameter("map_gain", map_gain)
+
+
+
+static func set_night(on: bool) -> void:
+	night = on
+	for k in _mats:
+		(_mats[k] as ShaderMaterial).set_shader_parameter("night_lift", NIGHT_LIFT if on else 1.0)
+	var m: ShaderMaterial = material("wglass")
+	m.set_shader_parameter("emit_k", 0.9 if on else 0.0)
+
+
 static func set_scorch(amount: float) -> void:
 	for k in _mats:
 		(_mats[k] as ShaderMaterial).set_shader_parameter("scorch", amount)

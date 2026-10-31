@@ -1,0 +1,52 @@
+{
+ "app": "shack",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "corrugated gabled shack, yellow-framed windows",
+ "states": {
+  "intact": {
+   "tris_lod0": 1374,
+   "tris_lod1": 110,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.35,
+    0.0,
+    -3.29
+   ],
+   "bounds_max": [
+    3.35,
+    4.35,
+    3.29
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2132,
+   "tris_lod1": 290,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.35,
+    0.0,
+    -3.29
+   ],
+   "bounds_max": [
+    3.35,
+    4.35,
+    3.29
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3012,
+   "tris_lod1": 396,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.54,
+    0.0,
+    -3.71
+   ],
+   "bounds_max": [
+    3.67,
+    1.62,
+    4.35
+   ]
+  }
+ }
+}

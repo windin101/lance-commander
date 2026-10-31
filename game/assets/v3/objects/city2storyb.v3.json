@@ -1,0 +1,52 @@
+{
+ "app": "city2storyb",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "2-storey city block, variant b",
+ "states": {
+  "intact": {
+   "tris_lod0": 2422,
+   "tris_lod1": 374,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.4,
+    -0.0,
+    -8.1
+   ],
+   "bounds_max": [
+    8.1,
+    9.44,
+    10.5
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 3558,
+   "tris_lod1": 1214,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.4,
+    -0.0,
+    -8.1
+   ],
+   "bounds_max": [
+    8.1,
+    9.55,
+    10.5
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3562,
+   "tris_lod1": 1452,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.77,
+    -0.31,
+    -9.48
+   ],
+   "bounds_max": [
+    9.98,
+    4.12,
+    11.88
+   ]
+  }
+ }
+}

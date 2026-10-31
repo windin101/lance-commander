@@ -1,0 +1,52 @@
+{
+ "app": "2civliving",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "single-storey L-shaped teal block",
+ "states": {
+  "intact": {
+   "tris_lod0": 1558,
+   "tris_lod1": 524,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.8,
+    -0.0,
+    -3.8
+   ],
+   "bounds_max": [
+    11.6,
+    4.64,
+    11.6
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1928,
+   "tris_lod1": 768,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.05,
+    -0.0,
+    -4.4
+   ],
+   "bounds_max": [
+    11.6,
+    4.75,
+    12.09
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3128,
+   "tris_lod1": 994,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.85,
+    -0.79,
+    -3.95
+   ],
+   "bounds_max": [
+    11.2,
+    1.86,
+    11.2
+   ]
+  }
+ }
+}

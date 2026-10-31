@@ -1,0 +1,52 @@
+{
+ "app": "singlecivlivingd",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "small house under a patchwork canopy on four poles",
+ "states": {
+  "intact": {
+   "tris_lod0": 398,
+   "tris_lod1": 296,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.58,
+    -0.0,
+    -3.4
+   ],
+   "bounds_max": [
+    2.73,
+    4.3,
+    4.15
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 612,
+   "tris_lod1": 464,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.5,
+    -0.0,
+    -4.1
+   ],
+   "bounds_max": [
+    2.76,
+    4.38,
+    4.15
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 986,
+   "tris_lod1": 318,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.08,
+    0.0,
+    -3.52
+   ],
+   "bounds_max": [
+    4.03,
+    1.56,
+    0.8
+   ]
+  }
+ }
+}

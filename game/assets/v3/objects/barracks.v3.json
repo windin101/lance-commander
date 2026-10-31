@@ -1,0 +1,52 @@
+{
+ "app": "barracks",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "low concrete barracks with roof lights",
+ "states": {
+  "intact": {
+   "tris_lod0": 926,
+   "tris_lod1": 343,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.6,
+    0.0,
+    -13.1
+   ],
+   "bounds_max": [
+    4.9,
+    4.84,
+    4.6
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1592,
+   "tris_lod1": 867,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.6,
+    0.0,
+    -13.1
+   ],
+   "bounds_max": [
+    4.9,
+    4.93,
+    4.6
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1858,
+   "tris_lod1": 628,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.37,
+    -0.6,
+    -12.9
+   ],
+   "bounds_max": [
+    4.63,
+    2.42,
+    4.2
+   ]
+  }
+ }
+}

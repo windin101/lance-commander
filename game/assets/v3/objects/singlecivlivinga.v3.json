@@ -1,0 +1,52 @@
+{
+ "app": "singlecivlivinga",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "riveted barrel-vault house with dormers and a stack",
+ "states": {
+  "intact": {
+   "tris_lod0": 1340,
+   "tris_lod1": 672,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.05,
+    -0.0,
+    -3.8
+   ],
+   "bounds_max": [
+    4.05,
+    8.3,
+    3.7
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1698,
+   "tris_lod1": 904,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.05,
+    -0.0,
+    -3.8
+   ],
+   "bounds_max": [
+    4.05,
+    8.3,
+    3.7
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1536,
+   "tris_lod1": 432,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.53,
+    -0.69,
+    -3.99
+   ],
+   "bounds_max": [
+    3.9,
+    2.22,
+    4.01
+   ]
+  }
+ }
+}

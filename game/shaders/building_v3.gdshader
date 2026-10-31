@@ -31,6 +31,11 @@ uniform float contrast = 1.0;   // pulls a high-contrast scan (chipped paint) to
 uniform float dust : hint_range(0.0, 1.0) = 0.2;
 uniform float snow : hint_range(0.0, 1.0) = 0.0;
 uniform vec3 dust_colour : source_color = vec3(0.56, 0.5, 0.4);
+uniform float night_lift = 1.0;   // night: the moonlit key leaves v3 surfaces much darker than the originals' baked colour; a flat albedo lift (BuildingV3.set_night)
+uniform float map_gain = 1.0;     // per-mission building albedo calibration (BuildingV3.MAP_GAIN), like the terrain's exposure_lift override
+uniform float rough_add = 0.0;   // matte the surface (window glass reads dark from above, not as a sky mirror)
+uniform float emit_k = 0.0;      // night: lit windows (set by BuildingV3.set_night on the window glass only)
+uniform vec3 emit_col : source_color = vec3(1.0, 0.62, 0.22);
 uniform float scorch : hint_range(0.0, 1.0) = 0.0;   // whole-model burn (a destroyed state), on top of the vertex burn
 
 varying vec3 mpos;
@@ -153,12 +158,18 @@ void fragment() {
 		col = mix(col, vec3(0.035, 0.03, 0.028) * (0.6 + 0.8 * g2), burn * 0.9);
 		rough = mix(rough, 0.8, burn);
 		metal *= (1.0 - dm) * (1.0 - burn);
-		ALBEDO = col;
+		ALBEDO = col * night_lift * map_gain;
 		METALLIC = metal;
-		ROUGHNESS = clamp(rough, 0.04, 1.0);
+		ROUGHNESS = clamp(rough + rough_add, 0.04, 1.0);
 		SPECULAR = 0.5;
 		NORMAL = cotangent_normal(NORMAL, VERTEX, uv, n_ts);
 		AO = ao * mix(1.0, vcol.a, 0.85);
 		AO_LIGHT_AFFECT = 0.6;
+	}
+	if (emit_k > 0.0) {
+		// about 40 % of the window cells glow, picked by a hash of the model-space cell (stable per building)
+		vec3 cell = floor(mpos / vec3(2.2, 3.4, 2.2));
+		float h = fract(sin(dot(cell, vec3(12.9898, 78.233, 37.719))) * 43758.5453);
+		EMISSION = emit_col * emit_k * step(0.6, h);
 	}
 }

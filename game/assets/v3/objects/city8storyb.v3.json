@@ -1,0 +1,52 @@
+{
+ "app": "city8storyb",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "8-storey city block, variant b",
+ "states": {
+  "intact": {
+   "tris_lod0": 13522,
+   "tris_lod1": 934,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -7.8,
+    -0.0,
+    -7.9
+   ],
+   "bounds_max": [
+    10.7,
+    30.04,
+    10.6
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 16950,
+   "tris_lod1": 3272,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -7.8,
+    -0.0,
+    -7.9
+   ],
+   "bounds_max": [
+    10.7,
+    30.15,
+    10.6
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 8714,
+   "tris_lod1": 4096,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -9.17,
+    -0.22,
+    -9.27
+   ],
+   "bounds_max": [
+    12.07,
+    14.71,
+    11.97
+   ]
+  }
+ }
+}

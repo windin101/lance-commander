@@ -1,0 +1,52 @@
+{
+ "app": "singlecivlivingc",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "container-style teal shed with sign and lamp hat",
+ "states": {
+  "intact": {
+   "tris_lod0": 286,
+   "tris_lod1": 196,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.2,
+    0.0,
+    -3.86
+   ],
+   "bounds_max": [
+    3.3,
+    6.04,
+    3.1
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 592,
+   "tris_lod1": 434,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.2,
+    0.0,
+    -3.4
+   ],
+   "bounds_max": [
+    3.39,
+    6.04,
+    3.33
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1250,
+   "tris_lod1": 430,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.97,
+    -0.38,
+    -3.04
+   ],
+   "bounds_max": [
+    3.75,
+    2.19,
+    4.09
+   ]
+  }
+ }
+}
