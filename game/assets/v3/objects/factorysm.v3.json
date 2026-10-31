@@ -1,0 +1,52 @@
+{
+ "app": "factorysm",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "wide low factory, dark roof with ducts, roof tower",
+ "states": {
+  "intact": {
+   "tris_lod0": 1884,
+   "tris_lod1": 1161,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.6,
+    -0.0,
+    -10.6
+   ],
+   "bounds_max": [
+    19.4,
+    8.84,
+    9.8
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2980,
+   "tris_lod1": 1841,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.6,
+    -0.0,
+    -10.6
+   ],
+   "bounds_max": [
+    19.4,
+    8.84,
+    10.06
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 4882,
+   "tris_lod1": 1820,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.2,
+    -0.82,
+    -10.47
+   ],
+   "bounds_max": [
+    19.0,
+    3.74,
+    11.01
+   ]
+  }
+ }
+}

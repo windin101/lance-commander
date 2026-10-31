@@ -1,0 +1,52 @@
+{
+ "app": "processingplant",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "teal block with grille, two faceted stacks with orange bands, gabled front hall",
+ "states": {
+  "intact": {
+   "tris_lod0": 1801,
+   "tris_lod1": 1141,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.8,
+    -0.0,
+    -10.0
+   ],
+   "bounds_max": [
+    4.8,
+    14.52,
+    10.03
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2921,
+   "tris_lod1": 1837,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.8,
+    -0.71,
+    -10.0
+   ],
+   "bounds_max": [
+    10.86,
+    9.19,
+    10.03
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 4122,
+   "tris_lod1": 1470,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.74,
+    -1.05,
+    -9.6
+   ],
+   "bounds_max": [
+    11.54,
+    3.64,
+    10.15
+   ]
+  }
+ }
+}

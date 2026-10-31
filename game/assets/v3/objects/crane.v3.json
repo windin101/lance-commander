@@ -1,0 +1,52 @@
+{
+ "app": "crane",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "lattice base, cab, jib and hook",
+ "states": {
+  "intact": {
+   "tris_lod0": 812,
+   "tris_lod1": 492,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.8,
+    -0.05,
+    -8.22
+   ],
+   "bounds_max": [
+    8.04,
+    15.09,
+    2.3
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 800,
+   "tris_lod1": 528,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.8,
+    -0.05,
+    -7.37
+   ],
+   "bounds_max": [
+    6.78,
+    10.55,
+    2.3
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1124,
+   "tris_lod1": 668,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.68,
+    -4.41,
+    -8.01
+   ],
+   "bounds_max": [
+    4.4,
+    1.54,
+    2.85
+   ]
+  }
+ }
+}

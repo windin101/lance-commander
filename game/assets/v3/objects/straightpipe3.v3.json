@@ -1,0 +1,52 @@
+{
+ "app": "straightpipe3",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "pipe 25.6 m, flanged ends, saddles",
+ "states": {
+  "intact": {
+   "tris_lod0": 308,
+   "tris_lod1": 100,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.6,
+    0.0,
+    -12.9
+   ],
+   "bounds_max": [
+    1.6,
+    2.94,
+    12.9
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 500,
+   "tris_lod1": 140,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.6,
+    -0.37,
+    -12.9
+   ],
+   "bounds_max": [
+    1.6,
+    2.94,
+    12.9
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 64,
+   "tris_lod1": 40,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.5,
+    -0.45,
+    -12.8
+   ],
+   "bounds_max": [
+    1.5,
+    1.65,
+    12.8
+   ]
+  }
+ }
+}

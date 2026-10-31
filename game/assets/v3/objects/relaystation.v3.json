@@ -1,0 +1,52 @@
+{
+ "app": "relaystation",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "shed with 12 m lattice mast and dish",
+ "states": {
+  "intact": {
+   "tris_lod0": 2890,
+   "tris_lod1": 754,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.45,
+    0.0,
+    -3.25
+   ],
+   "bounds_max": [
+    4.45,
+    17.9,
+    3.25
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 4388,
+   "tris_lod1": 1086,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.45,
+    0.0,
+    -3.25
+   ],
+   "bounds_max": [
+    4.45,
+    16.72,
+    3.25
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 6016,
+   "tris_lod1": 1408,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.04,
+    -3.85,
+    -4.27
+   ],
+   "bounds_max": [
+    4.17,
+    3.06,
+    3.18
+   ]
+  }
+ }
+}

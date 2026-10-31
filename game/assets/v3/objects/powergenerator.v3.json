@@ -1,0 +1,52 @@
+{
+ "app": "powergenerator",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "two modules and a flat-sided hexagonal generator hall",
+ "states": {
+  "intact": {
+   "tris_lod0": 1394,
+   "tris_lod1": 1112,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    -0.0,
+    -2.0
+   ],
+   "bounds_max": [
+    21.1,
+    9.4,
+    11.2
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1872,
+   "tris_lod1": 1436,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.02,
+    -0.0,
+    -2.0
+   ],
+   "bounds_max": [
+    21.1,
+    9.4,
+    11.2
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3324,
+   "tris_lod1": 1038,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.65,
+    -0.83,
+    -2.84
+   ],
+   "bounds_max": [
+    20.98,
+    2.39,
+    10.1
+   ]
+  }
+ }
+}

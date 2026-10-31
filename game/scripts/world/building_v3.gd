@@ -18,7 +18,10 @@ const DECAL_CELLS := {"panel": 0, "diamond": 1, "id_plate": 2, "hatch": 3, "arro
 
 ## --no-building-v3 (or MC2_BUILDING_V3=0) keeps the v1/v2 art for buildings alone, for before/after shots with the rest of v3 on.
 static var enabled: bool = not (OS.get_cmdline_user_args().has("--no-building-v3") or OS.get_environment("MC2_BUILDING_V3") == "0")
-const ALIAS := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint", "hullsheet": "corrugated", "hullclean": "corrugated", "seamroof": "corrugated", "roofclean": "corrugated", "hangarroof": "corrugated", "finroof": "corrugated", "facade": "concrete", "wallconc": "concrete", "wallconc2": "concrete", "palesheet": "corrugated", "darkboards": "boards", "palewood": "boards", "darksheet": "corrugated", "wallfacade": "concrete", "sandbag": "concrete", "wallpost_s": "concrete", "wallpost_l": "concrete", "wallpost_d": "concrete"}  # model material name -> library set (see tools/art/v3/bld_*.py)
+const ALIAS := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint", "hullsheet": "corrugated", "hullclean": "corrugated", "seamroof": "corrugated", "roofclean": "corrugated", "hangarroof": "corrugated", "finroof": "corrugated", "facade": "concrete", "wallconc": "concrete", "wallconc2": "concrete", "palesheet": "corrugated", "darkboards": "boards", "palewood": "boards", "darksheet": "corrugated", "wallfacade": "concrete", "sandbag": "concrete", "wallpost_s": "concrete", "wallpost_l": "concrete", "wallpost_d": "concrete", "brick": "concrete", "palepaint": "paint", "tealpaint": "paint", "pipegreen": "paint", "slate": "paint", "palecorr": "corrugated", "safetyyellow": "paint", "machgrey": "paint", "bandgreen": "paint", "bandorange": "paint", "tankgrey": "paint", "roofdark": "paint", "lightcorr": "corrugated"}  # model material name -> library set (see tools/art/v3/bld_*.py)
+const TINTS := {"brick": Color(0.46, 0.3, 0.27), "palepaint": Color(0.7, 0.74, 0.76), "tealpaint": Color(0.5, 0.7, 0.74), "pipegreen": Color(0.66, 0.8, 0.74),
+	"slate": Color(0.045, 0.06, 0.07), "palecorr": Color(0.52, 0.56, 0.58), "safetyyellow": Color(1.02, 0.84, 0.26), "machgrey": Color(0.46, 0.54, 0.6),
+	"bandgreen": Color(0.32, 0.62, 0.4), "bandorange": Color(0.95, 0.5, 0.2), "tankgrey": Color(0.52, 0.57, 0.57), "roofdark": Color(0.045, 0.055, 0.065), "lightcorr": Color(0.86, 0.91, 0.94)}  # industrial family (bld_industry.py): per-name tint on the shared set  # model material name -> library set (see tools/art/v3/bld_*.py)
 const LOD_M := 80.0  # keep in step with LOD_M in tools/art/v3/bld_tanks.py
 static var _mats := {}
 static var tint := Color(0.86, 0.66, 0.1)  # the faction tint where the model marks it (vertex colour R)
@@ -58,7 +61,7 @@ static func dress(root: Node) -> void:
 
 ## Does a material name a model carries (resource_name "bv3_<name>") resolve to a library set or a special shader?
 static func resolves(name: String) -> bool:
-	return name in ["trim", "decal", "chain", "glass"] or ALIAS.has(name) or LIB.has(name)
+	return name in ["trim", "decal", "chain", "glass", "interior"] or ALIAS.has(name) or LIB.has(name)
 
 
 static func material(name: String) -> ShaderMaterial:
@@ -164,6 +167,12 @@ static func material(name: String) -> ShaderMaterial:
 		mat.set_shader_parameter("dust", MechPaint.env_dust)
 		mat.set_shader_parameter("snow", MechPaint.env_snow)
 		mat.set_shader_parameter("dust_colour", MechPaint.env_dust_colour)
+	if TINTS.has(name):  # last, so the set's own defaults (paint's warm grey) don't win
+		mat.set_shader_parameter("base_tint", TINTS[name])
+		mat.set_shader_parameter("contrast", 0.5)  # calm the set's speckle: wear is placed, not sprayed (style guide 1.2)
+		mat.set_shader_parameter("rib_axis", 1.0 if (name == "palecorr" or name == "lightcorr") else 0.0)
+		if name == "palecorr" or name == "lightcorr":
+			mat.set_shader_parameter("rib_pitch", 0.3)
 	_mats[name] = mat
 	return mat
 

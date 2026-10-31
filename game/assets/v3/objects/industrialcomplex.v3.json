@@ -1,0 +1,52 @@
+{
+ "app": "industrialcomplex",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "rounded barrel hall with roof lights, doors, clerestory",
+ "states": {
+  "intact": {
+   "tris_lod0": 8124,
+   "tris_lod1": 900,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.55,
+    0.0,
+    -11.9
+   ],
+   "bounds_max": [
+    11.35,
+    13.93,
+    12.3
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 9170,
+   "tris_lod1": 2224,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.55,
+    0.0,
+    -11.9
+   ],
+   "bounds_max": [
+    11.35,
+    13.93,
+    12.3
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 4390,
+   "tris_lod1": 1920,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.4,
+    -0.65,
+    -11.6
+   ],
+   "bounds_max": [
+    11.2,
+    4.71,
+    12.0
+   ]
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "app": "fourwaypipe",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "hub with four arms",
+ "states": {
+  "intact": {
+   "tris_lod0": 1012,
+   "tris_lod1": 312,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.9,
+    0.0,
+    -12.9
+   ],
+   "bounds_max": [
+    12.9,
+    4.1,
+    12.9
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1296,
+   "tris_lod1": 365,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.9,
+    -0.22,
+    -12.9
+   ],
+   "bounds_max": [
+    12.9,
+    4.1,
+    12.9
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 240,
+   "tris_lod1": 144,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    -0.45,
+    -12.8
+   ],
+   "bounds_max": [
+    12.8,
+    1.65,
+    12.8
+   ]
+  }
+ }
+}

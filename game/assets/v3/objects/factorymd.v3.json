@@ -1,0 +1,52 @@
+{
+ "app": "factorymd",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "two stepped pale blocks, dark roofs, louvres",
+ "states": {
+  "intact": {
+   "tris_lod0": 8534,
+   "tris_lod1": 867,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.4,
+    0.0,
+    -12.8
+   ],
+   "bounds_max": [
+    8.4,
+    13.04,
+    12.8
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 9280,
+   "tris_lod1": 1681,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.4,
+    0.0,
+    -12.8
+   ],
+   "bounds_max": [
+    8.4,
+    13.15,
+    12.8
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 6502,
+   "tris_lod1": 2706,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.49,
+    -1.02,
+    -13.59
+   ],
+   "bounds_max": [
+    8.09,
+    6.05,
+    13.83
+   ]
+  }
+ }
+}

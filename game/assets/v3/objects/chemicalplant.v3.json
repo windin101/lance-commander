@@ -1,0 +1,52 @@
+{
+ "app": "chemicalplant",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "brick tower with window rows and louvres, annex, three faceted grey silos with green bands",
+ "states": {
+  "intact": {
+   "tris_lod0": 3469,
+   "tris_lod1": 2076,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.2,
+    -0.0,
+    -10.2
+   ],
+   "bounds_max": [
+    12.47,
+    14.84,
+    7.96
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 4079,
+   "tris_lod1": 2576,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.2,
+    -0.0,
+    -10.2
+   ],
+   "bounds_max": [
+    13.52,
+    14.95,
+    8.0
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 5396,
+   "tris_lod1": 2156,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.56,
+    -0.79,
+    -10.19
+   ],
+   "bounds_max": [
+    13.2,
+    6.98,
+    8.82
+   ]
+  }
+ }
+}

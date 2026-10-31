@@ -1,0 +1,52 @@
+{
+ "app": "heavyindustrial",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "brick L block, slate gable with dormers, tall fin wall",
+ "states": {
+  "intact": {
+   "tris_lod0": 4212,
+   "tris_lod1": 2729,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -9.8,
+    -0.0,
+    -9.8
+   ],
+   "bounds_max": [
+    10.2,
+    14.95,
+    9.8
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 5872,
+   "tris_lod1": 3687,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -9.8,
+    -0.0,
+    -9.8
+   ],
+   "bounds_max": [
+    10.36,
+    14.95,
+    9.8
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 6174,
+   "tris_lod1": 2570,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -9.49,
+    -1.05,
+    -9.4
+   ],
+   "bounds_max": [
+    9.62,
+    5.56,
+    10.76
+   ]
+  }
+ }
+}

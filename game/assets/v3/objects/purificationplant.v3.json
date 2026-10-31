@@ -1,0 +1,52 @@
+{
+ "app": "purificationplant",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "two grey round tanks, roller-door garages, brick block with banded chimney",
+ "states": {
+  "intact": {
+   "tris_lod0": 1931,
+   "tris_lod1": 1123,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.4,
+    -0.0,
+    -12.45
+   ],
+   "bounds_max": [
+    3.81,
+    10.6,
+    2.8
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1923,
+   "tris_lod1": 1267,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.33,
+    -0.0,
+    -12.4
+   ],
+   "bounds_max": [
+    3.6,
+    10.6,
+    2.8
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3932,
+   "tris_lod1": 1444,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.12,
+    -0.66,
+    -14.48
+   ],
+   "bounds_max": [
+    5.56,
+    3.45,
+    4.05
+   ]
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "app": "wasteprocessor",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "brick hall with roof lights, roller door, three tanks with chutes",
+ "states": {
+  "intact": {
+   "tris_lod0": 1668,
+   "tris_lod1": 876,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.4,
+    -0.0,
+    -2.8
+   ],
+   "bounds_max": [
+    5.2,
+    6.24,
+    11.17
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1642,
+   "tris_lod1": 1084,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.4,
+    -0.0,
+    -2.8
+   ],
+   "bounds_max": [
+    5.2,
+    6.35,
+    11.2
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 2382,
+   "tris_lod1": 896,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.63,
+    -0.62,
+    -3.67
+   ],
+   "bounds_max": [
+    6.79,
+    2.24,
+    11.8
+   ]
+  }
+ }
+}
