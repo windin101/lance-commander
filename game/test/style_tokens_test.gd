@@ -100,3 +100,34 @@ func test_v3_shader_takes_the_scheme_colours() -> void:
 	assert_float(c.v).is_equal_approx(0.88, 0.01)
 	var blue := Color("#2c4f9e")  # inside the range: unchanged
 	assert_str(ArtV3.paint_colour(blue).linear_to_srgb().to_html(false)).is_equal(blue.to_html(false))
+
+
+func test_reduce_motion_is_saved() -> void:
+	var keep := StyleTokens.settings_path
+	StyleTokens.settings_path = "user://test_style_settings.cfg"
+	StyleTokens.set_reduce_motion(true)
+	StyleTokens._reduce = -1  # force a re-read from the file
+	assert_bool(StyleTokens.reduce_motion()).is_true()
+	StyleTokens.set_reduce_motion(false)
+	StyleTokens._reduce = -1
+	assert_bool(StyleTokens.reduce_motion()).is_false()
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(StyleTokens.settings_path))
+	StyleTokens.settings_path = keep
+	StyleTokens._reduce = -1
+
+
+func test_bay_kit_layers() -> void:
+	# the amber layer (briefing, bay, lab, pause) vs the cyan HUD
+	var hud := BayKit.new(11.4)
+	assert_str(hud.accent.to_html(false)).is_equal(UiStyle.CYAN_400.to_html(false))
+	assert_bool(hud.frame() is UiStyle.HudFrame).is_true()
+	var menu := BayKit.new(11.4)
+	menu.set_amber()
+	assert_str(menu.accent.to_html(false)).is_equal(UiStyle.AMBER_500.to_html(false))
+	assert_bool(menu.frame() is StyleTokens.ChamferBox).is_true()
+	var b := menu.primary(Button.new())
+	assert_str((b.get_theme_stylebox("normal") as StyleTokens.ChamferBox).edge.to_html(false)).is_equal("f2a21f")
+	b.free()
+	# 6: HUD frame line-work at 80 %, panels ink-700 at 80 %
+	assert_float(UiStyle.HudFrame.new().edge.a).is_equal_approx(0.8, 0.001)
+	assert_str(UiStyle.HUD_PANEL.to_html(false)).is_equal(UiStyle.INK_700.to_html(false))

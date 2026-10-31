@@ -107,19 +107,25 @@ static func backdrop(root: Control) -> void:
 
 # ---------------------------------------------------------------- in-mission HUD
 
-# Colour tokens of the approved HUD mock-up (hudmock/template.html :root).
-const HUD_INK := Color(0.910, 0.945, 0.957)  # #e8f1f4 primary text
-const HUD_DIM := Color(0.561, 0.651, 0.698)  # #8fa6b2 secondary text
-const HUD_PANEL := Color(9 / 255.0, 20 / 255.0, 30 / 255.0, 0.80)
-const HUD_PANEL_2 := Color(16 / 255.0, 33 / 255.0, 46 / 255.0, 0.86)
-const HUD_EDGE := Color(0.247, 0.776, 0.878)  # #3fc6e0 cyan frame line
-const HUD_EDGE_SOFT := Color(0.247, 0.776, 0.878, 0.35)
-const HUD_GLOW := Color(0.247, 0.776, 0.878, 0.45)
-const HUD_OK := Color(0.310, 0.827, 0.541)  # #4fd38a
-const HUD_WARN := Color(0.949, 0.710, 0.290)  # #f2b54a
-const HUD_CRIT := Color(1.0, 0.353, 0.306)  # #ff5a4e
-const HUD_HOT := Color(1.0, 0.478, 0.184)  # #ff7a2f
-const HUD_FACE := Color(0.055, 0.114, 0.157)  # #0e1d28 portrait well
+# The HUD's colours on the guide's tokens (6: thin cyan line-work at 80 % alpha with a 40 % glow, panels
+# ink-700 at 80 %). HUD_INK, HUD_DIM and HUD_FACE are kept as the guide's 19.2 lists them; the rest are the 2.1
+# tokens under their HUD names, kept as aliases for code not yet renamed (new code uses the token names).
+const HUD_INK := Color("#E8F1F4")  # primary HUD text (19.2, kept)
+const HUD_DIM := Color("#8FA6B2")  # secondary HUD text (19.2, kept)
+const PORTRAIT_WELL := Color("#0E1D28")  # 6 lance cards, 7 portraits
+const CYAN_LINE := Color(CYAN_400, 0.80)  # HUD frame line-work (6)
+const CYAN_GLOW := Color(CYAN_400, 0.40)  # glow on HUD lines (2.1 cyan-glow)
+const CYAN_RULE := Color(CYAN_400, 0.35)  # dividers inside HUD panels
+const HUD_PANEL := Color(INK_700, 0.80)  # 6: panels ink-700 at 80 %
+const HUD_PANEL_2 := Color(INK_600, 0.86)  # raised: a header strip, a value box
+const HUD_EDGE := CYAN_400
+const HUD_EDGE_SOFT := CYAN_RULE
+const HUD_GLOW := CYAN_GLOW
+const HUD_OK := STATE_OK
+const HUD_WARN := WARN
+const HUD_CRIT := CRIT
+const HUD_HOT := HEAT
+const HUD_FACE := PORTRAIT_WELL
 # Weapon range colours (short / medium / long), as the original's info tab.
 const RANGE_COLOURS := {"short": Color(0.608, 0.749, 0.180), "medium": Color(0.184, 0.561, 0.827), "long": Color(0.824, 0.290, 0.165)}
 
@@ -194,48 +200,76 @@ static func hud_unit(viewport_height: float, scale := -1.0) -> float:
 	return HUD_UNIT_REF * viewport_height / 1080.0 * (hud_scale() if scale < 0.0 else scale)
 
 
-## Theme for the HUD at base unit u: body font, cyan buttons, panel frames, slider.
-static func hud_theme(u: float) -> Theme:
+## Theme for the HUD at base unit u: body font, cyan buttons, panel frames, slider. amber: the same sizes in the
+## amber layer (briefing, mech bay, mech lab, pause; guide 2.1, 4.3): chamfered steel-framed panels, steel
+## secondary buttons (BayKit.primary makes the amber primary one), amber slider and scroll grabbers.
+static func hud_theme(u: float, amber := false) -> Theme:
 	var t := Theme.new()
+	var accent := AMBER_500 if amber else CYAN_400
+	var ink := STEEL_100 if amber else HUD_INK
+	var dim := STEEL_300 if amber else HUD_DIM
 	t.default_font = font("body400")
 	t.default_font_size = roundi(u * 1.1)
-	t.set_color("font_color", "Label", HUD_INK)
-	t.set_stylebox("panel", "PanelContainer", HudFrame.make(u))
-	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
-		var fill := Color(HUD_EDGE, 0.08)
-		var edge := HUD_EDGE_SOFT
-		match state:
-			"hover":
-				fill = Color(HUD_EDGE, 0.18)
-				edge = HUD_EDGE
-			"pressed":
-				fill = Color(HUD_EDGE, 0.28)
-				edge = HUD_EDGE
-			"disabled":
-				fill = Color(1, 1, 1, 0.03)
-				edge = Color(HUD_EDGE_SOFT, 0.15)
-			"focus":
-				fill = Color(0, 0, 0, 0)
-				edge = HUD_EDGE
-		var b := _box(fill, edge, 1, 0, Vector4(u * 0.6, u * 0.3, u * 0.6, u * 0.3))
-		t.set_stylebox(state, "Button", b)
-	t.set_font("font", "Button", font("display600", roundi(u * 0.08)))
+	t.set_color("font_color", "Label", ink)
+	t.set_color("default_color", "RichTextLabel", ink)
+	if amber:
+		var cut := maxf(4.0, u * 0.9)
+		t.set_stylebox("panel", "PanelContainer", StyleTokens.ChamferBox.make(Color(INK_700, 0.85), STEEL_500, 1, cut, Vector4.ZERO, true))
+		var c6 := maxf(3.0, u * 0.5)
+		var m := Vector4(u * 0.6, u * 0.3, u * 0.6, u * 0.3)
+		t.set_stylebox("normal", "Button", StyleTokens.ChamferBox.make(INK_700, STEEL_300, 1, c6, m))
+		t.set_stylebox("hover", "Button", StyleTokens.ChamferBox.make(INK_600, STEEL_100, 1, c6, m))
+		t.set_stylebox("pressed", "Button", StyleTokens.ChamferBox.make(AMBER_700, AMBER_300, 1, c6, m))
+		t.set_stylebox("hover_pressed", "Button", StyleTokens.ChamferBox.make(AMBER_700, AMBER_300, 1, c6, m))
+		t.set_stylebox("disabled", "Button", StyleTokens.ChamferBox.make(INK_800, STEEL_500, 1, c6, m))
+		t.set_stylebox("focus", "Button", StyleTokens.ChamferBox.make(Color(0, 0, 0, 0), AMBER_300, 1, c6, Vector4.ZERO))
+		t.set_color("font_color", "Button", dim)
+		t.set_color("font_hover_color", "Button", WHITE)
+		t.set_color("font_pressed_color", "Button", WHITE)
+		t.set_color("font_hover_pressed_color", "Button", WHITE)
+		t.set_color("font_focus_color", "Button", dim)
+		t.set_color("font_disabled_color", "Button", STEEL_500)
+		t.set_font("font", "Button", StyleTokens.font("label", roundi(u * 0.95)))
+	else:
+		t.set_stylebox("panel", "PanelContainer", HudFrame.make(u))
+		for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+			var fill := Color(HUD_EDGE, 0.08)
+			var edge := HUD_EDGE_SOFT
+			match state:
+				"hover":
+					fill = Color(HUD_EDGE, 0.18)
+					edge = HUD_EDGE
+				"pressed":
+					fill = Color(HUD_EDGE, 0.28)
+					edge = HUD_EDGE
+				"disabled":
+					fill = Color(1, 1, 1, 0.03)
+					edge = Color(HUD_EDGE_SOFT, 0.15)
+				"focus":
+					fill = Color(0, 0, 0, 0)
+					edge = HUD_EDGE
+			var b := _box(fill, edge, 1, 0, Vector4(u * 0.6, u * 0.3, u * 0.6, u * 0.3))
+			t.set_stylebox(state, "Button", b)
+		t.set_font("font", "Button", font("display600", roundi(u * 0.08)))
+		t.set_color("font_color", "Button", HUD_INK)
+		t.set_color("font_hover_color", "Button", HUD_INK)
+		t.set_color("font_pressed_color", "Button", HUD_INK)
+		t.set_color("font_disabled_color", "Button", Color(HUD_DIM, 0.5))
 	t.set_font_size("font_size", "Button", roundi(u * 0.95))
-	t.set_color("font_color", "Button", HUD_INK)
-	t.set_color("font_hover_color", "Button", HUD_INK)
-	t.set_color("font_pressed_color", "Button", HUD_INK)
-	t.set_color("font_disabled_color", "Button", Color(HUD_DIM, 0.5))
-	var track := _box(Color(1, 1, 1, 0.08), Color(0, 0, 0, 0), 0, 0)
+	var track := _box(INK_600 if amber else Color(1, 1, 1, 0.08), Color(0, 0, 0, 0), 0, 0)
 	track.content_margin_top = u * 0.2
 	track.content_margin_bottom = u * 0.2
 	t.set_stylebox("slider", "HSlider", track)
-	t.set_stylebox("grabber_area", "HSlider", _box(HUD_EDGE, Color(0, 0, 0, 0), 0, 0))
-	t.set_stylebox("grabber_area_highlight", "HSlider", _box(HUD_EDGE, Color(0, 0, 0, 0), 0, 0))
+	t.set_stylebox("grabber_area", "HSlider", _box(accent, Color(0, 0, 0, 0), 0, 0))
+	t.set_stylebox("grabber_area_highlight", "HSlider", _box(accent, Color(0, 0, 0, 0), 0, 0))
 	t.set_stylebox("scroll", "VScrollBar", _box(Color(1, 1, 1, 0.04), Color(0, 0, 0, 0), 0, 0))
-	t.set_stylebox("grabber", "VScrollBar", _box(HUD_EDGE_SOFT, Color(0, 0, 0, 0), 0, 0))
-	t.set_stylebox("grabber_highlight", "VScrollBar", _box(HUD_EDGE, Color(0, 0, 0, 0), 0, 0))
-	t.set_stylebox("grabber_pressed", "VScrollBar", _box(HUD_EDGE, Color(0, 0, 0, 0), 0, 0))
+	t.set_stylebox("grabber", "VScrollBar", _box(STEEL_500 if amber else HUD_EDGE_SOFT, Color(0, 0, 0, 0), 0, 0))
+	t.set_stylebox("grabber_highlight", "VScrollBar", _box(accent, Color(0, 0, 0, 0), 0, 0))
+	t.set_stylebox("grabber_pressed", "VScrollBar", _box(accent, Color(0, 0, 0, 0), 0, 0))
 	t.set_stylebox("panel", "ScrollContainer", StyleBoxEmpty.new())
+	var tip := _box(Color(INK_900, 0.95), STEEL_500, 1, 8)
+	t.set_stylebox("panel", "TooltipPanel", tip)
+	t.set_color("font_color", "TooltipLabel", ink)
 	return t
 
 
@@ -245,7 +279,8 @@ class HudFrame:
 	extends StyleBox
 
 	var fill := HUD_PANEL
-	var edge := HUD_EDGE_SOFT
+	var edge := CYAN_LINE  # 6: line-work at 80 %
+	var glow := Color(CYAN_GLOW, 0.12)  # a soft line under the outline (alpha 0 = none)
 	var bracket := HUD_EDGE
 	var cut := 10.0  # bevel size (0.9 em)
 	var arm := 30.0  # bracket arm length (2.6 em)
@@ -272,6 +307,8 @@ class HudFrame:
 		RenderingServer.canvas_item_add_polygon(to_canvas_item, poly, PackedColorArray([fill]))
 		var outline := poly.duplicate()
 		outline.append(poly[0])
+		if glow.a > 0.0:
+			RenderingServer.canvas_item_add_polyline(to_canvas_item, outline, PackedColorArray([glow]), 3.0)
 		RenderingServer.canvas_item_add_polyline(to_canvas_item, outline, PackedColorArray([edge]), 1.0)
 		var a := minf(arm, minf(w, h) * 0.5)
 		var o := line * 0.5

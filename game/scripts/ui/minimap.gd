@@ -86,8 +86,9 @@ func _process(_delta: float) -> void:
 	queue_redraw()
 
 
-## Allied (player team, another commander) blip and ring colour; the original used blue.
-const ALLY := Color(0.36, 0.6, 1.0)
+## Friendly blips and rings (guide 6: friendly = `friend` triangles, enemy = `crit` diamonds, neutral = grey
+## squares, objectives = amber rings). The lance is solid, allies on the player's team (another commander) hollow.
+const ALLY := UiStyle.FRIEND
 
 
 ## An enemy mover the player's team has as a contact, not shut down and without ECM: the
@@ -117,14 +118,14 @@ func rings() -> Array:
 			if u.team == player_team:
 				if u.commander == 0 and not u.on_gui:
 					continue
-				col = UiStyle.HUD_OK if u.commander == 0 else ALLY
+				col = UiStyle.FRIEND
 			elif _enemy_shown(u):
-				col = UiStyle.HUD_CRIT
+				col = UiStyle.CRIT
 			else:
 				continue
 			r = sensor_ring_px(u.sensor_range())
 		elif u is SimStructure and (u as SimStructure).sensor_works():
-			col = UiStyle.HUD_OK if u.team == player_team else UiStyle.HUD_CRIT
+			col = UiStyle.FRIEND if u.team == player_team else UiStyle.CRIT
 			r = sensor_ring_px((u as SimStructure).tower_sensor_m)
 		if r > 0.0:
 			out.append([world_to_map(u.position), r, col])
@@ -137,10 +138,10 @@ func _draw_sensor_rings() -> void:
 
 
 func _draw() -> void:
-	draw_rect(Rect2(Vector2.ZERO, size), Color(0.027, 0.063, 0.09))
+	draw_rect(Rect2(Vector2.ZERO, size), UiStyle.INK_800)
 	if _tex:
 		draw_texture_rect(_tex, Rect2(Vector2.ZERO, size), false)
-	var grid := Color(UiStyle.HUD_EDGE, 0.18)
+	var grid := Color(UiStyle.CYAN_400, 0.18)
 	for k in range(1, 8):
 		var t := size * (k / 8.0)
 		draw_line(Vector2(t.x, 0), Vector2(t.x, size.y), grid, 1.0)
@@ -152,14 +153,14 @@ func _draw() -> void:
 			# map turrets (I94): a small triangle in the owner's colour; dim once its control is lost
 			if not u.is_destroyed():
 				var tp := world_to_map(u.position)
-				var col: Color = UiStyle.HUD_OK if u.team == player_team else (UiStyle.HUD_CRIT if u.team >= 0 else UiStyle.HUD_INK)
+				var col: Color = UiStyle.FRIEND if u.team == player_team else (UiStyle.CRIT if u.team >= 0 else UiStyle.NEUTRAL)
 				if not u.active:
 					col = Color(col, 0.35)
-				draw_colored_polygon(PackedVector2Array([tp + Vector2(0, -dot * 0.8), tp + Vector2(dot * 0.7, dot * 0.5),
-					tp + Vector2(-dot * 0.7, dot * 0.5)]), col)
+				# a turret: a small square in its owner's colour (squares are fixed things; movers have their own shapes)
+				draw_rect(Rect2(tp - Vector2(dot, dot) * 0.45, Vector2(dot, dot) * 0.9), col)
 		elif u is SimStructure:
 			if not u.is_destroyed() and u.damage_level < 100000.0:
-				draw_rect(Rect2(world_to_map(u.position) - Vector2(dot, dot) * 0.5, Vector2(dot, dot)), Color(UiStyle.HUD_INK, 0.6))
+				draw_rect(Rect2(world_to_map(u.position) - Vector2(dot, dot) * 0.5, Vector2(dot, dot)), Color(UiStyle.NEUTRAL, 0.6))
 	if view_polygon.size() == 4:
 		var pts := PackedVector2Array()
 		for wp in view_polygon:
@@ -173,23 +174,29 @@ func _draw() -> void:
 			continue
 		var p := world_to_map(u.position)
 		if u.is_disabled():
-			draw_circle(p, dot * 0.6, Color(0.2, 0.2, 0.2))
+			draw_circle(p, dot * 0.6, UiStyle.STEEL_500)
 		elif u.team == player_team and not u.on_gui:
 			continue  # off the GUI (gameTacMap.cpp:370)
 		elif u.team == player_team:
-			draw_circle(p, dot, UiStyle.HUD_OK if u.commander == 0 else ALLY)
+			var k := dot * 1.15
+			var tri := PackedVector2Array([p + Vector2(0, -k), p + Vector2(k * 0.87, k * 0.6), p + Vector2(-k * 0.87, k * 0.6)])
+			if u.commander == 0:
+				draw_colored_polygon(tri, UiStyle.FRIEND)
+			else:
+				tri.append(tri[0])
+				draw_polyline(tri, UiStyle.FRIEND, maxf(1.0, dot * 0.35))
 		elif _enemy_shown(u):
-			draw_circle(p, dot * (1.0 if u is SimMech else 0.75), UiStyle.HUD_CRIT)
+			var k := dot * (1.1 if u is SimMech else 0.8)
+			draw_colored_polygon(PackedVector2Array([p + Vector2(0, -k), p + Vector2(k, 0), p + Vector2(0, k), p + Vector2(-k, 0)]), UiStyle.CRIT)
 	if objectives:
 		var blink := 0.5 + 0.5 * sin(Time.get_ticks_msec() / 200.0)
 		for obj in objectives.visible_objectives():
 			if obj["complete"] or not obj["show_marker"]:
 				continue
 			var p := world_to_map(obj["marker"])
-			var d := dot * 1.6
-			draw_rect(Rect2(p - Vector2(d, d), Vector2(d, d) * 2.0), Color(UiStyle.HUD_WARN, 0.6 + 0.4 * blink), false, maxf(1.0, dot * 0.5))
+			draw_arc(p, dot * 1.6, 0.0, TAU, 24, Color(UiStyle.AMBER_500, 0.6 + 0.4 * blink), maxf(1.0, dot * 0.5), true)
 	var f := UiStyle.font("mono")
 	var fs := maxi(6, roundi(ui_unit * 1.0))
 	draw_string(f, Vector2(size.x - ui_unit * 0.4 - f.get_string_size("N", HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x, ui_unit * 0.3 + f.get_ascent(fs)),
-		"N", HORIZONTAL_ALIGNMENT_LEFT, -1, fs, UiStyle.HUD_EDGE)
-	draw_rect(Rect2(Vector2.ZERO, size), UiStyle.HUD_EDGE_SOFT, false, 1.0)
+		"N", HORIZONTAL_ALIGNMENT_LEFT, -1, fs, UiStyle.CYAN_400)
+	draw_rect(Rect2(Vector2.ZERO, size), UiStyle.CYAN_LINE, false, 1.0)

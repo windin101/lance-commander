@@ -98,8 +98,8 @@ func _init(hud_kit: HudKit, with_support: bool) -> void:
 		tiles[kind] = t
 	var rp := PanelContainer.new()
 	var rs := StyleBoxFlat.new()
-	rs.bg_color = Color(UiStyle.HUD_EDGE, 0.10)
-	rs.border_color = UiStyle.HUD_EDGE
+	rs.bg_color = Color(UiStyle.CYAN_400, 0.10)
+	rs.border_color = UiStyle.CYAN_400
 	rs.set_border_width_all(1)
 	rs.set_content_margin_all(kit.em(0.3))
 	rp.add_theme_stylebox_override("panel", rs)
@@ -115,7 +115,7 @@ func _init(hud_kit: HudKit, with_support: bool) -> void:
 	cap.autowrap_mode = TextServer.AUTOWRAP_WORD  # two lines, so six tiles fit beside it
 	cap.custom_minimum_size.x = kit.em(4.6)
 	rv.add_child(cap)
-	rp_label = kit.label("0", "mono", 1.5, UiStyle.HUD_EDGE)
+	rp_label = kit.label("0", "mono", 1.5, UiStyle.CYAN_400)
 	rp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	rv.add_child(rp_label)
 	srow.add_child(rp)
@@ -195,19 +195,19 @@ class IconButton:
 	func _draw() -> void:
 		var side := minf(size.x, size.y)
 		var r := Rect2((size - Vector2(side, side)) / 2.0, Vector2(side, side))
-		var fill := Color(UiStyle.HUD_EDGE, 0.22 if on else (0.14 if _hover else 0.06))
-		var edge := UiStyle.HUD_EDGE if (on or _hover) else UiStyle.HUD_EDGE_SOFT
+		var fill := Color(UiStyle.CYAN_400, 0.22 if on else (0.14 if _hover else 0.06))
+		var edge := UiStyle.CYAN_400 if (on or _hover) else UiStyle.CYAN_RULE
 		if hot:
-			edge = UiStyle.HUD_HOT
+			edge = UiStyle.HEAT
 			if on:
-				fill = Color(UiStyle.HUD_HOT, 0.25)
+				fill = Color(UiStyle.HEAT, 0.25)
 		if on:
-			draw_rect(r.grow(u * 0.25), Color(UiStyle.HUD_HOT if hot else UiStyle.HUD_EDGE, 0.12))
+			draw_rect(r.grow(u * 0.25), Color(UiStyle.HEAT if hot else UiStyle.CYAN_400, 0.12))
 		draw_rect(r, fill)
 		draw_rect(r, edge, false, 1.0)
 		var ic := r.size.x * 0.62
 		HudKit.draw_icon(self, id, Rect2(r.get_center() - Vector2(ic, ic) / 2.0, Vector2(ic, ic)),
-			UiStyle.HUD_HOT if hot else UiStyle.HUD_INK)
+			UiStyle.HEAT if hot else UiStyle.HUD_INK)
 		if not key.is_empty():
 			var f := UiStyle.font("mono")
 			var fs := maxi(6, roundi(u * 0.75))
@@ -253,8 +253,8 @@ class SupportTile:
 
 	func _style() -> void:
 		var s := StyleBoxFlat.new()
-		s.bg_color = Color(UiStyle.HUD_EDGE, 0.22) if pressed else Color(1, 1, 1, 0.03)
-		s.border_color = UiStyle.HUD_EDGE if pressed else UiStyle.HUD_EDGE_SOFT
+		s.bg_color = Color(UiStyle.CYAN_400, 0.22) if pressed else Color(1, 1, 1, 0.03)
+		s.border_color = UiStyle.CYAN_400 if pressed else UiStyle.CYAN_RULE
 		s.set_border_width_all(1)
 		s.content_margin_left = _kit.em(0.4)
 		s.content_margin_right = _kit.em(0.4)

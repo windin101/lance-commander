@@ -15,7 +15,7 @@ const PRESETS := [
 	{"name": "Desert", "base": "#b39b70", "hl1": "#7a3a1c", "hl2": "#3c3a34", "pattern": "plain"},
 	{"name": "Midnight", "base": "#2b3038", "hl1": "#3aa0d8", "hl2": "#16181c", "pattern": "plain"},
 ]
-const SWATCHES := ["#9a9a9a", "#d8dadc", "#5c5f63", "#2b3038", "#d02e11", "#9e0500", "#e07a1a", "#e0b030",
+const SWATCHES := ["#4a5560", "#d5dee3", "#5c5f63", "#2b3038", "#d02e11", "#9e0500", "#e07a1a", "#f2a21f",
 	"#b8925a", "#5a6240", "#3a5a2a", "#003412", "#2f4f8f", "#002882", "#3aa0d8", "#6b3a1e"]
 const LABELS := {"base": "Base", "hl1": "Trim", "hl2": "Accent"}
 
@@ -30,14 +30,14 @@ func _init(k: BayKit) -> void:
 	kit = k
 	add_theme_constant_override("separation", kit.px(0.7))
 	scheme = PaintScheme.player()
-	add_child(kit.label("Presets", "display600", 0.85, UiStyle.HUD_DIM, true, 0.14))
+	add_child(kit.label("Presets", "display600", 0.85, kit.dim, true, 0.14))
 	var pre := HFlowContainer.new()
 	pre.add_theme_constant_override("h_separation", kit.px(0.4))
 	pre.add_theme_constant_override("v_separation", kit.px(0.4))
 	for p in PRESETS:
 		pre.add_child(kit.button(String(p["name"]), func(): _apply_preset(p)))
 	add_child(pre)
-	add_child(kit.label("Pattern", "display600", 0.85, UiStyle.HUD_DIM, true, 0.14))
+	add_child(kit.label("Pattern", "display600", 0.85, kit.dim, true, 0.14))
 	var pat := HBoxContainer.new()
 	pat.add_theme_constant_override("separation", kit.px(0.4))
 	for name in PaintScheme.PLAYER_PATTERNS:
@@ -48,7 +48,7 @@ func _init(k: BayKit) -> void:
 		pat.add_child(b)
 	add_child(pat)
 	for key in ["base", "hl1", "hl2"]:
-		add_child(kit.label(LABELS[key], "display600", 0.85, UiStyle.HUD_DIM, true, 0.14))
+		add_child(kit.label(LABELS[key], "display600", 0.85, kit.dim, true, 0.14))
 		var row := HFlowContainer.new()
 		row.add_theme_constant_override("h_separation", kit.px(0.3))
 		row.add_theme_constant_override("v_separation", kit.px(0.3))
@@ -67,19 +67,25 @@ func _init(k: BayKit) -> void:
 	_sync()
 
 
+## A colour swatch (guide 5.5): a chamfered chip, 1 px steel frame; hover amber-300; the scheme's current colour
+## gets the 2 px amber frame (_sync).
 func _swatch(key: String, c: Color) -> Button:
 	var b := Button.new()
 	b.custom_minimum_size = Vector2(kit.em(1.6), kit.em(1.6))
 	b.focus_mode = Control.FOCUS_NONE
 	b.tooltip_text = "#" + c.to_html(false)
-	for state in ["normal", "hover", "pressed"]:
-		var s := StyleBoxFlat.new()
-		s.bg_color = c
-		s.border_color = UiStyle.HUD_EDGE if state != "normal" else Color(UiStyle.HUD_EDGE_SOFT, 0.6)
-		s.set_border_width_all(1 if state == "normal" else 2)
-		b.add_theme_stylebox_override(state, s)
+	b.set_meta("hex", c.to_html(false))
+	_style_swatch(b, c, false)
 	b.pressed.connect(func(): _set_value(key, "#" + c.to_html(false)))
 	return b
+
+
+func _style_swatch(b: Button, c: Color, current: bool) -> void:
+	var cut := maxf(2.0, kit.em(0.35))
+	var rest := StyleTokens.ChamferBox.make(c, kit.accent if current else Color(kit.accent_soft, 0.9), 2 if current else 1, cut)
+	b.add_theme_stylebox_override("normal", rest)
+	b.add_theme_stylebox_override("hover", StyleTokens.ChamferBox.make(c, UiStyle.AMBER_300 if kit.amber else kit.accent, 2, cut))
+	b.add_theme_stylebox_override("pressed", StyleTokens.ChamferBox.make(c, kit.accent, 2, cut))
 
 
 func _apply_preset(p: Dictionary) -> void:
@@ -106,3 +112,8 @@ func _sync() -> void:
 		(_pattern_buttons[name] as Button).set_pressed_no_signal(String(scheme.get("pattern", "plain")) == name)
 	for key in _pickers:
 		(_pickers[key] as ColorPickerButton).color = Color(String(scheme[key]))
+	for key in _swatch_rows:
+		var want := Color(String(scheme.get(key, "#000000"))).to_html(false)
+		for b in (_swatch_rows[key] as Node).get_children():
+			if b is Button and b.has_meta("hex"):
+				_style_swatch(b, Color(String(b.get_meta("hex"))), String(b.get_meta("hex")) == want)

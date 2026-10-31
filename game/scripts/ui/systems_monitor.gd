@@ -271,4 +271,4 @@ func refresh() -> void:
 func _set_cell(l: Label, cur: float, mx: float) -> void:
 	l.text = "%d/%d" % [roundi(cur), roundi(mx)]
 	var f := cur / mx if mx > 0.0 else 1.0
-	l.add_theme_color_override("font_color", UiStyle.HUD_CRIT if f < 0.3 else (UiStyle.HUD_WARN if f < 0.75 else UiStyle.HUD_INK))
+	l.add_theme_color_override("font_color", UiStyle.CRIT if f < 0.3 else (UiStyle.WARN if f < 0.75 else UiStyle.HUD_INK))

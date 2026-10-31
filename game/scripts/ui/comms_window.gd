@@ -62,7 +62,7 @@ func _ready() -> void:
 	var text := kit.vbox(0.2)
 	text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(text)
-	caption = kit.label("TAC OFFICER", "display500", 0.95, UiStyle.HUD_EDGE, true, 0.08)
+	caption = kit.label("TAC OFFICER", "display500", 0.95, UiStyle.CYAN_400, true, 0.08)
 	text.add_child(caption)
 	subtitle = kit.para("", WIDTH_EM - 1.4 - 5.4 - 0.8, "body400", 1.1, UiStyle.HUD_INK)
 	text.add_child(subtitle)
@@ -134,7 +134,7 @@ func _process(_delta: float) -> void:
 
 func _draw_ring() -> void:
 	if int(Time.get_ticks_msec() / (BLINK_PERIOD * 500.0)) % 2 == 0:
-		ring.draw_rect(Rect2(Vector2.ONE, ring.size - Vector2(2, 2)), UiStyle.HUD_WARN, false, 2.0)
+		ring.draw_rect(Rect2(Vector2.ONE, ring.size - Vector2(2, 2)), UiStyle.WARN, false, 2.0)
 
 
 func _on_finished() -> void:

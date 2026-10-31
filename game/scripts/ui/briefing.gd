@@ -54,13 +54,15 @@ func _ready() -> void:
 	brief = MissionBrief.load_mission(GameData, mission)
 	var vh := get_viewport().get_visible_rect().size.y if get_viewport() else 1080.0
 	kit = BayKit.new(UiStyle.hud_unit(vh))
-	theme = UiStyle.hud_theme(kit.u)
+	kit.set_amber()
+	theme = UiStyle.hud_theme(kit.u, true)
 	var bg := ColorRect.new()
 	bg.color = Color("#0b141b")
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
 	var back := BayKit.Backdrop.new()
+	back.amber = true
 	back.gantries = false
 	add_child(back)
 	var n := 0
@@ -88,7 +90,7 @@ func _logistics() -> bool:
 
 func _top_bar(mission: String) -> void:
 	var top := PanelContainer.new()
-	top.add_theme_stylebox_override("panel", UiStyle.HudFrame.make(kit.u))
+	top.add_theme_stylebox_override("panel", kit.frame())
 	kit.place(top, 0.01, 0.016, 0.99, 0.016)
 	add_child(top)
 	var tm := kit.margin(1.4, 0.7, 1.4, 0.7)
@@ -99,8 +101,8 @@ func _top_bar(mission: String) -> void:
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var idx := Flow.index_of(mission)
 	title.add_child(kit.label("Mission briefing · %s · operation %d · mission %d of %d" % [LOCATION, int(Flow.info(mission).get("group", 0)) + 1,
-		idx + 1, Flow.missions.size()], "display500", 0.9, UiStyle.HUD_DIM, true, 0.1))
-	title.add_child(kit.label(brief.title, "display700", 1.7, UiStyle.HUD_INK, true, 0.1))
+		idx + 1, Flow.missions.size()], "display500", 0.9, kit.dim, true, 0.1))
+	title.add_child(kit.label(brief.title, "display700", 1.7, kit.ink, true, 0.1))
 	th.add_child(title)
 	if brief.available:
 		var drop := kit.fig("Drop weight limit")
@@ -137,24 +139,24 @@ func _objectives_panel() -> void:
 		var s := "Primary" if o["primary"] else "Secondary"
 		if s != section:
 			section = s
-			list.add_child(kit.label(s, "display600", 0.85, UiStyle.HUD_EDGE, true, 0.12))
+			list.add_child(kit.label(s, "display600", 0.85, kit.accent, true, 0.12))
 		list.add_child(_objective_row(int(e[0]), o))
 	if numbered.is_empty():
-		list.add_child(kit.label("No objectives." if brief.available else "Not yet available.", "body400", 1.0, UiStyle.HUD_DIM))
+		list.add_child(kit.label("No objectives." if brief.available else "Not yet available.", "body400", 1.0, kit.dim))
 	# the lance going in
 	p["body"].add_child(kit.rule())
 	var lm := kit.margin(0.9, 0.6, 0.9, 0.7)
 	p["body"].add_child(lm)
 	var lv := kit.vbox(0.3)
 	lm.add_child(lv)
-	lv.add_child(kit.label("Your lance" + (" · from the Mech Bay" if _logistics() else ""), "display600", 0.85, UiStyle.HUD_EDGE, true, 0.12))
+	lv.add_child(kit.label("Your lance" + (" · from the Mech Bay" if _logistics() else ""), "display600", 0.85, kit.accent, true, 0.12))
 	for row in _lance():
 		var h := kit.hbox(0.6)
-		var a := kit.label(row[0], "body500", 1.0, UiStyle.HUD_INK)
+		var a := kit.label(row[0], "body500", 1.0, kit.ink)
 		a.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		a.clip_text = true
 		h.add_child(a)
-		h.add_child(kit.label(row[1], "mono", 0.85, UiStyle.HUD_DIM))
+		h.add_child(kit.label(row[1], "mono", 0.85, kit.dim))
 		lv.add_child(h)
 
 
@@ -190,7 +192,7 @@ func _objective_row(n: int, o: Dictionary) -> Control:
 	_rows[n] = row
 	var h := kit.hbox(0.6)
 	row.add_child(h)
-	var col: Color = UiStyle.HUD_OK if o["primary"] else UiStyle.HUD_WARN
+	var col: Color = UiStyle.AMBER_500 if o["primary"] else UiStyle.STEEL_300  # objectives: amber (2.1), not signal colours
 	var badge := PanelContainer.new()
 	var bs := StyleBoxFlat.new()
 	bs.bg_color = col
@@ -208,12 +210,12 @@ func _objective_row(n: int, o: Dictionary) -> Control:
 	var v := kit.vbox(0.15)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var title := UiStyle.objective_title(String(o["title"]))
-	var t := kit.label(title, "body600", 1.05, UiStyle.HUD_INK)
+	var t := kit.label(title, "body600", 1.05, kit.ink)
 	t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	v.add_child(t)
 	var desc := UiStyle.objective_title(String(o.get("description", "")))
 	if desc != "" and desc != title:
-		var d := kit.label(desc, "body400", 0.95, UiStyle.HUD_DIM)
+		var d := kit.label(desc, "body400", 0.95, kit.dim)
 		d.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		v.add_child(d)
 	var meta := []
@@ -222,7 +224,7 @@ func _objective_row(n: int, o: Dictionary) -> Control:
 	if o["marker"] == null:
 		meta.append("no map marker")
 	if not meta.is_empty():
-		v.add_child(kit.label("  ·  ".join(meta), "mono", 0.85, UiStyle.HUD_EDGE if int(o.get("reward", 0)) > 0 else UiStyle.HUD_DIM))
+		v.add_child(kit.label("  ·  ".join(meta), "mono", 0.85, kit.accent if int(o.get("reward", 0)) > 0 else kit.dim))
 	h.add_child(v)
 	_style_row(n)
 	return row
@@ -234,8 +236,8 @@ func _style_row(n: int) -> void:
 		return
 	var sel := n == selected
 	var s := StyleBoxFlat.new()
-	s.bg_color = UiStyle.HUD_PANEL_2.lerp(UiStyle.HUD_EDGE, 0.12) if sel else Color(UiStyle.HUD_PANEL_2, 0.6)
-	s.border_color = UiStyle.HUD_EDGE if sel else Color(UiStyle.HUD_EDGE, 0.15)
+	s.bg_color = kit.raised.lerp(kit.accent, 0.12) if sel else Color(kit.raised, 0.6)
+	s.border_color = kit.accent if sel else Color(kit.accent, 0.15)
 	s.set_border_width_all(1)
 	s.content_margin_left = kit.em(0.6)
 	s.content_margin_right = kit.em(0.6)
@@ -266,7 +268,7 @@ func _map_panel() -> void:
 	var legend := kit.hbox(1.6)
 	legend.alignment = BoxContainer.ALIGNMENT_CENTER
 	lm.add_child(legend)
-	for item in [["Primary objective", UiStyle.HUD_OK, "o"], ["Secondary objective", UiStyle.HUD_WARN, "o"], ["Drop zone", UiStyle.HUD_EDGE, "d"]]:
+	for item in [["Primary objective", UiStyle.AMBER_500, "o"], ["Secondary objective", UiStyle.STEEL_300, "o"], ["Drop zone", UiStyle.FRIEND, "d"]]:
 		var h := kit.hbox(0.4)
 		var sw := Legend.new()
 		sw.colour = item[1]
@@ -274,7 +276,7 @@ func _map_panel() -> void:
 		sw.custom_minimum_size = Vector2(kit.em(1.1), kit.em(1.1))
 		sw.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		h.add_child(sw)
-		h.add_child(kit.label(item[0], "display600", 0.85, UiStyle.HUD_DIM, true, 0.1))
+		h.add_child(kit.label(item[0], "display600", 0.85, kit.dim, true, 0.1))
 		legend.add_child(h)
 
 
@@ -288,7 +290,7 @@ func _briefing_panel() -> void:
 	slot.clip_contents = true
 	p["body"].add_child(slot)
 	var glow := ColorRect.new()
-	glow.color = Color(UiStyle.HUD_EDGE, 0.05)
+	glow.color = Color(kit.accent, 0.05)
 	glow.set_anchors_preset(Control.PRESET_FULL_RECT)
 	glow.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	slot.add_child(glow)
@@ -296,7 +298,7 @@ func _briefing_panel() -> void:
 	target.set_anchors_preset(Control.PRESET_FULL_RECT)
 	target.spin = 14.0
 	slot.add_child(target)
-	target_label = kit.label("", "display600", 0.85, UiStyle.HUD_EDGE, true, 0.12)
+	target_label = kit.label("", "display600", 0.85, kit.accent, true, 0.12)
 	target_label.position = Vector2(kit.em(0.9), kit.em(0.5))
 	slot.add_child(target_label)
 	# the operation's briefing video (256 px square in the original), letterboxed in the slot
@@ -342,14 +344,14 @@ func _briefing_panel() -> void:
 	rt.add_theme_font_override("bold_font", UiStyle.font("display600", kit.px(0.1)))
 	rt.add_theme_font_size_override("normal_font_size", kit.px(1.1))
 	rt.add_theme_font_size_override("bold_font_size", kit.px(0.95))
-	rt.add_theme_color_override("default_color", UiStyle.HUD_INK)
+	rt.add_theme_color_override("default_color", kit.ink)
 	rt.add_theme_constant_override("line_separation", kit.px(0.2))
 	var text := ""
 	if not brief.available:
-		text = "[color=#%s]This mission's data is not converted yet. It arrives in a later build.[/color]" % UiStyle.HUD_WARN.to_html(false)
+		text = "[color=#%s]This mission's data is not converted yet. It arrives in a later build.[/color]" % UiStyle.WARN.to_html(false)
 	else:
 		if brief.summary != "":
-			text += "[color=#%s]%s[/color]\n\n" % [UiStyle.HUD_DIM.to_html(false), brief.summary.replace("[", "[lb]")]
+			text += "[color=#%s]%s[/color]\n\n" % [kit.dim.to_html(false), brief.summary.replace("[", "[lb]")]
 		text += _briefing_bbcode(brief.blurb)
 	rt.text = text
 	tm.add_child(rt)
@@ -372,11 +374,11 @@ func _briefing_panel() -> void:
 		if brief.time_limit > 0.0:
 			rows.append(["Time limit", "%d min" % roundi(brief.time_limit / 60.0)])
 		for r in rows:
-			var k := kit.label(r[0], "display600", 0.85, UiStyle.HUD_DIM, true, 0.1)
+			var k := kit.label(r[0], "display600", 0.85, kit.dim, true, 0.1)
 			k.custom_minimum_size.x = kit.em(8.5)
 			k.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 			g.add_child(k)
-			var v := kit.label(r[1], "body500", 1.0, UiStyle.HUD_INK)
+			var v := kit.label(r[1], "body500", 1.0, kit.ink)
 			v.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			g.add_child(v)
@@ -389,13 +391,13 @@ static func _briefing_bbcode(text: String) -> String:
 	var at := esc.find(marker)
 	if at < 0:
 		return esc
-	return esc.substr(0, at).strip_edges() + "\n\n[color=#%s][b]TACTICAL OFFICER NOTES[/b][/color]\n" % UiStyle.HUD_EDGE.to_html(false) \
+	return esc.substr(0, at).strip_edges() + "\n\n[color=#%s][b]TACTICAL OFFICER NOTES[/b][/color]\n" % UiStyle.AMBER_500.to_html(false) \
 		+ esc.substr(at + marker.length()).strip_edges()
 
 
 func _footer() -> void:
 	var bar := PanelContainer.new()
-	bar.add_theme_stylebox_override("panel", UiStyle.HudFrame.make(kit.u))
+	bar.add_theme_stylebox_override("panel", kit.frame())
 	kit.place(bar, 0.01, 0.984, 0.99, 0.984)
 	bar.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	add_child(bar)
@@ -412,7 +414,7 @@ func _footer() -> void:
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	h.add_child(spacer)
-	launch_note = kit.label("", "body500", 0.95, UiStyle.HUD_WARN)
+	launch_note = kit.label("", "body500", 0.95, UiStyle.WARN)
 	launch_note.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(launch_note)
 	if _logistics():

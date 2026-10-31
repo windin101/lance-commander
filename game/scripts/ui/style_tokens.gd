@@ -81,9 +81,26 @@ static func caps(role: String) -> bool:
 
 
 ## "Reduce motion" (4.4): user://settings.cfg [accessibility] reduce_motion. Off by default.
+static var settings_path := UiStyle.SETTINGS_PATH  # tests point this elsewhere
+static var _reduce := -1  # cached: -1 unread, 0 off, 1 on
+
+
 static func reduce_motion() -> bool:
+	if _reduce < 0:
+		var cfg := ConfigFile.new()
+		_reduce = 1 if cfg.load(settings_path) == OK and bool(cfg.get_value("accessibility", "reduce_motion", false)) else 0
+	return _reduce == 1
+
+
+## Turn "reduce motion" on or off; saved to user://settings.cfg [accessibility] unless save is false.
+static func set_reduce_motion(on: bool, save := true) -> void:
+	_reduce = 1 if on else 0
+	if not save:
+		return
 	var cfg := ConfigFile.new()
-	return cfg.load(UiStyle.SETTINGS_PATH) == OK and bool(cfg.get_value("accessibility", "reduce_motion", false))
+	cfg.load(settings_path)
+	cfg.set_value("accessibility", "reduce_motion", on)
+	cfg.save(settings_path)
 
 
 static func reset_cache() -> void:
@@ -285,6 +302,14 @@ static func panel_in(c: Control, delay := 0.0, from := Vector2(0, 1)) -> void:
 	var tw := c.create_tween().set_parallel(true).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(c, "position", end, motion_s("slow")).set_delay(delay)
 	tw.tween_property(c, "modulate:a", 1.0, motion_s("slow")).set_delay(delay)
+
+
+## A plain fade-in over 180 ms (for a control a Container re-lays out, where a slide would fight the layout).
+static func fade_in(c: Control) -> void:
+	if reduce_motion() or not c.is_inside_tree():
+		return
+	c.modulate.a = 0.0
+	c.create_tween().tween_property(c, "modulate:a", 1.0, motion_s("slow")).set_ease(Tween.EASE_OUT)
 
 
 ## Screen-entry boot flicker (4.4): a few frames of alpha stutter, then on. Skipped under reduce motion.

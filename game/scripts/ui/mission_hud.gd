@@ -84,7 +84,7 @@ func setup(mission_view: Node) -> void:
 		var kv := a.trim_prefix("--").split("=", true, 1)
 		_args[kv[0]] = kv[1] if kv.size() > 1 else ""
 	box = ColorRect.new()
-	box.color = Color(UiStyle.HUD_EDGE, 0.15)
+	box.color = Color(UiStyle.CYAN_400, 0.15)
 	box.visible = false
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(box)
@@ -139,7 +139,7 @@ func _build_enemy_tag() -> void:
 	enemy_tag = PanelContainer.new()
 	var s := StyleBoxFlat.new()
 	s.bg_color = UiStyle.HUD_PANEL
-	s.border_color = UiStyle.HUD_CRIT
+	s.border_color = UiStyle.CRIT
 	s.set_border_width_all(1)
 	s.content_margin_left = kit.em(0.6)
 	s.content_margin_right = kit.em(0.6)
@@ -152,7 +152,7 @@ func _build_enemy_tag() -> void:
 	enemy_tag.add_child(v)
 	_enemy_name = kit.label("", "display600", 1.0, UiStyle.HUD_INK, true, 0.06)
 	v.add_child(_enemy_name)
-	_enemy_force = kit.label("", "display500", 0.85, UiStyle.HUD_CRIT, true, 0.1)
+	_enemy_force = kit.label("", "display500", 0.85, UiStyle.CRIT, true, 0.1)
 	v.add_child(_enemy_force)
 	_enemy_state = kit.label("", "mono", 0.85, UiStyle.HUD_DIM)
 	v.add_child(_enemy_state)
@@ -257,12 +257,12 @@ func _build_mission_bar() -> void:
 	v.add_child(line)
 	mission_name = kit.label("", "display600", 1.25, UiStyle.HUD_INK, true, 0.08)
 	line.add_child(mission_name)
-	line.add_child(kit.label("|", "display600", 1.25, UiStyle.HUD_EDGE))
+	line.add_child(kit.label("|", "display600", 1.25, UiStyle.CYAN_400))
 	mission_objective = kit.label("", "display600", 1.25, UiStyle.HUD_INK, true, 0.08)
 	mission_objective.clip_text = true
 	mission_objective.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	line.add_child(mission_objective)
-	line.add_child(kit.label("|", "display600", 1.25, UiStyle.HUD_EDGE))
+	line.add_child(kit.label("|", "display600", 1.25, UiStyle.CYAN_400))
 	mission_count = kit.label("", "mono", 1.25, UiStyle.HUD_INK)
 	line.add_child(mission_count)
 	mission_bar = kit.bar(0.35, "edge")
@@ -386,7 +386,7 @@ func _build_command() -> void:
 	help.alignment = BoxContainer.ALIGNMENT_CENTER
 	help.custom_minimum_size = Vector2(kit.em(CommandPanel.WIDTH_EM), kit.em(1.6))
 	col.add_child(help)
-	help_title = kit.label("", "display600", 1.1, UiStyle.HUD_EDGE, true, 0.08)
+	help_title = kit.label("", "display600", 1.1, UiStyle.CYAN_400, true, 0.08)
 	help_text = kit.label("", "body400", 1.1, UiStyle.HUD_INK)
 	for l in [help_title, help_text]:
 		l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
@@ -678,7 +678,7 @@ func _update_banner() -> void:
 	elif res != SimObjectives.Result.PLAYING and not banner.visible:
 		banner.visible = true
 		banner.text = "Mission successful" if res == SimObjectives.Result.WON else "Mission failed"
-		banner.add_theme_color_override("font_color", UiStyle.HUD_OK if res == SimObjectives.Result.WON else UiStyle.HUD_CRIT)
+		banner.add_theme_color_override("font_color", UiStyle.STATE_OK if res == SimObjectives.Result.WON else UiStyle.CRIT)
 
 
 ## Fraction of the viewport covered by visible HUD panels (the mock-up's coverage meter:
@@ -734,7 +734,7 @@ class ObjectiveBox:
 	func _draw() -> void:
 		var s := minf(size.x, size.y) * 0.86
 		var r := Rect2(Vector2(0, (size.y - s) * 0.5 + s * 0.12), Vector2(s, s))
-		var col := UiStyle.HUD_OK if state == 1 else (UiStyle.HUD_CRIT if state == 2 else UiStyle.HUD_EDGE)
+		var col := UiStyle.STATE_OK if state == 1 else (UiStyle.CRIT if state == 2 else UiStyle.CYAN_400)
 		draw_rect(r, col, false, 1.0)
 		var w := maxf(1.5, s / 7.0)
 		if state == 1:

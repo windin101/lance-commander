@@ -51,4 +51,4 @@ func test_tac_map_sensor_ring_scale() -> void:
 	assert_float(mm.sensor_ring_px(400.0)).is_equal_approx(expect, 0.01)
 	assert_float(mm.sensor_ring_px(0.0)).is_equal(0.0)
 	var rings := mm.rings()
-	assert_bool(rings.any(func(r): return r[2] == UiStyle.HUD_OK)).is_true()  # the lance's own sensors
+	assert_bool(rings.any(func(r): return r[2] == UiStyle.FRIEND)).is_true()  # the lance's own sensors (friend, guide 6)

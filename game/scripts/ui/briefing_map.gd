@@ -59,18 +59,18 @@ func _draw() -> void:
 	if _tex:
 		draw_texture_rect(_tex, r, false)
 	else:
-		draw_rect(r, Color(0.06, 0.1, 0.13))
+		draw_rect(r, UiStyle.INK_800)
 	# grid: eight squares a side
 	for i in range(1, 8):
 		var t := r.size.x * i / 8.0
-		draw_line(r.position + Vector2(t, 0), r.position + Vector2(t, r.size.y), Color(UiStyle.HUD_EDGE, 0.12), 1.0)
-		draw_line(r.position + Vector2(0, t), r.position + Vector2(r.size.x, t), Color(UiStyle.HUD_EDGE, 0.12), 1.0)
-	draw_rect(r, UiStyle.HUD_EDGE_SOFT, false, 1.0)
+		draw_line(r.position + Vector2(t, 0), r.position + Vector2(t, r.size.y), Color(UiStyle.STEEL_500, 0.35), 1.0)
+		draw_line(r.position + Vector2(0, t), r.position + Vector2(r.size.x, t), Color(UiStyle.STEEL_500, 0.35), 1.0)
+	draw_rect(r, UiStyle.STEEL_500, false, 1.0)
 	var arm := maxf(10.0, u * 2.0)
 	for c in [[r.position, Vector2(1, 1)], [r.position + Vector2(r.size.x, 0), Vector2(-1, 1)],
 			[r.position + Vector2(0, r.size.y), Vector2(1, -1)], [r.end, Vector2(-1, -1)]]:
-		draw_line(c[0], c[0] + Vector2(arm * c[1].x, 0), UiStyle.HUD_EDGE, 2.0)
-		draw_line(c[0], c[0] + Vector2(0, arm * c[1].y), UiStyle.HUD_EDGE, 2.0)
+		draw_line(c[0], c[0] + Vector2(arm * c[1].x, 0), UiStyle.AMBER_700, 2.0)
+		draw_line(c[0], c[0] + Vector2(0, arm * c[1].y), UiStyle.AMBER_700, 2.0)
 	if brief == null:
 		return
 	var font := UiStyle.font("display700")
@@ -79,23 +79,23 @@ func _draw() -> void:
 		var p := to_local_point(brief.drop_zone)
 		var k := marker_radius() * 0.9
 		var dz := PackedVector2Array([p + Vector2(0, -k), p + Vector2(k, 0), p + Vector2(0, k), p + Vector2(-k, 0)])
-		draw_colored_polygon(dz, Color(UiStyle.HUD_EDGE, 0.35))
+		draw_colored_polygon(dz, Color(UiStyle.FRIEND, 0.35))
 		dz.append(dz[0])
-		draw_polyline(dz, UiStyle.HUD_EDGE, 2.0, true)
+		draw_polyline(dz, UiStyle.FRIEND, 2.0, true)
 		var t := "DZ"
 		var ts := font.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs)
-		draw_string(font, p + Vector2(k + 3.0, ts.y * 0.35), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, UiStyle.HUD_EDGE)
+		draw_string(font, p + Vector2(k + 3.0, ts.y * 0.35), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, UiStyle.FRIEND)
 	for e in numbered:
 		var o: Dictionary = e[1]
 		if o["marker"] == null:
 			continue
 		var p := to_local_point(o["marker"])
-		var col: Color = UiStyle.HUD_OK if o["primary"] else UiStyle.HUD_WARN
+		var col: Color = UiStyle.AMBER_500 if o["primary"] else UiStyle.STEEL_300
 		var rad := marker_radius()
 		if int(e[0]) == selected:
 			draw_circle(p, rad * 1.7, Color(col, 0.18))
-			draw_arc(p, rad * 1.45, 0.0, TAU, 40, Color(UiStyle.HUD_INK, 0.9), 1.5, true)
-		draw_circle(p, rad, Color(0.02, 0.06, 0.09, 0.8))
+			draw_arc(p, rad * 1.45, 0.0, TAU, 40, Color(UiStyle.WHITE, 0.9), 1.5, true)
+		draw_circle(p, rad, Color(UiStyle.INK_900, 0.8))
 		draw_arc(p, rad, 0.0, TAU, 32, col, 2.0, true)
 		var label := str(e[0])
 		var sz := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs)

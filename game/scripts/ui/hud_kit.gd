@@ -5,10 +5,42 @@ extends RefCounted
 ## tape. Every size is given in em (multiples of u), as in the approved mock-up's CSS.
 
 var u := 11.4
+## The layer's palette (guide 2.1): cyan for the in-mission HUD (6), amber for the screens between missions
+## (set_amber(): briefing, mech bay, mech lab, pause). Builders and screens colour by these, not by constants.
+var amber := false
+var accent := UiStyle.CYAN_400  # titles, active values, primary frame
+var accent_soft := UiStyle.CYAN_RULE  # dividers
+var ink := UiStyle.HUD_INK  # primary text
+var dim := UiStyle.HUD_DIM  # secondary text
+var glow := UiStyle.CYAN_GLOW
+var raised := UiStyle.HUD_PANEL_2  # header strips, value boxes, selected rows
 
 
 func _init(unit_px: float) -> void:
 	u = unit_px
+
+
+## Switch to the amber layer (2.1): amber accent, steel-500 dividers, steel text.
+func set_amber() -> HudKit:
+	amber = true
+	accent = UiStyle.AMBER_500
+	accent_soft = UiStyle.STEEL_500
+	ink = UiStyle.STEEL_100
+	dim = UiStyle.STEEL_300
+	glow = Color(UiStyle.AMBER_500, 0.40)
+	raised = UiStyle.INK_600
+	return self
+
+
+## The layer's panel frame: the HUD's bevelled cyan frame, or the amber layer's chamfered steel frame (4.1) with
+## amber-700 corner ticks (the amber frame at rest).
+func frame(pad := Vector4.ZERO) -> StyleBox:
+	if not amber:
+		return UiStyle.HudFrame.make(u, pad)
+	var f := StyleTokens.ChamferBox.make(Color(UiStyle.INK_700, 0.85), UiStyle.STEEL_500, 1, maxf(4.0, u * 0.9), pad, true)
+	f.bracket = maxf(6.0, u * 1.05)
+	f.bracket_colour = UiStyle.AMBER_700
+	return f
 
 
 func em(x: float) -> float:
@@ -21,7 +53,9 @@ func px(x: float) -> int:
 
 ## A label: font role ("display600", "body400", "mono"...), size in em, colour, caps,
 ## letter spacing in em.
-func label(text: String, kind := "body400", size_em := 1.0, colour := UiStyle.HUD_INK, caps := false, spacing_em := 0.0) -> Label:
+func label(text: String, kind := "body400", size_em := 1.0, colour := Color(0, 0, 0, 0), caps := false, spacing_em := 0.0) -> Label:
+	if colour.a <= 0.0:
+		colour = ink  # the layer's primary text
 	var l := Label.new()
 	l.text = text
 	l.uppercase = caps
@@ -34,7 +68,7 @@ func label(text: String, kind := "body400", size_em := 1.0, colour := UiStyle.HU
 
 
 ## A label that wraps inside width_em.
-func para(text: String, width_em: float, kind := "body400", size_em := 1.1, colour := UiStyle.HUD_INK) -> Label:
+func para(text: String, width_em: float, kind := "body400", size_em := 1.1, colour := Color(0, 0, 0, 0)) -> Label:
 	var l := label(text, kind, size_em, colour)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.custom_minimum_size.x = em(width_em)
@@ -46,7 +80,7 @@ func para(text: String, width_em: float, kind := "body400", size_em := 1.1, colo
 ## {panel, body, title, small}; add content to body.
 func panel(title := "", small := "", width_em := 0.0) -> Dictionary:
 	var p := PanelContainer.new()
-	p.add_theme_stylebox_override("panel", UiStyle.HudFrame.make(u))
+	p.add_theme_stylebox_override("panel", frame())
 	p.mouse_filter = Control.MOUSE_FILTER_STOP
 	if width_em > 0.0:
 		p.custom_minimum_size.x = em(width_em)
@@ -61,11 +95,11 @@ func panel(title := "", small := "", width_em := 0.0) -> Dictionary:
 		var h := HBoxContainer.new()
 		h.add_theme_constant_override("separation", px(1.0))
 		m.add_child(h)
-		var t := label(title, "display600", 1.05, UiStyle.HUD_EDGE, true, 0.12)
+		var t := label(title, "display600", 1.05, accent, true, 0.12)
 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		t.clip_text = true
 		h.add_child(t)
-		var s := label(small, "mono", 0.85 * 1.05, UiStyle.HUD_DIM, false, 0.04)
+		var s := label(small, "mono", 0.85 * 1.05, dim, false, 0.04)
 		s.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		s.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 		h.add_child(s)
@@ -85,7 +119,9 @@ func margin(l: float, t: float, r: float, b: float) -> MarginContainer:
 	return m
 
 
-func rule(colour := UiStyle.HUD_EDGE_SOFT) -> ColorRect:
+func rule(colour := Color(0, 0, 0, 0)) -> ColorRect:
+	if colour.a <= 0.0:
+		colour = accent_soft
 	var r := ColorRect.new()
 	r.color = colour
 	r.custom_minimum_size = Vector2(0, 1)
@@ -119,10 +155,10 @@ func bar(height_em := 0.45, mode := "ok") -> Bar:
 ## Health colour for a fraction (the mock-up legend): green, amber under 60%, red under 30%.
 static func health_colour(frac: float) -> Color:
 	if frac < 0.3:
-		return UiStyle.HUD_CRIT
+		return UiStyle.CRIT
 	if frac < 0.6:
-		return UiStyle.HUD_WARN
-	return UiStyle.HUD_OK
+		return UiStyle.WARN
+	return UiStyle.STATE_OK
 
 
 ## A thin gauge (.bar): dim track and a fill. mode "ok" (health colour), "heat" (amber to
@@ -148,18 +184,18 @@ class Bar:
 		if w > 0.0:
 			if mode == "heat":
 				var r := Rect2(Vector2.ZERO, Vector2(w, size.y))
-				var c0 := UiStyle.HUD_WARN
-				var c1 := UiStyle.HUD_WARN.lerp(UiStyle.HUD_HOT, f)
+				var c0 := UiStyle.WARN
+				var c1 := UiStyle.WARN.lerp(UiStyle.HEAT, f)
 				draw_polygon(PackedVector2Array([r.position, Vector2(r.end.x, 0), r.end, Vector2(0, r.end.y)]),
 					PackedColorArray([c0, c1, c1, c0]))
 			else:
 				var c := colour
 				if c.a <= 0.0:
-					c = HudKit.health_colour(f) if mode == "ok" else UiStyle.HUD_EDGE
+					c = HudKit.health_colour(f) if mode == "ok" else UiStyle.CYAN_400
 				draw_rect(Rect2(0, 0, w, size.y), c)
 		if mark >= 0.0:
 			var x := roundf(size.x * clampf(mark, 0.0, 1.0))
-			draw_rect(Rect2(x - 1.0, -size.y * 0.6, 2.0, size.y * 2.2), UiStyle.HUD_CRIT)
+			draw_rect(Rect2(x - 1.0, -size.y * 0.6, 2.0, size.y * 2.2), UiStyle.CRIT)
 
 
 ## The command icons of the mock-up, as polylines in a 24 x 24 box (its SVG paths).
@@ -261,7 +297,7 @@ class Tape:
 	func _draw() -> void:
 		var f := UiStyle.font("mono")
 		var fs := maxi(6, roundi(u * 0.9))
-		draw_line(Vector2(0, 0), Vector2(size.x, 0), UiStyle.HUD_EDGE_SOFT, 1.0)
+		draw_line(Vector2(0, 0), Vector2(size.x, 0), UiStyle.CYAN_RULE, 1.0)
 		var inner := size.x * 0.84  # the mock-up's 8% padding each side
 		var x0 := size.x * 0.08
 		var deg_px := inner / span
@@ -275,13 +311,13 @@ class Tape:
 				var t := "N" if n == 0 else ("%03d" % n)
 				var ts := f.get_string_size(t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs)
 				draw_string(f, Vector2(x - ts.x / 2.0, u * 0.25 + f.get_ascent(fs)), t, HORIZONTAL_ALIGNMENT_LEFT, -1, fs,
-					UiStyle.HUD_EDGE if n == 0 else UiStyle.HUD_DIM)
+					UiStyle.CYAN_400 if n == 0 else UiStyle.HUD_DIM)
 			else:
 				draw_line(Vector2(x, 0), Vector2(x, u * 0.3), Color(UiStyle.HUD_DIM, 0.45), 1.0)
 		var label := "%03d°" % posmod(roundi(heading), 360)
 		var ls := f.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs)
 		var box := Rect2(size.x / 2.0 - ls.x / 2.0 - u * 0.4, -u * 0.2, ls.x + u * 0.8, f.get_height(fs) + 2.0)
 		draw_rect(box, UiStyle.HUD_PANEL_2)
-		draw_rect(box, UiStyle.HUD_EDGE, false, 1.0)
+		draw_rect(box, UiStyle.CYAN_400, false, 1.0)
 		draw_string(f, Vector2(box.position.x + u * 0.4, box.position.y + 1.0 + f.get_ascent(fs)), label,
 			HORIZONTAL_ALIGNMENT_LEFT, -1, fs, UiStyle.HUD_INK)

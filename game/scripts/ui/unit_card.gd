@@ -62,11 +62,11 @@ func _restyle() -> void:
 	if kit == null:
 		return
 	var s := StyleBoxFlat.new()
-	s.bg_color = UiStyle.HUD_PANEL_2 if not selected else UiStyle.HUD_PANEL_2.lerp(UiStyle.HUD_EDGE, 0.12)
-	s.border_color = UiStyle.HUD_EDGE if selected else Color(UiStyle.HUD_EDGE, 0.22)
+	s.bg_color = UiStyle.HUD_PANEL_2 if not selected else UiStyle.HUD_PANEL_2.lerp(UiStyle.CYAN_400, 0.12)
+	s.border_color = UiStyle.CYAN_400 if selected else Color(UiStyle.CYAN_400, 0.22)
 	s.set_border_width_all(1)
 	if selected:
-		s.shadow_color = Color(UiStyle.HUD_GLOW, 0.35)
+		s.shadow_color = Color(UiStyle.CYAN_GLOW, 0.35)
 		s.shadow_size = roundi(kit.em(0.5))
 	var pad := kit.em(0.55) if expanded else kit.em(0.35)
 	s.content_margin_left = pad
@@ -93,12 +93,12 @@ func _build() -> void:
 func _gid() -> PanelContainer:
 	var tag := PanelContainer.new()
 	var s := StyleBoxFlat.new()
-	s.bg_color = UiStyle.HUD_EDGE
+	s.bg_color = UiStyle.CYAN_400
 	s.content_margin_left = kit.em(0.35)
 	s.content_margin_right = kit.em(0.35)
 	tag.add_theme_stylebox_override("panel", s)
 	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_gid_label = kit.label(str(group), "display700", 0.9, Color(0.012, 0.063, 0.09))
+	_gid_label = kit.label(str(group), "display700", 0.9, UiStyle.INK_900)
 	tag.add_child(_gid_label)
 	return tag
 
@@ -160,7 +160,7 @@ func _build_full() -> void:
 	var frame := Panel.new()
 	var fs := StyleBoxFlat.new()
 	fs.draw_center = false
-	fs.border_color = UiStyle.HUD_EDGE_SOFT
+	fs.border_color = UiStyle.CYAN_RULE
 	fs.set_border_width_all(1)
 	frame.add_theme_stylebox_override("panel", fs)
 	frame.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -274,7 +274,7 @@ func _refresh() -> void:
 	var st := status_text(unit)
 	if sub_label:
 		sub_label.text = _subtitle() if st.is_empty() else st
-		sub_label.add_theme_color_override("font_color", UiStyle.HUD_DIM if st.is_empty() else UiStyle.HUD_WARN)
+		sub_label.add_theme_color_override("font_color", UiStyle.HUD_DIM if st.is_empty() else UiStyle.WARN)
 	for al in _ammo_labels:
 		var shots := 0
 		var unlimited := false
@@ -313,4 +313,4 @@ static func status_text(u: SimUnit) -> String:
 
 func _draw() -> void:
 	if speaking and int(Time.get_ticks_msec() / (BLINK_PERIOD * 500.0)) % 2 == 0:
-		draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), UiStyle.HUD_WARN, false, 2.0)
+		draw_rect(Rect2(Vector2.ONE, size - Vector2(2, 2)), UiStyle.WARN, false, 2.0)

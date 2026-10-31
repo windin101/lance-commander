@@ -34,7 +34,26 @@ func place(c: Control, l: float, t: float, r: float, b: float, width_em := 0.0, 
 	return c
 
 
+## The primary button (guide 4.3): in the amber layer an amber 2 px chamfered frame on ink-700 with amber text,
+## hover amber 15 % + glow, pressed amber-700; in the HUD the cyan filled style.
 func primary(b: Button) -> Button:
+	if amber:
+		var c6 := maxf(3.0, u * 0.5)
+		var m := Vector4(em(0.9), em(0.45), em(0.9), em(0.45))
+		var fill := UiStyle.INK_700
+		b.add_theme_stylebox_override("normal", StyleTokens.ChamferBox.make(fill, UiStyle.AMBER_500, 2, c6, m))
+		var hov := StyleTokens.ChamferBox.make(fill.lerp(UiStyle.AMBER_500, 0.15), UiStyle.AMBER_300, 2, c6, m)
+		hov.glow = Color(UiStyle.AMBER_500, 0.35)
+		b.add_theme_stylebox_override("hover", hov)
+		b.add_theme_stylebox_override("pressed", StyleTokens.ChamferBox.make(UiStyle.AMBER_700, UiStyle.AMBER_300, 2, c6, m))
+		b.add_theme_stylebox_override("hover_pressed", StyleTokens.ChamferBox.make(UiStyle.AMBER_700, UiStyle.AMBER_300, 2, c6, m))
+		b.add_theme_stylebox_override("disabled", StyleTokens.ChamferBox.make(UiStyle.INK_800, UiStyle.STEEL_500, 1, c6, m))
+		b.add_theme_color_override("font_color", UiStyle.AMBER_500)
+		b.add_theme_color_override("font_hover_color", UiStyle.AMBER_300)
+		b.add_theme_color_override("font_pressed_color", UiStyle.WHITE)
+		b.add_theme_color_override("font_hover_pressed_color", UiStyle.WHITE)
+		b.add_theme_color_override("font_focus_color", UiStyle.AMBER_500)
+		return b
 	for state in ["normal", "hover", "pressed"]:
 		var s := StyleBoxFlat.new()
 		s.bg_color = Color(UiStyle.HUD_EDGE, 0.28 if state == "normal" else 0.4)
@@ -70,7 +89,6 @@ func badge(type: String, free := false, text := "") -> PanelContainer:
 	s.bg_color = Color(0, 0, 0, 0) if free else c
 	s.border_color = c
 	s.set_border_width_all(1 if free else 0)
-	s.set_corner_radius_all(2)
 	s.content_margin_left = em(0.3)
 	s.content_margin_right = em(0.3)
 	p.add_theme_stylebox_override("panel", s)
@@ -114,12 +132,13 @@ func range_mark(range_name: String) -> ColorRect:
 func fig(title: String, with_bar := false) -> Dictionary:
 	var v := vbox(0.2)
 	v.custom_minimum_size.x = em(11)
-	v.add_child(label(title, "display600", 0.78, UiStyle.HUD_DIM, true, 0.14))
-	var val := label("", "mono", 1.35, UiStyle.HUD_EDGE)
+	v.add_child(label(title, "display600", 0.78, dim, true, 0.14))
+	var val := label("", "mono", 1.35, accent)
 	v.add_child(val)
 	var b: StatBar = null
 	if with_bar:
 		b = StatBar.new()
+		b.colour = accent
 		b.custom_minimum_size = Vector2(0, maxf(2.0, roundf(em(0.45))))
 		v.add_child(b)
 	return {"box": v, "value": val, "bar": b}
@@ -165,7 +184,7 @@ class StatBar:
 		set(v):
 			ghost = v
 			queue_redraw()
-	var colour := UiStyle.HUD_EDGE
+	var colour := UiStyle.CYAN_400  # BayKit.fig and the screens set the layer's accent
 	var heat := false
 	var over := false
 
@@ -180,16 +199,16 @@ class StatBar:
 		var w := size.x * f
 		if w > 0.0:
 			if over:
-				draw_rect(Rect2(0, 0, w, size.y), UiStyle.HUD_CRIT)
+				draw_rect(Rect2(0, 0, w, size.y), UiStyle.CRIT)
 			elif heat:
-				var c1 := UiStyle.HUD_HOT
+				var c1 := UiStyle.HEAT
 				draw_polygon(PackedVector2Array([Vector2.ZERO, Vector2(w, 0), Vector2(w, size.y), Vector2(0, size.y)]),
-					PackedColorArray([UiStyle.HUD_WARN, c1, c1, UiStyle.HUD_WARN]))
+					PackedColorArray([UiStyle.WARN, c1, c1, UiStyle.WARN]))
 			else:
 				draw_rect(Rect2(0, 0, w, size.y), colour)
 		if ghost >= 0.0:
 			var x := roundf(size.x * clampf(ghost, 0.0, 1.0))
-			draw_rect(Rect2(x - 1.0, -size.y * 0.45, 2.0, size.y * 1.9), Color(UiStyle.HUD_INK, 0.6))
+			draw_rect(Rect2(x - 1.0, -size.y * 0.45, 2.0, size.y * 1.9), Color(UiStyle.WHITE, 0.6))
 
 
 ## A location's slot strip (.slots): one segment per slot; fixed items grey, parts cyan,
@@ -200,6 +219,7 @@ class SlotBar:
 	var fixed := 0
 	var used := 0
 	var fresh := 0  # of the used parts' slots, how many are new (drawn last)
+	var colour := UiStyle.CYAN_400  # fitted parts: the layer's accent (the lab sets steel-100 on amber)
 
 	func _init() -> void:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -213,11 +233,11 @@ class SlotBar:
 		for i in cap:
 			var c := Color(1, 1, 1, 0.07)
 			if i < fixed:
-				c = Color(UiStyle.HUD_DIM, 0.35)
+				c = Color(UiStyle.STEEL_300, 0.35)
 			elif i < used - fresh:
-				c = UiStyle.HUD_EDGE
+				c = colour
 			elif i < used:
-				c = UiStyle.HUD_WARN
+				c = UiStyle.AMBER_500
 			draw_rect(Rect2(i * (seg + gap), 0, seg, size.y), c)
 
 
@@ -226,6 +246,7 @@ class SlotBar:
 class Backdrop:
 	extends Control
 	var gantries := true
+	var amber := false  # the amber layer's hangar: ink gradient, steel grid, amber work-light pools (guide 5.5)
 
 	func _init() -> void:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -234,9 +255,9 @@ class Backdrop:
 	func _draw() -> void:
 		var w := size.x
 		var h := size.y
-		var top := Color("#101f2a")
-		var mid := Color("#0e1b24")
-		var bot := Color("#081117")
+		var top := UiStyle.INK_700 if amber else Color("#101f2a")
+		var mid := UiStyle.INK_800 if amber else Color("#0e1b24")
+		var bot := UiStyle.INK_900 if amber else Color("#081117")
 		draw_polygon(PackedVector2Array([Vector2(0, 0), Vector2(w, 0), Vector2(w, h * 0.58), Vector2(0, h * 0.58)]),
 			PackedColorArray([top, top, mid, mid]))
 		draw_polygon(PackedVector2Array([Vector2(0, h * 0.58), Vector2(w, h * 0.58), Vector2(w, h), Vector2(0, h)]),
@@ -249,10 +270,19 @@ class Backdrop:
 			for a in 49:
 				var t := TAU * a / 48.0
 				pts.append(c + Vector2(cos(t) * w * 0.3 * k, sin(t) * h * 0.3 * k))
-			draw_colored_polygon(pts, Color(UiStyle.HUD_EDGE, 0.006))
+			draw_colored_polygon(pts, Color(UiStyle.STEEL_100 if amber else UiStyle.CYAN_400, 0.004 if amber else 0.006))
 		# floor grid: horizon at 66% of the height, lines converge to the centre
 		var horizon := h * 0.64
-		var grid := Color(UiStyle.HUD_EDGE, 0.16)
+		var grid := Color(UiStyle.STEEL_500 if amber else UiStyle.CYAN_400, 0.30 if amber else 0.16)
+		if amber and gantries:  # amber work-lights: two warm pools on the floor under the gantries
+			for lx in [w * 0.36, w * 0.64]:
+				for i in 16:
+					var k := 1.0 - float(i) / 16.0
+					var pool := PackedVector2Array()
+					for a in 33:
+						var t := TAU * a / 32.0
+						pool.append(Vector2(lx, h * 0.8) + Vector2(cos(t) * w * 0.12 * k, sin(t) * h * 0.07 * k))
+					draw_colored_polygon(pool, Color(UiStyle.AMBER_500, 0.008))
 		for i in range(1, 15):
 			var t := float(i) / 14.0
 			var y := horizon + (h - horizon) * t * t
@@ -267,9 +297,9 @@ class Backdrop:
 				var y := 0.0
 				var stripe := 0
 				while y < h * 0.7:
-					var col := Color(UiStyle.HUD_DIM, 0.10 if stripe % 2 == 0 else 0.03)
+					var col := Color(UiStyle.STEEL_300 if amber else UiStyle.HUD_DIM, 0.10 if stripe % 2 == 0 else 0.03)
 					draw_rect(Rect2(gx - gw * 0.5, y, gw, minf(14.0, h * 0.7 - y)), col)
 					y += 14.0
 					stripe += 1
-				draw_line(Vector2(gx - gw * 0.5, 0), Vector2(gx - gw * 0.5, h * 0.7), Color(UiStyle.HUD_DIM, 0.12), 1.0)
-				draw_line(Vector2(gx + gw * 0.5, 0), Vector2(gx + gw * 0.5, h * 0.7), Color(UiStyle.HUD_DIM, 0.12), 1.0)
+				draw_line(Vector2(gx - gw * 0.5, 0), Vector2(gx - gw * 0.5, h * 0.7), Color(UiStyle.STEEL_300 if amber else UiStyle.HUD_DIM, 0.12), 1.0)
+				draw_line(Vector2(gx + gw * 0.5, 0), Vector2(gx + gw * 0.5, h * 0.7), Color(UiStyle.STEEL_300 if amber else UiStyle.HUD_DIM, 0.12), 1.0)

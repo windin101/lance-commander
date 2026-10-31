@@ -69,7 +69,8 @@ func _ready() -> void:
 		msg = _pick_text(7)
 	var vh := get_viewport().get_visible_rect().size.y if get_viewport() else 1080.0
 	kit = BayKit.new(UiStyle.hud_unit(vh))
-	theme = UiStyle.hud_theme(kit.u)
+	kit.set_amber()
+	theme = UiStyle.hud_theme(kit.u, true)
 	_line_edit_theme(theme)
 	var bg := ColorRect.new()
 	bg.color = Color("#0b141b")
@@ -77,6 +78,7 @@ func _ready() -> void:
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
 	var back := BayKit.Backdrop.new()
+	back.amber = true
 	back.gantries = false
 	add_child(back)
 	_build()
@@ -89,8 +91,8 @@ func _ready() -> void:
 func _line_edit_theme(t: Theme) -> void:
 	for state in ["normal", "focus"]:
 		var s := StyleBoxFlat.new()
-		s.bg_color = UiStyle.HUD_PANEL_2
-		s.border_color = UiStyle.HUD_EDGE if state == "focus" else UiStyle.HUD_EDGE_SOFT
+		s.bg_color = kit.raised
+		s.border_color = kit.accent if state == "focus" else kit.accent_soft
 		s.set_border_width_all(1)
 		s.content_margin_left = kit.em(0.6)
 		s.content_margin_right = kit.em(0.6)
@@ -99,8 +101,8 @@ func _line_edit_theme(t: Theme) -> void:
 		t.set_stylebox(state, "LineEdit", s)
 	t.set_font("font", "LineEdit", UiStyle.font("mono"))
 	t.set_font_size("font_size", "LineEdit", kit.px(1.1))
-	t.set_color("font_color", "LineEdit", UiStyle.HUD_INK)
-	t.set_color("caret_color", "LineEdit", UiStyle.HUD_EDGE)
+	t.set_color("font_color", "LineEdit", kit.ink)
+	t.set_color("caret_color", "LineEdit", kit.accent)
 
 
 func _comp(id: int) -> Dictionary:
@@ -115,7 +117,7 @@ func _nm(id: int) -> String:
 
 func _build() -> void:
 	var top := PanelContainer.new()
-	top.add_theme_stylebox_override("panel", UiStyle.HudFrame.make(kit.u))
+	top.add_theme_stylebox_override("panel", kit.frame())
 	kit.place(top, 0.01, 0.016, 0.99, 0.016)
 	add_child(top)
 	var tm := kit.margin(1.4, 0.7, 1.4, 0.7)
@@ -124,14 +126,14 @@ func _build() -> void:
 	tm.add_child(th)
 	var title := kit.hbox(1.0)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	title.add_child(kit.label("Mech Lab", "display700", 1.5, UiStyle.HUD_INK, true, 0.14))
+	title.add_child(kit.label("Mech Lab", "display700", 1.5, kit.ink, true, 0.14))
 	var pilot := String(m["pilot"])
 	var cname := String(GameData.chassis[chassis]["name"])
 	_sub = kit.label("%s · %s" % [camp.pilots.get(pilot, {}).get("name", "Reserve") if pilot != "" else "Reserve", cname],
-		"display500", 0.9, UiStyle.HUD_DIM, true, 0.1)
+		"display500", 0.9, kit.dim, true, 0.1)
 	_sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	title.add_child(_sub)
-	_vname = kit.label("", "mono", 1.0, UiStyle.HUD_WARN, false, 0.04)
+	_vname = kit.label("", "mono", 1.0, UiStyle.WARN, false, 0.04)
 	_vname.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	title.add_child(_vname)
 	th.add_child(title)
@@ -169,7 +171,7 @@ func _build() -> void:
 	var nm := kit.margin(0.9, 0.6, 0.9, 0.6)
 	parts["body"].add_child(nm)
 	nm.add_child(kit.para("Pick a part, then a lit location. Parts in stores cost nothing to fit; the rest are bought at the market price. Removed parts go to stores.",
-		27, "body400", 0.92, UiStyle.HUD_DIM))
+		27, "body400", 0.92, kit.dim))
 
 	# locations around the 'Mech (the model sits behind them, below the head and torso rows)
 	stage = MechStage.new()
@@ -240,7 +242,7 @@ func _part_columns(cells: Array, header := false) -> HBoxContainer:
 		if c is Control:
 			node = c
 		else:
-			node = kit.label(String(c), "display600" if header else "mono", 0.72 if header else 0.88, UiStyle.HUD_DIM, header, 0.12 if header else 0.0)
+			node = kit.label(String(c), "display600" if header else "mono", 0.72 if header else 0.88, kit.dim, header, 0.12 if header else 0.0)
 			if i >= 2:
 				(node as Label).horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		if widths[i] > 0.0:
@@ -371,8 +373,8 @@ func _refresh_filters() -> void:
 		b.add_theme_font_size_override("font_size", kit.px(0.85))
 		if filter == f[0]:
 			var s := StyleBoxFlat.new()
-			s.bg_color = Color(UiStyle.HUD_EDGE, 0.22)
-			s.border_color = UiStyle.HUD_EDGE
+			s.bg_color = Color(kit.accent, 0.22)
+			s.border_color = kit.accent
 			s.set_border_width_all(1)
 			s.content_margin_left = kit.em(0.7)
 			s.content_margin_right = kit.em(0.7)
@@ -381,7 +383,7 @@ func _refresh_filters() -> void:
 			for st in ["normal", "hover", "pressed"]:
 				b.add_theme_stylebox_override(st, s)
 		else:
-			b.add_theme_color_override("font_color", UiStyle.HUD_DIM)
+			b.add_theme_color_override("font_color", kit.dim)
 		_filters.add_child(b)
 
 
@@ -401,7 +403,7 @@ func _refresh_parts(q: Dictionary) -> void:
 			name_box.add_child(kit.range_mark(String(w["range"])))
 		var have := _have(q, id)
 		var own := kit.label("×%d" % have if have > 0 else BayKit.money(int(c.get("rp", 0))), "mono", 0.85,
-			UiStyle.HUD_OK if have > 0 else UiStyle.HUD_DIM)
+			UiStyle.STATE_OK if have > 0 else kit.dim)
 		own.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		var heat := "–"
 		if not w.is_empty():
@@ -411,8 +413,8 @@ func _refresh_parts(q: Dictionary) -> void:
 		var dmg := ("%s" % _num(float(w["damage"]))) if w.has("damage") else "–"
 		var row := PanelContainer.new()
 		var s := StyleBoxFlat.new()
-		s.bg_color = Color(UiStyle.HUD_EDGE, 0.16) if sel == id else Color(0, 0, 0, 0)
-		s.border_color = UiStyle.HUD_EDGE if sel == id else Color(0, 0, 0, 0)
+		s.bg_color = Color(kit.accent, 0.16) if sel == id else Color(0, 0, 0, 0)
+		s.border_color = kit.accent if sel == id else Color(0, 0, 0, 0)
 		s.set_border_width_all(1)
 		s.content_margin_left = kit.em(0.4)
 		s.content_margin_right = kit.em(0.4)
@@ -443,11 +445,11 @@ func _refresh_loc(loc: String) -> void:
 		c.queue_free()
 	var ok := sel >= 0 and Loadout.fits(GameData, chassis, vidx, work, sel, loc) == ""
 	var s := StyleBoxFlat.new()
-	s.bg_color = UiStyle.HUD_PANEL
-	s.border_color = UiStyle.HUD_OK if ok else UiStyle.HUD_EDGE_SOFT
+	s.bg_color = Color(UiStyle.INK_700, 0.85)
+	s.border_color = UiStyle.STATE_OK if ok else kit.accent_soft
 	s.set_border_width_all(1)
 	if ok:
-		s.shadow_color = Color(UiStyle.HUD_OK, 0.35)
+		s.shadow_color = Color(UiStyle.STATE_OK, 0.35)
 		s.shadow_size = kit.px(0.7)
 	s.content_margin_left = kit.em(0.6)
 	s.content_margin_right = kit.em(0.6)
@@ -460,7 +462,7 @@ func _refresh_loc(loc: String) -> void:
 	var v := kit.vbox(0.35)
 	p.add_child(v)
 	var head := kit.hbox(0.4)
-	var t := kit.label(Loadout.LOC_NAMES[loc], "display600", 0.9, UiStyle.HUD_EDGE, true, 0.12)
+	var t := kit.label(Loadout.LOC_NAMES[loc], "display600", 0.9, kit.accent, true, 0.12)
 	t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(t)
 	var inf := Loadout.info(GameData, chassis)
@@ -472,6 +474,7 @@ func _refresh_loc(loc: String) -> void:
 	head.add_child(hps)
 	v.add_child(head)
 	var bar := BayKit.SlotBar.new()
+	bar.colour = UiStyle.STEEL_100  # fitted parts; new ones show amber
 	bar.custom_minimum_size.y = maxf(3.0, roundf(kit.em(0.45)))
 	bar.cap = int(inf["slots"][loc])
 	bar.fixed = int(Loadout.fixed_slots(GameData, chassis, vidx)[loc])
@@ -491,24 +494,24 @@ func _refresh_loc(loc: String) -> void:
 			fresh += int(_comp(id).get("crits", 0))
 		var row := kit.hbox(0.4)
 		row.add_child(kit.badge(Loadout.kind(_comp(id))))
-		var n := kit.label(_nm(id), "body500", 0.95, UiStyle.HUD_WARN if is_new else UiStyle.HUD_INK)
+		var n := kit.label(_nm(id), "body500", 0.95, UiStyle.WARN if is_new else kit.ink)
 		n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		n.clip_text = true
 		row.add_child(n)
-		row.add_child(kit.label("%.1f" % float(_comp(id).get("tons", 0.0)), "mono", 0.85, UiStyle.HUD_DIM))
+		row.add_child(kit.label("%.1f" % float(_comp(id).get("tons", 0.0)), "mono", 0.85, kit.dim))
 		var x := Button.new()
 		x.text = "✕"
 		x.flat = true
 		x.focus_mode = Control.FOCUS_NONE
 		x.tooltip_text = "Remove %s" % String(_comp(id).get("name", ""))
-		x.add_theme_color_override("font_color", UiStyle.HUD_DIM)
-		x.add_theme_color_override("font_hover_color", UiStyle.HUD_CRIT)
+		x.add_theme_color_override("font_color", kit.dim)
+		x.add_theme_color_override("font_hover_color", UiStyle.CRIT)
 		x.add_theme_font_override("font", UiStyle.font("body500"))
 		x.add_theme_font_size_override("font_size", kit.px(0.95))
 		for st in ["normal", "hover", "pressed", "focus"]:
 			var bs := StyleBoxFlat.new()
 			bs.bg_color = Color(0, 0, 0, 0)
-			bs.border_color = UiStyle.HUD_CRIT if st == "hover" else Color(0, 0, 0, 0)
+			bs.border_color = UiStyle.CRIT if st == "hover" else Color(0, 0, 0, 0)
 			bs.set_border_width_all(1)
 			bs.content_margin_left = kit.em(0.3)
 			bs.content_margin_right = kit.em(0.3)
@@ -519,24 +522,24 @@ func _refresh_loc(loc: String) -> void:
 		items.add_child(row)
 	bar.fresh = fresh
 	if work[loc].is_empty():
-		var e := kit.label("empty", "body400", 0.88, UiStyle.HUD_DIM)
+		var e := kit.label("empty", "body400", 0.88, kit.dim)
 		items.add_child(e)
 
 
 func _stat(label: String, value: String, delta: float, digits: int, inverse := false) -> HBoxContainer:
 	var h := kit.hbox(0.4)
-	var l := kit.label(label, "display600", 0.85, UiStyle.HUD_DIM, true, 0.1)
+	var l := kit.label(label, "display600", 0.85, kit.dim, true, 0.1)
 	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	h.add_child(l)
-	h.add_child(kit.label(value, "mono", 1.0, UiStyle.HUD_INK))
+	h.add_child(kit.label(value, "mono", 1.0, kit.ink))
 	if absf(delta) > 0.000001:
 		var up := delta < 0.0 if inverse else delta > 0.0
 		var fmt := "%+." + str(digits) + "f"
-		h.add_child(kit.label(fmt % delta, "mono", 1.0, UiStyle.HUD_OK if up else UiStyle.HUD_CRIT))
+		h.add_child(kit.label(fmt % delta, "mono", 1.0, UiStyle.STATE_OK if up else UiStyle.CRIT))
 	return h
 
 
-func _bar(value: float, ghost := -1.0, colour := UiStyle.HUD_EDGE) -> BayKit.StatBar:
+func _bar(value: float, ghost := -1.0, colour := kit.accent) -> BayKit.StatBar:
 	var b := BayKit.StatBar.new()
 	b.custom_minimum_size.y = maxf(2.0, roundf(kit.em(0.45)))
 	b.value = value
@@ -561,7 +564,7 @@ func _refresh_stats(q: Dictionary) -> void:
 	hb.over = s1["heat"] > s1["heat_cap"]
 	blocks.append([_stat("Alpha heat", "%d / %d" % [int(s1["heat"]), int(s1["heat_cap"])], s1["heat"] - s0["heat"], 0, true), hb])
 	blocks.append([_stat("Armour", "%d / %d" % [int(s1["armor"]), int(s1["max_armor"])], s1["armor"] - s0["armor"], 0),
-		_bar(s1["armor"] / maxf(1.0, s1["max_armor"]), -1.0, UiStyle.HUD_OK)])
+		_bar(s1["armor"] / maxf(1.0, s1["max_armor"]), -1.0, UiStyle.STATE_OK)])
 	for b in blocks:
 		var v := kit.vbox(0.25)
 		for n in b:
@@ -577,7 +580,7 @@ func _refresh_stats(q: Dictionary) -> void:
 	var box := PanelContainer.new()
 	var bs := StyleBoxFlat.new()
 	bs.bg_color = Color(0, 0, 0, 0)
-	bs.border_color = UiStyle.HUD_CRIT if msg["k"] == "bad" else (UiStyle.HUD_OK if msg["k"] == "good" else UiStyle.HUD_EDGE_SOFT)
+	bs.border_color = UiStyle.CRIT if msg["k"] == "bad" else (UiStyle.STATE_OK if msg["k"] == "good" else kit.accent_soft)
 	bs.set_border_width_all(1)
 	bs.content_margin_left = kit.em(0.6)
 	bs.content_margin_right = kit.em(0.6)
@@ -587,7 +590,7 @@ func _refresh_stats(q: Dictionary) -> void:
 	box.custom_minimum_size.y = kit.em(2.6)
 	var over: bool = s1["heat"] > s1["heat_cap"] and msg["k"] != "bad"
 	var text := ("Alpha heat is over capacity: allowed, but this 'Mech will run hot. " if over else "") + String(msg["t"])
-	box.add_child(kit.para(text, 20.5, "body400", 0.95, UiStyle.HUD_DIM if msg["k"] == "" else UiStyle.HUD_INK))
+	box.add_child(kit.para(text, 20.5, "body400", 0.95, kit.dim if msg["k"] == "" else kit.ink))
 	_stats.add_child(box)
 	# bill
 	var g := GridContainer.new()
@@ -602,10 +605,10 @@ func _refresh_stats(q: Dictionary) -> void:
 		n_to += int(q["to_stores"][id])
 	for row in [["Parts bought", "%s C" % BayKit.money(int(q["cost"])), false], ["Fitted from stores", str(n_from), false],
 			["Sent to stores", str(n_to), false], ["Refit cost", "%s C" % BayKit.money(int(q["cost"])), true]]:
-		var l := kit.label(row[0], "mono", 0.9 * (1.1 if row[2] else 1.0), UiStyle.HUD_EDGE if row[2] else UiStyle.HUD_DIM)
+		var l := kit.label(row[0], "mono", 0.9 * (1.1 if row[2] else 1.0), kit.accent if row[2] else kit.dim)
 		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		g.add_child(l)
-		var r := kit.label(row[1], "mono", 0.9 * (1.1 if row[2] else 1.0), UiStyle.HUD_EDGE if row[2] else UiStyle.HUD_INK)
+		var r := kit.label(row[1], "mono", 0.9 * (1.1 if row[2] else 1.0), kit.accent if row[2] else kit.ink)
 		r.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		g.add_child(r)
 	_stats.add_child(g)
@@ -625,7 +628,7 @@ func _open_save() -> void:
 	var v := kit.vbox(0.6)
 	mm.add_child(v)
 	v.add_child(kit.para("Name this loadout. The bay can then apply it to any other %s." % String(GameData.chassis[chassis]["name"]),
-		30, "body400", 1.0, UiStyle.HUD_DIM))
+		30, "body400", 1.0, kit.dim))
 	var line := LineEdit.new()
 	var n := camp.variants_for(chassis).size() + 1
 	var pilot := String(m["pilot"])

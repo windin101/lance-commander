@@ -34,7 +34,7 @@ static func placeholder() -> ImageTexture:
 	var w := 33 * k
 	var h := 46 * k
 	var img := Image.create(w, h, false, Image.FORMAT_RGBA8)
-	var bg := Color8(16, 34, 46)
+	var bg := UiStyle.PORTRAIT_WELL  # guide 6 / 7: the portrait well
 	var fg := Color8(44, 74, 90)
 	img.fill(bg)
 	for y in h:

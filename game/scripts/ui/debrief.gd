@@ -23,7 +23,11 @@ func _ready() -> void:
 				{"name": "Bushwacker", "pilot": "Longshot", "state": "Operational", "armour": 91}],
 			"kills": [{"name": "Harasser", "force": "Pirates", "count": 4}, {"name": "LRM Carrier", "force": "Pirates", "count": 3},
 				{"name": "Starslayer", "count": 1}],
-			"losses": 1, "payout": 85000}
+			"losses": 1, "payout": 85000,
+			"pilots": [{"profile": "pmwflash", "kills": [], "dead": true, "mech": "Werewolf", "variant": "Werewolf Prime"},
+				{"profile": "pmwhacksaw", "kills": ["light", "light", "medium"], "dead": false, "mech": "Bushwacker", "variant": "Bushwacker Prime"},
+				{"profile": "pmwlongshot", "kills": ["light", "medium", "medium", "heavy"], "dead": false, "mech": "Bushwacker", "variant": "Bushwacker Prime"}],
+			"salvage": [{"chassis": "starslayer", "variant": 0, "name": "Starslayer Prime"}]}
 	var won: bool = report.get("won", false)
 	var margin := MarginContainer.new()
 	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -35,13 +39,26 @@ func _ready() -> void:
 	margin.add_child(page)
 	page.add_child(_header(won))
 
+	# two rows filling the page down to the footer: the mission (objectives, lance, kills), then the business
+	# side (pilots' service record, salvage)
+	var gut := int(StyleTokens.geo("gutter"))
+	var rows := VBoxContainer.new()
+	rows.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	rows.add_theme_constant_override("separation", gut)
+	page.add_child(rows)
 	var body := HBoxContainer.new()
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	body.add_theme_constant_override("separation", int(StyleTokens.geo("gutter")))
-	page.add_child(body)
-	var cols := [_objectives(), _lance(), _kills()]
-	for c in cols:
-		body.add_child(c)
+	body.size_flags_stretch_ratio = 1.15
+	body.add_theme_constant_override("separation", gut)
+	rows.add_child(body)
+	var lower := HBoxContainer.new()
+	lower.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	lower.add_theme_constant_override("separation", gut)
+	rows.add_child(lower)
+	var cols := [_objectives(), _lance(), _kills(), _pilots(), _salvage()]
+	for i in cols.size():
+		(body if i < 3 else lower).add_child(cols[i])
+	cols[3].size_flags_stretch_ratio = 2.0
 	page.add_child(_footer(won))
 	if is_inside_tree():
 		StyleTokens.boot_flicker(self)
@@ -123,7 +140,7 @@ func _count_money(l: Label, value: int) -> void:
 func _column(title: String) -> Array:
 	var p := PanelContainer.new()
 	p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	p.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	p.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", int(StyleTokens.geo("grid")) + 2)
 	p.add_child(v)
@@ -233,6 +250,52 @@ func _kills() -> Control:
 	var lost := int(report.get("losses", 0))
 	loss.add_child(StyleTokens.label("%d" % lost, "MonoLabel", UiStyle.CRIT if lost > 0 else Color(0, 0, 0, 0)))
 	c[1].add_child(loss)
+	return c[0]
+
+
+## The lance's pilots (report.pilots): callsign, the 'Mech they drove, kills by weight class, and status.
+func _pilots() -> Control:
+	var c := _column("Pilots · service record")
+	var head := HBoxContainer.new()
+	for h in [["Pilot", 1.0], ["'Mech", 1.0], ["Kills", 0.4], ["Status", 0.5]]:
+		var l := StyleTokens.label(h[0], "CapsLabel")
+		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		l.size_flags_stretch_ratio = h[1]
+		head.add_child(l)
+	c[1].add_child(head)
+	var pilots: Array = report.get("pilots", [])
+	if pilots.is_empty():
+		c[1].add_child(UiStyle.label("No pilot records for this mission.", StyleTokens.size("body"), UiStyle.DIM))
+	for p in pilots:
+		var row := HBoxContainer.new()
+		var name := String(GameData.pilots.get(String(p.get("profile", "")), {}).get("General", {}).get("Name", p.get("profile", "")))
+		var dead: bool = p.get("dead", false)
+		var kills: Array = p.get("kills", [])
+		var cells := [[UiStyle.label(name, StyleTokens.size("body"), UiStyle.WHITE), 1.0],
+			[UiStyle.label(String(p.get("variant", p.get("mech", ""))), StyleTokens.size("body"), UiStyle.DIM), 1.0],
+			[StyleTokens.label("%d" % kills.size(), "MonoLabel"), 0.4],
+			[StyleTokens.label("KIA" if dead else "Fit", "CapsLabel", UiStyle.CRIT if dead else UiStyle.STATE_OK), 0.5]]
+		for cell in cells:
+			var l: Label = cell[0]
+			l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			l.size_flags_stretch_ratio = cell[1]
+			l.clip_text = true
+			row.add_child(l)
+		c[1].add_child(row)
+	return c[0]
+
+
+## Disabled enemy 'Mechs left on the field (report.salvage): the salvage screen comes next.
+func _salvage() -> Control:
+	var c := _column("Salvage on the field")
+	var sv: Array = report.get("salvage", [])
+	if sv.is_empty():
+		c[1].add_child(UiStyle.label("Nothing recoverable.", StyleTokens.size("body"), UiStyle.DIM))
+	for m in sv:
+		c[1].add_child(UiStyle.label(String(m.get("name", m.get("chassis", ""))), StyleTokens.size("body")))
+	if not sv.is_empty() and report.get("won", false):
+		c[1].add_child(HSeparator.new())
+		c[1].add_child(StyleTokens.label("Claim on the next screen", "CapsLabel", UiStyle.AMBER_500))
 	return c[0]
 
 

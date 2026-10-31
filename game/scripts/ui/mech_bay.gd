@@ -139,14 +139,17 @@ func _ready() -> void:
 			dev_history(camp)
 	var vh := get_viewport().get_visible_rect().size.y if get_viewport() else 1080.0
 	kit = BayKit.new(UiStyle.hud_unit(vh))
-	theme = UiStyle.hud_theme(kit.u)
+	kit.set_amber()
+	theme = UiStyle.hud_theme(kit.u, true)
 	paint = BayKit.player_paint(mission)
 	var bg := ColorRect.new()
 	bg.color = Color("#0b141b")
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
-	add_child(BayKit.Backdrop.new())
+	var back := BayKit.Backdrop.new()
+	back.amber = true
+	add_child(back)
 	thumbs = MechStage.Thumbs.new()
 	add_child(thumbs)
 	_build()
@@ -195,7 +198,7 @@ func _sorted() -> Array:
 func _build() -> void:
 	# top bar
 	var top := PanelContainer.new()
-	top.add_theme_stylebox_override("panel", UiStyle.HudFrame.make(kit.u))
+	top.add_theme_stylebox_override("panel", kit.frame())
 	kit.place(top, 0.01, 0.016, 0.99, 0.016)
 	add_child(top)
 	var tm := kit.margin(1.4, 0.7, 1.4, 0.7)
@@ -203,10 +206,10 @@ func _build() -> void:
 	var th := kit.hbox(2.4)
 	tm.add_child(th)
 	var title := kit.hbox(1.0)
-	title.add_child(kit.label("Mech Bay", "display700", 1.5, UiStyle.HUD_INK, true, 0.14))
+	title.add_child(kit.label("Mech Bay", "display700", 1.5, kit.ink, true, 0.14))
 	var info: Dictionary = Flow.info(mission)
 	var sub := kit.label("Operation %d · %s" % [int(info.get("group", 0)) + 1, MissionBrief.load_mission(GameData, mission).title],
-		"display500", 0.9, UiStyle.HUD_DIM, true, 0.1)
+		"display500", 0.9, kit.dim, true, 0.1)
 	sub.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	title.add_child(sub)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -265,10 +268,10 @@ func _build() -> void:
 	plate.anchor_bottom = 0.835
 	plate.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	plate.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	_plate_name = kit.label("", "display700", 2.1, UiStyle.HUD_INK, true, 0.18)
+	_plate_name = kit.label("", "display700", 2.1, kit.ink, true, 0.18)
 	_plate_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	plate.add_child(_plate_name)
-	_plate_sub = kit.label("", "display500", 0.95, UiStyle.HUD_DIM, true, 0.14)
+	_plate_sub = kit.label("", "display500", 0.95, kit.dim, true, 0.14)
 	_plate_sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	plate.add_child(_plate_sub)
 	add_child(plate)
@@ -304,7 +307,7 @@ func _build() -> void:
 
 	# deployment strip
 	var dep := PanelContainer.new()
-	dep.add_theme_stylebox_override("panel", UiStyle.HudFrame.make(kit.u))
+	dep.add_theme_stylebox_override("panel", kit.frame())
 	kit.place(dep, 0.01, 0.984, 0.99, 0.984)
 	dep.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	add_child(dep)
@@ -314,8 +317,8 @@ func _build() -> void:
 	dm.add_child(dh)
 	var lbl := kit.vbox(0.2)
 	lbl.custom_minimum_size.x = kit.em(8)
-	lbl.add_child(kit.label("Deployment", "display600", 0.85, UiStyle.HUD_DIM, true, 0.14))
-	_deploy_count = kit.label("", "mono", 1.3, UiStyle.HUD_INK)
+	lbl.add_child(kit.label("Deployment", "display600", 0.85, kit.dim, true, 0.14))
+	_deploy_count = kit.label("", "mono", 1.3, kit.ink)
 	lbl.add_child(_deploy_count)
 	lbl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	dh.add_child(lbl)
@@ -324,7 +327,7 @@ func _build() -> void:
 	dh.add_child(_lances)
 	var lv := kit.vbox(0.3)
 	lv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	_problem = kit.label("", "body500", 0.95, UiStyle.HUD_WARN)
+	_problem = kit.label("", "body500", 0.95, UiStyle.WARN)
 	_problem.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	lv.add_child(_problem)
 	_launch = kit.button("Launch", func():
@@ -366,7 +369,7 @@ func _refresh_top() -> void:
 	var limit := camp.drop_limit(mission)
 	var t := camp.deployed_tonnage()
 	_drop_fig["value"].text = "%d / %d t" % [int(t), int(limit)]
-	_drop_fig["value"].add_theme_color_override("font_color", UiStyle.HUD_CRIT if t > limit + 0.01 else UiStyle.HUD_EDGE)
+	_drop_fig["value"].add_theme_color_override("font_color", UiStyle.CRIT if t > limit + 0.01 else kit.accent)
 	_drop_fig["bar"].value = t / maxf(1.0, limit)
 	_drop_fig["bar"].over = t > limit + 0.01
 	_cash_fig["value"].text = BayKit.money(camp.c_bills)
@@ -380,15 +383,15 @@ func _refresh_roster() -> void:
 	for m in list:
 		_roster_list.add_child(_roster_row(m))
 	if list.is_empty():
-		_roster_list.add_child(kit.para("No 'Mechs. Buy some from the purchase list.", 26, "body500", 1.0, UiStyle.HUD_WARN))
+		_roster_list.add_child(kit.para("No 'Mechs. Buy some from the purchase list.", 26, "body500", 1.0, UiStyle.WARN))
 
 
 func _status(m: Dictionary) -> Array:
 	if int(m["slot"]) == 0:
-		return ["Reserve", UiStyle.HUD_DIM]
+		return ["Reserve", kit.dim]
 	if String(m["pilot"]) == "":
-		return ["No pilot", UiStyle.HUD_WARN]
-	return ["Ready", UiStyle.HUD_OK]
+		return ["No pilot", UiStyle.WARN]
+	return ["Ready", UiStyle.STATE_OK]
 
 
 func _variant_short(m: Dictionary) -> String:
@@ -411,8 +414,8 @@ func _thumb(m: Dictionary, size_em: float) -> Control:
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var glow := TextureRect.new()
 	var g := Gradient.new()
-	g.set_color(0, Color(UiStyle.HUD_EDGE, 0.16))
-	g.set_color(1, Color(UiStyle.HUD_EDGE, 0.0))
+	g.set_color(0, Color(kit.accent, 0.16))
+	g.set_color(1, Color(kit.accent, 0.0))
 	var gt := GradientTexture2D.new()
 	gt.gradient = g
 	gt.fill = GradientTexture2D.FILL_RADIAL
@@ -441,11 +444,11 @@ func _roster_row(m: Dictionary) -> Control:
 	var sel := int(m["id"]) == _sel
 	var row := PanelContainer.new()
 	var s := StyleBoxFlat.new()
-	s.bg_color = UiStyle.HUD_PANEL_2 if not sel else UiStyle.HUD_PANEL_2.lerp(UiStyle.HUD_EDGE, 0.12)
-	s.border_color = UiStyle.HUD_EDGE if sel else Color(UiStyle.HUD_EDGE, 0.18)
+	s.bg_color = kit.raised if not sel else kit.raised.lerp(kit.accent, 0.12)
+	s.border_color = kit.accent if sel else Color(kit.accent, 0.18)
 	s.set_border_width_all(1)
 	if sel:
-		s.shadow_color = Color(UiStyle.HUD_GLOW, 0.3)
+		s.shadow_color = Color(kit.glow, 0.3)
 		s.shadow_size = kit.px(0.4)
 	s.content_margin_left = kit.em(0.7)
 	s.content_margin_right = kit.em(0.7)
@@ -463,7 +466,7 @@ func _roster_row(m: Dictionary) -> Control:
 	if int(m["slot"]) > 0:
 		var tag := PanelContainer.new()
 		var ts := StyleBoxFlat.new()
-		ts.bg_color = UiStyle.HUD_EDGE
+		ts.bg_color = kit.accent
 		ts.content_margin_left = kit.em(0.35)
 		ts.content_margin_right = kit.em(0.35)
 		tag.add_theme_stylebox_override("panel", ts)
@@ -475,13 +478,13 @@ func _roster_row(m: Dictionary) -> Control:
 	var info := kit.vbox(0.2)
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var pilot := String(m["pilot"])
-	info.add_child(kit.label(_pilot_name(pilot) if pilot != "" else "No pilot", "display600", 1.15, UiStyle.HUD_INK, true, 0.05))
+	info.add_child(kit.label(_pilot_name(pilot) if pilot != "" else "No pilot", "display600", 1.15, kit.ink, true, 0.05))
 	var cn := _chassis_name(m)
-	info.add_child(kit.label("%s · %s · %d t" % [cn, _variant_short(m), int(camp.tonnage(m["chassis"]))], "body500", 0.95, UiStyle.HUD_DIM))
+	info.add_child(kit.label("%s · %s · %d t" % [cn, _variant_short(m), int(camp.tonnage(m["chassis"]))], "body500", 0.95, kit.dim))
 	var n_parts := 0
 	for loc in Loadout.LOCS:
 		n_parts += camp.loadout(m)["parts"][loc].size()
-	info.add_child(kit.label("%s C    %d parts" % [BayKit.money(camp.mech_value(m)), n_parts], "mono", 0.88, UiStyle.HUD_DIM))
+	info.add_child(kit.label("%s C    %d parts" % [BayKit.money(camp.mech_value(m)), n_parts], "mono", 0.88, kit.dim))
 	h.add_child(info)
 	var st := _status(m)
 	h.add_child(kit.chip(st[0], st[1]))
@@ -528,18 +531,18 @@ func _refresh_summary() -> void:
 	var pv := kit.vbox(0.25)
 	pv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	var pilot := String(m["pilot"])
-	pv.add_child(kit.label(_pilot_name(pilot) if pilot != "" else "No pilot assigned", "display600", 1.2, UiStyle.HUD_INK, true, 0.06))
+	pv.add_child(kit.label(_pilot_name(pilot) if pilot != "" else "No pilot assigned", "display600", 1.2, kit.ink, true, 0.06))
 	var sk := kit.hbox(1.6)
 	if pilot != "":
 		var pd: Dictionary = camp.pilots.get(pilot, {})
 		for pair in [["Gun", str(int(pd.get("gunnery", 0)))], ["Plt", str(int(pd.get("piloting", 0)))], ["Rank", Campaign.rank(pd)],
 				["Kills", str(int(pd.get("kills", 0)))]]:
 			var one := kit.hbox(0.35)
-			one.add_child(kit.label(pair[0], "mono", 0.85, UiStyle.HUD_DIM, true))
-			one.add_child(kit.label(pair[1], "mono", 0.85, UiStyle.HUD_INK))
+			one.add_child(kit.label(pair[0], "mono", 0.85, kit.dim, true))
+			one.add_child(kit.label(pair[1], "mono", 0.85, kit.ink))
 			sk.add_child(one)
 	else:
-		sk.add_child(kit.label("Reserve: not deployed" if int(m["slot"]) == 0 else "Assign a pilot to launch", "mono", 0.85, UiStyle.HUD_DIM))
+		sk.add_child(kit.label("Reserve: not deployed" if int(m["slot"]) == 0 else "Assign a pilot to launch", "mono", 0.85, kit.dim))
 	pv.add_child(sk)
 	pl.add_child(pv)
 	_summary_body.add_child(pl)
@@ -559,18 +562,18 @@ func _refresh_summary() -> void:
 				ids.append(id)
 		for id in ids:
 			var comp := Loadout.component(GameData, id)
-			var l := kit.label(Loadout.LOC_SHORT[loc], "mono", 0.85, UiStyle.HUD_DIM)
+			var l := kit.label(Loadout.LOC_SHORT[loc], "mono", 0.85, kit.dim)
 			l.custom_minimum_size.x = kit.em(3.0)
 			ld.add_child(l)
 			var nm := kit.label(Loadout.short_name(String(comp.get("name", "?"))) + (" ×%d" % c[id] if c[id] > 1 else ""), "body500", 1.0)
 			nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			ld.add_child(nm)
-			var t := kit.label("%.1f t" % (float(comp.get("tons", 0.0)) * c[id]), "mono", 0.85, UiStyle.HUD_DIM)
+			var t := kit.label("%.1f t" % (float(comp.get("tons", 0.0)) * c[id]), "mono", 0.85, kit.dim)
 			t.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			ld.add_child(t)
 	_summary_body.add_child(ld)
 	if _msg != "":
-		_summary_body.add_child(kit.para(_msg, 28, "body500", 1.0, UiStyle.HUD_WARN))
+		_summary_body.add_child(kit.para(_msg, 28, "body500", 1.0, UiStyle.WARN))
 	# buttons
 	var deployed := int(m["slot"]) > 0
 	var lab_ok := _purchasing() and Loadout.lab_allowed(GameData, chassis)
@@ -621,8 +624,8 @@ func _refresh_deploy() -> void:
 			var s := StyleBoxFlat.new()
 			var on := by_slot.has(n)
 			var sel := on and int(by_slot[n]["id"]) == _sel
-			s.bg_color = Color(UiStyle.HUD_EDGE, 0.08) if on else Color(1, 1, 1, 0.02)
-			s.border_color = UiStyle.HUD_EDGE if sel else (UiStyle.HUD_EDGE_SOFT if on else Color(UiStyle.HUD_EDGE, 0.2))
+			s.bg_color = Color(kit.accent, 0.08) if on else Color(1, 1, 1, 0.02)
+			s.border_color = kit.accent if sel else (kit.accent_soft if on else Color(kit.accent, 0.2))
 			s.set_border_width_all(1)
 			cell.add_theme_stylebox_override("panel", s)
 			var inner := Control.new()
@@ -639,7 +642,7 @@ func _refresh_deploy() -> void:
 				cell.gui_input.connect(func(e):
 					if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
 						_select(int(m["id"])))
-			var num := kit.label(str(n), "mono", 0.75, UiStyle.HUD_DIM)
+			var num := kit.label(str(n), "mono", 0.75, kit.dim)
 			num.position = Vector2(kit.em(0.25), kit.em(0.05))
 			inner.add_child(num)
 			g.add_child(cell)
@@ -731,8 +734,8 @@ func _overlay_row(text: String, sub: String, action: String, enabled: bool, on_p
 	var h := kit.hbox(0.8)
 	var v := kit.vbox(0.1)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	v.add_child(kit.label(text, "display600", 1.05, UiStyle.HUD_INK, false, 0.04))
-	v.add_child(kit.label(sub, "mono", 0.85, UiStyle.HUD_DIM))
+	v.add_child(kit.label(text, "display600", 1.05, kit.ink, false, 0.04))
+	v.add_child(kit.label(sub, "mono", 0.85, kit.dim))
 	h.add_child(v)
 	if action != "":
 		var b := kit.button(action, on_press)
@@ -790,17 +793,18 @@ func _rating_grid(st: Dictionary) -> GridContainer:
 		["Speed", st["speed"] / 130.0, "%d" % int(st["speed"]), false],
 		["Heat", st["heat"] / maxf(1.0, st["heat_cap"]), "%d/%d" % [int(st["heat"]), int(st["heat_cap"])], true]]
 	for b in bars:
-		var n := kit.label(b[0], "display600", 0.88, UiStyle.HUD_DIM, true, 0.1)
+		var n := kit.label(b[0], "display600", 0.88, kit.dim, true, 0.1)
 		n.custom_minimum_size.x = kit.em(6.5)
 		g.add_child(n)
 		var bar := BayKit.StatBar.new()
+		bar.colour = kit.accent
 		bar.custom_minimum_size = Vector2(0, maxf(2.0, roundf(kit.em(0.45))))
 		bar.value = b[1]
 		if b[3]:
 			bar.heat = true
 			bar.over = b[1] > 1.0
 		g.add_child(bar)
-		var v := kit.label(b[2], "mono", 0.88, UiStyle.HUD_INK)
+		var v := kit.label(b[2], "mono", 0.88, kit.ink)
 		v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		v.custom_minimum_size.x = kit.em(3.6)
 		g.add_child(v)
@@ -854,7 +858,7 @@ func _build_market() -> void:
 	od["body"].add_child(of)
 	_offer_foot = kit.vbox(0.5)
 	of.add_child(_offer_foot)
-	buy_note = kit.para("", 29, "body500", 0.95, UiStyle.HUD_DIM)
+	buy_note = kit.para("", 29, "body500", 0.95, kit.dim)
 	_offer_foot.add_child(buy_note)
 	var row := GridContainer.new()
 	row.columns = 2
@@ -874,11 +878,11 @@ func _offer_card(o: Dictionary) -> Control:
 	var afford := int(o["price"]) <= camp.c_bills
 	var card := PanelContainer.new()
 	var s := StyleBoxFlat.new()
-	s.bg_color = UiStyle.HUD_PANEL_2 if not sel else UiStyle.HUD_PANEL_2.lerp(UiStyle.HUD_EDGE, 0.12)
-	s.border_color = UiStyle.HUD_EDGE if sel else Color(UiStyle.HUD_EDGE, 0.18)
+	s.bg_color = kit.raised if not sel else kit.raised.lerp(kit.accent, 0.12)
+	s.border_color = kit.accent if sel else Color(kit.accent, 0.18)
 	s.set_border_width_all(1)
 	if sel:
-		s.shadow_color = Color(UiStyle.HUD_GLOW, 0.3)
+		s.shadow_color = Color(kit.glow, 0.3)
 		s.shadow_size = kit.px(0.4)
 	s.content_margin_left = kit.em(0.7)
 	s.content_margin_right = kit.em(0.7)
@@ -895,10 +899,10 @@ func _offer_card(o: Dictionary) -> Control:
 	h.add_child(_thumb({"chassis": chassis}, 4.6))
 	var v := kit.vbox(0.2)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	v.add_child(kit.label(String(o["name"]), "display600", 1.1, UiStyle.HUD_INK, true, 0.05))
+	v.add_child(kit.label(String(o["name"]), "display600", 1.1, kit.ink, true, 0.05))
 	var tons := float(o["tonnage"])
 	v.add_child(kit.label("%s · %d t · %s" % [GameData.chassis[chassis]["name"], int(tons), Loadout.weight_class(tons).capitalize()],
-		"body500", 0.95, UiStyle.HUD_DIM))
+		"body500", 0.95, kit.dim))
 	var hp := kit.hbox(0.25)
 	var counts := Loadout.weapon_counts(GameData, Loadout.stock_parts(GameData, chassis, int(o["variant"])))
 	for t in ["B", "E", "M"]:
@@ -906,7 +910,7 @@ func _offer_card(o: Dictionary) -> Control:
 			hp.add_child(kit.badge(t))
 	v.add_child(hp)
 	h.add_child(v)
-	var price := kit.label("%s C" % BayKit.money(int(o["price"])), "mono", 1.0, UiStyle.HUD_INK if afford else UiStyle.HUD_CRIT)
+	var price := kit.label("%s C" % BayKit.money(int(o["price"])), "mono", 1.0, kit.ink if afford else UiStyle.CRIT)
 	price.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	h.add_child(price)
 	return card
@@ -922,7 +926,7 @@ func _refresh_market() -> void:
 	for o in offers:
 		_market_list.add_child(_offer_card(o))
 	if offers.is_empty():
-		_market_list.add_child(kit.para("Nothing for sale this mission.", 26, "body500", 1.0, UiStyle.HUD_WARN))
+		_market_list.add_child(kit.para("Nothing for sale this mission.", 26, "body500", 1.0, UiStyle.WARN))
 	if offer.is_empty():
 		_offer_title.text = "Offer"
 		_offer_small.text = ""
@@ -948,7 +952,7 @@ func _refresh_market() -> void:
 	_offer_small.text = "%d t · %s" % [int(tons), Loadout.weight_class(tons)]
 	var desc := UiStyle.clean(Loadout.description(GameData, chassis))
 	if desc != "":
-		_offer_body.add_child(kit.para(desc, 29, "body400", 1.0, UiStyle.HUD_DIM))
+		_offer_body.add_child(kit.para(desc, 29, "body400", 1.0, kit.dim))
 	_offer_body.add_child(_rating_grid(st))
 	# stock loadout with each location's hardpoints
 	var inf := Loadout.info(GameData, chassis)
@@ -965,7 +969,7 @@ func _refresh_market() -> void:
 		if parts[loc].is_empty() and hp.get_child_count() == 0:
 			hp.queue_free()
 			continue
-		var l := kit.label(Loadout.LOC_SHORT[loc], "mono", 0.85, UiStyle.HUD_DIM)
+		var l := kit.label(Loadout.LOC_SHORT[loc], "mono", 0.85, kit.dim)
 		l.custom_minimum_size.x = kit.em(2.4)
 		ld.add_child(l)
 		var c := Loadout.counts({loc: parts[loc]})
@@ -973,7 +977,7 @@ func _refresh_market() -> void:
 		for id in c:
 			names.append(Loadout.short_name(String(Loadout.component(GameData, id).get("name", "?"))) + (" ×%d" % c[id] if c[id] > 1 else ""))
 		var nm := kit.label(", ".join(names) if not names.is_empty() else "–", "body500", 1.0,
-			UiStyle.HUD_INK if not names.is_empty() else UiStyle.HUD_DIM)
+			kit.ink if not names.is_empty() else kit.dim)
 		nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		nm.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		ld.add_child(nm)
@@ -988,31 +992,31 @@ func _refresh_market() -> void:
 			["Alpha heat", "%d / %d" % [int(st["heat"]), int(st["heat_cap"])]], ["Jump jets", "Yes" if st["jump"] else "No"],
 			["Longest range", Loadout.RANGE_NAMES[int(st["range"])]],
 			["Price", "%s C" % BayKit.money(int(offer["price"]))], ["Your C-Bills", "%s C" % BayKit.money(camp.c_bills)]]:
-		var k := kit.label(f[0], "display600", 0.85, UiStyle.HUD_DIM, true, 0.1)
+		var k := kit.label(f[0], "display600", 0.85, kit.dim, true, 0.1)
 		k.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		facts.add_child(k)
-		var val := kit.label(f[1], "mono", 1.0, UiStyle.HUD_INK)
+		var val := kit.label(f[1], "mono", 1.0, kit.ink)
 		val.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		facts.add_child(val)
 	_offer_body.add_child(facts)
 	if _msg != "":
-		_offer_body.add_child(kit.para(_msg, 29, "body500", 1.0, UiStyle.HUD_OK))
+		_offer_body.add_child(kit.para(_msg, 29, "body500", 1.0, UiStyle.STATE_OK))
 	var problem := camp.buy_problem(chassis, idx)
 	buy_button.text = ("Buy · %s C" % BayKit.money(int(offer["price"]))).to_upper()
 	buy_button.disabled = problem != ""
 	buy_button.tooltip_text = problem
 	if problem != "":
 		buy_note.text = problem + "."
-		buy_note.add_theme_color_override("font_color", UiStyle.HUD_CRIT)
+		buy_note.add_theme_color_override("font_color", UiStyle.CRIT)
 	elif dest == "deployed":
 		buy_note.text = "Joins the lance in the next free slot: %d / %d t after, %d / %d slots." % [
 			int(camp.deployed_tonnage() + tons), int(camp.drop_limit(mission)), camp.deployed().size() + 1, Campaign.MAX_DEPLOY]
-		buy_note.add_theme_color_override("font_color", UiStyle.HUD_OK)
+		buy_note.add_theme_color_override("font_color", UiStyle.STATE_OK)
 	else:
 		var why := "all %d slots are full" % Campaign.MAX_DEPLOY if camp.deployed().size() >= Campaign.MAX_DEPLOY \
 			else "it would take the drop weight to %d / %d t" % [int(camp.deployed_tonnage() + tons), int(camp.drop_limit(mission))]
 		buy_note.text = "Goes to the reserve: %s. %s C left after." % [why, BayKit.money(camp.c_bills - int(offer["price"]))]
-		buy_note.add_theme_color_override("font_color", UiStyle.HUD_WARN)
+		buy_note.add_theme_color_override("font_color", UiStyle.WARN)
 
 
 func _open_pilots() -> void:
@@ -1053,7 +1057,7 @@ func _open_variants() -> void:
 	for sv in camp.variants_for(chassis):
 		options.append(sv)
 	if camp.variants_for(chassis).is_empty():
-		list.add_child(kit.para("No saved variants for this chassis yet: refit one in the Mech Lab and use Save variant.", 30, "body500", 1.0, UiStyle.HUD_DIM))
+		list.add_child(kit.para("No saved variants for this chassis yet: refit one in the Mech Lab and use Save variant.", 30, "body500", 1.0, kit.dim))
 	for o in options:
 		var same := Loadout.same(o["parts"], camp.loadout(m)["parts"])
 		var q := camp.refit_quote(m, o["parts"], mission)
@@ -1116,12 +1120,12 @@ func _close_personnel() -> void:
 ## The chip for a pilot: [text, colour].
 func _pilot_chip(profile: String) -> Array:
 	match camp.pilot_status(profile, mission):
-		"kia": return ["KIA", UiStyle.HUD_CRIT]
+		"kia": return ["KIA", UiStyle.CRIT]
 		"assigned":
 			var m := camp.mech_of(profile)
-			return ["%s%s" % [_chassis_name(m), (" · %d" % int(m["slot"])) if int(m["slot"]) > 0 else ""], UiStyle.HUD_OK]
-		"available": return ["Available", UiStyle.HUD_EDGE]
-	return ["Unavailable", UiStyle.HUD_DIM]
+			return ["%s%s" % [_chassis_name(m), (" · %d" % int(m["slot"])) if int(m["slot"]) > 0 else ""], UiStyle.STATE_OK]
+		"available": return ["Available", kit.accent]
+	return ["Unavailable", kit.dim]
 
 
 func _build_personnel() -> void:
@@ -1148,7 +1152,7 @@ func _build_personnel() -> void:
 
 	# the portrait on the stage
 	var frame := PanelContainer.new()
-	frame.add_theme_stylebox_override("panel", UiStyle.HudFrame.make(kit.u, Vector4(kit.em(0.8), kit.em(0.8), kit.em(0.8), kit.em(0.8))))
+	frame.add_theme_stylebox_override("panel", kit.frame(Vector4(kit.em(0.8), kit.em(0.8), kit.em(0.8), kit.em(0.8))))
 	frame.anchor_left = 0.5
 	frame.anchor_right = 0.5
 	frame.anchor_top = 0.16
@@ -1188,7 +1192,7 @@ func _build_personnel() -> void:
 	rs["body"].add_child(rf)
 	_resume_foot = kit.vbox(0.5)
 	rf.add_child(_resume_foot)
-	assign_note = kit.para("", 29, "body500", 0.95, UiStyle.HUD_DIM)
+	assign_note = kit.para("", 29, "body500", 0.95, kit.dim)
 	_resume_foot.add_child(assign_note)
 	var g := GridContainer.new()
 	g.columns = 2
@@ -1248,11 +1252,11 @@ func _pilot_card(profile: String) -> Control:
 	var sel := profile == pilot
 	var card := PanelContainer.new()
 	var s := StyleBoxFlat.new()
-	s.bg_color = UiStyle.HUD_PANEL_2 if not sel else UiStyle.HUD_PANEL_2.lerp(UiStyle.HUD_EDGE, 0.12)
-	s.border_color = UiStyle.HUD_EDGE if sel else Color(UiStyle.HUD_EDGE, 0.18)
+	s.bg_color = kit.raised if not sel else kit.raised.lerp(kit.accent, 0.12)
+	s.border_color = kit.accent if sel else Color(kit.accent, 0.18)
 	s.set_border_width_all(1)
 	if sel:
-		s.shadow_color = Color(UiStyle.HUD_GLOW, 0.3)
+		s.shadow_color = Color(kit.glow, 0.3)
 		s.shadow_size = kit.px(0.4)
 	s.content_margin_left = kit.em(0.6)
 	s.content_margin_right = kit.em(0.7)
@@ -1277,9 +1281,9 @@ func _pilot_card(profile: String) -> Control:
 	h.add_child(face)
 	var v := kit.vbox(0.15)
 	v.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	v.add_child(kit.label(String(pd["name"]), "display600", 1.1, UiStyle.HUD_INK, true, 0.05))
-	v.add_child(kit.label(Campaign.rank(pd), "body500", 0.95, UiStyle.HUD_DIM))
-	v.add_child(kit.label("GUN %d   PLT %d" % [int(pd["gunnery"]), int(pd["piloting"])], "mono", 0.85, UiStyle.HUD_DIM))
+	v.add_child(kit.label(String(pd["name"]), "display600", 1.1, kit.ink, true, 0.05))
+	v.add_child(kit.label(Campaign.rank(pd), "body500", 0.95, kit.dim))
+	v.add_child(kit.label("GUN %d   PLT %d" % [int(pd["gunnery"]), int(pd["piloting"])], "mono", 0.85, kit.dim))
 	h.add_child(v)
 	var chip := _pilot_chip(profile)
 	h.add_child(kit.chip(chip[0], chip[1]))
@@ -1292,7 +1296,7 @@ static func _pretty(key: String) -> String:
 
 
 func _heading(text: String) -> Label:
-	return kit.label(text, "display600", 0.9, UiStyle.HUD_EDGE, true, 0.12)
+	return kit.label(text, "display600", 0.9, kit.accent, true, 0.12)
 
 
 func _refresh_personnel() -> void:
@@ -1328,7 +1332,7 @@ func _refresh_personnel() -> void:
 	_resume_small.text = rank
 	var text := bio(pilot)
 	if text != "":
-		_resume_body.add_child(kit.para(text, 29, "body400", 1.0, UiStyle.HUD_DIM))
+		_resume_body.add_child(kit.para(text, 29, "body400", 1.0, kit.dim))
 	# skills
 	var hire := camp.hire_skills(pilot)
 	var g := GridContainer.new()
@@ -1338,23 +1342,24 @@ func _refresh_personnel() -> void:
 	for row in [["Gunnery", float(pd["gunnery"]), float(pd["gunnery"]) - hire["gunnery"]],
 			["Piloting", float(pd["piloting"]), float(pd["piloting"]) - hire["piloting"]],
 			["Sensors", hire["sensors"], 0.0]]:
-		var n := kit.label(row[0], "display600", 0.88, UiStyle.HUD_DIM, true, 0.1)
+		var n := kit.label(row[0], "display600", 0.88, kit.dim, true, 0.1)
 		n.custom_minimum_size.x = kit.em(6.5)
 		g.add_child(n)
 		var bar := BayKit.StatBar.new()
+		bar.colour = kit.accent
 		bar.custom_minimum_size = Vector2(0, maxf(2.0, roundf(kit.em(0.45))))
 		bar.value = row[1] / Campaign.SKILL_CAP
 		bar.ghost = (row[1] - row[2]) / Campaign.SKILL_CAP if row[2] > 0.0 else -1.0
 		g.add_child(bar)
-		var v := kit.label("%.1f" % row[1] if not is_equal_approx(row[1], roundf(row[1])) else "%d" % int(row[1]), "mono", 0.88, UiStyle.HUD_INK)
+		var v := kit.label("%.1f" % row[1] if not is_equal_approx(row[1], roundf(row[1])) else "%d" % int(row[1]), "mono", 0.88, kit.ink)
 		v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		v.custom_minimum_size.x = kit.em(3.0)
 		g.add_child(v)
-		var d := kit.label(("+%.1f" % row[2]) if row[2] > 0.05 else "", "mono", 0.85, UiStyle.HUD_OK)
+		var d := kit.label(("+%.1f" % row[2]) if row[2] > 0.05 else "", "mono", 0.85, UiStyle.STATE_OK)
 		d.custom_minimum_size.x = kit.em(3.4)
 		g.add_child(d)
 	_resume_body.add_child(g)
-	_resume_body.add_child(kit.label("Ghost marks: skill at hire. Sensors does not train.", "body400", 0.85, UiStyle.HUD_DIM))
+	_resume_body.add_child(kit.label("Ghost marks: skill at hire. Sensors does not train.", "body400", 0.85, kit.dim))
 	# service record
 	_resume_body.add_child(_heading("Service record"))
 	var nxt := Campaign.next_rank(pd)
@@ -1388,11 +1393,11 @@ func _refresh_personnel() -> void:
 			["Wounds", "KIA" if pd["dead"] else "none (healed between missions)"],
 			["Specialties", ", ".join(specs) if not specs.is_empty() else "none yet"],
 			["Awards", ", ".join(awards) if not awards.is_empty() else "none yet"]]:
-		var k := kit.label(f[0], "display600", 0.85, UiStyle.HUD_DIM, true, 0.1)
+		var k := kit.label(f[0], "display600", 0.85, kit.dim, true, 0.1)
 		k.custom_minimum_size.x = kit.em(7.5)
 		k.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		rec.add_child(k)
-		var val := kit.label(f[1], "body500", 1.0, UiStyle.HUD_INK)
+		var val := kit.label(f[1], "body500", 1.0, kit.ink)
 		val.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		val.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		rec.add_child(val)
@@ -1400,7 +1405,7 @@ func _refresh_personnel() -> void:
 	# mission log
 	_resume_body.add_child(_heading("Mission log"))
 	if pd["log"].is_empty():
-		_resume_body.add_child(kit.label("No missions flown yet.", "body400", 0.95, UiStyle.HUD_DIM))
+		_resume_body.add_child(kit.label("No missions flown yet.", "body400", 0.95, kit.dim))
 	var lg := GridContainer.new()
 	lg.columns = 4
 	lg.add_theme_constant_override("h_separation", kit.px(0.6))
@@ -1408,15 +1413,15 @@ func _refresh_personnel() -> void:
 	var entries: Array = pd["log"].duplicate()
 	entries.reverse()
 	for e in entries:
-		var t := kit.label(String(e["title"]) if String(e["title"]) != "" else String(e["mission"]), "body500", 0.95, UiStyle.HUD_INK)
+		var t := kit.label(String(e["title"]) if String(e["title"]) != "" else String(e["mission"]), "body500", 0.95, kit.ink)
 		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		t.clip_text = true
 		t.custom_minimum_size.x = kit.em(10)
 		lg.add_child(t)
 		var res := "KIA" if e["dead"] else ("Won" if e["won"] else "Lost")
-		lg.add_child(kit.label(res, "mono", 0.85, UiStyle.HUD_CRIT if res != "Won" else UiStyle.HUD_OK))
-		lg.add_child(kit.label("%d kill%s" % [int(e["kills"]), "" if int(e["kills"]) == 1 else "s"], "mono", 0.85, UiStyle.HUD_DIM))
-		var mech := kit.label(String(e["mech"]), "body500", 0.9, UiStyle.HUD_DIM)
+		lg.add_child(kit.label(res, "mono", 0.85, UiStyle.CRIT if res != "Won" else UiStyle.STATE_OK))
+		lg.add_child(kit.label("%d kill%s" % [int(e["kills"]), "" if int(e["kills"]) == 1 else "s"], "mono", 0.85, kit.dim))
+		var mech := kit.label(String(e["mech"]), "body500", 0.9, kit.dim)
 		mech.tooltip_text = String(e["variant"])
 		lg.add_child(mech)
 	_resume_body.add_child(lg)
@@ -1424,15 +1429,15 @@ func _refresh_personnel() -> void:
 	_resume_body.add_child(_heading("Assigned 'Mech"))
 	var m := camp.mech_of(pilot)
 	if m.is_empty():
-		_resume_body.add_child(kit.label("Not assigned.", "body400", 0.95, UiStyle.HUD_DIM))
+		_resume_body.add_child(kit.label("Not assigned.", "body400", 0.95, kit.dim))
 	else:
 		var row := kit.hbox(0.7)
 		row.add_child(_thumb(m, 3.6))
 		var mv := kit.vbox(0.1)
 		mv.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-		mv.add_child(kit.label(_chassis_name(m), "display600", 1.05, UiStyle.HUD_INK, true, 0.05))
+		mv.add_child(kit.label(_chassis_name(m), "display600", 1.05, kit.ink, true, 0.05))
 		mv.add_child(kit.label("%s · %d t · %s" % [_variant_short(m), int(camp.tonnage(m["chassis"])),
-			("slot %d" % int(m["slot"])) if int(m["slot"]) > 0 else "reserve"], "mono", 0.85, UiStyle.HUD_DIM))
+			("slot %d" % int(m["slot"])) if int(m["slot"]) > 0 else "reserve"], "mono", 0.85, kit.dim))
 		row.add_child(mv)
 		_resume_body.add_child(row)
 	# actions
@@ -1457,4 +1462,4 @@ func _refresh_personnel() -> void:
 		assign_button.text = "ASSIGN TO 'MECH"
 		assign_button.disabled = not (status in ["available", "assigned"])
 		assign_note.text = "Killed in action." if status == "kia" else ("Pick a 'Mech for %s." % pd["name"] if status != "unavailable" else "Not available this mission.")
-	assign_note.add_theme_color_override("font_color", UiStyle.HUD_CRIT if status == "kia" else UiStyle.HUD_DIM)
+	assign_note.add_theme_color_override("font_color", UiStyle.CRIT if status == "kia" else kit.dim)

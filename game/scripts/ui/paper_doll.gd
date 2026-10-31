@@ -6,11 +6,11 @@ extends RefCounted
 ## SimMech.Body / SimVehicle.Section order, 255 empty) replace the rectangles when
 ## present; mask_for() loads and crops them, DollView draws either.
 
-const OK := Color(0.310, 0.827, 0.541)  # the HUD's ok green
-const SCRATCHED := Color(0.78, 0.85, 0.32)
-const HOLED := Color(0.949, 0.710, 0.290)  # HUD warn
-const CRITICAL := Color(1.0, 0.353, 0.306)  # HUD crit
-const GONE := Color(0.22, 0.24, 0.26)
+const OK := UiStyle.STATE_OK  # token `ok` (guide 6 doll ramp)
+const SCRATCHED := Color("#C7D952")  # guide 6 (19.3, kept)
+const HOLED := UiStyle.WARN
+const CRITICAL := UiStyle.CRIT
+const GONE := Color("#383D42")  # guide 6 (19.3, kept)
 const DOLL_DIR := "res://assets/ui/dolls"
 const TORSO_REAR := {SimMech.Body.CTORSO: SimMech.Armor.RCTORSO, SimMech.Body.LTORSO: SimMech.Armor.RLTORSO,
 	SimMech.Body.RTORSO: SimMech.Armor.RRTORSO}
