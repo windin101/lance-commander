@@ -253,3 +253,30 @@ class PilotRadioReferenceTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SpecialAreaTests(unittest.TestCase):
+    """Wall/gate footprints (MCLib/Move.cpp:713-730) and GateData stats exported to the map JSON."""
+
+    def _maps(self):
+        return os.path.join(ROOT, "game", "data", "maps")
+
+    def test_mc2_02_footprints(self):
+        import json
+        areas = json.load(open(os.path.join(self._maps(), "mc2_02", "special_areas.json")))
+        self.assertEqual(len(areas), 123)
+        self.assertEqual(areas[0][:2], [205, 187])
+        self.assertEqual(areas[0][2], [[204, 187], [205, 187], [206, 187]])
+
+    def test_map_without_walls_has_none(self):
+        import json
+        self.assertEqual(json.load(open(os.path.join(self._maps(), "mc2_01", "special_areas.json"))), [])
+
+    def test_gate_stats_from_fit(self):
+        import json
+        types = json.load(open(os.path.join(self._maps(), "mc2_02", "objects.json")))["types"]
+        gates = {t["appearance"]: t for t in types.values() if t.get("class") == 22}
+        self.assertTrue(gates)
+        for app, t in gates.items():
+            want = (75, 300) if "heavy" in app else ((35, 200) if "medium" in app else (25, 200))
+            self.assertEqual((t["damage_level"], t["open_radius"]), want, app)

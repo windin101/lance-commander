@@ -1,0 +1,52 @@
+{
+ "app": "d_heavywall",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "heavy wall: 17.2 m body, 17.8 m post",
+ "states": {
+  "intact": {
+   "tris_lod0": 3220,
+   "tris_lod1": 387,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.96,
+    0.0,
+    -11.05
+   ],
+   "bounds_max": [
+    2.96,
+    18.66,
+    17.4
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 8646,
+   "tris_lod1": 3193,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -7.0,
+    -0.15,
+    -11.05
+   ],
+   "bounds_max": [
+    7.0,
+    18.66,
+    17.4
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 2768,
+   "tris_lod1": 1256,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -7.0,
+    -0.19,
+    -11.05
+   ],
+   "bounds_max": [
+    7.0,
+    17.76,
+    17.66
+   ]
+  }
+ }
+}

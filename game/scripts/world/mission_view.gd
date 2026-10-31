@@ -293,6 +293,14 @@ func _consume_events(show: bool) -> void:
 						and (int(e["to"]) < 0 or views.has(e["to"]) or world.units[e["to"]] is SimStructure)):
 					continue
 				_shot_effect(e)
+			"gate_state":
+				objects_view.set_gate_open(int(e["index"]), bool(e["open"]))
+			"prop_hit":
+				objects_view.set_damage(int(e["index"]), float(e["frac"]))  # damaged state at half (sim_props.gd)
+			"prop_destroyed":
+				objects_view.destroy(int(e["index"]))
+				var at: Vector2 = e["at"]
+				effects.destroyed("building", TerrainView.to_3d(at, world.map.height_at(at)), 0.4, 2.0)  # a small dust and debris puff
 			"impact":
 				var hit: SimUnit = world.units[e["unit"]]
 				if hit is SimStructure and objects_view:

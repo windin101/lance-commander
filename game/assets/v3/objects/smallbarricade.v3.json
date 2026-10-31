@@ -1,0 +1,52 @@
+{
+ "app": "smallbarricade",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "three tripods",
+ "states": {
+  "intact": {
+   "tris_lod0": 720,
+   "tris_lod1": 216,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.27,
+    0.02,
+    -2.36
+   ],
+   "bounds_max": [
+    0.07,
+    1.83,
+    2.36
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 756,
+   "tris_lod1": 228,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.4,
+    -0.4,
+    -3.1
+   ],
+   "bounds_max": [
+    0.84,
+    1.83,
+    2.36
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 518,
+   "tris_lod1": 158,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.5,
+    -0.71,
+    -4.0
+   ],
+   "bounds_max": [
+    1.5,
+    0.89,
+    4.0
+   ]
+  }
+ }
+}

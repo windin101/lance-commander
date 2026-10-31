@@ -204,7 +204,7 @@
    "name": "S_MediumGate.fit",
    "appearance": "s_mediumgate",
    "extent_radius": 35.0,
-   "damage_level": 0,
+   "damage_level": 35,
    "explosion_damage": 0.0,
    "explosion_radius": 0.0,
    "building_team": -1,
@@ -214,7 +214,8 @@
    "can_refit": false,
    "mech_bay": false,
    "sensor_range": -1.0,
-   "lookout_range": 0.0
+   "lookout_range": 0.0,
+   "open_radius": 200.0
   },
   "206": {
    "file": "SteinerLightWall.fit",
@@ -240,7 +241,7 @@
    "name": "S_LightGate.fit",
    "appearance": "s_lightgate",
    "extent_radius": 35.0,
-   "damage_level": 0,
+   "damage_level": 25,
    "explosion_damage": 0.0,
    "explosion_radius": 0.0,
    "building_team": -1,
@@ -250,7 +251,8 @@
    "can_refit": false,
    "mech_bay": false,
    "sensor_range": -1.0,
-   "lookout_range": 0.0
+   "lookout_range": 0.0,
+   "open_radius": 200.0
   },
   "213": {
    "file": "SteinerGateControl.fit",

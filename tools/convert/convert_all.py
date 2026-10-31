@@ -26,6 +26,7 @@ import map_objects  # noqa: E402
 import mech_model  # noqa: E402
 import strings_rc  # noqa: E402
 import terrain  # noqa: E402
+from packet import PacketFile  # noqa: E402
 import vehicles  # noqa: E402
 import video  # noqa: E402
 
@@ -109,6 +110,8 @@ def _convert_mission(m, data, missions, chassis_names, report):
     write(f"missions/{m}.json", mission_fit)
     meta, cells, tac = terrain.convert(os.path.join(missions, m + ".pak"), mission_fit)
     write(f"maps/{m}/terrain.json", meta)
+    with open(os.path.join(OUT, "maps", m, "special_areas.json"), "w") as fh:  # wall and gate footprints (objmgr.cpp:1213-1256)
+        json.dump(terrain.read_special_areas(PacketFile.open(os.path.join(missions, m + ".pak"))), fh, separators=(",", ":"))
     with open(os.path.join(OUT, "maps", m, "cells.bin"), "wb") as fh:
         fh.write(cells)
     vmap = vehicles.convert_for_mission(mission_fit, data, os.path.join(OUT, "vehicles"),

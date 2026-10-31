@@ -1,0 +1,52 @@
+{
+ "app": "sandbagbunker",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "sandbag horseshoe bunker",
+ "states": {
+  "intact": {
+   "tris_lod0": 4442,
+   "tris_lod1": 88,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.6,
+    0.03,
+    -4.41
+   ],
+   "bounds_max": [
+    4.06,
+    0.82,
+    4.55
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 3802,
+   "tris_lod1": 88,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.6,
+    0.03,
+    -4.41
+   ],
+   "bounds_max": [
+    4.06,
+    0.82,
+    4.55
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1126,
+   "tris_lod1": 60,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.01,
+    0.03,
+    -4.41
+   ],
+   "bounds_max": [
+    3.66,
+    0.3,
+    4.41
+   ]
+  }
+ }
+}

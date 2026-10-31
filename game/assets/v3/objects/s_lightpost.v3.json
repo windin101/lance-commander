@@ -1,0 +1,52 @@
+{
+ "app": "s_lightpost",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "light post block",
+ "states": {
+  "intact": {
+   "tris_lod0": 338,
+   "tris_lod1": 241,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.94,
+    0.0,
+    -10.39
+   ],
+   "bounds_max": [
+    1.94,
+    5.36,
+    -5.36
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 732,
+   "tris_lod1": 415,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.5,
+    -0.55,
+    -10.39
+   ],
+   "bounds_max": [
+    3.5,
+    5.36,
+    -4.46
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 580,
+   "tris_lod1": 224,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.5,
+    -0.32,
+    -10.39
+   ],
+   "bounds_max": [
+    3.5,
+    4.46,
+    -4.27
+   ]
+  }
+ }
+}

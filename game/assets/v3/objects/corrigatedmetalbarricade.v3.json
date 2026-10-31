@@ -1,0 +1,52 @@
+{
+ "app": "corrigatedmetalbarricade",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "corrugated-sheet barricade 8.4 m x 1.7 m",
+ "states": {
+  "intact": {
+   "tris_lod0": 1426,
+   "tris_lod1": 194,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.2,
+    0.02,
+    -1.53
+   ],
+   "bounds_max": [
+    4.2,
+    1.76,
+    1.53
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2336,
+   "tris_lod1": 304,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.2,
+    -0.48,
+    -1.54
+   ],
+   "bounds_max": [
+    4.2,
+    1.76,
+    1.53
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1282,
+   "tris_lod1": 178,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.75,
+    -0.55,
+    -2.18
+   ],
+   "bounds_max": [
+    4.75,
+    1.93,
+    3.27
+   ]
+  }
+ }
+}

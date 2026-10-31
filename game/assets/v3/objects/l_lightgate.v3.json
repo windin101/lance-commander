@@ -1,0 +1,48 @@
+{
+ "app": "l_lightgate",
+ "made_by": "tools/art/v3/bld_gates.py",
+ "states": {
+  "intact": {
+   "tris_lod0": 790,
+   "tris_lod1": 214,
+   "bounds_min": [
+    -2.59,
+    0.0,
+    -28.65
+   ],
+   "bounds_max": [
+    2.8,
+    6.02,
+    28.23
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1792,
+   "tris_lod1": 788,
+   "bounds_min": [
+    -4.0,
+    0.0,
+    -28.65
+   ],
+   "bounds_max": [
+    4.0,
+    6.02,
+    28.23
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1706,
+   "tris_lod1": 922,
+   "bounds_min": [
+    -7.0,
+    -0.51,
+    -28.2
+   ],
+   "bounds_max": [
+    7.0,
+    2.33,
+    28.2
+   ]
+  }
+ }
+}

@@ -222,7 +222,7 @@
    "name": "LiaoLightGate.fit",
    "appearance": "l_lightgate",
    "extent_radius": 35.0,
-   "damage_level": 0,
+   "damage_level": 25,
    "explosion_damage": 0.0,
    "explosion_radius": 0.0,
    "building_team": -1,
@@ -232,7 +232,8 @@
    "can_refit": false,
    "mech_bay": false,
    "sensor_range": -1.0,
-   "lookout_range": 0.0
+   "lookout_range": 0.0,
+   "open_radius": 200.0
   },
   "154": {
    "file": "LiaoMediumWall.fit",
@@ -258,7 +259,7 @@
    "name": "LiaoMediumGate.fit",
    "appearance": "l_mediumgate",
    "extent_radius": 35.0,
-   "damage_level": 0,
+   "damage_level": 35,
    "explosion_damage": 0.0,
    "explosion_radius": 0.0,
    "building_team": -1,
@@ -268,7 +269,8 @@
    "can_refit": false,
    "mech_bay": false,
    "sensor_range": -1.0,
-   "lookout_range": 0.0
+   "lookout_range": 0.0,
+   "open_radius": 200.0
   },
   "159": {
    "file": "LiaoHeavyGate.fit",
@@ -276,7 +278,7 @@
    "name": "LiaoHeavyGate.fit",
    "appearance": "l_heavygate",
    "extent_radius": 35.0,
-   "damage_level": 0,
+   "damage_level": 75,
    "explosion_damage": 0.0,
    "explosion_radius": 0.0,
    "building_team": -1,
@@ -286,7 +288,8 @@
    "can_refit": false,
    "mech_bay": false,
    "sensor_range": -1.0,
-   "lookout_range": 0.0
+   "lookout_range": 0.0,
+   "open_radius": 300.0
   },
   "170": {
    "file": "LRMTurret.fit",

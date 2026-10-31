@@ -196,8 +196,24 @@ def decals():
     im.save(DST / "decals_ar.png", optimize=True)
 
 
+def chain_texture():
+    """Tileable chain-link diamonds, RGBA 256 px (alpha = the wire); one tile is 0.5 m, a diamond 0.125 m."""
+    P, w = 64, 8.5
+    yy, xx = np.mgrid[0:256, 0:256].astype(float)
+    d1 = np.abs(((xx + yy) % P) - P / 2); d2 = np.abs(((xx - yy) % P) - P / 2)
+    a = np.clip(1.0 - np.minimum(d1, d2) / w * 0.0 - 0.0, 0, 1)
+    wire = np.minimum(np.abs(((xx + yy) % P) - 0.0), P - ((xx + yy) % P))
+    wire2 = np.minimum(np.abs(((xx - yy) % P) - 0.0), P - ((xx - yy) % P))
+    al = np.clip(1.0 - np.minimum(wire, wire2) / w, 0, 1)
+    img = np.zeros((256, 256, 4), np.uint8)
+    img[..., :3] = (205, 208, 212)
+    img[..., 3] = (np.clip(al * 1.5, 0, 1) * 255).astype(np.uint8)
+    Image.fromarray(img).save(DST / "chain_ar.png", optimize=True)
+
+
 if __name__ == "__main__":
     DST.mkdir(parents=True, exist_ok=True)
     trim_sheet()
     decals()
+    chain_texture()
     print("ok")

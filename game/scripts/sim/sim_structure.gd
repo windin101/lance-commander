@@ -17,6 +17,11 @@ var explosion_radius_m := 0.0
 var can_refit := false  # CanRefit (repair bay pool = DmgLevel - damage, bldng.h:372)
 var mech_bay := false  # MechBay: repairs mechs (tacordr.cpp:1087)
 var refit_buddy: SimUnit = null  # the unit being repaired here (refitBuddyWID)
+var wall_cells: Array[Vector2i] = []  # a wall's stamped footprint (sim_walls.gd): opened when it is destroyed
+var gate_id := -1  # a gate (class 22): its id in SimMap.gates
+var gate_team := -1  # its owning team (the control building's), -1 open to all
+var gate_open_radius_m := 40.0
+var gate_open := false
 var sight_radius_m := -1.0  # its appearance radius for line of sight (SimWorld.sight_radius), -1 not yet
 
 

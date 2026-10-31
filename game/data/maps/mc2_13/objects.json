@@ -168,7 +168,7 @@
    "name": "DavionLightGate.fit",
    "appearance": "d_lightgate",
    "extent_radius": 35.0,
-   "damage_level": 0,
+   "damage_level": 25,
    "explosion_damage": 0.0,
    "explosion_radius": 0.0,
    "building_team": -1,
@@ -178,7 +178,8 @@
    "can_refit": false,
    "mech_bay": false,
    "sensor_range": -1.0,
-   "lookout_range": 0.0
+   "lookout_range": 0.0,
+   "open_radius": 200.0
   },
   "168": {
    "file": "GaussTurret.fit",

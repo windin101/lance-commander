@@ -477,7 +477,7 @@ func _capture_goal(u: SimUnit, t: SimUnit) -> Vector2:
 			ring.append(p)
 		ring.sort_custom(func(a, b): return a.distance_to(u.position) < b.distance_to(u.position))
 		for p in ring:
-			if world.map.cell_of(p) == world.map.cell_of(u.position) or world.map.find_path(u.position, p, u.travel()).size() > 0:
+			if world.map.cell_of(p) == world.map.cell_of(u.position) or world.map.find_path(u.position, p, u.travel(), false, u.team).size() > 0:
 				return p
 	return _closest_reachable(u, t)
 
@@ -494,7 +494,7 @@ func _closest_reachable(u: SimUnit, t: SimUnit) -> Vector2:
 				cands.append(m.cell_center(c))
 	cands.sort_custom(func(a, b): return a.distance_to(t.position) < b.distance_to(t.position))
 	for p in cands.slice(0, 12):
-		if m.cell_of(p) == m.cell_of(u.position) or m.find_path(u.position, p, u.travel()).size() > 0:
+		if m.cell_of(p) == m.cell_of(u.position) or m.find_path(u.position, p, u.travel(), false, u.team).size() > 0:
 			return p
 	return t.position
 

@@ -6,6 +6,7 @@ extends RefCounted
 ## `skipped`.
 
 const WORLD_UNIT_M := 0.2
+static var use_walls := true  # stamp wall footprints and run gates (sim_walls.gd); --no-walls in autoplay for A/B
 
 var world: SimWorld
 var objectives: SimObjectives
@@ -203,13 +204,29 @@ func _add_structures(mission: String) -> void:
 		return
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
 	var by_cell := {}  # map cell -> building (findByCellPosition, objmgr.cpp:2125)
+	var areas := SimWalls.load_areas(mission) if use_walls else {}
+	var stats := {"area_pieces": 0, "raster_pieces": 0, "area_cells": {}, "raster_cells": {}}
+	world.map.stamp_stats = stats
 	var linked: Array = []  # [child, parent cell]
 	for index in data["objects"].size():
 		var o: Dictionary = data["objects"][index]
 		var t: Dictionary = data["types"].get(str(int(o["type"])), {})
 		var cls := int(t.get("class", -1))
+		if cls == 11 and SimProps.TYPES.has(String(t.get("appearance", ""))) and not (int(o.get("damage", 0)) & 0x0f):
+			world.add_prop(index, String(t["appearance"]), Vector2(float(o["x"]), float(o["y"])) * WORLD_UNIT_M, float(o["rotation"]))
+			continue  # a destructible prop, not a unit (sim_props.gd)
+		var app0 := String(t.get("appearance", ""))
+		var is_gate := cls == 22 and use_walls and SimWalls.is_gate(app0)
 		var s: SimStructure
-		if cls == 21 and use_turrets and t.has("turret"):
+		if is_gate:
+			s = SimStructure.new()
+			var gd: Array = SimWalls.GATES[SimWalls.suffix(app0)]
+			s.name = String(t.get("name", "gate"))
+			s.model = app0
+			s.damage_level = float(t["damage_level"]) if float(t.get("damage_level", 0)) > 0.0 else float(gd[0])  # GateData DmgLevel, exported by the converter
+			s.gate_open_radius_m = float(t.get("open_radius", 0.0)) * WORLD_UNIT_M if float(t.get("open_radius", 0.0)) > 0.0 else float(gd[1])
+			s.extent_m = float(t.get("extent_radius", 0.0)) * WORLD_UNIT_M
+		elif cls == 21 and use_turrets and t.has("turret"):
 			s = SimTurret.from_type(t, world.rules)  # turret.cpp (I94)
 			s.turret_yaw = float(o["rotation"])
 			if int(o.get("damage", 0)) & 0x0f:
@@ -241,11 +258,40 @@ func _add_structures(mission: String) -> void:
 		s.team = (0 if team == 2 else (1 if team > 2 else team)) if remap_building_teams else team
 		s.position = Vector2(float(o["x"]), float(o["y"])) * WORLD_UNIT_M
 		s.facing = float(o["rotation"])
+		if is_gate:
+			s.gate_team = s.team  # the gate's owner; it is no unit's target or objective (team -1)
+			s.team = -1
 		var cell := world.map.cell_of(s.position)
 		s.part_id = 4096 + cell.y * 720 + cell.x  # abl-natives.md 1.5
 		if s.is_destroyed():
 			s.reported_disabled = true  # placed destroyed: no death event and no blast
 		world.add_unit(s)
+		if use_walls and not s.is_destroyed():
+			var own_cell := world.map.cell_of(s.position)
+			if cls == 1 and SimWalls.is_wall(app0):
+				var raster := SimWalls.wall_cells(world.map, app0, s.position, float(o["rotation"]))
+				var area := SimWalls.take_area(areas, own_cell)
+				for c in raster:
+					stats["raster_cells"][c] = true
+				var cs := area if not area.is_empty() else raster  # the original's footprint when the map has one, else our raster of the piece
+				stats["area_pieces" if not area.is_empty() else "raster_pieces"] += 1
+				for c in area:
+					stats["area_cells"][c] = true
+				s.wall_cells = cs
+				world.map.block_cells(cs)
+			elif is_gate:
+				var area := SimWalls.take_area(areas, own_cell)
+				var parts := SimWalls.gate_parts(world.map, app0, s.position, float(o["rotation"]))
+				s.gate_id = world.gates.size()
+				if not area.is_empty():
+					stats["area_pieces"] += 1
+					world.map.add_gate(s.gate_id, area, s.gate_team)  # the footprint is the door (objmgr.cpp:1236-1256)
+				else:
+					stats["raster_pieces"] += 1
+					world.map.block_cells(parts["sides"])
+					world.map.add_gate(s.gate_id, parts["door"], s.gate_team)
+					s.wall_cells = parts["sides"]
+				world.gates.append(s)
 		if cls == 1 and not by_cell.has(cell):
 			by_cell[cell] = s
 		if o.has("parent"):

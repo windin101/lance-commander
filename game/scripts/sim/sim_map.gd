@@ -231,6 +231,96 @@ func is_walkable(cell: Vector2i, hover = false) -> bool:
 	return move_cost(cell, bool(hover)) < COST_BLOCKED
 
 
+# --- walls and gates (LANCE-21) -------------------------------------------
+## The original stamps a wall's footprint into the move map at mission load (objmgr.cpp:1213-1225, closeSubAreas) and a destroyed wall opens it
+## again (bldng.cpp:1503-1514, openSubAreas). A gate's cells are marked per team (objmgr.cpp:1236-1256): passable for the gate's own team (or any team
+## when the gate is unowned), shut to everyone else, locked shut when its control building is down (gate.cpp:297-304) and open for all once destroyed
+## (gate.cpp:750-790). The converted cells.bin carries none of it for walls, so SimMission stamps the footprints from the placed objects.
+
+var _stamped := {}      # cell -> its original cell word, for cells a wall closed
+var stamp_stats := {}   # wall footprint source counts, for the converter-coverage report
+var gate_cells := {}    # cell -> gate id (door cells)
+var gates := {}         # gate id -> {"team": int, "locked": bool, "destroyed": bool}
+var _path_team := -2
+
+
+func _grids() -> Array:
+	return [_astar, _astar_hover, _astar_mines]
+
+
+func _refresh_cell(cell: Vector2i) -> void:
+	for gi in 3:
+		var g: AStarGrid2D = _grids()[gi]
+		if g == null:
+			continue
+		var cost := move_cost(cell, gi == 1)
+		g.set_point_solid(cell, cost >= COST_BLOCKED)
+		if cost < COST_BLOCKED:
+			g.set_point_weight_scale(cell, cost / COST_CLEAR)
+	if _astar_mines != null and mines[cell.y * cells_per_side + cell.x] == 1 and is_walkable(cell, false):
+		_astar_mines.set_point_solid(cell, true)
+
+
+func block_cells(cs: Array) -> void:
+	var bits: Array = meta["cell_bits"]["passable"]
+	for c in cs:
+		if not in_bounds(c) or _stamped.has(c):
+			continue
+		_stamped[c] = cell_word(c)
+		cells[c.y * cells_per_side + c.x] = cell_word(c) & ~(int(bits[1]) << int(bits[0]))
+		_refresh_cell(c)
+
+
+func open_cells(cs: Array) -> void:
+	for c in cs:
+		if _stamped.has(c):
+			cells[c.y * cells_per_side + c.x] = _stamped[c]
+			_stamped.erase(c)
+			_refresh_cell(c)
+
+
+func add_gate(gate_id: int, door_cells: Array, team: int) -> void:
+	gates[gate_id] = {"team": team, "locked": false, "destroyed": false}
+	for c in door_cells:
+		if in_bounds(c):
+			gate_cells[c] = gate_id
+
+
+func set_gate(gate_id: int, team: int, locked: bool, destroyed: bool) -> void:
+	gates[gate_id] = {"team": team, "locked": locked, "destroyed": destroyed}
+
+
+## Team ALL_OPEN in a search treats every gate as open: "is there a way if the gates were dealt with" (the autoplay bot).
+const ALL_OPEN := -3
+
+func gate_passable(gate_id: int, team: int) -> bool:
+	if team == ALL_OPEN:
+		return true
+	var g: Dictionary = gates[gate_id]
+	if g["destroyed"]:
+		return true
+	return not g["locked"] and (int(g["team"]) == -1 or int(g["team"]) == team)
+
+
+## Door cells are shut for every team the gate does not pass (set per search; cheap: a handful of cells).
+func _apply_gates(grid: AStarGrid2D, team: int) -> void:
+	for c in gate_cells:
+		if cell_flag(c, "passable") == 0:
+			continue
+		grid.set_point_solid(c, not gate_passable(int(gate_cells[c]), team))
+
+
+## The first gate on the way from start to goal that is shut to `team` (a route found as if every gate were open), or -1
+## when the way is open or there is none at all.
+func blocking_gate(start: Vector2, goal: Vector2, hover: bool, team: int) -> int:
+	var p := find_path(start, goal, hover, false, ALL_OPEN)
+	for pt in p:
+		var c := cell_of(pt)
+		if gate_cells.has(c) and not gate_passable(int(gate_cells[c]), team):
+			return int(gate_cells[c])
+	return -1
+
+
 # --- pathfinding ----------------------------------------------------------
 
 func build_pathing() -> void:
@@ -262,7 +352,8 @@ func _build_grid(hover: bool, travel_offmap: bool = false) -> AStarGrid2D:
 ## minefields everyone can see; the original's pathfinder never does (its avoidMines local is set
 ## but unread, MCLib/Move.cpp:4391), so this is off for every unit unless SimUnit.avoid_mines.
 ## Falls back to the plain path when no mine-free one exists.
-func find_path(start: Vector2, goal: Vector2, hover = false, avoid_mines := false) -> PackedVector2Array:
+func find_path(start: Vector2, goal: Vector2, hover = false, avoid_mines := false, team := -2) -> PackedVector2Array:
+	_path_team = team
 	if hover is int and hover == AIR:
 		return PackedVector2Array([goal]) if in_bounds(cell_of(goal)) else PackedVector2Array()
 	hover = bool(hover)
@@ -286,6 +377,8 @@ func find_path(start: Vector2, goal: Vector2, hover = false, avoid_mines := fals
 
 
 func _path_on(grid: AStarGrid2D, start: Vector2, goal: Vector2, hover: bool) -> PackedVector2Array:
+	if not gate_cells.is_empty():
+		_apply_gates(grid, _path_team)
 	var a := cell_of(start)
 	var b := cell_of(goal)
 	var out := PackedVector2Array()

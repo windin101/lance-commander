@@ -63,6 +63,32 @@ def read_cells(pak, first_packet=4):
     return height, width, planet, raw
 
 
+FOOTPRINT_SIZE = 264  # GameObjectFootPrint (MCLib/Move.h:1075): 4 shorts and 64 (row, col) shorts
+
+
+def read_special_areas(pak):
+    """The move map's special-area footprints (MCLib/Move.cpp:713-730): per wall, gate and special building the cells it covers, which the game
+    stamps at load (objmgr.cpp:1213-1256). The last move packets are a u32 count then the footprints; returns [[row, col, [[row, col], ...]], ...],
+    (row, col) of the object's own cell first."""
+    n = pak.num_packets
+    for i in range(n - 2, max(n - 7, 0), -1):
+        d = pak.read(i)
+        if len(d) != 4:
+            continue
+        count = struct.unpack("<i", d)[0]
+        if count == 0:
+            return []
+        fp = pak.read(i + 1)
+        if count > 0 and len(fp) == count * FOOTPRINT_SIZE:
+            out = []
+            for k in range(count):
+                row, col, _pre, num = struct.unpack_from("<4h", fp, k * FOOTPRINT_SIZE)
+                cells = struct.unpack_from("<%dh" % (2 * num), fp, k * FOOTPRINT_SIZE + 8)
+                out.append([row, col, [[cells[2 * j], cells[2 * j + 1]] for j in range(num)]])
+            return out
+    return []
+
+
 def tacmap(pak, packet=3):
     """Packet 3 holds the tactical-map image as a TGA file."""
     return pak.read(packet)

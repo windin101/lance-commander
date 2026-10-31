@@ -60,6 +60,7 @@ func build(sim_map: SimMap, mission: String) -> int:
 		if scenes[app] == null:
 			continue
 		var node: Node3D = scenes[app].instantiate()
+		BuildingV3.set_lods(node)
 		var pos := Vector2(float(o["x"]), float(o["y"])) * sim_map.meters_per_wu
 		node.position = TerrainView.to_3d(pos, sim_map.height_at(pos))
 		node.rotation.y = PI - deg_to_rad(float(o["rotation"]))
@@ -138,9 +139,26 @@ func destroy(index: int) -> void:
 		node.scale = Vector3(1.0, 0.25, 1.0)  # no damaged model: flatten the ruin
 
 
+## A gate opens or closes: its door leaves (glTF nodes door_l, door_r of a v3 gate model) slide along z into the wall (bld_gates.py).
+const GATE_SLIDE_M := 6.9
+
+
+func set_gate_open(index: int, open: bool) -> void:
+	var node: Node3D = nodes.get(index)
+	if node == null:
+		return
+	for nm in ["door_l", "door_r"]:
+		var leaf := node.find_child(nm, true, false) as Node3D
+		if leaf == null:
+			continue
+		var target := (-GATE_SLIDE_M if nm == "door_l" else GATE_SLIDE_M) if open else 0.0
+		create_tween().tween_property(leaf, "position:z", target, 1.4)
+
+
 ## A v3 model dressed once (its meshes are shared), or the plain scene for any other path.
 func _instance_state(path: String) -> Node3D:
 	var node: Node3D = (load(path) as PackedScene).instantiate()
+	BuildingV3.set_lods(node)
 	if path.begins_with("res://assets/v3/objects/") and not _dressed.has(path):
 		BuildingV3.dress(node)
 		_dressed[path] = true

@@ -18,6 +18,7 @@ const DECAL_CELLS := {"panel": 0, "diamond": 1, "id_plate": 2, "hatch": 3, "arro
 
 ## --no-building-v3 (or MC2_BUILDING_V3=0) keeps the v1/v2 art for buildings alone, for before/after shots with the rest of v3 on.
 static var enabled: bool = not (OS.get_cmdline_user_args().has("--no-building-v3") or OS.get_environment("MC2_BUILDING_V3") == "0")
+const ALIAS := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint", "hullsheet": "corrugated", "hullclean": "corrugated", "seamroof": "corrugated", "roofclean": "corrugated", "hangarroof": "corrugated", "finroof": "corrugated", "facade": "concrete", "wallconc": "concrete", "wallconc2": "concrete", "palesheet": "corrugated", "darkboards": "boards", "palewood": "boards", "darksheet": "corrugated", "wallfacade": "concrete", "sandbag": "concrete", "wallpost_s": "concrete", "wallpost_l": "concrete", "wallpost_d": "concrete"}  # model material name -> library set (see tools/art/v3/bld_*.py)
 const LOD_M := 80.0  # keep in step with LOD_M in tools/art/v3/bld_tanks.py
 static var _mats := {}
 static var tint := Color(0.86, 0.66, 0.1)  # the faction tint where the model marks it (vertex colour R)
@@ -30,17 +31,24 @@ static func model_path(app: String, state := "") -> String:
 	return ArtV3.model_path("objects", app + state)
 
 
-## Put the library material on every surface of a model (shared mesh resources: do it once, on the probe instance).
-static func dress(root: Node) -> void:
-	for mi in root.find_children("*", "MeshInstance3D", true, false):
-		var mesh: Mesh = (mi as MeshInstance3D).mesh
-		if mesh == null:
-			continue
-		# detail levels: a glb with nodes lod0 and lod1 draws lod0 up to LOD_M from the camera and lod1 beyond
+## Detail levels: a glb with nodes lod0 and lod1 draws lod0 up to LOD_M from the camera and lod1 beyond. These are node
+## properties, not mesh ones, so every INSTANCE needs them (dress() runs once, on a probe that is then freed: before this
+## was split out, placed models drew both levels at every distance).
+static func set_lods(root: Node) -> void:
+	for mi in root.find_children("lod?", "MeshInstance3D", true, false):
 		if mi.name == "lod0":
 			(mi as GeometryInstance3D).visibility_range_end = LOD_M
 		elif mi.name == "lod1":
 			(mi as GeometryInstance3D).visibility_range_begin = LOD_M
+
+
+## Put the library material on every surface of a model (shared mesh resources: do it once, on the probe instance).
+static func dress(root: Node) -> void:
+	set_lods(root)
+	for mi in root.find_children("*", "MeshInstance3D", true, false):
+		var mesh: Mesh = (mi as MeshInstance3D).mesh
+		if mesh == null:
+			continue
 		for i in mesh.get_surface_count():
 			var m: Material = mesh.surface_get_material(i)
 			var nm := m.resource_name if m else ""
@@ -48,11 +56,21 @@ static func dress(root: Node) -> void:
 				mesh.surface_set_material(i, material(nm.trim_prefix("bv3_")))
 
 
+## Does a material name a model carries (resource_name "bv3_<name>") resolve to a library set or a special shader?
+static func resolves(name: String) -> bool:
+	return name in ["trim", "decal", "chain", "glass"] or ALIAS.has(name) or LIB.has(name)
+
+
 static func material(name: String) -> ShaderMaterial:
 	var mat: ShaderMaterial = _mats.get(name)
 	if mat != null:
 		return mat
 	mat = ShaderMaterial.new()
+	if name == "chain":
+		mat.shader = load("res://shaders/building_v3_fence.gdshader")
+		mat.set_shader_parameter("ar_tex", load(DIR + "chain_ar.png"))
+		_mats[name] = mat
+		return mat
 	if name == "decal":
 		mat.shader = load("res://shaders/building_v3_decal.gdshader")
 		mat.set_shader_parameter("ar_tex", load(DIR + "decals_ar.png"))
@@ -65,9 +83,8 @@ static func material(name: String) -> ShaderMaterial:
 			mat.set_shader_parameter("ar_tex", load(DIR + "trim_ar.png"))
 			mat.set_shader_parameter("nm_tex", load(DIR + "trim_nm.png"))
 		else:
-			var alias := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint", "hullsheet": "corrugated", "hullclean": "corrugated", "seamroof": "corrugated", "roofclean": "corrugated", "hangarroof": "corrugated", "finroof": "corrugated", "facade": "concrete", "sandbag": "concrete_dark"}
-			if alias.has(name):
-				tex = alias[name]
+			if ALIAS.has(name):
+				tex = ALIAS[name]
 			if name == "glass":  # dark glossy glazing: the steel set, tinted, no metal
 				tex = "steel"
 				mat.set_shader_parameter("base_tint", Color(0.1, 0.15, 0.2))
@@ -98,12 +115,41 @@ static func material(name: String) -> ShaderMaterial:
 				mat.set_shader_parameter("base_tint", Color(1.0, 0.92, 0.84))
 			if name == "finroof":
 				mat.set_shader_parameter("rib_dark", 0.4)
+			if name == "palesheet":
+				mat.set_shader_parameter("rust_k", 0.12)
+				mat.set_shader_parameter("base_tint", Color(1.75, 1.78, 1.7))
+			if name == "darkboards":
+				mat.set_shader_parameter("base_tint", Color(0.35, 0.3, 0.26))
+			if name == "palewood":
+				mat.set_shader_parameter("base_tint", Color(1.5, 1.45, 1.3))
+			if name == "darksheet":
+				mat.set_shader_parameter("base_tint", Color(0.3, 0.3, 0.32))
+			if name == "wallconc" or name == "wallpost_s":
+				mat.set_shader_parameter("rib_axis", 0.0)  # smooth cast panels: the joints are geometry
+				mat.set_shader_parameter("base_tint", Color(0.6, 0.64, 0.69))
+				mat.set_shader_parameter("wear", 0.3)
+				mat.set_shader_parameter("rust_k", 0.2)
+			if name == "wallconc2" or name == "wallpost_d":
+				mat.set_shader_parameter("rib_axis", 0.0)  # smooth cast panels: the joints are geometry
+				mat.set_shader_parameter("base_tint", Color(0.74, 0.68, 0.55))
+				mat.set_shader_parameter("wear", 0.3)
+			if name == "wallfacade" or name == "wallpost_l":
+				mat.set_shader_parameter("rib_axis", 0.0)  # smooth cast panels: the joints are geometry
+				mat.set_shader_parameter("base_tint", Color(0.55, 0.66, 0.56))
+				mat.set_shader_parameter("wear", 0.3)
+				mat.set_shader_parameter("rust_k", 0.2)
+			if name == "wallpost_s":  # post blocks stand out against the body: near white, the originals' bright capped blocks
+				mat.set_shader_parameter("base_tint", Color(0.92, 0.96, 1.02))
+			elif name == "wallpost_l":
+				mat.set_shader_parameter("base_tint", Color(0.84, 0.98, 0.86))
+			elif name == "wallpost_d":
+				mat.set_shader_parameter("base_tint", Color(1.1, 1.03, 0.86))
 			if name == "facade":
 				mat.set_shader_parameter("base_tint", Color(1.02, 0.93, 0.8))
 				mat.set_shader_parameter("rust_k", 0.18)
 				mat.set_shader_parameter("rust_col", Color(0.3, 0.22, 0.15))
 			if name == "sandbag":
-				mat.set_shader_parameter("base_tint", Color(1.7, 1.4, 0.95))
+				mat.set_shader_parameter("base_tint", Color(1.05, 1.0, 0.82))
 				mat.set_shader_parameter("rib_axis", 0.0)
 			if name == "silo":
 				mat.set_shader_parameter("base_tint", Color(0.92, 0.84, 0.72))

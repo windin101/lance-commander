@@ -111,8 +111,10 @@ func test_sensor_probe_reveals_far_enemies() -> void:
 
 func _quiet_mission(mission: String) -> SimMission:
 	SimMission.use_turrets = false
+	SimMission.use_walls = false  # these tests isolate the support logic from the walled-compound pathing (walls: sim_walls_test.gd)
 	var q := SimMission.load_mission(GameData, mission, 1, false)
 	SimMission.use_turrets = true
+	SimMission.use_walls = true
 	for u in q.world.units:
 		if u.is_mover() and u.team != q.player_team:
 			u.exists = false  # nobody to interfere

@@ -1,0 +1,52 @@
+{
+ "app": "s_heavypost",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "heavy post block",
+ "states": {
+  "intact": {
+   "tris_lod0": 352,
+   "tris_lod1": 255,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.96,
+    0.0,
+    -11.05
+   ],
+   "bounds_max": [
+    2.96,
+    18.66,
+    -4.52
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 962,
+   "tris_lod1": 573,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.25,
+    -0.1,
+    -11.05
+   ],
+   "bounds_max": [
+    5.25,
+    18.66,
+    -3.54
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1304,
+   "tris_lod1": 644,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.25,
+    -0.08,
+    -11.05
+   ],
+   "bounds_max": [
+    5.25,
+    17.76,
+    -3.68
+   ]
+  }
+ }
+}

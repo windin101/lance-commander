@@ -1,0 +1,52 @@
+{
+ "app": "woodenfence",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "plank fence 8.6 m x 2.2 m",
+ "states": {
+  "intact": {
+   "tris_lod0": 1004,
+   "tris_lod1": 88,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.11,
+    0.0,
+    -8.7
+   ],
+   "bounds_max": [
+    0.11,
+    2.36,
+    0.1
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1500,
+   "tris_lod1": 154,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.79,
+    -0.03,
+    -8.7
+   ],
+   "bounds_max": [
+    0.13,
+    2.36,
+    0.1
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 48,
+   "tris_lod1": 48,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.5,
+    -0.01,
+    -8.71
+   ],
+   "bounds_max": [
+    1.59,
+    0.81,
+    0.1
+   ]
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "app": "sawhorsebarricade",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "sawhorse 1.6 m",
+ "states": {
+  "intact": {
+   "tris_lod0": 104,
+   "tris_lod1": 88,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.8,
+    -0.02,
+    -0.54
+   ],
+   "bounds_max": [
+    0.8,
+    1.18,
+    0.54
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 104,
+   "tris_lod1": 88,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.13,
+    -0.6,
+    -0.54
+   ],
+   "bounds_max": [
+    0.74,
+    1.09,
+    0.54
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 36,
+   "tris_lod1": 36,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.99,
+    0.01,
+    -0.92
+   ],
+   "bounds_max": [
+    0.93,
+    0.09,
+    0.65
+   ]
+  }
+ }
+}

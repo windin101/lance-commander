@@ -358,7 +358,7 @@ class Builder:
         return {k: int(sum(len(i) for i in v["I"])) for k, v in self.s.items()}
 
     @staticmethod
-    def write_lods(path, name, builders):
+    def write_lods(path, name, builders, names=None):
         """One glTF with a node per detail level (lod0, lod1, ...) under one scene root; each node its own mesh."""
         g = {"asset": {"version": "2.0", "generator": "tools/art/v3/bld_mesh.py"}, "scenes": [{"nodes": [0]}], "scene": 0,
              "nodes": [{"name": name, "children": list(range(1, len(builders) + 1))}], "meshes": [], "materials": [],
@@ -373,15 +373,16 @@ class Builder:
                 C = np.vstack(v["C"]).astype(np.float32); I = np.vstack(v["I"]).astype(np.uint32)
                 mi = next((k for k, m in enumerate(g["materials"]) if m["name"] == f"bv3_{mat}"), None)
                 if mi is None:
-                    g["materials"].append({"name": f"bv3_{mat}", "pbrMetallicRoughness": {"baseColorFactor": [0.6, 0.6, 0.6, 1], "metallicFactor": 0.0, "roughnessFactor": 0.8}, "doubleSided": mat in ("decal", "interior")})
+                    g["materials"].append({"name": f"bv3_{mat}", "pbrMetallicRoughness": {"baseColorFactor": [0.6, 0.6, 0.6, 1], "metallicFactor": 0.0, "roughnessFactor": 0.8}, "doubleSided": mat in ("decal", "interior", "chain")})
                     mi = len(g["materials"]) - 1
                 prims.append({"attributes": {
                     "POSITION": w.accessor(P, "VEC3", target=34962, minmax=True), "NORMAL": w.accessor(N, "VEC3", target=34962),
                     "TEXCOORD_0": w.accessor(U, "VEC2", target=34962), "TEXCOORD_1": w.accessor(U2, "VEC2", target=34962),
                     "COLOR_0": w.accessor(C, "VEC4", target=34962)},
                     "indices": w.accessor(I.reshape(-1), "SCALAR", comp=5125, target=34963), "material": mi})
-            g["meshes"].append({"name": f"lod{li}", "primitives": prims})
-            g["nodes"].append({"name": f"lod{li}", "mesh": li})
+            nm = names[li] if names else f"lod{li}"
+            g["meshes"].append({"name": nm, "primitives": prims})
+            g["nodes"].append({"name": nm, "mesh": li})
             stats.append(bd.stats())
         w.write(str(path))
         return stats
@@ -395,7 +396,7 @@ class Builder:
             P = np.vstack(v["P"]).astype(np.float32); N = np.vstack(v["N"]).astype(np.float32)
             U = np.vstack(v["U"]).astype(np.float32); U2 = np.vstack(v["U2"]).astype(np.float32)
             C = np.vstack(v["C"]).astype(np.float32); I = np.vstack(v["I"]).astype(np.uint32)
-            g["materials"].append({"name": f"bv3_{mat}", "pbrMetallicRoughness": {"baseColorFactor": [0.6, 0.6, 0.6, 1], "metallicFactor": 0.0, "roughnessFactor": 0.8}, "doubleSided": mat in ("decal", "interior")})
+            g["materials"].append({"name": f"bv3_{mat}", "pbrMetallicRoughness": {"baseColorFactor": [0.6, 0.6, 0.6, 1], "metallicFactor": 0.0, "roughnessFactor": 0.8}, "doubleSided": mat in ("decal", "interior", "chain")})
             g["meshes"][0]["primitives"].append({"attributes": {
                 "POSITION": w.accessor(P, "VEC3", target=34962, minmax=True), "NORMAL": w.accessor(N, "VEC3", target=34962),
                 "TEXCOORD_0": w.accessor(U, "VEC2", target=34962), "TEXCOORD_1": w.accessor(U2, "VEC2", target=34962),

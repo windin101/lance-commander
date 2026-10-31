@@ -1,0 +1,52 @@
+{
+ "app": "sandbagwall",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "sandbag wall 8.4 m x 0.9 m",
+ "states": {
+  "intact": {
+   "tris_lod0": 3046,
+   "tris_lod1": 36,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.3,
+    0.03,
+    -4.2
+   ],
+   "bounds_max": [
+    0.86,
+    0.82,
+    4.18
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2966,
+   "tris_lod1": 184,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.11,
+    -0.01,
+    -4.2
+   ],
+   "bounds_max": [
+    0.85,
+    0.82,
+    4.18
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1286,
+   "tris_lod1": 172,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.98,
+    -0.02,
+    -3.29
+   ],
+   "bounds_max": [
+    0.98,
+    0.28,
+    4.25
+   ]
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "app": "razorwirefencediag",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "slatted screen with razor-wire arms 12.1 m",
+ "states": {
+  "intact": {
+   "tris_lod0": 1884,
+   "tris_lod1": 352,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.0,
+    0.0,
+    -12.15
+   ],
+   "bounds_max": [
+    1.0,
+    5.5,
+    0.25
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2060,
+   "tris_lod1": 608,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.46,
+    -0.05,
+    -12.15
+   ],
+   "bounds_max": [
+    1.0,
+    5.5,
+    0.11
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 902,
+   "tris_lod1": 330,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.53,
+    -0.11,
+    -12.25
+   ],
+   "bounds_max": [
+    1.5,
+    2.4,
+    0.24
+   ]
+  }
+ }
+}

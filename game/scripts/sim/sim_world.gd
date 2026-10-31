@@ -32,6 +32,9 @@ var time := 0.0
 var units: Array[SimUnit] = []
 var projectiles: Array[Dictionary] = []  # {shot, target_id, impact_time}
 var events: Array[Dictionary] = []  # drained by the view each frame
+var gates: Array[SimStructure] = []  # gate objects (sim_walls.gd)
+var _gate_clock := 0.0
+var props: SimProps = null  # destructible fences, barricades and sandbags (sim_props.gd): null on a map without any
 var flags: Dictionary = {}  # mission boolean flags (objectives, mission script, brains)
 var movie_mode := false  # a mission cinematic runs (ABL setMovieMode): no player orders until endMovieMode
 var force_movie_end := false  # the player pressed Esc during the cinematic (ABL forceMovieEnd)
@@ -57,6 +60,12 @@ func _init(sim_rules: SimRules, sim_map: SimMap, seed_value: int = 1) -> void:
 	rules = sim_rules
 	map = sim_map
 	rng = SimRng.new(seed_value)
+
+
+func add_prop(object_index: int, appearance: String, pos: Vector2, rotation_deg: float) -> void:
+	if props == null:
+		props = SimProps.new(self)
+	props.add(object_index, appearance, pos, rotation_deg)
 
 
 func add_unit(u: SimUnit) -> SimUnit:
@@ -103,7 +112,7 @@ func unit_by_part(part_index: int) -> SimUnit:
 func order_move(m: SimUnit, goal: Vector2, run := true) -> bool:
 	if _after_landing(m, func(): order_move(m, goal, run)):
 		return true
-	var path := map.find_path(m.position, map.nearest_walkable(goal, m.travel()), m.travel(), m.avoid_mines)
+	var path := map.find_path(m.position, map.nearest_walkable(goal, m.travel()), m.travel(), m.avoid_mines, m.team)
 	m.order = Order.MOVE
 	m.order_target = null
 	m.move_run = run
@@ -242,12 +251,19 @@ func step(dt: float = TICK) -> void:
 			_update_motion(m, dt)
 			_update_turret(m, dt)
 			_mine_check(m, dt)
+			if props != null and m.speed > 0.0:
+				props.touch(m)  # crushes the fences under a moving mech or vehicle
 		elif m is SimTurret:
 			m.update(self, dt)
 		elif m is SimStructure and m.parent != null:
 			_follow_parent(m)
 		if m.uses_heat:
 			SimHeat.update(rules, rng, m, dt, time)
+	if not gates.is_empty():
+		_gate_clock += dt
+		if _gate_clock >= 0.25:
+			_gate_clock = 0.0
+			SimWalls.update_gates(self)
 	_combat_clock += dt
 	if _combat_clock >= COMBAT_PERIOD - 0.0001:
 		_combat_clock -= COMBAT_PERIOD
@@ -258,6 +274,8 @@ func step(dt: float = TICK) -> void:
 		if m.is_disabled() and not m.reported_disabled:
 			m.reported_disabled = true
 			events.append({"type": "disabled", "unit": m.id, "destroyed": m.is_destroyed()})
+			if m is SimStructure and m.is_destroyed():
+				SimWalls.structure_down(self, m)  # a wall opens its cells, a gate opens for everyone
 			if m is SimVehicle and m.explosion_damage > 0.0:
 				_splash(m)
 			elif m is SimTurret and m.is_destroyed() and m.explosion_damage > 0.0:
@@ -475,7 +493,7 @@ func _current_goal(m: SimUnit) -> Variant:
 			m.path = PackedVector2Array()
 			return null
 		if m.path.is_empty() or time >= m.repath_time:
-			m.path = map.find_path(m.position, map.nearest_walkable(m.attack_point, m.travel()), m.travel(), m.avoid_mines)
+			m.path = map.find_path(m.position, map.nearest_walkable(m.attack_point, m.travel()), m.travel(), m.avoid_mines, m.team)
 			m.path_index = 0
 			m.repath_time = time + 2.0
 	if m.order == Order.ATTACK:
@@ -498,7 +516,7 @@ func _current_goal(m: SimUnit) -> Variant:
 					# that has one (the attack tactic repositions on NOT_LOCKED)
 					m.path = _sight_position_path(m, t)
 				else:
-					m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel(), m.avoid_mines)
+					m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel(), m.avoid_mines, m.team)
 				if m.path.is_empty():
 					m.path = _firing_position_path(m, t)
 				m.path_index = 0
@@ -539,12 +557,12 @@ func _guard_goal(m: SimUnit) -> Variant:
 			m.path = PackedVector2Array()
 			return null
 		if m.path.is_empty() or time >= m.repath_time:
-			m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel(), m.avoid_mines)
+			m.path = map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel(), m.avoid_mines, m.team)
 			m.path_index = 0
 			m.repath_time = time + 2.0
 	elif m.position.distance_to(anchor) > ARRIVE_M * 4.0:
 		if m.path.is_empty() or time >= m.repath_time:
-			m.path = map.find_path(m.position, map.nearest_walkable(anchor, m.travel()), m.travel(), m.avoid_mines)
+			m.path = map.find_path(m.position, map.nearest_walkable(anchor, m.travel()), m.travel(), m.avoid_mines, m.team)
 			m.path_index = 0
 			m.repath_time = time + 2.0
 	else:
@@ -782,7 +800,7 @@ func _attack_goal_path(m: SimUnit, t: SimUnit) -> void:
 	if map.cell_of(m.attack_goal) == map.cell_of(m.position):
 		m.path = PackedVector2Array()
 		return
-	m.path = map.find_path(m.position, m.attack_goal, m.travel(), m.avoid_mines)
+	m.path = map.find_path(m.position, m.attack_goal, m.travel(), m.avoid_mines, m.team)
 	if m.path.is_empty():
 		m.path = _firing_position_path(m, t)
 
@@ -819,11 +837,11 @@ func _sight_position_path(m: SimUnit, t: SimUnit) -> PackedVector2Array:
 				cands.append(p)
 	cands.sort_custom(func(a, b): return a.distance_to(m.position) < b.distance_to(m.position))
 	for p in cands.slice(0, 6):
-		var path := map.find_path(m.position, p, m.travel(), m.avoid_mines)
+		var path := map.find_path(m.position, p, m.travel(), m.avoid_mines, m.team)
 		if not path.is_empty():
 			return path
 	# no spot with a line of fire in reach: close in on the target itself
-	return map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel(), m.avoid_mines)
+	return map.find_path(m.position, map.nearest_walkable(t.position, m.travel()), m.travel(), m.avoid_mines, m.team)
 
 
 ## A target with no path to its cell (an island past deep water, a walled pocket): walk
@@ -838,7 +856,7 @@ func _firing_position_path(m: SimUnit, t: SimUnit) -> PackedVector2Array:
 				ring.append(p)
 		ring.sort_custom(func(a, b): return a.distance_to(m.position) < b.distance_to(m.position))
 		for p in ring:
-			var path := map.find_path(m.position, p, m.travel(), m.avoid_mines)
+			var path := map.find_path(m.position, p, m.travel(), m.avoid_mines, m.team)
 			if not path.is_empty():
 				return path
 	return PackedVector2Array()
@@ -1002,6 +1020,7 @@ func _fire_at_point(m: SimUnit) -> void:
 		var speed: float = projectile_speed.get(form, 0.0)
 		var flight := d / speed if speed > 0.0 else 0.0
 		var proj := {"shot": {"hit": false}, "target": -1, "at": p, "from": m.id, "impact_time": time + flight, "form": form}
+		proj["dmg"] = float(wpn.get("damage", 0.0))
 		if rules.area_effect_weapons and rules.area_effect.has(mid):
 			proj["area"] = rules.area_effect[mid]
 		projectiles.append(proj)
@@ -1100,6 +1119,8 @@ func _follow_parent(s: SimStructure) -> void:
 func explosion(at: Vector2, damage: float, radius_m: float, source: SimUnit = null, chunk := 5.0) -> void:
 	if damage <= 0.0 or radius_m <= 0.0:
 		return
+	if props != null:
+		props.blast(at, radius_m, damage)
 	# A mover takes the blast in chunks of DamageChunkSize (5 unless the explosion type says
 	# otherwise; longtomhit.fit and swarmlrmhit.fit 5), each with its own artillery hit location.
 	# The original fixes the chunk once and loops while damage is left, so 12 damage lands as three
@@ -1209,6 +1230,8 @@ func _land_projectiles() -> void:
 			if p.has("area"):
 				events.append({"type": "blast", "at": at, "radius": float(p["area"][1]), "from": p.get("from", -1)})
 				explosion(at, float(p["area"][0]), float(p["area"][1]), units[p["from"]])
+			elif props != null and float(p.get("dmg", 0.0)) > 0.0:
+				props.blast(at, 2.0, float(p["dmg"]))  # a ground-targeted shot hits a fence it lands on
 			elif map.mine_at(map.cell_of(at)) == 1:  # a shot into a mined cell sets it off (gvehicl.cpp:4821-4828)
 				map.set_mine(map.cell_of(at), 2)
 				events.append({"type": "mine", "at": map.cell_center(map.cell_of(at)), "unit": -1})

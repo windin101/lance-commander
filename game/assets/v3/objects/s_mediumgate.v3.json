@@ -1,0 +1,48 @@
+{
+ "app": "s_mediumgate",
+ "made_by": "tools/art/v3/bld_gates.py",
+ "states": {
+  "intact": {
+   "tris_lod0": 342,
+   "tris_lod1": 150,
+   "bounds_min": [
+    -3.5,
+    0.0,
+    -28.2
+   ],
+   "bounds_max": [
+    3.5,
+    11.32,
+    28.2
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2780,
+   "tris_lod1": 1444,
+   "bounds_min": [
+    -4.43,
+    0.0,
+    -28.2
+   ],
+   "bounds_max": [
+    5.16,
+    11.32,
+    28.2
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3714,
+   "tris_lod1": 1934,
+   "bounds_min": [
+    -7.0,
+    -0.51,
+    -28.2
+   ],
+   "bounds_max": [
+    7.0,
+    5.68,
+    28.2
+   ]
+  }
+ }
+}

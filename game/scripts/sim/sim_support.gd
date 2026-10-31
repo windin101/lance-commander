@@ -235,6 +235,8 @@ func probe_covers(team: int, pos: Vector2) -> bool:
 
 func _strike(at: Vector2, team := -1) -> void:
 	world.events.append({"type": "strike_impact", "at": at})
+	if world.props != null:
+		world.props.blast(at, STRIKE_REACH_M, INF)
 	for u in world.units:
 		if not u.exists or u.is_destroyed():
 			continue

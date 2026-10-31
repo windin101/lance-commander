@@ -67,6 +67,7 @@ def type_table(objects_dir, types):
         f = fit.parse_file(os.path.join(objects_dir, fname)) if fname else {}
         ot = f.get("ObjectType", {})
         bd = f.get("BuildingData", {})
+        gd = f.get("GateData", {})  # class 22 (gate.cpp:95-140): DmgLevel and OpenRadius live here, not in BuildingData
         table[t] = {
             "file": lines[t] if t < len(lines) else "",
             "class": f.get("ObjectClass", {}).get("ObjectTypeNum", -1),
@@ -74,7 +75,8 @@ def type_table(objects_dir, types):
             "appearance": str(ot.get("AppearanceName", "")).lower(),
             "extent_radius": ot.get("ExtentRadius", 0.0),
             # Buildings (class 1): bldng.cpp:189 reads DmgLevel; destroyed when damage reaches it.
-            "damage_level": bd.get("DmgLevel", 0),
+            "damage_level": bd.get("DmgLevel", gd.get("DmgLevel", 0)),
+            "open_radius": gd.get("OpenRadius", 0.0),
             "explosion_damage": bd.get("ExplosionDamage", 0.0),
             "explosion_radius": bd.get("ExplosionRadius", 0.0),
             "building_team": bd.get("TeamID", -1),

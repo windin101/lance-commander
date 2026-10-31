@@ -1,0 +1,48 @@
+{
+ "app": "l_heavygate",
+ "made_by": "tools/art/v3/bld_gates.py",
+ "states": {
+  "intact": {
+   "tris_lod0": 982,
+   "tris_lod1": 214,
+   "bounds_min": [
+    -3.88,
+    0.0,
+    -30.02
+   ],
+   "bounds_max": [
+    4.2,
+    18.48,
+    29.39
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 5136,
+   "tris_lod1": 2388,
+   "bounds_min": [
+    -5.3,
+    0.0,
+    -30.02
+   ],
+   "bounds_max": [
+    4.2,
+    18.48,
+    29.39
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 5946,
+   "tris_lod1": 3154,
+   "bounds_min": [
+    -7.0,
+    -0.51,
+    -28.2
+   ],
+   "bounds_max": [
+    7.0,
+    9.59,
+    28.2
+   ]
+  }
+ }
+}

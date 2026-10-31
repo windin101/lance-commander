@@ -29,6 +29,7 @@ func _init() -> void:
 	var force: Array = [] if "--fit-lance" in args else _player_force(data, mission)
 	# A/B probes of the fidelity rules: --no-turrets, --no-remap, --rule=<SimRules field>=<value>
 	SimMission.use_turrets = not ("--no-turrets" in args)
+	SimMission.use_walls = not ("--no-walls" in args)
 	SimMission.remap_building_teams = not ("--no-remap" in args)
 	var sm := SimMission.load_mission(data, mission, seed_value, true, force)
 	for a in args:
@@ -576,6 +577,31 @@ func _orders(sm: SimMission) -> void:
 			_prep_dir = (centre - (task["target"] as SimUnit).position).normalized()
 		if _prepare(sm, lance, centre):
 			return
+	# A side capture the lance cannot make progress on (no path to the door, a wall in the way): drop it for 400 s
+	if threats.is_empty() and task.get("kind", "") == "capture" and task.has("target") and (task["target"] as SimUnit).is_destroyed() == false:
+		if _stuck_unit != task["target"] or centre.distance_to(_stuck_at) > 15.0:
+			_stuck_unit = task["target"]
+			_stuck_at = centre
+			_stuck_t = w.time
+		elif w.time - _stuck_t > 90.0 and not (_obj_target_of(sm, _stuck_unit)):
+			_cap_skip[_stuck_unit.id] = w.time + 400.0
+			print("t=%6.1f  SKIP %s: no progress for 90 s at %.0f,%.0f" % [w.time, _stuck_unit.name, centre.x, centre.y])
+			_stuck_unit = null
+	if _diag and w.time - _diag_t >= 40.0:
+		_diag_t = w.time
+		var tp: Variant = task["target"].position if task.has("target") else task.get("area", null)
+		var info := "t=%6.1f  DIAG lance %d at %.0f,%.0f task %s -> %s" % [w.time, lance.size(), centre.x, centre.y, task.get("kind", "-"),
+			(task["target"] as SimUnit).name if task.has("target") else str(tp)]
+		if tp is Vector2:
+			var g: Vector2 = w.map.nearest_walkable(tp, lance[0].hover)
+			info += "  path team0=%d any=%d nogate=%d" % [w.map.find_path(lance[0].position, g, lance[0].hover, false, 0).size(),
+				w.map.find_path(lance[0].position, g, lance[0].hover).size(), w.map.find_path(lance[0].position, g, lance[0].hover, false, -1).size()]
+		if task.get("kind", "") == "capture" and sm.abl and task["target"] is SimUnit:
+			var cg: Vector2 = sm.abl._capture_goal(lance[0], task["target"])
+			info += "  capture goal %.0f,%.0f path team0=%d open=%d walkable=%s" % [cg.x, cg.y, w.map.find_path(lance[0].position, cg, lance[0].hover, false, 0).size(),
+				w.map.find_path(lance[0].position, cg, lance[0].hover, false, SimMap.ALL_OPEN).size(), w.map.is_walkable(w.map.cell_of(cg), lance[0].hover)]
+			info += "  target team %d pos %.0f,%.0f lance pos %.0f,%.0f speed %.1f" % [task["target"].team, task["target"].position.x, task["target"].position.y, lance[0].position.x, lance[0].position.y, lance[0].speed]
+		print(info)
 	if _trace:
 		var key := "%s %s" % [task.get("kind", "-"), (task["target"] as SimUnit).name if task.has("target") else str(task.get("area", ""))]
 		if threats.size() > 0:
@@ -633,7 +659,12 @@ func _orders(sm: SimMission) -> void:
 ## The current job: open primary objectives (hidden ones are unknown to the player), specific
 ## targets and markers before "destroy everything" and extraction last, in the designer's
 ## order; secondaries only when no primary needs anything.
+## The current job, with an enemy gate on the way opened first (the side captures, forts and route legs all pass through here).
 func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
+	return _gate_job(sm, _task_raw(sm, lance, centre), lance)
+
+
+func _task_raw(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 	var w := sm.world
 	var objs := sm.objectives.objectives.filter(func(o): return not o["hidden"] and sm.objectives.is_active(o))
 	var rank := func(o: Dictionary) -> int:
@@ -652,6 +683,12 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 			var job := _obj_task(sm, open_p[0], lance, centre)
 			if not job.is_empty():
 				return job
+	# A route round a defended front first (ROUTE_PLANS "via"), with no side trips on the way:
+	# RP buildings off the route had pulled mc2_24's lance into the main gate (2/4 -> 1/6)
+	while not _via.is_empty() and centre.distance_to(_via[0]) <= 120.0:
+		_via.pop_front()
+	if not _via.is_empty():
+		return {"kind": "move", "area": _via[0], "radius": 60.0}
 	# Targets of opportunity, as a player shoots them on the way: unarmed enemy vehicles (fuel and
 	# supply trucks) close to the lance, unless they can be captured (ordnance trucks pay RP) or sit
 	# near something an objective wants captured (a fuel truck's blast took mc2_03's Mobile HQ).
@@ -683,7 +720,7 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 			and (u.resource_points > 0 or (u is SimStructure and (u.control or (u.can_refit and u.mech_bay) \
 				or u.name.contains("SensorControl")))) \
 			and u.position.distance_to(centre) <= (700.0 if u.resource_points > 0 else 450.0) \
-			and (_path_ok(sm, lance[0], u) or _capture_path_ok(sm, lance[0], u) or _jump_reach(sm, lance, u) != null))
+			and (_goal_open(sm, lance[0], u) or _jump_reach(sm, lance, u) != null))
 		# keep the one already started (a group walk is slow; without this the lance swayed
 		# between it and the next objective at the edge of the radius)
 		if _side and is_instance_valid(_side) and not rp_t.has(_side) and sm.abl.can_capture(_side, 0) \
@@ -695,11 +732,6 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 			_side = rp_t[0]
 			return {"kind": "capture", "target": rp_t[0]}
 		_side = null
-	# A route round a defended front first (ROUTE_PLANS "via")
-	while not _via.is_empty() and centre.distance_to(_via[0]) <= 120.0:
-		_via.pop_front()
-	if not _via.is_empty():
-		return {"kind": "move", "area": _via[0], "radius": 60.0}
 	# "follow the rebels in through the east breach" [KC, BK, CB]: behind the neutral team's armed
 	# movers while they lead (ROUTE_PLANS "follow"), up to 6 minutes
 	if _follow >= 0 and w.time - _follow_since < 360.0:
@@ -718,9 +750,58 @@ func _task(sm: SimMission, lance: Array, centre: Vector2) -> Dictionary:
 		if not job.is_empty():
 			_cur_obj = int(obj["index"])
 			if sm.abl and _unlocks:
-				return _unlock(sm, job, lance)
+				job = _unlock(sm, job, lance)
 			return job
 	return {}
+
+
+## An enemy gate on the way to the job's goal (SimMap.blocking_gate): open it as the original's player does
+## (gate.cpp:170-205, 297-304): capture its control building where the lance can walk to it, else shoot the gate
+## down (DmgLevel 25-75). A destroyed control building locks its gates shut, so it is never the target.
+func _gate_job(sm: SimMission, job: Dictionary, lance: Array) -> Dictionary:
+	if job.is_empty() or sm.world.map.gate_cells.is_empty() or lance.is_empty():
+		return job
+	var w := sm.world
+	var goal: Variant = null
+	if job.has("target") and job["target"] is SimUnit:
+		var t: SimUnit = job["target"]
+		goal = sm.abl._capture_goal(lance[0], t) if (job["kind"] == "capture" and sm.abl) else w.map.nearest_walkable(t.position, lance[0].hover)
+		if not w.map.is_walkable(w.map.cell_of(goal), lance[0].hover):
+			# no reachable ring point round a control inside a walled compound: the capture goal fell back to the
+			# building's own (blocked) cell. Judge the way in by the nearest open cell beside it (mc2_14 S_TurretControl)
+			goal = w.map.nearest_walkable(t.position, lance[0].hover, 8)
+	elif job.has("area") and job["area"] is Vector2:
+		goal = w.map.nearest_walkable(job["area"], lance[0].hover)
+	if goal == null or w.map.find_path(lance[0].position, goal, lance[0].hover, false, 0).size() > 0:
+		return job
+	var gid := w.map.blocking_gate(lance[0].position, goal, lance[0].hover, 0)
+	if gid < 0:
+		return job
+	var gs: SimStructure = w.gates[gid]
+	var parent: SimStructure = gs.parent
+	if parent != null and not parent.is_destroyed() and sm.abl and sm.abl.can_capture(parent, 0) \
+			and not w.map.find_path(lance[0].position, sm.abl._capture_goal(lance[0], parent), lance[0].hover, false, 0).is_empty():
+		_gate_note(w, gs, "capture control " + parent.name)
+		return {"kind": "capture", "target": parent}
+	_gate_note(w, gs, "shoot gate")
+	return {"kind": "attack", "target": gs}
+
+
+## True when a capture condition of an open primary objective names this unit (those are never dropped).
+func _obj_target_of(sm: SimMission, u: SimUnit) -> bool:
+	for o in sm.objectives.objectives:
+		if o["primary"] and sm.objectives.is_active(o):
+			for c in o["conditions"]:
+				if c.get("unit") == u:
+					return true
+	return false
+
+
+func _gate_note(w: SimWorld, gs: SimStructure, what: String) -> void:
+	var key := "%d %s" % [gs.gate_id, what]
+	if key != _gate_last:
+		_gate_last = key
+		print("t=%6.1f  GATE %s %s at %.0f,%.0f" % [w.time, what, gs.model, gs.position.x, gs.position.y])
 
 
 ## An objective under an enemy fort's guns: first switch the fort off at its root, the control's
@@ -933,6 +1014,12 @@ func _run_to(sm: SimMission, units: Array, at: Vector2) -> void:
 			_goal[m.id] = spot
 
 
+var _stuck_unit: SimUnit = null
+var _stuck_at := Vector2.ZERO
+var _stuck_t := 0.0
+var _gate_last := ""
+var _diag := false
+var _diag_t := -INF
 var _cur_obj := -1  # the objective the bot is working
 var _cur_target: SimUnit = null  # ... and its target
 var _safe = null  # Vector2: the last place the lance stood with no threat near
@@ -1003,7 +1090,7 @@ func _path_ok(sm: SimMission, from: SimUnit, u: SimUnit) -> bool:
 	var w := sm.world
 	var c: Array = _paths.get(u.id, [-INF, false])
 	if w.time - float(c[0]) > 30.0:
-		c = [w.time, w.map.find_path(from.position, w.map.nearest_walkable(u.position, from.hover), from.hover).size() > 0]
+		c = [w.time, w.map.find_path(from.position, w.map.nearest_walkable(u.position, from.hover), from.hover, false, SimMap.ALL_OPEN).size() > 0]
 		_paths[u.id] = c
 	return c[1]
 
@@ -1011,12 +1098,27 @@ func _path_ok(sm: SimMission, from: SimUnit, u: SimUnit) -> bool:
 ## A capture walks to the building's capture goal, not its centre (SimAbl._capture_goal: the cell
 ## by the door the original picks); a big building's centre cell can be walled in by its own
 ## footprint (mc2_08's RP buildings showed no path from 38 m away).
+## Is there a way to a capturable building's door if every gate were dealt with? False for one sealed in by wall footprints
+## alone (mc2_22's HeavyIndustrial): the bot never takes it on as a side job, it only stalled the lance at the wall (cached 30 s).
+func _goal_open(sm: SimMission, from: SimUnit, u: SimUnit) -> bool:
+	var key := -200000 - u.id
+	var c: Array = _paths.get(key, [-INF, false])
+	if sm.world.time - float(c[0]) > 30.0:
+		var m := sm.world.map
+		var goal: Vector2 = sm.abl._capture_goal(from, u)
+		if not m.is_walkable(m.cell_of(goal), from.hover):
+			goal = m.nearest_walkable(u.position, from.hover, 8)
+		c = [sm.world.time, not m.find_path(from.position, goal, from.hover, false, SimMap.ALL_OPEN).is_empty()]
+		_paths[key] = c
+	return c[1]
+
+
 func _capture_path_ok(sm: SimMission, from: SimUnit, u: SimUnit) -> bool:
 	var key := -1 - u.id
 	var c: Array = _paths.get(key, [-INF, false])
 	if sm.world.time - float(c[0]) > 30.0:
 		var goal: Vector2 = sm.abl._capture_goal(from, u)
-		c = [sm.world.time, sm.world.map.find_path(from.position, goal, from.hover).size() > 0]
+		c = [sm.world.time, sm.world.map.find_path(from.position, goal, from.hover, false, SimMap.ALL_OPEN).size() > 0]
 		_paths[key] = c
 	return c[1]
 
@@ -1791,6 +1893,7 @@ func _play(sm: SimMission, max_t: float, args: PackedStringArray, verbose: bool,
 	var o := sm.objectives
 	var next_order := 0.0
 	_trace = "--trace" in args
+	_diag = "--diag" in args
 	_fort_strike = not ("--no-fort-strike" in args)
 	_bombs = not ("--no-bombs" in args)
 	_unlocks = not ("--no-unlock" in args)
