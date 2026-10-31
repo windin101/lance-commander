@@ -1,0 +1,52 @@
+{
+ "app": "repairbay",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "two wings, rear block, gantry bridge (tools/cad/repairbay_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 9230,
+   "tris_lod1": 4959,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.01,
+    0.0,
+    -10.07
+   ],
+   "bounds_max": [
+    9.68,
+    11.86,
+    10.07
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 12333,
+   "tris_lod1": 5330,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.0,
+    0.0,
+    -10.07
+   ],
+   "bounds_max": [
+    9.68,
+    11.86,
+    11.0
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 6056,
+   "tris_lod1": 2774,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.0,
+    -0.57,
+    -15.0
+   ],
+   "bounds_max": [
+    14.0,
+    8.4,
+    15.0
+   ]
+  }
+ }
+}

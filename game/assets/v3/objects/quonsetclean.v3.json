@@ -1,0 +1,52 @@
+{
+ "app": "quonsetclean",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "half-cylinder R 4.21 m, z -12.67..4.17 (tools/cad/quonsetclean_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 12378,
+   "tris_lod1": 4542,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.46,
+    -0.01,
+    -13.77
+   ],
+   "bounds_max": [
+    4.46,
+    4.66,
+    5.27
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 12322,
+   "tris_lod1": 4701,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.46,
+    -0.02,
+    -13.77
+   ],
+   "bounds_max": [
+    8.91,
+    4.66,
+    5.27
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 5640,
+   "tris_lod1": 2044,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.0,
+    -0.01,
+    -15.25
+   ],
+   "bounds_max": [
+    6.0,
+    4.41,
+    6.75
+   ]
+  }
+ }
+}

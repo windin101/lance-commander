@@ -1,0 +1,52 @@
+{
+ "app": "portable",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "site cabin 5.95 x 14.6 m with a timber deck (tools/cad/portable_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 2094,
+   "tris_lod1": 1336,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.24,
+    -0.03,
+    -11.96
+   ],
+   "bounds_max": [
+    3.97,
+    4.93,
+    3.9
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2654,
+   "tris_lod1": 1702,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.24,
+    -0.03,
+    -11.96
+   ],
+   "bounds_max": [
+    6.2,
+    4.93,
+    3.9
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 2032,
+   "tris_lod1": 742,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.92,
+    -0.46,
+    -12.8
+   ],
+   "bounds_max": [
+    4.08,
+    2.73,
+    4.2
+   ]
+  }
+ }
+}

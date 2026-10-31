@@ -1,0 +1,52 @@
+{
+ "app": "vehiclehangar",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "hall with mansard roof, two lean-tos, store and duct, 11.9 m (tools/cad/vehiclehangar_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 6110,
+   "tris_lod1": 2294,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.85,
+    0.2,
+    -12.42
+   ],
+   "bounds_max": [
+    10.24,
+    12.0,
+    10.63
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 20451,
+   "tris_lod1": 4155,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.85,
+    0.0,
+    -12.42
+   ],
+   "bounds_max": [
+    16.5,
+    12.0,
+    10.63
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 5444,
+   "tris_lod1": 2944,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -18.8,
+    -0.28,
+    -18.0
+   ],
+   "bounds_max": [
+    17.2,
+    7.03,
+    16.0
+   ]
+  }
+ }
+}

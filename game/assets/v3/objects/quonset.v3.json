@@ -1,0 +1,52 @@
+{
+ "app": "quonset",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "weathered half-cylinder R 4.25 m with sandbags (tools/cad/quonset_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 14627,
+   "tris_lod1": 4524,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.75,
+    -0.01,
+    -13.78
+   ],
+   "bounds_max": [
+    4.75,
+    4.7,
+    5.25
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 14437,
+   "tris_lod1": 4694,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.75,
+    -0.02,
+    -13.78
+   ],
+   "bounds_max": [
+    8.95,
+    4.7,
+    5.25
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 6420,
+   "tris_lod1": 2056,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.0,
+    -0.01,
+    -15.26
+   ],
+   "bounds_max": [
+    6.0,
+    5.37,
+    6.73
+   ]
+  }
+ }
+}

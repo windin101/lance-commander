@@ -1,0 +1,52 @@
+{
+ "app": "hangar",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "barrel hall x -19..19.2, z +-19.2, crown 15.584 m (tools/cad/hangar_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 31223,
+   "tris_lod1": 17269,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -20.0,
+    0.0,
+    -19.63
+   ],
+   "bounds_max": [
+    20.2,
+    15.82,
+    19.63
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 34629,
+   "tris_lod1": 19376,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -20.0,
+    0.0,
+    -19.63
+   ],
+   "bounds_max": [
+    20.2,
+    15.93,
+    27.2
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 15432,
+   "tris_lod1": 8700,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -24.05,
+    0.0,
+    -22.0
+   ],
+   "bounds_max": [
+    22.1,
+    16.58,
+    23.84
+   ]
+  }
+ }
+}

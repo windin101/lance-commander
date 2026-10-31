@@ -65,3 +65,17 @@ func test_storage_family_has_three_states_with_two_lods() -> void:
 			assert_float((node.find_child("lod0", true, false) as GeometryInstance3D).visibility_range_end).is_equal(BuildingV3.LOD_M)
 			assert_float((node.find_child("lod1", true, false) as GeometryInstance3D).visibility_range_begin).is_equal(BuildingV3.LOD_M)
 			node.free()
+
+
+const HANGAR_FAMILY := ["quonsetclean", "quonset", "quonset2", "hangar", "vehiclehangar", "repairbay", "portable"]
+
+
+func test_hangar_family_has_three_states_with_two_lods() -> void:
+	for app in HANGAR_FAMILY:
+		for st in ["", "_damaged", "_destroyed"]:
+			var path := BuildingV3.model_path(app, st)
+			assert_str(path).is_not_empty()
+			var node: Node3D = (load(path) as PackedScene).instantiate()
+			assert_object(node.find_child("lod0", true, false)).is_not_null()
+			assert_object(node.find_child("lod1", true, false)).is_not_null()
+			node.free()

@@ -65,7 +65,7 @@ static func material(name: String) -> ShaderMaterial:
 			mat.set_shader_parameter("ar_tex", load(DIR + "trim_ar.png"))
 			mat.set_shader_parameter("nm_tex", load(DIR + "trim_nm.png"))
 		else:
-			var alias := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint"}
+			var alias := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint", "hullsheet": "corrugated", "hullclean": "corrugated", "seamroof": "corrugated", "roofclean": "corrugated", "hangarroof": "corrugated", "finroof": "corrugated", "facade": "concrete", "sandbag": "concrete_dark"}
 			if alias.has(name):
 				tex = alias[name]
 			if name == "glass":  # dark glossy glazing: the steel set, tinted, no metal
@@ -85,15 +85,26 @@ static func material(name: String) -> ShaderMaterial:
 				mat.set_shader_parameter("lined", 1.0)
 				mat.set_shader_parameter("normal_depth", 0.6)
 				mat.set_shader_parameter("rib_axis", 1.0)
-				mat.set_shader_parameter("rib_pitch", 0.45 if name == "roofing" else 0.3)
-				mat.set_shader_parameter("rust_k", 0.5 if name == "roofing" else 0.3)
-				mat.set_shader_parameter("base_tint", Color(0.95, 0.93, 0.9) if name == "roofing" else Color(1.05, 1.03, 1.0))
+				var pitch := {"roofing": 0.45, "roofclean": 0.45, "hangarroof": 1.53, "finroof": 0.9, "hullsheet": 0.624, "hullclean": 0.624, "seamroof": 1.53}
+				var rust := {"roofing": 0.5, "roofclean": 0.08, "hangarroof": 0.05, "finroof": 0.2, "hullsheet": 0.45, "hullclean": 0.06, "seamroof": 0.18}
+				mat.set_shader_parameter("rib_pitch", float(pitch.get(name, 0.3)))
+				mat.set_shader_parameter("rust_k", float(rust.get(name, 0.3)))
+				mat.set_shader_parameter("base_tint", Color(0.62, 0.64, 0.68) if name == "finroof" else (Color(1.4, 1.4, 1.36) if name == "hangarroof" else (Color(1.5, 1.5, 1.46) if name in ["hullclean", "roofclean"] else ( (Color(1.15, 1.13, 1.1) if name == "seamroof" else (Color(0.95, 0.93, 0.9) if pitch.has(name) else Color(1.05, 1.03, 1.0)))))))
 			if name == "lapwood":
 				mat.set_shader_parameter("rib_axis", 2.0)
 				mat.set_shader_parameter("rib_pitch", 0.22)
 				mat.set_shader_parameter("rib_dark", 0.62)
 				mat.set_shader_parameter("rib_gap", 0.75)
 				mat.set_shader_parameter("base_tint", Color(1.0, 0.92, 0.84))
+			if name == "finroof":
+				mat.set_shader_parameter("rib_dark", 0.4)
+			if name == "facade":
+				mat.set_shader_parameter("base_tint", Color(1.02, 0.93, 0.8))
+				mat.set_shader_parameter("rust_k", 0.18)
+				mat.set_shader_parameter("rust_col", Color(0.3, 0.22, 0.15))
+			if name == "sandbag":
+				mat.set_shader_parameter("base_tint", Color(1.7, 1.4, 0.95))
+				mat.set_shader_parameter("rib_axis", 0.0)
 			if name == "silo":
 				mat.set_shader_parameter("base_tint", Color(0.92, 0.84, 0.72))
 				mat.set_shader_parameter("rust_k", 0.35)
