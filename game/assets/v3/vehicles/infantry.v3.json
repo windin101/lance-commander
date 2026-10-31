@@ -1,0 +1,33 @@
+{
+ "model": "infantry.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Future - Generic Space Infantry Troops",
+  "author": "Guy_montag",
+  "url": "https://www.printables.com/model/114328",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "plasma_A.stl",
+  "notes": "Infantry rework (LANCE-19, 2026-10-31): a SimVehicle with a skinned-style skeleton (joint_* with Walk and Run). The approved v1 fit (`infantry_veh.json`: scale 1.85, yaw 275, base cut, nudge, parts_box with the legs split along the stride axis) was captured by `v3_rigid.py` and run through the mech path as a rigid unit: one rigid part per original node (Inf_Body, Inf_Lleg/Rleg, Inf_Lfoot/Rfoot, joint_Head, joint_Arms), no actuators. The limbs are plain rigid parts, so hips and shoulders open slightly in the walk. Team colour (style guide \u00a79, Lee 2026-10-31): only the helmet, the shoulder pads (Inf_Body above z 1380 mm) and a chest band (z 1170-1260 mm) take team colour; everything else is a fixed dark armour grey (`fixed_colour` with `except`)."
+ },
+ "tris": 29991,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {},
+ "paint_stats": {
+  "texels": 2229993,
+  "chip_share": 0.0030641351788996646,
+  "grime_mean": 0.573014497756958,
+  "paint_share": 0.08265496797523579,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 0,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

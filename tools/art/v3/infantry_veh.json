@@ -1,0 +1,106 @@
+{
+ "base_cut": 5.4,
+ "scale": 1.85,
+ "no_icp": true,
+ "nudge": [
+  -0.24,
+  0,
+  0.1
+ ],
+ "parts_box": [
+  {
+   "node": "Inf_Body",
+   "min": [
+    -9,
+    0.95,
+    -9
+   ],
+   "max": [
+    9,
+    9,
+    9
+   ]
+  },
+  {
+   "node": "Inf_Lleg",
+   "min": [
+    -9,
+    -1,
+    -0.03
+   ],
+   "max": [
+    9,
+    0.95,
+    9
+   ]
+  },
+  {
+   "node": "Inf_Rleg",
+   "min": [
+    -9,
+    -1,
+    -9
+   ],
+   "max": [
+    9,
+    0.95,
+    -0.03
+   ]
+  },
+  {
+   "node": "Inf_Lfoot",
+   "min": [
+    -9,
+    -1,
+    -0.03
+   ],
+   "max": [
+    9,
+    0.57,
+    9
+   ]
+  },
+  {
+   "node": "Inf_Rfoot",
+   "min": [
+    -9,
+    -1,
+    -9
+   ],
+   "max": [
+    9,
+    0.57,
+    -0.03
+   ]
+  },
+  {
+   "node": "joint_Arms",
+   "min": [
+    -9,
+    1.0,
+    0.18
+   ],
+   "max": [
+    9,
+    1.62,
+    9
+   ]
+  },
+  {
+   "node": "joint_Head",
+   "min": [
+    -0.22,
+    1.55,
+    -9
+   ],
+   "max": [
+    0.22,
+    9,
+    0.18
+   ]
+  }
+ ],
+ "faces": 8000,
+ "yaw": 275,
+ "_from": "original/hd/infantry/provenance.json joints (approved v1), 2026-10-31 (LANCE-19)"
+}

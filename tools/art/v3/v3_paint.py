@@ -374,6 +374,18 @@ def stage_paint(cfg, work):
             inb = (dd <= float(dc["radius"])) & (XS[:, ax] >= lo_) & (XS[:, ax] <= hi_) & ~hidden_fix(low_kind, hkind)
         else:
             inb = np.all((XS >= np.asarray(fc["min"], float)) & (XS <= np.asarray(fc["max"], float)), 1) & ~hidden_fix(low_kind, hkind)
+        for ex in fc.get("except", []):   # "except": [{"min", "max", "parts"?}]: texels left out of this entry (they keep the part's team paint)
+            ein = np.all((XS >= np.asarray(ex["min"], float)) & (XS <= np.asarray(ex["max"], float)), 1)
+            if ex.get("parts"):
+                ein &= np.isin(part_name, ex["parts"])
+            inb &= ~ein
+        if fc.get("parts"):       # optional: only texels of these parts
+            inb &= np.isin(part_name, fc["parts"])
+        for ex_ in fc.get("except", []):   # optional: boxes (optionally limited to parts) that stay unpainted (team colour shows there)
+            ib_ = np.all((XS >= np.asarray(ex_["min"], float)) & (XS <= np.asarray(ex_["max"], float)), 1)
+            if ex_.get("parts"):
+                ib_ &= np.isin(part_name, ex_["parts"])
+            inb &= ~ib_
         fixed |= inb; fixed_col[inb] = srgb_to_lin(np.asarray(fc["colour"], float)); fixed_rough[inb] = float(fc.get("rough", 0.6))
     zone[fixed] = 2
     w = cfg.get("wear", {})
