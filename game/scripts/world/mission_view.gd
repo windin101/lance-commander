@@ -224,6 +224,7 @@ func _process(delta: float) -> void:
 		v.sync(alpha)
 	for t in _turrets:
 		objects_view.set_turret_yaw(t.object_index, t.turret_yaw, t.facing)
+		objects_view.set_turret_pop(t.object_index, t.can_fire_time != INF)  # pop-up emplacements raise and lower (v3 models with a Pop node)
 	_consume_events(true)
 	if audio:
 		audio.radio_poll(world)

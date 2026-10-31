@@ -1,0 +1,69 @@
+{
+ "app": "srmturret",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "Turret x +-3.1, y 4..7.8, z -1.3..1.5: two wide pods, 2 x 6 tubes each",
+ "states": {
+  "intact": {
+   "tris_lod0": 1702,
+   "tris_lod1": 856,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -3.14,
+    0.0,
+    -2.3
+   ],
+   "bounds_max": [
+    3.14,
+    7.85,
+    2.31
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1910,
+   "tris_lod1": 890,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -3.14,
+    0.0,
+    -2.3
+   ],
+   "bounds_max": [
+    3.14,
+    7.85,
+    2.31
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 624,
+   "tris_lod1": 316,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Roof",
+    "Gun_1",
+    "Gun_2"
+   ],
+   "bounds_min": [
+    -2.54,
+    0.0,
+    -4.01
+   ],
+   "bounds_max": [
+    2.96,
+    4.3,
+    4.6
+   ]
+  }
+ }
+}

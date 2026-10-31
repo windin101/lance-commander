@@ -1,0 +1,69 @@
+{
+ "app": "lrmturret",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "Turret x +-2.1, y 4..8.5, z -2..3.2: two racks 1.25 x 2.83 x 4.2 m, flared front to 4.3 m, 2 x 5 tubes each",
+ "states": {
+  "intact": {
+   "tris_lod0": 1584,
+   "tris_lod1": 784,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -2.3,
+    0.0,
+    -2.3
+   ],
+   "bounds_max": [
+    2.3,
+    8.56,
+    3.25
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1896,
+   "tris_lod1": 856,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -2.3,
+    0.0,
+    -2.3
+   ],
+   "bounds_max": [
+    2.3,
+    8.56,
+    3.25
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 618,
+   "tris_lod1": 308,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Roof",
+    "Gun_1",
+    "Gun_2"
+   ],
+   "bounds_min": [
+    -2.54,
+    0.0,
+    -4.13
+   ],
+   "bounds_max": [
+    2.95,
+    4.12,
+    5.14
+   ]
+  }
+ }
+}

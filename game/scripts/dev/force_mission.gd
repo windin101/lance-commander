@@ -29,6 +29,8 @@ func _ready() -> void:
 		_fort.call_deferred(view)
 	if args.has("wreck"):  # --wreck=<model>: destroy the first unit of that model and frame it (wreck art checks)
 		_wreck.call_deferred(view, String(args["wreck"]))
+	if args.has("turret"):  # --turret=<appearance>[,<yaw offset deg>]: park the first such map turret, turned off its placed facing (turret art checks)
+		_turret.call_deferred(view, String(args["turret"]).split(","))
 	if args.has("cam-view"):  # --cam-view=yaw,pitch,distance after the view has set itself up (scenery shots)
 		_cam_view.call_deferred(view, String(args["cam-view"]).split(","))
 
@@ -48,6 +50,44 @@ func _wreck(view: Node, model: String) -> void:
 					view.compass.enabled = false   # the ground compass arrow at the focus covers the wreck
 				(view.camera as RtsCamera).focus = Vector3(u.position.x, view.world.map.height_at(u.position), -u.position.y)
 			return
+
+
+func _turret(view: Node, v: PackedStringArray) -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var pick: SimTurret = null
+	for u in view.world.units:
+		if u is SimTurret and view.objects_view._appearance.get(u.object_index, "") == v[0]:
+			pick = u
+			break
+	if pick == null:  # not a turret (a control centre, a generator): frame the first placed object of that appearance
+		for idx in view.objects_view._appearance:
+			if view.objects_view._appearance[idx] == v[0] and view.objects_view.nodes.has(idx) and view.camera is RtsCamera:
+				var cam0 := view.camera as RtsCamera
+				cam0.limits = false
+				cam0.following = null
+				if view.compass:
+					view.compass.enabled = false
+				cam0.focus = view.objects_view.bounds(idx).get_center()
+				return
+		push_warning("force_mission: no map object of appearance %s" % v[0])
+		return
+	pick.active = false   # no scanning: the turret holds the pose it is given
+	for fl in v.slice(2):  # flags in order: destroy | damaged | pop=<0..1>
+		if fl == "destroy":
+			view.objects_view.destroy(pick.object_index)
+		elif fl == "damaged":
+			view.objects_view.set_damage(pick.object_index, 0.6)
+		elif fl.begins_with("pop="):
+			view.objects_view._apply_pop(float(fl.substr(4)), pick.object_index)
+	pick.turret_yaw = float(pick.facing) + (float(v[1]) if v.size() > 1 else 0.0)
+	if view.camera is RtsCamera:
+		var cam := view.camera as RtsCamera
+		cam.limits = false
+		cam.following = null
+		if view.compass:
+			view.compass.enabled = false
+		cam.focus = Vector3(pick.position.x, view.world.map.height_at(pick.position), -pick.position.y)
 
 
 func _cam_view(view: Node, v: PackedStringArray) -> void:

@@ -1,0 +1,76 @@
+{
+ "app": "autocannoncamo4",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "as autocannonpopup, camouflage deck 4",
+ "states": {
+  "intact": {
+   "tris_lod0": 1478,
+   "tris_lod1": 542,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "pop_door_l",
+    "pop_door_r",
+    "Pop",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -3.6,
+    -12.4,
+    -4.2
+   ],
+   "bounds_max": [
+    3.6,
+    0.23,
+    8.0
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1593,
+   "tris_lod1": 597,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "pop_door_l",
+    "pop_door_r",
+    "Pop",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -3.6,
+    -12.4,
+    -4.2
+   ],
+   "bounds_max": [
+    3.6,
+    0.23,
+    8.0
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 437,
+   "tris_lod1": 289,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Roof",
+    "Gun_1",
+    "Gun_2",
+    "pop_door_r"
+   ],
+   "bounds_min": [
+    -3.6,
+    -2.0,
+    -5.23
+   ],
+   "bounds_max": [
+    7.13,
+    3.09,
+    8.16
+   ]
+  }
+ }
+}

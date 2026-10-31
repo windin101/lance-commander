@@ -1,0 +1,67 @@
+{
+ "app": "guntower",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "Base x +-1.9, 11.6 m tall; Turret node at the cab, barrel along +x like the original",
+ "states": {
+  "intact": {
+   "tris_lod0": 324,
+   "tris_lod1": 126,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret"
+   ],
+   "bounds_min": [
+    -2.16,
+    -0.01,
+    -2.16
+   ],
+   "bounds_max": [
+    3.2,
+    11.35,
+    2.16
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 289,
+   "tris_lod1": 131,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret"
+   ],
+   "bounds_min": [
+    -2.16,
+    -0.01,
+    -2.16
+   ],
+   "bounds_max": [
+    2.6,
+    11.35,
+    2.16
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 459,
+   "tris_lod1": 215,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Roof",
+    "Gun_1",
+    "Gun_2"
+   ],
+   "bounds_min": [
+    -3.09,
+    -0.26,
+    -2.84
+   ],
+   "bounds_max": [
+    5.45,
+    5.76,
+    8.96
+   ]
+  }
+ }
+}

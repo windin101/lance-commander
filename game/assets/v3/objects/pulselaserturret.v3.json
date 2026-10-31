@@ -1,0 +1,69 @@
+{
+ "app": "pulselaserturret",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "Turret x +-1.7, y 4..6.2, z -3..7.7: twin pulse-laser emitters",
+ "states": {
+  "intact": {
+   "tris_lod0": 1632,
+   "tris_lod1": 608,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -2.3,
+    0.0,
+    -3.0
+   ],
+   "bounds_max": [
+    2.3,
+    6.28,
+    8.62
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1545,
+   "tris_lod1": 591,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -2.3,
+    0.0,
+    -3.0
+   ],
+   "bounds_max": [
+    2.3,
+    6.28,
+    8.62
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 676,
+   "tris_lod1": 316,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Roof",
+    "Gun_1",
+    "Gun_2"
+   ],
+   "bounds_min": [
+    -2.54,
+    0.0,
+    -2.91
+   ],
+   "bounds_max": [
+    5.26,
+    4.21,
+    7.6
+   ]
+  }
+ }
+}

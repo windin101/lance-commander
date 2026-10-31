@@ -1,0 +1,61 @@
+{
+ "app": "l_turretcontrol",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "x -11.9..12.5, y 0..16.1, z -9..10 (tools/cad/l_turretcontrol_cad.py massing)",
+ "states": {
+  "intact": {
+   "tris_lod0": 1118,
+   "tris_lod1": 366,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "l_turretcontrol"
+   ],
+   "bounds_min": [
+    -11.88,
+    0.0,
+    -8.99
+   ],
+   "bounds_max": [
+    12.6,
+    16.05,
+    10.01
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1112,
+   "tris_lod1": 366,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "l_turretcontrol"
+   ],
+   "bounds_min": [
+    -11.88,
+    0.0,
+    -8.99
+   ],
+   "bounds_max": [
+    12.6,
+    16.05,
+    10.01
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 906,
+   "tris_lod1": 358,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "l_turretcontrol"
+   ],
+   "bounds_min": [
+    -11.88,
+    0.0,
+    -8.99
+   ],
+   "bounds_max": [
+    12.51,
+    13.75,
+    10.01
+   ]
+  }
+ }
+}

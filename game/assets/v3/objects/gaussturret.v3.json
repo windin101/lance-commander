@@ -1,0 +1,68 @@
+{
+ "app": "gaussturret",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "Turret x -1.2..2.8, y 4.1..8.3, z -4.8..6.0: rail barrel in coil housings, capacitor stack",
+ "states": {
+  "intact": {
+   "tris_lod0": 1460,
+   "tris_lod1": 532,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -2.3,
+    0.0,
+    -2.4
+   ],
+   "bounds_max": [
+    2.45,
+    8.35,
+    6.58
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1381,
+   "tris_lod1": 507,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -2.3,
+    0.0,
+    -2.4
+   ],
+   "bounds_max": [
+    2.45,
+    8.35,
+    3.99
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 580,
+   "tris_lod1": 300,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Roof",
+    "Gun_1"
+   ],
+   "bounds_min": [
+    -2.54,
+    0.0,
+    -3.59
+   ],
+   "bounds_max": [
+    3.04,
+    4.83,
+    8.65
+   ]
+  }
+ }
+}

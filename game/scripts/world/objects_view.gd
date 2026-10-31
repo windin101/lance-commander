@@ -110,7 +110,64 @@ func set_turret_yaw(index: int, yaw_deg: float, placed_deg: float) -> void:
 	(h[0] as Node3D).transform = Transform3D(Basis(Vector3.UP, -deg_to_rad(yaw_deg - float(h[2]))) * rest.basis, rest.origin)
 
 
+## Pop-up emplacements (v3 models with a `Pop` node, bld_turrets.py): the two door leaves (pop_door_l / pop_door_r, hinged at their
+## outer edges) swing up, then the lift (`Pop`) raises the turret POP_RISE_M over the rest of POP_TIME, as the sim's pop-up gesture
+## (SimTurret.can_fire_time) opens; closing plays it backwards. f: 0 closed .. 1 open, the first POP_DOOR_FRAC of it the doors.
+const POP_RISE_M := 8.4
+const POP_DOOR_DEG := 100.0
+const POP_DOOR_FRAC := 0.3
+const POP_TIME := 1.5
+var _pop: Dictionary = {}  # object index -> [Pop node or null, rest y, [door nodes], open (bool), tween, progress f]
+
+
+func _pop_rig(index: int) -> Array:
+	if not _pop.has(index):
+		var node: Node3D = nodes.get(index)
+		var pop: Node3D = node.find_child("Pop", true, false) as Node3D if node else null
+		var doors: Array = []
+		if node:
+			for nm in ["pop_door_l", "pop_door_r"]:
+				var d := node.find_child(nm, true, false) as Node3D
+				if d:
+					doors.append(d)
+		_pop[index] = [pop, pop.position.y if pop else 0.0, doors, false, null, 0.0]
+	return _pop[index]
+
+
+## The sim popped the turret up (open) or put it away.
+func set_turret_pop(index: int, open: bool) -> void:
+	var rig := _pop_rig(index)
+	if rig[0] == null or bool(rig[3]) == open:
+		return
+	rig[3] = open
+	if rig[4] != null and (rig[4] as Tween).is_valid():
+		(rig[4] as Tween).kill()
+	var f0 := pop_progress(index)
+	var tw := create_tween()
+	tw.tween_method(_apply_pop.bind(index), f0, 1.0 if open else 0.0, POP_TIME * absf((1.0 if open else 0.0) - f0))
+	rig[4] = tw
+
+
+## Where the pop-up is now, 0 closed .. 1 open.
+func pop_progress(index: int) -> float:
+	return float(_pop_rig(index)[5])
+
+
+func _apply_pop(f: float, index: int) -> void:
+	var rig := _pop_rig(index)
+	if rig[0] == null:
+		return
+	var door := clampf(f / POP_DOOR_FRAC, 0.0, 1.0)
+	var rise := clampf((f - POP_DOOR_FRAC) / (1.0 - POP_DOOR_FRAC), 0.0, 1.0)
+	rise = rise * rise * (3.0 - 2.0 * rise)
+	for d in rig[2]:
+		(d as Node3D).rotation.z = deg_to_rad(POP_DOOR_DEG) * door * (1.0 if (d as Node3D).name == "pop_door_l" else -1.0)
+	(rig[0] as Node3D).position.y = float(rig[1]) + POP_RISE_M * rise
+	rig[5] = f
+
+
 func destroy(index: int) -> void:
+	_pop.erase(index)
 	_turret_heads.erase(index)
 	if _tree_slot.has(index):  # a destroyed tree: the leaves go and the trunk is broken off to a stump
 		var slot: Array = _tree_slot[index]
@@ -186,6 +243,14 @@ func set_damage(index: int, frac: float) -> void:
 	add_child(hurt)
 	node.queue_free()
 	nodes[index] = hurt
+	_turret_heads.erase(index)  # the new model has its own Turret node: set_turret_yaw looks it up again
+	if _pop.has(index):  # a pop-up damaged mid-gesture: the new model takes over the pose and the running tween
+		var old: Array = _pop[index]
+		_pop.erase(index)
+		var rig := _pop_rig(index)
+		rig[3] = old[3]
+		rig[4] = old[4]
+		_apply_pop(float(old[5]), index)
 
 
 ## The original lit map objects with the sun and ambient only (no specular, bdactor.cpp:4046-4120). Under the

@@ -1,0 +1,69 @@
+{
+ "app": "longtomturret",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "Turret x +-1.4, y 4..9.8, z -2.6..13.4: one long elevated barrel on a cradle",
+ "states": {
+  "intact": {
+   "tris_lod0": 1268,
+   "tris_lod1": 364,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -2.3,
+    0.0,
+    -2.6
+   ],
+   "bounds_max": [
+    2.3,
+    10.15,
+    13.19
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1125,
+   "tris_lod1": 411,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -2.3,
+    0.0,
+    -2.6
+   ],
+   "bounds_max": [
+    2.3,
+    8.34,
+    8.36
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 631,
+   "tris_lod1": 301,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Roof",
+    "Gun_1",
+    "Gun_2"
+   ],
+   "bounds_min": [
+    -2.54,
+    0.0,
+    -2.91
+   ],
+   "bounds_max": [
+    6.84,
+    4.34,
+    15.07
+   ]
+  }
+ }
+}

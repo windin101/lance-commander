@@ -1,0 +1,66 @@
+{
+ "app": "spotlight",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "L_SpotLight 3 x 15.2 x 3.6 m, rotor to 17.2, battery to 18.7",
+ "states": {
+  "intact": {
+   "tris_lod0": 596,
+   "tris_lod1": 146,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "L_SpotLight",
+    "L_SpotRotar",
+    "L_SpotBattery"
+   ],
+   "bounds_min": [
+    -1.5,
+    0.0,
+    -2.07
+   ],
+   "bounds_max": [
+    1.5,
+    18.3,
+    1.8
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 608,
+   "tris_lod1": 158,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "L_SpotLight",
+    "L_SpotRotar",
+    "L_SpotBattery"
+   ],
+   "bounds_min": [
+    -1.5,
+    0.0,
+    -2.07
+   ],
+   "bounds_max": [
+    1.5,
+    18.3,
+    1.8
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 160,
+   "tris_lod1": 126,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "L_SpotLight",
+    "L_SpotRotar"
+   ],
+   "bounds_min": [
+    -1.7,
+    -0.19,
+    -1.85
+   ],
+   "bounds_max": [
+    4.75,
+    2.91,
+    3.02
+   ]
+  }
+ }
+}

@@ -1,0 +1,76 @@
+{
+ "app": "srmpopup",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "as lrmpopup; srm head",
+ "states": {
+  "intact": {
+   "tris_lod0": 1442,
+   "tris_lod1": 882,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "pop_door_l",
+    "pop_door_r",
+    "Pop",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -3.6,
+    -12.4,
+    -4.2
+   ],
+   "bounds_max": [
+    3.6,
+    0.23,
+    4.2
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1858,
+   "tris_lod1": 940,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "pop_door_l",
+    "pop_door_r",
+    "Pop",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -3.6,
+    -12.4,
+    -4.2
+   ],
+   "bounds_max": [
+    3.6,
+    0.23,
+    4.2
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 360,
+   "tris_lod1": 276,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Roof",
+    "Gun_1",
+    "Gun_2",
+    "pop_door_r"
+   ],
+   "bounds_min": [
+    -3.6,
+    -2.0,
+    -4.97
+   ],
+   "bounds_max": [
+    7.13,
+    3.09,
+    5.23
+   ]
+  }
+ }
+}

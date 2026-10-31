@@ -1,0 +1,68 @@
+{
+ "app": "orbitalturret",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "Base x -3.7..12.1, z -3.6..12.2, 6.1 m; turret y 6.4..8.8; two tapered barrels to z 18.3, y 11.3 (tools/cad/orbitalturret_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 1810,
+   "tris_lod1": 384,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -3.73,
+    0.0,
+    -3.65
+   ],
+   "bounds_max": [
+    12.14,
+    11.19,
+    16.15
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1518,
+   "tris_lod1": 340,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -3.73,
+    0.0,
+    -3.65
+   ],
+   "bounds_max": [
+    12.14,
+    11.19,
+    16.15
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 450,
+   "tris_lod1": 354,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Roof",
+    "Gun_1"
+   ],
+   "bounds_min": [
+    -3.73,
+    0.0,
+    -3.65
+   ],
+   "bounds_max": [
+    12.14,
+    6.2,
+    12.22
+   ]
+  }
+ }
+}

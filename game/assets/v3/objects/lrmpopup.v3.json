@@ -1,0 +1,76 @@
+{
+ "app": "lrmpopup",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "Doorbase 7.2 x 8.4 m, four door slabs to 1.2 m, TurretRoot 12.4 m down (original nodes); lrm head",
+ "states": {
+  "intact": {
+   "tris_lod0": 1324,
+   "tris_lod1": 810,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "pop_door_l",
+    "pop_door_r",
+    "Pop",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -3.6,
+    -12.4,
+    -4.2
+   ],
+   "bounds_max": [
+    3.6,
+    0.23,
+    4.2
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1844,
+   "tris_lod1": 906,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "pop_door_l",
+    "pop_door_r",
+    "Pop",
+    "Turret",
+    "Gun"
+   ],
+   "bounds_min": [
+    -3.6,
+    -12.4,
+    -4.2
+   ],
+   "bounds_max": [
+    3.6,
+    0.23,
+    4.2
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 360,
+   "tris_lod1": 276,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "Base",
+    "Turret",
+    "Roof",
+    "Gun_1",
+    "Gun_2",
+    "pop_door_r"
+   ],
+   "bounds_min": [
+    -3.6,
+    -2.0,
+    -5.23
+   ],
+   "bounds_max": [
+    7.13,
+    3.09,
+    6.05
+   ]
+  }
+ }
+}

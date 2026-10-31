@@ -1,0 +1,64 @@
+{
+ "app": "s_turretcontrol",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "x -12.8..12.5, y 0..16.6, z -9.4..10.7 (tools/cad/s_turretcontrol_cad.py): hall, fig-8 block, tower, radar",
+ "states": {
+  "intact": {
+   "tris_lod0": 830,
+   "tris_lod1": 652,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "S_TurretControl",
+    "Radar"
+   ],
+   "bounds_min": [
+    -12.75,
+    -0.0,
+    -9.45
+   ],
+   "bounds_max": [
+    12.53,
+    16.7,
+    10.9
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1070,
+   "tris_lod1": 716,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "S_TurretControl",
+    "Radar"
+   ],
+   "bounds_min": [
+    -12.75,
+    -0.0,
+    -9.45
+   ],
+   "bounds_max": [
+    12.53,
+    16.73,
+    10.9
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1544,
+   "tris_lod1": 594,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "S_TurretControl",
+    "Radar"
+   ],
+   "bounds_min": [
+    -12.75,
+    0.0,
+    -9.45
+   ],
+   "bounds_max": [
+    14.29,
+    11.12,
+    10.69
+   ]
+  }
+ }
+}

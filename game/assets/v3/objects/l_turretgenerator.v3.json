@@ -1,0 +1,61 @@
+{
+ "app": "l_turretgenerator",
+ "made_by": "tools/art/v3/bld_turrets.py",
+ "source_dims": "PowerGenerator x -4.1..12.7, z -1.8..10.7, y to 5.4: hexagonal hood on stepped end caps",
+ "states": {
+  "intact": {
+   "tris_lod0": 114,
+   "tris_lod1": 64,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "PowerGenerator"
+   ],
+   "bounds_min": [
+    -4.1,
+    0.0,
+    -0.12
+   ],
+   "bounds_max": [
+    12.7,
+    5.5,
+    9.02
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 126,
+   "tris_lod1": 76,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "PowerGenerator"
+   ],
+   "bounds_min": [
+    -4.1,
+    0.0,
+    -0.12
+   ],
+   "bounds_max": [
+    12.7,
+    6.27,
+    9.02
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 176,
+   "tris_lod1": 116,
+   "lod_switch_m": 80.0,
+   "nodes": [
+    "PowerGenerator"
+   ],
+   "bounds_min": [
+    -4.1,
+    0.0,
+    0.05
+   ],
+   "bounds_max": [
+    12.7,
+    2.41,
+    8.85
+   ]
+  }
+ }
+}
