@@ -1,0 +1,86 @@
+{
+ "app": "largefueltank",
+ "made_by": "tools/art/v3/bld_tanks.py",
+ "source_dims": "tools/cad/largefueltank_cad.py (decagonal drum 8.60 m corners, 4.96-16.15 m; hex skirt 9.35 m; feed pipe and pump to x 12.78)",
+ "states": {
+  "intact": {
+   "tris_lod0": 32404,
+   "tris_lod1": 10204,
+   "lod_switch_m": 80.0,
+   "per_material_lod0": {
+    "concrete": 396,
+    "paint": 5748,
+    "galv": 2084,
+    "steel": 20604,
+    "decal": 1182,
+    "trim": 2232,
+    "grate": 146,
+    "concrete_dark": 12
+   },
+   "bounds_min": [
+    -9.62,
+    0.0,
+    -9.64
+   ],
+   "bounds_max": [
+    14.43,
+    19.5,
+    9.6
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 59478,
+   "tris_lod1": 20214,
+   "lod_switch_m": 80.0,
+   "per_material_lod0": {
+    "concrete": 396,
+    "paint": 24796,
+    "galv": 2084,
+    "steel": 15504,
+    "decal": 1068,
+    "rust": 580,
+    "interior": 6696,
+    "trim": 8212,
+    "grate": 130,
+    "concrete_dark": 12
+   },
+   "bounds_min": [
+    -9.62,
+    0.0,
+    -9.64
+   ],
+   "bounds_max": [
+    13.6,
+    19.5,
+    12.91
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 33448,
+   "tris_lod1": 10634,
+   "lod_switch_m": 80.0,
+   "per_material_lod0": {
+    "concrete": 384,
+    "paint": 11180,
+    "galv": 1496,
+    "steel": 6980,
+    "decal": 342,
+    "rust": 1622,
+    "interior": 9692,
+    "trim": 1728,
+    "concrete_dark": 12,
+    "grate": 12
+   },
+   "bounds_min": [
+    -10.5,
+    -0.12,
+    -10.52
+   ],
+   "bounds_max": [
+    13.6,
+    14.76,
+    10.7
+   ]
+  }
+ }
+}

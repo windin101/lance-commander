@@ -37,7 +37,9 @@ func build(sim_map: SimMap, mission: String) -> int:
 			# HD models (tools/art, --kind objects) replace the 2001 mesh when present; --no-hd compares.
 			# order: the SolidCraft rebuild, then an HD model (a licensed sculpt, or Hunyuan), then the original model with 4x
 			# upscaled textures (tools/art/upscale_textures.py), then the original
-			var res := ArtV2.model_path("objects", app)  # HD rework (tools/art/hd_v2_building.py), dev switch
+			var res := BuildingV3.model_path(app)  # v3: procedural model on the shared PBR library (tools/art/v3/bld_*.py)
+			if res == "":
+				res = ArtV2.model_path("objects", app)  # HD rework (tools/art/hd_v2_building.py), dev switch
 			if res == "":
 				res = "res://assets/objects/%s_cad.glb" % app  # SolidCraft rebuild (tools/cad, tools/art/cad_building.py)
 			if not ResourceLoader.exists(res):  # a licensed sculpt or HD model beats the upscaled original (7 aircraft props)
@@ -50,6 +52,8 @@ func build(sim_map: SimMap, mission: String) -> int:
 			if scenes[app] != null:
 				var probe: Node3D = scenes[app].instantiate()
 				_matte(probe)  # materials are shared by every instance of this model
+				if res.begins_with("res://assets/v3/objects/"):
+					BuildingV3.dress(probe)
 				if res.begins_with("res://assets/v2/"):
 					ArtV2.dress_object(probe, app)
 				probe.free()
@@ -119,17 +123,51 @@ func destroy(index: int) -> void:
 	var node: Node3D = nodes.get(index)
 	if node == null:
 		return
-	var dam := "res://assets/objects/%s_dam_hdtex.glb" % _appearance[index]
-	if not ResourceLoader.exists(dam) or OS.get_cmdline_user_args().has("--no-hd"):
-		dam = "res://assets/objects/%s_dam.glb" % _appearance[index]
+	var dam := BuildingV3.model_path(_appearance[index], "_destroyed")  # v3 wreck, else the original's damaged model
+	if dam == "":
+		dam = "res://assets/objects/%s_dam_hdtex.glb" % _appearance[index]
+		if not ResourceLoader.exists(dam) or OS.get_cmdline_user_args().has("--no-hd"):
+			dam = "res://assets/objects/%s_dam.glb" % _appearance[index]
 	if ResourceLoader.exists(dam):
-		var wreck: Node3D = load(dam).instantiate()
+		var wreck: Node3D = _instance_state(dam)
 		wreck.transform = node.transform
 		add_child(wreck)
 		node.queue_free()
 		nodes[index] = wreck
 	else:
 		node.scale = Vector3(1.0, 0.25, 1.0)  # no damaged model: flatten the ruin
+
+
+## A v3 model dressed once (its meshes are shared), or the plain scene for any other path.
+func _instance_state(path: String) -> Node3D:
+	var node: Node3D = (load(path) as PackedScene).instantiate()
+	if path.begins_with("res://assets/v3/objects/") and not _dressed.has(path):
+		BuildingV3.dress(node)
+		_dressed[path] = true
+	return node
+
+
+var _dressed: Dictionary = {}  # v3 model path -> its meshes carry the library materials
+var _hurt: Dictionary = {}     # object index -> true once its damaged state is showing
+
+
+## A structure has taken damage: at half its damage level a building with a v3 damaged state swaps to it (the
+## destroyed state follows through destroy()). frac = damage / damage_level.
+func set_damage(index: int, frac: float) -> void:
+	if frac < 0.5 or _hurt.has(index) or _tree_slot.has(index):
+		return
+	var node: Node3D = nodes.get(index)
+	if node == null or not _appearance.has(index):
+		return
+	var path := BuildingV3.model_path(_appearance[index], "_damaged")
+	if path == "":
+		return
+	_hurt[index] = true
+	var hurt := _instance_state(path)
+	hurt.transform = node.transform
+	add_child(hurt)
+	node.queue_free()
+	nodes[index] = hurt
 
 
 ## The original lit map objects with the sun and ambient only (no specular, bdactor.cpp:4046-4120). Under the

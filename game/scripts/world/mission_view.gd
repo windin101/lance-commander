@@ -293,6 +293,10 @@ func _consume_events(show: bool) -> void:
 						and (int(e["to"]) < 0 or views.has(e["to"]) or world.units[e["to"]] is SimStructure)):
 					continue
 				_shot_effect(e)
+			"impact":
+				var hit: SimUnit = world.units[e["unit"]]
+				if hit is SimStructure and objects_view:
+					objects_view.set_damage(hit.object_index, hit.damage / maxf(hit.damage_level, 0.001))  # v3 damaged state
 			"waypoint":
 				_add_waypoint_marker(e)
 			"waypoint_reached":

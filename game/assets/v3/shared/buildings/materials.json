@@ -1,0 +1,98 @@
+{
+ "paint": {
+  "source": "PaintedMetal012 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=PaintedMetal012",
+  "tile_m": 2.0,
+  "use": "white painted steel with chipped paint: tank shells, housings",
+  "mean_albedo": [
+   213.9,
+   212.1,
+   210.9
+  ],
+  "mean_roughness": 70.4,
+  "metal": 44.9
+ },
+ "steel": {
+  "source": "Metal046A by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Metal046A",
+  "tile_m": 1.5,
+  "use": "dark rolled steel: railings, ladders, pipes, flanges",
+  "mean_albedo": [
+   92.3,
+   92.3,
+   94.3
+  ],
+  "mean_roughness": 51.7,
+  "metal": 255.0
+ },
+ "galv": {
+  "source": "Metal032 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Metal032",
+  "tile_m": 1.5,
+  "use": "galvanised sheet: roofs, hatches, gutters",
+  "mean_albedo": [
+   125.0,
+   136.5,
+   147.5
+  ],
+  "mean_roughness": 104.1,
+  "metal": 255.0
+ },
+ "concrete": {
+  "source": "Concrete034 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Concrete034",
+  "tile_m": 2.0,
+  "use": "light poured concrete: plinths, bunds, pads",
+  "mean_albedo": [
+   184.3,
+   184.3,
+   184.3
+  ],
+  "mean_roughness": 131.6,
+  "metal": 0.0
+ },
+ "concrete_dark": {
+  "source": "Concrete042A by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Concrete042A",
+  "tile_m": 2.0,
+  "use": "dark weathered concrete: aprons, retaining walls",
+  "mean_albedo": [
+   96.9,
+   92.9,
+   89.1
+  ],
+  "mean_roughness": 178.2,
+  "metal": 0.0
+ },
+ "grate": {
+  "source": "DiamondPlate008C by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=DiamondPlate008C",
+  "tile_m": 0.8,
+  "use": "diamond tread plate: walkways, stair treads",
+  "mean_albedo": [
+   107.3,
+   108.5,
+   113.1
+  ],
+  "mean_roughness": 119.5,
+  "metal": 195.3
+ },
+ "rust": {
+  "source": "Rust009 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=Rust009",
+  "tile_m": 1.5,
+  "use": "corroded steel: wrecks, exposed interiors",
+  "mean_albedo": [
+   139.5,
+   76.1,
+   38.7
+  ],
+  "mean_roughness": 198.8,
+  "metal": 0.0
+ },
+ "corrugated": {
+  "source": "CorrugatedSteel009 by ambientCG.com (CC0 1.0), https://ambientcg.com/view?id=CorrugatedSteel009",
+  "tile_m": 1.0,
+  "use": "corrugated cladding: sheds, silos, hoods",
+  "mean_albedo": [
+   129.8,
+   129.5,
+   129.0
+  ],
+  "mean_roughness": 120.9,
+  "metal": 248.0
+ }
+}

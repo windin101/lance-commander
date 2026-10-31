@@ -349,3 +349,14 @@ All are under the SIL Open Font License 1.1, which allows bundling with the game
 | Chakra Petch (Cadson Demak) | `chakra_petch/ChakraPetch-{Medium,SemiBold,Bold}.ttf` | HUD headings, callsigns, buttons |
 | Barlow Semi Condensed (Jeremy Tribby) | `barlow_semi_condensed/BarlowSemiCondensed-{Regular,Medium,SemiBold}.ttf` | HUD body text |
 | Share Tech Mono (Carrois Apostrophe) | `share_tech_mono/ShareTechMono-Regular.ttf` | HUD numbers, captions |
+
+## v3 buildings (LANCE-21 pilot, 2026-10-31)
+
+Procedural models, `tools/art/v3/bld_mesh.py` + `bld_tanks.py` (Python, no seed: deterministic geometry, wreck scatter seeded 2100+state). Dimensions are measured from the Shared Source originals (via `tools/cad/<app>_cad.py`), so they stay under that release's non-commercial terms; the geometry and textures are new work.
+Shared library `game/assets/v3/shared/buildings/` (`LICENSE.md` there): ambientCG CC0 1.0 sets, packed by `tools/art/v3/bld_materials.py`:
+PaintedMetal012, Metal046A, Metal032, Concrete034, Concrete042A, DiamondPlate008C, Rust009, CorrugatedSteel009 (https://ambientcg.com/view?id=<id>).
+Trim sheet and decal atlas: project-made by `tools/art/v3/bld_trim.py` (stencil digits in Oswald, SIL OFL).
+
+| File | What | How | Licence |
+|---|---|---|---|
+| `game/assets/v3/objects/largefueltank.glb`, `_damaged.glb`, `_destroyed.glb` | Large fuel tank, 3 states, each with nodes lod0 (to 80 m) and lod1 | `bld_tanks.py largefueltank`, true round drum (72 / 40 segments), torn shell cut along a smooth contour (`Builder.cut_surface`), library materials | MC2 Shared Source terms (dimensions), non-commercial; textures CC0 + project-made |

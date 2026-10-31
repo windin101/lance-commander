@@ -74,6 +74,8 @@ func _run() -> void:
 		_studio.pivot.add_child(model)
 		if path.begins_with("res://assets/v2/objects/"):
 			ArtV2.dress_object(model, path.get_file().get_basename())
+		if path.begins_with("res://assets/v3/objects/"):
+			BuildingV3.dress(model)
 		var paint: Array = item.get("paint", [])
 		if item.has("scheme"):  # "player" (optionally with "pattern"), a faction scheme name ("steiner", "liao"...)
 			# "player" is the default player scheme (reviews must not depend on what the tester saved); "player_saved" the saved one

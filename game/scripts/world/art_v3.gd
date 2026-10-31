@@ -103,6 +103,7 @@ static func set_scheme(mat: ShaderMaterial, scheme: Dictionary) -> void:
 
 
 static func set_environment(dust: float, snow: float, colour: Color) -> void:
+	BuildingV3.set_environment(dust, snow, colour)  # v3 buildings (LANCE-21)
 	for m in _mats.values():
 		(m as ShaderMaterial).set_shader_parameter("dust", dust)
 		(m as ShaderMaterial).set_shader_parameter("snow", snow)
