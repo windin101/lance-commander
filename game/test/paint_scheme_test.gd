@@ -20,8 +20,8 @@ func after_test() -> void:
 
 func test_default_is_grey_with_red_piping() -> void:
 	var s := PaintScheme.player()
-	assert_str(String(s["base"])).is_equal("#9a9a9a")
-	assert_str(String(s["hl1"])).is_equal("#d02e11")
+	assert_str(String(s["base"])).is_equal("#4a5560")
+	assert_str(String(s["hl1"])).is_equal("#f2a21f")
 	assert_str(String(s["pattern"])).is_equal("plain")
 	assert_str(String(s["piping"])).is_equal("hl1")
 
@@ -60,7 +60,7 @@ func test_faction_and_mission_colours_by_triple() -> void:
 	# [HighlightColor1, HighlightColor2, BaseColor] as SimUnit.paint
 	var liao := PaintScheme.for_triple([0xfff4c28a, 0xffde701f, 0xff809267])
 	assert_str(String(liao.get("faction", ""))).is_equal("liao")
-	assert_str(String(liao["base"])).is_equal("#003914")
+	assert_str(String(liao["base"])).is_equal("#2f6b4f")
 	var bandit := PaintScheme.for_triple([0xffddbb50, 0xff000000, 0xffb02828])
 	assert_str(String(bandit.get("faction", ""))).is_equal("bandits")
 	assert_str(String(bandit["pattern"])).is_equal("arkab")

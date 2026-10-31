@@ -4,9 +4,8 @@
     python3 -I tools/art/faction_paint.py      # writes game/data/faction_paint.json and prints the unassigned schemes
 
 Each unit in a mission file carries a colour triple (BaseColor, HighlightColor1, HighlightColor2). This maps the
-triples of the Davion, Steiner, Liao and bandit forces to one scheme each, after Lee's chosen reference palettes in
-/mnt/nvme1n1p1/mc2-rework/ref/ucc/ (noted per scheme), and keeps the player's default scheme
-(ref/lee_default_scheme_grey_red.png). Rebels keep their mission colours. A triple is "verified" when a mission's own warrior brain names give the
+triples of the Davion, Steiner, Liao and bandit forces to one scheme each. The scheme colours are the master style
+guide's role schemes (docs/art/STYLE-GUIDE.md 2.3, 2026-10-31), which replaced the earlier reference palettes. Rebels keep their mission colours. A triple is "verified" when a mission's own warrior brain names give the
 faction (mc2_17: mc2_17_EC1_Steiner_Boss, mc2_17_a2_Liao_Mech_1 ...), "inferred" when it only appears in missions
 whose briefings and objectives name that faction. Every other triple keeps the mission's own colours and is listed
 under "unassigned" with the missions it appears in, for Lee to choose schemes later.
@@ -32,40 +31,78 @@ ROOT = Path(__file__).resolve().parents[2]
 
 PLAIN = {"body": "base", "head": "base", "arms": "base", "upper_legs": "base", "lower_legs": "base",
          "feet": "base", "weapons": "steel", "plates": "base"}
+# Schemes follow docs/art/STYLE-GUIDE.md 2.3 (master guide, 2026-10-31; it replaces the 2026-10-23/24 reference
+# palettes): base = the guide's primary, hl1 = secondary, hl2 = trim. "role" is the guide's role name; display_name is
+# what the UI shows, always the role, never a house or product name (2.3 licence rule). The keys stay as they were
+# (davion, steiner, liao, bandits) because tools and tests address schemes by key; ROLE_OF_FACTION below is the
+# mapping of MC2's houses and factions to the guide's roles.
+ROLE_OF_FACTION = {
+    "player": "Player lance",
+    "davion": "Red-and-gold realm",
+    "steiner": "Blue-and-silver realm",
+    "liao": "Green-and-gold realm",
+    "bandits": "Pirates",
+    # schemes the guide defines that no MC2 mission colour maps to yet (kept ready for the mapping)
+    "opfor": "Enemy forces",
+    "realm_crimson_black": "Crimson-and-black realm",
+    "realm_purple": "Purple realm",
+    "clans": "Invader clans",
+    "civilian": "Civilian / industrial",
+}
 SCHEMES = {
-    # the player's default (Lee): grey armour, red stripes and inset edge piping
-    "player_default": {"base": "#9a9a9a", "hl1": "#d02e11", "hl2": "#4a4a4c", "regions": PLAIN, "piping": "hl1",
-                       "stripe": None, "band": "hl1", "decal": "#e8e4dc", "insignia": False, "pattern": "plain"},
-    # Davion: follows ref/ucc/la_thorin_color_palette.png: a three-colour blotch camouflage over the whole 'Mech
-    # (black-green #242a1f, brown #4b3d23, tan #c2ac69: the "thorin" pattern), gunmetal joints
-    "davion": {"display_name": "Davion Regiment", "base": "#4b3d23", "hl1": "#c2ac69", "hl2": "#242a1f",
-               "regions": PLAIN, "piping": None, "stripe": None, "band": None, "decal": "#c2ac69", "insignia": True,
-               "insignia_shape": "star", "pattern": "thorin"},
-    # Steiner: follows ref/ucc/la_lyran_guards_color_palette_REPAINTED_BY_JUSTIN_KASE-1.png: blue the dominant armour
-    # (torso, arms, legs), off-white outer plates and head, silver piping, small orange accents (Lee 2026-10-24)
-    "steiner": {"display_name": "Steiner Guards", "base": "#d0ccbe", "hl1": "#d06020", "hl2": "#2a4a8a",
-                "regions": dict(PLAIN, body="hl2", arms="hl2", upper_legs="hl2", lower_legs="hl2", feet="hl2"), "piping": "#b8bcc2",
-                "stripe": None, "band": "hl1", "decal": "#2a4a8a", "insignia": True, "insignia_shape": "shield",
+    # player lance (default): gunmetal, amber, light steel trim; amber edge piping and band
+    "player_default": {"role": "Player lance", "base": "#4a5560", "hl1": "#f2a21f", "hl2": "#d5dee3", "regions": PLAIN,
+                       "piping": "hl1", "stripe": None, "band": "hl1", "decal": "#d5dee3", "insignia": False,
+                       "pattern": "plain"},
+    # enemy / OpFor generic: oxblood, charcoal outer plates, bone trim
+    "opfor": {"display_name": "Enemy forces", "role": "Enemy forces", "base": "#5a2a26", "hl1": "#2a2a2c",
+              "hl2": "#b8b2a6", "regions": dict(PLAIN, plates="hl1"), "piping": None, "stripe": None, "band": "hl2",
+              "decal": "#b8b2a6", "insignia": False, "pattern": "plain"},
+    # red-and-gold realm (MC2: Davion): red armour, gold piping and bands, black feet
+    "davion": {"display_name": "Red-and-gold realm", "role": "Red-and-gold realm", "base": "#b0262b", "hl1": "#e8c14a",
+               "hl2": "#1a1a1a", "regions": dict(PLAIN, feet="hl2"), "piping": "hl1", "stripe": None, "band": "hl1",
+               "decal": "#e8c14a", "insignia": True, "insignia_shape": "star", "pattern": "plain"},
+    # blue-and-silver realm (MC2: Steiner): blue armour, silver outer plates and head, gold piping
+    "steiner": {"display_name": "Blue-and-silver realm", "role": "Blue-and-silver realm", "base": "#2c4f9e",
+                "hl1": "#d8dce0", "hl2": "#e8c14a", "regions": dict(PLAIN, head="hl1", plates="hl1"), "piping": "hl2",
+                "stripe": None, "band": "hl1", "decal": "#d8dce0", "insignia": True, "insignia_shape": "shield",
                 "pattern": "plain"},
-    # a Steiner commander: the same with orange piping and orange numbers, to stand out
-    "steiner_boss": {"display_name": "Steiner Guards", "base": "#d0ccbe", "hl1": "#d06020", "hl2": "#2a4a8a",
-                     "regions": dict(PLAIN, body="hl2", arms="hl2", upper_legs="hl2", lower_legs="hl2", feet="hl2"), "piping": "hl1",
-                     "stripe": "hl1", "band": "hl1", "decal": "#d06020", "insignia": True, "insignia_shape": "shield",
-                     "pattern": "plain"},
-    # Liao: follows ref/ucc/mccarrons_armored_cavalry_4th_color_palette.png: dark green #003914 with bold white
-    # stripes on the shoulders, chest, arms and shins
-    "liao": {"display_name": "Liao Armored Cavalry", "base": "#003914", "hl1": "#ffffff", "hl2": "#003914",
-             "regions": PLAIN, "piping": None, "stripe": "hl1", "band": "hl1", "decal": "#ffffff", "insignia": True,
-             "insignia_shape": "chevron", "pattern": "plain"},
-    # Liao's heir: the same with gold piping
-    "liao_son": {"display_name": "Liao Armored Cavalry", "base": "#003914", "hl1": "#ffffff", "hl2": "#003914",
-                 "regions": PLAIN, "piping": "#c8a050", "stripe": "hl1", "band": "hl1", "decal": "#c8a050",
-                 "insignia": True, "insignia_shape": "chevron", "pattern": "plain"},
-    # bandits: follows ref/ucc/dracom_arkab_legion_panther_color_palette_REPAINTED_BY_JUSTIN_KASE.png: tans and rust
-    # brown with faded dark-green desert blotches (the "arkab" pattern)
-    "bandits": {"display_name": "Bandit Legion", "base": "#c9a77a", "hl1": "#9a5a2a", "hl2": "#5f6a46",
-                "regions": PLAIN, "piping": None, "stripe": None, "band": None, "decal": "#3a2a1a", "insignia": False,
-                "pattern": "arkab"},
+    # its commander: gold piping, stripe and band, gold numbers, to stand out
+    "steiner_boss": {"display_name": "Blue-and-silver realm", "role": "Blue-and-silver realm", "base": "#2c4f9e",
+                     "hl1": "#d8dce0", "hl2": "#e8c14a", "regions": dict(PLAIN, head="hl1", plates="hl1"),
+                     "piping": "hl2", "stripe": "hl2", "band": "hl2", "decal": "#e8c14a", "insignia": True,
+                     "insignia_shape": "shield", "pattern": "plain"},
+    # crimson-and-black realm: crimson armour, black plates, gold piping (no MC2 force maps here yet)
+    "realm_crimson_black": {"display_name": "Crimson-and-black realm", "role": "Crimson-and-black realm",
+                            "base": "#7a1d24", "hl1": "#1e1e22", "hl2": "#c9a646", "regions": dict(PLAIN, plates="hl1"),
+                            "piping": "hl2", "stripe": None, "band": None, "decal": "#c9a646", "insignia": True,
+                            "insignia_shape": "chevron", "pattern": "plain"},
+    # green-and-gold realm (MC2: Liao): green armour, gold stripes and bands, black feet
+    "liao": {"display_name": "Green-and-gold realm", "role": "Green-and-gold realm", "base": "#2f6b4f",
+             "hl1": "#c9a646", "hl2": "#1e1e22", "regions": dict(PLAIN, feet="hl2"), "piping": None, "stripe": "hl1",
+             "band": "hl1", "decal": "#c9a646", "insignia": True, "insignia_shape": "chevron", "pattern": "plain"},
+    # its heir: the same with gold piping
+    "liao_son": {"display_name": "Green-and-gold realm", "role": "Green-and-gold realm", "base": "#2f6b4f",
+                 "hl1": "#c9a646", "hl2": "#1e1e22", "regions": dict(PLAIN, feet="hl2"), "piping": "hl1",
+                 "stripe": "hl1", "band": "hl1", "decal": "#c9a646", "insignia": True, "insignia_shape": "chevron",
+                 "pattern": "plain"},
+    # purple realm: purple armour, light-steel plates, gold piping (no MC2 force maps here yet)
+    "realm_purple": {"display_name": "Purple realm", "role": "Purple realm", "base": "#6e3a8a", "hl1": "#d8dce0",
+                     "hl2": "#c9a646", "regions": dict(PLAIN, plates="hl1"), "piping": "hl2", "stripe": None,
+                     "band": None, "decal": "#d8dce0", "insignia": True, "insignia_shape": "shield", "pattern": "plain"},
+    # invader clans: olive-steel, bronze plates, near-black trim (no MC2 force maps here yet)
+    "clans": {"display_name": "Invader clans", "role": "Invader clans", "base": "#3e4a44", "hl1": "#b7792b",
+              "hl2": "#0e0e10", "regions": dict(PLAIN, plates="hl1"), "piping": None, "stripe": "hl2", "band": None,
+              "decal": "#b7792b", "insignia": True, "insignia_shape": "chevron", "pattern": "plain"},
+    # pirates / bandits: the guide gives no hexes ("2-3 clashing earth colours, mismatched patches"): tan, rust and
+    # olive in the "arkab" blotch pattern, and rust plates for the mismatched patches
+    "bandits": {"display_name": "Pirates", "role": "Pirates", "base": "#c9a77a", "hl1": "#9a5a2a", "hl2": "#5f6a46",
+                "regions": dict(PLAIN, plates="hl1"), "piping": None, "stripe": None, "band": None, "decal": "#3a2a1a",
+                "insignia": False, "pattern": "arkab"},
+    # civilian / industrial: safety yellow, slate plates (the guide names no trim: near-black, as the hazard chevrons)
+    "civilian": {"display_name": "Civilian / industrial", "role": "Civilian / industrial", "base": "#c9a230",
+                 "hl1": "#5b6770", "hl2": "#1e1e22", "regions": dict(PLAIN, plates="hl1"), "piping": None,
+                 "stripe": None, "band": "hl2", "decal": "#1e1e22", "insignia": False, "pattern": "plain"},
 }
 # triple key: base|hl1|hl2, lower-case hex
 TRIPLES = {
@@ -121,7 +158,7 @@ def main():
             continue   # mapped, or a player team's own (the player scheme replaces those)
         unassigned.append({"triple": k, "units": v["units"], "missions": sorted(v["missions"])})
     out = {"_doc": "tools/art/faction_paint.py (generated): faction schemes and mission colour triples -> faction",
-           "schemes": SCHEMES, "triples": triples, "unassigned": unassigned}
+           "roles": ROLE_OF_FACTION, "schemes": SCHEMES, "triples": triples, "unassigned": unassigned}
     (ROOT / "game/data/faction_paint.json").write_text(json.dumps(out, indent=1) + "\n")
     print(f"{len(triples)} triples mapped, {len(unassigned)} unassigned (kept as the missions paint them):")
     for u in unassigned:

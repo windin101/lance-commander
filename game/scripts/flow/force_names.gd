@@ -2,8 +2,8 @@ class_name ForceNames
 extends RefCounted
 ## Display names of the mission forces (Phase 8): a unit's mission colour triple
 ## [HighlightColor1, HighlightColor2, BaseColor] -> its faction in res://data/faction_paint.json
-## (tools/art/faction_paint.py) -> that faction scheme's display_name ("Davion Regiment",
-## "Steiner Guards", "Liao Armored Cavalry", "Bandit Legion"). Unmapped triples give "".
+## (tools/art/faction_paint.py) -> that faction scheme's display_name, its style-guide role ("Red-and-gold realm",
+## "Blue-and-silver realm", "Green-and-gold realm", "Pirates"; never a house name, guide 2.3). Unmapped triples give "".
 
 static var _data := {}
 

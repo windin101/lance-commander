@@ -48,5 +48,5 @@ func test_scheme_regions_reach_the_shader() -> void:
 	var steel: PackedFloat32Array = mat.get_shader_parameter("region_steel")
 	assert_float(steel[PaintScheme.REGIONS.find("weapons")]).is_equal(1.0)
 	assert_float(float(mat.get_shader_parameter("band_on"))).is_equal(1.0)
-	ArtV3.set_scheme(mat, PaintScheme.named("davion"))
-	assert_int(int(mat.get_shader_parameter("pattern"))).is_equal(PaintScheme.PATTERNS.find("thorin"))
+	ArtV3.set_scheme(mat, PaintScheme.named("bandits"))
+	assert_int(int(mat.get_shader_parameter("pattern"))).is_equal(PaintScheme.PATTERNS.find("arkab"))

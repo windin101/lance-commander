@@ -1,60 +1,47 @@
 class_name UiStyle
 extends RefCounted
-## Shared look for the between-mission screens: a dark command console with the HUD's
-## green accent. theme() is applied to each screen's root Control.
+## Shared look for the between-mission screens (the amber layer of docs/art/STYLE-GUIDE.md 2.1:
+## menus, campaign, mech bay, debrief). theme() is StyleTokens.theme(), built from
+## res://data/theme/style_tokens.json; the constants below mirror those tokens for code that
+## colours single labels (style_tokens_test pins them to the JSON). Green is reserved for `ok`.
 ##
-## The in-mission HUD has its own look (Lee's approved mock-up, 2026-10-20): cyan-framed
+## The in-mission HUD has its own look (Lee's approved mock-up, 2026-10-20, the guide's 6): cyan-framed
 ## command panels with bevelled corners, Chakra Petch / Barlow Semi Condensed / Share Tech
 ## Mono (OFL, assets/fonts). Its sizes are in a base unit, hud_unit(), that follows the
 ## viewport height and the player's HUD scale setting; hud_theme(unit) and HudFrame build it.
 
-const BG := Color(0.035, 0.05, 0.055)
-const PANEL := Color(0.065, 0.09, 0.095, 0.95)
-const PANEL_EDGE := Color(0.2, 0.42, 0.27)
-const ACCENT := Color(0.45, 1.0, 0.55)
-const TEXT := Color(0.86, 0.92, 0.87)
-const DIM := Color(0.55, 0.64, 0.58)
-const WARN := Color(1.0, 0.76, 0.32)
-const FAIL := Color(1.0, 0.42, 0.32)
+# Section 2.1 tokens (names as the guide's, - -> _).
+const INK_900 := Color("#070A0D")
+const INK_800 := Color("#0C1117")
+const INK_700 := Color("#121A22")
+const INK_600 := Color("#1B2630")
+const STEEL_500 := Color("#3A4854")
+const STEEL_300 := Color("#7F909C")
+const STEEL_100 := Color("#D5DEE3")
+const WHITE := Color("#F2F6F8")
+const AMBER_500 := Color("#F2A21F")
+const AMBER_300 := Color("#FFC85A")
+const AMBER_700 := Color("#8C5A0C")
+const CYAN_400 := Color("#3FC6E0")
+const STATE_OK := Color("#4FD38A")  # token `ok` (OK itself is the Error enum)
+const WARN := Color("#F2B54A")
+const HEAT := Color("#FF7A2F")
+const CRIT := Color("#FF5A4E")
+const FRIEND := Color("#5CA0FF")
+const NEUTRAL := Color("#C9CED2")
 
-static var _theme: Theme
+# The older between-mission names, now on the tokens (the old green accent is gone, guide 19.1).
+const BG := INK_800
+const PANEL := Color(INK_700, 0.85)
+const PANEL_EDGE := STEEL_500
+const ACCENT := AMBER_500
+const TEXT := STEEL_100
+const DIM := STEEL_300
+const FAIL := CRIT
 
 
 static func theme() -> Theme:
-	if _theme:
-		return _theme
-	var t := Theme.new()
-	t.default_font_size = 16
-	t.set_color("font_color", "Label", TEXT)
-	t.set_color("default_color", "RichTextLabel", TEXT)
-	t.set_stylebox("panel", "PanelContainer", _box(PANEL, PANEL_EDGE, 1, 14))
-	t.set_stylebox("panel", "Panel", _box(PANEL, PANEL_EDGE, 1, 0))
-	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
-		var fill := Color(0.09, 0.14, 0.11)
-		var edge := PANEL_EDGE
-		match state:
-			"hover":
-				fill = Color(0.12, 0.22, 0.15)
-				edge = ACCENT
-			"pressed":
-				fill = Color(0.18, 0.34, 0.22)
-				edge = ACCENT
-			"disabled":
-				fill = Color(0.06, 0.07, 0.07)
-				edge = Color(0.2, 0.22, 0.21)
-			"focus":
-				fill = Color(0, 0, 0, 0)
-				edge = ACCENT
-		t.set_stylebox(state, "Button", _box(fill, edge, 1, 0, Vector4(18, 8, 18, 8)))
-	t.set_color("font_color", "Button", TEXT)
-	t.set_color("font_hover_color", "Button", ACCENT)
-	t.set_color("font_pressed_color", "Button", ACCENT)
-	t.set_color("font_disabled_color", "Button", Color(0.38, 0.42, 0.4))
-	t.set_stylebox("scroll", "VScrollBar", _box(Color(0.05, 0.07, 0.07), Color(0, 0, 0, 0), 0, 0))
-	t.set_stylebox("grabber", "VScrollBar", _box(Color(0.2, 0.36, 0.25), Color(0, 0, 0, 0), 0, 0))
-	t.set_stylebox("grabber_highlight", "VScrollBar", _box(Color(0.3, 0.55, 0.36), Color(0, 0, 0, 0), 0, 0))
-	_theme = t
-	return t
+	return StyleTokens.theme()
 
 
 static func _box(fill: Color, edge: Color, border: int, pad: int, margins := Vector4(-1, -1, -1, -1)) -> StyleBoxFlat:
@@ -81,11 +68,12 @@ static func label(text: String, size := 16, colour := TEXT, caps := false) -> La
 	return l
 
 
-## A section heading: small caps in the accent colour with a rule under it.
+## A section heading (4.3 table header): label-role caps in amber over a 1 px steel-500 rule.
 static func heading(text: String) -> VBoxContainer:
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 4)
-	var l := label(text, 13, ACCENT, true)
+	var l := label(text, StyleTokens.size("label"), ACCENT, true)
+	l.add_theme_font_override("font", StyleTokens.font("label", StyleTokens.size("label")))
 	l.add_theme_constant_override("line_spacing", 0)
 	v.add_child(l)
 	var rule := ColorRect.new()

@@ -5,16 +5,16 @@ extends GdUnitTestSuite
 
 func test_triples_name_the_force() -> void:
 	# mc2_02's bandits: BaseColor #b02828 is the triple's first entry (base|hl1|hl2)
-	assert_str(ForceNames.for_paint([0xffddbb50, 0xff000000, 0xffb02828])).is_equal("Bandit Legion")
+	assert_str(ForceNames.for_paint([0xffddbb50, 0xff000000, 0xffb02828])).is_equal("Pirates")
 	assert_str(ForceNames.for_paint([0, 0, 0x123456])).is_empty()  # unmapped
 	assert_str(ForceNames.for_paint([])).is_empty()
 
 
 func test_briefing_lists_the_forces_present() -> void:
-	assert_dict(MissionBrief.load_mission(GameData, "mc2_02").forces["opposing"]).contains_keys(["Bandit Legion"])
+	assert_dict(MissionBrief.load_mission(GameData, "mc2_02").forces["opposing"]).contains_keys(["Pirates"])
 	var b := MissionBrief.load_mission(GameData, "mc2_17")
-	assert_dict(b.forces["opposing"]).contains_keys(["Steiner Guards", "Liao Armored Cavalry"])
-	assert_dict(b.forces["allied"]).contains_keys(["Steiner Guards"])
+	assert_dict(b.forces["opposing"]).contains_keys(["Blue-and-silver realm", "Green-and-gold realm"])
+	assert_dict(b.forces["allied"]).contains_keys(["Blue-and-silver realm"])
 
 
 func test_enemy_tag_and_debrief_kills_carry_the_force() -> void:
@@ -27,13 +27,13 @@ func test_enemy_tag_and_debrief_kills_carry_the_force() -> void:
 		and ForceNames.of_unit(u) != "")[0]
 	view.hud.show_enemy_tag(enemy, Vector2(400, 300))
 	assert_bool(view.hud.enemy_tag.visible).is_true()
-	assert_str(view.hud._enemy_force.text).is_equal("Bandit Legion")
+	assert_str(view.hud._enemy_force.text).is_equal("Pirates")
 	view.hud.show_enemy_tag(null)
 	assert_bool(view.hud.enemy_tag.visible).is_false()
 	enemy.status = SimUnit.Status.DESTROYED
 	var r := MissionReport.from_sim(view.sm, "t", GameData)
 	var k: Dictionary = r["kills"].filter(func(e): return e["name"] == enemy.name)[0]
-	assert_str(k["force"]).is_equal("Bandit Legion")
+	assert_str(k["force"]).is_equal("Pirates")
 	# a player unit gets no force name
 	var own: SimUnit = view.world.units.filter(func(u): return u.team == view.sm.player_team and u.commander == 0 and u.is_mover())[0]
 	assert_str(ForceNames.of_unit(own)).is_empty()

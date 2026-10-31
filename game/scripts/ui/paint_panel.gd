@@ -8,7 +8,7 @@ extends VBoxContainer
 signal changed(scheme: Dictionary)
 
 const PRESETS := [
-	{"name": "Default", "base": "#9a9a9a", "hl1": "#d02e11", "hl2": "#4a4a4c", "pattern": "plain"},
+	{"name": "Default", "base": "#4a5560", "hl1": "#f2a21f", "hl2": "#d5dee3", "pattern": "plain"},
 	{"name": "Woodland", "base": "#5a6240", "hl1": "#c8a050", "hl2": "#3a3a2c", "pattern": "woodland"},
 	{"name": "Snow", "base": "#d0d4d8", "hl1": "#c02818", "hl2": "#50555a", "pattern": "snow"},
 	{"name": "Urban", "base": "#6c7076", "hl1": "#e0b030", "hl2": "#2c3036", "pattern": "urban"},
