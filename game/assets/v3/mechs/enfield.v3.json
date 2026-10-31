@@ -1,0 +1,53 @@
+{
+ "model": "enfield.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Enfield (image-to-3D base sculpt from our own input renders)",
+  "author": "Tripo (paid plan, Lee's account, task 7f1de136-dc16-409b-b3dd-370b40c02aca, model v3.1-20260211); design Lee Osborne / Claude",
+  "url": "",
+  "licence": "our own work, Shared Source non-commercial (design follows the MC2 Enfield)",
+  "file": "tools/art/v3/tripo_gen.py"
+ },
+ "tris": 58527,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.016,
+  "Walk": 0.279,
+  "Run": 0.272,
+  "STtoWK": 0.121,
+  "WKtoST": 0.152,
+  "WKtoRN": 0.275,
+  "RNtoWK": 0.281,
+  "LimpLeft": 0.122,
+  "LimpRight": 0.187,
+  "ParkToStand": 0.264,
+  "StandToPark": 0.252,
+  "Jump": 0.178,
+  "FallForward": 1.33,
+  "FallBackward": 0.203,
+  "GetUpFront": 1.329,
+  "GetUpBack": 0.203,
+  "HitFront": 0.075,
+  "HitBack": 0.073,
+  "HitLeft": 0.015,
+  "HitRight": 0.075
+ },
+ "paint_stats": {
+  "texels": 1708255,
+  "chip_share": 0.06253164779263048,
+  "grime_mean": 0.3051440417766571,
+  "paint_share": 0.6316849650666909,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 10391,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}
