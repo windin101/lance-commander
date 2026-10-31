@@ -360,3 +360,14 @@ Trim sheet and decal atlas: project-made by `tools/art/v3/bld_trim.py` (stencil 
 | File | What | How | Licence |
 |---|---|---|---|
 | `game/assets/v3/objects/largefueltank.glb`, `_damaged.glb`, `_destroyed.glb` | Large fuel tank, 3 states, each with nodes lod0 (to 80 m) and lod1 | `bld_tanks.py largefueltank`, true round drum (72 / 40 segments), torn shell cut along a smooth contour (`Builder.cut_surface`), library materials | MC2 Shared Source terms (dimensions), non-commercial; textures CC0 + project-made |
+
+Storage family rollout (2026-10-31): `tools/art/v3/bld_family.py` + `bld_kit.py` (Python, deterministic; wreck scatter seeded 3100 + state + sum of the name's characters), all with nodes lod0 (to 80 m) and lod1, three states each, the same library, trim sheet and decals. Dimensions from the Shared Source originals' bounds and `tools/cad/<app>_cad.py` headers (non-commercial terms); the facets of the originals' hex/octagonal/decagonal tanks and silos are true rounds here.
+
+| File | What | How | Licence |
+|---|---|---|---|
+| `game/assets/v3/objects/smallfueltank{,_damaged,_destroyed}.glb` | Small fuel tank with riser stack | `bld_family.py smallfueltank` | MC2 Shared Source terms (dimensions), non-commercial; textures CC0 + project-made |
+| `.../pipetank{,_damaged,_destroyed}.glb` | Pipe-head tank on a pedestal, flanged pipe and end block | `bld_family.py pipetank` | same |
+| `.../liquidstorage{,_damaged,_destroyed}.glb` | Liquid storage tank, stair tower, roof bridge | `bld_family.py liquidstorage` | same |
+| `.../watertower{,_damaged,_destroyed}.glb` | Water tower on an open four-leg stand | `bld_family.py watertower` | same |
+
+Library note: metalness of the ambientCG sets is scaled in `BuildingV3.LIB` (steel 0.35, galvanised 0.2, corrugated 0.15, grate 0.3, rust 0.2). Full scanned metalness read near black under the mission light and blue under the sky.

@@ -1,0 +1,52 @@
+{
+ "app": "smallfueltank",
+ "made_by": "tools/art/v3/bld_family.py",
+ "source_dims": "hex tank on a plinth with a riser, bounds x -3.41..3.75, z +-3.9, 8.6 m (tools/cad/smallfueltank_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 9010,
+   "tris_lod1": 4538,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.95,
+    0.0,
+    -3.95
+   ],
+   "bounds_max": [
+    4.25,
+    8.6,
+    3.95
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 42328,
+   "tris_lod1": 16022,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.95,
+    0.0,
+    -3.95
+   ],
+   "bounds_max": [
+    4.07,
+    8.6,
+    4.64
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 22242,
+   "tris_lod1": 7782,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.11,
+    0.0,
+    -4.11
+   ],
+   "bounds_max": [
+    4.39,
+    5.02,
+    4.11
+   ]
+  }
+ }
+}

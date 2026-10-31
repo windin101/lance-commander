@@ -182,6 +182,71 @@ class Builder:
             idx = np.array([(0, 1, 2), (0, 2, 3)])[None] + (np.arange(kq) * 4)[:, None, None]
             self.add(edge_mat, Pq.reshape(-1, 3), Nq.reshape(-1, 3), Uq.reshape(-1, 2), idx.reshape(-1, 3))
 
+    def cut_param(self, mat, pos, us, vs, keep, uv=None, flip=False, band=0, col=(0, 0, 0), thickness=0.0, edge_mat="rust", disp=None):
+        """Generic clipped grid: pos(u, v) -> (...,3) over the grid us x vs, clipped exactly along keep(u, v) = 0 (keep > 0 stays),
+        used for planar walls and roofs. uv(u, v) -> (...,2) (default metres u, v). Edge strip of `thickness` along -normal."""
+        us = np.asarray(us, float); vs = np.asarray(vs, float)
+        U, V = np.meshgrid(us, vs)
+        Kv = keep(U, V) if keep is not None else np.ones_like(U)
+        tris, segs = [], []
+        for i in range(len(vs) - 1):
+            for j in range(len(us) - 1):
+                kv = [Kv[i, j], Kv[i, j + 1], Kv[i + 1, j + 1], Kv[i + 1, j]]
+                pts = [(us[j], vs[i]), (us[j + 1], vs[i]), (us[j + 1], vs[i + 1]), (us[j], vs[i + 1])]
+                if min(kv) >= 0:
+                    tris += [(pts[0], pts[1], pts[2]), (pts[0], pts[2], pts[3])]
+                    continue
+                if max(kv) <= 0:
+                    continue
+                poly = []; cut = []
+                for a in range(4):
+                    b2 = (a + 1) % 4
+                    if kv[a] >= 0:
+                        poly.append(pts[a])
+                    if (kv[a] >= 0) != (kv[b2] >= 0):
+                        t = kv[a] / (kv[a] - kv[b2])
+                        q = (pts[a][0] + (pts[b2][0] - pts[a][0]) * t, pts[a][1] + (pts[b2][1] - pts[a][1]) * t)
+                        poly.append(q); cut.append(q)
+                for k in range(1, len(poly) - 1):
+                    tris.append((poly[0], poly[k], poly[k + 1]))
+                if len(cut) >= 2:
+                    segs.append((cut[0], cut[1]))
+        if not tris:
+            return
+        T = np.array(tris, float)
+        def P_(u, v, off=0.0):
+            p = pos(u, v)
+            if disp is not None:
+                p = p + disp(u, v, keep(u, v) if keep is not None else np.ones_like(u))[..., None] * nrm(u, v)
+            return p + off * nrm(u, v)
+        e = 1e-3
+        def nrm(u, v):
+            du = pos(u + e, v) - pos(u - e, v); dv = pos(u, v + e) - pos(u, v - e)
+            n = np.cross(du, dv)
+            n = n / (np.linalg.norm(n, axis=-1, keepdims=True) + 1e-12)
+            return -n if flip else n
+        Pp = P_(T[..., 0], T[..., 1]); Nn = nrm(T[..., 0], T[..., 1])
+        Uv = uv(T[..., 0], T[..., 1]) if uv is not None else T
+        m = len(T)
+        self.add(mat, Pp.reshape(-1, 3), Nn.reshape(-1, 3), np.asarray(Uv).reshape(-1, 2), np.arange(m * 3).reshape(m, 3), band, col)
+        if thickness > 0 and segs:
+            S = np.array(segs, float); a, b = S[:, 0], S[:, 1]
+            oa, ob = P_(a[:, 0], a[:, 1]), P_(b[:, 0], b[:, 1])
+            na = nrm(a[:, 0], a[:, 1])
+            ia, ib = oa - na * thickness, ob - na * thickness
+            mid = (a + b) / 2
+            gu = (keep(mid[:, 0] + 1e-3, mid[:, 1]) - keep(mid[:, 0] - 1e-3, mid[:, 1])) / 2e-3
+            gv = (keep(mid[:, 0], mid[:, 1] + 1e-3) - keep(mid[:, 0], mid[:, 1] - 1e-3)) / 2e-3
+            du = pos(mid[:, 0] + e, mid[:, 1]) - pos(mid[:, 0] - e, mid[:, 1]); dv = pos(mid[:, 0], mid[:, 1] + e) - pos(mid[:, 0], mid[:, 1] - e)
+            du = du / (np.linalg.norm(du, axis=1, keepdims=True) + 1e-12); dv = dv / (np.linalg.norm(dv, axis=1, keepdims=True) + 1e-12)
+            n_edge = -(gu[:, None] * du + gv[:, None] * dv)
+            Pq = np.stack([oa, ob, ib, ia], 1)
+            L = np.linalg.norm(ob - oa, axis=1)
+            Uq = np.stack([np.stack([np.zeros_like(L), L, L, np.zeros_like(L)], 1), np.stack([np.zeros_like(L), np.zeros_like(L), np.full_like(L, thickness), np.full_like(L, thickness)], 1)], -1)
+            kq = len(Pq)
+            idx = np.array([(0, 1, 2), (0, 2, 3)])[None] + (np.arange(kq) * 4)[:, None, None]
+            self.add(edge_mat, Pq.reshape(-1, 3), np.repeat(n_edge[:, None, :], 4, 1).reshape(-1, 3), Uq.reshape(-1, 2), idx.reshape(-1, 3))
+
     def disc(self, mat, c, r, normal=(0, 1, 0), seg=48, col=(0, 0, 0), r_in=0.0, band=0, uvs=1.0):
         """Flat disc or annulus; UV planar in metres."""
         nrm = unit(normal)

@@ -1,0 +1,52 @@
+{
+ "app": "watertower",
+ "made_by": "tools/art/v3/bld_family.py",
+ "source_dims": "open four-leg stand, tank r 2.65 to 8.83, lid 9.37 m (tools/cad/watertower_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 7748,
+   "tris_lod1": 4162,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.95,
+    0.0,
+    -4.09
+   ],
+   "bounds_max": [
+    3.43,
+    9.55,
+    3.84
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 40384,
+   "tris_lod1": 15004,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.95,
+    0.0,
+    -4.09
+   ],
+   "bounds_max": [
+    2.95,
+    9.55,
+    5.02
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 21188,
+   "tris_lod1": 6952,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.5,
+    0.0,
+    -4.61
+   ],
+   "bounds_max": [
+    5.5,
+    3.79,
+    6.39
+   ]
+  }
+ }
+}

@@ -4,14 +4,14 @@
  "source_dims": "tools/cad/largefueltank_cad.py (decagonal drum 8.60 m corners, 4.96-16.15 m; hex skirt 9.35 m; feed pipe and pump to x 12.78)",
  "states": {
   "intact": {
-   "tris_lod0": 32404,
-   "tris_lod1": 10204,
+   "tris_lod0": 31828,
+   "tris_lod1": 9436,
    "lod_switch_m": 80.0,
    "per_material_lod0": {
     "concrete": 396,
-    "paint": 5748,
+    "paint": 6132,
     "galv": 2084,
-    "steel": 20604,
+    "steel": 19644,
     "decal": 1182,
     "trim": 2232,
     "grate": 146,
@@ -29,14 +29,14 @@
    ]
   },
   "damaged": {
-   "tris_lod0": 59478,
-   "tris_lod1": 20214,
+   "tris_lod0": 58974,
+   "tris_lod1": 19542,
    "lod_switch_m": 80.0,
    "per_material_lod0": {
     "concrete": 396,
-    "paint": 24796,
+    "paint": 25108,
     "galv": 2084,
-    "steel": 15504,
+    "steel": 14688,
     "decal": 1068,
     "rust": 580,
     "interior": 6696,
@@ -61,9 +61,9 @@
    "lod_switch_m": 80.0,
    "per_material_lod0": {
     "concrete": 384,
-    "paint": 11180,
+    "paint": 10988,
     "galv": 1496,
-    "steel": 6980,
+    "steel": 7172,
     "decal": 342,
     "rust": 1622,
     "interior": 9692,

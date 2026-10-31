@@ -13,6 +13,7 @@ uniform sampler2D nm_tex : filter_linear_mipmap_anisotropic, repeat_enable;
 uniform sampler2D grunge_tex : hint_default_white, filter_linear_mipmap, repeat_enable;
 uniform int mode = 0;
 uniform float tile_m = 2.0;
+uniform float lined = 0.0;   // 1: a ribbed sheet (corrugated): ribs run vertically, and no rotated second sample (it would moire)
 uniform float metal_k = 1.0;
 uniform float normal_depth = 1.0;
 uniform vec3 base_tint : source_color = vec3(1.0);
@@ -68,6 +69,9 @@ void fragment() {
 		nm = textureGrad(nm_tex, uv, dFdx(UV) * g, dFdy(UV) * g);
 	} else {
 		uv = UV / tile_m;
+		if (lined > 0.5) {
+			uv = uv.yx;
+		}
 		vec2 uv2 = mat2(vec2(0.8, 0.6), vec2(-0.6, 0.8)) * uv * 0.37 + vec2(0.31, 0.57);
 		float bn = texture(grunge_tex, mpos.xz * 0.05 + mpos.y * 0.03).g;
 		float k = smoothstep(0.35, 0.65, bn);
@@ -75,8 +79,9 @@ void fragment() {
 		vec4 a2 = texture(ar_tex, uv2);
 		vec4 n1 = texture(nm_tex, uv);
 		vec4 n2 = texture(nm_tex, uv2);
-		ar = mix(a1, a2, k * 0.55);
-		nm = mix(n1, n2, k * 0.55);
+		float kk = k * 0.55 * (1.0 - lined);
+		ar = mix(a1, a2, kk);
+		nm = mix(n1, n2, kk);
 	}
 	float g1 = texture(grunge_tex, mpos.xz * 0.21 + mpos.y * 0.13).g;
 	float g2 = texture(grunge_tex, mpos.xy * 0.4 + mpos.zy * 0.4).r;

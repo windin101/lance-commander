@@ -277,7 +277,7 @@ def build(T: Tank, state: str, seed: int, lod: int = 0) -> Builder:
                 continue
             bad = np.flatnonzero(kk < 0.25)
             ytop = yy[bad[0]] if len(bad) else T.y_drum1
-        b.tube("paint", (R * math.cos(a), T.y_drum0 + 0.02, cz + R * math.sin(a)), ((R + 0.01) * math.cos(a), ytop, cz + (R + 0.01) * math.sin(a)), 0.045, 6, caps=False)
+        b.tube("steel", (R * math.cos(a), T.y_drum0 + 0.02, cz + R * math.sin(a)), ((R + 0.01) * math.cos(a), ytop, cz + (R + 0.01) * math.sin(a)), 0.045, 6, caps=False)
 
     # hazard belt (trim band 0), proud of the shell between a stiffener ring below and the catwalk above
     y0, y1 = T.belt
@@ -423,14 +423,14 @@ def build(T: Tank, state: str, seed: int, lod: int = 0) -> Builder:
             b.revolve("paint", T.roof, SEG, cz=cz, uref=uref(8.0, 2.0))
         # tint ring on the dome, so the faction colour reads from the RTS camera (which sees the roof, not the eave)
         rk = lambda th: (state == "damaged" and tor(th) < math.radians(40))
-        b.revolve("trim", [(7.12, 17.12), (5.77, 17.40)], SEG, cz=cz, cull=(lambda th, y: rk(th)), band=6, uref=uref(6.4, TRIM_TILE) * K, vscale=K, col=(1, 0, 0))
+        b.revolve("trim", [(6.7, 17.2), (6.1, 17.32)], SEG, cz=cz, cull=(lambda th, y: rk(th)), band=6, uref=uref(6.4, TRIM_TILE) * K, vscale=K, col=(1, 0, 0))
         # radial roof ribs
-        for k in range(16):
-            th = TAU * k / 16
+        for k in range(8 if fine else 0):
+            th = TAU * k / 8
             if state == "damaged" and tor(th) < math.radians(24):
                 continue
             pts = [(r * math.cos(th), y + 0.05, cz + r * math.sin(th)) for r, y in T.roof[::-1] if r > 2.9]
-            b.sweep("steel", pts, 0.05, 6, caps=True)
+            b.sweep("paint", pts, 0.035, 6, caps=True)
         # hatch drum with the hazard top, vent, stack
         b.revolve("galv", [(2.97, 18.02), (2.97, 18.42)], SEG, cz=cz, uref=uref(2.97, 1.5))
         b.disc("trim", (0, 18.42, cz), 2.97, r_in=0.0, seg=SEG, band=1, uvs=K, col=(0, 0, 0))

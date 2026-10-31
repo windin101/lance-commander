@@ -1,0 +1,52 @@
+{
+ "app": "pipetank",
+ "made_by": "tools/art/v3/bld_family.py",
+ "source_dims": "octagonal tank r 4.7 on a pedestal, pipe to x 12.78, 12.44 m (tools/cad/pipetank_cad.py)",
+ "states": {
+  "intact": {
+   "tris_lod0": 11898,
+   "tris_lod1": 4650,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.85,
+    0.0,
+    -4.85
+   ],
+   "bounds_max": [
+    13.4,
+    13.23,
+    4.85
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 43086,
+   "tris_lod1": 15396,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.85,
+    0.0,
+    -4.85
+   ],
+   "bounds_max": [
+    13.4,
+    13.23,
+    7.25
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 23290,
+   "tris_lod1": 7834,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.81,
+    0.0,
+    -5.81
+   ],
+   "bounds_max": [
+    13.4,
+    10.83,
+    5.81
+   ]
+  }
+ }
+}
