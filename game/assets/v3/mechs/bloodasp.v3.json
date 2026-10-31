@@ -1,0 +1,52 @@
+{
+ "model": "bloodasp.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Blood Asp (image-to-3D base sculpt from our own input renders)",
+  "author": "Tripo (paid plan, Lee's account, task 1969f255-702f-4307-a8ae-16e04f16da29, model v3.1-20260211); design Lee Osborne / Claude",
+  "url": "",
+  "licence": "our own work, Shared Source non-commercial (design follows the MC2 Blood Asp)",
+  "file": "tools/art/v3/tripo_gen.py"
+ },
+ "tris": 69827,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.021,
+  "Walk": 0.395,
+  "Run": 0.667,
+  "STtoWK": 0.175,
+  "WKtoST": 0.848,
+  "WKtoRN": 0.992,
+  "RNtoWK": 1.547,
+  "LimpLeft": 0.404,
+  "LimpRight": 0.355,
+  "ParkToStand": 0.289,
+  "StandToPark": 0.294,
+  "Jump": 1.813,
+  "FallForward": 1.592,
+  "FallBackward": 0.983,
+  "GetUpFront": 1.661,
+  "GetUpBack": 0.976,
+  "HitFront": 0.018,
+  "HitLeft": 0.018,
+  "HitRight": 0.01
+ },
+ "paint_stats": {
+  "texels": 1616570,
+  "chip_share": 0.045514267863439255,
+  "grime_mean": 0.3323361277580261,
+  "paint_share": 0.5963255534867034,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 26861,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

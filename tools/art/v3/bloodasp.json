@@ -1,0 +1,213 @@
+{
+ "_doc": "v3 settings for the Blood Asp, image-to-3D route (Tripo task 1969f255, 4-view multiview v3.1-20260211, our own input renders of the in-house blockout).",
+ "name": "bloodasp",
+ "folder": "mechs",
+ "stl": "image-to-3D sculpt (tools/art/v3/sculpt_prep.py output)",
+ "source": {
+  "title": "Blood Asp (image-to-3D base sculpt from our own input renders)",
+  "author": "Tripo (paid plan, Lee's account, task 1969f255-702f-4307-a8ae-16e04f16da29, model v3.1-20260211); design Lee Osborne / Claude",
+  "url": "",
+  "licence": "our own work, Shared Source non-commercial (design follows the MC2 Blood Asp)",
+  "file": "tools/art/v3/tripo_gen.py"
+ },
+ "k": 1.0,
+ "base_glb": "game/assets/mechs/bloodasp.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/bloodasp_tripo",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 50000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 2754,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "ba_lfoot": 1.0,
+   "joint_lbtoe": 1.0,
+   "joint_litoe": 1.0,
+   "joint_lftoe": 1.0,
+   "joint_lotoe": 1.0,
+   "ba_llleg": 1.0,
+   "ba_rfoot": 1.0,
+   "joint_rbtoe": 1.0,
+   "joint_rotoe": 1.0,
+   "joint_rftoe": 1.0,
+   "joint_ritoe": 1.0,
+   "ba_rlleg": 1.0,
+   "ba_rgun": 0.95,
+   "ba_ruarm": 0.95,
+   "ba_lgun": 0.95,
+   "ba_luarm": 0.95,
+   "joint_lshouldergun": 0.95,
+   "joint_rshouldergun": 0.95
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 300,
+    "min_aspect": 7.0,
+    "min_area_m2": 0.3
+   }
+  ]
+ },
+ "part_region": {
+  "ba_lfoot": "feet",
+  "joint_lbtoe": "feet",
+  "joint_litoe": "feet",
+  "joint_lftoe": "feet",
+  "joint_lotoe": "feet",
+  "ba_llleg": "lower_legs",
+  "ba_luleg": "upper_legs",
+  "ba_rfoot": "feet",
+  "joint_rbtoe": "feet",
+  "joint_rotoe": "feet",
+  "joint_rftoe": "feet",
+  "joint_ritoe": "feet",
+  "ba_rlleg": "lower_legs",
+  "ba_ruleg": "upper_legs",
+  "ba_hip": "body",
+  "ba_rgun": "arms",
+  "ba_ruarm": "arms",
+  "ba_lgun": "arms",
+  "ba_luarm": "arms",
+  "ba_torso": "body",
+  "joint_lshouldergun": "arms",
+  "joint_rshouldergun": "arms"
+ },
+ "feet": [
+  "ba_lfoot",
+  "joint_lbtoe",
+  "joint_litoe",
+  "joint_lftoe",
+  "joint_lotoe",
+  "ba_rfoot",
+  "joint_rbtoe",
+  "joint_rotoe",
+  "joint_rftoe",
+  "joint_ritoe"
+ ],
+ "joints": {
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_lbtoe": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_litoe": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_lftoe": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_lotoe": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 545
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_rbtoe": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_rotoe": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_rftoe": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_ritoe": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 496,
+   "half": 645
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 545
+  },
+  "joint_rgun": {
+   "kind": "sphere",
+   "r": 545
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 545
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 545
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 545
+  },
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 771
+  },
+  "joint_lshouldergun": {
+   "kind": "sphere",
+   "r": 545
+  },
+  "joint_rshouldergun": {
+   "kind": "sphere",
+   "r": 545
+  }
+ }
+}
