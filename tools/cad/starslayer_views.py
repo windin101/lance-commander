@@ -24,8 +24,8 @@ w = bpy.data.worlds.new("w"); w.color = (1, 1, 1); scn.world = w
 scn.view_settings.view_transform = "Standard"
 scn.render.resolution_x = scn.render.resolution_y = size
 cam = bpy.data.objects.new("cam", bpy.data.cameras.new("cam")); scn.collection.objects.link(cam); scn.camera = cam
-cam.data.type = "ORTHO"; cam.data.ortho_scale = 11.6; cam.data.clip_end = 1000
-ctr = Vector((0, 0.1, 4.95))
+cam.data.type = "ORTHO"; cam.data.ortho_scale = float(a[3]) if len(a) > 3 else 11.6; cam.data.clip_end = 1000
+ctr = Vector(tuple(float(v) for v in a[4].split(","))) if len(a) > 4 else Vector((0, 0.1, 4.95))   # metres
 V = {"front": (0, -1, 0), "left": (1, 0, 0), "back": (0, 1, 0), "q34": (0.62, -0.62, 0.42)}
 for n, d in V.items():
     d = Vector(d).normalized()

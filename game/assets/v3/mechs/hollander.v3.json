@@ -1,0 +1,53 @@
+{
+ "model": "hollander.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Hollander (image-to-3D base sculpt from our own input renders)",
+  "author": "Tripo (paid plan, Lee's account, task 3edb6c72-f3eb-49e7-b7be-c29ae63f17f1, model v3.1-20260211); design Lee Osborne / Claude",
+  "url": "",
+  "licence": "our own work, Shared Source non-commercial (design follows the MC2 Hollander)",
+  "file": "tools/art/v3/tripo_gen.py"
+ },
+ "tris": 59811,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.016,
+  "Walk": 0.172,
+  "Run": 0.269,
+  "STtoWK": 0.162,
+  "WKtoST": 0.157,
+  "WKtoRN": 0.281,
+  "RNtoWK": 0.185,
+  "LimpLeft": 0.117,
+  "LimpRight": 0.231,
+  "ParkToStand": 0.017,
+  "StandToPark": 0.018,
+  "Jump": 0.061,
+  "FallForward": 1.279,
+  "FallBackward": 1.081,
+  "GetUpFront": 0.903,
+  "GetUpBack": 1.082,
+  "HitFront": 0.016,
+  "HitBack": 0.031,
+  "HitLeft": 0.017,
+  "HitRight": 0.017
+ },
+ "paint_stats": {
+  "texels": 1634240,
+  "chip_share": 0.07544975034266693,
+  "grime_mean": 0.4221728444099426,
+  "paint_share": 0.5010714460544351,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 5855,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}

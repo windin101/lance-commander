@@ -153,6 +153,12 @@ def main():
     ap.add_argument("--out", default="/mnt/nvme1n1p1/mc2-rework/tripo_poc/starslayer/eval")
     ap.add_argument("--name", default="starslayer")
     ap.add_argument("--mechs", default="hunchback,bushwacker")
+    ap.add_argument("--centre", default="0,0,4900", help="view centre, game mm")
+    ap.add_argument("--span", type=float, default=11000, help="view span, game mm")
+    ap.add_argument("--knee", default="1617,-145,3342", help="close-up centre (a knee), game mm")
+    ap.add_argument("--arm", default="-2650,-1200,7190", help="close-up centre (a gun arm), game mm")
+    ap.add_argument("--close-span", default="3200,4600", help="knee,arm close-up spans, game mm")
+    ap.add_argument("--no-installed", action="store_true", help="leave out the installed v3 row")
     ap.add_argument("--extra", action="append", default=[], help="LABEL=aligned.npz: an earlier, already aligned run to show as an extra row (repeatable)")
     a = ap.parse_args()
     W = Path(a.out); W.mkdir(parents=True, exist_ok=True)
@@ -175,14 +181,17 @@ def main():
     rows = [("candidate (aligned)", Pa, F)]
     for ex in a.extra:
         lab_, f_ = ex.split("=", 1); z_ = np.load(f_); rows.append((lab_, z_["P"], z_["F"]))
-    rows.append(("in-house v3 Starslayer", *FC.original_mesh(a.name, "v3/mechs")))
+    if not a.no_installed and (ROOT / "game/assets/v3/mechs" / f"{a.name}.glb").exists():
+        rows.append((f"installed v3 {a.name}", *FC.original_mesh(a.name, "v3/mechs")))
     for m in a.mechs.split(","):
         rows.append((f"v3 {m}", *FC.original_mesh(m, "v3/mechs")))
     from PIL import Image, ImageDraw
-    cols = [("front", None), ("side", None), ("q34", None), ("knee", ((1617, -145, 3342), 3200)), ("arm", ((-2650, -1200, 7190), 4600))]
+    cs = [float(x) for x in a.close_span.split(",")]
+    cols = [("front", None), ("side", None), ("q34", None), ("knee", (tuple(float(x) for x in a.knee.split(",")), cs[0])), ("arm", (tuple(float(x) for x in a.arm.split(",")), cs[1]))]
+    vc = tuple(float(x) for x in a.centre.split(","))
     S = Image.new("RGB", (480 * 5, 480 * len(rows) + 0), (60, 60, 60)); d = ImageDraw.Draw(S)
     for r, (lab_, PP, FF) in enumerate(rows):
-        render(PP, FF, f"r{r}", W, ["front", "side", "q34"], (0, 0, 4900), 11000)
+        render(PP, FF, f"r{r}", W, ["front", "side", "q34"], vc, a.span)
         render(PP, FF, f"k{r}", W, ["q34"], cols[3][1][0], cols[3][1][1])
         render(PP, FF, f"a{r}", W, ["q34"], cols[4][1][0], cols[4][1][1])
         files = [W / f"r_r{r}_front.png", W / f"r_r{r}_side.png", W / f"r_r{r}_q34.png", W / f"r_k{r}_q34.png", W / f"r_a{r}_q34.png"]

@@ -1,0 +1,159 @@
+{
+ "_doc": "v3 settings for the Hollander, image-to-3D route (Tripo task 3edb6c72, multiview v3.1-20260211, our own input renders of the in-house blockout).",
+ "name": "hollander",
+ "folder": "mechs",
+ "stl": "image-to-3D sculpt (tools/art/v3/sculpt_prep.py output)",
+ "source": {
+  "title": "Hollander (image-to-3D base sculpt from our own input renders)",
+  "author": "Tripo (paid plan, Lee's account, task 3edb6c72-f3eb-49e7-b7be-c29ae63f17f1, model v3.1-20260211); design Lee Osborne / Claude",
+  "url": "",
+  "licence": "our own work, Shared Source non-commercial (design follows the MC2 Hollander)",
+  "file": "tools/art/v3/tripo_gen.py"
+ },
+ "k": 1.0,
+ "base_glb": "game/assets/mechs/hollander.glb",
+ "max_edge_mm": 120,
+ "pivots": {},
+ "from_v2": "/mnt/nvme1n1p1/mc2-rework/work/hollander_tripo",
+ "glass_from_v2": false,
+ "auto_actuators": true,
+ "caps": "none",
+ "seg": {
+  "patch_majority": 0.85,
+  "min_island": 300
+ },
+ "lowpoly": {
+  "faces": 45000,
+  "padding": 4,
+  "minor_scale": 0.5
+ },
+ "wear": {
+  "seed": 17,
+  "chips": 1.0,
+  "grime": 1.25,
+  "grime_opacity": 0.9,
+  "dirt_patches": 0.35,
+  "dust_colour": [
+   0.34,
+   0.3,
+   0.24
+  ],
+  "dust_opacity": 0.55,
+  "edge_lighten": 0.22,
+  "dust_height_mm": 1780,
+  "chip_scale_mm": 180,
+  "exposure": {
+   "joint_gun": 0.95,
+   "ho_rgun": 0.95,
+   "ho_ruarm": 0.95,
+   "ho_lgun": 0.95,
+   "ho_luarm": 0.95,
+   "ho_rfoot": 1.0,
+   "joint_rtoe": 1.0,
+   "ho_rmleg": 1.0,
+   "ho_lfoot": 1.0,
+   "joint_ltoe": 1.0,
+   "ho_lmleg": 1.0
+  }
+ },
+ "mask": {
+  "patch_deg": 25,
+  "panel_deg": 12,
+  "rules": [
+   {
+    "set": "piping",
+    "level": "panel",
+    "max_width_mm": 300,
+    "min_aspect": 7.0,
+    "min_area_m2": 0.3
+   }
+  ]
+ },
+ "part_region": {
+  "ho_torso": "body",
+  "joint_gun": "arms",
+  "ho_rgun": "arms",
+  "ho_ruarm": "arms",
+  "ho_lgun": "arms",
+  "ho_luarm": "arms",
+  "ho_rfoot": "feet",
+  "joint_rtoe": "feet",
+  "ho_rmleg": "lower_legs",
+  "ho_ruleg": "upper_legs",
+  "ho_lfoot": "feet",
+  "joint_ltoe": "feet",
+  "ho_lmleg": "lower_legs",
+  "ho_luleg": "upper_legs",
+  "ho_hip": "body"
+ },
+ "feet": [
+  "ho_rfoot",
+  "joint_rtoe",
+  "ho_lfoot",
+  "joint_ltoe"
+ ],
+ "joints": {
+  "joint_torso": {
+   "kind": "sphere",
+   "r": 498
+  },
+  "joint_gun": {
+   "kind": "sphere",
+   "r": 352
+  },
+  "joint_rgun": {
+   "kind": "sphere",
+   "r": 352
+  },
+  "joint_ruarm": {
+   "kind": "sphere",
+   "r": 352
+  },
+  "joint_lgun": {
+   "kind": "sphere",
+   "r": 352
+  },
+  "joint_luarm": {
+   "kind": "sphere",
+   "r": 352
+  },
+  "joint_rankle": {
+   "kind": "cyl",
+   "r": 320,
+   "half": 417
+  },
+  "joint_rtoe": {
+   "kind": "cyl",
+   "r": 320,
+   "half": 417
+  },
+  "joint_rlleg": {
+   "kind": "cyl",
+   "r": 320,
+   "half": 417
+  },
+  "joint_ruleg": {
+   "kind": "sphere",
+   "r": 352
+  },
+  "joint_lankle": {
+   "kind": "cyl",
+   "r": 320,
+   "half": 417
+  },
+  "joint_ltoe": {
+   "kind": "cyl",
+   "r": 320,
+   "half": 417
+  },
+  "joint_llleg": {
+   "kind": "cyl",
+   "r": 320,
+   "half": 417
+  },
+  "joint_luleg": {
+   "kind": "sphere",
+   "r": 352
+  }
+ }
+}
