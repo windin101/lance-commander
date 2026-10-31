@@ -1,0 +1,53 @@
+{
+ "model": "menshen.glb",
+ "made_by": "tools/art/v3/v3_mech.py",
+ "source": {
+  "title": "Men Shen Omnimech (Gen 3), variant O, re-posed",
+  "author": "UnrestedGuy (re-pose: our modification)",
+  "url": "https://www.thingiverse.com/thing:6315062",
+  "licence": "CC BY-NC-SA 4.0",
+  "file": "B-Men_ShenO.stl (tools/art/menshen/repose_menshen.py)"
+ },
+ "tris": 48596,
+ "textures": {
+  "albedo": 2048,
+  "orm": 2048,
+  "normal": 2048,
+  "ids": 1024,
+  "camo": 512
+ },
+ "texel_density_px_per_m": null,
+ "ground_fix_m": {
+  "Idle": 0.065,
+  "Walk": 0.404,
+  "Run": 1.631,
+  "STtoWK": 0.441,
+  "WKtoST": 0.493,
+  "WKtoRN": 1.556,
+  "RNtoWK": 1.665,
+  "LimpLeft": 1.595,
+  "LimpRight": 1.581,
+  "ParkToStand": 0.389,
+  "StandToPark": 0.865,
+  "Jump": 1.638,
+  "FallForward": 1.495,
+  "FallBackward": 1.52,
+  "GetUpFront": 1.494,
+  "GetUpBack": 1.321,
+  "HitFront": 0.451,
+  "HitBack": 0.715,
+  "HitLeft": 0.482,
+  "HitRight": 0.487
+ },
+ "paint_stats": {
+  "texels": 1781836,
+  "chip_share": 0.0520648364944922,
+  "grime_mean": 0.4917110204696655,
+  "paint_share": 0.4194836112863361,
+  "glass_texels": 0,
+  "emissive_texels": 0,
+  "piping_texels": 23836,
+  "stripe_texels": 0,
+  "band_texels": 0
+ }
+}
