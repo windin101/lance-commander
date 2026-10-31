@@ -60,6 +60,7 @@ static func apply(root: Node, name: String, scheme: Dictionary, folder: String =
 		mat.set_shader_parameter("dust", MechPaint.env_dust)
 		mat.set_shader_parameter("snow", MechPaint.env_snow)
 		mat.set_shader_parameter("dust_colour", MechPaint.env_dust_colour)
+		_apply_unit_look(mat)
 		_mats[key] = mat
 	for mi in root.find_children("*", "MeshInstance3D", true, false):
 		(mi as MeshInstance3D).material_override = mat
@@ -100,6 +101,40 @@ static func set_scheme(mat: ShaderMaterial, scheme: Dictionary) -> void:
 			var c: Color = col.get(s, paint_colour(Color(s)) if s.begins_with("#") else col["hl1"])
 			mat.set_shader_parameter("%s_colour" % k, c.linear_to_srgb())  # source_color uniforms take sRGB
 	mat.set_shader_parameter("pattern", maxi(0, PaintScheme.PATTERNS.find(String(scheme.get("pattern", "plain")))))
+
+
+## Unit brightness calibration (v3 mechs and vehicles against the originals', measured in game with tools/art/v3/unit_lum.py: mean
+## luminance of the unit pixels, v3 / v1, target 0.9-1.15). The v3 look (AgX, sky ambient, sun-lifted exposure) leaves PBR units
+## 1.4-2.2x the originals' brightness on day maps and 0.1-0.7x on night maps, so: day maps scale the albedo (UNIT_DAY_LIFT, per-mission
+## UNIT_GAIN where measured), night maps add a self-lit fill (UNIT_NIGHT_FILL, per-mission UNIT_FILL) and ease metal, which reflects a
+## black sky. Not the cause: mission snow/dust (zeroed it: no change), specular (off: 134 vs 141 luminance), metal on day maps.
+const UNIT_DAY_LIFT := 0.22
+const UNIT_NIGHT_FILL := 0.1
+const UNIT_GAIN := {"mc2_01": 0.36, "mc2_02": 0.35, "mc2_03": 0.16, "mc2_04": 0.42, "mc2_06": 0.49, "mc2_07": 0.46, "mc2_08": 0.44, "mc2_09": 1.0, "mc2_10": 0.4, "mc2_11": 0.35, "mc2_12": 0.12, "mc2_13": 0.83, "mc2_14": 1.0, "mc2_15": 0.85, "mc2_16": 0.5, "mc2_17": 0.9, "mc2_18": 0.15, "mc2_19": 0.85, "mc2_20": 0.26, "mc2_22": 0.78, "mc2_24": 0.6}
+const UNIT_FILL := {"mc2_23": 0.3, "mc2_05": 0.015, "mc2_21": 0.09}
+static var unit_fill := 0.0
+static var unit_spec := 1.0
+static var unit_lift := 1.0
+static var unit_night := false
+
+
+static func set_unit_look(mission: String, night: bool) -> void:
+	unit_night = night
+	unit_lift = float(UNIT_GAIN.get(mission, 1.0 if night else UNIT_DAY_LIFT))
+	unit_fill = float(UNIT_FILL.get(mission, UNIT_NIGHT_FILL if night else 0.0))
+	if OS.has_environment("MC2_UNIT_LIFT"):  # calibration override for tools/art/v3/unit_lum.py: flat albedo lift and fill, the night metal ease stays
+		unit_lift = float(OS.get_environment("MC2_UNIT_LIFT"))
+		unit_fill = float(OS.get_environment("MC2_UNIT_FILL")) if OS.has_environment("MC2_UNIT_FILL") else 0.0
+		unit_spec = float(OS.get_environment("MC2_UNIT_SPEC")) if OS.has_environment("MC2_UNIT_SPEC") else 1.0
+	for m in _mats.values():
+		_apply_unit_look(m)
+
+
+static func _apply_unit_look(m: ShaderMaterial) -> void:
+	m.set_shader_parameter("unit_lift", unit_lift)
+	m.set_shader_parameter("unit_fill", unit_fill)
+	m.set_shader_parameter("unit_spec", unit_spec)
+	m.set_shader_parameter("night_metal", 1.0 if unit_night else 0.0)
 
 
 static func set_environment(dust: float, snow: float, colour: Color) -> void:

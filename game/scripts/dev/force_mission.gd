@@ -29,6 +29,10 @@ func _ready() -> void:
 		_fort.call_deferred(view)
 	if args.has("wreck"):  # --wreck=<model>: destroy the first unit of that model and frame it (wreck art checks)
 		_wreck.call_deferred(view, String(args["wreck"]))
+	_hide_units = args.has("hide-units")
+	_mask_units = args.has("mask-units")
+	if args.has("focus-lance"):  # --focus-lance[=<dist>]: frame the player's lance (unit brightness checks)
+		_focus_lance.call_deferred(view)
 	if args.has("turret"):  # --turret=<appearance>[,<yaw offset deg>]: park the first such map turret, turned off its placed facing (turret art checks)
 		_turret.call_deferred(view, String(args["turret"]).split(","))
 	if args.has("cam-view"):  # --cam-view=yaw,pitch,distance after the view has set itself up (scenery shots)
@@ -50,6 +54,50 @@ func _wreck(view: Node, model: String) -> void:
 					view.compass.enabled = false   # the ground compass arrow at the focus covers the wreck
 				(view.camera as RtsCamera).focus = Vector3(u.position.x, view.world.map.height_at(u.position), -u.position.y)
 			return
+
+
+var _hide_units := false
+var _mask_units := false
+var _mask_mat: StandardMaterial3D
+
+
+func _process(_dt: float) -> void:
+	if _mask_units:  # --mask-units: every unit mesh flat unshaded magenta, the exact silhouette for unit brightness masks
+		var view2 := get_node_or_null("MissionView")
+		if view2 and "views" in view2:
+			if _mask_mat == null:
+				_mask_mat = StandardMaterial3D.new()
+				_mask_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+				_mask_mat.albedo_color = Color(1, 0, 1)
+			for v in view2.views.values():
+				for mi in (v as Node).find_children("*", "MeshInstance3D", true, false):
+					if mi.get_parent() != null and not String(mi.name).begins_with("Ring"):
+						(mi as MeshInstance3D).material_override = _mask_mat
+	if _hide_units:  # --hide-units: the background-only frame for unit brightness masks (tools/art/v3/unit_lum.py)
+		var view := get_node_or_null("MissionView")
+		if view and "views" in view:
+			for v in view.views.values():
+				v.visible = false
+
+
+func _focus_lance(view: Node) -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var pos := Vector2.ZERO
+	var n := 0
+	for u in view.world.units:
+		if u.is_mover() and u.is_player and not u.is_destroyed():
+			if n == 0:
+				pos = u.position  # the first player unit (a lance spread over a map has no useful mean)
+			n += 1
+	if n == 0 or not (view.camera is RtsCamera):
+		return
+	var cam := view.camera as RtsCamera
+	cam.limits = false
+	cam.following = null
+	if view.compass:
+		view.compass.enabled = false
+	cam.focus = Vector3(pos.x, view.world.map.height_at(pos), -pos.y)
 
 
 func _turret(view: Node, v: PackedStringArray) -> void:

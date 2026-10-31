@@ -41,6 +41,10 @@ uniform float scorch : hint_range(0.0, 1.0) = 0.0;   // 1 = wreck
 uniform float detail_scale = 2.0;     // micro-detail tiles per UV unit x 100 (see MechPaint: px/m of the atlas)
 uniform float detail_strength = 0.0;  // the Mech Bay/Lab turns it up; 0 in the field
 // A vehicle track belt (VehicleRig): its UV strip (v0, v length) and scroll in belt lengths; length 0 = not a track
+uniform float unit_lift = 1.0;       // mission calibration (ArtV3.set_unit_look): albedo gain against the original's unit brightness
+uniform float unit_fill = 0.0;       // night/dusk maps: self-lit fraction of the albedo (a flat fill like the original's ambient; the moonlit key leaves PBR units black)
+uniform float unit_spec = 1.0;       // specular scale (the originals were matte: no specular, bdactor.cpp); day maps ease it so the sky does not wash PBR paint
+uniform float night_metal = 0.0;     // night maps: metal reflects a black sky and reads black, so it is eased toward paint (0..1)
 instance uniform vec3 track_strip = vec3(0.0);
 instance uniform float ember = 1.0;   // wreck variants: embers cool from 1 to 0.25 over 90 s (MechView)
 
@@ -130,10 +134,10 @@ void fragment() {
 	if (!FRONT_FACING) {   // the inside of a part's shell, seen through an open seam
 		col = vec3(0.025, 0.025, 0.028); metal = 0.2; rough = 0.8; emit = vec3(0.0);
 	}
-	ALBEDO = col;
-	METALLIC = metal;
+	ALBEDO = col * unit_lift;
+	METALLIC = metal * (1.0 - 0.6 * night_metal);
 	ROUGHNESS = rough;
-	SPECULAR = rid == 9 ? 0.9 : 0.5;
+	SPECULAR = (rid == 9 ? 0.9 : 0.5) * unit_spec;
 	AO = orm.r;
 	AO_LIGHT_AFFECT = 0.15;
 	vec3 nm = texture(normal_tex, uv).rgb;
@@ -144,5 +148,5 @@ void fragment() {
 		nm = normalize(b) * 0.5 + 0.5;
 	}
 	NORMAL_MAP = nm;
-	EMISSION = emit;
+	EMISSION = emit + col * unit_fill;
 }

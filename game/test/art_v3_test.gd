@@ -87,3 +87,32 @@ func test_every_wreck_variant_loads_with_burn_and_a_parent() -> void:
 			var arrays: Array = (mis[0] as MeshInstance3D).mesh.surface_get_arrays(0)
 			assert_bool(arrays[Mesh.ARRAY_COLOR] != null).override_failure_message(f + " carries no burn").is_true()
 			root.free()
+
+
+# --- unit brightness calibration (tools/art/v3/unit_lum.py): the mission look reaches every v3 unit material ---
+func test_unit_look_day_night_and_bay_defaults() -> void:
+	var root := Node3D.new()
+	add_child(root)
+	var mi := MeshInstance3D.new()
+	mi.mesh = BoxMesh.new()
+	root.add_child(mi)
+	var mat := ArtV3.apply(root, "unit_look_probe", {})
+	ArtV3.set_unit_look("mc2_12", false)  # a measured day map: its own albedo gain, no fill, metal as is
+	assert_float(float(mat.get_shader_parameter("unit_lift"))).is_equal_approx(ArtV3.UNIT_GAIN["mc2_12"], 0.0001)
+	assert_float(float(mat.get_shader_parameter("unit_fill"))).is_equal(0.0)
+	assert_float(float(mat.get_shader_parameter("night_metal"))).is_equal(0.0)
+	ArtV3.set_unit_look("mc2_99", false)  # an unmeasured day map (every campaign map is in the table now): the default day lift
+	assert_float(float(mat.get_shader_parameter("unit_lift"))).is_equal_approx(ArtV3.UNIT_DAY_LIFT, 0.0001)
+	ArtV3.set_unit_look("mc2_23", true)  # a night map: self-lit fill, metal eased, albedo untouched
+	assert_float(float(mat.get_shader_parameter("unit_fill"))).is_equal_approx(ArtV3.UNIT_FILL["mc2_23"], 0.0001)
+	assert_float(float(mat.get_shader_parameter("unit_lift"))).is_equal(1.0)
+	assert_float(float(mat.get_shader_parameter("night_metal"))).is_equal(1.0)
+	ArtV3.set_unit_look("mc2_99", true)  # an unmeasured night map: the default fill
+	assert_float(float(mat.get_shader_parameter("unit_fill"))).is_equal_approx(ArtV3.UNIT_NIGHT_FILL, 0.0001)
+	ArtV3.set_unit_look("", false)
+	ArtV3.unit_lift = 1.0  # the Mech Bay and the lab never call set_unit_look: they keep the shader's own defaults
+	ArtV3.unit_fill = 0.0
+	ArtV3.unit_night = false
+	ArtV3._apply_unit_look(mat)
+	assert_float(float(mat.get_shader_parameter("unit_lift"))).is_equal(1.0)
+	root.queue_free()
