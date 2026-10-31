@@ -76,3 +76,28 @@ func test_turret_turns_and_belts_scroll() -> void:
 	rig.update(Vector2(0, 0.6), 0.0, 90.0, 60.0, Vector2.ZERO, 0.0)
 	assert_bool(w.basis.is_equal_approx(before)).is_false()  # the wheels spin with the distance travelled
 	model.queue_free()
+
+
+func test_a_destroyed_v3_vehicle_keeps_its_model_burnt() -> void:
+	# Lee, 2026-10-31: no 2001 wreck swapped in under the v3 art; the v3 model stays, scorched and still
+	if not ResourceLoader.exists(GLB):
+		return
+	var sm := SimMission.load_mission(GameData, "mc2_01")
+	var u: SimUnit
+	for x in sm.world.units:
+		if not (x is SimMech):
+			u = x
+			break
+	u.model = "hunter"
+	var v := MechView.new()
+	add_child(v)
+	v.setup(u, sm.world.map)
+	var before := v.model
+	assert_object(v.rig).is_not_null()
+	u.status = SimUnit.Status.DESTROYED
+	v.sync(1.0)
+	assert_object(v.model).is_same(before)
+	assert_object(v.rig).is_null()
+	var mi := v.model.find_children("*", "MeshInstance3D", true, false)[0] as MeshInstance3D
+	assert_float(float((mi.material_override as ShaderMaterial).get_shader_parameter("scorch"))).is_equal(1.0)
+	v.queue_free()

@@ -195,6 +195,11 @@ func _wreck() -> void:
 		player.pause()
 		_scorch(model)
 		return
+	# v3 vehicles: keep the model, burnt, its turret knocked askew and the hull settled at a list (Lee, 2026-10-31:
+	# the 2001 wrecks looked out of place next to the v3 art). The pose varies with the unit id, not at random.
+	if _paint_name.ends_with("_v3") and not (mech is SimMech):
+		_wreck_v3_vehicle()
+		return
 	var path := _asset_path("_wreck_forward.glb" if mech is SimMech else "_wreck.glb")
 	if ResourceLoader.exists(path):
 		rig = null
@@ -203,6 +208,19 @@ func _wreck() -> void:
 		add_child(model)
 		_paint(model, mech.model)  # wrecks are still the original models
 		player = null
+
+
+func _wreck_v3_vehicle() -> void:
+	var h := float(hash(mech.id) % 1000) / 1000.0  # 0..1, fixed per unit
+	if rig and rig.turret:
+		rig.turret.rotate_object_local(Vector3.UP, deg_to_rad(lerpf(-70.0, 70.0, h)))
+		rig.turret.rotate_object_local(Vector3.RIGHT, deg_to_rad(lerpf(-8.0, 8.0, fmod(h * 7.0, 1.0))))
+	rig = null  # nothing turns, rolls or spins on a wreck
+	model.rotation = Vector3(deg_to_rad(lerpf(-4.0, 4.0, fmod(h * 3.0, 1.0))), 0.0, deg_to_rad(lerpf(-6.0, 6.0, fmod(h * 5.0, 1.0))))
+	model.position.y = -0.15
+	if player:
+		player.stop()
+	_scorch(model)
 
 
 ## Darken a destroyed model: burnt paint, no shine.
