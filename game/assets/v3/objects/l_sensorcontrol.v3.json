@@ -1,0 +1,52 @@
+{
+ "app": "l_sensorcontrol",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao sensor control: tall tower with a dish, camo vault wing with an antenna forest",
+ "states": {
+  "intact": {
+   "tris_lod0": 3778,
+   "tris_lod1": 2520,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.19,
+    -0.0,
+    -3.4
+   ],
+   "bounds_max": [
+    4.37,
+    23.73,
+    10.6
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 5051,
+   "tris_lod1": 3467,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.19,
+    -0.0,
+    -3.19
+   ],
+   "bounds_max": [
+    4.86,
+    23.73,
+    10.6
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 4472,
+   "tris_lod1": 1770,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.0,
+    -0.81,
+    -3.9
+   ],
+   "bounds_max": [
+    5.08,
+    9.02,
+    11.7
+   ]
+  }
+ }
+}

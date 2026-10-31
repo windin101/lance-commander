@@ -1,0 +1,52 @@
+{
+ "app": "d_gatecontrol",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Davion gate control: central white tower with hood and mast, tan vault east, tan lean-to west",
+ "states": {
+  "intact": {
+   "tris_lod0": 1186,
+   "tris_lod1": 638,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.35,
+    -0.0,
+    -11.6
+   ],
+   "bounds_max": [
+    12.35,
+    20.8,
+    3.1
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1310,
+   "tris_lod1": 754,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.35,
+    -0.0,
+    -11.6
+   ],
+   "bounds_max": [
+    12.35,
+    15.67,
+    3.1
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 6040,
+   "tris_lod1": 2038,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.41,
+    -0.63,
+    -11.64
+   ],
+   "bounds_max": [
+    13.94,
+    4.58,
+    4.29
+   ]
+  }
+ }
+}

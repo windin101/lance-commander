@@ -1,0 +1,52 @@
+{
+ "app": "l_banner",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao banner: tall green hanging banner on a top rail",
+ "states": {
+  "intact": {
+   "tris_lod0": 58,
+   "tris_lod1": 58,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.8,
+    0.0,
+    -0.1
+   ],
+   "bounds_max": [
+    2.8,
+    13.7,
+    0.1
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 70,
+   "tris_lod1": 70,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.8,
+    0.0,
+    -0.1
+   ],
+   "bounds_max": [
+    2.8,
+    9.4,
+    0.1
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 12,
+   "tris_lod1": 12,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.91,
+    0.08,
+    -1.59
+   ],
+   "bounds_max": [
+    2.91,
+    0.12,
+    1.59
+   ]
+  }
+ }
+}

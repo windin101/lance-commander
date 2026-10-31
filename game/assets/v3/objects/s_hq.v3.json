@@ -1,0 +1,52 @@
+{
+ "app": "s_hq",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner HQ: control tower with helipad, two-storey main wing, low annex",
+ "states": {
+  "intact": {
+   "tris_lod0": 1382,
+   "tris_lod1": 1004,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -9.4,
+    -0.0,
+    -20.5
+   ],
+   "bounds_max": [
+    11.25,
+    18.14,
+    11.2
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1563,
+   "tris_lod1": 1177,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -9.4,
+    -0.0,
+    -20.5
+   ],
+   "bounds_max": [
+    11.09,
+    18.55,
+    11.2
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 10374,
+   "tris_lod1": 4170,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -9.8,
+    -0.86,
+    -22.0
+   ],
+   "bounds_max": [
+    10.47,
+    9.13,
+    12.02
+   ]
+  }
+ }
+}

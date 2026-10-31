@@ -1,0 +1,52 @@
+{
+ "app": "lookouttower",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "lookout tower: bunker base, tapering shaft, glazed cab, helipad roof",
+ "states": {
+  "intact": {
+   "tris_lod0": 308,
+   "tris_lod1": 116,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.1,
+    0.0,
+    -3.4
+   ],
+   "bounds_max": [
+    3.9,
+    15.2,
+    3.9
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 430,
+   "tris_lod1": 234,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.1,
+    0.0,
+    -3.4
+   ],
+   "bounds_max": [
+    3.9,
+    13.33,
+    3.9
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 294,
+   "tris_lod1": 122,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.9,
+    -0.92,
+    -4.13
+   ],
+   "bounds_max": [
+    4.7,
+    5.2,
+    6.6
+   ]
+  }
+ }
+}

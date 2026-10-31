@@ -1,0 +1,52 @@
+{
+ "app": "l_gatecontrol",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao gate control: camo vault block, glazed control tower with antennas",
+ "states": {
+  "intact": {
+   "tris_lod0": 1916,
+   "tris_lod1": 1570,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.38,
+    -0.0,
+    -12.8
+   ],
+   "bounds_max": [
+    12.55,
+    29.3,
+    1.85
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2019,
+   "tris_lod1": 1669,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.38,
+    -0.0,
+    -12.8
+   ],
+   "bounds_max": [
+    12.55,
+    21.0,
+    1.85
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 6252,
+   "tris_lod1": 2190,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.2,
+    -0.6,
+    -13.74
+   ],
+   "bounds_max": [
+    12.91,
+    5.83,
+    1.99
+   ]
+  }
+ }
+}

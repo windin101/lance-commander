@@ -1,0 +1,52 @@
+{
+ "app": "l_flag",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao flag: pole to 9.8 m, green cloth with emblem",
+ "states": {
+  "intact": {
+   "tris_lod0": 38,
+   "tris_lod1": 30,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.1,
+    0.0,
+    -0.1
+   ],
+   "bounds_max": [
+    2.0,
+    9.8,
+    0.1
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 50,
+   "tris_lod1": 42,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.1,
+    0.0,
+    -0.1
+   ],
+   "bounds_max": [
+    2.05,
+    7.0,
+    0.1
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 32,
+   "tris_lod1": 28,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.02,
+    0.02,
+    -0.11
+   ],
+   "bounds_max": [
+    4.49,
+    0.4,
+    1.71
+   ]
+  }
+ }
+}

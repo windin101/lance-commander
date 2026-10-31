@@ -1,0 +1,52 @@
+{
+ "app": "ammodump",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "sloped-sided hazard-banded bunker with a marked roof and a door",
+ "states": {
+  "intact": {
+   "tris_lod0": 186,
+   "tris_lod1": 186,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.85,
+    0.0,
+    -3.44
+   ],
+   "bounds_max": [
+    13.3,
+    5.62,
+    11.94
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 305,
+   "tris_lod1": 301,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.85,
+    0.0,
+    -3.44
+   ],
+   "bounds_max": [
+    13.3,
+    8.12,
+    11.94
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 288,
+   "tris_lod1": 104,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.53,
+    -0.31,
+    -4.21
+   ],
+   "bounds_max": [
+    14.03,
+    3.88,
+    12.71
+   ]
+  }
+ }
+}

@@ -10,7 +10,7 @@ func _init() -> void:
 		var bb := AABB(); var first := true; var tris := 0; var surf := 0
 		for m in n.find_children("*", "MeshInstance3D", true, false):
 			var mi := m as MeshInstance3D
-			if mi.name.begins_with("LitWin"): continue
+			if mi.name.to_lower().begins_with("litwin"): continue
 			var b: AABB = (n.global_transform.affine_inverse() * mi.global_transform) * mi.mesh.get_aabb()
 			bb = b if first else bb.merge(b); first = false
 			surf += mi.mesh.get_surface_count()

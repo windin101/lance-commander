@@ -1,0 +1,52 @@
+{
+ "app": "prison",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "fenced prison yard with a lattice-roofed cell block and a corner guard tower",
+ "states": {
+  "intact": {
+   "tris_lod0": 976,
+   "tris_lod1": 976,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -19.25,
+    -0.0,
+    -12.7
+   ],
+   "bounds_max": [
+    13.2,
+    12.45,
+    27.95
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2923,
+   "tris_lod1": 2149,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -19.25,
+    -0.0,
+    -12.7
+   ],
+   "bounds_max": [
+    13.2,
+    12.45,
+    27.95
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3804,
+   "tris_lod1": 1558,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.7,
+    -0.5,
+    -12.36
+   ],
+   "bounds_max": [
+    12.73,
+    4.2,
+    12.36
+   ]
+  }
+ }
+}

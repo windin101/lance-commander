@@ -1,0 +1,52 @@
+{
+ "app": "l_spotlightcontrol",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao spotlight control: faceted white tower with a dark glazed ring, camo vault wing",
+ "states": {
+  "intact": {
+   "tris_lod0": 1048,
+   "tris_lod1": 800,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.88,
+    -0.0,
+    -11.21
+   ],
+   "bounds_max": [
+    11.21,
+    16.3,
+    7.5
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1155,
+   "tris_lod1": 903,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.88,
+    -0.0,
+    -11.21
+   ],
+   "bounds_max": [
+    11.21,
+    10.9,
+    7.5
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1754,
+   "tris_lod1": 546,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.06,
+    -0.53,
+    -11.66
+   ],
+   "bounds_max": [
+    11.66,
+    4.01,
+    7.3
+   ]
+  }
+ }
+}

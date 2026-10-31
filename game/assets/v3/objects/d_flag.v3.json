@@ -1,0 +1,52 @@
+{
+ "app": "d_flag",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Davion flag: pole to 9.8 m, orange cloth with emblem",
+ "states": {
+  "intact": {
+   "tris_lod0": 260,
+   "tris_lod1": 236,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.1,
+    0.0,
+    -0.1
+   ],
+   "bounds_max": [
+    2.0,
+    9.8,
+    0.1
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 272,
+   "tris_lod1": 248,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.1,
+    0.0,
+    -0.1
+   ],
+   "bounds_max": [
+    2.05,
+    7.0,
+    0.1
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 32,
+   "tris_lod1": 28,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.02,
+    0.02,
+    -0.11
+   ],
+   "bounds_max": [
+    4.49,
+    0.4,
+    1.71
+   ]
+  }
+ }
+}

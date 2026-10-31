@@ -1,0 +1,52 @@
+{
+ "app": "longtent",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "long single-ridge tent",
+ "states": {
+  "intact": {
+   "tris_lod0": 74,
+   "tris_lod1": 74,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.2,
+    0.0,
+    -3.65
+   ],
+   "bounds_max": [
+    8.2,
+    3.29,
+    3.55
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 86,
+   "tris_lod1": 86,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.2,
+    0.0,
+    -3.65
+   ],
+   "bounds_max": [
+    8.2,
+    3.34,
+    3.55
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 60,
+   "tris_lod1": 60,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.5,
+    0.01,
+    -4.09
+   ],
+   "bounds_max": [
+    4.12,
+    0.28,
+    3.0
+   ]
+  }
+ }
+}

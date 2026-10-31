@@ -1,0 +1,52 @@
+{
+ "app": "weaponsfacility",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "L-shaped hazard-banded bunker around a crate yard with a crane",
+ "states": {
+  "intact": {
+   "tris_lod0": 526,
+   "tris_lod1": 518,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -20.9,
+    -0.0,
+    -20.55
+   ],
+   "bounds_max": [
+    12.7,
+    14.4,
+    14.4
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1283,
+   "tris_lod1": 1027,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -20.9,
+    -0.0,
+    -20.55
+   ],
+   "bounds_max": [
+    12.7,
+    9.14,
+    14.4
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 5520,
+   "tris_lod1": 2100,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -23.9,
+    -0.48,
+    -15.25
+   ],
+   "bounds_max": [
+    15.7,
+    3.98,
+    11.27
+   ]
+  }
+ }
+}

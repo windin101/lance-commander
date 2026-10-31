@@ -1,0 +1,52 @@
+{
+ "app": "tent",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "green canvas ridge tent",
+ "states": {
+  "intact": {
+   "tris_lod0": 76,
+   "tris_lod1": 76,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.65,
+    0.0,
+    -4.2
+   ],
+   "bounds_max": [
+    3.65,
+    3.29,
+    4.1
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 88,
+   "tris_lod1": 88,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.65,
+    0.0,
+    -4.2
+   ],
+   "bounds_max": [
+    3.65,
+    3.34,
+    4.1
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 60,
+   "tris_lod1": 60,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.08,
+    0.01,
+    -3.0
+   ],
+   "bounds_max": [
+    3.07,
+    0.28,
+    3.09
+   ]
+  }
+ }
+}

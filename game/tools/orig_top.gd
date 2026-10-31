@@ -9,7 +9,7 @@ func _init() -> void:
 		var lo := Vector2(1e9, 1e9); var hi := Vector2(-1e9, -1e9)
 		for m in n.find_children("*", "MeshInstance3D", true, false):
 			var mi := m as MeshInstance3D
-			if mi.name.begins_with("LitWin"): continue
+			if mi.name.to_lower().begins_with("litwin"): continue
 			var xf: Transform3D = n.global_transform.affine_inverse() * mi.global_transform
 			for s in mi.mesh.get_surface_count():
 				var arr := mi.mesh.surface_get_arrays(s)

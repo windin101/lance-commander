@@ -1,0 +1,52 @@
+{
+ "app": "genericmilitary",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "wide low block with a blue-grey roof, stair tower and antenna",
+ "states": {
+  "intact": {
+   "tris_lod0": 1066,
+   "tris_lod1": 766,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.9,
+    -0.0,
+    -5.29
+   ],
+   "bounds_max": [
+    11.1,
+    13.75,
+    14.0
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1345,
+   "tris_lod1": 1009,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.4,
+    -0.0,
+    -4.5
+   ],
+   "bounds_max": [
+    11.1,
+    10.12,
+    14.0
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 4648,
+   "tris_lod1": 1790,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.72,
+    -0.28,
+    -4.81
+   ],
+   "bounds_max": [
+    12.92,
+    4.24,
+    13.9
+   ]
+  }
+ }
+}

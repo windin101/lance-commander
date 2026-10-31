@@ -1,0 +1,52 @@
+{
+ "app": "s_barracks2",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner long barracks: pale barrel roof, doors along the side",
+ "states": {
+  "intact": {
+   "tris_lod0": 1316,
+   "tris_lod1": 720,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.5,
+    0.0,
+    -12.2
+   ],
+   "bounds_max": [
+    4.0,
+    6.13,
+    12.0
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2510,
+   "tris_lod1": 1494,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.5,
+    0.0,
+    -12.2
+   ],
+   "bounds_max": [
+    4.0,
+    8.36,
+    12.0
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 2012,
+   "tris_lod1": 768,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.79,
+    -0.57,
+    -14.26
+   ],
+   "bounds_max": [
+    3.97,
+    3.96,
+    14.06
+   ]
+  }
+ }
+}

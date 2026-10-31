@@ -1,0 +1,52 @@
+{
+ "app": "l_elitebarracks",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao elite barracks: teal podium, long tan-roofed hall, red-framed window row",
+ "states": {
+  "intact": {
+   "tris_lod0": 278,
+   "tris_lod1": 278,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.25,
+    0.0,
+    -21.45
+   ],
+   "bounds_max": [
+    3.75,
+    10.01,
+    21.45
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2067,
+   "tris_lod1": 1499,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.25,
+    0.0,
+    -21.45
+   ],
+   "bounds_max": [
+    3.75,
+    12.26,
+    21.45
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 7988,
+   "tris_lod1": 2938,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.67,
+    -0.94,
+    -25.56
+   ],
+   "bounds_max": [
+    5.17,
+    6.36,
+    25.56
+   ]
+  }
+ }
+}

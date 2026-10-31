@@ -693,7 +693,7 @@ def roll_door(c, key, box, u0, w, h, y0=0.0):
         c.b.box("machgrey", ctr, (w, 0.06, 0.08) if abs(ud[0]) > 0.5 else (0.08, 0.06, w))
 
 
-def roof2(c, x0, x1, z0, z1, y, ac=2, vents=2, lights=0, pipes=0, hatch=1, seed=0, over=0.25, stain=True, mat="slate", parapet=0.55):
+def roof2(c, x0, x1, z0, z1, y, ac=2, vents=2, lights=0, pipes=0, hatch=1, seed=0, over=0.25, stain=True, mat="slate", parapet=0.55, trim="palepaint"):
     """A dark roof slab with a parapet and the machinery the RTS camera reads: AC units with fans, vents, roof-lights, pipes, a hatch, stains."""
     if c.state == "destroyed":
         return
@@ -703,9 +703,9 @@ def roof2(c, x0, x1, z0, z1, y, ac=2, vents=2, lights=0, pipes=0, hatch=1, seed=
     cx, cz = (x0 + x1) / 2, (z0 + z1) / 2
     b.box(mat, (cx, y + 0.2, cz), (W + 2 * over, 0.4, D + 2 * over), None, col=(0, 0.9, 0))
     for z, sg in ((z0 - over, -1), (z1 + over, 1)):
-        b.box("palepaint", (cx, y + 0.4 + parapet / 2, z), (W + 2 * over + 0.2, parapet, 0.3))
+        b.box(trim, (cx, y + 0.4 + parapet / 2, z), (W + 2 * over + 0.2, parapet, 0.3))
     for x in (x0 - over, x1 + over):
-        b.box("palepaint", (x, y + 0.4 + parapet / 2, cz), (0.3, parapet, D + 2 * over))
+        b.box(trim, (x, y + 0.4 + parapet / 2, cz), (0.3, parapet, D + 2 * over))
     base = y + 0.4
     def spot(i, n):
         return (x0 + 1.6 + (W - 3.2) * ((0.13 + 0.37 * i + 0.11 * (seed % 5)) % 0.9), z0 + 1.4 + (D - 2.8) * ((0.21 + 0.43 * i + 0.07 * (seed % 3)) % 0.9))
@@ -787,7 +787,7 @@ def stack2(c, cx, cz, r0, r1, h, band=None):
         b.revolve("grate", [(rt * 0.86, top + 0.3), (rt * 0.7, top + 0.32)], 8, cx=cx, cz=cz, th0=math.pi / 8, uref=1.0)
 
 
-def barrel_roof(c, x0, x1, z0, z1, y, rise, mat="palecorr", seg=14):
+def barrel_roof(c, x0, x1, z0, z1, y, rise, mat="palecorr", seg=14, lights=True):
     """A rounded vault over the box, ridge along z: an arc cross-section in x, extruded z0..z1, with end caps of the same profile."""
     if c.state == "destroyed":
         return
@@ -822,7 +822,7 @@ def barrel_roof(c, x0, x1, z0, z1, y, rise, mat="palecorr", seg=14):
         for j in range(0, seg, 2 if c.fine else 3):
             q0 = V([xs[j], ys[j] + 0.02, z]); q1 = V([xs[min(j + 2, seg)], ys[min(j + 2, seg)] + 0.02, z])
             b.tube("machgrey", q0, q1, 0.08, 4)
-    for k in range(5):
+    for k in range(5 if lights else 0):
         b.box("glass", (cx, y + rise + 0.05, z0 + 2.0 + k * (z1 - z0 - 4.0) / 4), (1.6, 0.16, 1.8))
 
 

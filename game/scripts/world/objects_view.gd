@@ -69,7 +69,27 @@ func build(sim_map: SimMap, mission: String) -> int:
 		_appearance[index] = app
 		placed += 1
 	_build_trees()
+	_dev_force_state()
 	return placed
+
+
+## Dev only (art review): --bld-state=damaged|destroyed --bld-app=a,b puts every placed building of those appearances in that state at load.
+func _dev_force_state() -> void:
+	var st := ""
+	var apps := PackedStringArray()
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--bld-state="):
+			st = a.split("=")[1]
+		elif a.begins_with("--bld-app="):
+			apps = a.split("=")[1].split(",")
+	if st == "":
+		return
+	for index in nodes.keys():
+		if String(_appearance.get(index, "")) in apps:
+			if st == "destroyed":
+				destroy(index)
+			else:
+				set_damage(index, 0.6)
 
 
 ## World-space bounds of map object `index` (for blast sizes); empty if it has no node (trees: a small box).

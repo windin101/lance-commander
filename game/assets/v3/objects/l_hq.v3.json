@@ -1,0 +1,52 @@
+{
+ "app": "l_hq",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao HQ: camo hall under two vaults with pale bands, tower with hexagonal helipad",
+ "states": {
+  "intact": {
+   "tris_lod0": 2296,
+   "tris_lod1": 1768,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.19,
+    -0.0,
+    -21.04
+   ],
+   "bounds_max": [
+    10.9,
+    18.13,
+    9.8
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 3359,
+   "tris_lod1": 2459,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.19,
+    -0.0,
+    -21.04
+   ],
+   "bounds_max": [
+    10.9,
+    19.85,
+    9.8
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 2842,
+   "tris_lod1": 1108,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.07,
+    -0.25,
+    -20.4
+   ],
+   "bounds_max": [
+    12.77,
+    3.94,
+    11.46
+   ]
+  }
+ }
+}

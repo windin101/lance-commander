@@ -1,0 +1,52 @@
+{
+ "app": "s_barracks",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner barracks: stone-grey hut on piles, gabled grey roof",
+ "states": {
+  "intact": {
+   "tris_lod0": 272,
+   "tris_lod1": 240,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.0,
+    -0.0,
+    -4.66
+   ],
+   "bounds_max": [
+    10.1,
+    6.61,
+    5.76
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 782,
+   "tris_lod1": 592,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.0,
+    -0.0,
+    -4.66
+   ],
+   "bounds_max": [
+    10.1,
+    6.61,
+    5.76
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 2208,
+   "tris_lod1": 770,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.41,
+    -0.61,
+    -5.03
+   ],
+   "bounds_max": [
+    11.51,
+    3.91,
+    6.55
+   ]
+  }
+ }
+}

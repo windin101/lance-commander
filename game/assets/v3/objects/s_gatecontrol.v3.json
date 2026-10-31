@@ -1,0 +1,52 @@
+{
+ "app": "s_gatecontrol",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner gate control: white tower with black glass hood and mast, wide low wing with four grey hatches",
+ "states": {
+  "intact": {
+   "tris_lod0": 784,
+   "tris_lod1": 774,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.35,
+    -0.0,
+    -10.2
+   ],
+   "bounds_max": [
+    12.4,
+    21.9,
+    2.2
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 903,
+   "tris_lod1": 889,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.35,
+    -0.0,
+    -10.2
+   ],
+   "bounds_max": [
+    12.4,
+    16.0,
+    2.2
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 5024,
+   "tris_lod1": 1970,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.94,
+    -1.04,
+    -11.35
+   ],
+   "bounds_max": [
+    12.0,
+    5.15,
+    1.8
+   ]
+  }
+ }
+}

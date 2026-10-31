@@ -1,0 +1,52 @@
+{
+ "app": "d_hq",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Davion HQ: cream tower with orange helipad and antennas, three descending tan-roofed bays",
+ "states": {
+  "intact": {
+   "tris_lod0": 1100,
+   "tris_lod1": 888,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.1,
+    -0.0,
+    -16.3
+   ],
+   "bounds_max": [
+    10.1,
+    26.3,
+    16.15
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1281,
+   "tris_lod1": 1061,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.1,
+    -0.0,
+    -16.3
+   ],
+   "bounds_max": [
+    10.1,
+    19.0,
+    16.15
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 12928,
+   "tris_lod1": 4998,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.64,
+    -0.98,
+    -17.09
+   ],
+   "bounds_max": [
+    11.64,
+    10.48,
+    16.36
+   ]
+  }
+ }
+}

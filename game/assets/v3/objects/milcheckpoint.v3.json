@@ -1,0 +1,52 @@
+{
+ "app": "milcheckpoint",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "hazard-striped boom gate and holder post",
+ "states": {
+  "intact": {
+   "tris_lod0": 132,
+   "tris_lod1": 84,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.95,
+    0.0,
+    -0.4
+   ],
+   "bounds_max": [
+    4.15,
+    1.6,
+    0.4
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 132,
+   "tris_lod1": 84,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.95,
+    0.0,
+    -0.4
+   ],
+   "bounds_max": [
+    4.15,
+    1.6,
+    0.4
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 48,
+   "tris_lod1": 48,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.87,
+    0.0,
+    -0.7
+   ],
+   "bounds_max": [
+    4.15,
+    1.6,
+    1.22
+   ]
+  }
+ }
+}
