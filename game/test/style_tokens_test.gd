@@ -131,3 +131,49 @@ func test_bay_kit_layers() -> void:
 	# 6: HUD frame line-work at 80 %, panels ink-700 at 80 %
 	assert_float(UiStyle.HudFrame.new().edge.a).is_equal_approx(0.8, 0.001)
 	assert_str(UiStyle.HUD_PANEL.to_html(false)).is_equal(UiStyle.INK_700.to_html(false))
+
+
+func test_bay_stage_is_the_hangar_and_reviews_stay_neutral() -> void:
+	# guide 5.5: the bay and lab stage is lit as a hangar (cold overhead key, amber work-lights, haze);
+	# a Studio built directly (art_gallery, vehicle_gallery, Thumbs) keeps the neutral review lighting
+	var vp := SubViewport.new()
+	add_child(vp)
+	var neutral := MechStage.Studio.new(vp)
+	assert_str(neutral.look).is_equal("neutral")
+	assert_int(neutral.work_lights.size()).is_equal(0)
+	assert_bool(neutral.env.fog_enabled).is_false()
+	var lights := vp.find_children("*", "DirectionalLight3D", true, false)
+	assert_bool(lights.any(func(l): return (l as DirectionalLight3D).light_color.is_equal_approx(UiStyle.CYAN_400))).is_true()
+	vp.queue_free()
+	var vp2 := SubViewport.new()
+	add_child(vp2)
+	var hangar := MechStage.Studio.new(vp2, "hangar")
+	assert_int(hangar.work_lights.size()).is_equal(2)
+	assert_bool(hangar.env.fog_enabled).is_true()
+	assert_bool(vp2.find_children("*", "DirectionalLight3D", true, false).any(
+		func(l): return (l as DirectionalLight3D).light_color.is_equal_approx(UiStyle.CYAN_400))).is_false()
+	assert_float(hangar.work_lights[0].light_color.r).is_greater(hangar.work_lights[0].light_color.b)  # amber
+	vp2.queue_free()
+	var stage := MechStage.new()
+	assert_str(stage.studio.look).is_equal("hangar")
+	stage.free()
+
+
+func test_pause_menu_lists_the_objectives() -> void:
+	# 5.12: RESUME, OBJECTIVES, OPTIONS (inline), ABORT MISSION
+	var view: Node3D = auto_free(load("res://scenes/mission_view.tscn").instantiate())
+	view.play_intro = false
+	add_child(view)
+	await get_tree().process_frame
+	var pm: PauseMenu = view.pause_menu
+	pm.open_pause()
+	var labels := pm.buttons.get_children().map(func(b): return (b as Button).text)
+	assert_array(labels).contains(["RESUME", "OBJECTIVES", "ABORT MISSION"])
+	assert_bool(pm.motion_button != null).is_true()
+	pm._toggle_objectives()
+	assert_object(pm._objectives).is_not_null()
+	var n: int = view.sm.objectives.visible_objectives().size()
+	assert_int(pm._objectives.get_child_count()).is_equal(2 + maxi(1, n))  # heading, rule, one row each
+	pm.close()
+	assert_object(pm._objectives).is_null()
+	assert_bool(get_tree().paused).is_false()

@@ -124,8 +124,10 @@ func _ready() -> void:
 	subtitles_button = _toggle_row("Subtitles", Subtitles.enabled(), func(on: bool): Subtitles.set_enabled(on))
 	motion_button = _toggle_row("Reduce motion", StyleTokens.reduce_motion(), func(on: bool): StyleTokens.set_reduce_motion(on))
 	panel.visible = false
-	if OS.get_cmdline_user_args().has("--paused"):  # dev: screenshot the pause menu
+	if OS.get_cmdline_user_args().has("--paused"):  # dev: screenshot the pause menu (--paused-objectives: list open)
 		open_pause.call_deferred()
+		if OS.get_cmdline_user_args().has("--paused-objectives"):
+			_toggle_objectives.call_deferred()
 
 
 ## An options row: caps label left, a square ON / OFF toggle right (4.3 toggles are square).
@@ -173,7 +175,8 @@ func open_pause() -> void:
 	title.text = "PAUSED"
 	title.add_theme_color_override("font_color", UiStyle.WHITE)
 	options.visible = true
-	_set_buttons([["Resume", close], ["Paint scheme", _toggle_paint], ["Restart mission", _restart], ["Abort mission", _abort]])
+	_set_buttons([["Resume", close], ["Objectives", _toggle_objectives], ["Paint scheme", _toggle_paint],
+		["Restart mission", _restart], ["Abort mission", _abort]])
 	panel.visible = true
 	_dim.visible = true
 	StyleTokens.fade_in(panel)
@@ -181,6 +184,46 @@ func open_pause() -> void:
 
 
 var _paint: PaintPanel
+var _objectives: VBoxContainer
+
+
+## The mission's objectives (5.12 OBJECTIVES): primary then secondary, ticked in `ok` when complete, failed in `crit`.
+func _toggle_objectives() -> void:
+	if _objectives:
+		_objectives.queue_free()
+		_objectives = null
+		return
+	_objectives = objectives_list()
+	options.get_parent().add_child(_objectives)
+	options.get_parent().move_child(_objectives, options.get_index())
+
+
+func objectives_list() -> VBoxContainer:
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", roundi(_kit.u * 0.4))
+	box.add_child(_kit.label("Objectives", "display600", 0.85, UiStyle.AMBER_500, true, 0.14))
+	box.add_child(_kit.rule())
+	var objs: Array = view.sm.objectives.visible_objectives() if view and view.get("sm") else []
+	for primary in [true, false]:
+		for o in objs:
+			if bool(o["primary"]) != primary:
+				continue
+			var row := HBoxContainer.new()
+			row.add_theme_constant_override("separation", roundi(_kit.u * 0.6))
+			var failed := int(o.get("status", 0)) == SimObjectives.Status.FAILED
+			var mark := "✔" if o["complete"] else ("✘" if failed else "□")
+			row.add_child(_kit.label(mark, "body600", 1.0, UiStyle.STATE_OK if o["complete"] else (UiStyle.CRIT if failed else UiStyle.STEEL_300)))
+			var t := _kit.label(UiStyle.objective_title(UiStyle.clean(String(o["title"]))), "body600" if primary else "body400", 1.0,
+				UiStyle.STEEL_100 if primary else UiStyle.STEEL_300)
+			t.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			row.add_child(t)
+			if not primary:
+				row.add_child(_kit.label("Secondary", "body600", 0.8, UiStyle.STEEL_500, true, 0.06))
+			box.add_child(row)
+	if objs.is_empty():
+		box.add_child(_kit.label("No objectives.", "body400", 1.0, UiStyle.STEEL_300))
+	return box
 
 
 ## The player's paint scheme, live on the player's units (PaintPanel; saved to user://settings.cfg [paint]).
@@ -195,6 +238,9 @@ func _toggle_paint() -> void:
 
 
 func close() -> void:
+	if _objectives:
+		_objectives.queue_free()
+		_objectives = null
 	if _paint:
 		_paint.queue_free()
 		_paint = null

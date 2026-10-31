@@ -5,6 +5,11 @@ extends SubViewportContainer
 ## with a key light and a cyan rim to sit on the HUD panels. Drag to turn it.
 ## MechStage.Thumbs renders still thumbnails (cached per chassis and paint).
 
+## The stage's lighting (Studio.LOOKS): "hangar" (guide 5.5: a cold overhead key, amber work-lights, light haze)
+## for the bay, lab, briefing and main menu; "neutral" is the review studio the art tools render with
+## (art_gallery, vehicle_gallery and Thumbs build a Studio directly, which defaults to neutral).
+## Dev: --studio-neutral makes every MechStage neutral (review screenshots of the bay and lab).
+static var default_look := "neutral" if OS.get_cmdline_user_args().has("--studio-neutral") else "hangar"
 var studio: Studio
 var vp: SubViewport
 var spin := 0.0  # degrees per second of slow turntable rotation
@@ -20,7 +25,7 @@ func _init() -> void:
 	vp.msaa_3d = Viewport.MSAA_4X
 	vp.render_target_update_mode = SubViewport.UPDATE_WHEN_VISIBLE
 	add_child(vp)
-	studio = Studio.new(vp)
+	studio = Studio.new(vp, default_look)
 	resized.connect(func(): studio.frame(_aspect()))
 
 
@@ -63,6 +68,12 @@ func _gui_input(event: InputEvent) -> void:
 ## a camera framed on the model's bounds.
 class Studio:
 	extends RefCounted
+	const LOOKS := ["neutral", "hangar"]
+	const KEY_COLD := Color("#CFDDEA")  # the hangar's overhead key: cold, slightly blue
+	const WORK_AMBER := Color("#FFB347")  # sodium-amber work-lights (warmer than the UI's amber-500, as light)
+	var look := "neutral"
+	var work_lights: Array[OmniLight3D] = []
+	var env: Environment
 	var vp: SubViewport
 	var pivot: Node3D
 	var cam: Camera3D
@@ -72,11 +83,12 @@ class Studio:
 	var fill := 0.9  # share of the view height the 'Mech takes
 	var shadow: MeshInstance3D
 
-	func _init(viewport: SubViewport) -> void:
+	func _init(viewport: SubViewport, look_name := "neutral") -> void:
 		vp = viewport
+		look = look_name if LOOKS.has(look_name) else "neutral"
 		var root := Node3D.new()
 		vp.add_child(root)
-		var env := Environment.new()
+		env = Environment.new()
 		env.background_mode = Environment.BG_CLEAR_COLOR
 		env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 		env.ambient_light_color = Color(0.42, 0.47, 0.52)
@@ -88,28 +100,10 @@ class Studio:
 		var we := WorldEnvironment.new()
 		we.environment = env
 		root.add_child(we)
-		var key := DirectionalLight3D.new()
-		key.rotation_degrees = Vector3(-38, -35, 0)
-		key.light_energy = 1.35
-		if ArtV3.enabled:
-			key.shadow_enabled = true
-			key.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
-			key.directional_shadow_max_distance = 60.0
-			key.shadow_bias = 0.06
-			key.shadow_normal_bias = 1.2
-			key.shadow_blur = 1.5
-			key.light_energy = 1.5
-		root.add_child(key)
-		var fill_light := DirectionalLight3D.new()
-		fill_light.rotation_degrees = Vector3(-15, 120, 0)
-		fill_light.light_energy = 0.35
-		fill_light.light_color = Color(0.7, 0.8, 0.9)
-		root.add_child(fill_light)
-		var rim := DirectionalLight3D.new()
-		rim.rotation_degrees = Vector3(-20, 180 + 25, 0)
-		rim.light_energy = 1.1
-		rim.light_color = UiStyle.HUD_EDGE
-		root.add_child(rim)
+		if look == "hangar":
+			_hangar_lights(root)
+		else:
+			_neutral_lights(root)
 		shadow = MeshInstance3D.new()
 		var plane := PlaneMesh.new()
 		plane.size = Vector2(1, 1)
@@ -136,6 +130,87 @@ class Studio:
 		cam.far = 400.0
 		root.add_child(cam)
 		cam.current = true
+
+	## The review studio (unchanged from before the hangar look): key from the front left, a cool fill, a cyan rim.
+	func _neutral_lights(root: Node3D) -> void:
+		var key := DirectionalLight3D.new()
+		key.rotation_degrees = Vector3(-38, -35, 0)
+		key.light_energy = 1.35
+		if ArtV3.enabled:
+			key.shadow_enabled = true
+			key.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
+			key.directional_shadow_max_distance = 60.0
+			key.shadow_bias = 0.06
+			key.shadow_normal_bias = 1.2
+			key.shadow_blur = 1.5
+			key.light_energy = 1.5
+		root.add_child(key)
+		var fill_light := DirectionalLight3D.new()
+		fill_light.rotation_degrees = Vector3(-15, 120, 0)
+		fill_light.light_energy = 0.35
+		fill_light.light_color = Color(0.7, 0.8, 0.9)
+		root.add_child(fill_light)
+		var rim := DirectionalLight3D.new()
+		rim.rotation_degrees = Vector3(-20, 180 + 25, 0)
+		rim.light_energy = 1.1
+		rim.light_color = UiStyle.CYAN_400
+		root.add_child(rim)
+
+	## The hangar (guide 5.5): a cold key from almost overhead with shadows, a weak cool front fill so the paint still
+	## reads, two amber work-lights low at the front sides (placed on the model's bounds in _place_work_lights), a cold
+	## back rim for the silhouette, and a light depth haze.
+	func _hangar_lights(root: Node3D) -> void:
+		env.ambient_light_color = Color(0.36, 0.40, 0.46)
+		env.ambient_light_energy = 0.45
+		if ArtV3.enabled:
+			env.ambient_light_energy = 0.35
+		env.fog_enabled = true
+		env.fog_mode = Environment.FOG_MODE_EXPONENTIAL
+		env.fog_light_color = Color(0.30, 0.34, 0.40)
+		env.fog_density = 0.0035
+		env.fog_sky_affect = 0.0
+		var key := DirectionalLight3D.new()
+		key.rotation_degrees = Vector3(-72, -20, 0)
+		key.light_color = KEY_COLD
+		key.light_energy = 1.6
+		key.shadow_enabled = true
+		key.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
+		key.directional_shadow_max_distance = 60.0
+		key.shadow_bias = 0.06
+		key.shadow_normal_bias = 1.2
+		key.shadow_blur = 1.5
+		root.add_child(key)
+		var fill_light := DirectionalLight3D.new()
+		fill_light.rotation_degrees = Vector3(-12, -10, 0)
+		fill_light.light_energy = 0.45
+		fill_light.light_color = Color(0.72, 0.80, 0.90)
+		root.add_child(fill_light)
+		var rim := DirectionalLight3D.new()
+		rim.rotation_degrees = Vector3(-25, 180 + 20, 0)
+		rim.light_energy = 0.55
+		rim.light_color = Color(0.72, 0.80, 0.88)
+		root.add_child(rim)
+		for side in [-1.0, 1.0]:
+			var w := OmniLight3D.new()
+			w.light_color = WORK_AMBER
+			w.light_energy = 7.0
+			w.omni_attenuation = 1.0
+			w.shadow_enabled = false
+			root.add_child(w)
+			work_lights.append(w)
+		_place_work_lights()
+
+	## Work-lights at the model's front sides, a fifth of its height up, reaching about its height.
+	func _place_work_lights() -> void:
+		if work_lights.is_empty():
+			return
+		var h := maxf(2.0, aabb.size.y)
+		var w := maxf(aabb.size.x, aabb.size.z)
+		var c := aabb.get_center()
+		for i in work_lights.size():
+			var side := -1.0 if i == 0 else 1.0
+			work_lights[i].position = Vector3(c.x + side * w * 0.9, h * 0.25, c.z + w * 0.8)
+			work_lights[i].omni_range = h * 1.6
 
 	func show(chassis: String, paint) -> void:
 		show_kind("mech", chassis, paint)
@@ -182,6 +257,7 @@ class Studio:
 		var r := maxf(aabb.size.x, aabb.size.z) * 1.1
 		shadow.scale = Vector3(r, 1, r)
 		shadow.position = Vector3(aabb.get_center().x, 0.02, aabb.get_center().z)
+		_place_work_lights()
 		apply_yaw()
 		return true
 
