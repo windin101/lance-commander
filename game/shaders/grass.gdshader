@@ -9,6 +9,7 @@ render_mode cull_disabled, specular_disabled, depth_draw_opaque;
 uniform sampler2D atlas : source_color, filter_linear_mipmap_anisotropic, repeat_disable;
 uniform float wind = 0.5;
 uniform float alpha_cut = 0.42;
+uniform float fill_tint = 0.6;   // tint share of the night/airless floor (per map plant_fill_tint, as plants.gdshader)
 uniform float fill = 0.0;   // the ground's own shadow_fill: a floor of the plant's colour on night and airless maps, where only the ground had one
 
 varying float height_k;
@@ -38,5 +39,5 @@ void fragment() {
 	ALBEDO = mix(a, COLOR.rgb * 0.26, far_k * 0.6);   // far clumps lose their contrast and fade toward the ground tone
 	ROUGHNESS = 1.0;
 	BACKLIGHT = ALBEDO * 0.35;
-	EMISSION = (ALBEDO + COLOR.rgb * 0.6) * fill;
+	EMISSION = (ALBEDO + COLOR.rgb * fill_tint) * fill;
 }

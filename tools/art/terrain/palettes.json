@@ -255,7 +255,8 @@
    "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: mixed, temperate_muted + snow where the original is snowy",
    "tint_strength": 1.2,
    "shadow_fill": 0.4,
-   "snow_tint_neutral": 1.0
+   "snow_tint_neutral": 1.0,
+   "plant_fill_tint": 0.0
   },
   "mc2_16": {
    "palette": "stony",
@@ -268,7 +269,8 @@
    "albedo_gain": 0.17,
    "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: stony",
    "tint_strength": 1.7,
-   "shadow_fill": 0.5
+   "shadow_fill": 0.5,
+   "plant_fill_tint": 0.0
   },
   "mc2_18": {
    "palette": "temperate_muted",
@@ -286,7 +288,8 @@
    "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: mixed, temperate_muted + snow where the original is snowy",
    "tint_strength": 1.2,
    "shadow_fill": 0.5,
-   "snow_tint_neutral": 1.0
+   "snow_tint_neutral": 1.0,
+   "plant_fill_tint": 0.0
   },
   "mc2_19": {
    "palette": "stony",
@@ -342,7 +345,8 @@
    "tint_strength": 1.2,
    "snow_tint_neutral": 1.0,
    "shadow_fill": 0.4,
-   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted + snow_white (mixed), night"
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted + snow_white (mixed), night",
+   "plant_fill_tint": 0.0
   },
   "mc2_22": {
    "palette": "temperate_muted",
@@ -353,7 +357,8 @@
    "palette": "temperate_muted",
    "albedo_gain": 0.2,
    "shadow_fill": 0.4,
-   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted, night-like"
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted, night-like",
+   "plant_fill_tint": 0.0
   },
   "mc2_24": {
    "palette": "stony",

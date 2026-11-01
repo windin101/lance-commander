@@ -191,7 +191,7 @@ def main():
         (o / "tint.png.import").write_text(IMPORT_2D.format(mode=0, mip="true"))
         info = {"map": m, "palette": pal, "relief_strength": float(P["maps"][m].get("relief_strength", 1.0 if pal == "lunar" else 2.0)), "approved": P["maps"][m].get("approved"), "albedo_gain": float(P["maps"][m].get("albedo_gain", 1.0)),
                 "albedo_gain_suggested": albedo_gain(m, pal, P)}
-        for k in ("shadow_fill", "tint_strength", "snow_tint_neutral", "exposure_lift", "mask2_edge", "water_absorb_k", "water_reflect", "water_glow", "cover_gain"):   # optional per-map shader parameters (palettes.json maps.<m>)
+        for k in ("shadow_fill", "tint_strength", "snow_tint_neutral", "exposure_lift", "mask2_edge", "water_absorb_k", "water_reflect", "water_glow", "cover_gain", "plant_fill_tint"):   # optional per-map shader parameters (palettes.json maps.<m>)
             if k in P["maps"][m]:
                 info[k] = float(P["maps"][m][k])   # a hint only: water and burnt shadow bias it low
         if "layer_albedo_scale" in P["maps"][m]:   # per-map albedo multiplier by slot name, e.g. {"dust": 0.8} (terrain polish rollout batch 1)

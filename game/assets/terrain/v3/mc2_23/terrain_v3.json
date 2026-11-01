@@ -5,5 +5,6 @@
  "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted, night-like",
  "albedo_gain": 0.2,
  "albedo_gain_suggested": 0.55,
- "shadow_fill": 0.4
+ "shadow_fill": 0.4,
+ "plant_fill_tint": 0.0
 }

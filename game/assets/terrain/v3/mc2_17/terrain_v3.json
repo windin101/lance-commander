@@ -6,5 +6,6 @@
  "albedo_gain": 0.17,
  "albedo_gain_suggested": 0.577,
  "shadow_fill": 0.5,
- "tint_strength": 1.7
+ "tint_strength": 1.7,
+ "plant_fill_tint": 0.0
 }

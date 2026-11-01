@@ -159,6 +159,8 @@ func _make_materials() -> void:
 	_mat_reed.set_shader_parameter("wind", 0.35)
 	for m in [_mat_card, _mat_dome, _mat_flower, _mat_reed]:
 		m.set_shader_parameter("fill", d.ground_fill())
+	for m in [_mat_card, _mat_dome, _mat_flower, _mat_reed]:
+		m.set_shader_parameter("fill_tint", d.plant_fill_tint)
 
 
 func _kind(key: String, mesh: Mesh, range_m: float, mat: Material, shadows: bool) -> TerrainDressV3.Kind:

@@ -8,5 +8,6 @@
  "shadow_fill": 0.5,
  "tint_strength": 1.2,
  "snow_tint_neutral": 1.0,
- "palette2": "snow_white"
+ "palette2": "snow_white",
+ "plant_fill_tint": 0.0
 }

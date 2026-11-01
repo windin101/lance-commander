@@ -19,6 +19,7 @@ var _palette := ""
 var _apron: Image          # apron_sdf.png (R, 128 = the edge, above = paved): no cover on paving
 var _snow: Image           # mask2.png (R = snow coverage): no cover on snowfields
 var _ov: Array = []        # per-vertex overlay (road, runway) slots
+var plant_fill_tint := 0.6   # per map (palettes.json plant_fill_tint): the tint share of the understorey's night/airless floor, see plants.gdshader
 var _gain := 1.0   # the map's albedo_gain (floored): scatter follows the ground's value, or pale pebbles sit on dark ground
 
 
@@ -31,6 +32,7 @@ func build(sim_map: SimMap, map_name: String, palette_layers: Array) -> void:
 		_gain = clampf(float(inf.get("albedo_gain", 1.0)), 0.3, 1.0)
 		if inf.has("cover_gain"):   # per map (palettes.json maps.<m>.cover_gain): the dressing's own value where the ground is so dark (mc2_12, 0.13) that the 0.3 floor leaves pale confetti
 			_gain = clampf(float(inf["cover_gain"]), 0.1, 1.0)
+		plant_fill_tint = clampf(float(inf.get("plant_fill_tint", 0.6)), 0.0, 0.6)
 		_palette = String(inf.get("palette", ""))
 		_load_masks(dir)
 	var means: Array[Color] = []
@@ -393,6 +395,7 @@ func _vegetation(splat: Image, means: Array[Color], map_name: String) -> void:
 	grass_mat.shader = load("res://shaders/grass.gdshader")
 	grass_mat.set_shader_parameter("atlas", load("res://assets/terrain/v3/grass_atlas.png"))
 	grass_mat.set_shader_parameter("fill", ground_fill())
+	grass_mat.set_shader_parameter("fill_tint", plant_fill_tint)
 	var leaf_mat: ShaderMaterial = (ObjectsView.tree_materials()[1] as ShaderMaterial).duplicate()   # own copy: only the shrubs get the night fill
 	leaf_mat.set_shader_parameter("fill", ground_fill())
 	var grass := []

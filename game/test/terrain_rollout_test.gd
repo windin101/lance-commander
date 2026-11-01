@@ -76,7 +76,7 @@ func test_the_water_shader_has_the_per_map_knobs_and_the_json_keys_are_sane() ->
 	var tn := (load("res://shaders/terrain_v3.gdshader") as Shader).get_shader_uniform_list().map(func(u): return String(u["name"]))
 	assert_bool(tn.has("shore_near")).is_true()
 	var pal: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://../tools/art/terrain/palettes.json"))
-	var lim := {"water_absorb_k": [0.5, 12.0], "water_reflect": [0.0, 1.5], "water_glow": [0.0, 2.0], "cover_gain": [0.1, 1.0]}
+	var lim := {"water_absorb_k": [0.5, 12.0], "water_reflect": [0.0, 1.5], "water_glow": [0.0, 2.0], "cover_gain": [0.1, 1.0], "plant_fill_tint": [0.0, 0.6]}
 	var seen := 0
 	for m in pal["maps"]:
 		var jp := "res://assets/terrain/v3/%s/terrain_v3.json" % m
@@ -92,3 +92,13 @@ func test_the_water_shader_has_the_per_map_knobs_and_the_json_keys_are_sane() ->
 	assert_int(seen).is_greater(3)
 	# lunar: no vegetation, warm_k stays 0 (the shore texture is only built where there is water)
 	assert_bool(pal["maps"]["mc2_13"]["palette"] == "lunar").is_true()
+
+
+func test_the_understorey_floor_has_a_per_map_tint_share() -> void:
+	# batch 3: bushes on dark night/low-gain ground read as pale mint discs because the floor added tint * 0.6 on top of the albedo
+	for sh in ["plants", "grass"]:
+		var names := (load("res://shaders/%s.gdshader" % sh) as Shader).get_shader_uniform_list().map(func(u): return String(u["name"]))
+		assert_bool(names.has("fill_tint")).is_true()
+	var d := TerrainDressV3.new()
+	assert_float(d.plant_fill_tint).is_equal(0.6)   # default: every map without the key keeps the batch 1 floor
+	d.free()
