@@ -4,8 +4,8 @@
  "source_dims": "Turret x -1.2..2.8, y 4.1..8.3, z -4.8..6.0: rail barrel in coil housings, capacitor stack",
  "states": {
   "intact": {
-   "tris_lod0": 1460,
-   "tris_lod1": 532,
+   "tris_lod0": 1462,
+   "tris_lod1": 534,
    "lod_switch_m": 80.0,
    "nodes": [
     "Base",
@@ -24,8 +24,8 @@
    ]
   },
   "damaged": {
-   "tris_lod0": 1381,
-   "tris_lod1": 507,
+   "tris_lod0": 1397,
+   "tris_lod1": 523,
    "lod_switch_m": 80.0,
    "nodes": [
     "Base",

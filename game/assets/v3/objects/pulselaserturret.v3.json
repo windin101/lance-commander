@@ -4,8 +4,8 @@
  "source_dims": "Turret x +-1.7, y 4..6.2, z -3..7.7: twin pulse-laser emitters",
  "states": {
   "intact": {
-   "tris_lod0": 1632,
-   "tris_lod1": 608,
+   "tris_lod0": 1636,
+   "tris_lod1": 612,
    "lod_switch_m": 80.0,
    "nodes": [
     "Base",

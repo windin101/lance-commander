@@ -33,6 +33,10 @@ func _ready() -> void:
 	_mask_units = args.has("mask-units")
 	if args.has("focus-lance"):  # --focus-lance[=<dist>]: frame the player's lance (unit brightness checks)
 		_focus_lance.call_deferred(view)
+	if args.has("focus-unit"):  # --focus-unit=<model>: frame the first live unit of that model (art checks on civilians and vehicles)
+		_focus_unit.call_deferred(view, String(args["focus-unit"]))
+	if args.has("night"):  # --night: day map shown as night for glow checks (night lamp strengths, sun and ambient cut): BuildingV3.set_night(true)
+		_night.call_deferred(view)
 	if args.has("turret"):  # --turret=<appearance>[,<yaw offset deg>]: park the first such map turret, turned off its placed facing (turret art checks)
 		_turret.call_deferred(view, String(args["turret"]).split(","))
 	if args.has("cam-view"):  # --cam-view=yaw,pitch,distance after the view has set itself up (scenery shots)
@@ -98,6 +102,34 @@ func _focus_lance(view: Node) -> void:
 	if view.compass:
 		view.compass.enabled = false
 	cam.focus = Vector3(pos.x, view.world.map.height_at(pos), -pos.y)
+
+
+func _focus_unit(view: Node, model: String) -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	for u in view.world.units:
+		if u.model == model and not u.is_destroyed() and view.camera is RtsCamera:
+			var cam := view.camera as RtsCamera
+			cam.limits = false
+			cam.following = null
+			if view.compass:
+				view.compass.enabled = false
+			cam.focus = Vector3(u.position.x, view.world.map.height_at(u.position), -u.position.y)
+			return
+
+
+func _night(view: Node) -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	BuildingV3.set_night(true)
+	for l in view.find_children("*", "DirectionalLight3D", true, false):
+		(l as DirectionalLight3D).light_energy *= 0.08
+	for we in view.find_children("*", "WorldEnvironment", true, false):
+		var env: Environment = (we as WorldEnvironment).environment
+		if env:
+			env.ambient_light_energy *= 0.2
+			env.background_energy_multiplier *= 0.15
+			env.tonemap_exposure *= 0.8
 
 
 func _turret(view: Node, v: PackedStringArray) -> void:

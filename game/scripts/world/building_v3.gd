@@ -18,7 +18,7 @@ const DECAL_CELLS := {"panel": 0, "diamond": 1, "id_plate": 2, "hatch": 3, "arro
 
 ## --no-building-v3 (or MC2_BUILDING_V3=0) keeps the v1/v2 art for buildings alone, for before/after shots with the rest of v3 on.
 static var enabled: bool = not (OS.get_cmdline_user_args().has("--no-building-v3") or OS.get_environment("MC2_BUILDING_V3") == "0")
-const ALIAS := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint", "hullsheet": "corrugated", "hullclean": "corrugated", "seamroof": "corrugated", "roofclean": "corrugated", "hangarroof": "corrugated", "finroof": "corrugated", "facade": "concrete", "wallconc": "concrete", "wallconc2": "concrete", "palesheet": "corrugated", "darkboards": "boards", "palewood": "boards", "darksheet": "corrugated", "wallfacade": "concrete", "sandbag": "concrete", "wallpost_s": "concrete", "wallpost_l": "concrete", "wallpost_d": "concrete", "brick": "concrete", "palepaint": "paint", "tealpaint": "paint", "pipegreen": "paint", "slate": "paint", "palecorr": "corrugated", "safetyyellow": "paint", "machgrey": "paint", "bandgreen": "paint", "bandorange": "paint", "tankgrey": "paint", "roofdark": "paint", "lightcorr": "corrugated", "brickcity": "concrete", "greybrick": "concrete", "whitecity": "concrete", "facadeblue": "concrete", "facadegreen": "concrete", "tealwall": "paint", "tinroof": "corrugated", "wglass": "steel", "camogreen": "paint", "tanwall": "paint", "steinerwhite": "paint", "creamwall": "paint", "bluetrim": "paint", "lightroof": "paint", "scorchblack": "concrete", "glassgreen": "steel", "glassblue": "steel", "glasslight": "steel", "bedgreen": "paint", "planting": "paint", "tealpanel": "paint", "tanroof": "corrugated", "stonewall": "concrete", "redframe": "paint", "flagcloth": "paint", "canvas": "paint", "netgreen": "paint", "roofbrown": "corrugated", "framedark": "paint", "hulldavion": "paint", "crashhull": "paint", "crashhull2": "paint", "crashhull3": "paint", "hullliao": "paint", "hullsteiner": "paint", "jetmauve": "paint", "boatyellow": "paint", "boatrust": "paint", "lamp_white": "paint", "lamp_red": "paint", "lamp_blue": "paint", "lamp_green": "paint", "lamp_off": "paint", "lamp_ember": "paint", "lamp_ember2": "paint"}  # model material name -> library set (see tools/art/v3/bld_*.py)
+const ALIAS := {"roofing": "corrugated", "lapwood": "wood", "silo": "paint", "hullsheet": "corrugated", "hullclean": "corrugated", "seamroof": "corrugated", "roofclean": "corrugated", "hangarroof": "corrugated", "finroof": "corrugated", "facade": "concrete", "wallconc": "concrete", "wallconc2": "concrete", "palesheet": "corrugated", "darkboards": "boards", "palewood": "boards", "darksheet": "corrugated", "wallfacade": "concrete", "sandbag": "concrete", "wallpost_s": "concrete", "wallpost_l": "concrete", "wallpost_d": "concrete", "brick": "concrete", "palepaint": "paint", "tealpaint": "paint", "pipegreen": "paint", "slate": "paint", "palecorr": "corrugated", "safetyyellow": "paint", "machgrey": "paint", "bandgreen": "paint", "bandorange": "paint", "tankgrey": "paint", "roofdark": "paint", "lightcorr": "corrugated", "brickcity": "concrete", "greybrick": "concrete", "whitecity": "concrete", "facadeblue": "concrete", "facadegreen": "concrete", "tealwall": "paint", "tinroof": "corrugated", "wglass": "steel", "camogreen": "paint", "tanwall": "paint", "steinerwhite": "paint", "creamwall": "paint", "bluetrim": "paint", "lightroof": "paint", "scorchblack": "concrete", "glassgreen": "steel", "glassblue": "steel", "glasslight": "steel", "bedgreen": "paint", "planting": "paint", "tealpanel": "paint", "tanroof": "corrugated", "stonewall": "concrete", "redframe": "paint", "flagcloth": "paint", "canvas": "paint", "netgreen": "paint", "roofbrown": "corrugated", "framedark": "paint", "hulldavion": "paint", "crashhull": "paint", "crashhull2": "paint", "crashhull3": "paint", "hullliao": "paint", "hullsteiner": "paint", "jetmauve": "paint", "boatyellow": "paint", "boatrust": "paint", "lamp_white": "paint", "lamp_red": "paint", "lamp_blue": "paint", "lamp_green": "paint", "lamp_off": "paint", "lamp_ember": "paint", "lamp_ember2": "paint", "lamp_laser": "paint", "lamp_laser_dim": "paint", "lamp_gauss": "paint", "lamp_gauss_dim": "paint"}  # model material name -> library set (see tools/art/v3/bld_*.py)
 const TINTS := {"brick": Color(0.46, 0.3, 0.27), "palepaint": Color(0.7, 0.74, 0.76), "tealpaint": Color(0.5, 0.7, 0.74), "pipegreen": Color(0.66, 0.8, 0.74),
 	"slate": Color(0.045, 0.06, 0.07), "palecorr": Color(0.52, 0.56, 0.58), "safetyyellow": Color(1.02, 0.84, 0.26), "machgrey": Color(0.46, 0.54, 0.6),
 	"bandgreen": Color(0.32, 0.62, 0.4), "bandorange": Color(0.95, 0.5, 0.2), "tankgrey": Color(0.52, 0.57, 0.57), "roofdark": Color(0.045, 0.055, 0.065), "lightcorr": Color(0.86, 0.91, 0.94),
@@ -26,7 +26,7 @@ const TINTS := {"brick": Color(0.46, 0.3, 0.27), "palepaint": Color(0.7, 0.74, 0
 	"tealwall": Color(0.36, 0.52, 0.56), "tinroof": Color(0.5, 0.52, 0.5),
 	"camogreen": Color(0.46, 0.58, 0.34), "tanwall": Color(0.72, 0.64, 0.5), "steinerwhite": Color(1.3, 1.33, 1.36),
 	"creamwall": Color(1.1, 1.07, 0.98), "bluetrim": Color(0.3, 0.45, 0.66), "lightroof": Color(0.88, 0.92, 0.95), "scorchblack": Color(0.05, 0.045, 0.04), "glassgreen": Color(0.12, 0.34, 0.26), "glassblue": Color(0.4, 0.55, 0.68), "glasslight": Color(0.4, 0.68, 0.46), "bedgreen": Color(0.24, 0.5, 0.2), "planting": Color(0.3, 0.42, 0.26), "tealpanel": Color(0.22, 0.5, 0.46), "tanroof": Color(0.92, 0.84, 0.56), "stonewall": Color(0.7, 0.76, 0.66), "redframe": Color(0.62, 0.2, 0.16),
-	"flagcloth": Color(0.8, 0.12, 0.1), "canvas": Color(0.42, 0.62, 0.5), "netgreen": Color(0.2, 0.3, 0.22), "roofbrown": Color(0.64, 0.56, 0.45), "framedark": Color(0.05, 0.055, 0.06), "hulldavion": Color(0.58, 0.61, 0.58), "crashhull": Color(0.27, 0.31, 0.36), "crashhull2": Color(0.38, 0.42, 0.47), "crashhull3": Color(0.14, 0.16, 0.19), "hullliao": Color(0.44, 0.58, 0.54), "hullsteiner": Color(0.58, 0.64, 0.72), "jetmauve": Color(0.66, 0.48, 0.54), "boatyellow": Color(1.4, 1.1, 0.2), "boatrust": Color(0.78, 0.7, 0.46), "lamp_white": Color(1.0, 0.95, 0.85), "lamp_red": Color(0.95, 0.1, 0.06), "lamp_blue": Color(0.12, 0.3, 1.0), "lamp_green": Color(0.1, 0.9, 0.25), "lamp_off": Color(0.05, 0.045, 0.04), "lamp_ember": Color(0.1, 0.04, 0.02), "lamp_ember2": Color(0.07, 0.03, 0.015)}  # industrial family (bld_industry.py): per-name tint on the shared set  # model material name -> library set (see tools/art/v3/bld_*.py)
+	"flagcloth": Color(0.8, 0.12, 0.1), "canvas": Color(0.42, 0.62, 0.5), "netgreen": Color(0.2, 0.3, 0.22), "roofbrown": Color(0.64, 0.56, 0.45), "framedark": Color(0.05, 0.055, 0.06), "hulldavion": Color(0.58, 0.61, 0.58), "crashhull": Color(0.27, 0.31, 0.36), "crashhull2": Color(0.38, 0.42, 0.47), "crashhull3": Color(0.14, 0.16, 0.19), "hullliao": Color(0.44, 0.58, 0.54), "hullsteiner": Color(0.58, 0.64, 0.72), "jetmauve": Color(0.66, 0.48, 0.54), "boatyellow": Color(1.4, 1.1, 0.2), "boatrust": Color(0.9, 0.72, 0.32), "lamp_white": Color(1.0, 0.95, 0.85), "lamp_red": Color(0.95, 0.1, 0.06), "lamp_blue": Color(0.12, 0.3, 1.0), "lamp_green": Color(0.1, 0.9, 0.25), "lamp_off": Color(0.05, 0.045, 0.04), "lamp_ember": Color(0.1, 0.04, 0.02), "lamp_ember2": Color(0.07, 0.03, 0.015), "lamp_laser": Color(0.04, 0.24, 0.1), "lamp_laser_dim": Color(0.04, 0.24, 0.1), "lamp_gauss": Color(0.15, 0.7, 0.9), "lamp_gauss_dim": Color(0.15, 0.7, 0.9)}  # industrial family (bld_industry.py): per-name tint on the shared set  # model material name -> library set (see tools/art/v3/bld_*.py)
 ## The mission snow value (unit_weather.json) is tuned for the units. A building roof faces straight up, so the full value turned every flat
 ## roof near-white on mc2_18 (snow 0.45, a dark dusk map whose ground is bare): buildings take this share of it.
 const SNOW_K := 0.06
@@ -34,8 +34,15 @@ const SNOW_K := 0.06
 const PROP_VEHICLES := {"jeepprop": "jeep", "truckprop": "truck", "armoredcarprop": "armoredcar", "cargotruckprop": "cargotruck", "fueltruckprop": "fueltruck",
 	"ordnancetruckprop": "ordnancetruck", "trooptransportprop": "trooptransport", "ambulanceprop": "ambulance", "dunebuggyprop": "jeep"}
 ## Beacon and runway lamps (bld_spaceport.py): lens colours, emissive strength by day / night, and the additive halo strength.
-const LAMP_COL := {"lamp_white": Color(1.0, 0.92, 0.75), "lamp_red": Color(1.0, 0.1, 0.05), "lamp_blue": Color(0.2, 0.45, 1.0), "lamp_green": Color(0.1, 1.0, 0.3), "lamp_ember": Color(0.33, 0.14, 0.03), "lamp_ember2": Color(0.12, 0.04, 0.008)}
+const LAMP_COL := {"lamp_white": Color(1.0, 0.92, 0.75), "lamp_red": Color(1.0, 0.1, 0.05), "lamp_blue": Color(0.2, 0.45, 1.0), "lamp_green": Color(0.1, 1.0, 0.3), "lamp_ember": Color(0.33, 0.14, 0.03), "lamp_ember2": Color(0.12, 0.04, 0.008), "lamp_laser": Color(0.2, 1.0, 0.4), "lamp_gauss": Color(0.25, 0.85, 1.0)}
 const LAMP_DAY := 0.8
+## Turret weapon emitters (bld_turrets.py: pulse laser core and lens, gauss core and muzzle): `lamp_<kind>` is a full emissive lens with an additive `halo_<kind>`
+## while the weapon is intact; the `_dim` material is the weapon's body glow (intact) or a damaged weapon's remaining light, at LAMP_DIM of the lens
+## strength and with no halo. A destroyed turret has neither (its wreck model carries no emitter). The glow rides the Gun / Pop nodes, so a retracted
+## pop-up (8.4 m under the ground) shows none.
+const LAMP_DIM := 0.3
+const LAMP_WEAPON_DAY := 0.4
+const HALO_SIZE := {"halo_laser": 1.5, "halo_gauss": 2.0}
 const LAMP_NIGHT := 7.0
 const HALO_DAY := 0.1
 const HALO_NIGHT := 1.0
@@ -90,6 +97,7 @@ static func material(name: String) -> ShaderMaterial:
 		mat.shader = load("res://shaders/building_v3_halo.gdshader")
 		mat.set_shader_parameter("col", LAMP_COL.get("lamp_" + name.trim_prefix("halo_"), Color(1, 1, 1)))
 		mat.set_shader_parameter("strength", HALO_NIGHT if night else HALO_DAY)
+		mat.set_shader_parameter("size", float(HALO_SIZE.get(name, 3.2)))
 		mat.render_priority = 2
 		_mats[name] = mat
 		return mat
@@ -182,6 +190,10 @@ static func material(name: String) -> ShaderMaterial:
 			if name == "sandbag":
 				mat.set_shader_parameter("base_tint", Color(1.05, 1.0, 0.82))
 				mat.set_shader_parameter("rib_axis", 0.0)
+			if name == "boatrust":  # the X-38 lifeboat wrecks: faded yellow hull paint, baked rust and run-off in vertex G (tools/art/v3/bld_lifeboat.py)
+				mat.set_shader_parameter("rust_k", 0.5)
+				mat.set_shader_parameter("rust_col", Color(0.4, 0.22, 0.1))
+				mat.set_shader_parameter("wear", 0.45)
 			if name == "silo":
 				mat.set_shader_parameter("base_tint", Color(0.92, 0.84, 0.72))
 				mat.set_shader_parameter("rust_k", 0.35)
@@ -208,10 +220,19 @@ static func material(name: String) -> ShaderMaterial:
 			mat.set_shader_parameter("rib_pitch", 0.3)
 	if name.begins_with("lamp_") and name != "lamp_off":  # runway / beacon lamp lens: solid emissive, modest by day, bright at night
 		mat.set_shader_parameter("emit_solid", 1.0)
-		mat.set_shader_parameter("emit_col", LAMP_COL[name])
-		mat.set_shader_parameter("emit_k", LAMP_NIGHT if night else LAMP_DAY)
+		mat.set_shader_parameter("emit_col", LAMP_COL[name.trim_suffix("_dim")])
+		mat.set_shader_parameter("emit_k", _lamp_k(name, night))
 	_mats[name] = mat
 	return mat
+
+
+static func _lamp_k(name: String, on: bool) -> float:
+	var k := (LAMP_NIGHT if on else LAMP_DAY) * (LAMP_DIM if name.ends_with("_dim") else 1.0)
+	if not on and (name.contains("laser") or name.contains("gauss")):  # a weapon port by day is a hint of light, not a lamp
+		k *= LAMP_WEAPON_DAY
+		if name.contains("laser"):  # the green laser reads strongest by day: half again (Lee, 2026-11-01)
+			k *= 0.5
+	return k
 
 
 ## Mission dust and snow on every v3 building surface (called from ArtV3.set_environment).
@@ -250,7 +271,7 @@ static func set_night(on: bool) -> void:
 	m.set_shader_parameter("emit_k", 0.9 if on else 0.0)
 	for k in _mats:
 		if String(k).begins_with("lamp_") and k != "lamp_off":
-			(_mats[k] as ShaderMaterial).set_shader_parameter("emit_k", LAMP_NIGHT if on else LAMP_DAY)
+			(_mats[k] as ShaderMaterial).set_shader_parameter("emit_k", _lamp_k(String(k), on))
 		elif String(k).begins_with("halo_"):
 			(_mats[k] as ShaderMaterial).set_shader_parameter("strength", HALO_NIGHT if on else HALO_DAY)
 

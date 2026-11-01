@@ -21,12 +21,12 @@
  "ground_fix_m": {},
  "paint_stats": {
   "texels": 2495930,
-  "chip_share": 0.019549025814025234,
+  "chip_share": 0.02045570188266498,
   "grime_mean": 0.48775792121887207,
-  "paint_share": 0.4995741066456191,
+  "paint_share": 0.5140644970011178,
   "glass_texels": 0,
   "emissive_texels": 0,
-  "piping_texels": 176201,
+  "piping_texels": 183649,
   "stripe_texels": 0,
   "band_texels": 0
  }

@@ -19,6 +19,7 @@ from scipy.spatial import ConvexHull
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import bld_hangars as H  # noqa: E402
+import bld_lifeboat as LB  # noqa: E402
 from bld_industry import V, TAU, shell, fpanel, door, band, ROOT  # noqa: E402
 from bld_kit import Ctx, axis_angle  # noqa: E402
 from bld_mesh import unit, rot_y  # noqa: E402
@@ -716,41 +717,6 @@ def lifeboat(state, lod, seed):
     return c
 
 
-def lifeboatrusted(state, lod, seed):
-    """x -1.8..2.7, y -0.1..2.3: the weathered tan hull tipped on one wing, so it sits off-centre."""
-    c = Ctx(state, lod, seed, breach=(0.5, 1.0, 0.0, 1.4), ledges=[(1.2, 0.5, 0.6)], ground_h=1.5)
-    if state == "destroyed":
-        _lifeboat_wreck(c, "boatrust", dx=0.4)
-        return c
-    c.b.M = (axis_angle(V([0, 0, 1.0]), -0.2) @ axis_angle(V([0, 1.0, 0]), -0.35), V([-0.45, 0.0, 0.0]))
-    _lifeboat_hull(c, "boatrust")
-    c.b.M = None
-    if c.state == "damaged":
-        scorch_patch(c, V([0.4, 1.25, 0.6]), (0, 1, 0), 1.4, 1.2, (1, 0, 0))
-    return c
-
-
-def lifeboatcrashed(state, lod, seed):
-    """x -2.6..1.8, y -0.2..1.7: a hull that came down nose-first, one wing sheared off and the skin torn open, no glazing."""
-    c = Ctx(state, lod, seed, breach=(-0.5, 0.9, 0.0, 1.4), ledges=[(1.2, 0.5, 0.6)], ground_h=1.5)
-    b = c.b
-    if state == "destroyed":
-        _lifeboat_wreck(c, "boatrust", dx=-0.4)
-        return c
-    b.M = (axis_angle(V([1.0, 0, 0]), -0.16) @ axis_angle(V([0, 1.0, 0]), 0.5), V([-0.5, -0.0, 0.0]))
-    pl = [(0.0, 2.6), (0.9, 0.8), (2.3, -1.2), (2.3, -1.9), (0.8, -2.0), (-0.8, -2.0), (-1.3, -1.7), (-1.6, -1.0), (-0.9, 0.8)]       # left wing broken short
-    P = [(x, 0.3, z) for (x, z) in pl] + [(x * 0.6, 1.25, z * 0.75 - 0.2) for (x, z) in pl]
-    hull(c, "boatrust", P)
-    b.box("interior", (0.2, 1.05, 0.6), (0.9, 0.12, 1.3), axis_angle(V([0, 0, 1.0]), 0.3))                      # torn-open top: dark interior and ribs
-    for k in range(3):
-        b.tube("steel", (-0.6 + k * 0.5, 1.0, 0.0), (-0.4 + k * 0.5, 1.7, 0.7 + k * 0.3), 0.05, 4)
-    lathe_z(c, "machgrey", [(-2.9, 0.75, 0.75, 0.8), (-2.0, 0.55, 0.55, 0.8), (-1.8, 0.7, 0.7, 0.8)], 10 if c.fine else 6)
-    b.M = None
-    if c.state == "damaged":
-        scorch_patch(c, V([-0.4, 1.2, 0.2]), (0, 1, 0), 1.6, 1.4, (1, 0, 0))
-    return c
-
-
 def _lifeboat_wreck(c, mat, dx=0.0):
     b = c.b
     rng = c.rng
@@ -842,8 +808,8 @@ MEMBERS = {
     "shuttle": (shuttle, "aero shuttle: delta wings, aft engine cluster, tail fin"),
     # "privatejet": (privatejet, "private jet: slim mauve fuselage, swept wings with winglet fins"),  # shelved: the approved HD sculpt is used
     # "lifeboat": (lifeboat, "yellow arrowhead lifeboat"),  # shelved: the approved HD sculpt is used
-    "lifeboatcrashed": (lifeboatcrashed, "crashed lifeboat: nose-down, torn open"),
-    "lifeboatrusted": (lifeboatrusted, "rusted lifeboat tipped on a wing"),
+    "lifeboatcrashed": (LB.lifeboatcrashed, "crashed lifeboat (X-38 sculpt, tools/art/v3/bld_lifeboat.py): nose-down, torn open"),
+    "lifeboatrusted": (LB.lifeboatrusted, "rusted lifeboat (X-38 sculpt, tools/art/v3/bld_lifeboat.py) tipped on a wing"),
     "runwaylight": (_lamp("white", False), "runway lamp: low plinth, warm white emissive lens, halo"),
     "redbeaconlight": (_lamp("red", True), "red beacon lamp on a stem, emissive lens, halo"),
     "bluebeaconlight": (_lamp("blue", True), "blue beacon lamp on a stem, emissive lens, halo"),

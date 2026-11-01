@@ -39,8 +39,14 @@ static func paint_colour(c: Color) -> Color:
 	return v.srgb_to_linear()
 
 
+## Models whose body paint is fixed whatever the mission, faction or prop scheme asks for (Lee, 2026-11-01: every ambulance is white; the red-cross marks
+## are fixed colours baked into the textures). Key "<folder>/<name>".
+const FIXED_SCHEMES := {"vehicles/ambulance": {"mode": "mask", "base": "#f2f2ef", "hl1": "#c8ccd0", "hl2": "#aeb3b8", "pattern": "plain"}}
+
+
 ## Paint every mesh under root with the v3 shader and a scheme (PaintScheme dictionary).
 static func apply(root: Node, name: String, scheme: Dictionary, folder: String = "mechs") -> ShaderMaterial:
+	scheme = FIXED_SCHEMES.get("%s/%s" % [folder, name], scheme)
 	var key := "%s/%s|%s" % [folder, name, str(scheme)]
 	var mat: ShaderMaterial = _mats.get(key)
 	if mat == null:

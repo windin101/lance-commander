@@ -311,6 +311,14 @@ def turntable(t, seg, r=1.9):
     t.disc("steel", (0, 0.4, 0), r - 0.2, seg=seg)
 
 
+def halo(b, kind, p):
+    """An additive camera-facing glow quad at p (node frame): four near-coincident points, UV = the corner; the shader pushes the corners out in view space
+    (shaders/building_v3_halo.gdshader). Dim by day, full at night (BuildingV3.set_night). Intact weapons only: a damaged or destroyed one has no halo."""
+    p = np.asarray(p, float)
+    P = np.array([p + (-0.01, -0.01, 0), p + (0.01, -0.01, 0), p + (0.01, 0.01, 0), p + (-0.01, 0.01, 0)])
+    b.add("halo_" + kind, P, np.tile((0, 0, 1.0), (4, 1)), np.array([(0, 0), (1, 0), (1, 1), (0, 1)]), [(0, 1, 2), (0, 2, 3)])
+
+
 def tube_mouths(g, cx, cy, zf, pw, ph, pattern, r=0.17, fine=True, skip=lambda x, y: False):
     """Dark tube mouths with a galv rim on a panel face at z = zf. pattern: normalised (-0.5..0.5) panel positions."""
     for ux, uy in pattern:
@@ -446,7 +454,7 @@ def head_pulse(m, c, state, parent=None, t=(0.0, 4.0, 0.0)):
         for ex in (-0.34, 0.34):
             g.box("whitecity", (x + ex, 0.1, 0.5 + L / 2), (0.14, 0.55, L))
         g.box("whitecity", (x, -0.2, 0.5 + L / 2), (0.82, 0.16, L))
-        g.tube("bandgreen", (x, 0.02, 0.5), (x, 0.02, 0.5 + L), 0.26, 12 if fine else 6)
+        g.tube("bandgreen" if broken or state == "damaged" else "lamp_laser_dim", (x, 0.02, 0.5), (x, 0.02, 0.5 + L), 0.26, 12 if fine else 6)     # the core glows (dim emissive); a hit one is dead
         if fine:
             for k in range(4):
                 g.box("steel", (x, 0.16, 0.9 + k * (L - 0.6) / 3), (0.9, 0.62, 0.12))
@@ -455,8 +463,11 @@ def head_pulse(m, c, state, parent=None, t=(0.0, 4.0, 0.0)):
             g.disc("rust", (x + 0.3, -0.55, 0.5 + L + 0.9), 0.28, (0.3, -0.55, 0.8), seg=9)
             continue
         z = 0.5 + L
-        for k, r in enumerate((0.42, 0.34, 0.24, 0.13, 0.04)):  # the pointed lens tip
-            g.tube("whitecity", (x, 0.0, z + 0.34 * k), (x, 0.0, z + 0.34 * (k + 1) + 0.02), r, 12 if fine else 6)
+        for k, r in enumerate((0.42, 0.34, 0.24, 0.13, 0.04)):  # the pointed lens tip; its third ring is the emitter lens (emissive, with a halo while intact)
+            lens = "lamp_laser" if state != "damaged" else "lamp_laser_dim"
+            g.tube(lens if k == 2 else "whitecity", (x, 0.0, z + 0.34 * k), (x, 0.0, z + 0.34 * (k + 1) + 0.02), r, 12 if fine else 6)
+        if state != "damaged":
+            halo(g, "laser", (x, 0.0, z + 0.34 * 2.6))
         g.disc("wglass", (x, 0.0, z + 0.02), 0.3, (0, 0, -1), seg=12 if fine else 6)
 
 
@@ -479,8 +490,10 @@ def head_gauss(m, c, state, parent=None, t=(0.0, 4.0, 0.0)):
     hexp = lambda r, yc=2.6, zc=0.2: [(zc + q[0], yc + q[1]) for q in pg(6, r, math.pi / 6)]
     prism(tb, "tealwall", hexp(1.75), dish_x, dish_x + 0.4, axis="x", cap_top=True, cap_bot=True)
     prism(tb, "facadeblue" if state != "damaged" else "rust", hexp(1.2), dish_x + 0.4, dish_x + 0.46, axis="x", cap_top=True, cap_bot=False)
-    if state != "damaged":
-        prism(tb, "wglass", hexp(0.7), dish_x + 0.46, dish_x + 0.5, axis="x", cap_top=True, cap_bot=False)
+    if state != "damaged":      # the coil core glows cyan (dim emissive, a lamp-set material)
+        prism(tb, "lamp_gauss_dim", hexp(0.7), dish_x + 0.46, dish_x + 0.5, axis="x", cap_top=True, cap_bot=False)
+    else:                       # cracked: a small dead-dim patch of the core still lit
+        prism(tb, "lamp_gauss_dim", hexp(0.32, 2.35, 0.45), dish_x + 0.46, dish_x + 0.49, axis="x", cap_top=True, cap_bot=False)
     if fine:
         for k in range(6):  # bolts round the rim
             a = math.pi / 6 + TAU * k / 6
@@ -494,7 +507,8 @@ def head_gauss(m, c, state, parent=None, t=(0.0, 4.0, 0.0)):
         g.tube("facadeblue", (0, 0, z), (0, 0, z + 0.22), 0.52, 14 if fine else 8)
     if not broken:
         g.tube("facadeblue", (0, 0, L - 0.1), (0, 0, L + 0.25), 0.5, 14 if fine else 8)
-        g.disc("wglass", (0, 0, L + 0.26), 0.3, (0, 0, 1), seg=12 if fine else 6)
+        g.disc("lamp_gauss", (0, 0, L + 0.26), 0.3, (0, 0, 1), seg=12 if fine else 6)      # the muzzle lens: emissive, with a halo
+        halo(g, "gauss", (0, 0, L + 0.3))
     else:
         g.disc("rust", (0, 0, L), 0.4, (0, 0, 1), seg=9)
 
