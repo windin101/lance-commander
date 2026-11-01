@@ -184,13 +184,13 @@
    "kind": "palm",
    "height_m": 13.9,
    "width_m": 4.9,
-   "tris": 90
+   "tris": 188
   },
   "palms": {
    "kind": "palm_group",
    "height_m": 12.8,
    "width_m": 13.4,
-   "tris": 270
+   "tris": 564
   },
   "tc1_1": {
    "kind": "clump",

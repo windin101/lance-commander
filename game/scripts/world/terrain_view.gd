@@ -58,8 +58,12 @@ func build(sim_map: SimMap, texture_dir: String) -> void:
 		var dress := TerrainDressV3.new()
 		dress.name = "DressV3"
 		add_child(dress)
+		dress.ground_material = mat
 		dress.build(map, texture_dir.get_file(), _v3_layers)
 	if map.water_level_m > -100.0:
+		if v3:
+			mat.set_shader_parameter("water_y", map.water_level_m)
+			mat.set_shader_parameter("shore_strength", 0.0 if OS.get_cmdline_user_args().has("--no-shore") else 1.0)
 		var w := _water(texture_dir)
 		add_child(w)
 		var ws := MeshInstance3D.new()
@@ -70,7 +74,7 @@ func build(sim_map: SimMap, texture_dir: String) -> void:
 		add_child(ws)
 
 
-static func _noise_texture(as_normal_map: bool, px: int, frequency: float) -> NoiseTexture2D:
+static func _noise_texture(as_normal_map: bool, px: int, frequency: float, bump := 6.0) -> NoiseTexture2D:
 	var t := NoiseTexture2D.new()
 	var noise := FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
@@ -82,7 +86,7 @@ static func _noise_texture(as_normal_map: bool, px: int, frequency: float) -> No
 	t.height = px
 	t.seamless = true
 	t.as_normal_map = as_normal_map
-	t.bump_strength = 6.0
+	t.bump_strength = bump
 	t.generate_mipmaps = true
 	return t
 
@@ -149,6 +153,11 @@ func _water(texture_dir: String) -> MeshInstance3D:
 	water.name = "Water"
 	water.mesh = st.commit()
 	var mat := ShaderMaterial.new()
+	if water_v3_enabled():
+		_water_v3_params(mat, texture_dir)
+		water.material_override = mat
+		water.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		return water
 	mat.shader = load("res://shaders/water.gdshader")
 	mat.set_shader_parameter("water_tex", load(texture_dir.path_join("water.tga")))
 	mat.set_shader_parameter("wave_noise", _noise_texture(true, 256, 0.04))
@@ -164,6 +173,63 @@ func _water(texture_dir: String) -> MeshInstance3D:
 	water.material_override = mat
 	water.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	return water
+
+
+## Water v3 (terrain polish 2026-11-01): depth-buffer water with absorption, shore foam and world-space normals
+## (shaders/water_v3.gdshader). The old plane is kept: --old-water, MC2_WATER_V3=0 or [terrain] water_v3=false.
+static func water_v3_enabled() -> bool:
+	var args := OS.get_cmdline_user_args()
+	if args.has("--old-water") or OS.get_environment("MC2_WATER_V3") == "0":
+		return false
+	var cfg := ConfigFile.new()
+	if cfg.load("user://dev.cfg") == OK:
+		return bool(cfg.get_value("terrain", "water_v3", true))
+	return true
+
+
+## Tint of the water from the mission's own water texture (its mean colour keeps each map's sea apart: the original's
+## grey-blue, turquoise, green), pushed to a clean shallow and a dark deep colour.
+static func water_colours(tex_mean: Color) -> Array[Color]:
+	var h := tex_mean.h
+	var s := clampf(tex_mean.s * 1.1 + 0.18, 0.3, 0.85)
+	var shallow := Color.from_hsv(h, s * 0.8, 0.52).srgb_to_linear()
+	var deep := Color.from_hsv(h, minf(s * 1.0, 0.85), 0.30).srgb_to_linear()
+	return [shallow, deep]
+
+
+func _water_v3_params(mat: ShaderMaterial, texture_dir: String) -> void:
+	mat.shader = load("res://shaders/water_v3.gdshader")
+	mat.set_shader_parameter("wave_n", _noise_texture(true, 512, 0.012, 3.0))
+	mat.set_shader_parameter("foam_tex", _foam_texture())
+	var tex_mean := Color(0.2, 0.35, 0.45)
+	var wt := texture_dir.path_join("water.tga")
+	if ResourceLoader.exists(wt):
+		var img := (load(wt) as Texture2D).get_image()
+		if img.is_compressed():
+			img.decompress()
+		img.resize(1, 1, Image.INTERPOLATE_BILINEAR)
+		tex_mean = img.get_pixel(0, 0)
+	var cols := water_colours(tex_mean)
+	mat.set_shader_parameter("shallow_col", cols[0])
+	mat.set_shader_parameter("deep_col", cols[1])
+
+
+static func _foam_texture() -> NoiseTexture2D:
+	var t := NoiseTexture2D.new()
+	var noise := FastNoiseLite.new()
+	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
+	noise.cellular_return_type = FastNoiseLite.RETURN_DISTANCE2_SUB
+	noise.cellular_jitter = 1.0
+	noise.fractal_type = FastNoiseLite.FRACTAL_FBM
+	noise.fractal_octaves = 3
+	noise.frequency = 0.045
+	t.noise = noise
+	t.width = 512
+	t.height = 512
+	t.seamless = true
+	t.generate_mipmaps = true
+	t.normalize = true
+	return t
 
 
 ## Alpha of a packed ARGB value from the FIT (stored as a signed 32-bit integer).
@@ -386,6 +452,7 @@ func _v3_material(map_name: String) -> ShaderMaterial:
 		i += 1
 	mat.set_shader_parameter("tile_m", tiles)
 	mat.set_shader_parameter("albedo_gain", float(info.get("albedo_gain", 1.0)))
+	mat.set_shader_parameter("warm_k", 0.0 if pal == "lunar" else 1.0)
 	if info.has("shadow_fill"):   # low-ambient maps: a floor of the ground's own colour in cast shadow (palettes.json maps.<m>.shadow_fill)
 		mat.set_shader_parameter("shadow_fill", float(info["shadow_fill"]))
 	if info.has("tint_strength"):

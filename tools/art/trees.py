@@ -309,15 +309,20 @@ def palm(bark, leaves, H, W, leaf, bark_col, rng, at=(0, 0, 0)):
     for s in range(1, segs + 1):  # a curved trunk
         f = s / segs
         cur = at + [0, H * 0.9 * f, 0] + rot_y(np.array([H * 0.08 * f * f, 0, 0]), lean)
-        bark.tube(prev, cur, 0.28 - 0.1 * f, 0.26 - 0.1 * f, bark_col, sides=6)
+        bark.tube(prev, cur, 0.34 - 0.13 * f, 0.32 - 0.13 * f, bark_col, sides=6)
         prev = cur
     crown = prev
-    for k in range(9):
-        a = 2 * math.pi * k / 9 + rng.uniform(-0.15, 0.15)
-        L = W * rng.uniform(0.45, 0.6)
-        right = rot_y(np.array([1.0, rng.uniform(-0.55, -0.25), 0]), a)
-        up = rot_y(np.array([0, 0.3, 1.0]), a)
-        card(leaves, crown, right, up, L, L * 0.45, 2, leaf, normal_from=crown - [0, 1.0, 0], anchor="left")
+    bark.tube(crown + [0, -0.5, 0], crown + [0, 0.35, 0], 0.30, 0.18, bark_col, sides=6)   # the swollen crown shaft
+    # terrain polish 2026-11-01: three rings of fronds (an erect inner ring, a spreading middle, a drooping outer ring),
+    # each frond a pair of cards crossed at a small angle so it reads from above and from the side; 9 thin cards before
+    for ring, (n_f, rise, L0, wid) in enumerate(((7, 0.55, 0.55, 0.50), (10, 0.0, 0.72, 0.50), (9, -0.55, 0.80, 0.46))):
+        for k in range(n_f):
+            a = 2 * math.pi * (k + 0.5 * ring + rng.uniform(-0.2, 0.2)) / n_f
+            L = W * L0 * rng.uniform(0.85, 1.1)
+            for tw in (0.0, 0.42):
+                right = rot_y(np.array([1.0, rise + rng.uniform(-0.12, 0.12), 0]), a)
+                up = rot_y(np.array([0, 0.3 + tw, 1.0 - tw * 0.5]), a)
+                card(leaves, crown + [0, 0.25, 0], right, up, L, L * wid, 2, leaf, normal_from=crown - [0, 1.0, 0], anchor="left")
 
 
 def build(app, kind, prm, H, W, leaf, means, seed):
@@ -328,6 +333,8 @@ def build(app, kind, prm, H, W, leaf, means, seed):
     ref = np.asarray(means[cell])
     gain = {0: 0.62}.get(cell, 1.2)  # conifers read darker, as the originals do
     tint = np.clip(np.asarray(leaf, float) / ref * gain, 0.15, 2.0).tolist() + [1.0]
+    if kind in ("palm", "palm_group"):   # the original palms' leaf colour is a pale straw: pull them to a healthier green (terrain polish 2026-11-01)
+        tint = [tint[0] * 0.68, tint[1] * 0.9, tint[2] * 0.6, 1.0]
     if kind == "conifer":
         conifer(bark, leaves, H, W, tint, bark_col, rng, tiers=prm.get("tiers", 9))
     elif kind == "conifer_dead":

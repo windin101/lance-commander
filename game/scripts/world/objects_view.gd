@@ -360,9 +360,8 @@ static var _leaf_mat: ShaderMaterial
 static var _bark_mat: StandardMaterial3D
 
 
-func _build_trees() -> void:
-	if _tree_xf.is_empty():
-		return
+## The shared bark and leaf materials of the HD trees (also used by TerrainDressV3's filler trees).
+static func tree_materials() -> Array:
 	if _leaf_mat == null:
 		_leaf_mat = ShaderMaterial.new()
 		_leaf_mat.shader = load("res://shaders/leaves.gdshader")
@@ -373,6 +372,13 @@ func _build_trees() -> void:
 		_bark_mat.roughness = 1.0
 		_bark_mat.metallic_specular = 0.0
 		_bark_mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
+	return [_bark_mat, _leaf_mat]
+
+
+func _build_trees() -> void:
+	if _tree_xf.is_empty():
+		return
+	tree_materials()
 	for app in _tree_xf:
 		var scene: Node3D = load("res://assets/trees/%s.glb" % app).instantiate()
 		var pair: Array = [null, null]

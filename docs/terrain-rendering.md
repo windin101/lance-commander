@@ -90,3 +90,14 @@ All of it is in the Shared Source release; nothing larger exists there (checked 
 Mine decals (the remake does not draw mines). Then step 2 (more
 ground resolution: terrain-type materials blended under the colour map, tessellation, an edge skirt) and
 step 3 (new vegetation with LODs, shadows, wind and instancing).
+
+## Terrain polish pilot (2026-11-01)
+
+Water, shore, ground transitions and vegetation for the v3 terrain; provenance in `docs/art-provenance.md`.
+
+- **Water** (`shaders/water_v3.gdshader`): the ground under each pixel is rebuilt from the depth buffer, so vertical and ray depth, the shoreline and the contact with anything wading are exact, whatever the 25.6 m mesh does. Beer-Lambert absorption of the lit scene behind it (the bed shows through the shallows), a scattered shallow-to-deep colour from the mission's own water tint, three world-space normal layers that flatten with distance, sun glints and sky reflection from the PBR pipeline (low roughness, Fresnel), and depth-driven foam (a lacy contact line plus slow waves running up the beach, rings round wading units). The old plane: `--old-water`.
+- **Shore, ground side** (`terrain_v3.gdshader`, `water_y`): a beach of the palette's dust/scree layers, a darker smoother wet band, a sandy bed. Fades on steep ground.
+- **Transitions**: B-spline class weights, tempered height blend, warm (not grey) wear/dusty/worn shifts from blurred noise, luminance-only macro variation. The "scabs" were three things: sharp thresholds on the noise's fine octaves, grey-shifted patches on green, and a per-channel macro ratio that turned a layer's dirt flecks cool violet.
+- **Vegetation** (`terrain_dress_v3.gd`, `grass.gdshader`): blade-clump cover to 320 m, shrubs, filler trees thickening the forests (scenery only), a rebuilt palm crown.
+- **Flags**: `--old-water`, `--no-shore`, `--splat-bilinear`, `--no-vegetation`, `--no-fillers`, `--no-terrain-dress`.
+- Known limit: the shoreline follows the 25.6 m mesh's facets (the sim walks on that grid, so a finer visual surface would float or bury units); foam softens it but a narrow channel still reads angular.
