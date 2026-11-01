@@ -1,0 +1,52 @@
+{
+ "app": "trafcon",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "stepped traffic-control tower with glazed bands and a dish",
+ "states": {
+  "intact": {
+   "tris_lod0": 500,
+   "tris_lod1": 482,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.9,
+    -0.0,
+    -12.4
+   ],
+   "bounds_max": [
+    8.4,
+    30.25,
+    6.4
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2368,
+   "tris_lod1": 1594,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.9,
+    -0.0,
+    -12.4
+   ],
+   "bounds_max": [
+    8.4,
+    30.25,
+    6.4
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 8942,
+   "tris_lod1": 3702,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.55,
+    -1.01,
+    -12.36
+   ],
+   "bounds_max": [
+    8.47,
+    22.19,
+    6.68
+   ]
+  }
+ }
+}

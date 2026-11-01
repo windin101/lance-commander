@@ -1,0 +1,52 @@
+{
+ "app": "lifeboatrusted",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "rusted lifeboat tipped on a wing",
+ "states": {
+  "intact": {
+   "tris_lod0": 222,
+   "tris_lod1": 162,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.78,
+    -0.34,
+    -2.98
+   ],
+   "bounds_max": [
+    2.68,
+    1.96,
+    2.72
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 224,
+   "tris_lod1": 164,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.78,
+    -0.34,
+    -2.98
+   ],
+   "bounds_max": [
+    2.68,
+    1.96,
+    2.72
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 152,
+   "tris_lod1": 116,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.4,
+    -0.05,
+    -2.2
+   ],
+   "bounds_max": [
+    2.2,
+    1.15,
+    1.92
+   ]
+  }
+ }
+}

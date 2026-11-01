@@ -1,0 +1,52 @@
+{
+ "app": "stopsign",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "post with an octagonal red sign",
+ "states": {
+  "intact": {
+   "tris_lod0": 56,
+   "tris_lod1": 52,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.57,
+    0.0,
+    -0.06
+   ],
+   "bounds_max": [
+    0.57,
+    3.02,
+    0.1
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 56,
+   "tris_lod1": 52,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.57,
+    0.0,
+    -0.06
+   ],
+   "bounds_max": [
+    0.57,
+    3.02,
+    0.1
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 28,
+   "tris_lod1": 28,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.01,
+    0.04,
+    -0.06
+   ],
+   "bounds_max": [
+    3.0,
+    0.26,
+    0.8
+   ]
+  }
+ }
+}

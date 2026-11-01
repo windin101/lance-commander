@@ -1,0 +1,52 @@
+{
+ "app": "junkpile",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "pile of scrap",
+ "states": {
+  "intact": {
+   "tris_lod0": 120,
+   "tris_lod1": 72,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.75,
+    -0.19,
+    -3.11
+   ],
+   "bounds_max": [
+    3.19,
+    2.59,
+    2.27
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 120,
+   "tris_lod1": 72,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.95,
+    -0.23,
+    -3.12
+   ],
+   "bounds_max": [
+    2.72,
+    2.59,
+    2.95
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 120,
+   "tris_lod1": 72,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.92,
+    -0.46,
+    -3.15
+   ],
+   "bounds_max": [
+    2.25,
+    2.59,
+    3.21
+   ]
+  }
+ }
+}

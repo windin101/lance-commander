@@ -1,0 +1,52 @@
+{
+ "app": "terminal2",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "spaceport terminal with two masts and two stairs",
+ "states": {
+  "intact": {
+   "tris_lod0": 1260,
+   "tris_lod1": 1008,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -12.73
+   ],
+   "bounds_max": [
+    13.25,
+    15.7,
+    12.73
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1439,
+   "tris_lod1": 1171,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -12.73
+   ],
+   "bounds_max": [
+    13.25,
+    15.7,
+    12.73
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 514,
+   "tris_lod1": 254,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.75,
+    0.0,
+    -6.0
+   ],
+   "bounds_max": [
+    12.75,
+    3.24,
+    6.0
+   ]
+  }
+ }
+}

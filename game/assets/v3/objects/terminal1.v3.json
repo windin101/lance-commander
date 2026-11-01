@@ -1,0 +1,52 @@
+{
+ "app": "terminal1",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "spaceport terminal with one tilted spotlight mast and a stair",
+ "states": {
+  "intact": {
+   "tris_lod0": 1060,
+   "tris_lod1": 808,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -6.11
+   ],
+   "bounds_max": [
+    13.25,
+    15.7,
+    12.53
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1239,
+   "tris_lod1": 971,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    -0.21,
+    -6.11
+   ],
+   "bounds_max": [
+    13.25,
+    15.7,
+    12.53
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 514,
+   "tris_lod1": 254,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.75,
+    0.0,
+    -6.0
+   ],
+   "bounds_max": [
+    12.75,
+    3.5,
+    6.0
+   ]
+  }
+ }
+}

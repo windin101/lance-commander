@@ -1,0 +1,52 @@
+{
+ "app": "rpbuilding",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "resource-point warehouse: brown-tan ribbed roof panels, bevelled full-depth end pieces",
+ "states": {
+  "intact": {
+   "tris_lod0": 1544,
+   "tris_lod1": 704,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.4,
+    0.0,
+    -10.6
+   ],
+   "bounds_max": [
+    12.4,
+    7.17,
+    10.6
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1723,
+   "tris_lod1": 867,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.4,
+    0.0,
+    -10.6
+   ],
+   "bounds_max": [
+    12.4,
+    9.2,
+    10.6
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 526,
+   "tris_lod1": 278,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.4,
+    0.0,
+    -10.6
+   ],
+   "bounds_max": [
+    11.4,
+    3.56,
+    10.6
+   ]
+  }
+ }
+}

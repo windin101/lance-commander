@@ -34,6 +34,7 @@ uniform vec3 dust_colour : source_color = vec3(0.56, 0.5, 0.4);
 uniform float night_lift = 1.0;   // night: the moonlit key leaves v3 surfaces much darker than the originals' baked colour; a flat albedo lift (BuildingV3.set_night)
 uniform float map_gain = 1.0;     // per-mission building albedo calibration (BuildingV3.MAP_GAIN), like the terrain's exposure_lift override
 uniform float rough_add = 0.0;   // matte the surface (window glass reads dark from above, not as a sky mirror)
+uniform float emit_solid = 0.0;  // 1: every texel glows (a lamp lens), not the hashed window cells
 uniform float emit_k = 0.0;      // night: lit windows (set by BuildingV3.set_night on the window glass only)
 uniform vec3 emit_col : source_color = vec3(1.0, 0.62, 0.22);
 uniform float scorch : hint_range(0.0, 1.0) = 0.0;   // whole-model burn (a destroyed state), on top of the vertex burn
@@ -170,6 +171,6 @@ void fragment() {
 		// about 40 % of the window cells glow, picked by a hash of the model-space cell (stable per building)
 		vec3 cell = floor(mpos / vec3(2.2, 3.4, 2.2));
 		float h = fract(sin(dot(cell, vec3(12.9898, 78.233, 37.719))) * 43758.5453);
-		EMISSION = emit_col * emit_k * step(0.6, h);
+		EMISSION = emit_col * emit_k * mix(step(0.6, h), 1.0, emit_solid);
 	}
 }

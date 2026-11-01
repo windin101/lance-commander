@@ -1,0 +1,52 @@
+{
+ "app": "bridge",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "two concrete bridge rails",
+ "states": {
+  "intact": {
+   "tris_lod0": 168,
+   "tris_lod1": 168,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.9,
+    0.0,
+    -10.5
+   ],
+   "bounds_max": [
+    12.9,
+    1.7,
+    10.5
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 168,
+   "tris_lod1": 168,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.9,
+    0.0,
+    -10.5
+   ],
+   "bounds_max": [
+    12.9,
+    1.7,
+    10.5
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 24,
+   "tris_lod1": 24,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.45,
+    0.0,
+    -8.99
+   ],
+   "bounds_max": [
+    13.45,
+    1.0,
+    8.99
+   ]
+  }
+ }
+}

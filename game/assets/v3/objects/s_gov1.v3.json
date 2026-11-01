@@ -1,0 +1,52 @@
+{
+ "app": "s_gov1",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner government hall 1: palace with stepped tower, a long wing and a canopied plaza",
+ "states": {
+  "intact": {
+   "tris_lod0": 1398,
+   "tris_lod1": 794,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.33,
+    -0.0,
+    -29.61
+   ],
+   "bounds_max": [
+    12.74,
+    19.69,
+    29.61
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 6429,
+   "tris_lod1": 3607,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.33,
+    -0.0,
+    -29.61
+   ],
+   "bounds_max": [
+    12.74,
+    19.69,
+    29.61
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 16712,
+   "tris_lod1": 7294,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.75,
+    -0.53,
+    -31.4
+   ],
+   "bounds_max": [
+    12.71,
+    6.04,
+    31.39
+   ]
+  }
+ }
+}

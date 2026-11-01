@@ -1,0 +1,52 @@
+{
+ "app": "l_palacetwr",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao palace tower: stone plinth, teal dentil wall, wide flared eaves, offset red-framed lantern under a second flared roof",
+ "states": {
+  "intact": {
+   "tris_lod0": 1020,
+   "tris_lod1": 300,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.25,
+    -0.0,
+    -6.85
+   ],
+   "bounds_max": [
+    6.75,
+    15.0,
+    9.55
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1966,
+   "tris_lod1": 1092,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.25,
+    -0.0,
+    -6.85
+   ],
+   "bounds_max": [
+    6.75,
+    16.42,
+    9.55
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3898,
+   "tris_lod1": 1214,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.1,
+    -0.41,
+    -7.12
+   ],
+   "bounds_max": [
+    9.03,
+    4.25,
+    9.4
+   ]
+  }
+ }
+}

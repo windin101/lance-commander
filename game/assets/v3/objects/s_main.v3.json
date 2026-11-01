@@ -1,0 +1,52 @@
+{
+ "app": "s_main",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner main hall: tall glazed-lantern slab, front block, portico and wings",
+ "states": {
+  "intact": {
+   "tris_lod0": 1448,
+   "tris_lod1": 946,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -21.35,
+    -0.0,
+    -11.15
+   ],
+   "bounds_max": [
+    21.35,
+    27.01,
+    24.5
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 4525,
+   "tris_lod1": 2747,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -21.35,
+    -0.0,
+    -11.19
+   ],
+   "bounds_max": [
+    21.39,
+    27.01,
+    25.1
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 25004,
+   "tris_lod1": 10952,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -25.44,
+    -0.88,
+    -12.63
+   ],
+   "bounds_max": [
+    25.44,
+    10.59,
+    25.15
+   ]
+  }
+ }
+}

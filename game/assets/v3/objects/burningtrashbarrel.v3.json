@@ -1,0 +1,52 @@
+{
+ "app": "burningtrashbarrel",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "one drum with an orange fire disc",
+ "states": {
+  "intact": {
+   "tris_lod0": 96,
+   "tris_lod1": 48,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.66,
+    0.0,
+    -0.66
+   ],
+   "bounds_max": [
+    0.66,
+    1.45,
+    0.66
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 96,
+   "tris_lod1": 48,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.66,
+    0.0,
+    -0.66
+   ],
+   "bounds_max": [
+    0.66,
+    1.45,
+    0.66
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 16,
+   "tris_lod1": 16,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.55,
+    0.0,
+    -0.52
+   ],
+   "bounds_max": [
+    0.55,
+    0.35,
+    0.52
+   ]
+  }
+ }
+}

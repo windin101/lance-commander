@@ -1,0 +1,52 @@
+{
+ "app": "s_adminquarter",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner admin quarter: pentagon plan under a sloped teal canopy roof",
+ "states": {
+  "intact": {
+   "tris_lod0": 376,
+   "tris_lod1": 206,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.7,
+    0.0,
+    -16.5
+   ],
+   "bounds_max": [
+    12.7,
+    5.64,
+    9.0
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 495,
+   "tris_lod1": 321,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.7,
+    0.0,
+    -16.5
+   ],
+   "bounds_max": [
+    12.7,
+    6.84,
+    9.0
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 345,
+   "tris_lod1": 137,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -14.64,
+    -0.22,
+    -17.42
+   ],
+   "bounds_max": [
+    14.64,
+    2.77,
+    8.5
+   ]
+  }
+ }
+}

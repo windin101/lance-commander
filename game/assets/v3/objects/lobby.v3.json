@@ -1,0 +1,52 @@
+{
+ "app": "lobby",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "spaceport lobby: white base under a black-framed glass hall",
+ "states": {
+  "intact": {
+   "tris_lod0": 1504,
+   "tris_lod1": 924,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -4.2
+   ],
+   "bounds_max": [
+    12.8,
+    12.14,
+    12.6
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1648,
+   "tris_lod1": 1048,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -4.2
+   ],
+   "bounds_max": [
+    12.8,
+    13.92,
+    12.79
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 526,
+   "tris_lod1": 254,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -4.2
+   ],
+   "bounds_max": [
+    12.8,
+    3.55,
+    12.6
+   ]
+  }
+ }
+}

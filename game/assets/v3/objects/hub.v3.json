@@ -1,0 +1,52 @@
+{
+ "app": "hub",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "spaceport hub: stepped octagonal base under a vent tower",
+ "states": {
+  "intact": {
+   "tris_lod0": 1008,
+   "tris_lod1": 912,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.81,
+    0.0,
+    -12.81
+   ],
+   "bounds_max": [
+    12.81,
+    24.35,
+    12.81
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1187,
+   "tris_lod1": 1075,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.81,
+    0.0,
+    -12.81
+   ],
+   "bounds_max": [
+    12.81,
+    24.35,
+    12.89
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 586,
+   "tris_lod1": 278,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.2,
+    0.0,
+    -12.2
+   ],
+   "bounds_max": [
+    12.2,
+    3.51,
+    12.2
+   ]
+  }
+ }
+}

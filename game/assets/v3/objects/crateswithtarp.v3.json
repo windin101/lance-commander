@@ -1,0 +1,52 @@
+{
+ "app": "crateswithtarp",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "two stacks of two crates under a green tarp",
+ "states": {
+  "intact": {
+   "tris_lod0": 276,
+   "tris_lod1": 84,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.85,
+    0.0,
+    -0.91
+   ],
+   "bounds_max": [
+    2.85,
+    3.5,
+    0.91
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 276,
+   "tris_lod1": 84,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.85,
+    0.0,
+    -0.93
+   ],
+   "bounds_max": [
+    2.85,
+    3.5,
+    0.93
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 96,
+   "tris_lod1": 96,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.69,
+    0.0,
+    -1.07
+   ],
+   "bounds_max": [
+    2.92,
+    0.6,
+    0.98
+   ]
+  }
+ }
+}

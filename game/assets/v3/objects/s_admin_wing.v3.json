@@ -1,0 +1,52 @@
+{
+ "app": "s_admin_wing",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner admin wing: long low block with a glazed clerestory",
+ "states": {
+  "intact": {
+   "tris_lod0": 280,
+   "tris_lod1": 250,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.8,
+    -0.0,
+    -22.2
+   ],
+   "bounds_max": [
+    5.8,
+    8.45,
+    31.5
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 4073,
+   "tris_lod1": 2535,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.8,
+    -0.0,
+    -22.2
+   ],
+   "bounds_max": [
+    5.8,
+    8.45,
+    31.5
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 4394,
+   "tris_lod1": 1828,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.48,
+    -1.01,
+    -27.09
+   ],
+   "bounds_max": [
+    6.53,
+    4.37,
+    36.39
+   ]
+  }
+ }
+}

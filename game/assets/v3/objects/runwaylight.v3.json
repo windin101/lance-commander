@@ -1,0 +1,52 @@
+{
+ "app": "runwaylight",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "runway lamp: low plinth, warm white emissive lens, halo",
+ "states": {
+  "intact": {
+   "tris_lod0": 242,
+   "tris_lod1": 122,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.36,
+    0.0,
+    -0.36
+   ],
+   "bounds_max": [
+    0.36,
+    0.52,
+    0.36
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 252,
+   "tris_lod1": 132,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.45,
+    0.0,
+    -0.45
+   ],
+   "bounds_max": [
+    0.45,
+    0.51,
+    0.45
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 132,
+   "tris_lod1": 72,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.55,
+    0.0,
+    -0.55
+   ],
+   "bounds_max": [
+    0.55,
+    0.38,
+    0.55
+   ]
+  }
+ }
+}

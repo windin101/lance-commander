@@ -1,0 +1,52 @@
+{
+ "app": "l_residencecore",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao residence core: stone base with red door, teal wall, wide concave flared roof",
+ "states": {
+  "intact": {
+   "tris_lod0": 416,
+   "tris_lod1": 188,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -15.99,
+    -0.0,
+    -11.99
+   ],
+   "bounds_max": [
+    10.4,
+    20.1,
+    11.49
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2727,
+   "tris_lod1": 1683,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -15.99,
+    -0.0,
+    -11.99
+   ],
+   "bounds_max": [
+    10.4,
+    20.63,
+    11.49
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 4480,
+   "tris_lod1": 1884,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.95,
+    -0.27,
+    -11.1
+   ],
+   "bounds_max": [
+    9.57,
+    4.54,
+    10.6
+   ]
+  }
+ }
+}

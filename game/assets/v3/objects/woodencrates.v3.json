@@ -1,0 +1,52 @@
+{
+ "app": "woodencrates",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "two stacks of two wooden crates",
+ "states": {
+  "intact": {
+   "tris_lod0": 240,
+   "tris_lod1": 48,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.75,
+    0.0,
+    -0.84
+   ],
+   "bounds_max": [
+    2.75,
+    3.4,
+    0.84
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 240,
+   "tris_lod1": 48,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.75,
+    0.0,
+    -0.93
+   ],
+   "bounds_max": [
+    2.82,
+    3.4,
+    0.93
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 96,
+   "tris_lod1": 96,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.63,
+    0.0,
+    -0.7
+   ],
+   "bounds_max": [
+    2.9,
+    0.6,
+    1.15
+   ]
+  }
+ }
+}

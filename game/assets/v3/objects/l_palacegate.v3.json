@@ -1,0 +1,52 @@
+{
+ "app": "l_palacegate",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao palace gate: two long stone walls and an arched gatehouse under two flared roof tiers",
+ "states": {
+  "intact": {
+   "tris_lod0": 1536,
+   "tris_lod1": 484,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -29.35,
+    -0.0,
+    -6.15
+   ],
+   "bounds_max": [
+    29.35,
+    14.34,
+    3.95
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2143,
+   "tris_lod1": 977,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -29.35,
+    -0.0,
+    -6.15
+   ],
+   "bounds_max": [
+    29.35,
+    14.34,
+    3.95
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 7316,
+   "tris_lod1": 2408,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -29.3,
+    -0.36,
+    -5.8
+   ],
+   "bounds_max": [
+    29.3,
+    3.97,
+    4.89
+   ]
+  }
+ }
+}

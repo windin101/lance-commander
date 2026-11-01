@@ -1,0 +1,52 @@
+{
+ "app": "l_residenceright",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao residence right: l_residenceleft mirrored in z",
+ "states": {
+  "intact": {
+   "tris_lod0": 1326,
+   "tris_lod1": 392,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.73,
+    -0.0,
+    -19.41
+   ],
+   "bounds_max": [
+    12.67,
+    24.2,
+    11.79
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 4366,
+   "tris_lod1": 2328,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.73,
+    -0.0,
+    -19.41
+   ],
+   "bounds_max": [
+    12.67,
+    25.44,
+    11.79
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 5022,
+   "tris_lod1": 2102,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -9.16,
+    -0.71,
+    -18.63
+   ],
+   "bounds_max": [
+    11.02,
+    4.27,
+    13.3
+   ]
+  }
+ }
+}

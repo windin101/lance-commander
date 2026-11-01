@@ -265,7 +265,7 @@ func test_city_family_matches_the_originals_bounds_on_every_axis() -> void:
 
 
 # --- military buildings (LANCE-39): bounds on every axis, as the city and industrial families ---
-const MILITARY := ["s_hq", "l_gatecontrol", "lookouttower", "l_hq", "d_hq", "s_barracks", "s_barracks2", "l_elitebarracks", "l_guardhouse", "s_gatecontrol", "d_gatecontrol", "s_sensorcontrol", "l_sensorcontrol", "d_sensorcontrol", "s_spotlightcontrol", "l_spotlightcontrol", "sensortower", "prison", "weaponsfacility", "genericmilitary", "milcheckpoint", "perimeteralarm", "ammodump", "s_flag", "l_flag", "d_flag", "l_banner", "tent", "htent", "hqtent", "longtent", "camonetting"]
+const MILITARY := ["s_hq", "l_gatecontrol", "lookouttower", "l_hq", "d_hq", "s_barracks", "s_barracks2", "l_elitebarracks", "l_guardhouse", "s_gatecontrol", "d_gatecontrol", "s_sensorcontrol", "l_sensorcontrol", "d_sensorcontrol", "s_spotlightcontrol", "l_spotlightcontrol", "sensortower", "prison", "weaponsfacility", "genericmilitary", "milcheckpoint", "perimeteralarm", "ammodump", "s_flag", "l_flag", "d_flag", "l_banner", "tent", "htent", "hqtent", "longtent", "camonetting", "streetlight", "crateswithtarp", "woodencrates", "barrels", "burningtrashbarrel", "hazmat", "dumpster", "geodesicdome", "munitionscrates", "lockers", "rpbuilding", "trafcon", "bridge", "motorcycle", "stopsign", "junkpile"]
 
 
 func test_military_family_matches_the_originals_bounds_on_every_axis() -> void:
@@ -299,3 +299,138 @@ func test_military_family_matches_the_originals_bounds_on_every_axis() -> void:
 				assert_float(b.end.y).override_failure_message("%s %s top %.1f vs %.1f" % [app, lod, b.end.y, ob.end.y]).is_between(ob.end.y - 4.5, ob.end.y + 2.5)
 				assert_float(b.position.y).override_failure_message("%s %s base y %.1f vs %.1f" % [app, lod, b.position.y, ob.position.y]).is_between(minf(ob.position.y, 0.0) - 0.6, 0.6)
 			node.queue_free()
+
+
+# --- Steiner government / admin complex (LANCE-39): bounds on every axis (tools/art/v3/bld_steinergov.py) ---
+const STEINER_GOV := ["s_main", "s_main_leftwing", "s_main_rightwing", "s_main_stairs", "s_admin_entry", "s_admin_wing", "s_admin_core", "s_adminquarter", "s_gov1", "s_gov2", "s_govresidence", "s_promenade", "s_quetragon"]
+
+
+func test_steiner_gov_family_matches_the_originals_bounds_on_every_axis() -> void:
+	for app in STEINER_GOV:
+		var orig: Node3D = (load("res://assets/objects/%s.glb" % app) as PackedScene).instantiate()
+		add_child(orig)
+		var ob := _orig_aabb(orig)
+		orig.queue_free()
+		for st in ["", "_damaged", "_destroyed"]:
+			var p := BuildingV3.model_path(app, st)
+			assert_str(p).override_failure_message("%s%s has no v3 model" % [app, st]).is_not_empty()
+			var node: Node3D = (load(p) as PackedScene).instantiate()
+			BuildingV3.set_lods(node)
+			add_child(node)
+			for lod in ["lod0", "lod1"]:
+				var l := node.find_child(lod, true, false) as MeshInstance3D
+				assert_object(l).override_failure_message("%s%s has no %s" % [app, st, lod]).is_not_null()
+				for i in l.mesh.get_surface_count():
+					var mat := l.mesh.surface_get_material(i)
+					var nm := mat.resource_name if mat else ""
+					assert_bool(nm.begins_with("bv3_") and BuildingV3.resolves(nm.trim_prefix("bv3_"))) \
+						.override_failure_message("%s%s %s surface %d: '%s' is not a library material" % [app, st, lod, i, nm]).is_true()
+				if st != "":
+					continue
+				var b := l.mesh.get_aabb()
+				var tol := 3.0
+				assert_float(b.position.x).override_failure_message("%s %s x0 %.1f vs %.1f" % [app, lod, b.position.x, ob.position.x]).is_between(ob.position.x - tol, ob.position.x + tol)
+				assert_float(b.end.x).override_failure_message("%s %s x1 %.1f vs %.1f" % [app, lod, b.end.x, ob.end.x]).is_between(ob.end.x - tol, ob.end.x + tol)
+				assert_float(b.position.z).override_failure_message("%s %s z0 %.1f vs %.1f" % [app, lod, b.position.z, ob.position.z]).is_between(ob.position.z - tol, ob.position.z + tol)
+				assert_float(b.end.z).override_failure_message("%s %s z1 %.1f vs %.1f" % [app, lod, b.end.z, ob.end.z]).is_between(ob.end.z - tol, ob.end.z + tol)
+				assert_float(b.end.y).override_failure_message("%s %s top %.1f vs %.1f" % [app, lod, b.end.y, ob.end.y]).is_between(ob.end.y - 4.5, ob.end.y + 2.5)
+				assert_float(b.position.y).override_failure_message("%s %s base y %.1f vs %.1f" % [app, lod, b.position.y, ob.position.y]).is_between(minf(ob.position.y, 0.0) - 0.6, 0.6)
+			node.queue_free()
+
+
+# --- Liao palace and residence family (LANCE-39): bounds on every axis, in the in-game frame the originals use (tools/art/v3/bld_liaopalace.py) ---
+const LIAO_PALACE := ["l_palacetwr", "l_palacewing", "l_palacecore", "l_palacegate", "l_residencecore", "l_residenceleft", "l_residenceright"]
+
+
+func test_liao_palace_family_matches_the_originals_bounds_on_every_axis() -> void:
+	for app in LIAO_PALACE:
+		var orig: Node3D = (load("res://assets/objects/%s.glb" % app) as PackedScene).instantiate()
+		add_child(orig)
+		var ob := _orig_aabb(orig)
+		orig.queue_free()
+		for st in ["", "_damaged", "_destroyed"]:
+			var p := BuildingV3.model_path(app, st)
+			assert_str(p).override_failure_message("%s%s has no v3 model" % [app, st]).is_not_empty()
+			var node: Node3D = (load(p) as PackedScene).instantiate()
+			BuildingV3.set_lods(node)
+			add_child(node)
+			for lod in ["lod0", "lod1"]:
+				var l := node.find_child(lod, true, false) as MeshInstance3D
+				assert_object(l).override_failure_message("%s%s has no %s" % [app, st, lod]).is_not_null()
+				for i in l.mesh.get_surface_count():
+					var mat := l.mesh.surface_get_material(i)
+					var nm := mat.resource_name if mat else ""
+					assert_bool(nm.begins_with("bv3_") and BuildingV3.resolves(nm.trim_prefix("bv3_"))) \
+						.override_failure_message("%s%s %s surface %d: '%s' is not a library material" % [app, st, lod, i, nm]).is_true()
+				var b := l.mesh.get_aabb()
+				var tol := 1.5
+				assert_float(b.position.x).override_failure_message("%s%s %s x0 %.1f vs %.1f" % [app, st, lod, b.position.x, ob.position.x]).is_between(ob.position.x - (tol if st == "" else 3.5), ob.position.x + (tol if st == "" else 99.0))
+				assert_float(b.end.x).override_failure_message("%s%s %s x1 %.1f vs %.1f" % [app, st, lod, b.end.x, ob.end.x]).is_between(ob.end.x - (tol if st == "" else 99.0), ob.end.x + (tol if st == "" else 3.5))
+				assert_float(b.position.z).override_failure_message("%s%s %s z0 %.1f vs %.1f" % [app, st, lod, b.position.z, ob.position.z]).is_between(ob.position.z - (tol if st == "" else 3.5), ob.position.z + (tol if st == "" else 99.0))
+				assert_float(b.end.z).override_failure_message("%s%s %s z1 %.1f vs %.1f" % [app, st, lod, b.end.z, ob.end.z]).is_between(ob.end.z - (tol if st == "" else 99.0), ob.end.z + (tol if st == "" else 3.5))
+				if st == "":
+					assert_float(b.end.y).override_failure_message("%s %s top %.1f vs %.1f" % [app, lod, b.end.y, ob.end.y]).is_between(ob.end.y - 2.5, ob.end.y + 2.5)
+					assert_float(b.position.y).override_failure_message("%s %s base y %.1f vs %.1f" % [app, lod, b.position.y, ob.position.y]).is_between(minf(ob.position.y, 0.0) - 0.6, 0.6)
+				elif st == "_destroyed":
+					assert_float(b.end.y).override_failure_message("%s_destroyed %s is %.1f m tall (rubble)" % [app, lod, b.end.y]).is_less(12.0)
+			node.queue_free()
+
+
+# --- Spaceport / airfield family (LANCE-39): bounds on every axis, wreck height, lamp materials (tools/art/v3/bld_spaceport.py). rpbuilding is in MILITARY above. ---
+const SPACEPORT := ["terminal1", "terminal2", "lobby", "centerlobby", "hub", "walkway", "shuttle",
+	"lifeboatcrashed", "lifeboatrusted", "runwaylight", "redbeaconlight", "bluebeaconlight", "greenbeaconlight"]
+
+
+func test_spaceport_family_matches_the_originals_bounds_on_every_axis() -> void:
+	for app in SPACEPORT:
+		var orig: Node3D = (load("res://assets/objects/%s.glb" % app) as PackedScene).instantiate()
+		add_child(orig)
+		var ob := _orig_aabb(orig)
+		orig.queue_free()
+		for st in ["", "_damaged", "_destroyed"]:
+			var p := BuildingV3.model_path(app, st)
+			assert_str(p).override_failure_message("%s%s has no v3 model" % [app, st]).is_not_empty()
+			var node: Node3D = (load(p) as PackedScene).instantiate()
+			BuildingV3.set_lods(node)
+			add_child(node)
+			for lod in ["lod0", "lod1"]:
+				var l := node.find_child(lod, true, false) as MeshInstance3D
+				assert_object(l).override_failure_message("%s%s has no %s" % [app, st, lod]).is_not_null()
+				for i in l.mesh.get_surface_count():
+					var mat := l.mesh.surface_get_material(i)
+					var nm := mat.resource_name if mat else ""
+					assert_bool(nm.begins_with("bv3_") and BuildingV3.resolves(nm.trim_prefix("bv3_"))) \
+						.override_failure_message("%s%s %s surface %d: '%s' is not a library material" % [app, st, lod, i, nm]).is_true()
+				var b := l.mesh.get_aabb()
+				if st == "_destroyed":  # a wreck stays inside the original's footprint plus a little, and low
+					assert_float(b.end.y).override_failure_message("%s_destroyed %s is %.1f m tall" % [app, lod, b.end.y]).is_less(12.0)
+					assert_float(b.position.x).override_failure_message("%s_destroyed %s x0 %.1f outside %.1f" % [app, lod, b.position.x, ob.position.x]).is_greater(ob.position.x - 3.0)
+					assert_float(b.end.x).override_failure_message("%s_destroyed %s x1 %.1f outside %.1f" % [app, lod, b.end.x, ob.end.x]).is_less(ob.end.x + 3.0)
+					assert_float(b.position.z).override_failure_message("%s_destroyed %s z0 %.1f outside %.1f" % [app, lod, b.position.z, ob.position.z]).is_greater(ob.position.z - 3.0)
+					assert_float(b.end.z).override_failure_message("%s_destroyed %s z1 %.1f outside %.1f" % [app, lod, b.end.z, ob.end.z]).is_less(ob.end.z + 3.0)
+				if st != "":
+					continue
+				var tol := 3.0
+				assert_float(b.position.x).override_failure_message("%s %s x0 %.1f vs %.1f" % [app, lod, b.position.x, ob.position.x]).is_between(ob.position.x - tol, ob.position.x + tol)
+				assert_float(b.end.x).override_failure_message("%s %s x1 %.1f vs %.1f" % [app, lod, b.end.x, ob.end.x]).is_between(ob.end.x - tol, ob.end.x + tol)
+				assert_float(b.position.z).override_failure_message("%s %s z0 %.1f vs %.1f" % [app, lod, b.position.z, ob.position.z]).is_between(ob.position.z - tol, ob.position.z + tol)
+				assert_float(b.end.z).override_failure_message("%s %s z1 %.1f vs %.1f" % [app, lod, b.end.z, ob.end.z]).is_between(ob.end.z - tol, ob.end.z + tol)
+				assert_float(b.end.y).override_failure_message("%s %s top %.1f vs %.1f" % [app, lod, b.end.y, ob.end.y]).is_between(ob.end.y - 4.5, ob.end.y + 2.5)
+				assert_float(b.position.y).override_failure_message("%s %s base y %.1f vs %.1f" % [app, lod, b.position.y, ob.position.y]).is_between(minf(ob.position.y, 0.0) - 0.6, 0.6)
+			node.queue_free()
+
+
+func test_spaceport_lamps_glow_until_destroyed() -> void:
+	for app in ["runwaylight", "redbeaconlight", "bluebeaconlight", "greenbeaconlight"]:
+		for st in ["", "_damaged", "_destroyed"]:
+			var node: Node3D = (load(BuildingV3.model_path(app, st)) as PackedScene).instantiate()
+			var lod0 := node.find_child("lod0", true, false) as MeshInstance3D
+			var has_lamp := false
+			var has_halo := false
+			for i in lod0.mesh.get_surface_count():
+				var nm := lod0.mesh.surface_get_material(i).resource_name
+				has_lamp = has_lamp or (nm.begins_with("bv3_lamp_") and nm != "bv3_lamp_off")
+				has_halo = has_halo or nm.begins_with("bv3_halo_")
+			assert_bool(has_lamp).override_failure_message("%s%s: emissive lamp lens expected: %s" % [app, st, st != "_destroyed"]).is_equal(st != "_destroyed")
+			assert_bool(has_halo).override_failure_message("%s%s: halo expected only when intact" % [app, st]).is_equal(st == "")
+			node.free()

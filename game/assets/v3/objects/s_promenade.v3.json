@@ -1,0 +1,52 @@
+{
+ "app": "s_promenade",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner promenade: long colonnade with a glazed back wall",
+ "states": {
+  "intact": {
+   "tris_lod0": 780,
+   "tris_lod1": 336,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.25,
+    0.0,
+    -12.86
+   ],
+   "bounds_max": [
+    4.2,
+    5.7,
+    12.76
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 852,
+   "tris_lod1": 408,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.25,
+    0.0,
+    -12.86
+   ],
+   "bounds_max": [
+    4.2,
+    6.92,
+    12.76
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 366,
+   "tris_lod1": 158,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.78,
+    -0.24,
+    -15.0
+   ],
+   "bounds_max": [
+    4.58,
+    3.84,
+    15.0
+   ]
+  }
+ }
+}

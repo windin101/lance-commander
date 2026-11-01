@@ -1,0 +1,52 @@
+{
+ "app": "shuttle",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "aero shuttle: delta wings, aft engine cluster, tail fin",
+ "states": {
+  "intact": {
+   "tris_lod0": 778,
+   "tris_lod1": 436,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.45,
+    0.0,
+    -13.8
+   ],
+   "bounds_max": [
+    10.45,
+    7.4,
+    14.0
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 897,
+   "tris_lod1": 543,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -10.45,
+    0.0,
+    -13.8
+   ],
+   "bounds_max": [
+    10.45,
+    7.45,
+    14.0
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 294,
+   "tris_lod1": 142,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.0,
+    0.0,
+    -8.4
+   ],
+   "bounds_max": [
+    8.0,
+    3.14,
+    11.43
+   ]
+  }
+ }
+}

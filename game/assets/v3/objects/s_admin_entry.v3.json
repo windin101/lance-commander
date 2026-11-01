@@ -1,0 +1,52 @@
+{
+ "app": "s_admin_entry",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner admin entry hall: cross plan with a skylight",
+ "states": {
+  "intact": {
+   "tris_lod0": 502,
+   "tris_lod1": 444,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.0,
+    -0.0,
+    -15.6
+   ],
+   "bounds_max": [
+    11.0,
+    7.58,
+    13.1
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1559,
+   "tris_lod1": 1145,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.0,
+    -0.0,
+    -15.6
+   ],
+   "bounds_max": [
+    11.0,
+    7.79,
+    13.1
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 7872,
+   "tris_lod1": 2926,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.72,
+    -0.79,
+    -16.8
+   ],
+   "bounds_max": [
+    12.72,
+    3.85,
+    13.41
+   ]
+  }
+ }
+}

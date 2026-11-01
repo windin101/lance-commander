@@ -1,0 +1,52 @@
+{
+ "app": "s_gov2",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner government hall 2: hipped block, front wing, forecourt canopy",
+ "states": {
+  "intact": {
+   "tris_lod0": 1002,
+   "tris_lod1": 654,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.55,
+    -0.0,
+    -11.34
+   ],
+   "bounds_max": [
+    9.15,
+    10.6,
+    11.12
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2879,
+   "tris_lod1": 1825,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.55,
+    -0.0,
+    -11.34
+   ],
+   "bounds_max": [
+    9.15,
+    12.39,
+    11.86
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 3560,
+   "tris_lod1": 1470,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.36,
+    -0.93,
+    -12.54
+   ],
+   "bounds_max": [
+    10.08,
+    4.25,
+    11.33
+   ]
+  }
+ }
+}

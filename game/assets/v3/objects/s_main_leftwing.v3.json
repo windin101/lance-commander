@@ -1,0 +1,52 @@
+{
+ "app": "s_main_leftwing",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner main hall left wing: hip-roofed tower block and a long low annex",
+ "states": {
+  "intact": {
+   "tris_lod0": 370,
+   "tris_lod1": 292,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.85,
+    -0.0,
+    -10.55
+   ],
+   "bounds_max": [
+    38.1,
+    16.0,
+    4.15
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1801,
+   "tris_lod1": 1181,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -5.85,
+    -0.0,
+    -10.55
+   ],
+   "bounds_max": [
+    38.1,
+    16.0,
+    4.15
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 6320,
+   "tris_lod1": 2570,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -6.91,
+    -0.71,
+    -11.54
+   ],
+   "bounds_max": [
+    40.51,
+    5.2,
+    5.08
+   ]
+  }
+ }
+}

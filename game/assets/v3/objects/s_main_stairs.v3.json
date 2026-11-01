@@ -1,0 +1,52 @@
+{
+ "app": "s_main_stairs",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner main hall stairs: stepped plaza descending to a long flight",
+ "states": {
+  "intact": {
+   "tris_lod0": 862,
+   "tris_lod1": 302,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -23.8,
+    -21.4,
+    3.6
+   ],
+   "bounds_max": [
+    23.7,
+    3.4,
+    33.91
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 898,
+   "tris_lod1": 338,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -23.8,
+    -21.4,
+    3.6
+   ],
+   "bounds_max": [
+    23.7,
+    3.4,
+    33.91
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1056,
+   "tris_lod1": 320,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -23.8,
+    -21.4,
+    2.95
+   ],
+   "bounds_max": [
+    23.7,
+    3.95,
+    33.91
+   ]
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "app": "motorcycle",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "green bike with an orange seat",
+ "states": {
+  "intact": {
+   "tris_lod0": 136,
+   "tris_lod1": 72,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.3,
+    0.0,
+    -1.55
+   ],
+   "bounds_max": [
+    0.4,
+    1.28,
+    1.55
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 148,
+   "tris_lod1": 84,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -0.3,
+    0.0,
+    -1.55
+   ],
+   "bounds_max": [
+    0.4,
+    1.28,
+    1.55
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 36,
+   "tris_lod1": 36,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -1.02,
+    0.0,
+    -0.76
+   ],
+   "bounds_max": [
+    0.79,
+    0.5,
+    0.89
+   ]
+  }
+ }
+}

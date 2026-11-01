@@ -1,0 +1,52 @@
+{
+ "app": "l_residenceleft",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Liao residence left: terraced stone body, stone tower, small flared pagoda cap",
+ "states": {
+  "intact": {
+   "tris_lod0": 1326,
+   "tris_lod1": 392,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.75,
+    -0.0,
+    -12.55
+   ],
+   "bounds_max": [
+    12.65,
+    24.2,
+    18.65
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 4366,
+   "tris_lod1": 2328,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -8.75,
+    -0.0,
+    -12.55
+   ],
+   "bounds_max": [
+    12.65,
+    25.6,
+    18.65
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 5054,
+   "tris_lod1": 2124,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -9.08,
+    -0.4,
+    -12.83
+   ],
+   "bounds_max": [
+    13.04,
+    4.13,
+    17.53
+   ]
+  }
+ }
+}

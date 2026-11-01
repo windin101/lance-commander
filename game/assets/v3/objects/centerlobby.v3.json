@@ -1,0 +1,52 @@
+{
+ "app": "centerlobby",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "spaceport centre lobby: tall stepped white block with chamfered stems",
+ "states": {
+  "intact": {
+   "tris_lod0": 500,
+   "tris_lod1": 364,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.82,
+    0.0,
+    -8.0
+   ],
+   "bounds_max": [
+    12.82,
+    15.05,
+    15.4
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 679,
+   "tris_lod1": 527,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.82,
+    0.0,
+    -8.0
+   ],
+   "bounds_max": [
+    12.82,
+    16.56,
+    15.4
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 766,
+   "tris_lod1": 374,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.6,
+    0.0,
+    -6.0
+   ],
+   "bounds_max": [
+    12.6,
+    3.56,
+    15.15
+   ]
+  }
+ }
+}

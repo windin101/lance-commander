@@ -1,0 +1,52 @@
+{
+ "app": "munitionscrates",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "ammo crates with hazard strips",
+ "states": {
+  "intact": {
+   "tris_lod0": 120,
+   "tris_lod1": 120,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.3,
+    0.0,
+    -0.75
+   ],
+   "bounds_max": [
+    4.3,
+    2.6,
+    0.82
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 108,
+   "tris_lod1": 108,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.3,
+    0.0,
+    -0.75
+   ],
+   "bounds_max": [
+    4.3,
+    1.4,
+    0.82
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 72,
+   "tris_lod1": 72,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.38,
+    0.0,
+    -1.24
+   ],
+   "bounds_max": [
+    4.46,
+    0.6,
+    1.05
+   ]
+  }
+ }
+}

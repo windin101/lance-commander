@@ -1,0 +1,52 @@
+{
+ "app": "walkway",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "spaceport glazed walkway block",
+ "states": {
+  "intact": {
+   "tris_lod0": 860,
+   "tris_lod1": 608,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -6.11
+   ],
+   "bounds_max": [
+    13.25,
+    9.0,
+    6.11
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1039,
+   "tris_lod1": 771,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -6.11
+   ],
+   "bounds_max": [
+    13.25,
+    9.85,
+    6.19
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 514,
+   "tris_lod1": 254,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.75,
+    0.0,
+    -6.0
+   ],
+   "bounds_max": [
+    12.75,
+    3.56,
+    6.0
+   ]
+  }
+ }
+}

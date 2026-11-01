@@ -1,0 +1,52 @@
+{
+ "app": "s_main_rightwing",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "Steiner main hall right wing: mansard block with a low front annex",
+ "states": {
+  "intact": {
+   "tris_lod0": 458,
+   "tris_lod1": 360,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.15,
+    -0.0,
+    -10.35
+   ],
+   "bounds_max": [
+    4.35,
+    17.7,
+    11.7
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2391,
+   "tris_lod1": 1527,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.15,
+    -0.0,
+    -10.35
+   ],
+   "bounds_max": [
+    4.35,
+    19.22,
+    11.7
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 6320,
+   "tris_lod1": 2562,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.14,
+    -0.6,
+    -11.49
+   ],
+   "bounds_max": [
+    5.34,
+    7.75,
+    11.88
+   ]
+  }
+ }
+}

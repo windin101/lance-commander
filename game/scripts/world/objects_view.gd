@@ -59,7 +59,11 @@ func build(sim_map: SimMap, mission: String) -> int:
 				probe.free()
 		if scenes[app] == null:
 			continue
-		var node: Node3D = scenes[app].instantiate()
+		var node: Node3D = _vehicle_prop(app, false) if (BuildingV3.enabled and BuildingV3.PROP_VEHICLES.has(app)) else null
+		if node == null and BuildingV3.enabled and MechPieces.KINDS.has(app):
+			node = MechPieces.piece(app, index)
+		if node == null:
+			node = scenes[app].instantiate()
 		BuildingV3.set_lods(node)
 		var pos := Vector2(float(o["x"]), float(o["y"])) * sim_map.meters_per_wu
 		node.position = TerrainView.to_3d(pos, sim_map.height_at(pos))
@@ -201,6 +205,14 @@ func destroy(index: int) -> void:
 	var node: Node3D = nodes.get(index)
 	if node == null:
 		return
+	if BuildingV3.enabled and BuildingV3.PROP_VEHICLES.has(_appearance[index]):
+		var vw := _vehicle_prop(_appearance[index], true)
+		if vw != null:
+			vw.transform = node.transform
+			add_child(vw)
+			node.queue_free()
+			nodes[index] = vw
+			return
 	var dam := BuildingV3.model_path(_appearance[index], "_destroyed")  # v3 wreck, else the original's damaged model
 	if dam == "":
 		dam = "res://assets/objects/%s_dam_hdtex.glb" % _appearance[index]
@@ -240,6 +252,51 @@ func _instance_state(path: String) -> Node3D:
 		BuildingV3.dress(node)
 		_dressed[path] = true
 	return node
+
+
+## A vehicle prop drawn with the committed v3 vehicle model (static, no rig): the model stood on the ground (its wheels' lowest point at y 0), painted
+## civilian yellow or drab military olive; wreck=true gives the vehicle's v3 wreck. Null when the vehicle model is missing (the original prop is used).
+const MILITARY_PROPS := ["jeepprop", "armoredcarprop", "trooptransportprop", "ordnancetruckprop", "dunebuggyprop"]
+
+
+func _vehicle_prop(app: String, wreck: bool) -> Node3D:
+	var vname: String = BuildingV3.PROP_VEHICLES[app]
+	var path := ArtV3.model_path("vehicles", vname + ("_wreck" if wreck else ""))
+	if path == "":
+		return null
+	var inst: Node3D = (load(path) as PackedScene).instantiate()
+	var scheme: Dictionary = {"mode": "mask", "base": "#5f6a46", "hl1": "#9a8a5a", "hl2": "#3a3f33"} if app in MILITARY_PROPS else PaintScheme.named("civilian")
+	if wreck:  # a parked prop's wreck keeps the hull and nearby parts only: fragments are clipped to the prop's own footprint plus 20 %
+		var orig: Node3D = (load("res://assets/objects/%s.glb" % app) as PackedScene).instantiate()
+		var fp := AABB()
+		var first := true
+		for m in orig.find_children("*", "MeshInstance3D", true, false):
+			var mi0 := m as MeshInstance3D
+			if mi0.mesh:
+				var b0 := MechPieces.rel_transform(mi0, orig) * mi0.mesh.get_aabb()
+				fp = b0 if first else fp.merge(b0)
+				first = false
+		orig.free()
+		fp = fp.grow(0.0)
+		fp.position -= Vector3(fp.size.x * 0.1, 0.0, fp.size.z * 0.1)
+		fp.size += Vector3(fp.size.x * 0.2, 0.0, fp.size.z * 0.2)
+		for m in inst.find_children("*", "MeshInstance3D", true, false):
+			var mi1 := m as MeshInstance3D
+			if mi1.mesh == null:
+				continue
+			var c := (MechPieces.rel_transform(mi1, inst) * mi1.mesh.get_aabb()).get_center()
+			if String(mi1.name).begins_with("debris") or c.x < fp.position.x or c.x > fp.end.x or c.z < fp.position.z or c.z > fp.end.z:
+				mi1.visible = false
+	ArtV3.apply(inst, vname, scheme, "vehicles")
+	var low := 1e9
+	for m in inst.find_children("*", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		if mi.mesh and mi.visible:
+			low = minf(low, (MechPieces.rel_transform(mi, inst) * mi.mesh.get_aabb()).position.y)
+	inst.position.y = -low if low < 1e8 else 0.0
+	var root := Node3D.new()
+	root.add_child(inst)
+	return root
 
 
 var _dressed: Dictionary = {}  # v3 model path -> its meshes carry the library materials
