@@ -470,3 +470,43 @@ Military buildings, group A (2026-11-01, LANCE-39): `tools/art/v3/bld_military.p
 Military buildings, group B (2026-11-01, LANCE-39): `tools/art/v3/bld_military.py` adds s_gatecontrol, d_gatecontrol, s/l/d_sensorcontrol and s/l_spotlightcontrol (l_gatecontrol was a pilot). Built to per-part slices of the Shared Source originals (`game/tools/orig_parts.gd`); control buildings keep their original bounds (collision and selection size unchanged), tested on every axis. Group A fixes: l_hq (two planted barrel vaults, octagonal tower), d_hq (sloped glazed bays), s_barracks2 (raised on stilts), l_guardhouse (tiered pagodas).
 
 Military buildings, groups C and D (2026-11-01, LANCE-39): `tools/art/v3/bld_military.py` adds sensortower, prison, weaponsfacility, genericmilitary, milcheckpoint, perimeteralarm, ammodump (C) and s_flag, l_flag, d_flag, l_banner, tent, htent, hqtent, longtent, camonetting (D). Built to per-part slices of the Shared Source originals (`game/tools/orig_parts.gd`), non-commercial terms; geometry is new work on the shared CC0 library. The htent red cross on a white disc follows the original's tent art; Lee accepted the protected-emblem risk for it on 2026-11-01, as for the ambulance on 2026-10-31. Flags and banner carry simple geometric marks in the STYLE-GUIDE 2.3 faction colours (no emblem art exists in the project). Bounds of all 32 military members are tested on every axis.
+
+## Pilot portraits v2 (STYLE-GUIDE 7, LANCE-32; drafts approved by Lee 2026-11-01, NOT yet installed)
+
+Generated 2026-10-31 and 2026-11-01 by `tools/art/portraits_v2.py` (locked template, camera, light and background; only the person varies; prompt, negatives and per-person words in `tools/art/portraits_v2.json`, crop `[96, 0, 1056]`). Qwen-Image `qwen_image_fp8_e4m3fn` (Apache-2.0 weights) on the local ComfyUI, 1248x1472, 30 steps, euler/simple, cfg 2.5, shift 3.1, seed `crc32(name) + reseed`. Installed size 660x920 (33:46); 512x512 guide masters beside the drafts. Text-to-image only, no reference, no real-person likeness. Character specs and where each field came from: `tools/art/portraits.json` `character_specs` (gender from the original photos, voice sets and bios; ethnicity, age and look are the 2026-10-23 agent choices, kept by Lee 2026-11-01; Tac Officer is a Black woman per Lee). Accepted as drawn: Payback (short dark hair), Palerider (short slicked hair), Psycho (medium-length hair). Non-commercial with the rest of the remake.
+
+Edit passes use Qwen-Image-Edit 2509 at 1 MP (`tools/art/portraits_v2_fix.py`, seed `crc32(name) + 5000 + bump`). Drafts and raw draws live outside the repo in `/mnt/nvme1n1p1/claude-scratch/portraits2/` (`new/`, `master/`, `raw/`). Only `tacofficer.png` is in the game folder; the pmw files stay v1 until Lee's go.
+
+Wounded variants (`/mnt/nvme1n1p1/claude-scratch/portraits2/dress/<name>.png`): Qwen-Image-Edit 2509, `tools/art/portraits_v2_dress.py`; one of four dressings rotated by roster position (temple pad, head wrap, cheek/jaw pad clear of the mouth, brow pad; plain gauze with a thin tape border, no crossed tape, redone 2026-11-01 for Flash, Jinx, Wicked and Payback; Claymore and Rooster redone with a larger pad and heavier bruising), bruising on the opposite cheekbone, grime, strained expression, no blood; seed `crc32(name) + reseed`, each result checked against the clean portrait (white-patch area and position) and viewed. Hand edits: none.
+
+| File | Who | Spec (gender, ethnicity, age) | Draw seed (reseed) | Edit pass |
+|---|---|---|---|---|
+| `tacofficer.png` | Tac Officer | woman, Black, about 48 | 374043511 (+1000) | none |
+| `pmwbubba.png` | BUBBA | man, white American, late-twenties | 2886364547 (+0) | none |
+| `pmwchopper.png` | CHOPPER | man, Samoan, forty-five year old | 3266211705 (+0) | none |
+| `pmwclaymore.png` | CLAYMORE | man, Scottish, thirty-five year old | 2859479083 (+0) | none |
+| `pmwcobra.png` | Cobra | man, Mexican, thirty-two year old | 3826050433 (+1000) | seed 3826054433; Qwen-Image-Edit 2509 pass: orange glow removed from background |
+| `pmwcreep.png` | CREEP | man, pale Eastern European, twenty-eight year old | 738450490 (+0) | none |
+| `pmwdagger.png` | DAGGER | woman, Persian, thirty year old | 240386792 (+0) | none |
+| `pmwflash.png` | FLASH | woman, Black, about 25 | 1557722811 (+0) | none |
+| `pmwghost.png` | GHOST | woman, Norwegian, thirty-four year old | 4031068441 (+0) | none |
+| `pmwhacksaw.png` | HACKSAW | man, white, about 42 | 3004095470 (+1000) | none |
+| `pmwhammer.png` | HAMMER | man, Korean, thirty year old | 465348385 (+0) | none |
+| `pmwjinx.png` | JINX | woman, Irish, about 26 | 950106081 (+0) | none |
+| `pmwlongshot.png` | LONGSHOT | woman, Native American, about 33 | 1282136555 (+0) | colour regrade (PIL, left 30% of the frame): warm background tint removed |
+| `pmwmeat.png` | MEAT | man, Turkish, thirty-six year old | 574809816 (+0) | seed 574814817; Qwen-Image-Edit pass from the original draw, 4th try (seed 574815018 = crc + 5200 + 2; earlier tries rejected: head shrank, bare cartoon arms, no vest): thicker neck, heavier frame, olive flight suit with sleeves, vest, hose and dog tags kept |
+| `pmwmother.png` | MOTHER | man, Indian, fifty-two year old | 3751498253 (+0) | none |
+| `pmwnuke.png` | NUKE | man, white Australian, thirty year old | 3163431486 (+0) | none |
+| `pmwpalerider.png` | Palerider | man, very pale white, forty-four year old | 82068173 (+1000) | seed 82072173; edit pass: orange glow removed |
+| `pmwpayback.png` | PAYBACK | man, Nigerian, forty year old | 2314373053 (+1000) | none |
+| `pmwpsycho.png` | PSYCHO | man, white, twenty-eight year old | 3981713483 (+1000) | none |
+| `pmwrooster.png` | ROOSTER | man, white Southern American, fifty-five year old | 197054345 (+0) | none |
+| `pmwscooter.png` | Scooter | man, mixed-race, twenty year old | 3234131041 (+0) | none |
+| `pmwshadow.png` | SHADOW | woman, Vietnamese, thirty-one year old | 2956963642 (+0) | none |
+| `pmwsteel.png` | STEEL | man, Black, about 55 | 2106148907 (+0) | none |
+| `pmwtwitch.png` | TWITCH | man, Puerto Rican, twenty-four year old | 3081066167 (+0) | none |
+| `pmwvenom.png` | VENOM | woman, Ukrainian, thirty-two year old | 3698443332 (+1000) | seed 3698447332; two edit passes: Ukrainian-flag-coloured shoulder patch made plain olive, then orange background glow removed (same seed, 1 MP), then background desaturated to the shared blue-grey by a PIL regrade (a Qwen edit pass turned her greyscale and was rejected) |
+| `pmwwicked.png` | WICKED | woman, Latina, twenty-nine year old | 3385516670 (+0) | none |
+| `pmwworm.png` | WORM | man, pale English, thirty-four year old | 368393639 (+0) | none |
+
+Date: 2026-10-31 (tacofficer) and 2026-11-01 (the rest). Reseeds above are those in `portraits_v2.json` (+1000: Hacksaw, Payback, Palerider, Psycho, Cobra, Venom, Tac Officer).

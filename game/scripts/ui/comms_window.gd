@@ -89,7 +89,7 @@ func say(speaker: String, text: String, unit: SimUnit = null, seconds := -1.0, p
 	caption.text = speaker
 	subtitle.text = text
 	speaker_unit = unit
-	portrait.texture = PilotPortraits.texture_for(profile if not profile.is_empty() else (unit.pilot_profile if unit else ""))
+	portrait.texture = PilotPortraits.texture_for(profile if not profile.is_empty() else (unit.pilot_profile if unit else ""), PilotPortraits.is_wounded(unit))
 	if seconds < 0.0:
 		seconds = 2.5 + 0.06 * text.length()
 	_line_until = Time.get_ticks_msec() / 1000.0 + seconds
@@ -123,7 +123,7 @@ func _process(_delta: float) -> void:
 			caption.text = _voice_speaker if _voice_speaker != "" else "Command"
 			subtitle.text = _voice_text if _voice_text != "" else "Incoming transmission."
 			speaker_unit = null
-			portrait.texture = PilotPortraits.placeholder()
+			portrait.texture = PilotPortraits.texture_for_speaker(_voice_speaker)
 		visible = true
 	elif visible:
 		visible = false

@@ -466,5 +466,282 @@
    0,
    1056
   ]
+ },
+ "character_specs": {
+  "_about": "Character specs for the v2 hero portraits (2026-10-31). 'src' says where each field comes from. Lee confirmed the five pilots' looks on 2026-10-31.",
+  "tacofficer": {
+   "gender": "woman",
+   "gender_src": "Lee 2026-10-31",
+   "ethnicity": "Black",
+   "ethnicity_src": "Lee 2026-10-31",
+   "age": "about 48",
+   "age_src": "UNSOURCED (Lee gave none; subtitles.json has the speaker only as 'Tac Officer', no pronouns)",
+   "look": "close-cropped natural hair greying at temples, slate command tunic, comms headset",
+   "look_src": "UNSOURCED, art choice",
+   "wardrobe_src": "STYLE-GUIDE 7 (formal/NPC dress)"
+  },
+  "pmwhacksaw": {
+   "gender": "man",
+   "gender_src": "pilot_bios.json ('he'); original photo 8: M; Lee 2026-10-31 confirmed",
+   "ethnicity": "white",
+   "ethnicity_src": "Lee 2026-10-31 (kept 10-23 choice)",
+   "age": "about 42",
+   "age_src": "Lee 2026-10-31 (kept 10-23 choice)",
+   "look": "bald, heavy brow, grease on cheek",
+   "look_src": "Lee 2026-10-31 (kept 10-23 choice)"
+  },
+  "pmwlongshot": {
+   "gender": "woman",
+   "gender_src": "pilot_bios.json ('she'); original photo 11: F (voice 0.60, ambiguous); Lee 2026-10-31 confirmed",
+   "ethnicity": "Native American",
+   "ethnicity_src": "Lee 2026-10-31 (kept 10-23 choice)",
+   "age": "about 33",
+   "age_src": "Lee 2026-10-31 (kept 10-23 choice)",
+   "look": "long black ponytail, squint lines",
+   "look_src": "Lee 2026-10-31 (kept 10-23 choice)"
+  },
+  "pmwflash": {
+   "gender": "woman",
+   "gender_src": "pilot_bios.json ('she'); photo 6: F; voice 1.00; Lee 2026-10-31 confirmed",
+   "ethnicity": "Black",
+   "ethnicity_src": "Lee 2026-10-31 (kept 10-23 choice)",
+   "age": "about 25",
+   "age_src": "Lee 2026-10-31 (kept 10-23 choice)",
+   "look": "very short natural hair, cocky grin",
+   "look_src": "Lee 2026-10-31 (kept 10-23 choice)"
+  },
+  "pmwjinx": {
+   "gender": "woman",
+   "gender_src": "pilot_bios.json ('she'); photo 10: F; voice 0.87; Lee 2026-10-31 confirmed",
+   "ethnicity": "Irish",
+   "ethnicity_src": "Lee 2026-10-31 (kept 10-23 choice)",
+   "age": "about 26",
+   "age_src": "Lee 2026-10-31 (kept 10-23 choice)",
+   "look": "freckles, curly auburn hair, dressing on cheek",
+   "look_src": "Lee 2026-10-31 (kept 10-23 choice)"
+  },
+  "pmwsteel": {
+   "gender": "man",
+   "gender_src": "pilot_bios.json ('he'); photo 21: M; voice 0.00; Lee 2026-10-31 confirmed",
+   "ethnicity": "Black",
+   "ethnicity_src": "Lee 2026-10-31 (kept 10-23 choice)",
+   "age": "about 55",
+   "age_src": "Lee 2026-10-31 (kept 10-23 choice)",
+   "look": "short grey beard, cropped grey hair",
+   "look_src": "Lee 2026-10-31 (kept 10-23 choice)"
+  },
+  "pmwbubba": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "white American",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "late-twenties",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "heavily overweight, big belly, broad; very round fleshy face with a double chin and ruddy cheeks; short buzzed sandy-blond hair",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwchopper": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "Samoan",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "forty-five year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "huge, burly; broad face with a thick black beard flecked with grey; long black hair tied back in a knot",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwclaymore": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "Scottish",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "thirty-five year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "broad-shouldered, solid; heavy square jaw with a short copper-red beard; short neat copper-red hair",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwcobra": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "Mexican",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "thirty-two year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "lean, wiry; narrow face with high cheekbones and a thin pencil moustache; slicked-back black hair",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwcreep": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "pale Eastern European",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "twenty-eight year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "thin, gaunt; pale waxy skin, hollow cheeks and heavy-lidded eyes; lank shoulder-length greasy dark hair",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwdagger": {
+   "gender": "woman",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'she'",
+   "ethnicity": "Persian",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "thirty year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "lean, athletic; sharp angular features and dark thick eyebrows; black hair pulled back in a tight braid",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwghost": {
+   "gender": "woman",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'she'",
+   "ethnicity": "Norwegian",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "thirty-four year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "slim, tall; very pale skin and pale grey eyes; short cropped platinum-white hair",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwhammer": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "Korean",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "thirty year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "stocky, powerful; broad face and a strong jaw; short black flat-top haircut",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwmeat": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "Turkish",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "thirty-six year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "enormous, heavily muscled and fat, thick bull neck, very wide shoulders; heavy brow and a thick black stubble beard; completely bald, smooth shaved scalp",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwmother": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "Indian",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "fifty-two year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "heavyset, soft; kind, lined face with a thick grey moustache; short greying hair",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwnuke": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "white Australian",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "thirty year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "wiry, muscular; freckled sunburnt face with heavy blond stubble; tall spiky bleached-blond mohawk with shaved sides",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwpalerider": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "very pale white",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "forty-four year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "tall, gaunt; hollow cheeks and deep-set eyes; long black hair streaked with grey | NOW: short slicked dark hair with grey (spec said long); accepted as drawn",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "drawn_as": "short slicked dark hair with grey (spec said long); accepted as drawn"
+  },
+  "pmwpayback": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "Nigerian",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "forty year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "big, muscular; deep frown lines and a short boxed black beard; clean-shaven head | NOW: short dark hair (spec said clean-shaven head); accepted as drawn, Lee/coordinator 2026-11-01",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "drawn_as": "short dark hair (spec said clean-shaven head); accepted as drawn, Lee/coordinator 2026-11-01"
+  },
+  "pmwpsycho": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "white",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "twenty-eight year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "wiry; gaunt angular face with hollow cheeks, dark stubble, thin lips and intense pale-blue eyes; messy shoulder-length bleached-blond hair with dark roots | NOW: medium-length bleached-blond hair, not shoulder length; accepted as drawn",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "drawn_as": "medium-length bleached-blond hair, not shoulder length; accepted as drawn"
+  },
+  "pmwrooster": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "white Southern American",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "fifty-five year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "rangy, weathered; sun-creased face with grey stubble; swept-up reddish-grey hair like a crest",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwscooter": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "mixed-race",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "twenty year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "slight, youthful; boyish freckled face; short curly brown hair",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwshadow": {
+   "gender": "woman",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'she'",
+   "ethnicity": "Vietnamese",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "thirty-one year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "slim, compact; fine features; black hair in a tight low bun",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwtwitch": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "Puerto Rican",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "twenty-four year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "thin, jittery; narrow face with a faint nervous tic at one eye; short dark curly hair",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwvenom": {
+   "gender": "woman",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'she'",
+   "ethnicity": "Ukrainian",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "thirty-two year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "slim; sharp cheekbones and icy blue eyes; jet-black chin-length bob",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwwicked": {
+   "gender": "woman",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'she'",
+   "ethnicity": "Latina",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "twenty-nine year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "athletic; sharp arched eyebrows and a small silver nose stud; dark hair with a shaved undercut on one side",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwworm": {
+   "gender": "man",
+   "gender_src": "original photo + voice set (portraits.json 2026-10-23); pilot_bios.json uses 'he'",
+   "ethnicity": "pale English",
+   "ethnicity_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "age": "thirty-four year old",
+   "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
+   "look": "small, narrow-shouldered; small round face with a weak chin, a wispy thin moustache and round wire-rimmed glasses; thin combed-over mousy brown hair",
+   "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  }
  }
 }

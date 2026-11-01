@@ -24,6 +24,7 @@ var group := 1:  # the number on the card
 			if _gid_label:
 				_gid_label.text = str(v)
 var _gid_label: Label
+var _portrait_rect: TextureRect
 var selected := false:
 	set(v):
 		if v != selected:
@@ -151,7 +152,8 @@ func _build_full() -> void:
 	top.add_child(face)
 	var portrait := TextureRect.new()
 	portrait.name = "Portrait"
-	portrait.texture = PilotPortraits.texture_for(unit.pilot_profile)
+	portrait.texture = PilotPortraits.texture_for(unit.pilot_profile, PilotPortraits.is_wounded(unit))
+	_portrait_rect = portrait
 	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	portrait.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -265,6 +267,10 @@ func _process(_delta: float) -> void:
 func _refresh() -> void:
 	if armor_bar == null:
 		return
+	if _portrait_rect:  # the dressing variant while the pilot is hurt
+		var tex := PilotPortraits.texture_for(unit.pilot_profile, PilotPortraits.is_wounded(unit))
+		if _portrait_rect.texture != tex:
+			_portrait_rect.texture = tex
 	var a := PaperDoll.armor_fraction(unit)
 	armor_bar.value = a
 	armor_pct.text = "%d%%" % roundi(a * 100.0)
