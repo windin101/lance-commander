@@ -280,9 +280,32 @@ func _pilots() -> Control:
 			l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			l.size_flags_stretch_ratio = cell[1]
 			l.clip_text = true
+			if dead and cell == cells[0]:  # a fallen pilot: the memorial portrait beside the name
+				var pc := HBoxContainer.new()
+				pc.name = "KiaPilot"
+				pc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+				pc.size_flags_stretch_ratio = cell[1]
+				pc.add_theme_constant_override("separation", 8)
+				pc.add_child(_memorial_thumb(String(p.get("profile", ""))))
+				l.size_flags_stretch_ratio = 1.0
+				pc.add_child(l)
+				row.add_child(pc)
+				continue
 			row.add_child(l)
 		c[1].add_child(row)
 	return c[0]
+
+
+## The small memorial portrait (33:46) shown beside a KIA pilot's callsign; falls back to the clean face.
+func _memorial_thumb(profile: String) -> TextureRect:
+	var t := TextureRect.new()
+	t.name = "MemorialThumb"
+	t.texture = PilotPortraits.memorial_for(profile)
+	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	t.custom_minimum_size = Vector2(33, 46) * 1.4
+	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return t
 
 
 ## Disabled enemy 'Mechs left on the field (report.salvage): the salvage screen comes next.

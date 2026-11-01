@@ -1,0 +1,205 @@
+{
+ "memorial_bump": {
+  "pmwhacksaw": 1,
+  "pmwchopper": 2,
+  "pmwmeat": 1,
+  "pmwdagger": 1,
+  "pmwscout": 2
+ },
+ "memorial_extra": {
+  "pmwhacksaw": "Keep his hard, stern, heavy-browed face with the deep lines from nose to mouth, deep-set eyes, a thick neck and broad heavy shoulders; he is a big, tough, middle-aged man, and his smile is only a slight, restrained smile with lips together.",
+  "pmwchopper": "Keep his full, thick black beard covering the jaw and chin, his broad flat nose, heavy build and thick neck; he is a big Samoan man with a full beard. His face is turned square to the camera and he is visibly smiling warmly: the cheeks lifted, the corners of the mouth turned up inside the beard, friendly eyes.",
+  "pmwmeat": "Keep his heavy, thick black beard covering the whole jaw and chin, his broad heavy face and thick neck; he is a big, heavy-set, bearded man, and his smile is slight with lips together.",
+  "pmwdagger": "Keep her strong dark straight eyebrows, strong nose, full lips and olive skin; she is a woman in her thirties, and her smile is slight with lips together.",
+  "pmwscout": "His face and body are turned square to the camera, perfectly frontal, with both eyes looking straight into the lens. His smile is slight and warm, with the lips together and few teeth showing; keep his lean, narrow face with high cheekbones."
+ },
+ "face_box": {
+  "pmwsteel": [
+   244,
+   169,
+   350,
+   350
+  ],
+  "pmwflash": [
+   243,
+   263,
+   315,
+   315
+  ],
+  "pmwhacksaw": [
+   262,
+   260,
+   329,
+   329
+  ],
+  "pmwbubba": [
+   253,
+   197,
+   329,
+   329
+  ],
+  "pmwclaymore": [
+   256,
+   242,
+   278,
+   278
+  ],
+  "pmwcobra": [
+   237,
+   188,
+   322,
+   322
+  ],
+  "pmwcreep": [
+   214,
+   195,
+   303,
+   303
+  ],
+  "pmwghost": [
+   207,
+   210,
+   310,
+   310
+  ],
+  "pmwgreen": [
+   190,
+   230,
+   393,
+   393
+  ],
+  "pmwguardtower": [
+   213,
+   195,
+   443,
+   443
+  ],
+  "pmwhammer": [
+   211,
+   230,
+   303,
+   303
+  ],
+  "pmwjinx": [
+   189,
+   218,
+   315,
+   315
+  ],
+  "pmwlongshot": [
+   233,
+   268,
+   345,
+   345
+  ],
+  "pmwminelayer": [
+   212,
+   213,
+   366,
+   366
+  ],
+  "pmwmother": [
+   218,
+   177,
+   322,
+   322
+  ],
+  "pmwnuke": [
+   196,
+   212,
+   328,
+   328
+  ],
+  "pmwpalerider": [
+   269,
+   226,
+   303,
+   303
+  ],
+  "pmwpayback": [
+   289,
+   245,
+   325,
+   325
+  ],
+  "pmwpsycho": [
+   248,
+   222,
+   337,
+   337
+  ],
+  "pmwrooster": [
+   203,
+   229,
+   360,
+   360
+  ],
+  "pmwscooter": [
+   228,
+   225,
+   381,
+   381
+  ],
+  "pmwmeat": [
+   257,
+   217,
+   354,
+   354
+  ],
+  "pmwdagger": [
+   222,
+   218,
+   327,
+   327
+  ],
+  "pmwshadow": [
+   165,
+   257,
+   385,
+   385
+  ],
+  "pmwtwitch": [
+   278,
+   187,
+   282,
+   282
+  ],
+  "pmwchopper": [
+   262,
+   196,
+   342,
+   342
+  ],
+  "pmwvenom": [
+   227,
+   215,
+   326,
+   326
+  ],
+  "pmwveteran": [
+   200,
+   268,
+   357,
+   357
+  ],
+  "pmwwicked": [
+   238,
+   239,
+   384,
+   384
+  ],
+  "pmwworm": [
+   155,
+   153,
+   459,
+   459
+  ],
+  "pmwscout": [
+   260,
+   224,
+   277,
+   277
+  ]
+ },
+ "crop": {}
+}

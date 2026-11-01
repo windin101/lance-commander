@@ -316,6 +316,83 @@
    "expression": "ingratiating, sly nervous smile",
    "wardrobe": "Wearing a worn olive-grey flight suit with a small plain cloth shoulder patch, a dark cooling vest with thin coolant tubing across the chest, metal dog tags on a chain, a little grease on the clothes. Bare head, no helmet of any kind.",
    "negative_extra": ""
+  },
+  "pmwgreen": {
+   "gender": "woman",
+   "age": "nineteen year old",
+   "ethnicity": "Filipina",
+   "build": "slim, youthful",
+   "face": "round soft face with wide dark eyes and smooth unmarked skin",
+   "hair": "short bob of straight black hair with a fringe",
+   "expression": "nervous, earnest, a little wide-eyed",
+   "wardrobe": "Wearing a worn olive-grey flight suit with a small plain cloth shoulder patch, a dark cooling vest with thin coolant tubing across the chest, metal dog tags on a chain, a little grease on the clothes. Bare head, no helmet of any kind.",
+   "negative_extra": ""
+  },
+  "pmwregular": {
+   "gender": "man",
+   "age": "thirty-four year old",
+   "ethnicity": "Brazilian",
+   "build": "average, sturdy",
+   "face": "square jaw with light stubble and calm brown eyes",
+   "hair": "short wavy dark brown hair",
+   "expression": "steady, composed look",
+   "wardrobe": "Wearing a worn olive-grey flight suit with a small plain cloth shoulder patch, a dark cooling vest with thin coolant tubing across the chest, metal dog tags on a chain, a little grease on the clothes. Bare head, no helmet of any kind.",
+   "negative_extra": ""
+  },
+  "pmwveteran": {
+   "gender": "woman",
+   "age": "forty-six year old",
+   "ethnicity": "Indonesian",
+   "build": "lean, wiry",
+   "face": "lined, weathered face with crow's feet and a firm mouth",
+   "hair": "black hair streaked with grey, pulled back tight",
+   "expression": "dry, unimpressed, watchful look",
+   "wardrobe": "Wearing a worn olive-grey flight suit with a small plain cloth shoulder patch, a dark cooling vest with thin coolant tubing across the chest, metal dog tags on a chain, a little grease on the clothes. Bare head, no helmet of any kind.",
+   "negative_extra": ""
+  },
+  "pmwscout": {
+   "gender": "man",
+   "age": "twenty-seven year old",
+   "ethnicity": "Kenyan",
+   "build": "lean, long-limbed",
+   "face": "long narrow clean-shaven face with high cheekbones and bright watchful eyes",
+   "hair": "close-cropped black hair",
+   "expression": "alert, restless, half-amused look",
+   "wardrobe": "Wearing a worn olive-grey flight suit with a small plain cloth shoulder patch, a dark cooling vest with thin coolant tubing across the chest, metal dog tags on a chain, a little grease on the clothes. Bare head, no helmet of any kind.",
+   "negative_extra": ""
+  },
+  "pmwrepair": {
+   "gender": "woman",
+   "age": "forty-one year old",
+   "ethnicity": "Jamaican",
+   "build": "strong, broad-shouldered",
+   "face": "broad friendly face with a wide jaw and a small gap between the front teeth hidden by closed lips",
+   "hair": "short twisted locs tied back",
+   "expression": "patient, matter-of-fact look",
+   "wardrobe": "Wearing a worn olive-grey flight suit with a small plain cloth shoulder patch, a dark cooling vest with thin coolant tubing across the chest, metal dog tags on a chain, a little grease on the clothes. Bare head, no helmet of any kind.",
+   "negative_extra": ""
+  },
+  "pmwminelayer": {
+   "gender": "man",
+   "age": "thirty-six year old",
+   "ethnicity": "Japanese",
+   "build": "lean, narrow-shouldered",
+   "face": "narrow serious face with a thin moustache and tired eyes",
+   "hair": "short straight black hair with a side parting",
+   "expression": "careful, pensive look",
+   "wardrobe": "Wearing a worn olive-grey flight suit with a small plain cloth shoulder patch, a dark cooling vest with thin coolant tubing across the chest, metal dog tags on a chain, a little grease on the clothes. Bare head, no helmet of any kind.",
+   "negative_extra": ""
+  },
+  "pmwguardtower": {
+   "gender": "man",
+   "age": "fifty year old",
+   "ethnicity": "Lebanese",
+   "build": "heavyset, thick-necked",
+   "face": "heavy jowly face with a thick grey moustache and deep-set eyes",
+   "hair": "thinning grey-black hair combed back",
+   "expression": "gruff, unhurried look",
+   "wardrobe": "Wearing a worn olive-grey flight suit with a small plain cloth shoulder patch, a dark cooling vest with thin coolant tubing across the chest, metal dog tags on a chain, a little grease on the clothes. Bare head, no helmet of any kind.",
+   "negative_extra": ""
   }
  },
  "reseed": {
@@ -494,6 +571,41 @@
    1056
   ],
   "pmwvenom_s3698443332": [
+   96,
+   0,
+   1056
+  ],
+  "pmwgreen_s596395929": [
+   96,
+   0,
+   1056
+  ],
+  "pmwregular_s3379023678": [
+   96,
+   0,
+   1056
+  ],
+  "pmwveteran_s1221100501": [
+   96,
+   0,
+   1056
+  ],
+  "pmwrepair_s1269635382": [
+   96,
+   0,
+   1056
+  ],
+  "pmwminelayer_s327917680": [
+   96,
+   0,
+   1056
+  ],
+  "pmwguardtower_s831583509": [
+   96,
+   0,
+   1056
+  ],
+  "pmwscout_s3833473244": [
    96,
    0,
    1056

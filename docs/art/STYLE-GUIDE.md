@@ -176,7 +176,7 @@ Three-column (list · detail · map); hero + sidebar (mech bay); full-map with f
 - **Style:** gritty digital portrait, slightly desaturated, warm key and cool rim. Not photoreal, not cartoon.
 - **Variety:** veteran (scars, grey), rookie, hard-bitten merc, ex-noble, sensor tech, stoic invader-clan type. Mixed gender, ethnicity, age.
 - **Wardrobe:** cooling vest with tubing, neurohelmet pushed back or worn, flight suit with patches, dog tags, dressings, grease; unit patch matches lance paint.
-- **UI treatment:** inset in `#0E1D28` well with 1 px `steel-500` frame; hover → cyan; wounded = red tint on bottom edge + bandage variant; dead = desaturate + slash.
+- **UI treatment:** inset in `#0E1D28` well with 1 px `steel-500` frame; hover → cyan; wounded = red tint on bottom edge + bandage variant; dead = memorial portrait (the same pilot in dress uniform and peaked cap, frontal, slight smile, black and white with a black border; `<profile>_memorial.png`, decided by Lee 2026-11-01).
 - **Employers/NPCs:** same lighting, formal dress, background tinted to faction colour.
 - **Crests:** 128×128, one-colour-plus-metal heraldic shields, angular, readable at 32 px.
 - **Licence:** generated or commissioned originals only, no real-person likeness, provenance logged.

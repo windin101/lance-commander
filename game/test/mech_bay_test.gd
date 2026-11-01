@@ -106,3 +106,17 @@ func test_paint_panel_replaces_the_loadout_summary() -> void:
 	assert_bool(bay._summary_panel.visible).is_false()
 	bay.close_paint()
 	assert_bool(bay._summary_panel.visible).is_true()
+
+
+func test_personnel_screen_shows_the_memorial_portrait_for_a_pilot_killed_in_action() -> void:
+	MechBay.dev_history(Flow.campaign)
+	var bay: MechBay = auto_free(load("res://scenes/mech_bay.tscn").instantiate())
+	add_child(bay)
+	bay._open_pilots()
+	bay.select_pilot("pmwsteel")
+	assert_object(bay._portrait.texture).is_same(PilotPortraits.texture_for("pmwsteel"))
+	bay.camp.pilots["pmwsteel"]["dead"] = true  # killed in action
+	assert_object(bay._pilot_face("pmwsteel")).is_same(PilotPortraits.memorial_for("pmwsteel"))
+	bay.select_pilot("pmwsteel")
+	assert_object(bay._portrait.texture).is_same(PilotPortraits.memorial_for("pmwsteel"))
+	assert_object(bay._portrait.texture).is_not_same(PilotPortraits.texture_for("pmwsteel"))

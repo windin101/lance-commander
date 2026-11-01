@@ -523,7 +523,7 @@ func _refresh_summary() -> void:
 	# pilot line
 	var pl := kit.hbox(0.8)
 	var face := TextureRect.new()
-	face.texture = PilotPortraits.texture_for(String(m["pilot"]))
+	face.texture = _pilot_face(String(m["pilot"]))
 	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	face.custom_minimum_size = Vector2(kit.em(4), kit.em(4 * 46.0 / 33.0))
@@ -1273,7 +1273,7 @@ func _pilot_card(profile: String) -> Control:
 	var h := kit.hbox(0.7)
 	card.add_child(h)
 	var face := TextureRect.new()
-	face.texture = PilotPortraits.texture_for(profile)
+	face.texture = _pilot_face(profile)
 	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	face.custom_minimum_size = Vector2(kit.em(2.8), kit.em(2.8 * 46.0 / 33.0))
@@ -1288,6 +1288,14 @@ func _pilot_card(profile: String) -> Control:
 	var chip := _pilot_chip(profile)
 	h.add_child(kit.chip(chip[0], chip[1]))
 	return card
+
+
+## A pilot's face in the bay: the memorial portrait once the campaign has them killed in action, else the clean face.
+func _pilot_face(profile: String) -> Texture2D:
+	var pd: Dictionary = camp.pilots.get(profile, {}) if camp != null else {}
+	if bool(pd.get("dead", false)):
+		return PilotPortraits.memorial_for(profile)
+	return PilotPortraits.texture_for(profile)
 
 
 static func _pretty(key: String) -> String:
@@ -1323,7 +1331,7 @@ func _refresh_personnel() -> void:
 	var fit: Dictionary = GameData.pilots.get(pilot, {})
 	var callsign := String(fit.get("General", {}).get("Callsign", pd["name"])).to_upper()
 	var rank := Campaign.rank(pd)
-	_portrait.texture = PilotPortraits.texture_for(pilot)
+	_portrait.texture = _pilot_face(pilot)
 	_plate_name.text = String(pd["name"])
 	var chip := _pilot_chip(pilot)
 	_plate_sub.text = "%s%s · %s" % [("\"%s\" · " % callsign) if callsign != String(pd["name"]).to_upper() else "", rank,

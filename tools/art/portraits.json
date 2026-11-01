@@ -742,6 +742,83 @@
    "age_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')",
    "look": "small, narrow-shouldered; small round face with a weak chin, a wispy thin moustache and round wire-rimmed glasses; thin combed-over mousy brown hair",
    "look_src": "UNSOURCED, agent choice 2026-10-23, kept by Lee 2026-11-01 ('roll out')"
+  },
+  "pmwgreen": {
+   "gender": "woman",
+   "gender_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "ethnicity": "Filipina",
+   "ethnicity_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "age": "about nineteen",
+   "age_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "look": "round soft face with wide dark eyes and smooth unmarked skin; short bob of straight black hair with a fringe",
+   "look_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "role": "rookie ally pilot (profile ROOKIE)"
+  },
+  "pmwregular": {
+   "gender": "man",
+   "gender_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "ethnicity": "Brazilian",
+   "ethnicity_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "age": "about thirty-four",
+   "age_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "look": "square jaw with light stubble and calm brown eyes; short wavy dark brown hair",
+   "look_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "role": "regular ally pilot"
+  },
+  "pmwveteran": {
+   "gender": "woman",
+   "gender_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "ethnicity": "Indonesian",
+   "ethnicity_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "age": "about forty-six",
+   "age_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "look": "lined, weathered face with crow's feet and a firm mouth; black hair streaked with grey, pulled back tight",
+   "look_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "role": "veteran ally pilot"
+  },
+  "pmwscout": {
+   "gender": "man",
+   "gender_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "ethnicity": "Kenyan",
+   "ethnicity_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "age": "about twenty-seven",
+   "age_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "look": "long narrow clean-shaven face with high cheekbones and bright watchful eyes; close-cropped black hair",
+   "look_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank); redrawn 2026-11-01 as Kenyan because the first draw (Greek, curly dark hair) read as the same man as pmwregular",
+   "role": "scout copter pilot (called in by the scout copter support power)"
+  },
+  "pmwrepair": {
+   "gender": "woman",
+   "gender_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "ethnicity": "Jamaican",
+   "ethnicity_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "age": "about forty-one",
+   "age_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "look": "broad friendly face with a wide jaw and a small gap between the front teeth hidden by closed lips; short twisted locs tied back",
+   "look_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "role": "repair truck driver (support power)"
+  },
+  "pmwminelayer": {
+   "gender": "man",
+   "gender_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "ethnicity": "Japanese",
+   "ethnicity_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "age": "about thirty-six",
+   "age_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "look": "narrow serious face with a thin moustache and tired eyes; short straight black hair with a side parting",
+   "look_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "role": "minelayer driver (support power)"
+  },
+  "pmwguardtower": {
+   "gender": "man",
+   "gender_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "ethnicity": "Lebanese",
+   "ethnicity_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "age": "about fifty",
+   "age_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "look": "heavy jowly face with a thick grey moustache and deep-set eyes; thinning grey-black hair combed back",
+   "look_src": "2026-11-01 deliberate choice for roster diversity (task from Lee; not inferred from the callsign or rank)",
+   "role": "guard tower / artillery piece crew (support power)"
   }
  }
 }

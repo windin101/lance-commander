@@ -1,7 +1,7 @@
 extends Control
-## Dev: the comms window as the HUD draws it, three times (a clean pilot, the same pilot wounded,
-## the tac officer's voice-over), for the portrait screenshot check (LANCE-32).
-##   godot --path game res://scenes/portrait_comms_shot.tscn -- --screenshot=out.png [--profile=pmp_flash]
+## Dev: the comms window as the HUD draws it, four times (a clean pilot, the same pilot wounded and
+## dead (memorial portrait), the tac officer's voice-over), for the portrait screenshot check (LANCE-32).
+##   godot --path game res://scenes/portrait_comms_shot.tscn -- --screenshot=out.png [--profile=pmp_flash] [--zoom=3]
 
 
 func _ready() -> void:
@@ -20,15 +20,17 @@ func _ready() -> void:
 	add_child(bg)
 	var row := HBoxContainer.new()
 	row.position = Vector2(20, 20)
+	row.scale = Vector2.ONE * float(args.get("zoom", 1.0))  # --zoom=3 for a legible capture
 	row.add_theme_constant_override("separation", 20)
 	add_child(row)
-	var lines := [["clean", 0.0], ["wounded", 2.0]]
+	var lines := [["clean", 0.0, false], ["wounded", 2.0, false], ["dead", 0.0, true]]
 	for l in lines:
 		var c := CommsWindow.new()
 		c.kit = kit
 		row.add_child(c)
 		mech.pilot.wounds = l[1]
-		c.say(String(mech.pilot.name).to_upper() + " (" + l[0] + ")", "Contact bearing two-seven-zero, closing.", mech, 600.0)
+		mech.pilot.dead = l[2]  # a fallen pilot shows the memorial portrait
+		c.say(profile.trim_prefix("pmp_").trim_prefix("pmw").to_upper() + " (" + l[0] + ")", "Contact bearing two-seven-zero, closing.", mech, 600.0)
 	var tac := CommsWindow.new()
 	tac.kit = kit
 	row.add_child(tac)

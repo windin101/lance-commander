@@ -89,7 +89,7 @@ func say(speaker: String, text: String, unit: SimUnit = null, seconds := -1.0, p
 	caption.text = speaker
 	subtitle.text = text
 	speaker_unit = unit
-	portrait.texture = PilotPortraits.texture_for(profile if not profile.is_empty() else (unit.pilot_profile if unit else ""), PilotPortraits.is_wounded(unit))
+	portrait.texture = PilotPortraits.texture_for_unit(unit, profile)
 	if seconds < 0.0:
 		seconds = 2.5 + 0.06 * text.length()
 	_line_until = Time.get_ticks_msec() / 1000.0 + seconds

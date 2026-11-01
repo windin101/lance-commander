@@ -7,6 +7,7 @@ extends RefCounted
 
 const DIR := "res://assets/ui/portraits"
 const WOUNDED_SUFFIX := "_wounded"  # <profile>_wounded.png: the drawn dressing variant (guide 7)
+const MEMORIAL_SUFFIX := "_memorial"  # <profile>_memorial.png: dress uniform, peaked cap, black and white with a black border
 const TAC_OFFICER := "tacofficer"
 
 static var _cache := {}
@@ -24,6 +25,21 @@ static func art_profile(profile: String) -> String:
 ## The res:// path for a profile's portrait (wounded variant or clean), whether or not it exists.
 static func path_for(profile: String, wounded := false) -> String:
 	return "%s/%s%s.png" % [DIR, art_profile(profile), WOUNDED_SUFFIX if wounded else ""]
+
+
+## The res:// path for a profile's memorial portrait (the fallen pilot in dress uniform), whether or not it exists.
+static func memorial_path_for(profile: String) -> String:
+	return "%s/%s%s.png" % [DIR, art_profile(profile), MEMORIAL_SUFFIX]
+
+
+## True when the unit's pilot is dead: the HUD and the Mech Bay then show the memorial portrait.
+static func is_dead(unit) -> bool:
+	return unit != null and unit.pilot != null and unit.pilot.dead
+
+
+## True when a memorial portrait has been drawn for the profile.
+static func has_memorial(profile: String) -> bool:
+	return not profile.is_empty() and ResourceLoader.exists(memorial_path_for(profile))
 
 
 ## True when the unit's pilot is hurt but alive: the HUD then shows the wounded portrait.
@@ -46,6 +62,28 @@ static func texture_for(profile: String, wounded := false) -> Texture2D:
 		t = placeholder()
 	_cache[key] = t
 	return t
+
+
+## The memorial portrait for a fallen pilot profile (pmwflash_memorial.png). A pilot without one falls back to the
+## clean face (never the wounded variant, never the silhouette while a face exists).
+static func memorial_for(profile: String) -> Texture2D:
+	var key := memorial_path_for(profile)
+	if _cache.has(key):
+		return _cache[key]
+	if not has_memorial(profile):
+		return texture_for(profile, false)
+	var t: Texture2D = load(key)
+	_cache[key] = t
+	return t
+
+
+## The portrait a HUD slot shows for a unit's pilot: memorial when dead, else the wounded variant while hurt, else clean.
+## `profile` overrides the unit's own pilot_profile (a comms line spoken for another profile).
+static func texture_for_unit(unit, profile := "") -> Texture2D:
+	var p := profile if not profile.is_empty() else (String(unit.pilot_profile) if unit != null else "")
+	if is_dead(unit):
+		return memorial_for(p)
+	return texture_for(p, is_wounded(unit))
 
 
 ## The tac officer (tacofficer.png), or the silhouette until that file exists.

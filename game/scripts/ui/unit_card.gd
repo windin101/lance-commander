@@ -152,7 +152,7 @@ func _build_full() -> void:
 	top.add_child(face)
 	var portrait := TextureRect.new()
 	portrait.name = "Portrait"
-	portrait.texture = PilotPortraits.texture_for(unit.pilot_profile, PilotPortraits.is_wounded(unit))
+	portrait.texture = PilotPortraits.texture_for_unit(unit)
 	_portrait_rect = portrait
 	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
@@ -268,7 +268,7 @@ func _refresh() -> void:
 	if armor_bar == null:
 		return
 	if _portrait_rect:  # the dressing variant while the pilot is hurt
-		var tex := PilotPortraits.texture_for(unit.pilot_profile, PilotPortraits.is_wounded(unit))
+		var tex := PilotPortraits.texture_for_unit(unit)
 		if _portrait_rect.texture != tex:
 			_portrait_rect.texture = tex
 	var a := PaperDoll.armor_fraction(unit)
