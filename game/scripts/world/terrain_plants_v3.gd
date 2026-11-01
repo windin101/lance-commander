@@ -157,6 +157,8 @@ func _make_materials() -> void:
 	_mat_reed.shader = load("res://shaders/grass.gdshader")
 	_mat_reed.set_shader_parameter("atlas", load("res://assets/terrain/v3/grass_atlas.png"))
 	_mat_reed.set_shader_parameter("wind", 0.35)
+	for m in [_mat_card, _mat_dome, _mat_flower, _mat_reed]:
+		m.set_shader_parameter("fill", d.ground_fill())
 
 
 func _kind(key: String, mesh: Mesh, range_m: float, mat: Material, shadows: bool) -> TerrainDressV3.Kind:

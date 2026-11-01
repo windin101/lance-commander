@@ -598,6 +598,13 @@ func _v3_material(map_name: String) -> ShaderMaterial:
 		rough.append(0.55 if i == V3_WET else 1.0)   # wet: smoother and darker
 		albs.append(0.75 if i == V3_WET else 1.0)
 		i += 1
+	var las: Variant = info.get("layer_albedo_scale")   # per map, by slot name ("scree", "dust"...): pale patches that read as grey scabs on this map's ground
+	if las is Dictionary:
+		var j := 0
+		for l in pinfo["layers"]:
+			if (las as Dictionary).has(String(l["slot"])):
+				albs[j] = albs[j] * float((las as Dictionary)[String(l["slot"])])
+			j += 1
 	mat.set_shader_parameter("tile_m", tiles)
 	mat.set_shader_parameter("albedo_gain", float(info.get("albedo_gain", 1.0)))
 	mat.set_shader_parameter("warm_k", 0.0 if pal == "lunar" else 1.0)

@@ -13,6 +13,7 @@ uniform float alpha_cut = 0.42;
 uniform float up_mix = 0.7;
 uniform float far_fade_start = 1.0e6;   // flowers lose their colour toward the ground tone with distance
 uniform float far_fade_end = 2.0e6;
+uniform float fill = 0.0;   // the ground's own shadow_fill: a floor of the plant's colour on night and airless maps
 
 varying vec3 vn;
 varying float h_k;
@@ -54,4 +55,5 @@ void fragment() {
 	ALBEDO = mix(a, COLOR.rgb * 0.3, far_k * 0.7);
 	ROUGHNESS = 1.0;
 	BACKLIGHT = ALBEDO * 0.3;
+	EMISSION = (ALBEDO + COLOR.rgb * 0.6) * fill;
 }

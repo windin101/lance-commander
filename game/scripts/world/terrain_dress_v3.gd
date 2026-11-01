@@ -116,13 +116,31 @@ func _put(k: Kind, p: Vector2, h: float, size: float, col: Color, var_v: float) 
 	k.chunks[key].append([t, Color(col.r * v * _gain, col.g * v * _gain, col.b * v * _gain)])
 
 
+var _scatter_material: ShaderMaterial
+
+
+## One shared material for rocks, pebbles and debris: vertex colour albedo plus the ground's shadow_fill floor.
+func _scatter_mat() -> ShaderMaterial:
+	if _scatter_material == null:
+		_scatter_material = ShaderMaterial.new()
+		_scatter_material.shader = load("res://shaders/scatter_v3.gdshader")
+		_scatter_material.set_shader_parameter("fill", ground_fill())
+	return _scatter_material
+
+
+## The ground's shadow_fill (palettes.json maps.<m>.shadow_fill, default 0.05): the floor every dressing material follows.
+func ground_fill() -> float:
+	if ground_material != null:
+		var v: Variant = ground_material.get_shader_parameter("shadow_fill")
+		if v != null:
+			return float(v)
+	return 0.05
+
+
 func _commit(k: Kind, name_: String) -> int:
 	var mat: Material = k.mat
 	if mat == null:
-		var sm := StandardMaterial3D.new()
-		sm.vertex_color_use_as_albedo = true
-		sm.roughness = 0.92
-		mat = sm
+		mat = _scatter_mat()
 	var total := 0
 	for key in k.chunks:
 		var items: Array = k.chunks[key]
@@ -372,7 +390,9 @@ func _vegetation(splat: Image, means: Array[Color], map_name: String) -> void:
 	var grass_mat := ShaderMaterial.new()
 	grass_mat.shader = load("res://shaders/grass.gdshader")
 	grass_mat.set_shader_parameter("atlas", load("res://assets/terrain/v3/grass_atlas.png"))
-	var leaf_mat: ShaderMaterial = ObjectsView.tree_materials()[1]
+	grass_mat.set_shader_parameter("fill", ground_fill())
+	var leaf_mat: ShaderMaterial = (ObjectsView.tree_materials()[1] as ShaderMaterial).duplicate()   # own copy: only the shrubs get the night fill
+	leaf_mat.set_shader_parameter("fill", ground_fill())
 	var grass := []
 	for i in 4:
 		var k := _kind(_clump_mesh(i), GRASS_RANGE)

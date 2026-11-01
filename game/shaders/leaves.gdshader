@@ -9,6 +9,7 @@ render_mode cull_disabled, specular_disabled, depth_draw_opaque;
 uniform sampler2D leaf_atlas : source_color, filter_linear_mipmap_anisotropic;
 uniform float wind_strength = 0.18;
 uniform float alpha_cut = 0.45;
+uniform float fill = 0.0;   // ground-scatter use only (dress shrubs): the ground's shadow_fill floor, so shrubs are not black on night maps
 uniform float lod_boost = 0.35;   // alpha gain per mip level: sparse twig sprays need more (dead trees) or they vanish at range
 
 varying vec3 crown_normal;
@@ -33,4 +34,5 @@ void fragment() {
 	NORMAL = normalize(crown_normal);
 	ROUGHNESS = 1.0;
 	BACKLIGHT = vec3(0.25) * COLOR.rgb;
+	EMISSION = (ALBEDO + COLOR.rgb * 0.6) * fill;
 }

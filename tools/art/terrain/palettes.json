@@ -154,7 +154,8 @@
   "mc2_04": {
    "palette": "temperate_muted",
    "approved": "Lee, 2026-10-26 (batch 1, LAN-73)",
-   "albedo_gain": 0.75
+   "albedo_gain": 0.75,
+   "layer_albedo_scale": {"scree": 0.7, "dust": 0.65}
   },
   "mc2_05": {
    "palette": "temperate_muted",
@@ -208,7 +209,8 @@
   "mc2_07": {
    "palette": "temperate_muted",
    "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator",
-   "albedo_gain": 0.65
+   "albedo_gain": 0.65,
+   "layer_albedo_scale": {"scree": 0.7, "dust": 0.65}
   },
   "mc2_08": {
    "palette": "industrial_grimy_dirt",

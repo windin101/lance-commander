@@ -4,5 +4,9 @@
  "relief_strength": 2.0,
  "approved": "Lee, 2026-10-26 (batch 1, LAN-73)",
  "albedo_gain": 0.75,
- "albedo_gain_suggested": 0.55
+ "albedo_gain_suggested": 0.55,
+ "layer_albedo_scale": {
+  "scree": 0.7,
+  "dust": 0.65
+ }
 }

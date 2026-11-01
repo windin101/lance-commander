@@ -194,6 +194,8 @@ def main():
         for k in ("shadow_fill", "tint_strength", "snow_tint_neutral", "exposure_lift", "mask2_edge"):   # optional per-map shader parameters (palettes.json maps.<m>)
             if k in P["maps"][m]:
                 info[k] = float(P["maps"][m][k])   # a hint only: water and burnt shadow bias it low
+        if "layer_albedo_scale" in P["maps"][m]:   # per-map albedo multiplier by slot name, e.g. {"dust": 0.8} (terrain polish rollout batch 1)
+            info["layer_albedo_scale"] = {k: float(v) for k, v in P["maps"][m]["layer_albedo_scale"].items()}
         pal2 = P["maps"][m].get("palette2")
         if pal2:   # a mixed map: a second palette where mask2.png says so (same class slots, blended by the mask)
             if pal2 not in done:
