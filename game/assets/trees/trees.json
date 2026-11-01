@@ -19,22 +19,25 @@
    "tris": 438
   },
   "pine1dead": {
-   "kind": "conifer_dead",
+   "kind": "dead",
    "height_m": 7.5,
    "width_m": 4.6,
-   "tris": 94
+   "tris": 856,
+   "variants": 3
   },
   "pine2dead": {
-   "kind": "conifer_dead",
+   "kind": "dead",
    "height_m": 11.8,
    "width_m": 4.6,
-   "tris": 94
+   "tris": 908,
+   "variants": 3
   },
   "pine3dead": {
-   "kind": "conifer_dead",
+   "kind": "dead",
    "height_m": 14.4,
    "width_m": 4.6,
-   "tris": 94
+   "tris": 908,
+   "variants": 3
   },
   "oak1": {
    "kind": "broadleaf",
@@ -121,64 +124,74 @@
    "tris": 160
   },
   "oak1dead": {
-   "kind": "broadleaf_dead",
+   "kind": "dead",
    "height_m": 19.4,
    "width_m": 20.0,
-   "tris": 196
+   "tris": 1798,
+   "variants": 3
   },
   "oak2dead": {
-   "kind": "broadleaf_dead",
+   "kind": "dead",
    "height_m": 11.5,
    "width_m": 11.9,
-   "tris": 196
+   "tris": 1578,
+   "variants": 3
   },
   "oak3dead": {
-   "kind": "broadleaf_dead",
+   "kind": "dead",
    "height_m": 12.9,
    "width_m": 13.3,
-   "tris": 196
+   "tris": 1692,
+   "variants": 3
   },
   "maple1dead": {
-   "kind": "broadleaf_dead",
+   "kind": "dead",
    "height_m": 10.0,
    "width_m": 10.3,
-   "tris": 196
+   "tris": 1328,
+   "variants": 3
   },
   "maple2dead": {
-   "kind": "broadleaf_dead",
+   "kind": "dead",
    "height_m": 10.0,
    "width_m": 10.3,
-   "tris": 196
+   "tris": 1232,
+   "variants": 3
   },
   "maple3dead": {
-   "kind": "broadleaf_dead",
+   "kind": "dead",
    "height_m": 10.0,
    "width_m": 10.3,
-   "tris": 196
+   "tris": 1200,
+   "variants": 3
   },
   "willow1dead": {
-   "kind": "broadleaf_dead",
+   "kind": "dead",
    "height_m": 10.0,
    "width_m": 10.3,
-   "tris": 196
+   "tris": 1552,
+   "variants": 3
   },
   "willow2dead": {
-   "kind": "broadleaf_dead",
+   "kind": "dead",
    "height_m": 11.6,
    "width_m": 12.0,
-   "tris": 196
+   "tris": 1560,
+   "variants": 3
   },
   "willow3dead": {
-   "kind": "broadleaf_dead",
+   "kind": "dead",
    "height_m": 13.0,
    "width_m": 13.4,
-   "tris": 196
+   "tris": 1582,
+   "variants": 3
   },
   "birch3dead": {
-   "kind": "broadleaf_dead",
+   "kind": "dead",
    "height_m": 13.0,
    "width_m": 5.4,
-   "tris": 196
+   "tris": 708,
+   "variants": 3
   },
   "palm1": {
    "kind": "palm",
@@ -217,5 +230,5 @@
    "tris": 1266
   }
  },
- "sources": "Poly Haven fir_tree_01, pine_tree_01, jacaranda_tree textures (CC0 1.0)"
+ "sources": "Poly Haven fir_tree_01, pine_tree_01, jacaranda_tree textures (CC0 1.0); dead-tree twigs procedural"
 }

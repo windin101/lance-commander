@@ -228,6 +228,7 @@ const FILLER_STEP_M := 6.0
 
 var _flat := {}   # Kind -> {Vector2i: PackedFloat32Array} (16 floats per instance: 3x4 transform rows + colour)
 var veg_counts := {}
+var plants_v3: TerrainPlantsV3   # understorey and shore dressing (terrain_plants_v3.gd), kept for the tests
 
 
 func _flat_put(k: Kind, p: Vector2, h: float, size: float, stretch: float, yaw: float, col: Color, sink := 0.04) -> void:
@@ -456,6 +457,10 @@ func _vegetation(splat: Image, means: Array[Color], map_name: String) -> void:
 	# 3) filler trees
 	var fillers := _fillers(splat, map_name)
 	veg_counts["fillers"] = fillers
+	_flat.clear()   # the fillers are committed; the plants start from an empty buffer set
+	if TerrainPlantsV3.enabled():
+		plants_v3 = TerrainPlantsV3.new()
+		veg_counts["plants"] = plants_v3.build(self, splat, means, map_name)
 	print("terrain dress: %d cover + shrub instances, %d filler trees (%d ms)" % [cover, fillers, Time.get_ticks_msec() - t0])
 
 

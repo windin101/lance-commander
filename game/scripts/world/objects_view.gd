@@ -349,6 +349,15 @@ func _add_tree(app: String, index: int, o: Dictionary, sim_map: SimMap) -> void:
 	var pos := Vector2(float(o["x"]), float(o["y"])) * sim_map.meters_per_wu
 	var jitter := 0.92 + 0.16 * fposmod(sin(float(index) * 12.9898) * 43758.5453, 1.0)  # a little size variety
 	var basis := Basis(Vector3.UP, PI - deg_to_rad(float(o["rotation"]))).scaled(Vector3.ONE * jitter)
+	if app.ends_with("dead"):
+		# dead trees (terrain polish round 3): three grown variants per type, a stretch of the height against the
+		# width and a small lean, per instance, so a stand of snags is not one tree repeated
+		var h1 := fposmod(sin(float(index) * 78.233) * 43758.5453, 1.0)
+		var h2 := fposmod(sin(float(index) * 39.346) * 24634.6345, 1.0)
+		var h3 := fposmod(sin(float(index) * 11.135) * 31415.9265, 1.0)
+		app = "%s#%d" % [app, int(h1 * DEAD_VARIANTS) % DEAD_VARIANTS]
+		var lean := Basis(Vector3(cos(h3 * TAU), 0.0, sin(h3 * TAU)), deg_to_rad(h2 * 5.0))
+		basis = Basis(Vector3.UP, PI - deg_to_rad(float(o["rotation"]))) * lean * Basis.from_scale(Vector3(jitter * (0.9 + 0.2 * h3), jitter * (0.88 + 0.24 * h2), jitter * (0.9 + 0.2 * h3)))
 	var xf := Transform3D(basis, TerrainView.to_3d(pos, sim_map.height_at(pos)))
 	if not _tree_xf.has(app):
 		_tree_xf[app] = []
@@ -356,8 +365,29 @@ func _add_tree(app: String, index: int, o: Dictionary, sim_map: SimMap) -> void:
 	(_tree_xf[app] as Array).append(xf)
 
 
+const DEAD_VARIANTS := 3
 static var _leaf_mat: ShaderMaterial
 static var _bark_mat: StandardMaterial3D
+static var _dead_mats: Array = []
+
+
+## Bark and twig materials of the dead trees (weathered bark tile; bare-twig sprays with a gentler sway).
+static func dead_materials() -> Array:
+	if _dead_mats.is_empty():
+		var bm := StandardMaterial3D.new()
+		bm.albedo_texture = load("res://assets/trees/bark_dead.png")
+		bm.vertex_color_use_as_albedo = true
+		bm.roughness = 1.0
+		bm.metallic_specular = 0.0
+		bm.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
+		var tm := ShaderMaterial.new()
+		tm.shader = load("res://shaders/leaves.gdshader")
+		tm.set_shader_parameter("leaf_atlas", load("res://assets/trees/twigs.png"))
+		tm.set_shader_parameter("wind_strength", 0.06)
+		tm.set_shader_parameter("alpha_cut", 0.4)
+		tm.set_shader_parameter("lod_boost", 1.2)
+		_dead_mats = [bm, tm]
+	return _dead_mats
 
 
 ## The shared bark and leaf materials of the HD trees (also used by TerrainDressV3's filler trees).
@@ -380,10 +410,14 @@ func _build_trees() -> void:
 		return
 	tree_materials()
 	for app in _tree_xf:
-		var scene: Node3D = load("res://assets/trees/%s.glb" % app).instantiate()
+		var base: String = app.get_slice("#", 0)
+		var vsuffix: String = "_" + app.get_slice("#", 1) if "#" in app and app.get_slice("#", 1) != "0" else ""
+		var dead: bool = base.ends_with("dead")
+		var mats: Array = dead_materials() if dead else [_bark_mat, _leaf_mat]
+		var scene: Node3D = load("res://assets/trees/%s.glb" % base).instantiate()
 		var pair: Array = [null, null]
 		for k in 2:
-			var mi := scene.find_child(["bark", "leaves"][k], true, false) as MeshInstance3D
+			var mi := scene.find_child(["bark", "leaves"][k] + vsuffix, true, false) as MeshInstance3D
 			if mi == null:
 				continue
 			var mm := MultiMesh.new()
@@ -396,7 +430,7 @@ func _build_trees() -> void:
 			var inst := MultiMeshInstance3D.new()
 			inst.name = "%s_%s" % [app, ["bark", "leaves"][k]]
 			inst.multimesh = mm
-			inst.material_override = _bark_mat if k == 0 else _leaf_mat
+			inst.material_override = mats[k]
 			add_child(inst)
 			pair[k] = mm
 		_tree_mm[app] = pair

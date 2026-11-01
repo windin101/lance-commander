@@ -28,6 +28,7 @@ from scipy import ndimage
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import hd_rig as R  # noqa: E402
+import trees_dead as TD  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "game/assets/trees"
@@ -36,7 +37,7 @@ CELL = 512
 # appearance -> (kind, params). Sizes come from the original model (measured at build time).
 TYPES = {
     "pine1": ("conifer", {"tiers": 10}), "pine2": ("conifer", {"tiers": 12}), "pine3": ("conifer", {"tiers": 14}),
-    "pine1dead": ("conifer_dead", {}), "pine2dead": ("conifer_dead", {}), "pine3dead": ("conifer_dead", {}),
+    "pine1dead": ("dead", {"style": "pine"}), "pine2dead": ("dead", {"style": "pine"}), "pine3dead": ("dead", {"style": "pine"}),
     "oak1": ("broadleaf", {"crown": (0.95, 0.62), "trunk_h": 0.38, "cards": 70}),
     "oak2": ("broadleaf", {"crown": (0.95, 0.6), "trunk_h": 0.4, "cards": 50}),
     "oak3": ("broadleaf", {"crown": (0.95, 0.6), "trunk_h": 0.4, "cards": 55}),
@@ -49,10 +50,10 @@ TYPES = {
     "jungletree1": ("broadleaf", {"crown": (1.0, 0.55), "trunk_h": 0.45, "cards": 45}),
     "jungletree2": ("broadleaf", {"crown": (1.0, 0.5), "trunk_h": 0.5, "cards": 60}),
     "willow1": ("willow", {}), "willow2": ("willow", {}), "willow3": ("willow", {}),
-    "oak1dead": ("broadleaf_dead", {}), "oak2dead": ("broadleaf_dead", {}), "oak3dead": ("broadleaf_dead", {}),
-    "maple1dead": ("broadleaf_dead", {}), "maple2dead": ("broadleaf_dead", {}), "maple3dead": ("broadleaf_dead", {}),
-    "willow1dead": ("broadleaf_dead", {}), "willow2dead": ("broadleaf_dead", {}), "willow3dead": ("broadleaf_dead", {}),
-    "birch3dead": ("broadleaf_dead", {"bark": (0.95, 0.93, 0.88)}),
+    "oak1dead": ("dead", {"style": "oak"}), "oak2dead": ("dead", {"style": "oak"}), "oak3dead": ("dead", {"style": "oak"}),
+    "maple1dead": ("dead", {"style": "maple"}), "maple2dead": ("dead", {"style": "maple"}), "maple3dead": ("dead", {"style": "maple"}),
+    "willow1dead": ("dead", {"style": "willow"}), "willow2dead": ("dead", {"style": "willow"}), "willow3dead": ("dead", {"style": "willow"}),
+    "birch3dead": ("dead", {"style": "birch", "bark": (0.95, 0.93, 0.88)}),
     "palm1": ("palm", {}), "palms": ("palm_group", {}),
     "tc1_1": ("clump", {"seed": 1}), "tc1_2": ("clump", {"seed": 2}), "tc1_3": ("clump", {"seed": 3}),
     "tc1_4": ("clump", {"seed": 4}),
@@ -296,7 +297,7 @@ def willow(bark, leaves, H, W, leaf, bark_col, rng, at=(0, 0, 0)):
         a = 2 * math.pi * k / 22 + rng.uniform(-0.1, 0.1)
         top = at + rot_y(np.array([rx * rng.uniform(0.75, 1.0), H * rng.uniform(0.8, 0.95), 0]), a)
         tangent = rot_y(np.array([0, 0, 1.0]), a)
-        hang = H * rng.uniform(0.45, 0.65)
+        hang = H * rng.uniform(0.6, 0.85)
         card(leaves, top, tangent, np.array([0, 1.0, 0]) + rot_y(np.array([0.15, 0, 0]), a), rx * 0.9, hang, 3, leaf,
              normal_from=centre, anchor="top")
 
@@ -329,21 +330,22 @@ def build(app, kind, prm, H, W, leaf, means, seed):
     rng = np.random.default_rng(seed)
     bark, leaves = Mesh(), Mesh()
     bark_col = list(prm.get("bark", (0.62, 0.56, 0.5))) + [1.0]
-    cell = {"conifer": 0, "conifer_dead": 0, "broadleaf": 1, "broadleaf_dead": 1, "willow": 3, "palm": 2, "palm_group": 2, "clump": 1}[kind]
+    cell = {"conifer": 0, "dead": 1, "broadleaf": 1, "willow": 3, "palm": 2, "palm_group": 2, "clump": 1}[kind]
     ref = np.asarray(means[cell])
     gain = {0: 0.62}.get(cell, 1.2)  # conifers read darker, as the originals do
     tint = np.clip(np.asarray(leaf, float) / ref * gain, 0.15, 2.0).tolist() + [1.0]
     if kind in ("palm", "palm_group"):   # the original palms' leaf colour is a pale straw: pull them to a healthier green (terrain polish 2026-11-01)
         tint = [tint[0] * 0.68, tint[1] * 0.9, tint[2] * 0.6, 1.0]
+    if kind == "willow":   # the original willows' straw-yellow crowns read as yellow lollipops: a darker green (round 3b)
+        tint = [tint[0] * 0.36, tint[1] * 0.6, tint[2] * 0.34, 1.0]
     if kind == "conifer":
         conifer(bark, leaves, H, W, tint, bark_col, rng, tiers=prm.get("tiers", 9))
-    elif kind == "conifer_dead":
-        conifer(bark, leaves, H, W, tint, bark_col, rng, dead=True)
     elif kind == "broadleaf":
         broadleaf(bark, leaves, H, W, tint, bark_col, rng, crown=prm.get("crown", (0.95, 0.6)),
                   trunk_h=prm.get("trunk_h", 0.4), cards=prm.get("cards", 50))
-    elif kind == "broadleaf_dead":
-        broadleaf(bark, leaves, H, W, tint, bark_col, rng, dead=True)
+    elif kind == "dead":   # terrain polish round 3: grown dead trees (trees_dead.py); `leaves` holds the twig cards
+        bc = list(prm.get("bark", (0.85, 0.72, 0.58))) + [1.0]
+        TD.grow_dead(prm["style"], H, W, rng, bark, leaves, bc)
     elif kind == "willow":
         willow(bark, leaves, H, W, tint, bark_col, rng)
     elif kind == "palm":
@@ -414,23 +416,45 @@ def original_size_and_leaf(app):
     return H, W, col
 
 
+DEAD_VARIANTS = 3
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", default=os.path.expanduser("~/craft/solid/mc2/tree_cc0"))
     ap.add_argument("--only")
     a = ap.parse_args()
-    means = build_atlas(a.src)
     only = set(a.only.split(",")) if a.only else None
-    report = {}
+    if only is None:   # the live-tree atlas and bark are rebuilt only on a full run
+        means = build_atlas(a.src)
+    else:
+        saved = OUT / "leaves.png"
+        keep = saved.read_bytes()
+        means = build_atlas(a.src)
+        saved.write_bytes(keep)   # --only never touches the shared atlas
+    if only is None or any(TYPES[t][0] == "dead" for t in only if t in TYPES):
+        TD.make_twig_atlas(OUT / "twigs.png")
+        TD.make_dead_bark(OUT / "bark.png" if False else f"{a.src}/pine_tree_01/bark_diff.png", OUT / "bark_dead.png")
+    old = json.loads((OUT / "trees.json").read_text())["types"] if (OUT / "trees.json").exists() else {}
+    report = dict(old)
     for k, (app, (kind, prm)) in enumerate(TYPES.items()):
         if only and app not in only:
             continue
         H, W, leaf = original_size_and_leaf(app)
-        bark, leaves = build(app, kind, prm, H, W, leaf, means, seed=1000 + k + prm.get("seed", 0) * 17)
-        write_glb(OUT / f"{app}.glb", [("bark", bark), ("leaves", leaves)])
-        report[app] = {"kind": kind, "height_m": round(H, 1), "width_m": round(W, 1), "tris": (len(bark.i) + len(leaves.i)) // 3}
-        print(f"{app:12} {kind:15} H {H:5.1f} W {W:5.1f} tris {report[app]['tris']}")
-    (OUT / "trees.json").write_text(json.dumps({"types": report, "sources": "Poly Haven fir_tree_01, pine_tree_01, jacaranda_tree textures (CC0 1.0)"}, indent=1) + "\n")
+        seed = 1000 + k + prm.get("seed", 0) * 17
+        bark, leaves = build(app, kind, prm, H, W, leaf, means, seed=seed)
+        meshes = [("bark", bark), ("leaves", leaves)]
+        tris = (len(bark.i) + len(leaves.i)) // 3
+        if kind == "dead":   # per-instance variants: bark/leaves, bark_1/leaves_1, ...
+            for v in range(1, DEAD_VARIANTS):
+                b2, l2 = build(app, kind, prm, H, W, leaf, means, seed=seed + 7919 * v)
+                meshes += [(f"bark_{v}", b2), (f"leaves_{v}", l2)]
+        write_glb(OUT / f"{app}.glb", meshes)
+        report[app] = {"kind": kind, "height_m": round(H, 1), "width_m": round(W, 1), "tris": tris}
+        if kind == "dead":
+            report[app]["variants"] = DEAD_VARIANTS
+        print(f"{app:12} {kind:15} H {H:5.1f} W {W:5.1f} tris {tris}")
+    (OUT / "trees.json").write_text(json.dumps({"types": report, "sources": "Poly Haven fir_tree_01, pine_tree_01, jacaranda_tree textures (CC0 1.0); dead-tree twigs procedural"}, indent=1) + "\n")
 
 
 if __name__ == "__main__":

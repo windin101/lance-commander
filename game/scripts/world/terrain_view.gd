@@ -113,7 +113,155 @@ func _ground_mesh() -> ArrayMesh:
 			st.add_index(i + n)
 	st.generate_normals()
 	st.generate_tangents()
-	return st.commit()
+	if not shore_mesh_enabled() or map.water_level_m <= -100.0:
+		return st.commit()
+	return _refine_shore(st, n, tiling)
+
+
+# --- shore refinement (terrain polish round 3, 2026-11-01) ------------------------------------------------------------
+# The sim's ground is the 25.6 m grid, so the waterline of a narrow channel or a ford followed its triangle facets. The
+# quads that straddle the water level (within SHORE_BAND_M) are drawn as a finer render-only surface instead: 8 x 8
+# sub-quads of a Catmull-Rom bicubic through the same vertices (so it agrees with the sim exactly at every grid vertex),
+# blended into the sim's own bilinear surface by a weight that reaches 0 where the ground is SHORE_BAND_M above or below the
+# water, so the seam with the untouched mesh is closed (the shared edge is the same straight line). The bicubic's
+# departure from the sim's bilinear surface is soft-limited to SHORE_MAX_DEV metres, which is also the most a unit
+# standing in the refined band can float or sink. Heights in the sim are untouched. Flag: --no-shore-mesh.
+const SHORE_SUB := 8
+const SHORE_BAND_M := 1.8
+const SHORE_MAX_DEV := 0.7
+
+
+static func shore_mesh_enabled() -> bool:
+	return not OS.get_cmdline_user_args().has("--no-shore-mesh") and OS.get_environment("MC2_SHORE_MESH") != "0"
+
+
+static func _cr_w(t: float) -> PackedFloat32Array:
+	var t2 := t * t
+	var t3 := t2 * t
+	return PackedFloat32Array([(-t3 + 2.0 * t2 - t) * 0.5, (3.0 * t3 - 5.0 * t2 + 2.0) * 0.5, (-3.0 * t3 + 4.0 * t2 + t) * 0.5, (t3 - t2) * 0.5])
+
+
+static func _cr_d(t: float) -> PackedFloat32Array:
+	var t2 := t * t
+	return PackedFloat32Array([(-3.0 * t2 + 4.0 * t - 1.0) * 0.5, (9.0 * t2 - 10.0 * t) * 0.5, (-9.0 * t2 + 8.0 * t + 1.0) * 0.5, (3.0 * t2 - 2.0 * t) * 0.5])
+
+
+## Whether quad (row, col) is drawn as the refined shore surface.
+func shore_quad(row: int, col: int) -> bool:
+	var water := map.water_level_m
+	var a := map.vertex_height(row, col)
+	var b := map.vertex_height(row, col + 1)
+	var c := map.vertex_height(row + 1, col)
+	var d := map.vertex_height(row + 1, col + 1)
+	return minf(minf(a, b), minf(c, d)) < water + SHORE_BAND_M and maxf(maxf(a, b), maxf(c, d)) > water - SHORE_BAND_M
+
+
+## The refined surface at fraction (tx, ty) of quad (row, col): [height, dH/dtx, dH/dty, weight] (static for the tests).
+static func shore_height(hv: PackedFloat32Array, tx: float, ty: float, water: float) -> PackedFloat32Array:
+	var wx := _cr_w(tx)
+	var dwx := _cr_d(tx)
+	var wy := _cr_w(ty)
+	var dwy := _cr_d(ty)
+	var cat := 0.0
+	var dcx := 0.0
+	var dcy := 0.0
+	for j in 4:
+		var rx := 0.0
+		var rdx := 0.0
+		for i in 4:
+			var v := hv[j * 4 + i]
+			rx += wx[i] * v
+			rdx += dwx[i] * v
+		cat += wy[j] * rx
+		dcx += wy[j] * rdx
+		dcy += dwy[j] * rx
+	var h11 := hv[5]
+	var h12 := hv[6]
+	var h21 := hv[9]
+	var h22 := hv[10]
+	var bil := (1.0 - ty) * ((1.0 - tx) * h11 + tx * h12) + ty * ((1.0 - tx) * h21 + tx * h22)
+	var dbx := (1.0 - ty) * (h12 - h11) + ty * (h22 - h21)
+	var dby := (1.0 - tx) * (h21 - h11) + tx * (h22 - h12)
+	var e0 := SHORE_BAND_M * 0.35
+	var x := absf(bil - water)
+	var tt := clampf((x - e0) / (SHORE_BAND_M - e0), 0.0, 1.0)
+	var w := 1.0 - tt * tt * (3.0 - 2.0 * tt)
+	var dw := -6.0 * tt * (1.0 - tt) / (SHORE_BAND_M - e0) * signf(bil - water) if tt > 0.0 and tt < 1.0 else 0.0
+	var d0 := cat - bil
+	var dd := w * d0
+	var th := tanh(dd / SHORE_MAX_DEV)
+	var sech2 := 1.0 - th * th
+	var ddx := dw * dbx * d0 + w * (dcx - dbx)
+	var ddy := dw * dby * d0 + w * (dcy - dby)
+	return PackedFloat32Array([bil + SHORE_MAX_DEV * th, dbx + sech2 * ddx, dby + sech2 * ddy, w])
+
+
+func _refine_shore(st: SurfaceTool, n: int, tiling: float) -> ArrayMesh:
+	var arrays := st.commit_to_arrays()
+	var idx: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+	var norms: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+	var quads_total := (n - 1) * (n - 1)
+	if idx.size() != quads_total * 6:
+		push_warning("terrain: ground index layout changed, shore refinement skipped")
+		var plain := ArrayMesh.new()
+		plain.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+		return plain
+	var keep := PackedInt32Array()
+	var fine := SurfaceTool.new()
+	fine.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var S := SHORE_SUB
+	var vm := map.vertex_m
+	var water := map.water_level_m
+	var vcount := 0
+	var refined := 0
+	var t0 := Time.get_ticks_msec()
+	for row in n - 1:
+		for col in n - 1:
+			var q := row * (n - 1) + col
+			if not shore_quad(row, col):
+				for k in 6:
+					keep.append(idx[q * 6 + k])
+				continue
+			refined += 1
+			var hv := PackedFloat32Array()
+			hv.resize(16)
+			for j in 4:
+				for i in 4:
+					hv[j * 4 + i] = map.vertex_height(row + j - 1, col + i - 1)
+			var n00 := norms[row * n + col]
+			var n01 := norms[row * n + col + 1]
+			var n10 := norms[(row + 1) * n + col]
+			var n11 := norms[(row + 1) * n + col + 1]
+			for b in S + 1:
+				var ty := float(b) / S
+				for a in S + 1:
+					var tx := float(a) / S
+					var r := shore_height(hv, tx, ty, water)
+					var fc := col + tx
+					var fr := row + ty
+					var ni := (n00.lerp(n01, tx)).lerp(n10.lerp(n11, tx), ty)
+					var na := Vector3(-r[1] / vm, 1.0, -r[2] / vm).normalized()
+					fine.set_normal((ni.lerp(na, r[3])).normalized())
+					fine.set_uv(Vector2(fc / n, fr / n))
+					fine.set_uv2(Vector2(fc / n, fr / n) * tiling)
+					fine.add_vertex(to_3d(Vector2(-map.half_m + fc * vm, map.half_m - fr * vm), r[0]))
+			for b in S:
+				for a in S:
+					var i0 := vcount + b * (S + 1) + a
+					fine.add_index(i0)
+					fine.add_index(i0 + 1)
+					fine.add_index(i0 + S + 1)
+					fine.add_index(i0 + 1)
+					fine.add_index(i0 + S + 2)
+					fine.add_index(i0 + S + 1)
+			vcount += (S + 1) * (S + 1)
+	arrays[Mesh.ARRAY_INDEX] = keep
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	if refined > 0:
+		fine.commit(mesh)
+	print("terrain: shore refinement, %d quads drawn at %d x %d (%d triangles, %d ms)" % [refined, S, S, refined * S * S * 2, Time.get_ticks_msec() - t0])
+	return mesh
 
 
 ## Water plane at the mission's water level. Opacity per vertex as the original set it (quad.cpp:2069-2105):

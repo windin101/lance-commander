@@ -178,6 +178,8 @@ func _cam_view(view: Node, v: PackedStringArray) -> void:
 			cam.yaw_deg = float(v[0])
 		cam.pitch_deg = float(v[1])
 		cam.distance = float(v[2])
+		if _hide_units and view.compass:
+			view.compass.enabled = false   # terrain review shots: no ground compass arrow at the focus
 		if v.size() >= 5:   # optional focus in sim metres (map centre = 0), for maps whose lance starts off the map
 			cam.focus = Vector3(float(v[3]), 0, -float(v[4]))
 

@@ -9,6 +9,7 @@ render_mode cull_disabled, specular_disabled, depth_draw_opaque;
 uniform sampler2D leaf_atlas : source_color, filter_linear_mipmap_anisotropic;
 uniform float wind_strength = 0.18;
 uniform float alpha_cut = 0.45;
+uniform float lod_boost = 0.35;   // alpha gain per mip level: sparse twig sprays need more (dead trees) or they vanish at range
 
 varying vec3 crown_normal;
 
@@ -27,7 +28,7 @@ void fragment() {
 	vec2 px = UV * vec2(textureSize(leaf_atlas, 0));
 	float lod = max(0.0, log2(max(length(dFdx(px)), length(dFdy(px)))));
 	ALBEDO = t.rgb * COLOR.rgb;
-	ALPHA = clamp(t.a * (1.0 + lod * 0.35), 0.0, 1.0);
+	ALPHA = clamp(t.a * (1.0 + lod * lod_boost), 0.0, 1.0);
 	ALPHA_SCISSOR_THRESHOLD = alpha_cut;
 	NORMAL = normalize(crown_normal);
 	ROUGHNESS = 1.0;
