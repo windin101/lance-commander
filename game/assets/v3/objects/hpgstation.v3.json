@@ -1,0 +1,52 @@
+{
+ "app": "hpgstation",
+ "made_by": "tools/art/v3/bld_hpg.py",
+ "source_dims": "HPG station: nine-sided lattice dish (r 17.1, rim y 30.6) on three leaning spires (tips y 48.6) over a sloped pedestal, a long hall with cooling units and a stepped control pod",
+ "states": {
+  "intact": {
+   "tris_lod0": 5712,
+   "tris_lod1": 2653,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -17.45,
+    0.0,
+    -20.94
+   ],
+   "bounds_max": [
+    41.44,
+    48.68,
+    20.94
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 5879,
+   "tris_lod1": 2828,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -17.45,
+    0.0,
+    -20.94
+   ],
+   "bounds_max": [
+    41.44,
+    48.68,
+    20.94
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1534,
+   "tris_lod1": 1000,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -16.13,
+    -0.22,
+    -22.82
+   ],
+   "bounds_max": [
+    42.18,
+    4.2,
+    22.82
+   ]
+  }
+ }
+}

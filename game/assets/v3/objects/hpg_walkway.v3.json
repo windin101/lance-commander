@@ -1,0 +1,52 @@
+{
+ "app": "hpg_walkway",
+ "made_by": "tools/art/v3/bld_hpg.py",
+ "source_dims": "HPG walkway: a 25.6 m sloped arm with ribs, slit windows and two roof hatch plates",
+ "states": {
+  "intact": {
+   "tris_lod0": 218,
+   "tris_lod1": 86,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -6.42
+   ],
+   "bounds_max": [
+    12.8,
+    6.88,
+    6.42
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 399,
+   "tris_lod1": 259,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -6.42
+   ],
+   "bounds_max": [
+    12.8,
+    9.49,
+    6.42
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 378,
+   "tris_lod1": 194,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.98,
+    -0.3,
+    -6.99
+   ],
+   "bounds_max": [
+    13.98,
+    4.06,
+    6.99
+   ]
+  }
+ }
+}

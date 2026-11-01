@@ -1,0 +1,52 @@
+{
+ "app": "hpg_office",
+ "made_by": "tools/art/v3/bld_hpg.py",
+ "source_dims": "HPG ziggurat (game frame: node offset 7.37, 1.18, -6.09 applied): stepped sloped tiers to a tower at y 14.8 with an emblem prow, a window ribbon, a flat-roofed west wing",
+ "states": {
+  "intact": {
+   "tris_lod0": 324,
+   "tris_lod1": 238,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.9,
+    0.0,
+    -8.89
+   ],
+   "bounds_max": [
+    11.06,
+    16.04,
+    9.11
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 567,
+   "tris_lod1": 469,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.9,
+    0.0,
+    -8.89
+   ],
+   "bounds_max": [
+    11.06,
+    17.74,
+    9.11
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 780,
+   "tris_lod1": 424,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.12,
+    -0.23,
+    -9.72
+   ],
+   "bounds_max": [
+    10.35,
+    3.96,
+    9.94
+   ]
+  }
+ }
+}

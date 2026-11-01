@@ -1,0 +1,52 @@
+{
+ "app": "hpgoutbldg",
+ "made_by": "tools/art/v3/bld_hpg.py",
+ "source_dims": "HPG outbuilding: U-plan sloped block x +-12.1, z -10.8..9.5, roof y 5.9, a low court block between the arms",
+ "states": {
+  "intact": {
+   "tris_lod0": 542,
+   "tris_lod1": 356,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.14,
+    0.0,
+    -10.8
+   ],
+   "bounds_max": [
+    12.12,
+    6.6,
+    9.54
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 723,
+   "tris_lod1": 529,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.14,
+    0.0,
+    -10.8
+   ],
+   "bounds_max": [
+    12.12,
+    9.11,
+    9.54
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1332,
+   "tris_lod1": 716,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.21,
+    -0.4,
+    -11.39
+   ],
+   "bounds_max": [
+    13.21,
+    3.97,
+    9.91
+   ]
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "app": "hpg_end",
+ "made_by": "tools/art/v3/bld_hpg.py",
+ "source_dims": "HPG end piece: a sloped head block (roof y 7.4) on a walkway arm",
+ "states": {
+  "intact": {
+   "tris_lod0": 182,
+   "tris_lod1": 114,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -8.03
+   ],
+   "bounds_max": [
+    8.12,
+    7.46,
+    8.02
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 363,
+   "tris_lod1": 287,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -8.03
+   ],
+   "bounds_max": [
+    8.12,
+    9.55,
+    8.02
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 696,
+   "tris_lod1": 376,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.07,
+    -0.21,
+    -8.74
+   ],
+   "bounds_max": [
+    8.85,
+    3.98,
+    9.67
+   ]
+  }
+ }
+}

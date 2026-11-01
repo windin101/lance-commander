@@ -1,0 +1,52 @@
+{
+ "app": "hpg_gen",
+ "made_by": "tools/art/v3/bld_hpg.py",
+ "source_dims": "HPG generator: a long sloped block, a second block with a low connector, two louvred cooling units with tent roofs to y 10.6",
+ "states": {
+  "intact": {
+   "tris_lod0": 1916,
+   "tris_lod1": 746,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.55,
+    0.0,
+    -10.84
+   ],
+   "bounds_max": [
+    12.34,
+    10.73,
+    10.84
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 2097,
+   "tris_lod1": 919,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.55,
+    0.0,
+    -10.84
+   ],
+   "bounds_max": [
+    12.34,
+    10.73,
+    10.84
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1356,
+   "tris_lod1": 740,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.97,
+    -0.33,
+    -11.79
+   ],
+   "bounds_max": [
+    12.82,
+    3.9,
+    11.79
+   ]
+  }
+ }
+}

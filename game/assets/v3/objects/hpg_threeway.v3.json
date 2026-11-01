@@ -1,0 +1,52 @@
+{
+ "app": "hpg_threeway",
+ "made_by": "tools/art/v3/bld_hpg.py",
+ "source_dims": "HPG three-way junction: a sloped head block with arms west, north and south",
+ "states": {
+  "intact": {
+   "tris_lod0": 334,
+   "tris_lod1": 194,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -12.8
+   ],
+   "bounds_max": [
+    8.12,
+    7.46,
+    12.8
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 515,
+   "tris_lod1": 367,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.8,
+    0.0,
+    -12.8
+   ],
+   "bounds_max": [
+    8.12,
+    9.87,
+    12.8
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 1332,
+   "tris_lod1": 740,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -13.07,
+    -0.3,
+    -13.07
+   ],
+   "bounds_max": [
+    8.85,
+    3.95,
+    13.57
+   ]
+  }
+ }
+}
