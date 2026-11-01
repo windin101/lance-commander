@@ -18,10 +18,21 @@ const TYPES := {
 	"sandbagwall": [20.0, 8.4], "sandbagbunker": [40.0, 6.0], "tripodbarricade": [6.0, 8.4], "smallbarricade": [6.0, 5.0],
 	"corrigatedmetalbarricade": [15.0, 8.4], "sawhorsebarricade": [3.0, 1.6],
 }
-## Pieces whose placement rotation is a quarter turn off the run they belong to (degrees added to the rotation). Measured over all 24 maps:
-## the diagonal pieces lie across their line at the raw rotation and join end to end at +-90, and shantyfence's original runs along -x,
-## not -z, while its v3 model is built along -z. ObjectsView turns the models by the same offset, so the sim footprint and the drawn piece agree.
-const YAW_OFFSET := {"wirefencediag": -90.0, "razorwirefencediag": -90.0, "woodenfencediag": -90.0, "shantyfence": -90.0}
+## Fence pieces whose placement rotation does not give their run directly. Measured over all 24 maps by how many piece ends meet another
+## piece's end (Lee 2026-11-02): fence rotations are mirrored north-south (run = 180 - rotation). Straight pieces in long runs join either
+## way, but the mirror closes their corners and run ends (411 loose ends against 1,173), and the diagonal pieces lay across their line
+## without it. shantyfence runs at 90 - rotation (its v3 model is built along -z, the original along -x). Walls, sandbags and barricades
+## are not in this table: the same measure cannot tell for them (overlapping or centred pieces), so they keep the plain convention.
+const MIRRORED := {
+	"wirefence": 180.0, "woodenfence": 180.0, "razorwirefence": 180.0,
+	"wirefencediag": 180.0, "razorwirefencediag": 180.0, "woodenfencediag": 180.0, "shantyfence": 90.0,
+}
+
+
+## The rotation (degrees) a piece's run actually takes, in the same convention as direction().
+static func run_rotation(appearance: String, rotation_deg: float) -> float:
+	return float(MIRRORED[appearance]) - rotation_deg if MIRRORED.has(appearance) else rotation_deg
+
 
 var world: SimWorld
 var props: Array[Dictionary] = []  # {index, a, b, level, damage, done}
@@ -42,7 +53,7 @@ static func direction(rotation_deg: float) -> Vector2:
 func add(object_index: int, appearance: String, pos: Vector2, rotation_deg: float) -> void:
 	var t: Array = TYPES[appearance]
 	var a := pos
-	var b := pos + direction(rotation_deg + float(YAW_OFFSET.get(appearance, 0.0))) * float(t[1])
+	var b := pos + direction(run_rotation(appearance, rotation_deg)) * float(t[1])
 	var id := props.size()
 	props.append({"index": object_index, "a": a, "b": b, "level": float(t[0]), "damage": 0.0, "done": false})
 	var lo := Vector2(minf(a.x, b.x), minf(a.y, b.y)) - Vector2.ONE * CRUSH_MECH_M

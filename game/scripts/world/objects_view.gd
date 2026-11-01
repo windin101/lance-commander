@@ -69,10 +69,10 @@ func build(sim_map: SimMap, mission: String) -> int:
 		BuildingV3.set_lods(node)
 		var pos := Vector2(float(o["x"]), float(o["y"])) * sim_map.meters_per_wu
 		node.position = TerrainView.to_3d(pos, sim_map.height_at(pos))
-		var yaw_fix := float(SimProps.YAW_OFFSET.get(app, 0.0))
-		if app == "shantyfence" and not res_by_app.get(app, "").begins_with("res://assets/v3/"):
-			yaw_fix = 0.0  # the original model already runs along -x
-		node.rotation.y = PI - deg_to_rad(float(o["rotation"]) + yaw_fix)
+		var run := SimProps.run_rotation(app, float(o["rotation"]))  # fence pieces whose rotation is mirrored (see SimProps)
+		if app == "shantyfence" and not String(res_by_app.get(app, "")).begins_with("res://assets/v3/"):
+			run += 90.0  # the original model runs along -x, a quarter turn from the v3 one
+		node.rotation.y = PI - deg_to_rad(run)
 		add_child(node)
 		nodes[index] = node
 		_appearance[index] = app

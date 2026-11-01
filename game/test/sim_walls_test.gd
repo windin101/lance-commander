@@ -158,7 +158,7 @@ func test_prop_direction_matches_the_view_node() -> void:
 		node.free()
 
 
-## Lee 2026-11-02: diagonal fence pieces stood across their line like slats. With SimProps.YAW_OFFSET a mc2_01 wirefencediag piece's far
+## Lee 2026-11-02: diagonal fence pieces stood across their line like slats. With SimProps.run_rotation a mc2_01 wirefencediag piece's far
 ## end lands on the next piece's anchor, as in a joined run; at the raw rotation almost none do.
 func test_diagonal_fence_pieces_join_end_to_end_with_the_yaw_offset() -> void:
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/maps/mc2_01/objects.json"))
@@ -172,8 +172,8 @@ func test_diagonal_fence_pieces_join_end_to_end_with_the_yaw_offset() -> void:
 	var joined := [0, 0]  # [raw rotation, with offset]
 	for i in anchors.size():
 		for k in 2:
-			var off := float(SimProps.YAW_OFFSET["wirefencediag"]) if k == 1 else 0.0
-			var tip: Vector2 = anchors[i] + SimProps.direction(rots[i] + off) * float(SimProps.TYPES["wirefencediag"][1])
+			var r: float = SimProps.run_rotation("wirefencediag", rots[i]) if k == 1 else rots[i]
+			var tip: Vector2 = anchors[i] + SimProps.direction(r) * float(SimProps.TYPES["wirefencediag"][1])
 			if anchors.any(func(a: Vector2) -> bool: return a.distance_to(tip) < 1.0):
 				joined[k] += 1
 	assert_int(joined[0]).is_less(anchors.size() / 10)
