@@ -18,6 +18,10 @@ const TYPES := {
 	"sandbagwall": [20.0, 8.4], "sandbagbunker": [40.0, 6.0], "tripodbarricade": [6.0, 8.4], "smallbarricade": [6.0, 5.0],
 	"corrigatedmetalbarricade": [15.0, 8.4], "sawhorsebarricade": [3.0, 1.6],
 }
+## Pieces whose placement rotation is a quarter turn off the run they belong to (degrees added to the rotation). Measured over all 24 maps:
+## the diagonal pieces lie across their line at the raw rotation and join end to end at +-90, and shantyfence's original runs along -x,
+## not -z, while its v3 model is built along -z. ObjectsView turns the models by the same offset, so the sim footprint and the drawn piece agree.
+const YAW_OFFSET := {"wirefencediag": -90.0, "razorwirefencediag": -90.0, "woodenfencediag": -90.0, "shantyfence": -90.0}
 
 var world: SimWorld
 var props: Array[Dictionary] = []  # {index, a, b, level, damage, done}
@@ -38,7 +42,7 @@ static func direction(rotation_deg: float) -> Vector2:
 func add(object_index: int, appearance: String, pos: Vector2, rotation_deg: float) -> void:
 	var t: Array = TYPES[appearance]
 	var a := pos
-	var b := pos + direction(rotation_deg) * float(t[1])
+	var b := pos + direction(rotation_deg + float(YAW_OFFSET.get(appearance, 0.0))) * float(t[1])
 	var id := props.size()
 	props.append({"index": object_index, "a": a, "b": b, "level": float(t[0]), "damage": 0.0, "done": false})
 	var lo := Vector2(minf(a.x, b.x), minf(a.y, b.y)) - Vector2.ONE * CRUSH_MECH_M

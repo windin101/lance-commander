@@ -21,6 +21,7 @@ func build(sim_map: SimMap, mission: String) -> int:
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
 	var types: Dictionary = data["types"]
 	var scenes := {}
+	var res_by_app := {}  # appearance -> the model path chosen above
 	var placed := 0
 	for index in data["objects"].size():
 		var o: Dictionary = data["objects"][index]
@@ -49,6 +50,7 @@ func build(sim_map: SimMap, mission: String) -> int:
 			if not ResourceLoader.exists(res) or OS.get_cmdline_user_args().has("--no-hd"):
 				res = "res://assets/objects/%s.glb" % app
 			scenes[app] = load(res) if ResourceLoader.exists(res) else null
+			res_by_app[app] = res
 			if scenes[app] != null:
 				var probe: Node3D = scenes[app].instantiate()
 				_matte(probe)  # materials are shared by every instance of this model
@@ -67,7 +69,10 @@ func build(sim_map: SimMap, mission: String) -> int:
 		BuildingV3.set_lods(node)
 		var pos := Vector2(float(o["x"]), float(o["y"])) * sim_map.meters_per_wu
 		node.position = TerrainView.to_3d(pos, sim_map.height_at(pos))
-		node.rotation.y = PI - deg_to_rad(float(o["rotation"]))
+		var yaw_fix := float(SimProps.YAW_OFFSET.get(app, 0.0))
+		if app == "shantyfence" and not res_by_app.get(app, "").begins_with("res://assets/v3/"):
+			yaw_fix = 0.0  # the original model already runs along -x
+		node.rotation.y = PI - deg_to_rad(float(o["rotation"]) + yaw_fix)
 		add_child(node)
 		nodes[index] = node
 		_appearance[index] = app

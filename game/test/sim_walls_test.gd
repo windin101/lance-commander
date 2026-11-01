@@ -156,3 +156,25 @@ func test_prop_direction_matches_the_view_node() -> void:
 		assert_float(local_back.x).is_equal_approx(d.x, 0.001)
 		assert_float(-local_back.z).is_equal_approx(d.y, 0.001)  # sim y is world -z
 		node.free()
+
+
+## Lee 2026-11-02: diagonal fence pieces stood across their line like slats. With SimProps.YAW_OFFSET a mc2_01 wirefencediag piece's far
+## end lands on the next piece's anchor, as in a joined run; at the raw rotation almost none do.
+func test_diagonal_fence_pieces_join_end_to_end_with_the_yaw_offset() -> void:
+	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/maps/mc2_01/objects.json"))
+	var anchors: Array[Vector2] = []
+	var rots: Array[float] = []
+	for o in data["objects"]:
+		if String(data["types"].get(str(int(o["type"])), {}).get("appearance", "")) == "wirefencediag":
+			anchors.append(Vector2(float(o["x"]), float(o["y"])) * 0.2)  # mc2_01: 0.2 m per world unit
+			rots.append(float(o["rotation"]))
+	assert_int(anchors.size()).is_greater(50)
+	var joined := [0, 0]  # [raw rotation, with offset]
+	for i in anchors.size():
+		for k in 2:
+			var off := float(SimProps.YAW_OFFSET["wirefencediag"]) if k == 1 else 0.0
+			var tip: Vector2 = anchors[i] + SimProps.direction(rots[i] + off) * float(SimProps.TYPES["wirefencediag"][1])
+			if anchors.any(func(a: Vector2) -> bool: return a.distance_to(tip) < 1.0):
+				joined[k] += 1
+	assert_int(joined[0]).is_less(anchors.size() / 10)
+	assert_int(joined[1]).is_greater(anchors.size() / 2)
