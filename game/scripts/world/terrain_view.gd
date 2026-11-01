@@ -64,6 +64,8 @@ func build(sim_map: SimMap, texture_dir: String) -> void:
 		if v3:
 			mat.set_shader_parameter("water_y", map.water_level_m)
 			mat.set_shader_parameter("shore_strength", 0.0 if OS.get_cmdline_user_args().has("--no-shore") else 1.0)
+			mat.set_shader_parameter("shore_near", shore_near_texture(map))
+			mat.set_shader_parameter("has_shore_near", not OS.get_cmdline_user_args().has("--shore-anywhere"))
 		var w := _water(texture_dir)
 		add_child(w)
 		var ws := MeshInstance3D.new()
@@ -72,6 +74,43 @@ func build(sim_map: SimMap, texture_dir: String) -> void:
 		ws.material_override = w.material_override
 		ws.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		add_child(ws)
+
+
+## Where the shore's beach and wet band may appear (terrain polish rollout batch 2): 1 at a vertex on or beside the water,
+## fading to 0 about 90 m away from any vertex below the water level. One R8 texel per vertex (the shader reads it
+## bilinearly). Without it every flat patch of ground within 4 m above the water level, however far from any water, got
+## a pale sand ring (mc2_09: dry craters in a desert basin read as glowing ovals).
+static func shore_near_texture(m: SimMap) -> ImageTexture:
+	var n := m.vertices_per_side
+	var d := PackedFloat32Array()
+	d.resize(n * n)
+	for i in n * n:
+		d[i] = 0.0 if m.elevation_m[i] < m.water_level_m else 1.0e6
+	var vm := m.vertex_m
+	var dg := vm * 1.4142
+	for r in n:   # chamfer distance transform, forward then backward pass
+		for c in n:
+			var v := d[r * n + c]
+			if c > 0: v = minf(v, d[r * n + c - 1] + vm)
+			if r > 0:
+				v = minf(v, d[(r - 1) * n + c] + vm)
+				if c > 0: v = minf(v, d[(r - 1) * n + c - 1] + dg)
+				if c < n - 1: v = minf(v, d[(r - 1) * n + c + 1] + dg)
+			d[r * n + c] = v
+	for r in range(n - 1, -1, -1):
+		for c in range(n - 1, -1, -1):
+			var v := d[r * n + c]
+			if c < n - 1: v = minf(v, d[r * n + c + 1] + vm)
+			if r < n - 1:
+				v = minf(v, d[(r + 1) * n + c] + vm)
+				if c < n - 1: v = minf(v, d[(r + 1) * n + c + 1] + dg)
+				if c > 0: v = minf(v, d[(r + 1) * n + c - 1] + dg)
+			d[r * n + c] = v
+	var bytes := PackedByteArray()
+	bytes.resize(n * n)
+	for i in n * n:
+		bytes[i] = int(round(255.0 * (1.0 - smoothstep(30.0, 90.0, d[i]))))
+	return ImageTexture.create_from_image(Image.create_from_data(n, n, false, Image.FORMAT_R8, bytes))
 
 
 static func _noise_texture(as_normal_map: bool, px: int, frequency: float, bump := 6.0) -> NoiseTexture2D:
@@ -359,6 +398,15 @@ func _water_v3_params(mat: ShaderMaterial, texture_dir: String) -> void:
 		tex_mean = img.get_pixel(0, 0)
 	var cols := water_colours(tex_mean)
 	mat.set_shader_parameter("shallow_col", cols[0])
+	var vj := "res://assets/terrain/v3/%s/terrain_v3.json" % texture_dir.get_file()
+	if FileAccess.file_exists(vj):   # per-map water clarity (palettes.json maps.<m>.water_absorb_k)
+		var vinfo: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(vj))
+		if vinfo.has("water_glow"):
+			mat.set_shader_parameter("glow", float(vinfo["water_glow"]))
+		if vinfo.has("water_reflect"):
+			mat.set_shader_parameter("spec_k", float(vinfo["water_reflect"]))
+		if vinfo.has("water_absorb_k"):
+			mat.set_shader_parameter("absorb_k", float(vinfo["water_absorb_k"]))
 	mat.set_shader_parameter("deep_col", cols[1])
 
 

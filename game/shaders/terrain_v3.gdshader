@@ -78,6 +78,8 @@ uniform bool has_canopy = false;
 uniform float canopy_strength = 1.0;
 uniform float water_y = -10000.0;   // the mission's water level (sim and mesh unchanged): wet and sandy shore on the ground side of it
 uniform float shore_strength = 1.0;
+uniform sampler2D shore_near : filter_linear, repeat_disable;   // 1 beside water, 0 90 m from any (TerrainView.shore_near_texture)
+uniform bool has_shore_near = false;
 uniform int debug_view = 0;       // 1 = classes, 2 = blend, 3 = tint, 4 = far fade
 // overlays and cement, as terrain.gdshader
 uniform sampler2D overlay_atlas : source_color, filter_linear_mipmap_anisotropic;
@@ -391,9 +393,10 @@ void fragment() {
 		float hh = hy + sn;
 		float flat_k = smoothstep(0.5, 0.82, n.y);
 		vec3 sandc = mix(MEAN(false, 5) * albedo_scale[5], MEAN(false, 4) * albedo_scale[4], 0.3) * albedo_gain * 1.1;
-		float beach = (1.0 - smoothstep(1.0, 4.0, hh)) * flat_k * shore_strength;
+		float near_w = has_shore_near ? texture(shore_near, suv).r : 1.0;   // the beach and wet band belong to a shore, not to every low flat
+		float beach = (1.0 - smoothstep(1.0, 4.0, hh)) * flat_k * shore_strength * near_w;
 		alb = mix(alb, sandc, clamp(beach * 0.8, 0.0, 0.85));
-		float wet = (1.0 - smoothstep(0.0, 1.5, hh)) * mix(0.6, 1.0, flat_k) * shore_strength;
+		float wet = (1.0 - smoothstep(0.0, 1.5, hh)) * mix(0.6, 1.0, flat_k) * shore_strength * near_w;
 		alb *= 1.0 - 0.45 * wet;
 		rough = mix(rough, 0.28, wet * 0.9);
 		float under = 1.0 - smoothstep(-0.8, 0.0, hy);

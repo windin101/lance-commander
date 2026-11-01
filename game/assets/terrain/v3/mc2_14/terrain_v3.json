@@ -4,5 +4,7 @@
  "relief_strength": 2.0,
  "approved": "Lee, 2026-10-25 (industrial with a grimier concrete: Concrete012, L 54, for Concrete034); ground2 Ground106 -> Ground013 (greyer, drier) in the T3 fix pass (coordinator, 2026-10-25: 'a dry industrial site, not a Mars surface')",
  "albedo_gain": 1.0,
- "albedo_gain_suggested": 0.55
+ "albedo_gain_suggested": 0.55,
+ "water_reflect": 0.5,
+ "water_glow": 0.8
 }

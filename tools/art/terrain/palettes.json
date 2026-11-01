@@ -149,7 +149,9 @@
   },
   "mc2_14": {
    "palette": "industrial_grimy",
-   "approved": "Lee, 2026-10-25 (industrial with a grimier concrete: Concrete012, L 54, for Concrete034); ground2 Ground106 -> Ground013 (greyer, drier) in the T3 fix pass (coordinator, 2026-10-25: 'a dry industrial site, not a Mars surface')"
+   "approved": "Lee, 2026-10-25 (industrial with a grimier concrete: Concrete012, L 54, for Concrete034); ground2 Ground106 -> Ground013 (greyer, drier) in the T3 fix pass (coordinator, 2026-10-25: 'a dry industrial site, not a Mars surface')",
+   "water_reflect": 0.5,
+   "water_glow": 0.8
   },
   "mc2_04": {
    "palette": "temperate_muted",
@@ -215,7 +217,8 @@
   "mc2_08": {
    "palette": "industrial_grimy_dirt",
    "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator",
-   "albedo_gain": 0.6
+   "albedo_gain": 0.6,
+   "water_absorb_k": 7.0
   },
   "mc2_10": {
    "palette": "moorland",
@@ -233,7 +236,8 @@
    "albedo_gain": 0.13,
    "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: temperate_muted",
    "tint_strength": 1.2,
-   "shadow_fill": 0.5
+   "shadow_fill": 0.5,
+   "cover_gain": 0.1
   },
   "mc2_15": {
    "palette": "temperate_muted",

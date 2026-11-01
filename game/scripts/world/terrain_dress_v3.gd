@@ -29,6 +29,8 @@ func build(sim_map: SimMap, map_name: String, palette_layers: Array) -> void:
 	if FileAccess.file_exists(dir.path_join("terrain_v3.json")):
 		var inf: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(dir.path_join("terrain_v3.json")))
 		_gain = clampf(float(inf.get("albedo_gain", 1.0)), 0.3, 1.0)
+		if inf.has("cover_gain"):   # per map (palettes.json maps.<m>.cover_gain): the dressing's own value where the ground is so dark (mc2_12, 0.13) that the 0.3 floor leaves pale confetti
+			_gain = clampf(float(inf["cover_gain"]), 0.1, 1.0)
 		_palette = String(inf.get("palette", ""))
 		_load_masks(dir)
 	var means: Array[Color] = []

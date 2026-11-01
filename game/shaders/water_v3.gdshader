@@ -21,6 +21,9 @@ uniform sampler2D foam_tex : filter_linear_mipmap, repeat_enable;
 uniform vec3 shallow_col : source_color = vec3(0.06, 0.30, 0.30);
 uniform vec3 deep_col : source_color = vec3(0.01, 0.07, 0.12);
 uniform vec3 absorb = vec3(0.26, 0.075, 0.05);   // 1/m per channel
+uniform float glow = 0.0;         // per map (terrain_v3.json water_glow): the scattered colour added as light, for a low sun that leaves the sea black
+uniform float spec_k = 1.0;        // per map (terrain_v3.json water_reflect): scales the sky reflection, so a sunset sky does not paint the sea orange
+uniform float absorb_k = 1.0;      // per map (terrain_v3.json water_absorb_k): murkier water shows less of a dull bed and more of its own teal
 uniform float deep_m = 9.0;          // depth at which the scattered colour is 63 % deep
 uniform float foam_width = 1.0;      // m of vertical depth
 uniform vec3 foam_col : source_color = vec3(0.50, 0.55, 0.56);
@@ -67,7 +70,7 @@ void fragment() {
 	if (gw2.y > wp.y - 0.02 || distance(gw2, CAMERA_POSITION_WORLD) < cam_d - 0.5) ruv = SCREEN_UV;
 	vec3 bed = textureLod(screen_tex, ruv, 0.0).rgb;
 
-	vec3 tr = exp(-absorb * rd);
+	vec3 tr = exp(-absorb * absorb_k * rd);
 	float sc_t = 1.0 - exp(-vd / deep_m);
 	vec3 scatter = mix(shallow_col, deep_col, sc_t);
 	vec3 albedo = scatter * (vec3(1.0) - tr);
@@ -90,9 +93,9 @@ void fragment() {
 	albedo = mix(albedo, foam_col, foam);
 	emis *= 1.0 - foam * 0.7;
 	ALBEDO = albedo;
-	EMISSION = emis;
+	EMISSION = emis + albedo * glow * (1.0 - foam);
 	ROUGHNESS = mix(mix(0.10, 0.30, smoothstep(150.0, 900.0, cam_d)), 0.85, foam);
-	SPECULAR = mix(0.5, 0.2, foam);
+	SPECULAR = mix(0.5, 0.2, foam) * spec_k;
 	METALLIC = 0.0;
 	NORMAL = normalize((VIEW_MATRIX * vec4(wn, 0.0)).xyz);
 	ALPHA = clamp(smoothstep(0.0, 0.2, vd) + foam, 0.0, 1.0);
