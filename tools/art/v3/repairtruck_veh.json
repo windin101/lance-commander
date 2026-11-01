@@ -1,0 +1,10 @@
+{
+ "yaw": 90,
+ "no_icp": true,
+ "stretch": [
+  1.25,
+  1.2,
+  0.95
+ ],
+ "_from": "original/hd/repairtruck/provenance.json joints (the approved v1 fit), 2026-10-31; no_icp (LANCE-19)"
+}
