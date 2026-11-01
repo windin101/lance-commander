@@ -1,0 +1,52 @@
+{
+ "app": "crashshanty2",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "salvage lean-to: steep front plate, black roof",
+ "states": {
+  "intact": {
+   "tris_lod0": 788,
+   "tris_lod1": 440,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.9,
+    -0.13,
+    -2.5
+   ],
+   "bounds_max": [
+    3.41,
+    4.57,
+    3.19
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 842,
+   "tris_lod1": 486,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.5,
+    0.0,
+    -2.5
+   ],
+   "bounds_max": [
+    3.41,
+    4.4,
+    3.01
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 126,
+   "tris_lod1": 94,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.16,
+    0.0,
+    -2.64
+   ],
+   "bounds_max": [
+    2.79,
+    1.91,
+    3.02
+   ]
+  }
+ }
+}

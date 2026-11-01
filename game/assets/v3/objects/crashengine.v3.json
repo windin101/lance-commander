@@ -1,0 +1,52 @@
+{
+ "app": "crashengine",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "wrecked engine nacelle: leaning hexagonal tube with a burnt belt, bright open mouth and a black pylon spike",
+ "states": {
+  "intact": {
+   "tris_lod0": 771,
+   "tris_lod1": 343,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.46,
+    -5.24,
+    -13.59
+   ],
+   "bounds_max": [
+    12.85,
+    18.71,
+    3.58
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 847,
+   "tris_lod1": 409,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -12.39,
+    -5.24,
+    -13.59
+   ],
+   "bounds_max": [
+    12.93,
+    18.71,
+    3.58
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 397,
+   "tris_lod1": 267,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.3,
+    -0.09,
+    -12.42
+   ],
+   "bounds_max": [
+    11.5,
+    7.92,
+    3.0
+   ]
+  }
+ }
+}

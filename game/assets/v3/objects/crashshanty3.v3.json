@@ -1,0 +1,52 @@
+{
+ "app": "crashshanty3",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "low flat-roofed salvage hut with a patchwork hull roof",
+ "states": {
+  "intact": {
+   "tris_lod0": 870,
+   "tris_lod1": 446,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.0,
+    -0.13,
+    -3.6
+   ],
+   "bounds_max": [
+    3.52,
+    2.72,
+    3.2
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 924,
+   "tris_lod1": 492,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.31,
+    -0.22,
+    -3.72
+   ],
+   "bounds_max": [
+    3.52,
+    2.82,
+    3.83
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 126,
+   "tris_lod1": 94,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.5,
+    -0.0,
+    -2.94
+   ],
+   "bounds_max": [
+    2.59,
+    1.9,
+    2.6
+   ]
+  }
+ }
+}

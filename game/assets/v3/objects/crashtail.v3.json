@@ -1,0 +1,52 @@
+{
+ "app": "crashtail",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "wrecked dropship tail: burnt dome, spoked drum cap, two ground prongs, torn side panel and a 39 m swept fin",
+ "states": {
+  "intact": {
+   "tris_lod0": 623,
+   "tris_lod1": 396,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -15.4,
+    -1.65,
+    -19.9
+   ],
+   "bounds_max": [
+    15.7,
+    39.28,
+    27.6
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 697,
+   "tris_lod1": 458,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -15.4,
+    -1.65,
+    -19.9
+   ],
+   "bounds_max": [
+    15.7,
+    39.28,
+    27.6
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 822,
+   "tris_lod1": 458,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -15.05,
+    -0.49,
+    -19.22
+   ],
+   "bounds_max": [
+    15.05,
+    5.34,
+    27.0
+   ]
+  }
+ }
+}

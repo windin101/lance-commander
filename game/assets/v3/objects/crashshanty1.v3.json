@@ -1,0 +1,52 @@
+{
+ "app": "crashshanty1",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "salvage hut: mono-pitch black roof, hull-panel walls, windows and a door",
+ "states": {
+  "intact": {
+   "tris_lod0": 940,
+   "tris_lod1": 510,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.5,
+    -0.21,
+    -3.83
+   ],
+   "bounds_max": [
+    3.92,
+    5.01,
+    3.5
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 994,
+   "tris_lod1": 556,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.96,
+    -0.15,
+    -3.83
+   ],
+   "bounds_max": [
+    4.03,
+    5.01,
+    3.5
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 126,
+   "tris_lod1": 94,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -2.8,
+    0.0,
+    -2.84
+   ],
+   "bounds_max": [
+    2.91,
+    1.91,
+    2.8
+   ]
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "app": "crashrib",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "wrecked dropship hull rib: curved wall segment with two bent frame blades and lightening holes",
+ "states": {
+  "intact": {
+   "tris_lod0": 550,
+   "tris_lod1": 224,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.31,
+    -2.0,
+    -10.74
+   ],
+   "bounds_max": [
+    3.9,
+    15.0,
+    10.5
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 614,
+   "tris_lod1": 284,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -4.52,
+    -2.0,
+    -10.5
+   ],
+   "bounds_max": [
+    3.9,
+    15.0,
+    10.5
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 428,
+   "tris_lod1": 222,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -3.8,
+    -0.15,
+    -10.0
+   ],
+   "bounds_max": [
+    3.6,
+    3.84,
+    9.8
+   ]
+  }
+ }
+}

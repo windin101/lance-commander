@@ -1,0 +1,52 @@
+{
+ "app": "crashnose",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "wrecked dropship nose: faceted barrel, cockpit window band, torn visor, charred ragged rear, radar fin",
+ "states": {
+  "intact": {
+   "tris_lod0": 1121,
+   "tris_lod1": 455,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -17.7,
+    -2.05,
+    -9.9
+   ],
+   "bounds_max": [
+    10.43,
+    18.38,
+    24.81
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 1188,
+   "tris_lod1": 518,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -18.18,
+    -2.35,
+    -9.9
+   ],
+   "bounds_max": [
+    10.44,
+    18.38,
+    24.8
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 869,
+   "tris_lod1": 509,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -17.3,
+    -1.4,
+    -9.0
+   ],
+   "bounds_max": [
+    10.0,
+    6.92,
+    24.0
+   ]
+  }
+ }
+}

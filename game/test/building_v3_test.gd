@@ -472,3 +472,42 @@ func test_hpg_family_matches_the_originals_bounds_on_every_axis() -> void:
 				elif st == "_destroyed":
 					assert_float(b.end.y).override_failure_message("%s_destroyed %s is %.1f m tall (rubble)" % [app, lod, b.end.y]).is_less(12.0)
 			node.queue_free()
+
+
+# --- crash-site family (tools/art/v3/bld_crash.py): the wrecked dropship sections and the salvage huts, bounds on every axis, wreck height ---
+const CRASH := ["crashnose", "crashwing", "crashtail", "crashengine", "crashrib", "crashshanty1", "crashshanty2", "crashshanty3"]
+
+
+func test_crash_family_matches_the_originals_bounds_on_every_axis() -> void:
+	for app in CRASH:
+		var orig: Node3D = (load("res://assets/objects/%s.glb" % app) as PackedScene).instantiate()
+		add_child(orig)
+		var ob := _orig_aabb(orig)
+		orig.queue_free()
+		for st in ["", "_damaged", "_destroyed"]:
+			var p := BuildingV3.model_path(app, st)
+			assert_str(p).override_failure_message("%s%s has no v3 model" % [app, st]).is_not_empty()
+			var node: Node3D = (load(p) as PackedScene).instantiate()
+			BuildingV3.set_lods(node)
+			add_child(node)
+			for lod in ["lod0", "lod1"]:
+				var l := node.find_child(lod, true, false) as MeshInstance3D
+				assert_object(l).override_failure_message("%s%s has no %s" % [app, st, lod]).is_not_null()
+				for i in l.mesh.get_surface_count():
+					var mat := l.mesh.surface_get_material(i)
+					var nm := mat.resource_name if mat else ""
+					assert_bool(nm.begins_with("bv3_") and BuildingV3.resolves(nm.trim_prefix("bv3_"))) \
+						.override_failure_message("%s%s %s surface %d: '%s' is not a library material" % [app, st, lod, i, nm]).is_true()
+				var b := l.mesh.get_aabb()
+				var tol := 1.6
+				var lo := tol if st == "" else 3.5   # a damaged state may add a bent beam beyond the wreck; a destroyed one stays inside
+				assert_float(b.position.x).override_failure_message("%s%s %s x0 %.1f vs %.1f" % [app, st, lod, b.position.x, ob.position.x]).is_between(ob.position.x - (tol if st == "" else 3.5), ob.position.x + (tol if st == "" else 99.0))
+				assert_float(b.end.x).override_failure_message("%s%s %s x1 %.1f vs %.1f" % [app, st, lod, b.end.x, ob.end.x]).is_between(ob.end.x - (tol if st == "" else 99.0), ob.end.x + (tol if st == "" else 3.5))
+				assert_float(b.position.z).override_failure_message("%s%s %s z0 %.1f vs %.1f" % [app, st, lod, b.position.z, ob.position.z]).is_between(ob.position.z - lo, ob.position.z + (tol if st == "" else 99.0))
+				assert_float(b.end.z).override_failure_message("%s%s %s z1 %.1f vs %.1f" % [app, st, lod, b.end.z, ob.end.z]).is_between(ob.end.z - (tol if st == "" else 99.0), ob.end.z + (tol if st == "" else 3.5))
+				if st == "":
+					assert_float(b.end.y).override_failure_message("%s %s top %.1f vs %.1f" % [app, lod, b.end.y, ob.end.y]).is_between(ob.end.y - 2.5, ob.end.y + 2.5)
+					assert_float(b.position.y).override_failure_message("%s %s base y %.1f vs %.1f" % [app, lod, b.position.y, ob.position.y]).is_between(minf(ob.position.y, 0.0) - 0.6, 0.6)
+				elif st == "_destroyed":
+					assert_float(b.end.y).override_failure_message("%s_destroyed %s is %.1f m tall (debris)" % [app, lod, b.end.y]).is_less(12.0)
+			node.queue_free()

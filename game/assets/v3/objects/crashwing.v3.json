@@ -1,0 +1,52 @@
+{
+ "app": "crashwing",
+ "made_by": "tools/art/v3/bld_hangars.py",
+ "source_dims": "wrecked dropship wing: hexagonal fuselage stub open at one end, gun barrels and domes, long swept wing blade",
+ "states": {
+  "intact": {
+   "tris_lod0": 897,
+   "tris_lod1": 360,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.89,
+    -7.12,
+    -12.67
+   ],
+   "bounds_max": [
+    41.6,
+    14.8,
+    19.0
+   ]
+  },
+  "damaged": {
+   "tris_lod0": 970,
+   "tris_lod1": 422,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.94,
+    -7.12,
+    -13.87
+   ],
+   "bounds_max": [
+    41.6,
+    14.8,
+    19.0
+   ]
+  },
+  "destroyed": {
+   "tris_lod0": 848,
+   "tris_lod1": 494,
+   "lod_switch_m": 80.0,
+   "bounds_min": [
+    -11.48,
+    -0.46,
+    -12.0
+   ],
+   "bounds_max": [
+    41.0,
+    7.4,
+    18.5
+   ]
+  }
+ }
+}
