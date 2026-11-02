@@ -119,42 +119,42 @@ def razor_fence(L):
                 if k in skip:
                     continue
                 yy = 0.3 + k * (h - 0.3) / nslats
-                b.box("steel", (0, yy + 0.2, (z0 + z1) / 2), (0.1, 0.4 * (9 / nslats if not fine else 1.0), z1 - z0), axis_angle(V([0, 0, 1.0]), 0.0))
+                b.box("fencesteel", (0, yy + 0.2, (z0 + z1) / 2), (0.1, 0.4 * (9 / nslats if not fine else 1.0), z1 - z0), axis_angle(V([0, 0, 1.0]), 0.0))
             b.M = None
         def top(z0, z1, lean=0.0, piv=0.0, droop=False):
             if lean:
                 rot_about(c, axis_angle(V([0, 0, 1.0]), lean), (0, 0, piv))
             for sgn in (-1, 1):
                 dy = -0.5 if (droop and sgn > 0) else 0.0
-                b.tube("steel", (0, h, z0), (0.0, h, z1), 0.03, 4)
-                b.tube("steel", (0.0, h, (z0 + z1) / 2), (sgn * 0.8, h + 0.7 + dy, (z0 + z1) / 2), 0.03, 4) if False else None
+                b.tube("fencesteel", (0, h, z0), (0.0, h, z1), 0.03, 4)
+                b.tube("fencesteel", (0.0, h, (z0 + z1) / 2), (sgn * 0.8, h + 0.7 + dy, (z0 + z1) / 2), 0.03, 4) if False else None
                 p0, p1 = V([0, h, z0]), V([sgn * 0.85, h + 0.75 + dy, z0])
-                b.tube("steel", p0, p1, 0.03, 4)
-                b.tube("steel", V([0, h, z1]), V([sgn * 0.85, h + 0.75 + dy, z1]), 0.03, 4)
+                b.tube("fencesteel", p0, p1, 0.03, 4)
+                b.tube("fencesteel", V([0, h, z1]), V([sgn * 0.85, h + 0.75 + dy, z1]), 0.03, 4)
                 # mesh strip between the arms and a razor coil along the tip
                 pos = lambda u, v, sgn=sgn, dy=dy, z0=z0: V([0, h, z0]) + np.asarray(u)[..., None] * V([0, 0, 1.0]) + np.asarray(v)[..., None] * V([sgn * 0.85, 0.75 + dy, 0.0])
                 b.cut_param("chain", pos, np.array([0.0, z1 - z0]), np.array([0.0, 1.0]), None, uv=lambda u, v: np.stack([u, v], -1), flip=(sgn > 0))
                 n = int((z1 - z0) / 0.12) if fine else 8
                 path = [(sgn * 0.85 + 0.0 + 0.14 * math.cos(i * 1.2), h + 0.75 + dy + 0.14 * math.sin(i * 1.2), z0 + (z1 - z0) * i / n) for i in range(n + 1)]
-                b.sweep("steel", path, 0.012, 4)
+                b.sweep("fencesteel", path, 0.012, 4)
             b.M = None
         if not (dmg or dst):
             slats(-L, 0.0); top(-L, 0.0)
             for zz in (0.0, -L / 2):
-                b.box("steel", (0, h / 2 + 0.05, zz), (0.22, h + 0.1, 0.22)); b.box("concrete", (0, 0.1, zz), (0.5, 0.2, 0.5))
-            b.box("steel", (0, h / 2, -L), (0.1, h, 0.1))
+                b.box("fencesteel", (0, h / 2 + 0.05, zz), (0.22, h + 0.1, 0.22)); b.box("fenceconc", (0, 0.1, zz), (0.5, 0.2, 0.5))
+            b.box("fencesteel", (0, h / 2, -L), (0.1, h, 0.1))
         elif dmg:
             slats(-L, -L / 2); top(-L, -L / 2)
             slats(-L / 2, 0.0, lean=0.5, piv=0.0, skip=(2, 3, 6)); top(-L / 2, 0.0, lean=0.5, piv=0.0, droop=True)
-            b.box("steel", (0, h / 2 + 0.05, -L / 2), (0.22, h + 0.1, 0.22)); b.box("concrete", (0, 0.1, -L / 2), (0.5, 0.2, 0.5))
-            rot_about(c, axis_angle(V([0, 0, 1.0]), 0.5), (0, 0, 0)); b.box("steel", (0, h / 2 + 0.05, 0.0), (0.22, h + 0.1, 0.22)); b.M = None
-            b.box("steel", (0, h / 2, -L), (0.1, h, 0.1))
+            b.box("fencesteel", (0, h / 2 + 0.05, -L / 2), (0.22, h + 0.1, 0.22)); b.box("fenceconc", (0, 0.1, -L / 2), (0.5, 0.2, 0.5))
+            rot_about(c, axis_angle(V([0, 0, 1.0]), 0.5), (0, 0, 0)); b.box("fencesteel", (0, h / 2 + 0.05, 0.0), (0.22, h + 0.1, 0.22)); b.M = None
+            b.box("fencesteel", (0, h / 2, -L), (0.1, h, 0.1))
         else:
             for zz, hh in ((0.0, 1.2), (-L / 2, 0.7), (-L, 0.5)):
-                b.box("steel", (0, hh / 2, zz), (0.22, hh, 0.22), axis_angle(V([1.0, 0, 0]), rng.uniform(-0.3, 0.3)))
+                b.box("fencesteel", (0, hh / 2, zz), (0.22, hh, 0.22), axis_angle(V([1.0, 0, 0]), rng.uniform(-0.3, 0.3)))
             for k in range(nslats):
                 zc = -L + rng.uniform(0.5, L - 0.5)
-                b.box("steel", (rng.uniform(-0.7, 0.7), 0.1 + 0.12 * (k % 3), zc), (0.1, 0.4, rng.uniform(2.0, 4.0)), axis_angle(V([0, 1.0, 0]), rng.uniform(-0.4, 0.4)) @ axis_angle(V([0, 0, 1.0]), rng.uniform(-0.3, 0.3)))
+                b.box("fencesteel", (rng.uniform(-0.7, 0.7), 0.1 + 0.12 * (k % 3), zc), (0.1, 0.4, rng.uniform(2.0, 4.0)), axis_angle(V([0, 1.0, 0]), rng.uniform(-0.4, 0.4)) @ axis_angle(V([0, 0, 1.0]), rng.uniform(-0.3, 0.3)))
             rot_about(c, axis_angle(V([0, 0, 1.0]), 1.3), (0, 0, 0))
             top(-L * 0.9, -L * 0.5)
             b.M = None
