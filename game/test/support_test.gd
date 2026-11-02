@@ -299,6 +299,9 @@ func test_the_spotter_strikes_its_own_target_after_ten_seconds_in_range() -> voi
 	q.world.rules.line_of_sight = false  # sight is tested separately (SimWorld.line_of_sight)
 	other.position = spot.position + Vector2(30, 0)  # nearer, but not its target
 	target.position = spot.position + Vector2(0, 90)
+	for m in [target, other]:  # look away (north): mechs that start facing the spotter shoot it down before it strikes
+		m.facing = 0.0
+		m.prev_facing = 0.0
 	spot.current_target = target
 	var strikes := func() -> Array: return q.support.pending.filter(func(p): return p["kind"] == "strike")
 	for i in int(6.0 / SimWorld.TICK):

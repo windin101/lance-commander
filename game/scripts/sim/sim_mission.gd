@@ -6,6 +6,14 @@ extends RefCounted
 ## `skipped`.
 
 const WORLD_UNIT_M := 0.2
+
+
+## A sim heading (degrees, 0 = north, clockwise; SimUnit.facing) for an original rotation r. The original faces an
+## object at rotation r along (0,-1) turned by Rotate(-r) = (sin r, -cos r) (gameobj.h:571-578, mover.h:1106-1114,
+## Rotate in mathfunc.cpp:34-45); the sim moves along (sin h, cos h) (sim_world.gd), so h = 180 - r.
+## Rotation 0, which the original gives the campaign force and every reinforcement, faces south.
+static func heading_from_rotation(r: float) -> float:
+	return wrapf(180.0 - r, 0.0, 360.0)
 static var use_walls := true  # stamp wall footprints and run gates (sim_walls.gd); --no-walls in autoplay for A/B
 
 var world: SimWorld
@@ -86,7 +94,7 @@ static func load_mission(data: Object, mission: String, seed_value: int = 1, run
 		m.team = int(part.get("TeamID", 0))
 		m.is_player = m.team == sm.player_team
 		m.position = Vector2(float(part["PositionX"]), float(part["PositionY"])) * WORLD_UNIT_M
-		m.facing = float(part.get("Rotation", 0.0))
+		m.facing = heading_from_rotation(float(part.get("Rotation", 0.0)))  # mission.cpp:1040 setRotation(part rotation)
 		m.paint = [int(part.get("HighlightColor1", -1)), int(part.get("HighlightColor2", -1)), int(part.get("BaseColor", -1))]
 		if m is SimMech:
 			_apply_model_speeds(m)
@@ -156,7 +164,7 @@ func step() -> void:
 
 
 ## The campaign force on a ring of 128 world units around the drop point, the first at
-## +Y, facing 0 (3.4). Part IDs are the player's first group slots.
+## +Y, at the original's rotation 0 (heading 180, south; logistics.cpp:725-776) (3.4). Part IDs are the player's first group slots.
 func _spawn_force(data: Object, rules: SimRules, force: Array, drop_wu: Vector2) -> void:
 	var n := force.size()
 	for i in n:
@@ -180,7 +188,7 @@ func _spawn_force(data: Object, rules: SimRules, force: Array, drop_wu: Vector2)
 		m.part_id = 512 + i
 		var at := (drop_wu + Vector2(0, 128).rotated(-TAU * i / n)) * WORLD_UNIT_M
 		m.position = world.map.nearest_walkable(at)
-		m.facing = 0.0
+		m.facing = heading_from_rotation(0.0)  # logistics.cpp:733: the force drops at rotation 0 (south)
 		m.paint = force_paint
 		_apply_model_speeds(m)
 		world.add_unit(m)

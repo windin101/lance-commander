@@ -296,6 +296,7 @@ func _spawn_mech(chassis_key: String, at: Vector2, pilot_profile: String) -> Sim
 	m.commander = 0
 	m.is_player = true
 	m.position = at
+	m.facing = SimMission.heading_from_rotation(0.0)  # BringInReinforcement: rotation 0 (missiongui.cpp:4159)
 	m.part_id = _next_reinforcement_id
 	_next_reinforcement_id += 1
 	m.status = SimUnit.Status.SHUTDOWN  # an air unit is created shut down (missiongui.cpp:4141-4200)
@@ -319,7 +320,7 @@ func _spawn_vehicle(file: String, at: Vector2, pilot_profile: String = "") -> Si
 	v.commander = 0
 	v.is_player = true
 	v.position = at
-	v.facing = 0.0
+	v.facing = SimMission.heading_from_rotation(0.0)  # BringInReinforcement: rotation 0 (missiongui.cpp:4159)
 	v.part_id = _next_reinforcement_id
 	_next_reinforcement_id += 1
 	world.add_unit(v)
