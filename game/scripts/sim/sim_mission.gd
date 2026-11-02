@@ -228,7 +228,7 @@ func _add_structures(mission: String) -> void:
 			s.extent_m = float(t.get("extent_radius", 0.0)) * WORLD_UNIT_M
 		elif cls == 21 and use_turrets and t.has("turret"):
 			s = SimTurret.from_type(t, world.rules)  # turret.cpp (I94)
-			s.turret_yaw = float(o["rotation"])
+			s.turret_yaw = 180.0 - float(o["rotation"])  # the placed gun's heading: original rotation r faces heading 180 - r (see ObjectsView)
 			if int(o.get("damage", 0)) & 0x0f:
 				s.status = SimUnit.Status.DESTROYED  # placed destroyed (objmgr.cpp:1105, 1131)
 		elif cls != 1 or (float(t.get("damage_level", 0)) <= 0.0 and not t.get("capturable", false) \
@@ -257,7 +257,7 @@ func _add_structures(mission: String) -> void:
 		var team := int(o.get("team", t.get("building_team", -1)))
 		s.team = (0 if team == 2 else (1 if team > 2 else team)) if remap_building_teams else team
 		s.position = Vector2(float(o["x"]), float(o["y"])) * WORLD_UNIT_M
-		s.facing = float(o["rotation"])
+		s.facing = 180.0 - float(o["rotation"])  # a sim heading (0 = north, clockwise); the original's rotation r faces 180 - r (gameobj.h:571-578)
 		if is_gate:
 			s.gate_team = s.team  # the gate's owner; it is no unit's target or objective (team -1)
 			s.team = -1

@@ -17,7 +17,7 @@ func _path_len(p: PackedVector2Array) -> float:
 	return n
 
 
-## A light wall running north from (0, 0): post at -z end... local +z is (sin r, cos r), rotation 0 = north.
+## A light wall from (0, 0): local +z is (sin r, -cos r), so at rotation 0 the post is north of the anchor and the body runs south.
 func _wall(pos: Vector2, rot := 0.0, app := "s_lightwall") -> SimStructure:
 	var s := SimStructure.new()
 	s.name = app
@@ -150,7 +150,7 @@ func test_explosion_hurts_a_fence_by_its_damage_and_a_far_one_not_at_all() -> vo
 func test_prop_direction_matches_the_view_node() -> void:
 	for deg in [0.0, 45.0, 90.0, -135.0, 180.0]:
 		var node := Node3D.new()
-		node.rotation.y = PI - deg_to_rad(deg)  # ObjectsView
+		node.rotation.y = deg_to_rad(deg)  # ObjectsView
 		var local_back := node.basis * Vector3(0, 0, -1)
 		var d := SimProps.direction(deg)
 		assert_float(local_back.x).is_equal_approx(d.x, 0.001)
@@ -158,8 +158,8 @@ func test_prop_direction_matches_the_view_node() -> void:
 		node.free()
 
 
-## Lee 2026-11-02: diagonal fence pieces stood across their line like slats. With SimProps.run_rotation a mc2_01 wirefencediag piece's far
-## end lands on the next piece's anchor, as in a joined run; at the raw rotation almost none do.
+## Lee 2026-11-02: diagonal fence pieces stood across their line like slats. At the original's yaw sense a mc2_01 wirefencediag piece's far
+## end lands on the next piece's anchor, as in a joined run; under the old mirrored sense (rotation 180 - r) almost none do.
 func test_diagonal_fence_pieces_join_end_to_end_with_the_yaw_offset() -> void:
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/maps/mc2_01/objects.json"))
 	var anchors: Array[Vector2] = []
@@ -169,10 +169,10 @@ func test_diagonal_fence_pieces_join_end_to_end_with_the_yaw_offset() -> void:
 			anchors.append(Vector2(float(o["x"]), float(o["y"])) * 0.2)  # mc2_01: 0.2 m per world unit
 			rots.append(float(o["rotation"]))
 	assert_int(anchors.size()).is_greater(50)
-	var joined := [0, 0]  # [raw rotation, with offset]
+	var joined := [0, 0]  # [old mirrored sense, the original's]
 	for i in anchors.size():
 		for k in 2:
-			var r: float = SimProps.run_rotation("wirefencediag", rots[i]) if k == 1 else rots[i]
+			var r: float = SimProps.run_rotation("wirefencediag", rots[i]) if k == 1 else 180.0 - rots[i]
 			var tip: Vector2 = anchors[i] + SimProps.direction(r) * float(SimProps.TYPES["wirefencediag"][1])
 			if anchors.any(func(a: Vector2) -> bool: return a.distance_to(tip) < 1.0):
 				joined[k] += 1

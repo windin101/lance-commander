@@ -1,8 +1,11 @@
 class_name ObjectsView
 extends Node3D
 ## Placed map objects (trees, buildings, props) from data/maps/<mission>/objects.json.
-## Object rotation uses the same convention as unit facing. Destroyed buildings
-## swap to their damaged model (<appearance>_dam.glb) or collapse into the ground.
+## Destroyed buildings swap to their damaged model (<appearance>_dam.glb) or collapse into the ground.
+## Placement rotation is the original's yaw as it stands: the original turns every shape by EulerAngles(0, rotation, 0) in its
+## (-x, z, y) frame (bdactor.cpp:1964-1976, 2103) after reading ASE vertices as (-x, z, y) (tgl.cpp:788-795); the converter writes
+## ASE (x, y, z) as glTF (x, z, -y) (tools/convert/mech_model.py), so the same turn here is rotation.y = +rotation. It is NOT unit
+## facing: a sim heading h (0 = north, clockwise) is the original rotation 180 - h (gameobj.h:571-578).
 
 var nodes: Dictionary = {}  # object index -> Node3D
 var _appearance: Dictionary = {}  # object index -> appearance name
@@ -69,10 +72,10 @@ func build(sim_map: SimMap, mission: String) -> int:
 		BuildingV3.set_lods(node)
 		var pos := Vector2(float(o["x"]), float(o["y"])) * sim_map.meters_per_wu
 		node.position = TerrainView.to_3d(pos, sim_map.height_at(pos))
-		var run := SimProps.run_rotation(app, float(o["rotation"]))  # fence pieces whose rotation is mirrored (see SimProps)
+		var run := SimProps.run_rotation(app, float(o["rotation"]))  # pieces whose model is built a quarter turn from the original (see SimProps)
 		if app == "shantyfence" and not String(res_by_app.get(app, "")).begins_with("res://assets/v3/"):
-			run += 90.0  # the original model runs along -x, a quarter turn from the v3 one
-		node.rotation.y = PI - deg_to_rad(run)
+			run -= 90.0  # the original model runs along -x, a quarter turn from the v3 one
+		node.rotation.y = deg_to_rad(run)  # the original's yaw, unchanged (see the header)
 		add_child(node)
 		nodes[index] = node
 		_appearance[index] = app

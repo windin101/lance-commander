@@ -29,11 +29,12 @@ static func is_gate(appearance: String) -> bool:
 	return GATES.has(suffix(appearance))
 
 
-## Cells a placed wall piece covers (rotation in degrees as objects.json gives it; local +z runs (sin r, cos r) on the sim plane).
+## Cells a placed wall piece covers (rotation in degrees as objects.json gives it; local +z runs (sin r, -cos r) and local +x (cos r, sin r)
+## on the sim plane, the original's yaw: see ObjectsView).
 static func wall_cells(map: SimMap, appearance: String, pos: Vector2, rotation_deg: float) -> Array[Vector2i]:
 	var r := deg_to_rad(rotation_deg)
-	var along := Vector2(sin(r), cos(r))
-	var across := Vector2(-cos(r), sin(r))
+	var along := Vector2(sin(r), -cos(r))
+	var across := Vector2(cos(r), sin(r))
 	var out: Array[Vector2i] = []
 	var seen := {}
 	var rects: Array = []  # [z0, z1, half width]
@@ -62,8 +63,8 @@ static func wall_cells(map: SimMap, appearance: String, pos: Vector2, rotation_d
 static func gate_parts(map: SimMap, appearance: String, pos: Vector2, rotation_deg: float) -> Dictionary:
 	var g: Array = GATES[suffix(appearance)]
 	var r := deg_to_rad(rotation_deg)
-	var along := Vector2(sin(r), cos(r))
-	var across := Vector2(-cos(r), sin(r))
+	var along := Vector2(sin(r), -cos(r))
+	var across := Vector2(cos(r), sin(r))
 	var sides: Array[Vector2i] = []
 	var door: Array[Vector2i] = []
 	var seen := {}

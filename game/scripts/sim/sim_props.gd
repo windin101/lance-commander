@@ -11,27 +11,22 @@ extends RefCounted
 const GRID_M := 16.0
 const CRUSH_MECH_M := 3.0
 const CRUSH_VEHICLE_M := 1.8
-## appearance -> [damage level, piece length m]; a piece runs from its placement along local -z (see ObjectsView: yaw PI - rotation)
+## appearance -> [damage level, piece length m]; a piece runs from its placement along local -z (see ObjectsView: yaw = +rotation)
 const TYPES := {
 	"wirefence": [8.0, 8.6], "wirefencediag": [8.0, 12.1], "razorwirefence": [12.0, 8.6], "razorwirefencediag": [12.0, 12.1],
 	"woodenfence": [8.0, 8.6], "woodenfencediag": [8.0, 12.2], "shantyfence": [8.0, 8.5],
 	"sandbagwall": [20.0, 8.4], "sandbagbunker": [40.0, 6.0], "tripodbarricade": [6.0, 8.4], "smallbarricade": [6.0, 5.0],
 	"corrigatedmetalbarricade": [15.0, 8.4], "sawhorsebarricade": [3.0, 1.6],
 }
-## Fence pieces whose placement rotation does not give their run directly. Measured over all 24 maps by how many piece ends meet another
-## piece's end (Lee 2026-11-02): fence rotations are mirrored north-south (run = 180 - rotation). Straight pieces in long runs join either
-## way, but the mirror closes their corners and run ends (411 loose ends against 1,173), and the diagonal pieces lay across their line
-## without it. shantyfence runs at 90 - rotation (its v3 model is built along -z, the original along -x). Walls, sandbags and barricades
-## are not in this table: the same measure cannot tell for them (overlapping or centred pieces), so they keep the plain convention.
-const MIRRORED := {
-	"wirefence": 180.0, "woodenfence": 180.0, "razorwirefence": 180.0,
-	"wirefencediag": 180.0, "razorwirefencediag": 180.0, "woodenfencediag": 180.0, "shantyfence": 90.0,
-}
+## Pieces whose model does not run along local -z like the original's: shantyfence's v3 model is built along -z, the original along -x,
+## so its run is a quarter turn on from the placement rotation. Everything else runs at its placement rotation now that ObjectsView uses
+## the original's yaw sense; the old fence-only mirror (run = 180 - rotation, Lee 2026-11-02) was that global sign error showing.
+const RUN_OFFSET := {"shantyfence": 90.0}
 
 
 ## The rotation (degrees) a piece's run actually takes, in the same convention as direction().
 static func run_rotation(appearance: String, rotation_deg: float) -> float:
-	return float(MIRRORED[appearance]) - rotation_deg if MIRRORED.has(appearance) else rotation_deg
+	return rotation_deg + float(RUN_OFFSET.get(appearance, 0.0))
 
 
 var world: SimWorld
@@ -43,11 +38,11 @@ func _init(w: SimWorld) -> void:
 	world = w
 
 
-## Direction a piece runs on the sim plane for a placement rotation (degrees): ObjectsView turns the node by PI - rotation about Y and a
-## piece spans local -z, which is (-sin r, -cos r) in sim coordinates (sim y is world -z).
+## Direction a piece runs on the sim plane for a placement rotation (degrees): ObjectsView turns the node by +rotation about Y and a
+## piece spans local -z, which is (-sin r, cos r) in sim coordinates (sim y is world -z).
 static func direction(rotation_deg: float) -> Vector2:
 	var r := deg_to_rad(rotation_deg)
-	return Vector2(-sin(r), -cos(r))
+	return Vector2(-sin(r), cos(r))
 
 
 func add(object_index: int, appearance: String, pos: Vector2, rotation_deg: float) -> void:
