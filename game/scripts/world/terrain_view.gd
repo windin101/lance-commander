@@ -168,6 +168,20 @@ func _ground_mesh() -> ArrayMesh:
 const SHORE_SUB := 8
 const SHORE_BAND_M := 1.8
 const SHORE_MAX_DEV := 0.7
+# Seabed smoothing (water pass round 3, 2026-11-02): the same bicubic carries on below the waterline, so the 25.6 m facets
+# of a shelf (the sawtooth depth contours on mc2_15, the straight-edged block on mc2_20) become a smooth bed. Render only
+# and only under water: the weight is 1 from the shore band down to SEA_FULL_M below the water, fades to 0 over SEA_FADE_M,
+# and the departure from the sim's surface may grow to SEA_MAX_DEV only as the bed gets deeper, always staying below the
+# water level (it is never more than 0.85 of the depth), so nothing that stands above water moves. Deep quads (all corners
+# more than SHORE_BAND_M under water) use SEA_SUB x SEA_SUB sub-quads (the same 8 as the shore: a coarser deep grid left cracks at the seam). Flag: --no-sea-smooth.
+const SEA_FULL_M := 6.0
+const SEA_FADE_M := 3.0
+const SEA_MAX_DEV := 2.5
+const SEA_SUB := 8   # no flat-quad skipping: a flat quad left on the sim's own triangles keeps their hard normals, which show as the same sawtooth in the lighting of the bed
+
+
+static func sea_smooth_enabled() -> bool:
+	return not OS.get_cmdline_user_args().has("--no-sea-smooth") and OS.get_environment("MC2_SEA_SMOOTH") != "0"
 
 
 static func shore_mesh_enabled() -> bool:
@@ -192,7 +206,16 @@ func shore_quad(row: int, col: int) -> bool:
 	var b := map.vertex_height(row, col + 1)
 	var c := map.vertex_height(row + 1, col)
 	var d := map.vertex_height(row + 1, col + 1)
-	return minf(minf(a, b), minf(c, d)) < water + SHORE_BAND_M and maxf(maxf(a, b), maxf(c, d)) > water - SHORE_BAND_M
+	var low := water - SHORE_BAND_M
+	if sea_smooth_enabled():
+		low = water - SEA_FULL_M - SEA_FADE_M
+	return minf(minf(a, b), minf(c, d)) < water + SHORE_BAND_M and maxf(maxf(a, b), maxf(c, d)) > low
+
+
+## Whether the refined quad is wholly deep (drawn with the coarser SEA_SUB).
+func deep_quad(row: int, col: int) -> bool:
+	var top := maxf(maxf(map.vertex_height(row, col), map.vertex_height(row, col + 1)), maxf(map.vertex_height(row + 1, col), map.vertex_height(row + 1, col + 1)))
+	return top < map.water_level_m - SHORE_BAND_M
 
 
 ## The refined surface at fraction (tx, ty) of quad (row, col): [height, dH/dtx, dH/dty, weight] (static for the tests).
@@ -223,16 +246,32 @@ static func shore_height(hv: PackedFloat32Array, tx: float, ty: float, water: fl
 	var dby := (1.0 - tx) * (h21 - h11) + tx * (h22 - h12)
 	var e0 := SHORE_BAND_M * 0.35
 	var x := absf(bil - water)
-	var tt := clampf((x - e0) / (SHORE_BAND_M - e0), 0.0, 1.0)
-	var w := 1.0 - tt * tt * (3.0 - 2.0 * tt)
-	var dw := -6.0 * tt * (1.0 - tt) / (SHORE_BAND_M - e0) * signf(bil - water) if tt > 0.0 and tt < 1.0 else 0.0
+	var below := bil < water and TerrainView.sea_smooth_enabled()
+	var tt := 0.0
+	var w := 1.0
+	var dw := 0.0
+	var lim := SHORE_MAX_DEV
+	var dlim := 0.0   # d lim / d bil
+	if below:
+		var u := clampf((x - SEA_FULL_M) / SEA_FADE_M, 0.0, 1.0)
+		w = 1.0 - u * u * (3.0 - 2.0 * u)
+		dw = 6.0 * u * (1.0 - u) / SEA_FADE_M if u > 0.0 and u < 1.0 else 0.0   # d w / d bil (x grows as bil falls)
+		var k := clampf((x - 1.0) / 2.5, 0.0, 1.0)
+		lim = SHORE_MAX_DEV + (SEA_MAX_DEV - SHORE_MAX_DEV) * k * k * (3.0 - 2.0 * k)
+		dlim = (SEA_MAX_DEV - SHORE_MAX_DEV) * 6.0 * k * (1.0 - k) / 2.5 if k > 0.0 and k < 1.0 else 0.0
+		dlim = -dlim   # lim grows as bil falls
+	else:
+		tt = clampf((x - e0) / (SHORE_BAND_M - e0), 0.0, 1.0)
+		w = 1.0 - tt * tt * (3.0 - 2.0 * tt)
+		dw = -6.0 * tt * (1.0 - tt) / (SHORE_BAND_M - e0) * signf(bil - water) if tt > 0.0 and tt < 1.0 else 0.0
 	var d0 := cat - bil
 	var dd := w * d0
-	var th := tanh(dd / SHORE_MAX_DEV)
+	var th := tanh(dd / lim)
 	var sech2 := 1.0 - th * th
 	var ddx := dw * dbx * d0 + w * (dcx - dbx)
 	var ddy := dw * dby * d0 + w * (dcy - dby)
-	return PackedFloat32Array([bil + SHORE_MAX_DEV * th, dbx + sech2 * ddx, dby + sech2 * ddy, w])
+	var tl := th - (dd / lim) * sech2   # d(lim * th)/d lim
+	return PackedFloat32Array([bil + lim * th, dbx + sech2 * ddx + dlim * dbx * tl, dby + sech2 * ddy + dlim * dby * tl, w])
 
 
 func _refine_shore(st: SurfaceTool, n: int, tiling: float) -> ArrayMesh:
@@ -248,7 +287,6 @@ func _refine_shore(st: SurfaceTool, n: int, tiling: float) -> ArrayMesh:
 	var keep := PackedInt32Array()
 	var fine := SurfaceTool.new()
 	fine.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var S := SHORE_SUB
 	var vm := map.vertex_m
 	var water := map.water_level_m
 	var vcount := 0
@@ -261,12 +299,13 @@ func _refine_shore(st: SurfaceTool, n: int, tiling: float) -> ArrayMesh:
 				for k in 6:
 					keep.append(idx[q * 6 + k])
 				continue
-			refined += 1
 			var hv := PackedFloat32Array()
 			hv.resize(16)
 			for j in 4:
 				for i in 4:
 					hv[j * 4 + i] = map.vertex_height(row + j - 1, col + i - 1)
+			refined += 1
+			var S := SEA_SUB if (sea_smooth_enabled() and deep_quad(row, col)) else SHORE_SUB
 			var n00 := norms[row * n + col]
 			var n01 := norms[row * n + col + 1]
 			var n10 := norms[(row + 1) * n + col]
@@ -299,7 +338,7 @@ func _refine_shore(st: SurfaceTool, n: int, tiling: float) -> ArrayMesh:
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	if refined > 0:
 		fine.commit(mesh)
-	print("terrain: shore refinement, %d quads drawn at %d x %d (%d triangles, %d ms)" % [refined, S, S, refined * S * S * 2, Time.get_ticks_msec() - t0])
+	print("terrain: shore refinement, %d quads (%d vertices, %d ms)" % [refined, vcount, Time.get_ticks_msec() - t0])
 	return mesh
 
 
@@ -407,6 +446,24 @@ func _water_v3_params(mat: ShaderMaterial, texture_dir: String) -> void:
 			mat.set_shader_parameter("spec_k", float(vinfo["water_reflect"]))
 		if vinfo.has("water_absorb_k"):
 			mat.set_shader_parameter("absorb_k", float(vinfo["water_absorb_k"]))
+		# water pass (2026-11-02): explicit artist colours (hex, sRGB), foam strength and ground-width cap, depth softening
+		if vinfo.has("water_shallow_col") or vinfo.has("water_deep_col"):
+			if vinfo.has("water_shallow_col"):
+				cols[0] = Color.html(String(vinfo["water_shallow_col"])).srgb_to_linear()
+			if vinfo.has("water_deep_col"):
+				cols[1] = Color.html(String(vinfo["water_deep_col"])).srgb_to_linear()
+			mat.set_shader_parameter("art", 1.0)
+			mat.set_shader_parameter("shallow_col", cols[0])
+		if vinfo.has("water_emit"):
+			mat.set_shader_parameter("art_emit", float(vinfo["water_emit"]))
+		if vinfo.has("water_deep_m"):
+			mat.set_shader_parameter("deep_m", float(vinfo["water_deep_m"]))
+		if vinfo.has("water_foam"):
+			mat.set_shader_parameter("foam_k", float(vinfo["water_foam"]))
+		if vinfo.has("water_foam_m"):
+			mat.set_shader_parameter("foam_max_m", float(vinfo["water_foam_m"]))
+		if vinfo.has("water_depth_soft_m"):
+			mat.set_shader_parameter("soft_m", float(vinfo["water_depth_soft_m"]))
 	mat.set_shader_parameter("deep_col", cols[1])
 
 

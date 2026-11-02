@@ -4,5 +4,11 @@
  "relief_strength": 2.0,
  "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: stony",
  "albedo_gain": 0.5,
- "albedo_gain_suggested": 0.55
+ "albedo_gain_suggested": 0.55,
+ "water_shallow_col": "#35b4b6",
+ "water_deep_col": "#08425e",
+ "water_deep_m": 8.0,
+ "water_absorb_k": 2.0,
+ "water_emit": 0.22,
+ "water_foam_m": 4.0
 }

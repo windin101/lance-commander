@@ -153,8 +153,48 @@ func test_shore_surface_passes_through_the_vertices_and_stays_near_the_sim_surfa
 			var ty := rng.randf()
 			var r := TerrainView.shore_height(hv, tx, ty, water)
 			var bil: float = (1.0 - ty) * ((1.0 - tx) * hv[5] + tx * hv[6]) + ty * ((1.0 - tx) * hv[9] + tx * hv[10])
-			assert_float(absf(r[0] - bil)).is_less(TerrainView.SHORE_MAX_DEV + 0.001)   # never more than the stated tolerance
+			assert_float(absf(r[0] - bil)).is_less(TerrainView.SEA_MAX_DEV + 0.001)   # never more than the stated tolerance (the sea bed may move a little more, see the next test)
+			if bil >= water + 0.0:
+				assert_float(absf(r[0] - bil)).is_less(TerrainView.SHORE_MAX_DEV + 0.001)
 			assert_float(r[3]).is_between(0.0, 1.0)
+
+
+func test_sea_bed_smoothing_stays_below_the_water_level_and_closes_its_seam() -> void:
+	# water pass round 3: the bicubic carries on under water, but nothing may rise out of the water, and a quad deeper than
+	# SEA_FULL_M + SEA_FADE_M takes no smoothing (so it meets the untouched mesh without a crack)
+	var water := 10.0
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 11
+	for trial in 60:
+		var hv := PackedFloat32Array()
+		for i in 16:
+			hv.append(water - rng.randf_range(1.2, 7.5))   # every vertex at least 1.2 m under water
+		for k in 20:
+			var tx := rng.randf()
+			var ty := rng.randf()
+			var r := TerrainView.shore_height(hv, tx, ty, water)
+			assert_float(r[0]).is_less(water - 0.1)   # never breaks the surface
+			assert_float(r[3]).is_between(0.0, 1.0)
+	var deep := PackedFloat32Array()
+	for i in 16:
+		deep.append(water - 12.0 - float(i % 4) * 1.3 + float(i / 4) * 0.9 + (2.0 if i == 6 else 0.0))
+	for tx in [0.0, 0.31, 0.77, 1.0]:
+		var r := TerrainView.shore_height(deep, tx, 0.4, water)
+		var bil: float = 0.6 * ((1.0 - tx) * deep[5] + tx * deep[6]) + 0.4 * ((1.0 - tx) * deep[9] + tx * deep[10])
+		assert_float(r[0]).is_equal_approx(bil, 0.0001)
+		assert_float(r[3]).is_equal(0.0)
+	# the analytic slope that feeds the normals agrees with the surface itself, in the fade zone too
+	for trial in 20:
+		var hv2 := PackedFloat32Array()
+		for i in 16:
+			hv2.append(water - rng.randf_range(0.5, 11.0))
+		var tx := rng.randf_range(0.15, 0.85)
+		var ty := rng.randf_range(0.15, 0.85)
+		var e := 0.0005
+		var a := TerrainView.shore_height(hv2, tx - e, ty, water)[0]
+		var b := TerrainView.shore_height(hv2, tx + e, ty, water)[0]
+		var r2 := TerrainView.shore_height(hv2, tx, ty, water)
+		assert_float(r2[1]).is_equal_approx((b - a) / (2.0 * e), 0.15)
 
 
 func test_shore_blend_closes_the_seam_to_the_untouched_mesh() -> void:

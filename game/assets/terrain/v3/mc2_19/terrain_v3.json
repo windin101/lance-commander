@@ -9,5 +9,13 @@
  "snow_tint_neutral": 0.0,
  "exposure_lift": 1.0,
  "mask2_edge": 0.1,
- "palette2": "snow_white"
+ "palette2": "snow_white",
+ "water_shallow_col": "#2a9aa2",
+ "water_deep_col": "#0c4a62",
+ "water_deep_m": 12.0,
+ "water_absorb_k": 3.0,
+ "water_emit": 0.6,
+ "water_foam_m": 3.0,
+ "water_foam": 0.8,
+ "water_reflect": 0.5
 }

@@ -174,6 +174,7 @@ func _cam_view(view: Node, v: PackedStringArray) -> void:
 	if view.camera is RtsCamera and v.size() >= 3:
 		var cam := view.camera as RtsCamera
 		cam.limits = false
+		cam.edge_scroll = false   # a mouse resting at the window edge pans the camera and the shot changes from run to run
 		if v[0] != "-":
 			cam.yaw_deg = float(v[0])
 		cam.pitch_deg = float(v[1])
@@ -181,6 +182,7 @@ func _cam_view(view: Node, v: PackedStringArray) -> void:
 		if _hide_units and view.compass:
 			view.compass.enabled = false   # terrain review shots: no ground compass arrow at the focus
 		if v.size() >= 5:   # optional focus in sim metres (map centre = 0), for maps whose lance starts off the map
+			cam.following = null   # else the camera drifts back to the lance and a shot depends on timing
 			cam.focus = Vector3(float(v[3]), 0, -float(v[4]))
 
 

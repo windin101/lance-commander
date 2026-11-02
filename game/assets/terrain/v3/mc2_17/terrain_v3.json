@@ -7,5 +7,13 @@
  "albedo_gain_suggested": 0.577,
  "shadow_fill": 0.5,
  "tint_strength": 1.7,
- "plant_fill_tint": 0.0
+ "plant_fill_tint": 0.0,
+ "water_shallow_col": "#3fb8b4",
+ "water_deep_col": "#08425e",
+ "water_deep_m": 3.0,
+ "water_foam_m": 3.0,
+ "water_glow": 0.0,
+ "water_reflect": 0.12,
+ "water_absorb_k": 6.0,
+ "water_emit": 0.3
 }

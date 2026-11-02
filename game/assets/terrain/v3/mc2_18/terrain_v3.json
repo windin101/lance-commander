@@ -9,5 +9,13 @@
  "tint_strength": 1.2,
  "snow_tint_neutral": 1.0,
  "palette2": "snow_white",
- "plant_fill_tint": 0.0
+ "plant_fill_tint": 0.0,
+ "water_shallow_col": "#38b8b4",
+ "water_deep_col": "#08425e",
+ "water_deep_m": 7.0,
+ "water_absorb_k": 3.0,
+ "water_emit": 0.3,
+ "water_reflect": 0.1,
+ "water_foam_m": 4.0,
+ "water_depth_soft_m": 14.0
 }

@@ -150,8 +150,15 @@
   "mc2_14": {
    "palette": "industrial_grimy",
    "approved": "Lee, 2026-10-25 (industrial with a grimier concrete: Concrete012, L 54, for Concrete034); ground2 Ground106 -> Ground013 (greyer, drier) in the T3 fix pass (coordinator, 2026-10-25: 'a dry industrial site, not a Mars surface')",
-   "water_reflect": 0.5,
-   "water_glow": 0.8
+   "water_reflect": 0.25,
+   "water_glow": 0.5,
+   "water_shallow_col": "#38bcb6",
+   "water_deep_col": "#08405c",
+   "water_deep_m": 7.0,
+   "water_absorb_k": 4.0,
+   "water_emit": 0.3,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 20.0
   },
   "mc2_04": {
    "palette": "temperate_muted",
@@ -161,7 +168,15 @@
   },
   "mc2_05": {
    "palette": "temperate_muted",
-   "approved": "Lee, 2026-10-26 (batch 1, LAN-73); night map"
+   "approved": "Lee, 2026-10-26 (batch 1, LAN-73); night map",
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 7.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.3,
+   "water_reflect": 0.3,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 14.0
   },
   "mc2_06": {
    "palette": "temperate_muted",
@@ -206,19 +221,35 @@
     "cov_lo": 0.12,
     "cov_span": 0.25
    },
-   "albedo_gain": 0.35
+   "albedo_gain": 0.35,
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 7.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.35,
+   "water_reflect": 0.3,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 14.0
   },
   "mc2_07": {
    "palette": "temperate_muted",
    "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator",
    "albedo_gain": 0.65,
-   "layer_albedo_scale": {"scree": 0.7, "dust": 0.65}
+   "layer_albedo_scale": {"scree": 0.7, "dust": 0.65},
+   "water_depth_soft_m": 40.0
   },
   "mc2_08": {
    "palette": "industrial_grimy_dirt",
    "approved": "Lee, 2026-10-26 (batch 2, LAN-73), relayed by the coordinator",
    "albedo_gain": 0.6,
-   "water_absorb_k": 7.0
+   "water_absorb_k": 3.0,
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#07455f",
+   "water_deep_m": 7.0,
+   "water_emit": 0.45,
+   "water_foam_m": 4.0,
+   "water_reflect": 0.3,
+   "water_depth_soft_m": 14.0
   },
   "mc2_10": {
    "palette": "moorland",
@@ -229,7 +260,15 @@
    "palette": "stony",
    "albedo_gain": 0.165,
    "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: stony",
-   "tint_strength": 1.5
+   "tint_strength": 1.5,
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 7.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.25,
+   "water_reflect": 0.2,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 14.0
   },
   "mc2_12": {
    "palette": "temperate_muted",
@@ -237,7 +276,15 @@
    "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: temperate_muted",
    "tint_strength": 1.2,
    "shadow_fill": 0.5,
-   "cover_gain": 0.1
+   "cover_gain": 0.1,
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 7.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.25,
+   "water_reflect": 0.2,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 14.0
   },
   "mc2_15": {
    "palette": "temperate_muted",
@@ -256,13 +303,29 @@
    "tint_strength": 1.2,
    "shadow_fill": 0.4,
    "snow_tint_neutral": 1.0,
-   "plant_fill_tint": 0.0
+   "plant_fill_tint": 0.0,
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 10.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.25,
+   "water_reflect": 0.3,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 40.0
   },
   "mc2_16": {
    "palette": "stony",
    "albedo_gain": 0.33,
    "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: stony",
-   "tint_strength": 1.5
+   "tint_strength": 1.5,
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 7.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.3,
+   "water_reflect": 0.3,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 14.0
   },
   "mc2_17": {
    "palette": "stony",
@@ -270,7 +333,15 @@
    "approved": "Lee, 2026-10-26 (batch 3, LAN-73), relayed by the coordinator: stony",
    "tint_strength": 1.7,
    "shadow_fill": 0.5,
-   "plant_fill_tint": 0.0
+   "plant_fill_tint": 0.0,
+   "water_shallow_col": "#3fb8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 3.0,
+   "water_foam_m": 3.0,
+   "water_glow": 0.0,
+   "water_reflect": 0.12,
+   "water_absorb_k": 6.0,
+   "water_emit": 0.3
   },
   "mc2_18": {
    "palette": "temperate_muted",
@@ -289,7 +360,15 @@
    "tint_strength": 1.2,
    "shadow_fill": 0.5,
    "snow_tint_neutral": 1.0,
-   "plant_fill_tint": 0.0
+   "plant_fill_tint": 0.0,
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 7.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.3,
+   "water_reflect": 0.1,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 14.0
   },
   "mc2_19": {
    "palette": "stony",
@@ -309,7 +388,15 @@
    "snow_tint_neutral": 0.0,
    "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: stony + snow_white (mixed), exposure_lift 1.0 (dusk), sharpened snow edge",
    "exposure_lift": 1.0,
-   "mask2_edge": 0.1
+   "mask2_edge": 0.1,
+   "water_shallow_col": "#2a9aa2",
+   "water_deep_col": "#0c4a62",
+   "water_deep_m": 12.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.6,
+   "water_foam_m": 3.0,
+   "water_foam": 0.8,
+   "water_reflect": 0.5
   },
   "mc2_20": {
    "palette": "stony",
@@ -326,7 +413,15 @@
    "albedo_gain": 0.5,
    "tint_strength": 1.2,
    "snow_tint_neutral": 1.0,
-   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: stony + snow_white (mixed)"
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: stony + snow_white (mixed)",
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 14.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.3,
+   "water_reflect": 0.3,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 40.0
   },
   "mc2_21": {
    "palette": "temperate_muted",
@@ -351,19 +446,41 @@
   "mc2_22": {
    "palette": "temperate_muted",
    "albedo_gain": 0.3,
-   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted"
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted",
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 7.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.3,
+   "water_reflect": 0.3,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 14.0
   },
   "mc2_23": {
    "palette": "temperate_muted",
    "albedo_gain": 0.2,
    "shadow_fill": 0.4,
    "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: temperate_muted, night-like",
-   "plant_fill_tint": 0.0
+   "plant_fill_tint": 0.0,
+   "water_shallow_col": "#38b8b4",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 7.0,
+   "water_absorb_k": 3.0,
+   "water_emit": 0.3,
+   "water_reflect": 0.3,
+   "water_foam_m": 4.0,
+   "water_depth_soft_m": 14.0
   },
   "mc2_24": {
    "palette": "stony",
    "albedo_gain": 0.5,
-   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: stony"
+   "approved": "Lee, 2026-10-26 (batch 4, LAN-73), relayed by the coordinator: stony",
+   "water_shallow_col": "#35b4b6",
+   "water_deep_col": "#08425e",
+   "water_deep_m": 8.0,
+   "water_absorb_k": 2.0,
+   "water_emit": 0.22,
+   "water_foam_m": 4.0
   }
  },
  "_notes": {

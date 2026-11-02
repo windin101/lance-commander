@@ -71,12 +71,14 @@ func test_shore_near_texture_is_one_at_the_water_and_zero_far_from_it() -> void:
 
 func test_the_water_shader_has_the_per_map_knobs_and_the_json_keys_are_sane() -> void:
 	var names := (load("res://shaders/water_v3.gdshader") as Shader).get_shader_uniform_list().map(func(u): return String(u["name"]))
-	for n in ["absorb_k", "spec_k", "glow"]:
+	for n in ["absorb_k", "spec_k", "glow", "art", "art_emit", "foam_k", "foam_max_m", "soft_m", "deep_m"]:
 		assert_bool(names.has(n)).is_true()
 	var tn := (load("res://shaders/terrain_v3.gdshader") as Shader).get_shader_uniform_list().map(func(u): return String(u["name"]))
 	assert_bool(tn.has("shore_near")).is_true()
 	var pal: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://../tools/art/terrain/palettes.json"))
-	var lim := {"water_absorb_k": [0.5, 12.0], "water_reflect": [0.0, 1.5], "water_glow": [0.0, 2.0], "cover_gain": [0.1, 1.0], "plant_fill_tint": [0.0, 0.6]}
+	var lim := {"water_absorb_k": [0.5, 12.0], "water_reflect": [0.0, 1.5], "water_glow": [0.0, 2.0], "cover_gain": [0.1, 1.0], "plant_fill_tint": [0.0, 0.6],
+			"water_deep_m": [0.5, 40.0], "water_emit": [0.0, 1.5], "water_foam": [0.0, 1.5], "water_foam_m": [0.5, 30.0], "water_depth_soft_m": [0.0, 40.0]}
+	var hexre := RegEx.create_from_string("^#[0-9a-fA-F]{6}$")
 	var seen := 0
 	for m in pal["maps"]:
 		var jp := "res://assets/terrain/v3/%s/terrain_v3.json" % m
@@ -89,6 +91,14 @@ func test_the_water_shader_has_the_per_map_knobs_and_the_json_keys_are_sane() ->
 				seen += 1
 				assert_float(float(info[k])).is_equal(float(pal["maps"][m][k]))
 				assert_float(float(info[k])).is_between(lim[k][0], lim[k][1])
+		for ck in ["water_shallow_col", "water_deep_col"]:   # water pass: the artist's colours, hex sRGB, same in both files
+			assert_bool(info.has(ck)).is_equal(pal["maps"][m].has(ck))
+			if info.has(ck):
+				seen += 1
+				assert_str(String(info[ck])).is_equal(String(pal["maps"][m][ck]))
+				assert_bool(hexre.search(String(info[ck])) != null).is_true()
+		# a map with one explicit colour has both (the other is derived, but the pair is what was judged by eye)
+		assert_bool(info.has("water_shallow_col")).is_equal(info.has("water_deep_col"))
 	assert_int(seen).is_greater(3)
 	# lunar: no vegetation, warm_k stays 0 (the shore texture is only built where there is water)
 	assert_bool(pal["maps"]["mc2_13"]["palette"] == "lunar").is_true()

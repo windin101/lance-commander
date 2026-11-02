@@ -8,5 +8,6 @@
  "layer_albedo_scale": {
   "scree": 0.7,
   "dust": 0.65
- }
+ },
+ "water_depth_soft_m": 40.0
 }

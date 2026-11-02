@@ -4,5 +4,13 @@
  "relief_strength": 2.0,
  "approved": "Lee, 2026-10-26 (batch 1, LAN-73); night map",
  "albedo_gain": 1.0,
- "albedo_gain_suggested": 0.55
+ "albedo_gain_suggested": 0.55,
+ "water_shallow_col": "#38b8b4",
+ "water_deep_col": "#08425e",
+ "water_deep_m": 7.0,
+ "water_absorb_k": 3.0,
+ "water_emit": 0.3,
+ "water_reflect": 0.3,
+ "water_foam_m": 4.0,
+ "water_depth_soft_m": 14.0
 }
