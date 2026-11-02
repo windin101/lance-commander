@@ -8,6 +8,9 @@ uniform float tile_m = 1.2;
 uniform vec3 tint : source_color = vec3(1.0);
 uniform float fade_near = 40.0;
 uniform float fade_far = 160.0;
+uniform float wire_dark = 0.42;
+uniform float far_dark = 1.0;
+uniform float far_alpha = 0.9;
 uniform float scorch : hint_range(0.0, 1.0) = 0.0;
 
 varying float vburn;
@@ -24,9 +27,13 @@ void fragment() {
 	vec4 t = texture(ar_tex, UV / tile_m);
 	float burn = clamp(max(vburn, scorch), 0.0, 1.0);
 	float k = smoothstep(fade_near, fade_far, dist);
-	ALBEDO = mix(t.rgb * tint * vao, vec3(0.03), burn * 0.6);
-	ALPHA = mix(t.a, 0.62, k);
-	METALLIC = 0.35;
-	ROUGHNESS = 0.55;
-	SPECULAR = 0.5;
+	// Weathered galvanised wire: the generated texture is pale steel (~0.8), which washed out against concrete and grass.
+	// Darken it (wire_dark), and let the far-field veil go darker still so the lattice reads as a grey-brown line, not a pale ghost.
+	vec3 wire = t.rgb * tint * vao * wire_dark;
+	wire = mix(wire, vec3(0.07, 0.07, 0.065), k * far_dark);
+	ALBEDO = mix(wire, vec3(0.03), burn * 0.6);
+	ALPHA = mix(t.a, far_alpha, k);
+	METALLIC = 0.2;
+	ROUGHNESS = 0.7;
+	SPECULAR = 0.3;
 }
